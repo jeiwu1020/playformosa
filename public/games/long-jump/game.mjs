@@ -2,8 +2,8 @@ import {createDialogController} from './dialogs.mjs';
 import * as THREE from './vendor/three.module.min.js';
 import {createShareState,makeResultFile,saveResultImage,openThreads,copyResultText} from './share.mjs';
 import {captureResultPng,paintScoreCard} from './capture.mjs';
-import {createInput,cancelPendingMotion} from './controls.mjs';
-import {nextRunPair,fresh,step,pose,result,readBest,saveBest,START,BOARD,PIT,PIT_END,DT,cameraCenter,toKmh} from './physics.mjs';
+import {createInput,cancelPendingMotion,handleGameKey} from './controls.mjs';
+import {fresh,step,pose,result,readBest,saveBest,START,BOARD,PIT,PIT_END,DT,cameraCenter,cameraLift,toKmh} from './physics.mjs';
 const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.background=new THREE.Color('#c4e6e4');scene.fog=new THREE.Fog('#c4e6e4',38,90);
 let paused=false;
 const modal=createDialogController($('overlay'),()=>{if(paused)resume();});
@@ -39,7 +39,7 @@ const controls=createInput(),input=controls.values;const buttons=[...document.qu
 function sync(){buttons.forEach(b=>{const active=input[Number(b.dataset.limb)];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});}
 function clear(){controls.clear();sync();}
 buttons.forEach(b=>{const i=Number(b.dataset.limb);b.addEventListener('pointerdown',e=>{e.preventDefault();if(!playing||paused)return;b.setPointerCapture(e.pointerId);controls.pointer(e.pointerId,i);sync();});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{if(controls.endPointer(e.pointerId,type))pauseGame();sync();});b.addEventListener('contextmenu',e=>e.preventDefault());});
-window.addEventListener('keydown',e=>{if(playing&&!paused&&controls.key(e.code,true)){e.preventDefault();sync();}if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(controls.key(e.code,false)){e.preventDefault();sync();}});
+window.addEventListener('keydown',e=>{if(handleGameKey(e,true,controls,playing&&!paused))sync();if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(handleGameKey(e,false,controls,playing&&!paused))sync();});
 
 function show(title,text,button){$('card-title').textContent=title;$('card-text').innerHTML=text;$('start').innerHTML=button+' <span>↗</span>';modal.open();}
 function pauseGame(){if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
@@ -53,10 +53,10 @@ function renderAthlete(){const p=pose(state);setPoint(hip,p.hip,0);connect(torso
 const markLine=box(0,.035,0,.035,.05,3.35,'#8c4781');markLine.visible=false;
 const firstLine=box(0,.028,0,.022,.03,3.35,'#fff8db');firstLine.visible=false;
 const trails=[];for(let i=0;i<32;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.055,6,5),new THREE.MeshBasicMaterial({color:i%2?'#fdfca8':'#83e8e2',transparent:true,opacity:.8,depthWrite:false}));m.visible=false;scene.add(m);trails.push({m,life:0});}
-let lastBoost=0,trailWindow=0,trailIndex=0,lastStroke=0,stepPulse=0;
+let lastBoost=0,trailWindow=0,trailIndex=0,lastStepBonus=0,stepPulse=0;
 function effects(elapsed){
- if(state.strokes<lastStroke){lastStroke=0;stepPulse=0;}
- if(state.strokes>lastStroke){if(Math.abs(state.j[0]-state.j[1]+state.j[2]-state.j[3])<.4)stepPulse=.16;lastStroke=state.strokes;}
+ if(state.stepBonus<lastStepBonus){lastStepBonus=0;stepPulse=0;}
+ if(state.stepBonus>lastStepBonus){stepPulse=.16;lastStepBonus=state.stepBonus;}
  if(!paused)stepPulse=Math.max(0,stepPulse-elapsed);
  if(state.airBoosts>lastBoost){trailWindow=.24;lastBoost=state.airBoosts;}
  if(!paused){
@@ -67,7 +67,7 @@ function effects(elapsed){
  markLine.visible=Number.isFinite(state.mark);if(markLine.visible)markLine.position.x=state.mark;
  firstLine.visible=Number.isFinite(state.firstMark)&&state.firstMark-state.mark>.03;if(firstLine.visible)firstLine.position.x=state.firstMark;
  $('air-guide').classList.toggle('boost',trailWindow>0);
- $('air-count').textContent=state.phase==='run'?(state.x>=5?(state.crouch>=.9?'放開 AS！':'AS 蓄力！'):stepPulse>0?'好步！':''):(trailWindow>0?'好步！ ':'')+'● '.repeat(2-state.airBoosts)+'○ '.repeat(state.airBoosts);
+ $('air-count').textContent=state.phase==='run'?(state.chargeActive?(state.crouch>=.9?'放開 Space！':'Space 蓄力中'):stepPulse>0?'好步！':''):(trailWindow>0?'好步！ ':'')+'● '.repeat(2-state.airBoosts)+'○ '.repeat(state.airBoosts);
  $('air-guide').setAttribute('aria-label','滑翔剩餘 '+(2-state.airBoosts)+' 次');
 }
 function downloadPNG(file){
@@ -121,10 +121,12 @@ let prev=performance.now(),acc=0;function frame(now){
 
   }
  }
- renderAthlete();const cx=cameraCenter(state.x);camera.position.set(cx,5.5,15);camera.lookAt(cx,1.3,0);
+ renderAthlete();const cx=cameraCenter(state.x);const lift=cameraLift(state);camera.position.set(cx,5.5+lift,15);camera.lookAt(cx,1.3+lift,0);
  if(!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
  effects(elapsed);
- for(const b of document.querySelectorAll('[data-limb]')){const limb=Number(b.dataset.limb),next=nextRunPair(state);const charge=state.phase==='run'&&state.x>=5;b.classList.toggle('charge-step',charge&&limb>=2);b.classList.toggle('release-step',charge&&state.crouch>=.9&&limb>=2);b.classList.toggle('next-step',state.phase==='run'&&!charge&&state.crouch<.1&&(limb===next+2||limb===1-next));}
+ const inAir=state.phase==='air';$('jump-label').textContent=inAir?'空中落地姿勢':'蓄力起跳';
+ const jumpButton=document.querySelector('[data-limb="1"]');jumpButton.setAttribute('aria-label',inAir?'Space 按住準備落地':'Space 按住蓄力，放開起跳');
+ jumpButton.classList.toggle('charging',state.phase==='run'&&state.chargeActive);
  $('speed').innerHTML=toKmh(state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
  if(pendingCapture){pendingCapture=false;prepareResultShare();}
