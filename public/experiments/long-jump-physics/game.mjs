@@ -13,7 +13,7 @@ const camera=new THREE.OrthographicCamera(-8,8,4,-4,.1,130);
 scene.add(new THREE.HemisphereLight(0xffffff,0x6a967f,2.4));const sun=new THREE.DirectionalLight(0xfff2d6,2.8);sun.position.set(-3,15,10);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-25,right:55,top:18,bottom:-15});scene.add(sun);
 const mats=new Map();function material(color){if(!mats.has(color))mats.set(color,new THREE.MeshStandardMaterial({color,roughness:.85}));return mats.get(color);}
 function box(x,y,z,w,h,d,color){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material(color));mesh.position.set(x,y,z);mesh.receiveShadow=true;scene.add(mesh);return mesh;}
-box(15,-.32,0,100,.6,50,'#8db8a1');box((START-3+PIT)/2,-.055,0,PIT-START+3,.11,3.8,'#c87559');box((PIT+PIT_END)/2,-.06,0,PIT_END-PIT,.12,3.8,'#e9d09a');box(BOARD-.11,.02,0,.22,.04,3.8,'#fffced');box(BOARD+.06,.025,0,.12,.05,3.8,'#f0825b');
+box((START+PIT_END)/2,-.32,0,PIT_END-START+24,.6,50,'#8db8a1');box((START-3+PIT)/2,-.055,0,PIT-START+3,.11,3.8,'#c87559');box((PIT+PIT_END)/2,-.06,0,PIT_END-PIT,.12,3.8,'#e9d09a');box(BOARD-.11,.02,0,.22,.04,3.8,'#fffced');box(BOARD+.06,.025,0,.12,.05,3.8,'#f0825b');
 for(const z of [-1.7,1.7])box((START-3+BOARD)/2,.007,z,BOARD-START+3,.014,.04,'#f5d8b3');
 for(let x=Math.ceil(PIT);x<=PIT_END;x++)box(x,.018,-1.5,.023,.03,3,'#cbb680');
 for(let x=START-5,i=0;x<PIT_END+5;x+=1.25,i++){box(x,.35,-5.8,.8,.65,.65,i%3?'#edf1d1':'#efa67e');box(x,1,-6.8,.8,.65,.65,i%4?'#67958a':'#eac376');}
