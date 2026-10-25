@@ -1,9 +1,9 @@
 import {createDialogController} from './dialogs.mjs';
 import * as THREE from './vendor/three.module.min.js';
-import {createShareState,makeResultFile,saveResultImage,openThreads} from './share.mjs';
+import {createShareState,makeResultFile,saveResultImage,openThreads,copyResultText} from './share.mjs';
 import {captureResultPng,paintScoreCard} from './capture.mjs';
 import {createInput,cancelPendingMotion} from './controls.mjs';
-import {fresh,step,pose,result,readBest,saveBest,START,BOARD,PIT,PIT_END,DT,cameraCenter,toKmh} from './physics.mjs';
+import {nextRunPair,fresh,step,pose,result,readBest,saveBest,START,BOARD,PIT,PIT_END,DT,cameraCenter,toKmh} from './physics.mjs';
 const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.background=new THREE.Color('#c4e6e4');scene.fog=new THREE.Fog('#c4e6e4',38,90);
 let paused=false;
 const modal=createDialogController($('overlay'),()=>{if(paused)resume();});
@@ -53,8 +53,11 @@ function renderAthlete(){const p=pose(state);setPoint(hip,p.hip,0);connect(torso
 const markLine=box(0,.035,0,.035,.05,3.35,'#8c4781');markLine.visible=false;
 const firstLine=box(0,.028,0,.022,.03,3.35,'#fff8db');firstLine.visible=false;
 const trails=[];for(let i=0;i<32;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.055,6,5),new THREE.MeshBasicMaterial({color:i%2?'#fdfca8':'#83e8e2',transparent:true,opacity:.8,depthWrite:false}));m.visible=false;scene.add(m);trails.push({m,life:0});}
-let lastBoost=0,trailWindow=0,trailIndex=0;
+let lastBoost=0,trailWindow=0,trailIndex=0,lastStroke=0,stepPulse=0;
 function effects(elapsed){
+ if(state.strokes<lastStroke){lastStroke=0;stepPulse=0;}
+ if(state.strokes>lastStroke){if(Math.abs(state.j[0]-state.j[1]+state.j[2]-state.j[3])<.4)stepPulse=.16;lastStroke=state.strokes;}
+ if(!paused)stepPulse=Math.max(0,stepPulse-elapsed);
  if(state.airBoosts>lastBoost){trailWindow=.24;lastBoost=state.airBoosts;}
  if(!paused){
   if(trailWindow>0&&state.phase==='air'){const p=pose(state);for(let i=0;i<2;i++){const d=trails[trailIndex++%trails.length];d.life=.32;d.m.visible=true;d.m.position.set(p['foot'+i].x,p['foot'+i].y,i===0?.23:-.23);}}
@@ -64,7 +67,7 @@ function effects(elapsed){
  markLine.visible=Number.isFinite(state.mark);if(markLine.visible)markLine.position.x=state.mark;
  firstLine.visible=Number.isFinite(state.firstMark)&&state.firstMark-state.mark>.03;if(firstLine.visible)firstLine.position.x=state.firstMark;
  $('air-guide').classList.toggle('boost',trailWindow>0);
- $('air-count').textContent='● '.repeat(2-state.airBoosts)+'○ '.repeat(state.airBoosts);
+ $('air-count').textContent=state.phase==='run'?(state.x>=5?(state.crouch>=.9?'放開 AS！':'AS 蓄力！'):stepPulse>0?'好步！':''):(trailWindow>0?'好步！ ':'')+'● '.repeat(2-state.airBoosts)+'○ '.repeat(state.airBoosts);
  $('air-guide').setAttribute('aria-label','滑翔剩餘 '+(2-state.airBoosts)+' 次');
 }
 function downloadPNG(file){
@@ -85,16 +88,22 @@ function prepareResultShare(){
 }
 function mobileImageAction(){return matchMedia('(pointer: coarse)').matches||((navigator.maxTouchPoints||0)>0&&!matchMedia('(hover: hover)').matches);}
 function openImage(file){const url=URL.createObjectURL(file);let popup;try{popup=window.open(url,'_blank');if(popup)popup.opener=null;}catch{}setTimeout(()=>URL.revokeObjectURL(url),60000);return Boolean(popup);}
+function resultShareData(){const r=result(state);return {text:'四肢各有想法－跳遠｜'+(r.valid?'我跳了 '+r.distance.toFixed(2)+' m！':state.foul?'這一跳越線，不計成績。':'這一跳沒進沙坑。')+' '+r.title,url:new URL('/games/long-jump/',location.origin).href};}
 $('share-result').onclick=()=>{
- if(state.phase!=='done')return;const r=result(state),text=(r.valid?'我跳了 '+r.distance.toFixed(2)+' m！':state.foul?'這一跳越線，不計成績。':'這一跳沒進沙坑。')+' '+r.title;
- const status=openThreads({text,url:new URL('/games/long-jump/',location.origin).href},{open:window.open.bind(window)});
+ if(state.phase!=='done')return;
+ const status=openThreads(resultShareData(),{open:window.open.bind(window)});
  $('share-status').textContent=status==='opened'?'請在 Threads 確認文字後發布；圖片需另行附上。':'Threads 視窗未開啟，請允許彈出視窗後再試。';
+};
+$('copy-result').onclick=async()=>{
+ if(state.phase!=='done')return;const attempt=state,data=resultShareData();const outcome=await copyResultText(data);
+ if(state!==attempt||state.phase!=='done')return;
+ $('share-status').textContent=outcome.status==='copied'?'已複製成績與網址，可貼到分享貼文。':'無法自動複製，請選取以下文字：'+data.text+' '+data.url;
 };
 $('save-result').onclick=async()=>{
  const file=shareState.file;if(!file){prepareResultShare();return;}$('save-result').disabled=true;
- const outcome=await saveResultImage(file,{mobile:mobileImageAction(),download:downloadPNG,openImage});
+ const outcome=await saveResultImage(file,{...resultShareData(),mobile:mobileImageAction(),download:downloadPNG,openImage});
  if(shareState.file!==file)return;$('save-result').disabled=false;
- const messages={'handed-off':'已交給系統分享功能，請自行選擇儲存或 App。',downloaded:'已送出下載要求。','opened-image':'已開啟圖片，可長按儲存。',cancelled:'已取消。',unsupported:'此瀏覽器不支援圖片分享，請改用系統瀏覽器。',error:outcome.reason==='NotAllowedError'?'瀏覽器未允許圖片分享，請改用系統瀏覽器再試。':'圖片分享未完成，請稍後再試。'};
+ const messages={'handed-off':'已交給系統；App 可能省略文字或網址，可另按複製。',downloaded:'已送出下載要求。','opened-image':'已開啟圖片，可長按儲存。',cancelled:'已取消。',unsupported:'此瀏覽器不支援圖片分享，請改用系統瀏覽器。',error:outcome.reason==='NotAllowedError'?'瀏覽器未允許圖片分享，請改用系統瀏覽器再試。':'圖片分享未完成，請稍後再試。'};
  $('share-status').textContent=messages[outcome.status];
 };
 let prev=performance.now(),acc=0;function frame(now){
@@ -115,6 +124,7 @@ let prev=performance.now(),acc=0;function frame(now){
  renderAthlete();const cx=cameraCenter(state.x);camera.position.set(cx,5.5,15);camera.lookAt(cx,1.3,0);
  if(!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
  effects(elapsed);
+ for(const b of document.querySelectorAll('[data-limb]')){const limb=Number(b.dataset.limb),next=nextRunPair(state);const charge=state.phase==='run'&&state.x>=5;b.classList.toggle('charge-step',charge&&limb>=2);b.classList.toggle('release-step',charge&&state.crouch>=.9&&limb>=2);b.classList.toggle('next-step',state.phase==='run'&&!charge&&state.crouch<.1&&(limb===next+2||limb===1-next));}
  $('speed').innerHTML=toKmh(state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
  if(pendingCapture){pendingCapture=false;prepareResultShare();}
