@@ -1,9 +1,10 @@
-export const START=-9, BOARD=10, PIT=10.45, DT=1/120, BEST_KEY='pf-longjump-best-v3';
+import {selectVerdict} from './verdicts.mjs';
+export const START=-9, BOARD=10, PIT=10.45, PIT_END=42, DT=1/120, BEST_KEY='pf-longjump-best-v4';
 export const BONES=Object.freeze({upperArm:.34,foreArm:.32,thigh:.55,shin:.55});
-export const cameraCenter=x=>Math.max(START+2,Math.min(24,x+2));
+export const cameraCenter=x=>Math.max(START+2,Math.min(PIT_END-2,x+2));
 export const toKmh=v=>v*3.6;
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-export function fresh(){return {x:START,y:1.12,vx:0,vy:0,lean:0,spin:0,t:0,phase:'run',j:[0,0,0,0],energy:[1,1],lastLeg:-1,crouch:0,airTime:0,foul:false,mark:Infinity,landingPart:'',landTime:0,strokes:0,airBoosts:0,airImpulse:0,airCandidate:-1,airDwell:0,airLastPose:-1,airPrimed:-1,boostSide:-1,firstMark:Infinity,markPart:'',takeoffSpeed:null,momentum:0,flips:0,flipAnchor:0,airRotation:0};}
+export function fresh(){return {x:START,y:1.12,vx:0,vy:0,lean:0,spin:0,t:0,phase:'run',j:[0,0,0,0],energy:[1,1],lastLeg:-1,crouch:0,airTime:0,foul:false,mark:Infinity,landingPart:'',landTime:0,strokes:0,airBoosts:0,airImpulse:0,airCandidate:-1,airDwell:0,airLastPose:-1,airPrimed:-1,boostSide:-1,firstMark:Infinity,markPart:'',takeoffSpeed:null,momentum:0,flips:0,flipAnchor:0,airRotation:0,glideRemaining:0,glideUsed:0};}
 export function pose(s){
  const ca=Math.cos(s.lean),sa=Math.sin(s.lean);
  const local={hip:{x:0,y:0},shoulder:{x:0,y:.65},head:{x:0,y:1.01}};
@@ -27,7 +28,7 @@ function rotateAir(s,dt){
  const delta=s.spin*dt;s.lean+=delta;s.airRotation+=delta;
 }
 export function step(s,input,dt=DT){
- if(s.phase==='done')return; dt=clamp(dt,0,1/60); s.t+=dt;
+ if(s.phase==='done')return; const previousPose=s.phase==='air'?pose(s):null;dt=clamp(dt,0,1/60); s.t+=dt;
  const old=[...s.j]; for(let i=0;i<4;i++) s.j[i]+=((input[i]?1:0)-s.j[i])*Math.min(1,dt*14);
  const both=input[2]&&input[3];
  for(let i=0;i<2;i++)s.energy[i]=clamp(s.energy[i]+dt*.85,0,1);
@@ -59,17 +60,19 @@ export function step(s,input,dt=DT){
   }
  }
  if(s.phase==='air'){
-  s.airTime+=dt;s.vy-=9.8*dt;s.y+=s.vy*dt;
+  s.airTime+=dt;const floating=Math.min(dt,s.glideRemaining);s.glideRemaining=Math.max(0,s.glideRemaining-floating);s.glideUsed+=floating;s.vy-=9.8*(dt-floating+floating*.35);s.y+=s.vy*dt;
   rotateAir(s,dt);
   const p=pose(s), contacts=Object.entries(p).map(([key,point])=>[PARTS[key],point]);
   const touching=contacts.filter(([,pt])=>pt.y<.10&&s.vy<0);
   if(touching.length){
-   const sand=touching.filter(([,pt])=>pt.x>=PIT).sort((a,b)=>a[1].x-b[1].x);
+   const sand=touching.filter(([,pt])=>pt.x>=PIT&&pt.x<=PIT_END).sort((a,b)=>a[1].x-b[1].x);
+   const contactTime=([name,pt])=>{const key=Object.keys(PARTS).find(k=>PARTS[k]===name),prior=previousPose?.[key];return prior&&prior.y>pt.y?clamp((prior.y-.1)/(prior.y-pt.y),0,1):0;};
+   s.landingPart=[...touching].sort((a,b)=>contactTime(a)-contactTime(b))[0][0];
    const [name,pt]=sand[0]||touching[0];
-   if(sand.length){s.mark=Math.min(s.mark,pt.x);s.firstMark=pt.x;s.landingPart=name;s.markPart=name;}
-   s.phase='land';s.landTime=0;s.y+=.1-Math.min(...touching.map(([,p])=>p.y));s.vy=0;s.spin=name.includes('腳')?.3:1.8;
+   if(sand.length){s.mark=Math.min(s.mark,pt.x);s.firstMark=pt.x;s.markPart=name;}
+   s.phase='land';s.glideRemaining=0;s.landTime=0;s.y+=.1-Math.min(...touching.map(([,p])=>p.y));s.vy=0;s.spin=name.includes('腳')?.3:1.8;
   }
-  // Only award while genuinely airborne, after collision checks. This stylized boost is horizontal only.
+  // Only award while genuinely airborne, after collision checks. The earned reward adds a bounded horizontal impulse and finite reduced-gravity window.
   if(s.phase==='air'){
    // Count only after this step is confirmed free of ground contact. Reversing a partial turn cannot farm a flip.
    while(Math.abs(s.airRotation-s.flipAnchor)>=Math.PI*2){const dir=Math.sign(s.airRotation-s.flipAnchor);s.flips++;s.flipAnchor+=dir*Math.PI*2;}
@@ -79,11 +82,11 @@ export function step(s,input,dt=DT){
  if(s.phase==='land'){
   s.landTime+=dt; s.vx*=Math.exp(-dt*8);s.lean+=s.spin*dt;s.spin*=Math.exp(-dt*4);
   s.y+=(.5-s.y)*Math.min(1,dt*5);
-  for(const [name,pt] of Object.entries(pose(s))){if(pt.y<.16&&pt.x>=PIT&&pt.x<s.mark){s.mark=pt.x;s.markPart=PARTS[name];if(!Number.isFinite(s.firstMark))s.firstMark=pt.x;}}
+  for(const [name,pt] of Object.entries(pose(s))){if(pt.y<.16&&pt.x>=PIT&&pt.x<=PIT_END&&pt.x<s.mark){s.mark=pt.x;s.markPart=PARTS[name];if(!Number.isFinite(s.firstMark))s.firstMark=pt.x;}}
   if(s.landTime>.9)s.phase='done';
  }
  s.x+=s.vx*dt;
- if(s.t>30||s.x>28)s.phase='done';
+ if(s.t>30||s.x>PIT_END+4)s.phase='done';
 }
 function airStride(s,dt){
  if(s.airBoosts>=2)return;
@@ -94,9 +97,12 @@ function airStride(s,dt){
  if(next<0||s.airDwell<.05||next===s.airLastPose)return;
  s.airLastPose=next;
  if(s.airPrimed<0){s.airPrimed=next;return;}
- if(next!==s.airPrimed){s.vx+=.65;s.airImpulse+=.65;s.airBoosts++;s.boostSide=next;s.airPrimed=-1;}
+ if(next!==s.airPrimed){s.vx+=.65;s.airImpulse+=.65;s.airBoosts++;s.glideRemaining+=.22;s.boostSide=next;s.airPrimed=-1;}
 }
 const PARTS={foot0:'左腳',foot1:'右腳',hand0:'左手',hand1:'右手',hip:'屁股',head:'額頭',knee0:'左膝',knee1:'右膝',elbow0:'左肘',elbow1:'右肘',shoulder:'肩膀'};
-export function result(s){const valid=!s.foul&&Number.isFinite(s.mark);const distance=valid?Math.max(0,s.mark-BOARD):0;return {valid,distance,landingLoss:Number.isFinite(s.firstMark)&&Number.isFinite(s.mark)?Math.max(0,s.firstMark-s.mark):0,badge:s.flips>0?'空中翻轉 '+s.flips+' 圈':s.airBoosts===2?'空中腳踏車選手':s.airBoosts===1?'學會一圈空中踏步':Math.abs(s.lean)>.8?'四肢自由發揮':null,title:s.foul?'腳趾比你更想出發':!Number.isFinite(s.mark)?'原地思考型選手':s.markPart.includes('手')?'手先到，禮貌滿分':s.markPart==='屁股'?'沙坑沙發試坐員':s.markPart==='額頭'?'用頭腦參加比賽':distance>4?'四肢終於達成共識':distance>2?'有點帥，差點更帥':'今天先跟沙子交朋友'};}
-export function readBest(storage){try{const n=Number(storage.getItem(BEST_KEY));return Number.isFinite(n)&&n>=0&&n<30?n:0;}catch{return 0;}}
+export function result(s){
+ const rawDistance=Number.isFinite(s.mark)?Math.max(0,s.mark-BOARD):null,valid=!s.foul&&rawDistance!==null,distance=valid?rawDistance:0;
+ return{valid,distance,rawDistance,landingLoss:Number.isFinite(s.firstMark)&&rawDistance!==null?Math.max(0,s.firstMark-s.mark):0,badge:s.flips>0?'空中翻轉 '+s.flips+' 圈':s.airBoosts===2?'空中續杯選手':null,title:selectVerdict({firstContact:s.landingPart,nearestPart:s.markPart,rawDistance,foul:s.foul,flips:s.flips,airTime:s.airTime,glides:s.airBoosts})};
+}
+export function readBest(storage){try{const n=Number(storage.getItem(BEST_KEY));return Number.isFinite(n)&&n>=0&&n<=PIT_END-BOARD?n:0;}catch{return 0;}}
 export function saveBest(storage,n){try{storage.setItem(BEST_KEY,String(n));}catch{}}

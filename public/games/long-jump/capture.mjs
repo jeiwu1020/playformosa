@@ -23,9 +23,8 @@ export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>do
  const sx=clamp(focus.x*sw-cw/2,0,sw-cw),sy=clamp(focus.y*sh-ch*.45,0,sh-ch);
  ctx.drawImage(source,sx,sy,cw,ch,x,y,w,h);
  ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
- text('起跳 '+(info.takeoffKmh===null?'—':info.takeoffKmh.toFixed(1)+' km/h')+'  ·  空翻 '+info.flips+' 圈',44,1020,31);
- text(info.valid?'最近沙痕：'+info.part+'  ·  助推 '+info.boosts+'/2':'這一跳不列入最佳成績  ·  助推 '+info.boosts+'/2',44,1066,28,'#607461');
- if(info.badge)text(info.badge,44,1112,29,'#536e37');
- text('跳遠試作 v0.3 · 遊戲成績分享圖',44,1152,22,'#7e8a80',500);
+ text(info.valid?'這一跳，值得留念。':info.foul?'越線不計分，好笑照樣留念。':'下次再跟沙坑約。',44,1020,31);
+ text('島遊無界 · PLAYFORMOSA',44,1090,29,'#607461');
+ text('四肢各有想法 · 跳遠',44,1152,22,'#7e8a80',500);
  return canvas;
 }
