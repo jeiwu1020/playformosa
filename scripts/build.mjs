@@ -1,0 +1,10 @@
+import {cp,mkdir,rm,writeFile} from 'node:fs/promises';
+import {catalog} from '../src/catalog.mjs';
+import {renderPage} from '../src/render.mjs';
+const root = new URL('../',import.meta.url);
+const html=renderPage(catalog);
+await writeFile(new URL('public/index.html',root),html);
+await rm(new URL('dist/',root),{recursive:true,force:true});
+await mkdir(new URL('dist/',root),{recursive:true});
+await cp(new URL('public/',root),new URL('dist/',root),{recursive:true});
+console.log('Built static Playformosa to dist/');

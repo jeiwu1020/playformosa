@@ -1,0 +1,14 @@
+{
+  "name": "playformosa",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs tests/long-jump/*.test.mjs",
+    "check": "npm test && npm run build && node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
