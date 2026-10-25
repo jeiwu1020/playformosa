@@ -4,7 +4,7 @@ export function gameLayout({width,height,insets={}}){
  const innerWidth=width-safe.left-safe.right-16,mainHeight=height-safe.top-safe.bottom-64;
  const mode=width>=640&&width>height?'side':'bottom',sideWidth=width<740?88:Math.max(96,Math.min(128,Math.floor(width*.09)));
  const buttonHeight=mode==='side'?Math.max(56,Math.min(128,Math.floor((mainHeight-12)/2))):96;
- return{mode,safe,sideWidth,mainHeight,buttonHeight,arenaWidth:mode==='side'?innerWidth-sideWidth*2-16:innerWidth,arenaHeight:mode==='side'?mainHeight:mainHeight-104,usedWidth:width,usedHeight:height};
+ return{mode,safe,sideWidth,mainHeight,buttonHeight,arenaWidth:mode==='side'?innerWidth-sideWidth*2-16:innerWidth,arenaHeight:mode==='side'?mainHeight-54:mainHeight-104,usedWidth:width,usedHeight:height};
 }
 export function installViewportLayout(win,doc){
  const root=doc.documentElement,probe=doc.createElement('div');probe.setAttribute('aria-hidden','true');probe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;width:0;height:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);';doc.body.appendChild(probe);let queued=false,disposed=false;
