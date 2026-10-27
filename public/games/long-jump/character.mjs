@@ -56,7 +56,9 @@ export function createCharacter(THREE,scene){
  function bone(obj,a,b,z,length){from.set(a.x,a.y,z);to.set(b.x,b.y,z);direction.subVectors(to,from);obj.position.copy(from).add(to).multiplyScalar(.5);obj.quaternion.setFromUnitVectors(up,direction.clone().normalize());obj.scale.set(1,direction.length()/length,1);}
  function band(obj,a,b,z,fraction){obj.position.set(a.x+(b.x-a.x)*fraction,a.y+(b.y-a.y)*fraction,z);direction.set(b.x-a.x,b.y-a.y,0).normalize();obj.quaternion.setFromUnitVectors(up,direction);}
  function update(points,state){
-  point(body,points.hip,0);body.rotation.z=-(state.lean||0);point(head,points.head,0);head.rotation.z=-(state.lean||0);
+  point(body,points.hip,0);body.rotation.set(0,.55,-(state.lean||0),'ZYX');point(head,points.head,0);
+  const glance=state.phase==='land'||state.phase==='done'||Math.abs(Math.sin(state.lean||0))>.45;
+  head.rotation.set(0,glance?.12:.8,-(state.lean||0),'ZYX');
   for(let i=0;i<2;i++){const z=i===0?.205:-.205,l=limbs[i],elbow=points['elbow'+i],wrist=points['hand'+i],knee=points['knee'+i],foot=points['foot'+i];
    bone(l.upperArm,points.shoulder,elbow,z,.34);bone(l.forearm,elbow,wrist,z,.32);point(l.elbow,elbow,z);
    bone(l.thigh,points.hip,knee,z,.55);bone(l.shin,knee,foot,z,.55);point(l.knee,knee,z);

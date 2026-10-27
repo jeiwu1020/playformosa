@@ -1,0 +1,4 @@
+import test from'node:test';import assert from'node:assert/strict';import{fresh,step,DT}from'../../public/games/long-jump/physics.mjs';
+let ui={};try{ui=await import('../../public/games/long-jump/presentation.mjs');}catch{}
+test('foot labels expose armed release intent without changing anatomical identity',()=>{assert.equal(typeof ui.controlFeedback,'function');const s=fresh();for(let n=0;n<60;n++)step(s,[0,0,1,0]);const a=ui.controlFeedback(s);assert.equal(a.length,4);assert.match(a[2].label,/左腳/);assert.equal(a[2].hint,'放開起跳');assert.ok(a[2].load>0);assert.equal(a[3].hint,'短按邁步');});
+test('large accumulated distances format without overflowing ordinary score cards',()=>{assert.equal(typeof ui.formatDistance,'function');assert.deepEqual(ui.formatDistance(12345),{value:'12.35',unit:'km'});assert.deepEqual(ui.formatDistance(123.4),{value:'123.40',unit:'m'});assert.equal(ui.formatDistance(Infinity).value,'0.00');});

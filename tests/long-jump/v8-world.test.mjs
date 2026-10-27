@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+let w={};try{w=await import('../../public/games/long-jump/world.mjs');}catch{}
+test('cartoon route reaches sea then Japan and returns to Taiwan without ending',()=>{assert.equal(typeof w.regionAt,'function');assert.equal(w.regionAt(0).id,'taiwan');assert.equal(w.regionAt(50).id,'sea');assert.equal(w.regionAt(100).id,'japan');assert.equal(w.regionAt(800).id,'japan');assert.equal(w.regionAt(725).id,'taiwan');assert.equal(w.regionAt(725).loop,1);});
+test('stream window is bounded at origin and a billion virtual metres',()=>{assert.equal(typeof w.chunkWindow,'function');for(const d of[0,500,1e9]){const a=w.chunkWindow(d);assert.ok(a.length<=9);assert.ok(a.some(c=>c.start<=d&&c.start+48>d));}});
+test('wind is continuous, bounded and deterministic with a readable preview',()=>{assert.equal(typeof w.windAt,'function');for(const d of[0,72,720,12345]){const a=w.windAt(d);assert.deepEqual(a,w.windAt(d));assert.ok(Math.abs(a.push)<1.5);assert.ok(a.lift>=0&&a.lift<2);assert.ok(Math.abs(a.push-w.windAt(d+.001).push)<.001);}});

@@ -1,0 +1,4 @@
+import * as p from '../../public/games/long-jump/physics.mjs';
+export const rhythm=(t,period=.25)=>{const n=Math.floor(t/period)%2;return[1-n,n,n,1-n];};
+export const pilot=(s,t)=>s.lean+s.spin*.4>.13?[0,1,0,0]:s.lean+s.spin*.4<-.13?[1,0,0,0]:rhythm(t);
+export function trial({air='pilot',flightSeconds=70,startX=0,period=.25,charge=.58,maxSeconds=100,onStep=()=>{}}={}){const s=p.fresh();let chargeAt=null,airAt=null;for(let n=0;n<maxSeconds/p.DT&&s.phase!=='done';n++){let input=[0,0,0,0];if(s.phase==='run'){if(p.worldX(s)>startX&&chargeAt===null)chargeAt=s.t;input=chargeAt===null?rhythm(s.t,period):[0,0,s.t-chargeAt<charge?1:0,0];}else if(s.phase==='air'){airAt??=s.t;const t=s.t-airAt;input=t>flightSeconds?[0,0,1,1]:typeof air==='function'?air(s,t):air==='pilot'?pilot(s,t):air==='left'?[1,0,1,0]:air==='held'?[1,1,1,1]:air==='rhythm'?rhythm(t):[0,0,0,0];}p.step(s,input);onStep(s,input);}return s;}

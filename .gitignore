@@ -5,3 +5,7 @@ node_modules/
 .env.*
 !.env.example
 .DS_Store
+
+# Reproducible offline geometry exports and review images are packaged, not runtime assets.
+evidence/scene-*.json
+evidence/scene-*.png

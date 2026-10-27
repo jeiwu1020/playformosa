@@ -1,12 +1,23 @@
-# Local verification — 2026-10-25
+# V8 candidate verification
 
-- `npm run check`: 60/60 Node tests pass; static build succeeds; 23 local URL/anchor/module references across 15 output files resolve.
-- Renderer and build tests were written first and observed failing before implementation.
-- Full recursive diff of `public/games/long-jump/` against frozen source `sites/comic-long-jump/dist/`: identical (including Three.js license). Game v0.3.1's complete 56-test suite is copied under `tests/long-jump/`, with only local distribution paths adapted; all 56 run as part of this project's test command. Original game README is preserved in `docs/long-jump.md`.
-- HTML parser check: unique IDs, exactly one H1, collapsed native roadmap, and only one playable route `/games/long-jump/`.
-- Hero viewed, copied unchanged, actual 1536×1024 dimensions declared. It is separate artwork with transparency, not a screenshot UI.
-- Source-level responsive checks: 1000px, 640px and 350px breakpoints; portrait single-column hero; compact landscape two-column hero; images height-auto/object-fit; native 44px+ nav/button targets; native disclosure; keyboard focus; reduced-motion support. These are source checks, not proof of actual browser layout.
-- An initial verifier failure treated the game's valid `href="#"` as a missing ID. The checker now accepts the empty fragment as the document-top anchor; no game source changes were needed.
-- Environment warning: npm reports inherited unknown `http-proxy` configuration. Commands still exit successfully; project has no npm dependencies.
-- NOT RUN: browser render, screenshot comparisons, physical touch/keyboard/WebGL play, screen-reader QA. No browser/server/socket attempts were made, as directed after prior platform restrictions.
-- No Sites registration, Git actions, account access, publishing or Cloudflare deployment performed. Prepared configuration is provisional and contains no account IDs or secrets.
+Scope: isolated long-jump v8 implementation from remote base 68685a8282a2143ff72832de03e4f6d06cf1adc9. No main push/deployment and no other platform game edits.
+
+- Active aggregate run: **113/113 tests pass**.
+- `npm run build`: passes. `node scripts/verify.mjs`: **41 local references across 26 output files verified**.
+- Focused game suite: **86/86 pass**. An independent game-local reference check also passes 20 imports/asset references.
+- All movement witnesses in `evidence/engine-traces.json` start from fresh state and feed actual input arrays. Examples: no further action lands after ~4.37 s /39.03 m; sustained skill feedback can fly ~181.65 s /5,043.02 m, complete seven cartoon loops, then choose to land. Static held inputs land; one-sided motion can produce real rotations. These are reproducible CPU witnesses, not maxima or human playtests.
+- Landmarks/scenery are actual procedural meshes, streamed as seven bounded chunks. First-contact country, world-coordinate marks, local rebasing, opposite-direction full turns and versioned records have focused tests.
+- CPU exports/rendered PNGs use actual scene geometry and game camera; Blender lighting is different. They are explicitly named offline CPU evidence, not live screenshots. Inspection caught excessive empty-sky framing and sparse landmarks; lift-at-altitude and landmark spacing were adjusted and rechecked without imposing a journey timer or distance ceiling.
+- Layout budgets cover 852×393, 844×390, 390×844, 667×320 with safe area, 1024×768, scaled desktop 1280×600/640 and 1920×1080. Four controls use side-paired limbs. Live browser/native touch/share acceptance remains unperformed due the available environment’s browser connectivity/IPC limitations; no bypass was attempted.
+
+## Preserved remote asset
+
+`public/assets/hero-long-jump.png`: exact original Git blob `89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f`, 2,290,523 bytes. Supported GitHub base64 contents initially returned empty for this large image; blob reader failed UTF-8 decoding; general fetch rejected binary. The parent subsequently verified the live root HTML and downloaded its public asset from https://playformosa.playformosa.workers.dev/assets/hero-long-jump.png through ordinary HTTP. This executor independently checked the Git blob hash, copied the exact original, and reran the complete checks successfully. It is not part of the candidate delta.
+
+## Independent review
+
+Two read-only reviewers found no remaining high/medium defect after fixes. Review found blocked-storage anti-repeat loss; the implementation now keeps session history when persistence is unavailable. A contact-boundary case now also includes the actual landed region in exploration, rather than relying only on hip travel. A separate 600-second input-policy witness completed 23 loops and 32 rebases and landed legally at 16,787.96 m (reported by the controls reviewer); this is bounded numerical/gameplay evidence, not a human playtest.
+
+## Known remaining acceptance
+
+Live WebGL/browser layout, phone thumb ergonomics, sound levels, native sharing on actual devices, and fun/difficulty tuning by people. The procedural country landmarks are intentionally compact prototypes, not accurate geographic models. No promise of macro resistance or limitless numeric precision is made.
