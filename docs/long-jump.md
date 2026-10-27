@@ -1,4 +1,4 @@
-# 四肢各有想法－跳遠 — v9 adventure route
+# 四肢各有想法－跳遠 — v9 adventure / v10 landmark art
 
 Main game path stays `/games/long-jump/`. The released v8 base is GitHub commit `d674b77d9fcbe28798bbb70e88d69c60bfe5a8ff`; v9 expands its route and displayed mileage only. User authorized direct publication after checks. Prior versions and superseded route/test contracts are retained under `docs/history/`. The older comparison experiment and homepage hero are unchanged.
 
@@ -28,7 +28,7 @@ Space legs are deliberately fictional connections:10km to the atmosphere stage,9
 
 The speed label is **助跑速度** on the ground and **起跳速度** after launch; it is not the derivative of the compressed adventure-mileage display. HUD, final legal score, exploration, and share output use the same route conversion. Legal score still uses the nearest contact mark; destination uses first contact, so backward settling can reduce score without pretending the body landed in a random country.
 
-Seven48m raw-coordinate chunks are streamed. Actual procedural silhouettes include Taipei101, harbor cranes, railway, gates, bridge, lake/mountains, fields, lighthouse/balloons, basalt, overseas structures, satellite, cratered Moon, Mars and Saturn's ring. Removed chunk groups are released; shared materials no longer used by the current window are disposed. Sky transitions are smoothed. No input, balance, force, energy, gravity, wind or hold-threshold tuning is part of v9.
+Seven48m raw-coordinate chunks are streamed. V10 visual refinement gives each of the47 stops exactly one fixed main landmark, with varied ordinary streets, vegetation and local terrain around it. Taipei101 has eight flared bamboo sections and appears once in the opening runway. Tokyo Tower, Liberty, Auckland Sky Tower and other distinct silhouettes replace generic shared placeholders. Shared construction shapes are batched into vertex-coloured meshes; discarded chunk geometry is disposed and the material remains shared. Sky transitions and the game camera remain unchanged. No input, balance, force, energy, gravity, wind, hold threshold, route mileage or record tuning is part of the visual refinement. See `docs/landmark-art.md` for references and test-contract migration.
 
 ## Results, jokes and records
 

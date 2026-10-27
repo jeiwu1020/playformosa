@@ -13,3 +13,8 @@ evidence/scene-*.png
 # Large offline route previews are review artifacts, never runtime assets.
 evidence/route-v9/scene-*.json
 evidence/route-v9/scene-*.png
+
+# V10 source-render previews are packaged review artifacts, not production assets.
+evidence/scenery-v10/landmark-*.json
+evidence/scenery-v10/gameplay-*.json
+evidence/scenery-v10/*.png

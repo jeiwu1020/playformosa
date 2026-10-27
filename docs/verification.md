@@ -10,3 +10,6 @@ Base: published v8 d674b77d9fcbe28798bbb70e88d69c60bfe5a8ff. Scope: Taiwan/world
 - Original homepage and hero are preserved exactly. Hero Git blob89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f,2290523bytes.
 
 Final aggregate counts, independent review findings, exact remote commit/deployment and served-file checks are recorded in the route-v9 release receipt. No Codex or user-computer actions; no access/security bypass.
+
+## V10 landmark-only refinement
+Published v9 source base: `b5ceae76e282c63e1d1b73b24f23742cd0f2c06c`. Owner authorised full-route landmark refinement and direct publication. Seven new real-geometry checks cover single101, unique fixed anchors, complete opening silhouette in existing phone/desktop camera, distinguishing geometry, disposal/revisit, coloured bounded batches and visible sky. The old resource assertion is migrated to tighter draw-call/vertex bounds in `docs/landmark-art.md`. Physical/input/game-camera/route/score source bytes and the golden physical fixture remain unchanged. CPU contact sheets cover47 actual source landmark scenes; four separately labelled frames use actual input states and the actual gameplay camera. They are not live WebGL screenshots. Exact final checks and deployment/asset receipts are under `evidence/scenery-v10/`.
