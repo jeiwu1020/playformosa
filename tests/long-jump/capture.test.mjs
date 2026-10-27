@@ -1,4 +1,38 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {captureResultPng,paintScoreCard} from '../../public/games/long-jump/capture.mjs';import {createShareState} from '../../public/games/long-jump/share.mjs';
+import * as THREE from '../../public/games/long-jump/vendor/three.module.min.js';
+import {createCharacter} from '../../public/games/long-jump/character.mjs';
+import {cameraFrame,pose,fresh,step} from '../../public/games/long-jump/physics.mjs';
+import {trial} from './v8-scenarios.mjs';
+test('shared photograph retains the complete actual landed body and ground mark across viewport shapes',()=>{
+ const fallen=fresh();while(fallen.phase!=='done')step(fallen,[1,0,1,0]);
+ const states=[fallen,...['none','left','pilot'].map(air=>trial({air,flightSeconds:8}))];
+ const character=createCharacter(THREE,new THREE.Scene());
+ for(const state of states)for(const [width,height] of [[372,674],[302,398],[634,326],[1094,704]]){
+  character.update(pose(state),state);const view=cameraFrame(state,width,height),camera=new THREE.OrthographicCamera(-view.halfW,view.halfW,view.halfH,-view.halfH,.1,140);
+  camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);camera.updateMatrixWorld();
+  const focus=new THREE.Vector3(state.x,state.y+.3,0).project(camera),draw=[];
+  paintScoreCard({width,height},{valid:true,distance:12,title:'Landing verdict '.repeat(10),journey:'Taipei'},{x:(focus.x+1)/2,y:(1-focus.y)/2},()=>({getContext:()=>({fillRect(){},strokeRect(){},fillText(){},drawImage(...args){draw.push(args);}})}));
+  const [,sx,sy,cw,ch]=draw[0],bounds=character.bounds(),points=[];
+  for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])points.push(new THREE.Vector3(x,y,z));
+  points.push(new THREE.Vector3(state.x,0,0));if(Number.isFinite(state.mark))points.push(new THREE.Vector3(state.mark-state.origin,0,0));
+  for(const point of points){point.project(camera);const x=(point.x+1)*width/2,y=(1-point.y)*height/2;assert.ok(x>=sx&&x<=sx+cw&&y>=sy&&y<=sy+ch,`clipped body or landing at ${width}x${height}`);}
+ }
+});
+test('portrait preview uses the identical frozen source crop as export without stretching',()=>{
+ for(const title of ['Short verdict','A long landing verdict '.repeat(12)]){
+  const source={width:748,height:1348},exportDraw=[],previewDraw=[];
+  const ctx={fillRect(){},strokeRect(){},fillText(){},drawImage(...args){exportDraw.push(args);},measureText:t=>({width:t.length*25})};
+  const preview={getContext:()=>({drawImage(...args){previewDraw.push(args);}})};
+  paintScoreCard(source,{valid:true,distance:12,title,journey:'Taipei'},{x:.32,y:.55},()=>({getContext:()=>ctx}),preview);
+  assert.equal(previewDraw.length,1,'preview must be painted from the frozen landing');
+  assert.deepEqual(previewDraw[0].slice(0,5),exportDraw[0].slice(0,5),'preview and export must frame the same pixels');
+  const [,sx,sy,cw,ch,,,w,h]=previewDraw[0];
+  assert.equal(preview.width,w);assert.equal(preview.height,h);
+  assert.ok(w>h,'portrait source becomes a landscape photograph');
+  assert.ok(Math.abs(cw/ch-w/h)<1e-10,'uniform scale preserves character proportions');
+  assert.ok(sx>=0&&sy>=0&&sx+cw<=source.width&&sy+ch<=source.height);
+ }
+});
 test('render and snapshot copy are synchronous and precede asynchronous PNG encoding',async()=>{const order=[],source={};let finish;const blob=new Blob(['image'],{type:'image/png'});const result=captureResultPng({render(){order.push('render');},source,paint(actual){assert.equal(actual,source);order.push('copy');return{toBlob(cb,type){assert.equal(type,'image/png');order.push('encode');finish=cb;}};}});assert.deepEqual(order,['render','copy','encode']);finish(blob);assert.equal(await result,blob);});
 test('capture rejects null/zero blobs, unavailable encoder, taint and render failures',async()=>{for(const paint of [()=>({toBlob:cb=>cb(null)}),()=>({toBlob:cb=>cb(new Blob())}),()=>({}),()=>{throw Object.assign(new Error('tainted'),{name:'SecurityError'});}])await assert.rejects(captureResultPng({render(){},source:{},paint}));await assert.rejects(captureResultPng({render(){throw Error('context lost');},source:{},paint(){throw Error('must not copy');}}));});
 test('late encoding completion after restart cannot replace the next result',async()=>{const state=createShareState();const token=state.begin();let encode;const pending=captureResultPng({render(){},source:{},paint:()=>({toBlob:cb=>{encode=cb;}})});const acceptance=pending.then(file=>state.accept(token,file));state.begin();encode(new Blob(['old'],{type:'image/png'}));assert.equal(await acceptance,false);assert.equal(state.file,null);});

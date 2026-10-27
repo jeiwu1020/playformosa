@@ -12,7 +12,7 @@ export function captureResultPng({render,source,paint}){
 }
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 // All text blocks advance from measured ink bounds, never a guessed baseline.
-export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>document.createElement('canvas')){
+export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>document.createElement('canvas'),preview=null){
  if(!source.width||!source.height)throw new Error('Game screenshot is not ready');
  const canvas=createCanvas();canvas.width=1080;canvas.height=1180;const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Image canvas unavailable');
  ctx.fillStyle='#f4f1e9';ctx.fillRect(0,0,1080,1180);
@@ -36,9 +36,12 @@ export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>do
  const footer=[block(info.journey||(info.valid?'這一跳，值得留念。':info.foul?'越線不計分，好笑照樣留念。':'下次再跟地心引力約。'),30,'#172c3b',700,2)];
  if(info.foul)footer.push(block('越線不計成績 · 探索紀錄保留',22,'#b65b43'));
  footer.push(block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法－跳遠',22,'#7e8a80',500));
- const footerHeight=footer.reduce((sum,b)=>sum+b.height+gap,0),h=Math.min(588,canvas.height-30-cursor-gap-footerHeight),w=width,ratio=w/h,sw=source.width,sh=source.height;
+ const footerHeight=footer.reduce((sum,b)=>sum+b.height+gap,0),h=Math.floor(Math.min(588,canvas.height-30-cursor-gap-footerHeight)),w=width,ratio=w/h,sw=source.width,sh=source.height;
  const cw=Math.min(sw,sh*ratio),ch=cw/ratio,sx=clamp(focus.x*sw-cw/2,0,sw-cw),sy=clamp(focus.y*sh-ch*.45,0,sh-ch);
- ctx.drawImage(source,sx,sy,cw,ch,x,cursor,w,h);ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,cursor,w,h);cursor+=h+gap;
+ ctx.drawImage(source,sx,sy,cw,ch,x,cursor,w,h);
+ // The modal shows this same photograph, with its own responsive HTML score/verdict.
+ if(preview){preview.width=w;preview.height=h;const context=preview.getContext('2d');if(!context)throw new Error('Preview canvas unavailable');context.drawImage(source,sx,sy,cw,ch,0,0,w,h);}
+ ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,cursor,w,h);cursor+=h+gap;
  footer.forEach(place);return canvas;
 }
 

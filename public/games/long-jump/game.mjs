@@ -78,7 +78,11 @@ function prepareResultShare(){
  const r=result(state),info={...r,foul:state.foul,takeoffKmh:state.takeoffSpeed===null?null:toKmh(state.takeoffSpeed),flips:state.rotations,part:state.markPart};
  const shot=landingCapture.current;
  if(!shot){shareState.fail(token,'capture');$('save-result').disabled=true;$('share-status').textContent='落地畫面未能保存；這一跳仍已記錄。';return;}
- captureResultPng({render:()=>{},source:shot.canvas,paint:source=>paintScoreCard(source,info,shot.focus)}).then(blob=>{
+ const preview=document.createElement('canvas');
+ captureResultPng({render:()=>{},source:shot.canvas,paint:source=>{
+  const card=paintScoreCard(source,info,shot.focus,undefined,preview);
+  preview.setAttribute('role','img');preview.setAttribute('aria-label',shot.canvas.getAttribute('aria-label'));$('landing-preview').replaceChildren(preview);$('landing-preview').hidden=false;return card;
+ }}).then(blob=>{
   if(blob.type!=='image/png')throw new Error('Unsupported screenshot format');
   const file=typeof File==='function'?makeResultFile(blob):blob;
   if(!shareState.accept(token,file))return;
@@ -133,7 +137,7 @@ let prev=performance.now(),acc=0;function frame(now){
  $('speed').innerHTML='<span class="speed-caption">'+(state.jumped?'起跳速度':'助跑速度')+'</span>'+toKmh(state.takeoffSpeed??state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
  if(pendingCapture&&sceneWidth>1&&sceneHeight>1&&!document.hidden){pendingCapture=false;
-  try{const point=new THREE.Vector3(state.x,state.y+.3,0).project(camera);const shot=landingCapture.freeze(renderer.domElement,{x:(point.x+1)/2,y:(1-point.y)/2});shot.canvas.setAttribute('role','img');shot.canvas.setAttribute('aria-label','這一跳最後落地的遊戲截圖');$('landing-preview').replaceChildren(shot.canvas);$('landing-preview').hidden=false;}catch{$('landing-preview').hidden=true;}
+  try{const point=new THREE.Vector3(state.x,state.y+.3,0).project(camera);const shot=landingCapture.freeze(renderer.domElement,{x:(point.x+1)/2,y:(1-point.y)/2});shot.canvas.setAttribute('role','img');shot.canvas.setAttribute('aria-label','這一跳最後落地的遊戲截圖');}catch{$('landing-preview').hidden=true;}
   prepareResultShare();
  }
 }
