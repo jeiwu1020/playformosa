@@ -1,0 +1,74 @@
+{
+  "web/bgm.ogg": {
+    "source": "originals/notjam/really_long_arms_loopable.wav",
+    "duration": "15.360000",
+    "bytes": 146773,
+    "sha256": "4f447099e34b8bd7a52275ea83eb43a10b15f49e6f068defee4ba47905c9dda9"
+  },
+  "web/bgm.mp3": {
+    "source": "originals/notjam/really_long_arms_loopable.wav",
+    "duration": "15.386122",
+    "bytes": 185074,
+    "sha256": "fa1b312e1f006a05c1b060db9890d0f8bb0c52786d44d5c2e33e592be8faf4f8"
+  },
+  "web/step.ogg": {
+    "source": "originals/kenney-rpg/Audio/footstep00.ogg",
+    "duration": "0.248866",
+    "bytes": 7757,
+    "sha256": "0f1d0d13d55f40e84c7353f4e3321a2a4886b44e32c3f2546b35354e0d8f0757"
+  },
+  "web/step.mp3": {
+    "source": "originals/kenney-rpg/Audio/footstep00.ogg",
+    "duration": "0.287347",
+    "bytes": 3805,
+    "sha256": "6621e273bd97c9f21399accef567606bfe4eb994d0b378c7f46720b699d56e4f"
+  },
+  "web/jump.ogg": {
+    "source": "originals/notjam/SFX/slingshot.wav",
+    "duration": "0.468753",
+    "bytes": 7581,
+    "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22"
+  },
+  "web/jump.mp3": {
+    "source": "originals/notjam/SFX/slingshot.wav",
+    "duration": "0.496327",
+    "bytes": 6313,
+    "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df"
+  },
+  "web/flight.ogg": {
+    "source": "originals/notjam/SFX/dash.wav",
+    "duration": "0.517234",
+    "bytes": 8757,
+    "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe"
+  },
+  "web/flight.mp3": {
+    "source": "originals/notjam/SFX/dash.wav",
+    "duration": "0.548571",
+    "bytes": 6940,
+    "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5"
+  },
+  "web/land.ogg": {
+    "source": "originals/kenney-rpg/Audio/dropLeather.ogg",
+    "duration": "0.415102",
+    "bytes": 9380,
+    "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f"
+  },
+  "web/land.mp3": {
+    "source": "originals/kenney-rpg/Audio/dropLeather.ogg",
+    "duration": "0.444082",
+    "bytes": 5686,
+    "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10"
+  },
+  "web/result.ogg": {
+    "source": "originals/notjam/SFX/accept.wav",
+    "duration": "0.571429",
+    "bytes": 5456,
+    "sha256": "da211feb46c964478798538873e3edbb83494c3130a31a2bb5420476c895668c"
+  },
+  "web/result.mp3": {
+    "source": "originals/notjam/SFX/accept.wav",
+    "duration": "0.600816",
+    "bytes": 7567,
+    "sha256": "e2d1a7a23cbe26dc36974ffe84ca347b9b9975e0588a967c717ed97cdb8ce745"
+  }
+}

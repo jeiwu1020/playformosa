@@ -1,0 +1,18 @@
+const NAMES=['bgm','step','jump','flight','land','result'];
+const VOLUME={bgm:.12,step:.28,jump:.24,flight:.14,land:.3,result:.28};
+// Source + CC0 receipts are bundled in audio/ and docs/audio/PROVENANCE.md.
+export function createGameAudio({createContext=()=>new(globalThis.AudioContext||globalThis.webkitAudioContext)(),fetch=globalThis.fetch,notify=()=>{}}={}){
+ let context=null,enabled=true,playing=false,ready=false,generation=0,pendingToken=0,music=null,loading=null;const buffers=new Map(),sources=new Set();
+ function stopAll(){for(const source of sources)try{source.stop();}catch{}sources.clear();music=null;}
+ async function load(){if(loading)return loading;loading=Promise.all(NAMES.map(async name=>{if(buffers.has(name))return;for(const extension of ['ogg','mp3']){try{const response=await fetch(new URL(`./audio/${name}.${extension}`,import.meta.url));if(!response.ok)throw Error('Audio unavailable');const buffer=await context.decodeAudioData(await response.arrayBuffer());buffers.set(name,buffer);return;}catch{}}})).finally(()=>{loading=null;});return loading;}
+ function play(name){if(!enabled||!ready||context?.state!=='running'||!buffers.has(name))return false;if(name==='bgm'&&music)return false;
+  try{const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffers.get(name);gain.gain.value=VOLUME[name]??.2;source.connect(gain);gain.connect(context.destination);if(name==='bgm'){source.loop=true;source.loopEnd=Math.min(15.36,source.buffer.duration);music=source;}sources.add(source);source.onended=()=>{sources.delete(source);if(music===source)music=null;};source.start();return true;}catch{return false;}
+ }
+ async function unlock({preview=true}={}){if(!enabled)return false;const token=++generation;pendingToken=token;notify('正在開啟音效…');try{context??=createContext();await context.resume();if(token!==generation||!enabled)return false;if(context.state!=='running')throw Error('Audio still suspended');await load();if(token!==generation||!enabled)return false;ready=buffers.size>0;if(!ready)throw Error('No audio files');notify(buffers.size===NAMES.length?'音效已開啟':'部分音效未載入；可關閉後再開啟重試');if(preview)play('result');if(playing)play('bgm');return true;}catch{if(token===generation&&enabled){ready=false;notify('無法開啟音效；請再按音效按鈕重試');}return false;}finally{if(pendingToken===token)pendingToken=0;}}
+ return{unlock,play,get pending(){return pendingToken!==0;},get enabled(){return enabled;},get ready(){return enabled&&ready&&context?.state==='running';},setEnabled(value){enabled=Boolean(value);generation++;pendingToken=0;if(!enabled){stopAll();notify('音效已關閉');}return enabled;},setPlaying(value){playing=Boolean(value);if(!playing){generation++;const interrupted=pendingToken!==0;pendingToken=0;stopAll();if(interrupted&&enabled)notify('音效開啟已暫停；繼續遊戲或按音效重試');}else play('bgm');}};
+}
+export function createAudioEvents(play){let phase=null,lastX=null,stepDistance=0,lastFlight=-Infinity;return{reset(){phase=null;lastX=null;stepDistance=0;lastFlight=-Infinity;},update(state){const x=(state.origin||0)+state.x,t=state.t||0;if(state.phase==='run'&&phase==='run'&&lastX!==null){stepDistance+=Math.abs(x-lastX);if(stepDistance>=.8){play('step');stepDistance%=.8;}}
+ if(state.phase!==phase){if(state.phase==='air')play('jump');if(state.phase==='land')play('land');if(state.phase==='done')play('result');}
+ if(state.phase==='air'&&state.airEffort>.35&&t-lastFlight>=1.8){play('flight');lastFlight=t;}
+ phase=state.phase;lastX=x;
+}};}

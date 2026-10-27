@@ -1,3 +1,5 @@
+import {createGameAudio,createAudioEvents} from './audio.mjs';
+import {arrivalFlavour} from './flavour.mjs';
 import {createScenery} from './scenery.mjs';
 import {regionAt,journeyLabel,adventureAt,routeLabel} from './world.mjs';
 import {controlFeedback,formatDistance,formatMileage,resultDisplay,resultShareText} from './presentation.mjs';
@@ -25,10 +27,12 @@ const shadow=new THREE.Mesh(new THREE.CircleGeometry(.4,32),new THREE.MeshBasicM
 const dust=[];for(let i=0;i<30;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.055),mat('#f4e5be'));m.visible=false;scene.add(m);dust.push({m,life:0,v:new THREE.Vector3()});}
 function burst(x){dust.forEach((d,i)=>{d.m.visible=true;d.m.position.set(x,.15,(i%5-2)*.15);d.v.set(Math.sin(i*5)*2,1+(i%7)*.3,Math.cos(i*4)*1.4);d.life=.6+(i%4)*.1;});}
 const shareState=createShareState();let pendingCapture=false;let storage=null;try{storage=localStorage;}catch{}
-let renderOrigin=0,lastPlaceKey='',cueTime=0,audio=null,soundOn=true;
-function soundReady(){if(!soundOn)return;try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume().catch(()=>{});}catch{}}
-function chime(loop=false){if(!soundOn||!audio||audio.state!=='running')return;for(let i=0;i<3;i++){const osc=audio.createOscillator(),gain=audio.createGain(),at=audio.currentTime+i*.09;osc.type='sine';osc.frequency.value=[392,494,loop?784:587][i];gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(.045,at+.015);gain.gain.exponentialRampToValueAtTime(.001,at+.16);osc.connect(gain);gain.connect(audio.destination);osc.start(at);osc.stop(at+.18);}}
-$('sound').onclick=()=>{soundOn=!soundOn;$('sound').setAttribute('aria-pressed',String(soundOn));$('sound').textContent=soundOn?'♪':'♩';if(soundOn)soundReady();};
+const placeVisits=new Map();
+let renderOrigin=0,lastPlaceKey='',cueTime=0;
+const sound=createGameAudio({notify:message=>{$('sound-status').textContent=message;$('sound').title=message;$('sound').setAttribute('aria-label',message+'；切換音效');$('sound').setAttribute('aria-pressed',String(sound.ready));$('sound').textContent=sound.ready?'♪':'♩';}});
+const audioEvents=createAudioEvents(name=>{if(name==='result')sound.setPlaying(false);sound.play(name);});
+async function soundReady(preview=true){if(sound.enabled)await sound.unlock({preview});}
+$('sound').onclick=()=>{if(sound.ready||sound.pending){sound.setEnabled(false);}else{sound.setEnabled(true);soundReady();}};
 let state=fresh(),playing=false,best=0,reported=false,lastPhase='run';try{best=readBest(storage);}catch{}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
 const controls=createInput(),input=controls.values;const buttons=[...document.querySelectorAll('[data-limb]')];
 function sync(){buttons.forEach(b=>{const active=input[Number(b.dataset.limb)];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});}
@@ -37,10 +41,10 @@ buttons.forEach(b=>{const i=Number(b.dataset.limb);b.addEventListener('pointerdo
 window.addEventListener('keydown',e=>{if(handleGameKey(e,true,controls,playing&&!paused))sync();if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(handleGameKey(e,false,controls,playing&&!paused))sync();});
 
 function show(title,text,button){$('card-title').textContent=title;$('card-text').innerHTML=text;$('start').innerHTML=button+' <span>↗</span>';modal.open();}
-function pauseGame(){if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
+function pauseGame(){if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
 window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);$('pause').onclick=()=>paused?resume():pauseGame();
-function resume(){paused=false;clear();modal.close();}
-function start(){shareState.begin();pendingCapture=false;soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});modal.close();}
+function resume(){paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
+function start(){shareState.begin();pendingCapture=false;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});modal.close();}
 $('start').onclick=()=>paused?resume():start();$('reset').onclick=start;
 let sceneWidth=1,sceneHeight=1;
 function resize(){const el=$('scene');sceneWidth=Math.max(1,el.clientWidth);sceneHeight=Math.max(1,el.clientHeight);renderer.setSize(sceneWidth,sceneHeight,false);}new ResizeObserver(resize).observe($('scene'));resize();
@@ -68,14 +72,14 @@ function downloadPNG(file){
 }
 function prepareResultShare(){
  if(state.phase!=='done')return;
- const token=shareState.begin();$('save-result').disabled=true;$('save-result').textContent=mobileImageAction()?'儲存／分享圖片':'下載圖片';$('share-status').textContent='正在準備圖片…';
+ const token=shareState.begin();$('save-result').disabled=true;$('download-result').disabled=true;$('download-result').hidden=!mobileImageAction();$('save-result').textContent=mobileImageAction()?'分享成績圖片':'下載圖片';$('share-status').textContent='正在準備圖片…';
  const r=result(state),info={...r,foul:state.foul,takeoffKmh:state.takeoffSpeed===null?null:toKmh(state.takeoffSpeed),flips:state.rotations,part:state.markPart};
  const point=new THREE.Vector3(state.x,state.y+.3,0).project(camera),focus={x:(point.x+1)/2,y:(1-point.y)/2};
  captureResultPng({render:()=>renderer.render(scene,camera),source:renderer.domElement,paint:source=>paintScoreCard(source,info,focus)}).then(blob=>{
   if(blob.type!=='image/png')throw new Error('Unsupported screenshot format');
   const file=typeof File==='function'?makeResultFile(blob):blob;
   if(!shareState.accept(token,file))return;
-  $('save-result').disabled=false;$('share-status').textContent='';
+  $('save-result').disabled=false;$('download-result').disabled=false;$('share-status').textContent='';
  }).catch(()=>{if(!shareState.fail(token,'capture'))return;$('save-result').disabled=false;$('save-result').textContent='重做成績圖';$('share-status').textContent='圖片準備失敗，可重試。';});
 }
 function mobileImageAction(){return matchMedia('(pointer: coarse)').matches||((navigator.maxTouchPoints||0)>0&&!matchMedia('(hover: hover)').matches);}
@@ -91,16 +95,17 @@ $('copy-result').onclick=async()=>{
  if(state!==attempt||state.phase!=='done')return;
  $('share-status').textContent=outcome.status==='copied'?'已複製成績與網址，可貼到分享貼文。':'無法自動複製，請選取以下文字：'+data.text+' '+data.url;
 };
+$('download-result').onclick=()=>{if(shareState.file){downloadPNG(shareState.file);$('share-status').textContent='已送出下載要求；若未儲存，請使用分享圖片或系統瀏覽器。';}};
 $('save-result').onclick=async()=>{
  const file=shareState.file;if(!file){prepareResultShare();return;}$('save-result').disabled=true;
  const outcome=await saveResultImage(file,{...resultShareData(),mobile:mobileImageAction(),download:downloadPNG,openImage});
  if(shareState.file!==file)return;$('save-result').disabled=false;
- const messages={'handed-off':'已交給系統；App 可能省略文字或網址，可另按複製。',downloaded:'已送出下載要求。','opened-image':'已開啟圖片，可長按儲存。',cancelled:'已取消。',unsupported:'此瀏覽器不支援圖片分享，請改用系統瀏覽器。',error:outcome.reason==='NotAllowedError'?'瀏覽器未允許圖片分享，請改用系統瀏覽器再試。':'圖片分享未完成，請稍後再試。'};
+ const messages={'handed-off':'圖片已交給系統；請另按複製成績與網址，再貼到貼文。',downloaded:'已送出下載要求。','opened-image':'已開啟圖片，可長按儲存。',cancelled:'已取消。',unsupported:'此瀏覽器不支援圖片分享，請改用系統瀏覽器。',error:outcome.reason==='NotAllowedError'?'瀏覽器未允許圖片分享，請改用系統瀏覽器再試。':'圖片分享未完成，請稍後再試。'};
  $('share-status').textContent=messages[outcome.status];
 };
 let prev=performance.now(),acc=0;function frame(now){
  requestAnimationFrame(frame);const elapsed=Math.min((now-prev)/1000,.06);prev=now;
- if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){step(state,input);acc-=DT;}
+ if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){step(state,input);audioEvents.update(state);acc-=DT;}
   if(state.phase==='land'&&lastPhase!=='land')burst(state.x);lastPhase=state.phase;
   if(state.phase==='done'&&!reported){
    reported=true;playing=false;clear();settleVerdict(state,result(state),storage);saveJourney(storage,state);const r=result(state);
@@ -115,7 +120,7 @@ let prev=performance.now(),acc=0;function frame(now){
  }
  const shift=state.origin-renderOrigin;if(shift){for(const d of[...trails,...dust])d.m.position.x-=shift;renderOrigin=state.origin;}
  const distance=Math.max(0,worldX(state)-BOARD),progress=adventureAt((state.phase==='land'||state.phase==='done')?Math.max(0,(state.landingWorldX??worldX(state))-BOARD):distance),place=progress.region;world.update(distance,state.origin);const sky=new THREE.Color(place.sky);scene.background.lerp(sky,Math.min(1,elapsed*2.5));scene.fog.color.copy(scene.background);
- const key=place.id;if(playing&&key!==lastPlaceKey){const achieved=progress.achievements.at(-1),special=['penghu','world_complete','space','moon','mars','saturn'].includes(place.id);$('place-cue').textContent=special?achieved+'！':place.cue;cueTime=2.7;lastPlaceKey=key;chime(special);}
+ const key=place.id;if(playing&&key!==lastPlaceKey){const achieved=progress.achievements.at(-1),special=['penghu','world_complete','space','moon','mars','saturn'].includes(place.id);const visit=placeVisits.get(key)||0;placeVisits.set(key,visit+1);$('place-cue').textContent=(special?achieved+'！ ':place.name+' · ')+arrivalFlavour(key,visit);cueTime=4.5;lastPlaceKey=key;if(special)sound.play('result');}
  if(!paused)cueTime=Math.max(0,cueTime-elapsed);$('place-cue').classList.toggle('visible',cueTime>0);$('place-name').textContent=routeLabel(place.start);const measure=formatMileage(progress.km);$('travel-distance').textContent='冒險里程 約 '+measure.value+' '+measure.unit;$('wind-label').textContent='氣流 '+(state.wind.push>=0?'→':'←')+(Math.sign(state.wind.nextPush)!==Math.sign(state.wind.push)?' 前方轉向':'');
  const feedback=controlFeedback(state);buttons.forEach(b=>{const i=Number(b.dataset.limb),f=feedback[i];$('hint-'+i).textContent=f.hint;b.style.setProperty('--load',f.load);b.classList.toggle('loading',i>=2&&f.load>0);b.classList.toggle('armed',state.phase==='run'&&state.chargeFoot===i-2);b.classList.toggle('bracing',state.phase==='air'&&i>=2&&state.brace[i-2]>.3);b.setAttribute('aria-label',f.label+'，'+f.hint);});
  renderAthlete();const view=cameraFrame(state,sceneWidth,sceneHeight);Object.assign(camera,{left:-view.halfW,right:view.halfW,top:view.halfH,bottom:-view.halfH});camera.updateProjectionMatrix();camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);sun.position.set(state.x-5,18,8);sun.target.position.set(state.x,0,0);sun.target.updateMatrixWorld();
@@ -127,3 +132,4 @@ let prev=performance.now(),acc=0;function frame(now){
 }
 modal.open();
 requestAnimationFrame(frame);
+

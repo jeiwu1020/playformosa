@@ -11,23 +11,33 @@ export function captureResultPng({render,source,paint}){
  }catch(error){return Promise.reject(error);}
 }
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+// All text blocks advance from measured ink bounds, never a guessed baseline.
 export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>document.createElement('canvas')){
  if(!source.width||!source.height)throw new Error('Game screenshot is not ready');
  const canvas=createCanvas();canvas.width=1080;canvas.height=1180;const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Image canvas unavailable');
  ctx.fillStyle='#f4f1e9';ctx.fillRect(0,0,1080,1180);
- const text=(content,x,y,size,color='#172c3b',weight=700)=>{ctx.fillStyle=color;ctx.font=`${weight} ${size}px system-ui, sans-serif`;ctx.fillText(content,x,y);};
- text('PLAYFORMOSA STUDIO',44,57,27,'#607461');text('四肢各有想法－跳遠',40,120,52);
- const {score}=resultDisplay(info);text('冒險里程 · 約',44,170,24,'#607461');text(score,38,258,score.length>12?76:score.length>9?92:126,info.valid?'#172c3b':'#b65b43',900);
- ctx.font='700 29px system-ui, sans-serif';const lines=[];let line='';for(const char of(info.title||'')){const candidate=line+char,width=ctx.measureText?ctx.measureText(candidate).width:[...candidate].length*30;if(width>980&&line){lines.push(line);line=char;}else line=candidate;}if(line)lines.push(line);lines.slice(0,2).forEach((value,i)=>text(value,44,311+i*35,29,'#536954'));
- const x=42,y=377,w=996,h=588,ratio=w/h,sw=source.width,sh=source.height;
- const cw=Math.min(sw,sh*ratio),ch=cw/ratio;
- const sx=clamp(focus.x*sw-cw/2,0,sw-cw),sy=clamp(focus.y*sh-ch*.45,0,sh-ch);
- ctx.drawImage(source,sx,sy,cw,ch,x,y,w,h);
- ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,y,w,h);
- text(info.journey||(info.valid?'這一跳，值得留念。':info.foul?'越線不計分，好笑照樣留念。':'下次再跟地心引力約。'),44,1020,30);
- if(info.foul)text('越線不計成績 · 旅遊紀錄保留',44,1052,20,'#b65b43');
- text('航線估算，非台北直線距離；太空為科幻航線',44,info.foul?1080:1060,info.foul?18:20,'#708176');
- text('島遊無界 · PLAYFORMOSA',44,info.foul?1114:1090,info.foul?25:29,'#607461');
- text('四肢各有想法－跳遠',44,1152,22,'#7e8a80',500);
- return canvas;
+ const x=44,width=992,gap=14;let cursor=30;
+ function metrics(value,size){const m=ctx.measureText?.(value);return{width:m?.width??[...value].length*size,ascent:m?.actualBoundingBoxAscent??size*.85,descent:m?.actualBoundingBoxDescent??size*.25};}
+ function block(value,size,color='#172c3b',weight=700,maxLines=1){
+  value=String(value??'');let lines=[];
+  const set=()=>{ctx.font=`${weight} ${size}px system-ui, sans-serif`;};set();
+  if(maxLines===1){while(size>16&&metrics(value,size).width>width){size--;set();}}
+  let line='';for(const char of value){if(line&&metrics(line+char,size).width>width){lines.push(line);line=char;}else line+=char;}if(line)lines.push(line);
+  if(lines.length>maxLines){lines=lines.slice(0,maxLines);let last=lines.at(-1);while(last&&metrics(last+'…',size).width>width)last=last.slice(0,-1);lines[lines.length-1]=last+'…';}
+  const measured=lines.map(text=>({text,...metrics(text,size)}));
+  return{height:measured.reduce((sum,m)=>sum+m.ascent+m.descent,0)+Math.max(0,measured.length-1)*10,draw(top){set();ctx.fillStyle=color;let y=top;for(const m of measured){ctx.fillText(m.text,x,y+m.ascent);y+=m.ascent+m.descent+10;}}};
+ }
+ function place(b){b.draw(cursor);cursor+=b.height+gap;}
+ place(block('PLAYFORMOSA STUDIO',27,'#607461'));
+ place(block('四肢各有想法－跳遠',52));
+ place(block('冒險里程 · 約',24,'#607461'));
+ place(block(resultDisplay(info).score,126,info.valid?'#172c3b':'#b65b43',900));
+ place(block(info.title||'',29,'#536954',700,2));
+ const footer=[block(info.journey||(info.valid?'這一跳，值得留念。':info.foul?'越線不計分，好笑照樣留念。':'下次再跟地心引力約。'),30,'#172c3b',700,2)];
+ if(info.foul)footer.push(block('越線不計成績 · 探索紀錄保留',22,'#b65b43'));
+ footer.push(block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法－跳遠',22,'#7e8a80',500));
+ const footerHeight=footer.reduce((sum,b)=>sum+b.height+gap,0),h=Math.min(588,canvas.height-30-cursor-gap-footerHeight),w=width,ratio=w/h,sw=source.width,sh=source.height;
+ const cw=Math.min(sw,sh*ratio),ch=cw/ratio,sx=clamp(focus.x*sw-cw/2,0,sw-cw),sy=clamp(focus.y*sh-ch*.45,0,sh-ch);
+ ctx.drawImage(source,sx,sy,cw,ch,x,cursor,w,h);ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,cursor,w,h);cursor+=h+gap;
+ footer.forEach(place);return canvas;
 }
