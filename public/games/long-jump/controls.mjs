@@ -13,3 +13,9 @@ export function handleGameKey(event,held,input,active){
  const mapped=input.key(event.code,held);if(mapped&&active)event.preventDefault();return mapped;
 }
 export function cancelPendingMotion(s){cancelMotion(s);}
+
+// Clear logical input first: releasePointerCapture can synchronously emit lostpointercapture.
+export function clearCapturedInput(input,buttons){
+ const ids=[...input.pointers.keys()];input.clear();
+ for(const id of ids)for(const button of buttons)try{if(button.hasPointerCapture?.(id))button.releasePointerCapture(id);}catch{/* The browser may already have cancelled this touch during rotation. */}
+}

@@ -41,3 +41,12 @@ export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>do
  ctx.drawImage(source,sx,sy,cw,ch,x,cursor,w,h);ctx.strokeStyle='#d3dacb';ctx.lineWidth=2;ctx.strokeRect(x,cursor,w,h);cursor+=h+gap;
  footer.forEach(place);return canvas;
 }
+
+// A separate 2D bitmap survives WebGL resize/clear and is shared by preview and PNG retries.
+export function createLandingCapture(createCanvas=()=>document.createElement('canvas')){
+ let current=null;return{get current(){return current;},reset(){current=null;},freeze(source,focus={x:.5,y:.5}){
+  if(current)return current;if(!source.width||!source.height)throw new Error('Landing frame unavailable');
+  const canvas=createCanvas();canvas.width=source.width;canvas.height=source.height;const context=canvas.getContext('2d');if(!context)throw new Error('Landing image canvas unavailable');context.drawImage(source,0,0);
+  current={canvas,focus:{x:focus.x,y:focus.y}};return current;
+ }};
+}

@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import * as controls from '../../public/games/long-jump/controls.mjs';
+test('held touch portrait-landscape-portrait releases native capture before resume and does not re-pause on lost capture',()=>{
+ assert.equal(typeof controls.clearCapturedInput,'function');const input=controls.createInput(),captured=new Set([7,8]);input.pointer(7,2);input.pointer(8,3);input.key('KeyJ',true);let interrupted=0;const button={hasPointerCapture:id=>captured.has(id),releasePointerCapture(id){captured.delete(id);if(input.endPointer(id,'lostpointercapture'))interrupted++;}};
+ controls.clearCapturedInput(input,[button]);controls.clearCapturedInput(input,[button]);assert.equal(captured.size,0);assert.equal(interrupted,0);assert.deepEqual(input.values,[false,false,false,false]);input.pointer(9,2);assert.equal(input.values[2],true);
+});
+test('already cancelled native pointer cannot prevent clearing all controls',()=>{assert.equal(typeof controls.clearCapturedInput,'function');const input=controls.createInput();input.pointer(1,0);input.pointer(2,1);let attempts=0;controls.clearCapturedInput(input,[{hasPointerCapture:()=>true,releasePointerCapture(){attempts++;throw Error('pointer gone');}}]);assert.equal(attempts,2);assert.deepEqual(input.values,[false,false,false,false]);});
