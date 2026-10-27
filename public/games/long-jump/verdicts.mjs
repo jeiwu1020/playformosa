@@ -1,3 +1,4 @@
+import {REGIONS} from './world.mjs';
 const bands={
  head:['腦袋先到，腿還在開會','用頭腦參賽，不是這個意思','腦袋先交卷，身體還在趕路','頭等艙乘客，頭等艙著陸','腦袋已到站，地心引力請查收'],
  butt:['屁股提前辦理入住','沙坑沙發試坐員','屁股搶到沙坑第一排','坐著飛，也坐著收工','這個屁股，搭的是長途班機'],
@@ -23,6 +24,7 @@ export const EVENT_LINES=Object.freeze({
  far:['別人是跳遠，你是國際轉機。','機票錢省下來，膝蓋先加班。','沙坑量到一半，決定改用地圖。','距離太有想法，裁判換了把尺。','四肢成功把運動會辦成旅遊團。','飛成這樣，已經不是校外教學。'],
  fall:['沙坑等了一整天，你選擇在門口躺下。','四肢還沒表決完，跑道先收工了。','旅程尚未開始，膝蓋已宣布放假。','助跑很有想法，地板很有吸引力。','今天的目的地：起點附近。','還沒離境，就先貼地旅行。'],
  foul:['飛得很有誠意，越線很沒禮貌。','裁判不認這一跳，海關倒是很忙。','護照蓋了章，成績蓋了不通過。','四肢飛出國，腳趾先違規。','世界很大，規則還是那一條線。','距離沒有問題，問題是越線。'],
+ world:['環球航線完成，下一站交給宇宙。','地圖已經不夠用，裁判正在換星圖。','世界巡迴結束，四肢還不想下班。','走完世界這一段，不必回頭也能繼續。','里程越過地圖，姿勢仍在協調。','地球行程打勾，現在換星空加班。'],
  loop:['環遊世界回來，四肢還沒和好。','地球一圈了，腳還在找停車位。','別人跳遠，你在替地球量腰圍。','繞回起點不是零分，是飛行履歷。','環球航線完成，屁股準備下車。','飛了一圈，發現家裡早餐最好吃。'],
  backslide:['腳談好的距離，屁股不同意。','前面很精彩，最後倒退嚕。','落地先得分，身體隨後申請退款。','腳都簽收了，手又把包裹往回拖。','沙坑表示：以最後那個屁股印為準。','落點有進步，坐姿有退步。'],
  flipfeet:['翻得像洗衣機，落得像選手。','四肢吵了一路，最後居然有共識。','轉了幾圈，竟然沒有忘記腳在哪。','空中像事故，落地像故意的。','旋轉門開完，雙腳準時下班。','本來以為要出事，結果有點帥。'],
@@ -42,11 +44,12 @@ export const PLACE_LINES=Object.freeze({
  usa:['美國到了，時差交給屁股處理。','落點美國，回程還能用同一雙腿嗎？','從台灣跳到美國，機票錢省下了。','美國這站，四肢正在倒時差。']
 });
 export const AUTHORED_CAPTION_COUNT=new Set([...Object.values(EVENT_LINES).flat(),...Object.values(PLACE_LINES).flat()]).size;
-export const VERDICT_HISTORY_KEY='pf-longjump-verdicts-v8';
-export function verdictCategory(info){const part=info.firstContact||info.nearestPart||'';return info.fallen?'fall':info.foul?'foul':info.loops>0?'loop':info.landingLoss>.35?'backslide':/腳/.test(part)&&info.flips>0?'flipfeet':/頭|額/.test(part)?'head':/屁/.test(part)?'butt':/手|肘/.test(part)?'hand':info.recoveries>0?'recovery':info.rawDistance>=210?'far':info.rawDistance!==null&&info.rawDistance<6?'near':/腳|膝/.test(part)?'feet':'body';}
-export function pickVerdict(info,recent=[]){const category=verdictCategory(info),region=Object.hasOwn(PLACE_LINES,info.region)?info.region:'taiwan',a=EVENT_LINES[category],b=PLACE_LINES[region];const candidates=[];for(let j=0;j<b.length;j++)for(let i=0;i<a.length;i++)candidates.push({id:category+':'+region+':'+i+':'+j,category,text:a[i]+' '+b[j]});const blocked=new Set(recent);let choice=candidates.find(c=>!blocked.has(c.id));if(!choice)choice=candidates.reduce((x,y)=>recent.lastIndexOf(x.id)<recent.lastIndexOf(y.id)?x:y);return choice;}
+export const VERDICT_HISTORY_KEY='pf-longjump-verdicts-v9';
+export function verdictCategory(info){const part=info.firstContact||info.nearestPart||'';return info.fallen?'fall':info.foul?'foul':info.region==='world_complete'?'world':(info.loops>0&&!info.stage)?'loop':info.landingLoss>.35?'backslide':/腳/.test(part)&&info.flips>0?'flipfeet':/頭|額/.test(part)?'head':/屁/.test(part)?'butt':/手|肘/.test(part)?'hand':info.recoveries>0?'recovery':(info.stage==='world'||info.stage==='space'||(!info.stage&&info.rawDistance>=210))?'far':info.rawDistance!==null&&info.rawDistance<6?'near':/腳|膝/.test(part)?'feet':'body';}
+const ARRIVAL_LINES=['到站了，四肢請自行集合。','這一站，落地姿勢比行程精彩。','里程有累積，姿勢還在轉機。','目的地到了，重心稍後送達。'];
+export function pickVerdict(info,recent=[]){const category=verdictCategory(info),place=REGIONS.find(r=>r.id===info.region),region=place?.id||(Object.hasOwn(PLACE_LINES,info.region)?info.region:'taiwan'),a=EVENT_LINES[category],b=PLACE_LINES[region]||ARRIVAL_LINES;const prefix=place?place.name+(place.id==='world_complete'?'':'航段')+' · ':'';const candidates=[];for(let j=0;j<b.length;j++)for(let i=0;i<a.length;i++)candidates.push({id:category+':'+region+':'+i+':'+j,category,text:a[i]+' '+prefix+b[j]});const blocked=new Set(recent);let choice=candidates.find(c=>!blocked.has(c.id));if(!choice)choice=candidates.reduce((x,y)=>recent.lastIndexOf(x.id)<recent.lastIndexOf(y.id)?x:y);return choice;}
 const sessionHistories=new WeakMap();let unavailableStorageHistory=[];
 const storageObject=storage=>storage!==null&&(typeof storage==='object'||typeof storage==='function');
 export function readVerdictHistory(storage){if(storageObject(storage)&&sessionHistories.has(storage))return sessionHistories.get(storage).slice();let history=[];try{const a=JSON.parse(storage.getItem(VERDICT_HISTORY_KEY));history=Array.isArray(a)?a.filter(x=>typeof x==='string').slice(-24):[];}catch{}if(storageObject(storage))sessionHistories.set(storage,history);else history=unavailableStorageHistory;return history.slice();}
 export function saveVerdictHistory(storage,history,id){const next=[...history,id].slice(-24);if(storageObject(storage))sessionHistories.set(storage,next);else unavailableStorageHistory=next;try{storage.setItem(VERDICT_HISTORY_KEY,JSON.stringify(next));}catch{}return next;}
-export function settleVerdict(s,info,storage){const history=readVerdictHistory(storage),pick=pickVerdict({...info,firstContact:s.landingPart||s.firstPart,nearestPart:s.markPart,region:info.destination.id,loops:info.destination.loop,fallen:s.fallen,foul:s.foul,flips:s.rotations,recoveries:s.recoveries},history);s.verdict=pick.text;saveVerdictHistory(storage,history,pick.id);return pick;}
+export function settleVerdict(s,info,storage){const history=readVerdictHistory(storage),pick=pickVerdict({...info,firstContact:s.landingPart||s.firstPart,nearestPart:s.markPart,region:info.destination.id,stage:info.destination.stage,loops:info.destination.loop,fallen:s.fallen,foul:s.foul,flips:s.rotations,recoveries:s.recoveries},history);s.verdict=pick.text;saveVerdictHistory(storage,history,pick.id);return pick;}

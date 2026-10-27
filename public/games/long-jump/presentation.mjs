@@ -1,3 +1,7 @@
 import{HOLD_TIME}from'./physics.mjs';
 export function formatDistance(distance){const n=Number.isFinite(distance)?Math.max(0,distance):0;return n>=10000?{value:(n/1000).toFixed(2),unit:'km'}:{value:n.toFixed(2),unit:'m'};}
 export function controlFeedback(s){return ['左手','右手','左腳','右腳'].map((label,i)=>{if(i<2)return{label,hint:s.phase==='air'?'擺動／調姿':'擺動平衡',load:0};const f=i-2,age=s.holdTimes[f];return{label,hint:s.phase==='air'?(s.brace[f]>.3?'準備落地':'長按收尾'):s.charging&&s.chargeFoot===f?'放開起跳':age>0?'長按蓄力':'短按邁步',load:s.phase==='air'?s.brace[f]:Math.min(1,age/HOLD_TIME)};});}
+
+export function formatMileage(km){const n=Number.isFinite(km)?Math.max(0,km):0;if(n>=1e8)return{value:(n/1e8).toFixed(2),unit:'億 km'};if(n>=1e6)return{value:(n/1e4).toFixed(1),unit:'萬 km'};return{value:n.toLocaleString('en-US',{minimumFractionDigits:n<100?1:0,maximumFractionDigits:n<100?1:0}),unit:'km'};}
+export function resultDisplay(info){const d=Number.isFinite(info.legalAdventureKm)?formatMileage(info.legalAdventureKm):formatDistance(info.distance);return{...d,score:info.valid?d.value+' '+d.unit:info.foul?'犯規':'未計分'};}
+export function resultShareText(info){const d=resultDisplay(info),explored=formatMileage(info.adventureKm);return '四肢各有想法－跳遠｜'+(info.valid?'冒險里程約 '+d.score+'！':info.foul?'這一跳越線，不計成績。':'這一跳未計分。')+(!info.valid&&Number.isFinite(info.adventureKm)?' 探索約 '+explored.value+' '+explored.unit+'。':'')+' '+info.journey+'。 '+info.title+'（航線估算里程，非台北直線距離；太空為科幻航線）';}

@@ -1,12 +1,12 @@
 import {selectVerdict} from './verdicts.mjs';
-import {regionAt,windAt,journeyLabel} from './world.mjs';
+import {regionAt,windAt,journeyLabel,adventureAt} from './world.mjs';
 // Intentionally impossible arcade flight. Bounded instantaneous forces, no journey cap.
 export const DT=1/120,START=-23,BOARD=10,PIT=10.45,MAX_AIR_FORCE=16,HOLD_TIME=.34;
-export const BEST_KEY='pf-longjump-best-v8',JOURNEY_KEY='pf-longjump-journey-v8';
+export const BEST_KEY='pf-longjump-best-v9',JOURNEY_KEY='pf-longjump-journey-v9';
 export const BONES={upperArm:.34,foreArm:.32,thigh:.55,shin:.55};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const worldX=s=>(s.origin||0)+s.x;
-export function fresh(){const s={x:START,origin:0,y:1.12,vx:0,vy:0,lean:0,spin:0,momentum:0,j:[0,0,0,0],controlJ:[0,0,0,0],held:[false,false,false,false],holdTimes:[0,0],airReady:[false,false],airFresh:[false,false],brace:[0,0],landingPose:0,landingRequested:false,takeoffSpeed:null,takeoffQuality:0,firstMark:Infinity,landingPart:'',energy:1,crouch:0,charging:false,chargeFoot:-1,phase:'run',t:0,airTime:0,landTime:0,jumped:false,fallen:false,foul:false,mark:Infinity,markPart:'',firstPart:'',maxAirForce:0,airEffort:0,airWork:0,energyRecovered:0,rotations:0,forwardTurns:0,backwardTurns:0,turnProgress:0,turnDirection:0,rotationTravel:0,peakLean:0,recoveries:0,wasWobbling:false,maxDistance:0,visited:['taiwan'],lastRegion:'taiwan',rebaseCount:0,wind:windAt(0)};const points=pose(s);s.y+=.02-Math.min(points.foot0.y-skinRadius(s,'foot0',points),points.foot1.y-skinRadius(s,'foot1',points));return s;}
+export function fresh(){const s={x:START,origin:0,y:1.12,vx:0,vy:0,lean:0,spin:0,momentum:0,j:[0,0,0,0],controlJ:[0,0,0,0],held:[false,false,false,false],holdTimes:[0,0],airReady:[false,false],airFresh:[false,false],brace:[0,0],landingPose:0,landingRequested:false,takeoffSpeed:null,takeoffQuality:0,firstMark:Infinity,landingPart:'',energy:1,crouch:0,charging:false,chargeFoot:-1,phase:'run',t:0,airTime:0,landTime:0,jumped:false,fallen:false,foul:false,mark:Infinity,markPart:'',firstPart:'',maxAirForce:0,airEffort:0,airWork:0,energyRecovered:0,rotations:0,forwardTurns:0,backwardTurns:0,turnProgress:0,turnDirection:0,rotationTravel:0,peakLean:0,recoveries:0,wasWobbling:false,maxDistance:0,visited:['taipei'],lastRegion:'taipei',rebaseCount:0,wind:windAt(0)};const points=pose(s);s.y+=.02-Math.min(points.foot0.y-skinRadius(s,'foot0',points),points.foot1.y-skinRadius(s,'foot1',points));return s;}
 export function cancelMotion(s){s.charging=false;s.crouch=0;s.chargeFoot=-1;s.holdTimes=[0,0];s.held=[false,false,false,false];s.landingRequested=false;s.landingPose=0;s.brace=[0,0];s.airReady=[false,false];s.airFresh=[false,false];}
 export function pose(s){
  const ca=Math.cos(s.lean),sa=Math.sin(s.lean);
@@ -114,12 +114,12 @@ export function step(s,rawInput,dt=DT){
 }
 export function result(s){
  const rawDistance=Number.isFinite(s.mark)?Math.max(0,s.mark-BOARD):null,valid=!s.foul&&!s.fallen&&rawDistance!==null;
- const destination=regionAt(Math.max(0,(s.landingWorldX??worldX(s))-BOARD));
- return{valid,distance:valid?rawDistance:0,rawDistance,landingLoss:Number.isFinite(s.firstMark)&&rawDistance!==null?Math.max(0,s.firstMark-s.mark):0,badge:s.rotations?'空中翻轉 '+s.rotations+' 圈':null,destination,journey:journeyLabel(Math.max(0,(s.landingWorldX??worldX(s))-BOARD)),exploredDistance:s.maxDistance,loops:regionAt(s.maxDistance).loop,title:s.verdict||selectVerdict({firstContact:s.landingPart||s.firstPart,nearestPart:s.markPart,rawDistance,foul:s.foul,flips:s.rotations,airTime:s.airTime,glides:0,fallen:s.fallen,region:destination.id,loops:destination.loop,recoveries:s.recoveries,landingLoss:Number.isFinite(s.firstMark)&&rawDistance!==null?s.firstMark-s.mark:0})};
+ const journeyDistance=Math.max(0,(s.landingWorldX??worldX(s))-BOARD),adventure=adventureAt(journeyDistance),destination=adventure.region;
+ return{valid,distance:valid?rawDistance:0,rawDistance,adventureKm:adventure.km,legalAdventureKm:valid?adventureAt(rawDistance).km:0,achievements:adventureAt(s.maxDistance).achievements,journeyDistance,landingLoss:Number.isFinite(s.firstMark)&&rawDistance!==null?Math.max(0,s.firstMark-s.mark):0,badge:s.rotations?'空中翻轉 '+s.rotations+' 圈':null,destination,journey:journeyLabel(Math.max(0,(s.landingWorldX??worldX(s))-BOARD)),exploredDistance:s.maxDistance,loops:regionAt(s.maxDistance).loop,title:s.verdict||selectVerdict({firstContact:s.landingPart||s.firstPart,nearestPart:s.markPart,rawDistance,foul:s.foul,flips:s.rotations,airTime:s.airTime,glides:0,fallen:s.fallen,region:destination.id,loops:destination.loop,recoveries:s.recoveries,landingLoss:Number.isFinite(s.firstMark)&&rawDistance!==null?s.firstMark-s.mark:0})};
 }
 export const toKmh=v=>v*3.6;
 export function cameraFrame(s,width,height){const p=pose(s),high=Math.max(2.7,...Object.values(p).map(v=>v.y+.48)),low=Math.min(-.25,...Object.values(p).map(v=>v.y-.34)),centerY=(high+low)/2;let halfH=Math.max(3.3,(high-low)/2+.9);const halfW=Math.max(4.8,halfH*Math.max(1,width)/Math.max(1,height));halfH=halfW*Math.max(1,height)/Math.max(1,width);return{centerX:s.x+1.8,centerY,halfW,halfH};}
 export function readBest(storage){try{const n=Number(storage.getItem(BEST_KEY));return Number.isFinite(n)&&n>=0?n:0;}catch{return 0;}}
 export function saveBest(storage,n){if(!Number.isFinite(n)||n<0)return;try{storage.setItem(BEST_KEY,String(n));}catch{}}
 export function readJourney(storage){try{const d=JSON.parse(storage.getItem(JOURNEY_KEY));return d&&Number.isFinite(d.distance)&&d.distance>=0?{distance:d.distance,visited:Array.isArray(d.visited)?d.visited.filter(x=>typeof x==='string'):[]}: {distance:0,visited:[]};}catch{return{distance:0,visited:[]};}}
-export function saveJourney(storage,s){const old=readJourney(storage),next={distance:Math.max(old.distance,s.maxDistance||0),visited:[...new Set([...old.visited,...s.visited])]};try{storage.setItem(JOURNEY_KEY,JSON.stringify(next));}catch{}return next;}
+export function saveJourney(storage,s){const old=readJourney(storage),next={adventureKm:adventureAt(Math.max(old.distance,s.maxDistance||0)).km,distance:Math.max(old.distance,s.maxDistance||0),visited:[...new Set([...old.visited,...s.visited])]};try{storage.setItem(JOURNEY_KEY,JSON.stringify(next));}catch{}return next;}

@@ -1,6 +1,6 @@
-# 四肢各有想法－跳遠 — v8 candidate
+# 四肢各有想法－跳遠 — v9 adventure route
 
-Main game path stays `/games/long-jump/`. This candidate is implemented locally from GitHub base `68685a8282a2143ff72832de03e4f6d06cf1adc9`; it has not been pushed, merged or deployed by this task. Previous v7 documentation and superseded test contracts are retained under `docs/history/`. The older comparison experiment is unchanged.
+Main game path stays `/games/long-jump/`. The released v8 base is GitHub commit `d674b77d9fcbe28798bbb70e88d69c60bfe5a8ff`; v9 expands its route and displayed mileage only. User authorized direct publication after checks. Prior versions and superseded route/test contracts are retained under `docs/history/`. The older comparison experiment and homepage hero are unchanged.
 
 ## Four movement keys, two thumbs
 
@@ -18,21 +18,25 @@ Flight is deliberately impossible arcade aerodynamics, not human biomechanics. U
 
 Turns are credited per completed same-direction airborne revolution; a subsequent reverse revolution does not erase the first. Partial oscillations do not add phantom turns. First contact and nearest subsequent surface marks determine landing and distance; bracing is not a guaranteed upright landing.
 
-## Cartoon world
+## Taipei → Taiwan22 → world → space
 
-Taiwan → Pacific → Japan → Egypt → France → USA → Taiwan repeats on a **720 game-metre cartoon itinerary**, not a real geographic scale. A return to Taiwan credits a loop and does not finish play. First foreign scenery is visible during early successful flights; repeated loops require continued control.
+Route data lives in `route-data.mjs`: all22 Taiwan counties/cities in the approved order, Okinawa/Seoul/Osaka/Tokyo, Southeast Asia/India/Dubai, Egypt/Europe, Americas/Hawaii/Australia/New Zealand, then an outward South-Pacific world-completion checkpoint. It does not return to Taipei, reset progress, or stop flight. Atmosphere, space, Moon, Mars, Saturn's rings and open-ended deep-space stages follow.
 
-Seven nearby 48 m chunks are streamed, removed groups are released, and shared geometries/materials are reused. World landmarks include lantern shops, sea islands/boats, torii/cherry trees, pyramids, a tower/café, and a city skyline. Sky color blends at region transitions; a readable place cue and optional synthesized chime mark arrivals. Wind is continuous and deterministic with a next-direction hint, not an unannounced random failure.
+Raw physical metres remain private simulation coordinates. Displayed **冒險里程** is an approximate cumulative itinerary: Earth legs sum great-circle distances from rounded hand-selected landmark coordinates using radius6371km, with compressed visual segments interpolating between milestone totals. It is not straight-line distance from Taipei, driving distance, a continuous road, or Earth's circumference. The global itinerary is approximately61,920km; Taiwan22's final landmark is approximately1,591km along this chosen itinerary. Islands use direct connecting legs, not invented bridges. HUD/results/share say「航段」: destinations designate the most recently reached illustrated landmark chapter, not a live geolocation map. Moon-to-Mars progress therefore reads「月球航段」rather than claiming that every intervening kilometre is on the Moon.
 
-Rendering/physics use local coordinates that rebase at 512 m while total distance, first-contact location, marks and journey history remain world-relative. World ground extends beyond the old pit. Ocean contact is labeled Pacific, not a random country. The landing destination comes from the actual first-contact point; explored/flyover distance is stored separately.
+Space legs are deliberately fictional connections:10km to the atmosphere stage,90km further to space,384,300km further to the Moon (384,400km reference from Earth's departure),78.3million km onward to Mars and1,205.6million km onward to Saturn, then onward star travel. The latter use differences in mean solar orbital radii only as scale references, NOT present-day planetary separation or actual orbital transfer distances. References: [NASA Moon comparison](https://science.nasa.gov/moon/by-the-numbers/), [NASA/JPL solar-system reference](https://www.jpl.nasa.gov/edu/pdfs/scaless_reference.pdf). The cumulative total also retains prior Earth travel.
+
+The speed label is **助跑速度** on the ground and **起跳速度** after launch; it is not the derivative of the compressed adventure-mileage display. HUD, final legal score, exploration, and share output use the same route conversion. Legal score still uses the nearest contact mark; destination uses first contact, so backward settling can reduce score without pretending the body landed in a random country.
+
+Seven48m raw-coordinate chunks are streamed. Actual procedural silhouettes include Taipei101, harbor cranes, railway, gates, bridge, lake/mountains, fields, lighthouse/balloons, basalt, overseas structures, satellite, cratered Moon, Mars and Saturn's ring. Removed chunk groups are released; shared materials no longer used by the current window are disposed. Sky transitions are smoothed. No input, balance, force, energy, gravity, wind or hold-threshold tuning is part of v9.
 
 ## Results, jokes and records
 
 Result: large legal score or explicit foul/invalid status, Taiwan → actual landing destination, one event-and-place joke, optional completed-turn badge. Foul does not enter the legal best but can retain exploration progress.
 
-There are **102 unique authored event/place lines**, combined only within matching event and place families. Event priority includes track fall, foul, loops, backwards landing loss, flip/feet, head, butt, hand, recovery and distance. The last 24 caption IDs are excluded while unused matching options remain. This is not a claim of thousands of individually authored jokes or infinite novelty.
+There are **108 unique legacy/event/place lines plus four neutral arrival templates**, combined only within matching event and place families. Event priority includes track fall, foul, loops, backwards landing loss, flip/feet, head, butt, hand, recovery and distance. The last 24 caption IDs are excluded while unused matching options remain. This is not a claim of thousands of individually authored jokes or infinite novelty.
 
-`pf-longjump-best-v8`, `pf-longjump-journey-v8`, and `pf-longjump-verdicts-v8` are independent of v7/v6/experiment records; old keys are not deleted. Disabled storage is tolerated. Native sharing/Threads/copy/download behavior is preserved; the PNG keeps the exact game title, actual final render, true score/status and journey. Sharing cancellation never silently downloads or claims a social post.
+`pf-longjump-best-v9`, `pf-longjump-journey-v9`, and `pf-longjump-verdicts-v9` are independent of v8/v7/v6/experiment records; old keys are not deleted. Disabled storage is tolerated. Native sharing/Threads/copy/download behavior is preserved; the PNG keeps the exact game title, actual final render, true score/status and journey. Sharing cancellation never silently downloads or claims a social post.
 
 ## Character and viewports
 
@@ -42,6 +46,6 @@ The existing measured viewport shell remains, with four controls instead of five
 
 ## Verification and known limits
 
-See `evidence/engine-traces.json`, `evidence/review-manifest.json` and `docs/verification.md` for final counts and exact receipts. CPU gameplay witnesses use only input arrays after a fresh state; they are not human playtests. Offline Blender CPU images export the real Three.js scene meshes and camera, but their lighting differs from live WebGL and they contain no browser UI.
+`docs/verification.md` and `evidence/route-v9/` record exact tests, physics parity, review and publication receipts. A22409-step comparison against released v8 modules produced bit-identical physical state and joints while flying for181.65s, landing at the same raw5043.0221203m. This is a scripted input witness, not human playtesting.
 
-The unchanged homepage `public/assets/hero-long-jump.png` was ultimately recovered from the verified public deployment, after supported GitHub binary readers failed. Its 2,290,523 bytes exactly match remote Git blob `89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f`; no replacement artwork was made. All 113 aggregate tests, static build and 41 local reference checks pass. The focused game suite contains 86 passing tests. No browser screenshot, native-share device test, or actual touch acceptance has been performed.
+Offline Blender images export real Three.js geometry and actual-input states; lighting differs and no browser HUD is shown. CloudCDP reports GL_VENDOR/GL_RENDERER Disabled and cannot execute WebGL, so live gameplay/layout/phone touch/native-share acceptance remains a user-device check. No flags, access-control or security bypass was used. The original hero remains Git blob `89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f`.

@@ -1,6 +1,6 @@
 import {createScenery} from './scenery.mjs';
-import {regionAt,journeyLabel} from './world.mjs';
-import {controlFeedback,formatDistance} from './presentation.mjs';
+import {regionAt,journeyLabel,adventureAt,routeLabel} from './world.mjs';
+import {controlFeedback,formatDistance,formatMileage,resultDisplay,resultShareText} from './presentation.mjs';
 import {settleVerdict} from './verdicts.mjs';
 import {createCharacter} from './character.mjs';
 import {createDialogController} from './dialogs.mjs';
@@ -29,7 +29,7 @@ let renderOrigin=0,lastPlaceKey='',cueTime=0,audio=null,soundOn=true;
 function soundReady(){if(!soundOn)return;try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume().catch(()=>{});}catch{}}
 function chime(loop=false){if(!soundOn||!audio||audio.state!=='running')return;for(let i=0;i<3;i++){const osc=audio.createOscillator(),gain=audio.createGain(),at=audio.currentTime+i*.09;osc.type='sine';osc.frequency.value=[392,494,loop?784:587][i];gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(.045,at+.015);gain.gain.exponentialRampToValueAtTime(.001,at+.16);osc.connect(gain);gain.connect(audio.destination);osc.start(at);osc.stop(at+.18);}}
 $('sound').onclick=()=>{soundOn=!soundOn;$('sound').setAttribute('aria-pressed',String(soundOn));$('sound').textContent=soundOn?'♪':'♩';if(soundOn)soundReady();};
-let state=fresh(),playing=false,best=0,reported=false,lastPhase='run';try{best=readBest(storage);}catch{}$('best').textContent=formatDistance(best).value+' '+formatDistance(best).unit;
+let state=fresh(),playing=false,best=0,reported=false,lastPhase='run';try{best=readBest(storage);}catch{}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
 const controls=createInput(),input=controls.values;const buttons=[...document.querySelectorAll('[data-limb]')];
 function sync(){buttons.forEach(b=>{const active=input[Number(b.dataset.limb)];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});}
 function clear(){controls.clear();sync();}
@@ -80,7 +80,7 @@ function prepareResultShare(){
 }
 function mobileImageAction(){return matchMedia('(pointer: coarse)').matches||((navigator.maxTouchPoints||0)>0&&!matchMedia('(hover: hover)').matches);}
 function openImage(file){const url=URL.createObjectURL(file);let popup;try{popup=window.open(url,'_blank');if(popup)popup.opener=null;}catch{}setTimeout(()=>URL.revokeObjectURL(url),60000);return Boolean(popup);}
-function resultShareData(){const r=result(state),d=formatDistance(r.distance);return {text:'四肢各有想法－跳遠｜'+(r.valid?'我跳了 '+d.value+' '+d.unit+'！':state.foul?'這一跳越線，不計成績。':'這一跳未計分。')+' '+r.journey+'。 '+r.title,url:new URL('/games/long-jump/',location.origin).href};}
+function resultShareData(){const r={...result(state),foul:state.foul};return {text:resultShareText(r),url:new URL('/games/long-jump/',location.origin).href};}
 $('share-result').onclick=()=>{
  if(state.phase!=='done')return;
  const status=openThreads(resultShareData(),{open:window.open.bind(window)});
@@ -104,24 +104,24 @@ let prev=performance.now(),acc=0;function frame(now){
   if(state.phase==='land'&&lastPhase!=='land')burst(state.x);lastPhase=state.phase;
   if(state.phase==='done'&&!reported){
    reported=true;playing=false;clear();settleVerdict(state,result(state),storage);saveJourney(storage,state);const r=result(state);
-   if(r.valid&&r.distance>best){best=r.distance;try{saveBest(storage,best);}catch{}}$('best').textContent=formatDistance(best).value+' '+formatDistance(best).unit;
-   const measure=formatDistance(r.distance),score=state.foul?'犯規':r.valid?measure.value+' <small>'+measure.unit+'</small>':'未計分';
+   if(r.valid&&r.legalAdventureKm>best){best=r.legalAdventureKm;try{saveBest(storage,best);}catch{}}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
+   const measure=formatMileage(r.legalAdventureKm),score=state.foul?'犯規':r.valid?measure.value+' <small>'+measure.unit+'</small>':'未計分';
 
    document.querySelector('.card').classList.add('result');
-   show(r.title,'<div class="result-score">'+score+'</div><div class="journey-result">'+r.journey+'</div>'+(r.badge?'<div class="stunt-result">'+r.badge+'</div>':'')+(state.foul?'<div class="result-status">越線 · 不計成績，旅遊紀錄保留</div>':''),'再來一跳');
+   show(r.title,'<div class="mileage-label">冒險里程 · 約</div><div class="result-score">'+score+'</div><div class="journey-result">'+r.journey+'</div>'+(r.achievements.length?'<div class="stunt-result">'+r.achievements.at(-1)+'</div>':'')+(r.badge?'<div class="stunt-result">'+r.badge+'</div>':'')+(state.foul?'<div class="result-status">越線 · 不計成績，探索約 '+formatMileage(r.adventureKm).value+' '+formatMileage(r.adventureKm).unit+' 保留</div>':''),'再來一跳');
    $('share-actions').hidden=false;pendingCapture=true;
 
   }
  }
  const shift=state.origin-renderOrigin;if(shift){for(const d of[...trails,...dust])d.m.position.x-=shift;renderOrigin=state.origin;}
- const distance=Math.max(0,worldX(state)-BOARD),place=regionAt(distance);world.update(distance,state.origin);const sky=new THREE.Color(place.sky);if(place.loop%2)sky.lerp(new THREE.Color('#d4afae'),.28);scene.background.lerp(sky,Math.min(1,elapsed*2.5));scene.fog.color.copy(scene.background);
- const key=place.id+':'+place.loop;if(playing&&key!==lastPlaceKey){const returning=place.id==='taiwan'&&place.loop>0;$('place-cue').textContent=returning?'回到台灣！已繞地球 '+place.loop+' 圈':place.cue;cueTime=2.7;lastPlaceKey=key;chime(returning);}
- if(!paused)cueTime=Math.max(0,cueTime-elapsed);$('place-cue').classList.toggle('visible',cueTime>0);$('place-name').textContent=place.name+(place.loop?' · 第 '+(place.loop+1)+' 圈':'');const measure=formatDistance(distance);$('travel-distance').textContent=measure.value+' '+measure.unit;$('wind-label').textContent='氣流 '+(state.wind.push>=0?'→':'←')+(Math.sign(state.wind.nextPush)!==Math.sign(state.wind.push)?' 前方轉向':'');
+ const distance=Math.max(0,worldX(state)-BOARD),progress=adventureAt((state.phase==='land'||state.phase==='done')?Math.max(0,(state.landingWorldX??worldX(state))-BOARD):distance),place=progress.region;world.update(distance,state.origin);const sky=new THREE.Color(place.sky);scene.background.lerp(sky,Math.min(1,elapsed*2.5));scene.fog.color.copy(scene.background);
+ const key=place.id;if(playing&&key!==lastPlaceKey){const achieved=progress.achievements.at(-1),special=['penghu','world_complete','space','moon','mars','saturn'].includes(place.id);$('place-cue').textContent=special?achieved+'！':place.cue;cueTime=2.7;lastPlaceKey=key;chime(special);}
+ if(!paused)cueTime=Math.max(0,cueTime-elapsed);$('place-cue').classList.toggle('visible',cueTime>0);$('place-name').textContent=routeLabel(place.start);const measure=formatMileage(progress.km);$('travel-distance').textContent='冒險里程 約 '+measure.value+' '+measure.unit;$('wind-label').textContent='氣流 '+(state.wind.push>=0?'→':'←')+(Math.sign(state.wind.nextPush)!==Math.sign(state.wind.push)?' 前方轉向':'');
  const feedback=controlFeedback(state);buttons.forEach(b=>{const i=Number(b.dataset.limb),f=feedback[i];$('hint-'+i).textContent=f.hint;b.style.setProperty('--load',f.load);b.classList.toggle('loading',i>=2&&f.load>0);b.classList.toggle('armed',state.phase==='run'&&state.chargeFoot===i-2);b.classList.toggle('bracing',state.phase==='air'&&i>=2&&state.brace[i-2]>.3);b.setAttribute('aria-label',f.label+'，'+f.hint);});
  renderAthlete();const view=cameraFrame(state,sceneWidth,sceneHeight);Object.assign(camera,{left:-view.halfW,right:view.halfW,top:view.halfH,bottom:-view.halfH});camera.updateProjectionMatrix();camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);sun.position.set(state.x-5,18,8);sun.target.position.set(state.x,0,0);sun.target.updateMatrixWorld();
  if(!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
  effects(elapsed);
- $('speed').innerHTML=toKmh(state.vx).toFixed(1)+' <small>km/h</small>';
+ $('speed').innerHTML='<span class="speed-caption">'+(state.jumped?'起跳速度':'助跑速度')+'</span>'+toKmh(state.takeoffSpeed??state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
  if(pendingCapture){pendingCapture=false;prepareResultShare();}
 }

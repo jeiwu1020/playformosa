@@ -1,10 +1,11 @@
-# Candidate application contract — not publication authorization
+# V9 route release application contract
 
-The source is a locally runnable game candidate, not a mirror-delete deployment bundle. Serve `public/` over HTTP and open `/games/long-jump/` to run the game. The original root homepage image is included unchanged and was verified against the remote Git blob.
+The user authorized direct publication of this route expansion. This document describes safe application; exact remote/deployment success is recorded in `evidence/route-v9/publication-receipt.json` when available, not inferred from the presence of this package.
 
-- Target base: `jeiwu1020/playformosa` commit `68685a8282a2143ff72832de03e4f6d06cf1adc9`.
-- Only apply `evidence/changed-files.json` and the corresponding current files (or the canonical-base `evidence/focused-v8.patch`). Do not use absence of a local file as an instruction to delete it.
-- Preserve unchanged `public/assets/hero-long-jump.png` as exact Git blob `89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f`, 2,290,523 bytes. It was recovered from the verified public deployment after GitHub binary readers failed; it is not a changed asset.
-- The focused patch normalizes the retrieved base text to its verified upstream Git blobs before diffing. The restored text snapshot's extra trailing newline is not a platform change.
-- No main push, merge, deployment or change to other platform games is authorized by this package. Recheck remote HEAD before applying to avoid overwriting later work.
-- Review evidence lives under `evidence/`; actual CPU images are not live-browser screenshots. Source code contains no remote rendering trick, gameplay video replacement or injected successful game state.
+- Base: `jeiwu1020/playformosa` commit `d674b77d9fcbe28798bbb70e88d69c60bfe5a8ff`.
+- Apply only `evidence/route-v9/changed-files.json` / `focused.patch`; preserve every other upstream path. Recheck main and merge later changes rather than force overwrite.
+- Do not mirror-delete this bundle. Original hero stays exact Git blob `89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f`,2290523bytes.
+- Controls and physical flight feel are unchanged; the route/display scale changes, with separate v9 records preserving v8.
+- Displayed adventure mileage estimates cumulative landmark legs; it is not Taipei straight-line distance, actual road travel or present planetary separation. Space connections are fictional reference-scale legs. Visible「航段」means illustrated milestone chapter.
+- CPU images are actual mesh/state evidence, not browser/HUD/touch acceptance. `public/` is the playable static root; the build emits `dist/`.
+- Previous v8 receipts remain under `evidence/`; use the `route-v9` subdirectory for this release.
