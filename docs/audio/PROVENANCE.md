@@ -1,26 +1,34 @@
-# Jump game audio candidates — 2026-10-27
+# PlayFormosa audio sources and processing
+Selected release:2026-10-27. No paid license was purchased. No subjective listening verification is claimed.
 
-All recordings are existing CC0 assets, not generated sounds. No paid content was acquired; Not Jam used the official $0 download flow. These are candidate selections based on official file names, not an audition-approved mix.
+## Background music — CC BY4.0
+“Funin and Sunin” — Kevin MacLeod (incompetech.com), ISRC USUAN1700011.
+- Official track: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700011
+- Source MP3: https://incompetech.com/music/royalty-free/mp3-royaltyfree/Funin%20and%20Sunin.mp3
+- Official license statement: https://incompetech.com/music/royalty-free/licenses/
+- License: https://creativecommons.org/licenses/by/4.0/
+- Source SHA256:72d8cdf58029908acddc8d437fe0b5bc81566f2f05e723cc254a87da615febd9
+- Uses the FULL218.958-second source recording, not the26-second audition excerpt. Modifications:lowpass6.5kHz, loudness target-26LUFS,0.35s fade-in,1s fade-out, web encoding. Entire decoded track repeats after its natural ending; no claim of a beat-seamless edit.
+- Attribution is accessible under「音樂與音效授權」in the opening/pause/result card. Attribution and modifications do not imply artist endorsement.
 
-## Authors and sources
-- Kenney, RPG Audio: https://kenney.nl/assets/rpg-audio
-  Original archive: https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip
-  Included original license: licenses/Kenney-RPG-License.txt
-- Not Jam, Not Jam Music Pack 2: https://not-jam.itch.io/not-jam-music-pack-2
-  Official free download route: /purchase, then /download_url and /file/{upload_id}.
-  SFX archive upload ID: 11283573. Really Long Arms loopable WAV upload ID: 11288645.
-  The official page's CC0 statement is retained in licenses/notjam-source-page.html and summarized in licenses/NotJam-CC0-source-statement.txt. SFX ZIP itself has no license file.
+## Human result cheer — CC0
+“Crowd Cheer” — FoolBoyMedia: https://freesound.org/people/FoolBoyMedia/sounds/397434/
+- Uses the creator page's publicly supplied HQ MP3 preview, not nativeWAV. No login or restricted original download was used.
+- Source SHA256:b621e391cb850ff79d8c215faf295119e747340803429ffbb383b5eaf4a132d2
+- First3seconds; highpass100Hz, lowpass6.5kHz, target-24LUFS/peak cap-10dBFS before fades,0.06s fade-in/0.35s fade-out, web encoding. Exact selected cheer1 edit; plays once on result, not during unlock or milestones.
 
-## Ready-to-use files
-Each web file has both .ogg and .mp3 variants:
-- bgm: Not Jam really_long_arms_loopable.wav. Original seamless-loop variant; 15.360 seconds. OGG preferred for exact looping when supported. MP3 may introduce codec delay/padding depending on decoder; verify loop on target browsers, or decode original WAV and set loopEnd=15.36.
-- step: Kenney Audio/footstep00.ogg, 0.249 seconds.
-- jump: Not Jam SFX/slingshot.wav, 0.469 seconds.
-- flight: Not Jam SFX/dash.wav, 0.517 seconds. One-shot flight accent, NOT a loop; do not repeat continuously without listening.
-- land: Kenney Audio/dropLeather.ogg, 0.415 seconds. Soft landing candidate, not a literal body impact.
-- result: Not Jam SFX/accept.wav, 0.571 seconds.
+## Footsteps — CC0
+Kenney RPG Audio, footstep04.ogg: https://kenney.nl/assets/rpg-audio
+- Source SHA256:fd264d72a7cd622b82abde202f4ed09fa7de95d34c36473ee938ce66cdf39830
+- Highpass70Hz/lowpass2.4kHz; target peak-19dBFS before tiny fades (3dB lower than round2's-16dBFS demonstration); web encoding. These normalized assets use unity WebAudio gain, avoiding an unintended second attenuation.
 
-## Processing and QA
-ffmpeg converted to 44.1 kHz, OGG Vorbis quality 3 and MP3 96 kbps; no composition, pitch changes, cuts or normalization. Original files and archives retained. manifest.json records source mappings, duration, output size and SHA-256 hashes. All web derivatives were decoded by ffmpeg successfully. No playback/listening audition was performed; subjective cheerfulness, sound balance, and seamless playback in the actual game remain manual QA tasks.
+## Preserved action effects — CC0
+- Jump:Not Jam Music Pack2,SFX/slingshot.wav.
+- Flight:Not Jam Music Pack2,SFX/dash.wav; rate-limited one-shot, never a continuous loop.
+- Landing:Kenney RPG Audio,Audio/dropLeather.ogg.
+- Not Jam source: https://not-jam.itch.io/not-jam-music-pack-2
+- Kenney source: https://kenney.nl/assets/rpg-audio
+- CC0: https://creativecommons.org/publicdomain/zero/1.0/
+- Original included Kenney license and Not Jam statement remain alongside web audio. Existing jump/flight/land volumes are unchanged.
 
-CC0 does not require credit. Optional credits: “Music and electronic SFX: Not Jam; footsteps and landing SFX: Kenney (CC0).”
+`selected-manifest.json` records selected outputs; `manifest.json` is historical evidence of prior CC0 candidates and does not describe the new bgm/step/result files. Source recordings, creator pages, license text and reproducible script are archived in the release's durable source package, separately from deployable assets.
