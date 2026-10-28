@@ -1,3 +1,4 @@
+import {syncPauseButton} from '../shared/game-ui.mjs';
 import {renderCameraBounds,isStandalone} from './layout.mjs';
 import {protectPlaySurface,protectSelection} from './play-surface.mjs';
 import {splitResultComment} from './result-view.mjs';
@@ -21,7 +22,7 @@ const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.backgroun
 let paused=false;
 const modal=createDialogController($('overlay'),()=>{if(paused)resume();},{forceFallback:isStandalone(window)});
 let renderer;
-try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});}catch{$('card-title').textContent='這個裝置暫時無法開啟 3D';$('card-text').textContent='請使用支援 WebGL 的瀏覽器再試。';$('start').disabled=true;modal.open();throw new Error('WebGL unavailable');}
+try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});}catch{$('card-title').textContent='這個裝置暫時無法開啟 3D';$('card-text').textContent='請使用支援 WebGL 的瀏覽器再試。';for(const id of ['sound','reset','pause','start'])$(id).disabled=true;modal.open();throw new Error('WebGL unavailable');}
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;$('scene').appendChild(renderer.domElement);
 const camera=new THREE.OrthographicCamera(-10,10,6,-6,.1,140);camera.position.set(5,6,15);camera.lookAt(5,1,0);
 scene.add(new THREE.HemisphereLight(0xffffff,0x7a9b8c,2.4));const sun=new THREE.DirectionalLight(0xfff6dd,3);sun.position.set(-5,15,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-20,right:30,top:16,bottom:-15});scene.add(sun);
@@ -117,7 +118,7 @@ $('save-result').onclick=async()=>{
  $('share-status').textContent=messages[outcome.status];
 };
 let prev=performance.now(),acc=0;function frame(now){
- requestAnimationFrame(frame);const elapsed=Math.min((now-prev)/1000,.06);prev=now;
+ requestAnimationFrame(frame);syncPauseButton($('pause'),{paused,available:playing});const elapsed=Math.min((now-prev)/1000,.06);prev=now;
  if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){step(state,input);audioEvents.update(state);acc-=DT;}
   if(state.phase==='land'&&lastPhase!=='land')burst(state.x);lastPhase=state.phase;
   if(state.phase==='done'&&!reported){

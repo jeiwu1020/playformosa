@@ -23,8 +23,8 @@ test('minigame card text is escaped and only local game routes/images are accept
 });
 test('platform adaptation offers same-host home routes without stale private prototype claims',()=>{
  const root=new URL('../public/games/reaction-rod/',import.meta.url),html=readFileSync(new URL('index.html',root),'utf8');
- assert.match(html,/id="platformHome"[^>]*href="\/#minigames"/);
- assert.match(html,/aria-label="回到 PlayFormosa 小遊戲區"/);
+ assert.match(html,/class="pf-home"[^>]*href="\/"/);
+ assert.match(html,/aria-label="遊戲首頁"/);
  for(const f of ['index.html','game.mjs','share.mjs']){
   const s=readFileSync(new URL(f,root),'utf8');
   assert.doesNotMatch(s,/reaction-rod-lab-20261027|jeiwu1020\.chatgpt\.site|私人原型|僅你可開啟|僅本人可開啟|私人連結/);

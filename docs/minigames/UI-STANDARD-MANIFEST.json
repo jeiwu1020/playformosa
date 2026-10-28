@@ -1,0 +1,33 @@
+{
+  "baselineTree": "d9f2d51ed2541c0e98a0836eb948492066eb82e6",
+  "files": [
+    {
+      "game": "reaction-rod",
+      "path": "game.mjs",
+      "baselineSha256": "fdd563ad7de3c8bd722d5b170f2ec07771202790a81c4cecc7a46623c02d7b6a",
+      "sha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
+      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+    },
+    {
+      "game": "reaction-rod",
+      "path": "index.html",
+      "baselineSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
+      "sha256": "c8cd0ae12e1f65de99e7cb9503c82c1b7114311c4334e42014dd86d810f3c6c5",
+      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+    },
+    {
+      "game": "beer-slide",
+      "path": "game.mjs",
+      "baselineSha256": "313b23d3166a687cf99356b4c271722a0d00a81c7e68af9614e7b300fd56ad2e",
+      "sha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7",
+      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+    },
+    {
+      "game": "beer-slide",
+      "path": "index.html",
+      "baselineSha256": "cdd6d0b30e3a77450f09f9f63c09704389ab2fff3b91d23b9bfeeed936027ed9",
+      "sha256": "565f2d15e794565bcb46eb37825131e0542da796dfea37f848508f0a2f373705",
+      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+    }
+  ]
+}

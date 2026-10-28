@@ -12,7 +12,7 @@ test('beer joins rod as a separate playable minigame without changing the two de
 test('beer offers home and result sharing without stale private-only claims',()=>{
  const root=new URL('../public/games/beer-slide/',import.meta.url);assert.ok(existsSync(root),'beer runtime imported');
  const html=readFileSync(new URL('index.html',root),'utf8');
- assert.match(html,/id="platformHome"[^>]*href="\/#minigames"/);assert.match(html,/aria-label="回到 PlayFormosa 小遊戲區"/);
+ assert.match(html,/class="pf-home"[^>]*href="\/"/);assert.match(html,/aria-label="遊戲首頁"/);
  for(const id of ['platformShare','platformCopy','platformThreads','platformShareStatus','platformCopyDialog'])assert.match(html,new RegExp('id="'+id+'"'));
  assert.match(html,/src="\.\/platform.mjs"/);assert.doesNotMatch(html,/jeiwu1020\.chatgpt\.site|私人原型|僅本人可開啟/);
 });

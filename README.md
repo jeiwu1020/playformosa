@@ -39,3 +39,7 @@ Every stop now has one fixed main landmark plus local supporting streets/terrain
 ## Independent minigames (preview/hurdles)
 
 The separate 小遊戲 shelf now contains **接棒啦！** (reaction-rod v9 full-body crouch) and **別灑啊！** (Beer Slide v7). They preserve their original mechanics, latest accepted character/cup art, local records and licensed assets. Both include platform return links; Rod retains image sharing and Beer offers clearly labeled text/link sharing. They do not change the decathlon's 2/10 count. See `docs/minigames/INTEGRATION.md` and its source-hash manifest for exact provenance and verification limits. This source description is not a deployment receipt.
+
+## Shared game interface / future admission
+
+All four preview games now follow [the platform game UI standard](docs/GAME-UI-STANDARD.md): the same **← 遊戲首頁** link, music/restart/pause toolbar, viewport-safe results and three result-share actions. Beer now prepares a PNG from the actual settled/visible-fall cup, score and verdict; it no longer offers text-only sharing. Threads still receives text and URL only—images must be attached manually. New games must import the shared UI layer and pass the lifecycle, accessibility, sharing, provenance and browser admission checklist, not merely copy the CSS.

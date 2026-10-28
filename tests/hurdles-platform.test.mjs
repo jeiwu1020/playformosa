@@ -11,7 +11,7 @@ test('the hurdles catalog link reaches a self-contained platform game and real g
   const page=new URL('../public'+entry.href+'index.html',import.meta.url);
   assert.ok(existsSync(page),'catalog route must have a game document');
   const html=readFileSync(page,'utf8');
-  assert.match(html,/<a class="brand" href="\/"/,'game home stays on the test platform');
+  assert.match(html,/<a class="pf-home" href="\/"/,'game home stays on the test platform');
   assert.doesNotMatch(html,/私人試玩版|私人網址不會讓其他人直接試玩/,'unknown preview access must not be labelled private');
   assert.ok(existsSync(new URL('../public'+entry.image,import.meta.url)),'gameplay thumbnail is packaged');
   const image=readFileSync(new URL('../public'+entry.image,import.meta.url));
