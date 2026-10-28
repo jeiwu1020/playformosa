@@ -10,10 +10,11 @@ test('modal is explicitly positioned in visual viewport for rotated touch hit ta
 
 test('phone portrait control bottom aligns with previous control top at 375, 390 and 430 widths',()=>{
  for(const [width,height,insets] of [[375,667,{}],[375,812,{top:44,bottom:34}],[390,844,{}],[390,844,{top:47,bottom:34}],[430,932,{top:59,bottom:34}]]){
-  const l=layout.gameLayout({width,height,insets,coarsePointer:true});
+  const l=layout.gameLayout({width,height,insets,coarsePointer:true,standalone:true});
   const oldBottom=height-(insets.bottom||0)-8,oldTop=oldBottom-96;
   assert.equal(l.controlLift,96);assert.equal(oldBottom-l.controlLift,oldTop);
-  assert.equal(l.arenaHeight,height-(insets.top||0)-(insets.bottom||0)-264);
+  assert.equal(l.playHeight,height-(insets.top||0)-(insets.bottom||0)-264);
+  assert.equal(l.arenaHeight,l.mainHeight);assert.equal(l.sceneExtension,200);
   assert.ok(l.arenaHeight>=300,'reserve usable scene height');assert.equal(l.buttonHeight,96);
  }
 });
@@ -25,9 +26,37 @@ test('phone landscape, tablets and all desktop pointer layouts keep original con
 test('viewport updates lift phone controls in portrait, clear lift in landscape and restore after rotation',()=>{
  const values=new Map(),attrs=new Map(),events=new Map(),queue=[];const probe={style:{},setAttribute(){},remove(){}};
  const doc={documentElement:{setAttribute:(k,v)=>attrs.set(k,v),style:{setProperty:(k,v)=>values.set(k,v)}},createElement:()=>probe,body:{appendChild(){}}};
- const win={innerWidth:390,innerHeight:844,matchMedia:()=>({matches:true}),getComputedStyle:()=>({}),addEventListener:(k,v)=>events.set(k,v),removeEventListener(){},requestAnimationFrame:f=>queue.push(f)};
+ const win={innerWidth:390,innerHeight:844,matchMedia:()=>({matches:true}),navigator:{standalone:true},getComputedStyle:()=>({}),addEventListener:(k,v)=>events.set(k,v),removeEventListener(){},requestAnimationFrame:f=>queue.push(f)};
  const dispose=layout.installViewportLayout(win,doc);
  assert.equal(values.get('--controls-lift'),'96px');
  for(const [width,height,lift] of [[844,390,'0px'],[390,844,'96px'],[430,932,'96px']]){Object.assign(win,{innerWidth:width,innerHeight:height});events.get('orientationchange')();queue.shift()();assert.equal(values.get('--controls-lift'),lift);}
  dispose();
+});
+
+test('Safari browser with URL bar never lifts controls; only explicit standalone phone portrait does',()=>{
+ for(const [width,height]of [[375,667],[390,844],[430,932]]){
+  const browser=layout.gameLayout({width,height,coarsePointer:true,standalone:false});assert.equal(browser.controlLift,0);assert.equal(browser.sceneExtension,0);assert.equal(browser.arenaHeight,height-168);
+  const app=layout.gameLayout({width,height,coarsePointer:true,standalone:true});assert.equal(app.controlLift,96);assert.equal(app.sceneExtension,200);assert.equal(app.arenaHeight,height-64);assert.equal(app.playHeight,height-264);
+ }
+});
+test('standalone detection uses display-mode or iOS standalone, never viewport or UA guesses',()=>{
+ assert.equal(typeof layout.isStandalone,'function');
+ for(const [display,ios,want]of [[false,false,false],[true,false,true],[false,true,true],[false,undefined,false]])assert.equal(layout.isStandalone({matchMedia:query=>({matches:query==='(display-mode: standalone)'&&display}),navigator:{standalone:ios,userAgent:'iPhone'}}),want);
+ assert.equal(layout.isStandalone({}),false);
+});
+test('render extension reveals only extra lower field without moving or scaling the existing camera view',()=>{
+ assert.equal(typeof layout.renderCameraBounds,'function');const frame={halfW:4.8,halfH:3.3};
+ const normal=layout.renderCameraBounds(frame,580,580);assert.deepEqual(normal,{left:-4.8,right:4.8,top:3.3,bottom:-3.3});
+ const extended=layout.renderCameraBounds(frame,580,780);assert.equal(extended.left,normal.left);assert.equal(extended.right,normal.right);assert.equal(extended.top,normal.top);assert.ok(extended.bottom<normal.bottom);
+ assert.ok(Math.abs(780/(extended.top-extended.bottom)-580/6.6)<1e-10,'same pixels per world unit');
+ assert.ok(Math.abs((extended.top-1)*780/(extended.top-extended.bottom)-(normal.top-1)*580/6.6)<1e-10,'same existing world-point pixel y');
+});
+
+test('real THREE orthographic projection preserves athlete pixels when the standalone field extends',async()=>{
+ const THREE=await import('../../public/games/long-jump/vendor/three.module.min.js');const {fresh,pose,cameraFrame}=await import('../../public/games/long-jump/physics.mjs');
+ for(const [width,height]of [[375,667],[390,844],[430,932]])for(const flight of [false,true]){
+  const l=layout.gameLayout({width,height,coarsePointer:true,standalone:true}),w=l.arenaWidth-2,oldH=l.playHeight-2,newH=l.arenaHeight-2,s=fresh();if(flight){s.phase='air';s.y=12;s.theta=.7;}
+  const view=cameraFrame(s,w,oldH),camera=h=>{const c=new THREE.OrthographicCamera(-1,1,1,-1,.1,140);Object.assign(c,layout.renderCameraBounds(view,oldH,h));c.position.set(view.centerX,view.centerY+4,16);c.lookAt(view.centerX,view.centerY,0);c.updateProjectionMatrix();c.updateMatrixWorld();return c;},before=camera(oldH),after=camera(newH);
+  for(const point of Object.values(pose(s))){const p=new THREE.Vector3(point.x,point.y,point.z||0),a=p.clone().project(before),b=p.clone().project(after);assert.ok(Math.abs((a.x+1)*w/2-(b.x+1)*w/2)<1e-7);assert.ok(Math.abs((1-a.y)*oldH/2-(1-b.y)*newH/2)<1e-7,`${width}px athlete point must neither move nor stretch`);}
+ }
 });
