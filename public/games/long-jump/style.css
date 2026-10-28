@@ -70,3 +70,9 @@ html[data-layout="bottom"] main{grid-template-columns:1fr 1fr;grid-template-rows
 [data-play-surface],[data-play-surface] *,header h1,#sound-status,header button,header button *,.card button,.card button *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 [data-play-surface] canvas,[data-play-surface] img{-webkit-user-drag:none}
 [data-play-surface] [data-limb] *{pointer-events:none}
+
+/* Standalone portrait: the real field continues behind controls to the bottom.
+   HUD stays in the original play area; only the renderer's lower view expands. */
+html[data-controls-raised="true"] .arena{grid-row:1/3;margin-bottom:calc(-1 * var(--controls-lift,0px))}
+html[data-controls-raised="true"] .limbs{position:relative;z-index:1}
+html[data-controls-raised="true"] #air-guide{bottom:calc(28px + var(--scene-extension,0px))}
