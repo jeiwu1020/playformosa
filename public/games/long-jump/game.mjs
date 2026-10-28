@@ -4,6 +4,7 @@ import {splitResultComment} from './result-view.mjs';
 import {createGameAudio,createAudioEvents} from './audio.mjs';
 import {arrivalFlavour} from './flavour.mjs';
 import {createScenery} from './scenery.mjs';
+import {createSandpits} from './sandpits.mjs';
 import {regionAt,journeyLabel,adventureAt,routeLabel} from './world.mjs';
 import {controlFeedback,formatDistance,formatMileage,resultDisplay,resultShareText} from './presentation.mjs';
 import {settleVerdict} from './verdicts.mjs';
@@ -27,6 +28,7 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x7a9b8c,2.4));const sun=new THREE.
 const materials={};function mat(c){return materials[c]??=new THREE.MeshStandardMaterial({color:c,roughness:.85});}
 function box(x,y,z,w,h,d,c){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(c));m.position.set(x,y,z);m.receiveShadow=true;scene.add(m);return m;}
 const world=createScenery(THREE,scene);
+const sandpits=createSandpits(THREE,scene);
 const character=createCharacter(THREE,scene);
 const shadow=new THREE.Mesh(new THREE.CircleGeometry(.4,32),new THREE.MeshBasicMaterial({color:'#315d5b',transparent:true,opacity:.16,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.position.y=.02;scene.add(shadow);
 const dust=[];for(let i=0;i<30;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.055),mat('#f4e5be'));m.visible=false;scene.add(m);dust.push({m,life:0,v:new THREE.Vector3()});}
@@ -51,7 +53,7 @@ function show(title,text,button){$('result-brand').hidden=true;$('result-score-b
 function pauseGame(){if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
 window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>paused?resume():pauseGame();
 function resume(){pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
-function start(){shareState.begin();pendingCapture=false;pauseRecovery.cancel();landingCapture.reset();$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});modal.close();}
+function start(){shareState.begin();pendingCapture=false;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});modal.close();}
 $('start').onclick=()=>paused?resume():start();$('reset').onclick=start;
 let sceneWidth=1,sceneHeight=1,scenePlayHeight=1;
 function resize(){const el=$('scene');sceneWidth=Math.max(1,el.clientWidth);sceneHeight=Math.max(1,el.clientHeight);scenePlayHeight=Math.max(1,sceneHeight-(parseFloat(document.documentElement.style.getPropertyValue('--scene-extension'))||0));renderer.setSize(sceneWidth,sceneHeight,false);}new ResizeObserver(resize).observe($('scene'));resize();
@@ -139,6 +141,8 @@ let prev=performance.now(),acc=0;function frame(now){
  renderAthlete();const view=cameraFrame(state,sceneWidth,scenePlayHeight);Object.assign(camera,renderCameraBounds(view,scenePlayHeight,sceneHeight));camera.updateProjectionMatrix();camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);sun.position.set(state.x-5,18,8);sun.target.position.set(state.x,0,0);sun.target.updateMatrixWorld();
  if(!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
  effects(elapsed);
+ // Read-only landing scenery must be ready before this frame is frozen below.
+ sandpits.update(state,pose(state),{elapsed,paused});
  $('speed').innerHTML='<span class="speed-caption">'+(state.jumped?'起跳速度':'助跑速度')+'</span>'+toKmh(state.takeoffSpeed??state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
  if(pendingCapture&&sceneWidth>1&&sceneHeight>1&&!document.hidden){pendingCapture=false;
