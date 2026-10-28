@@ -1,3 +1,4 @@
+import {protectPlaySurface,protectSelection} from './play-surface.mjs';
 import {splitResultComment} from './result-view.mjs';
 import {createGameAudio,createAudioEvents} from './audio.mjs';
 import {arrivalFlavour} from './flavour.mjs';
@@ -12,6 +13,8 @@ import {createShareState,makeResultFile,saveResultImage,openThreads,copyResultTe
 import {captureResultPng,paintScoreCard,createLandingCapture} from './capture.mjs';
 import {createInput,clearCapturedInput,cancelPendingMotion,handleGameKey} from './controls.mjs';
 import {fresh,step,pose,result,readBest,saveBest,saveJourney,worldX,START,BOARD,PIT,DT,cameraFrame,toKmh} from './physics.mjs';
+document.querySelectorAll('[data-play-surface]').forEach(protectPlaySurface);
+document.querySelectorAll('header h1, #sound-status, header button, .card button').forEach(protectSelection);
 const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.background=new THREE.Color('#c4e6e4');scene.fog=new THREE.Fog('#c4e6e4',38,90);
 let paused=false;
 const modal=createDialogController($('overlay'),()=>{if(paused)resume();});
