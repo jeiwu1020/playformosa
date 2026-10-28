@@ -1,0 +1,130 @@
+{
+    "title": "",
+    "media": [
+        {
+            "file": "SwitchWithMeTheme.ogg",
+            "type": "video",
+            "title": "Switch With Me"
+        },
+        {
+            "file": "HaroldParanormalInstigatorTheme.ogg",
+            "type": "video",
+            "title": "Harold: Paranormal Instigator"
+        },
+        {
+            "file": "CriticalTheme.ogg",
+            "type": "video",
+            "feature": true,
+            "title": "Critical"
+        },
+        {
+            "file": "PitcherPerfectTheme.ogg",
+            "type": "video",
+            "title": "Pitcher Perfect"
+        },
+        {
+            "file": "BreakbeatChips.ogg",
+            "type": "video",
+            "title": "Breakbeat Chips"
+        },
+        {
+            "file": "SeeingDouble.ogg",
+            "type": "video",
+            "title": "Seeing Double"
+        },
+        {
+            "file": "TypeCastTheme.ogg",
+            "type": "video",
+            "title": "TYPE:CAST"
+        },
+        {
+            "file": "ChillMenu.ogg",
+            "type": "video",
+            "title": "Chill Menu"
+        },
+        {
+            "file": "CrashingOut.ogg",
+            "type": "video",
+            "title": "Crashing Out"
+        },
+        {
+            "file": "VictoryLap.ogg",
+            "type": "video",
+            "title": "Victory Lap"
+        },
+        {
+            "file": "MeltdownTheme.ogg",
+            "type": "video",
+            "title": "Meltdown"
+        },
+        {
+            "file": "TitleTheme_PhoneHome.ogg",
+            "type": "video",
+            "title": "Phone Home"
+        },
+        {
+            "file": "DarkCavern_PhoneHome.ogg",
+            "type": "video",
+            "title": "Dark Cavern [Phone Home]"
+        },
+        {
+            "file": "KleptoLindaTitles.ogg",
+            "type": "video",
+            "title": "Klepto-Linda"
+        },
+        {
+            "file": "KleptoLindaMountainA.ogg",
+            "type": "video",
+            "title": "Mountain A [Klepto-Linda]"
+        },
+        {
+            "file": "KleptoLindaCavernsB.ogg",
+            "type": "video",
+            "title": "Caverns B [Klepto-Linda]"
+        },
+        {
+            "file": "KleptoLindaCredits.ogg",
+            "type": "video",
+            "title": "Credits [Klepto-Linda]"
+        },
+        {
+            "file": "DragAndDreadTheme.ogg",
+            "type": "video",
+            "title": "Drag And Dread"
+        },
+        {
+            "file": "UntitledTrack01.ogg",
+            "type": "video",
+            "title": "Untitled [Unreleased Project]"
+        },
+        {
+            "file": "DescendGameplay.ogg",
+            "type": "video",
+            "title": "Descend"
+        }
+    ],
+    "theme": {
+        "titleStyle": "none",
+        "backgroundColor": "#071820",
+        "primaryColor": "#86c073",
+        "primaryAltColor": "#86c073",
+        "secondaryColor": "#14382c",
+        "highlightColor": "#14382c",
+        "primaryTextColor": "#e1f7d1",
+        "primaryAltTextColor": "#86c073",
+        "previewStripeColor1": "#3f3f3f",
+        "previewStripeColor2": "#2c2c2c",
+        "linkColor": "#838383",
+        "layoutStyle": "vertical",
+        "infoStyle": "overlaid",
+        "overlayTextColor": "#ffffff",
+        "overlayBackgroundColor": "#00000080",
+        "hideInfoDropdown": false,
+        "contentWidth": "400",
+        "coverSize": "0",
+        "nativePlayer": false,
+        "customCSS": ""
+    },
+    "description": "",
+    "loopModeDefault": "none"
+}

@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createState,step,release,score,CFG} from '../../public/games/beer-slide/physics.mjs';
+const run=(s,n,hand=null)=>{for(let i=0;i<n;i++)step(s,1/120,hand);return s;};
+test('a resting mug retains beer and position',()=>{const s=run(createState(),600);assert.equal(s.fill,1);assert.equal(s.z,CFG.startZ);});
+test('momentum decays with Coulomb friction',()=>{const s=createState();s.vz=-3;release(s);run(s,360);assert.equal(s.vz,0);assert.ok(s.z<CFG.startZ-2);assert.ok(!s.fallen);});
+test('same input is deterministic and score combines distance and retained beer',()=>{const a=createState(),b=createState();for(const s of [a,b]){s.vz=-3;release(s);run(s,600);}assert.deepEqual(a,b);const good={...a,x:0,z:CFG.targetZ,fill:1,fallen:false};assert.equal(score(good).total,1000);assert.ok(score({...good,fill:.5}).total<500);assert.ok(score({...good,z:CFG.targetZ+1}).total<400);});
+test('overflow is driven by acceleration and conserves liquid',()=>{const s=createState();run(s,35,{x:0,z:-3.4});assert.ok(s.fill<1,'sharp acceleration should overflow');assert.ok(s.fill>=0);assert.ok(s.spilled>0);assert.ok(Math.abs(s.spilled+s.fill-1)<1e-10);});
+test('gently moved mug spills less than hard shove',()=>{const gentle=createState(),hard=createState();for(let i=0;i<120;i++)step(gentle,1/120,{x:0,z:CFG.startZ-.7*i/120});run(hard,120,{x:0,z:CFG.startZ-3});assert.ok(gentle.fill>hard.fill);});
+test('mug crosses table edge and loses remaining beer',()=>{const s=createState();s.x=CFG.tableHalfWidth+.1;release(s);run(s,240);assert.equal(s.fallen,true);assert.equal(s.fill,0);assert.equal(score(s).total,0);});
+test('no non-finite state after extended hard input',()=>{const s=createState();for(let i=0;i<8000;i++)step(s,1/120,i<100?{x:1,z:-4}:null);for(const k of ['x','z','vx','vz','fill','sloshX','sloshZ'])assert.ok(Number.isFinite(s[k]),k);assert.ok(s.fill>=0&&s.fill<=1);});
+test('invalid timestep has no effect',()=>{const s=createState(),prior={...s};step(s,NaN,null);assert.deepEqual(s,prior);});
+test('a repeatable smooth push can score over 900',()=>{const s=createState();for(let i=0;i<1.26*120;i++){const t=i/120;step(s,1/120,{x:0,z:CFG.startZ-t*t*1.35});}release(s);run(s,900);const r=score(s);assert.ok(r.success);assert.ok(r.total>900);assert.ok(r.spillMl<25);});
+test('slowly carrying the mug past the release line cannot win',()=>{const s=createState();for(let i=0;i<1800;i++)step(s,1/120,{x:0,z:CFG.startZ-6.35*Math.min(i/1600,1)});release(s);run(s,900);assert.equal(s.invalidReason,'late-release');assert.equal(score(s).total,0);assert.equal(score(s).success,false);});
+test('release before the marked line stays valid',()=>{const s=createState();for(let i=0;i<1.26*120;i++){const t=i/120;step(s,1/120,{x:0,z:CFG.startZ-t*t*1.35});}assert.ok(s.z>CFG.releaseZ);release(s);run(s,900);assert.equal(s.invalidReason,null);assert.ok(score(s).total>900);});
+test('cancelled pointer or keyboard gesture cannot launch or score',async()=>{const {cancelGesture}=await import('../../public/games/beer-slide/physics.mjs');const s=createState();s.z=CFG.targetZ;s.vz=-3;cancelGesture(s);assert.equal(s.released,false);assert.equal(s.vz,0);assert.equal(s.vx,0);assert.equal(score(s).total,0);assert.equal(score(s).success,false);});

@@ -35,3 +35,7 @@ v8 production base: `d674b77d9fcbe28798bbb70e88d69c60bfe5a8ff`. The user authori
 
 ### Landmark art refinement (v10 visuals; v9 rules)
 Every stop now has one fixed main landmark plus local supporting streets/terrain. The opening 101 is not repeated. Geometry batches keep the scenery bounded; camera, character, controls, physics, mileage and record namespaces are unchanged. See `docs/landmark-art.md`.
+
+## Independent minigames (preview/hurdles)
+
+The separate 小遊戲 shelf now contains **接棒啦！** (reaction-rod v9 full-body crouch) and **別灑啊！** (Beer Slide v7). They preserve their original mechanics, latest accepted character/cup art, local records and licensed assets. Both include platform return links; Rod retains image sharing and Beer offers clearly labeled text/link sharing. They do not change the decathlon's 2/10 count. See `docs/minigames/INTEGRATION.md` and its source-hash manifest for exact provenance and verification limits. This source description is not a deployment receipt.

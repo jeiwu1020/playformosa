@@ -7,3 +7,6 @@
 
 /* Runtime game scenes fill cards while preserving the existing long-jump hero art. */
 .game-thumbnail img.game-scene{object-fit:cover;object-position:28% 50%;transform:none}
+
+/* Independent mini-game shelf does not contribute to the decathlon count. */
+.minigames{margin:24px 0}.minigames .series-heading{background:#f8cd78}.minigames .game-thumbnail img.game-scene{object-position:50% 50%}.minigames-empty{margin:0;padding-bottom:25px;font-weight:750}

@@ -1,0 +1,237 @@
+{
+  "createdAt": "2026-10-28T15:31:13.720323+00:00",
+  "remoteBaseline": "d84b7fd0b0828319701fd35dc8a73ac0b762a58f",
+  "branch": "preview/hurdles",
+  "sources": [
+    {
+      "game": "reaction-rod",
+      "archive": "reaction-rod-source-v9-full-body-20261027.tar.gz",
+      "archiveBytes": 25387975,
+      "archiveSha256": "94b3cb34a66919406f36a9102008862e9a779fc19a8347e45ae055465753814f",
+      "libraryFileId": "libfile_df30c39cd5d881919b52067820183c15",
+      "libraryVersion": "10",
+      "originalRuntimeFiles": [
+        {
+          "path": "framing.mjs",
+          "sourceSha256": "3d6756fb4d9055f842b4c5104b2356fa32777ff4b8cff5d5a972e2249bf0122d",
+          "importedSha256": "3d6756fb4d9055f842b4c5104b2356fa32777ff4b8cff5d5a972e2249bf0122d",
+          "unchanged": true
+        },
+        {
+          "path": "game.mjs",
+          "sourceSha256": "044bd0d3a03305ccd23cb25b442cf68051908a29ae8e102fac80bb342ef39e00",
+          "importedSha256": "fdd563ad7de3c8bd722d5b170f2ec07771202790a81c4cecc7a46623c02d7b6a",
+          "unchanged": false
+        },
+        {
+          "path": "index.html",
+          "sourceSha256": "351d79be26fdaf86249617fefbc646e0cc14589354203a71dd08f6f0abed2050",
+          "importedSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
+          "unchanged": false
+        },
+        {
+          "path": "physics.mjs",
+          "sourceSha256": "51a7764ceec2d04d262a8b415ddb824364b50cafbc3a4cf9f1b489d1e8ab323c",
+          "importedSha256": "51a7764ceec2d04d262a8b415ddb824364b50cafbc3a4cf9f1b489d1e8ab323c",
+          "unchanged": true
+        },
+        {
+          "path": "scene.mjs",
+          "sourceSha256": "09f6fd9c3c5965f725e66344cbe8ae087a77a88dffae04f4992d9b7c2101374c",
+          "importedSha256": "09f6fd9c3c5965f725e66344cbe8ae087a77a88dffae04f4992d9b7c2101374c",
+          "unchanged": true
+        },
+        {
+          "path": "share.mjs",
+          "sourceSha256": "ba9040ece981cc4ffb913bac4d35975f4318859f7f0208d00e32165fd4a43463",
+          "importedSha256": "534dc3b8aeb44cdd677ef41a90350a606547a8ada2f468e5e3cc5c01e107eed5",
+          "unchanged": false
+        },
+        {
+          "path": "snapshot.mjs",
+          "sourceSha256": "3f83133ad7c85d29289e03ee1d85d16973047a1a74861b25c7472ace8dfafd40",
+          "importedSha256": "3f83133ad7c85d29289e03ee1d85d16973047a1a74861b25c7472ace8dfafd40",
+          "unchanged": true
+        },
+        {
+          "path": "style.css",
+          "sourceSha256": "1b38dbcda53f08dc2c0bfc544a58d2241bbb1ca5e4dddb2c57fa575afb7a1712",
+          "importedSha256": "bc169309c2e101b66e0d1f4fb2c70ae0c650c2674c5f9a7e2ef30589251c894b",
+          "unchanged": false
+        },
+        {
+          "path": "vendor/THREE-LICENSE.txt",
+          "sourceSha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+          "importedSha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+          "unchanged": true
+        },
+        {
+          "path": "vendor/three.core.min.js",
+          "sourceSha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+          "importedSha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+          "unchanged": true
+        },
+        {
+          "path": "vendor/three.module.min.js",
+          "sourceSha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+          "importedSha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+          "unchanged": true
+        }
+      ]
+    },
+    {
+      "game": "beer-slide",
+      "archive": "beer-slide-v7-source-e1bad980-20261027.tar.gz",
+      "archiveBytes": 3583403,
+      "archiveSha256": "8d67ab5e1ddd89b1b7349c410a500664cfe44d89de993a94c76c3d74ea1bd458",
+      "libraryFileId": "libfile_7122c38e784c8191a086aefdcbcd0402",
+      "libraryVersion": "0",
+      "originalRuntimeFiles": [
+        {
+          "path": "audio/CREDITS.md",
+          "sourceSha256": "67a4eb49aa3f28ced87a87fc98b7167de162e09d232b6c76a46275e480e92871",
+          "importedSha256": "67a4eb49aa3f28ced87a87fc98b7167de162e09d232b6c76a46275e480e92871",
+          "unchanged": true
+        },
+        {
+          "path": "audio/asset-manifest.json",
+          "sourceSha256": "a956a5e67bf89599194bea8bcc0904f71855e54a17e3f6600057a7f7b7f2a64c",
+          "importedSha256": "a956a5e67bf89599194bea8bcc0904f71855e54a17e3f6600057a7f7b7f2a64c",
+          "unchanged": true
+        },
+        {
+          "path": "audio/chill-menu.mp3",
+          "sourceSha256": "d25497f3bf59bc90c1a6ba097881cf749744372e09f06a3e5747bdbe0207e144",
+          "importedSha256": "d25497f3bf59bc90c1a6ba097881cf749744372e09f06a3e5747bdbe0207e144",
+          "unchanged": true
+        },
+        {
+          "path": "audio/glass-tap.wav",
+          "sourceSha256": "66af77a37cbc7de354f4ba1a7a4653959e4ea815a705dc3aeff0077985c398e7",
+          "importedSha256": "66af77a37cbc7de354f4ba1a7a4653959e4ea815a705dc3aeff0077985c398e7",
+          "unchanged": true
+        },
+        {
+          "path": "audio/result-pizzicato.wav",
+          "sourceSha256": "d9d88d42cf827c11ea17200f8f708245b0b0fcc7435b9e90b3bd078700d52dc8",
+          "importedSha256": "d9d88d42cf827c11ea17200f8f708245b0b0fcc7435b9e90b3bd078700d52dc8",
+          "unchanged": true
+        },
+        {
+          "path": "audio/spill-drop.wav",
+          "sourceSha256": "e027afbd01a9504c634a21a78e3492cebac24e226d53343da83381b0ed18312f",
+          "importedSha256": "e027afbd01a9504c634a21a78e3492cebac24e226d53343da83381b0ed18312f",
+          "unchanged": true
+        },
+        {
+          "path": "audio/ui-click.wav",
+          "sourceSha256": "f415601f15d9d574666caeec4d7cedfc21f8ef33db7bdfc67a957d09fb38acfb",
+          "importedSha256": "f415601f15d9d574666caeec4d7cedfc21f8ef33db7bdfc67a957d09fb38acfb",
+          "unchanged": true
+        },
+        {
+          "path": "audio-ui.mjs",
+          "sourceSha256": "ecdbf6fd59526f934749139884e1765c458533a040238123d1a18e00dcddad2d",
+          "importedSha256": "ecdbf6fd59526f934749139884e1765c458533a040238123d1a18e00dcddad2d",
+          "unchanged": true
+        },
+        {
+          "path": "audio.mjs",
+          "sourceSha256": "ee92e4fa973cf52f1de55116b66c9aded1ce453b205042aabd9af18440105de5",
+          "importedSha256": "ee92e4fa973cf52f1de55116b66c9aded1ce453b205042aabd9af18440105de5",
+          "unchanged": true
+        },
+        {
+          "path": "camera.mjs",
+          "sourceSha256": "c97d5bdd8f3f1f18d1157d4a64de70204402645309c78c128f1062e1de381c74",
+          "importedSha256": "c97d5bdd8f3f1f18d1157d4a64de70204402645309c78c128f1062e1de381c74",
+          "unchanged": true
+        },
+        {
+          "path": "game.mjs",
+          "sourceSha256": "313b23d3166a687cf99356b4c271722a0d00a81c7e68af9614e7b300fd56ad2e",
+          "importedSha256": "313b23d3166a687cf99356b4c271722a0d00a81c7e68af9614e7b300fd56ad2e",
+          "unchanged": true
+        },
+        {
+          "path": "index.html",
+          "sourceSha256": "ecc1cc19712782f4dba390d5664100ab5b6e3d5b6ba1fc31262916c405a040c7",
+          "importedSha256": "cdd6d0b30e3a77450f09f9f63c09704389ab2fff3b91d23b9bfeeed936027ed9",
+          "unchanged": false
+        },
+        {
+          "path": "licenses/CC0-1.0-legalcode.txt",
+          "sourceSha256": "8bdc7b952ae0a12e08ccf9463a4750f7288f4d05bf7f2124cc5805ecaabdb01c",
+          "importedSha256": "8bdc7b952ae0a12e08ccf9463a4750f7288f4d05bf7f2124cc5805ecaabdb01c",
+          "unchanged": true
+        },
+        {
+          "path": "licenses/Kenney-Interface-License.txt",
+          "sourceSha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+          "importedSha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+          "unchanged": true
+        },
+        {
+          "path": "licenses/Kenney-Music-Jingles-License.txt",
+          "sourceSha256": "373b1c880ee6c7a83c1ccf209f251cf45fc9ea9b1f0330844fa7be64a401adc4",
+          "importedSha256": "373b1c880ee6c7a83c1ccf209f251cf45fc9ea9b1f0330844fa7be64a401adc4",
+          "unchanged": true
+        },
+        {
+          "path": "licenses/Not-Jam-License.txt",
+          "sourceSha256": "b245a49364790d5f30079864efffc212f9ab9011711ea7a3ad2e8b71b90fdfc2",
+          "importedSha256": "b245a49364790d5f30079864efffc212f9ab9011711ea7a3ad2e8b71b90fdfc2",
+          "unchanged": true
+        },
+        {
+          "path": "licenses/Not-Jam-player-config.json",
+          "sourceSha256": "2e6010b34f368ec743df53968bae99d3a823198c76d066e739f9929434c5a819",
+          "importedSha256": "2e6010b34f368ec743df53968bae99d3a823198c76d066e739f9929434c5a819",
+          "unchanged": true
+        },
+        {
+          "path": "physics.mjs",
+          "sourceSha256": "4e81f299ddd2a8f3f1e0fe670c2fc721fcae050061123c17bff4e53123323a23",
+          "importedSha256": "4e81f299ddd2a8f3f1e0fe670c2fc721fcae050061123c17bff4e53123323a23",
+          "unchanged": true
+        },
+        {
+          "path": "replay.mjs",
+          "sourceSha256": "a15d4ec646dfc874e06f067a7756fbfa7ee75cc9d7c9ae32f38bc596bd1daf3e",
+          "importedSha256": "a15d4ec646dfc874e06f067a7756fbfa7ee75cc9d7c9ae32f38bc596bd1daf3e",
+          "unchanged": true
+        },
+        {
+          "path": "session.mjs",
+          "sourceSha256": "10965d8f28add724c1efae43666f1120827db22ec8ed817ed78b01aa34d6addd",
+          "importedSha256": "10965d8f28add724c1efae43666f1120827db22ec8ed817ed78b01aa34d6addd",
+          "unchanged": true
+        },
+        {
+          "path": "style.css",
+          "sourceSha256": "7c643a911d91304604559916cef643280442f751c5167e2bb66056dc4b55ff44",
+          "importedSha256": "26e65e003c767178ac590e008cba26c00ca236ee6c0da58f5af74a08b4eab357",
+          "unchanged": false
+        },
+        {
+          "path": "vendor/THREE-LICENSE.txt",
+          "sourceSha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+          "importedSha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+          "unchanged": true
+        },
+        {
+          "path": "vendor/three.core.min.js",
+          "sourceSha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+          "importedSha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+          "unchanged": true
+        },
+        {
+          "path": "vendor/three.module.min.js",
+          "sourceSha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+          "importedSha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+          "unchanged": true
+        }
+      ]
+    }
+  ]
+}
