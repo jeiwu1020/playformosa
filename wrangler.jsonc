@@ -1,7 +1,8 @@
 {
-  // Prepared only. Name is provisional; no account or deployment exists here.
+  // Production settings stay unchanged; this branch opts into isolated Worker Previews.
   "name": "playformosa",
   "compatibility_date": "2026-10-25",
+  "previews": {},
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",

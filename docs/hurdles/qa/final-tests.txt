@@ -1,0 +1,37 @@
+✔ focused Space holds its limb until release, suppressing duplicate click (1.511181ms)
+✔ assistive synthetic click creates one short tap and never cancels other sources (0.421932ms)
+✔ focused control cannot queue input while paused (0.314304ms)
+✔ multitouch plus keyboard stays independent until each source releases (1.91671ms)
+✔ cancel and clear never retain held limbs (0.287455ms)
+✔ unmapped keys do not control runner (0.213395ms)
+✔ ten hurdles are positioned inside 110m (1.424032ms)
+✔ idle or holding every limb cannot auto-finish (35.926165ms)
+✔ alternating short steps accelerate more than same-foot spam (6.373747ms)
+✔ held leg then release jumps but short tap does not (1.229074ms)
+✔ cancel discards charge without launching on resumed empty input (1.740388ms)
+✔ running into hurdle causes one physical knockdown and recoverable stumble (7.478719ms)
+✔ high airborne pose clears hurdle without invisible collision (1.827327ms)
+✔ arm input rescues a stumble faster (2.37797ms)
+✔ pose keeps anatomical bone lengths across inputs (1.436911ms)
+✔ full ordinary tap run can finish after recoverable collisions (41.183063ms)
+✔ race time limit provides retryable DNF (196.649213ms)
+✔ verdict describes actual performance not invented clears (0.695206ms)
+✔ a limb crossing well below crossbar does not strike invisible wall (0.275677ms)
+✔ holding legs in air never queues another jump after landing (2.014524ms)
+✔ simultaneous charged release creates a single jump event (0.854021ms)
+✔ learnable charge timing yields a complete zero-hit race from real inputs (25.821236ms)
+✔ ten physical collisions cost time, so no-jump spam cannot beat a clean race (29.353313ms)
+✔ desktop always downloads rather than native share (1.65319ms)
+✔ mobile supports files only and respects cancel without download (1.723614ms)
+✔ unsupported mobile share falls back to download (0.290889ms)
+✔ share text states private preview and actual time (0.3389ms)
+✔ time format does not use bonus math (0.203991ms)
+✔ mobile native failure offers the requested image as a download (0.33875ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 485.179585

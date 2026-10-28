@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Funin and Sunin",
+    "filename": "Funin and Sunin.mp3",
+    "length": "00:03:39",
+    "instruments": "Bass, Organ, Drums, Guitar",
+    "genre": "19",
+    "bpm": "120",
+    "description": "Deep and round-sounding beach-themed piece. It can be used for non-beach applications. Not to be used internally. May cause rashes.",
+    "feel": "Bouncy, Bright, Relaxed",
+    "uploaded": "2017-01-23",
+    "isrc": "USUAN1700011",
+    "collection": "17",
+    "sheetmusic": null,
+    "video": "https://youtu.be/49cChrZsvqM",
+    "itunes": null,
+    "filmmusicURL": null
+  },
+  {
+    "title": "Funk Game Loop",
+    "filename": "Funk Game Loop.mp3",
+    "length": "00:00:57",
+    "instruments": "Bass, Organ, Guitar, Drum Kit",
+    "genre": "8",
+    "bpm": "104",
+    "description": "Looping section of a backgroundy piece of music. It says it is a game loop, but you can loop it for anything you like.",
+    "feel": "Bouncy, Bright, Grooving",
+    "uploaded": "2011-07-05",
+    "isrc": "USUAN1100839",
+    "collection": null,
+    "sheetmusic": null,
+    "video": null,
+    "itunes": "https://itunes.apple.com/us/album/funk-game-loop/id945494837?i=945494846",
+    "filmmusicURL": "https://incompetech.filmmusic.io/song/3787-funk-game-loop/"
+  },
+  {
+    "title": "Hustle",
+    "filename": "Hustle.mp3",
+    "length": "00:02:01",
+    "instruments": "Bass, Drum Kit, Organ, Guitar",
+    "genre": "3",
+    "bpm": "120",
+    "description": "The bass guitar plays a familiar rolling Blues riff, while accompanied by organ, acoustic guitar, and drums. A toe-tapping beat plays throughout, and can be used as the background music for a fast-paced game or scene, or as the intro to a scene full of bustling people.",
+    "feel": "Bouncy, Bright, Driving",
+    "uploaded": "2011-02-09",
+    "isrc": "USUAN1100793",
+    "collection": "11",
+    "sheetmusic": null,
+    "video": null,
+    "itunes": "https://itunes.apple.com/us/album/hustle/id945494837?i=945494850",
+    "filmmusicURL": "https://incompetech.filmmusic.io/song/3890-hustle/"
+  }
+]

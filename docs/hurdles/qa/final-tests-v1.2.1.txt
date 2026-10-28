@@ -1,0 +1,65 @@
+
+> playformosa-hurdles@1.2.1 test
+> node --test tests/*.test.mjs
+
+✔ focused Space holds its limb until release, suppressing duplicate click (1.03684ms)
+✔ assistive synthetic click creates one short tap and never cancels other sources (0.281615ms)
+✔ focused control cannot queue input while paused (0.249999ms)
+✔ multitouch plus keyboard stays independent until each source releases (3.210538ms)
+✔ cancel and clear never retain held limbs (0.329086ms)
+✔ unmapped keys do not control runner (0.177472ms)
+✔ ten hurdles are positioned inside 110m (5.675577ms)
+✔ idle or holding every limb cannot auto-finish (55.044166ms)
+✔ alternating short steps accelerate more than same-foot spam (10.166433ms)
+✔ held leg then release jumps but short tap does not (2.688618ms)
+✔ cancel discards charge without launching on resumed empty input (1.784864ms)
+✔ running into hurdle causes one physical knockdown and recoverable stumble (8.523529ms)
+✔ high airborne pose clears hurdle without invisible collision (1.880575ms)
+✔ arm input rescues a stumble faster (1.99209ms)
+✔ pose keeps anatomical bone lengths across inputs (1.874056ms)
+✔ full ordinary tap run can finish after recoverable collisions (48.543322ms)
+✔ race time limit provides retryable DNF (279.113439ms)
+✔ verdict describes actual performance not invented clears (1.481055ms)
+✔ a limb crossing well below crossbar does not strike invisible wall (0.485937ms)
+✔ holding legs in air never queues another jump after landing (7.466059ms)
+✔ simultaneous charged release creates a single jump event (1.181363ms)
+✔ learnable charge timing yields a complete zero-hit race from real inputs (85.493243ms)
+✔ ten physical collisions cost time, so no-jump spam cannot beat a clean race (49.136022ms)
+✔ cancel native long-press/selection/drag defaults only on the play surface (1.931139ms)
+✔ native suppression never consumes pointer lifecycle or keyboard/assistive click (6.08507ms)
+✔ two independent fingers remain independent and cancellation still reaches game input (11.593425ms)
+✔ noncancelable notifications are harmless and later event observers still run (0.380021ms)
+✔ two fingers held at finish cannot release into a restart even after many seconds (2.213687ms)
+✔ continued rapid tapping never outlasts the guard and ghost click has no down/up (0.284019ms)
+✔ a press begun inside the guard cannot become valid by holding until it expires (0.211953ms)
+✔ cancel, drag and a second finger invalidate the whole activation (0.185874ms)
+✔ release on a different action cannot activate either target or delayed share (0.211232ms)
+✔ held game keys, Enter repeat and stale keyup cannot restart (0.259282ms)
+✔ fresh Enter and Space each activate once on release, never on repeat (0.228277ms)
+✔ fresh desktop and assistive clicks work once without a sacrificial first tap (0.189049ms)
+✔ touch-origin synthetic zero-detail clicks still need a valid fresh gesture (0.286483ms)
+✔ orientation invalidates pending tap; browser return clears lost input without permanent lock (0.491706ms)
+✔ one accepted restart cannot authorize a second countdown or future result (0.174477ms)
+✔ document binding blocks ghost bubbling and permits one fresh native click (0.807592ms)
+✔ capture loss does not pretend that a still-held old finger was released (0.167597ms)
+✔ unlabelled delayed zero-detail touch clicks cannot masquerade as assistive activation (0.126707ms)
+✔ release locks opposite lead foot and charged support foot for whole flight (16.088804ms)
+✔ hurdle apex has an extended forward lead and a folded outward trail, even with both keys held (3.250097ms)
+✔ asymmetric flight preserves actual 3D leg bone lengths (5.925525ms)
+✔ lead foot lands first and starts a short running handoff, no second launch (7.519527ms)
+✔ countdown is 3-2-1 then one GO, freezes when paused, never advances race time (1.913144ms)
+✔ same running/arm cadence: correct hurdling beats hard collisions and early/late jumps (303.709489ms)
+✔ desktop always downloads rather than native share (2.630472ms)
+✔ mobile supports files only and respects cancel without download (1.231478ms)
+✔ unsupported mobile share falls back to download (0.252804ms)
+✔ share text states private preview and actual time (0.272962ms)
+✔ time format does not use bonus math (0.107198ms)
+✔ mobile native failure offers the requested image as a download (0.203761ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 733.150337

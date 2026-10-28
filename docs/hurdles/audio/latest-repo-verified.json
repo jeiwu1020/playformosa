@@ -1,0 +1,83 @@
+{
+  "repository": "jeiwu1020/playformosa",
+  "ref": "aa12a0ef6d6336c67eed0ce9d1dc7bdf9c0b6326",
+  "verified_utc": "2026-10-28",
+  "all_local_git_blob_hashes_match": true,
+  "files": [
+    {
+      "name": "CC-BY-4.0-legalcode.txt",
+      "github_blob_sha": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f",
+      "bytes": 21838
+    },
+    {
+      "name": "Kenney-RPG-License.txt",
+      "github_blob_sha": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4",
+      "bytes": 478
+    },
+    {
+      "name": "NotJam-CC0-source-statement.txt",
+      "github_blob_sha": "1ef3611968eaad15814890ef9330d3ea58fc495d",
+      "bytes": 745
+    },
+    {
+      "name": "bgm.mp3",
+      "github_blob_sha": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b",
+      "bytes": 3504212
+    },
+    {
+      "name": "bgm.ogg",
+      "github_blob_sha": "60a770bd5cd1fd030ad24153f5d091ec6021d189",
+      "bytes": 2606294
+    },
+    {
+      "name": "flight.mp3",
+      "github_blob_sha": "914c682a51bb3bc81bf34a34cea126c340257cc6",
+      "bytes": 6940
+    },
+    {
+      "name": "flight.ogg",
+      "github_blob_sha": "04a054a7c6bc6404eb475096652c39439fec5a74",
+      "bytes": 8757
+    },
+    {
+      "name": "jump.mp3",
+      "github_blob_sha": "505f256d29a5a9abf548a330c61e9c931cea5566",
+      "bytes": 6313
+    },
+    {
+      "name": "jump.ogg",
+      "github_blob_sha": "769e7019e13806ad6c7b7f95cea39ddfbd77030a",
+      "bytes": 7581
+    },
+    {
+      "name": "land.mp3",
+      "github_blob_sha": "3fd8fddeb89c546c302e064a613bdba29e8babb6",
+      "bytes": 5686
+    },
+    {
+      "name": "land.ogg",
+      "github_blob_sha": "a6677e0956b575f08f963445915c03af5a4558e9",
+      "bytes": 9380
+    },
+    {
+      "name": "result.mp3",
+      "github_blob_sha": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5",
+      "bytes": 48944
+    },
+    {
+      "name": "result.ogg",
+      "github_blob_sha": "480a8bb5e028b7f16709114667d4ef563d2fe65b",
+      "bytes": 52026
+    },
+    {
+      "name": "step.mp3",
+      "github_blob_sha": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea",
+      "bytes": 6312
+    },
+    {
+      "name": "step.ogg",
+      "github_blob_sha": "c78918965fd3984b48e3d2813a06c764ac4a3f3b",
+      "bytes": 7579
+    }
+  ]
+}

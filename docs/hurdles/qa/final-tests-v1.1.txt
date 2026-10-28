@@ -1,0 +1,48 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> playformosa-hurdles@1.1.0 test
+> node --test tests/*.test.mjs
+
+✔ focused Space holds its limb until release, suppressing duplicate click (1.536687ms)
+✔ assistive synthetic click creates one short tap and never cancels other sources (0.475391ms)
+✔ focused control cannot queue input while paused (0.286202ms)
+✔ multitouch plus keyboard stays independent until each source releases (1.820185ms)
+✔ cancel and clear never retain held limbs (0.265111ms)
+✔ unmapped keys do not control runner (0.213625ms)
+✔ ten hurdles are positioned inside 110m (1.301199ms)
+✔ idle or holding every limb cannot auto-finish (41.891047ms)
+✔ alternating short steps accelerate more than same-foot spam (9.009058ms)
+✔ held leg then release jumps but short tap does not (2.751634ms)
+✔ cancel discards charge without launching on resumed empty input (2.330006ms)
+✔ running into hurdle causes one physical knockdown and recoverable stumble (6.7325ms)
+✔ high airborne pose clears hurdle without invisible collision (3.402107ms)
+✔ arm input rescues a stumble faster (2.01375ms)
+✔ pose keeps anatomical bone lengths across inputs (1.195384ms)
+✔ full ordinary tap run can finish after recoverable collisions (54.529018ms)
+✔ race time limit provides retryable DNF (237.148503ms)
+✔ verdict describes actual performance not invented clears (0.560817ms)
+✔ a limb crossing well below crossbar does not strike invisible wall (0.294314ms)
+✔ holding legs in air never queues another jump after landing (3.811362ms)
+✔ simultaneous charged release creates a single jump event (0.907879ms)
+✔ learnable charge timing yields a complete zero-hit race from real inputs (27.634499ms)
+✔ ten physical collisions cost time, so no-jump spam cannot beat a clean race (31.94006ms)
+✔ release locks opposite lead foot and charged support foot for whole flight (9.345073ms)
+✔ hurdle apex has an extended forward lead and a folded outward trail, even with both keys held (2.745749ms)
+✔ asymmetric flight preserves actual 3D leg bone lengths (6.300719ms)
+✔ lead foot lands first and starts a short running handoff, no second launch (9.273223ms)
+✔ countdown is 3-2-1 then one GO, freezes when paused, never advances race time (1.542015ms)
+✔ same running/arm cadence: correct hurdling beats hard collisions and early/late jumps (284.765931ms)
+✔ desktop always downloads rather than native share (1.443419ms)
+✔ mobile supports files only and respects cancel without download (1.197947ms)
+✔ unsupported mobile share falls back to download (0.236229ms)
+✔ share text states private preview and actual time (0.464756ms)
+✔ time format does not use bonus math (0.158393ms)
+✔ mobile native failure offers the requested image as a download (0.402584ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 569.828383

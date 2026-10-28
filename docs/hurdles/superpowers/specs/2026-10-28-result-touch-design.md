@@ -1,0 +1,11 @@
+# Portrait result accidental replay — v1.2
+
+User reported that the portrait result replay button occupies the running-button area. Approved scope: move it away and require release of the old touch batch before a new intentional activation. Keep all game physics, difficulty, visuals and audio assets unchanged.
+
+Root cause: result overlay appended the shared Start/Retry button at its bottom; finish cleared the simulation's pointer map and released pointer capture, losing the distinction between physically held fingers and a fresh result tap. Bare onclick accepted delayed/synthetic clicks. A second click on the now-closed shared button could reset the new countdown.
+
+Approaches: relocation alone misses delayed clicks; a fixed timer alone is eventually defeated by continued tapping. Chosen: relocation plus a physical-input boundary and validated fresh gesture, with keyboard and assistive activation retained. Existing HTML/CSS/ES modules remain the implementation medium. No new images, new Site or production integration.
+
+Implementation sequence: add failing behavior tests; independent result guard tracks real pointers/keys beyond game clear; 600ms initial guard plus 250ms quiet period after the most recent input, all contacts released, fresh down/up on the same action, move/cancel/multi-contact invalidation and one consumed permit. Enter/Space activates only after fresh release; zero-detail assistive click is accepted only at a clean idle boundary. Blur/native-share return invalidates gestures and clears contacts whose releases may be lost; orientation invalidates without dropping known held fingers. Retry must also require the overlay to remain open. Move Retry immediately above the score, retaining large time/verdict/photo. Protect sharing with the same click gate without asynchronous deferral so native-share user activation survives.
+
+Verification: held two-finger finish, ongoing rapid taps, held press across timeout, cancel/drag/second finger, stale zero-detail touch click, old game keys, fresh keyboard/mouse/assistive activation, share-return/orientation lifecycle, and one-restart-per-gesture tests. Real cloud browser portrait finish, hitbox nonoverlap, keyboard and desktop image sharing/restart. Physical mobile multitouch/native-share sheet cannot be claimed from cloud desktop checks.

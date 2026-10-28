@@ -1,0 +1,50 @@
+[
+  {
+    "file": "bgm.ogg",
+    "frames": 9656064,
+    "decoded_seconds": 218.9583673469388,
+    "peak_dbfs": -13.037613868713379,
+    "bytes": 2606294,
+    "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab"
+  },
+  {
+    "file": "bgm.mp3",
+    "frames": 9656064,
+    "decoded_seconds": 218.9583673469388,
+    "peak_dbfs": -13.157796859741211,
+    "bytes": 3504212,
+    "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585"
+  },
+  {
+    "file": "step.ogg",
+    "frames": 14109,
+    "decoded_seconds": 0.31993197278911567,
+    "peak_dbfs": -19.029743194580078,
+    "bytes": 7579,
+    "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14"
+  },
+  {
+    "file": "step.mp3",
+    "frames": 14237,
+    "decoded_seconds": 0.3228344671201814,
+    "peak_dbfs": -19.390026092529297,
+    "bytes": 6312,
+    "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0"
+  },
+  {
+    "file": "result.ogg",
+    "frames": 132300,
+    "decoded_seconds": 3.0,
+    "peak_dbfs": -12.825008392333984,
+    "bytes": 52026,
+    "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f"
+  },
+  {
+    "file": "result.mp3",
+    "frames": 132300,
+    "decoded_seconds": 3.0,
+    "peak_dbfs": -13.618549346923828,
+    "bytes": 48944,
+    "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae"
+  }
+]

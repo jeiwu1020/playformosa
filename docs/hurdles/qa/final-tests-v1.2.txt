@@ -1,0 +1,62 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> playformosa-hurdles@1.2.0 test
+> node --test tests/*.test.mjs
+
+✔ focused Space holds its limb until release, suppressing duplicate click (1.527714ms)
+✔ assistive synthetic click creates one short tap and never cancels other sources (0.381674ms)
+✔ focused control cannot queue input while paused (0.273123ms)
+✔ multitouch plus keyboard stays independent until each source releases (1.65366ms)
+✔ cancel and clear never retain held limbs (0.248527ms)
+✔ unmapped keys do not control runner (0.188448ms)
+✔ ten hurdles are positioned inside 110m (1.131349ms)
+✔ idle or holding every limb cannot auto-finish (38.392419ms)
+✔ alternating short steps accelerate more than same-foot spam (8.185067ms)
+✔ held leg then release jumps but short tap does not (2.621738ms)
+✔ cancel discards charge without launching on resumed empty input (1.64693ms)
+✔ running into hurdle causes one physical knockdown and recoverable stumble (7.309365ms)
+✔ high airborne pose clears hurdle without invisible collision (2.13453ms)
+✔ arm input rescues a stumble faster (1.977207ms)
+✔ pose keeps anatomical bone lengths across inputs (1.638748ms)
+✔ full ordinary tap run can finish after recoverable collisions (42.503105ms)
+✔ race time limit provides retryable DNF (160.199788ms)
+✔ verdict describes actual performance not invented clears (0.751228ms)
+✔ a limb crossing well below crossbar does not strike invisible wall (0.387622ms)
+✔ holding legs in air never queues another jump after landing (4.266595ms)
+✔ simultaneous charged release creates a single jump event (1.008137ms)
+✔ learnable charge timing yields a complete zero-hit race from real inputs (24.929434ms)
+✔ ten physical collisions cost time, so no-jump spam cannot beat a clean race (26.111498ms)
+✔ two fingers held at finish cannot release into a restart even after many seconds (2.481627ms)
+✔ continued rapid tapping never outlasts the guard and ghost click has no down/up (0.392098ms)
+✔ a press begun inside the guard cannot become valid by holding until it expires (0.1898ms)
+✔ cancel, drag and a second finger invalidate the whole activation (0.219995ms)
+✔ release on a different action cannot activate either target or delayed share (0.264911ms)
+✔ held game keys, Enter repeat and stale keyup cannot restart (0.360201ms)
+✔ fresh Enter and Space each activate once on release, never on repeat (0.217541ms)
+✔ fresh desktop and assistive clicks work once without a sacrificial first tap (0.442713ms)
+✔ touch-origin synthetic zero-detail clicks still need a valid fresh gesture (0.235948ms)
+✔ orientation invalidates pending tap; browser return clears lost input without permanent lock (0.339251ms)
+✔ one accepted restart cannot authorize a second countdown or future result (0.233905ms)
+✔ document binding blocks ghost bubbling and permits one fresh native click (0.938906ms)
+✔ capture loss does not pretend that a still-held old finger was released (0.916362ms)
+✔ unlabelled delayed zero-detail touch clicks cannot masquerade as assistive activation (0.159205ms)
+✔ release locks opposite lead foot and charged support foot for whole flight (10.956547ms)
+✔ hurdle apex has an extended forward lead and a folded outward trail, even with both keys held (2.872628ms)
+✔ asymmetric flight preserves actual 3D leg bone lengths (5.378666ms)
+✔ lead foot lands first and starts a short running handoff, no second launch (5.613402ms)
+✔ countdown is 3-2-1 then one GO, freezes when paused, never advances race time (0.982229ms)
+✔ same running/arm cadence: correct hurdling beats hard collisions and early/late jumps (303.463898ms)
+✔ desktop always downloads rather than native share (1.204868ms)
+✔ mobile supports files only and respects cancel without download (1.107765ms)
+✔ unsupported mobile share falls back to download (0.332461ms)
+✔ share text states private preview and actual time (0.353091ms)
+✔ time format does not use bonus math (0.142019ms)
+✔ mobile native failure offers the requested image as a download (0.251311ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 49
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 452.623997

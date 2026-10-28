@@ -1,0 +1,13 @@
+# 1.2.1 — scoped long-press protection (A only)
+
+User reports selection/callout interference while holding mobile controls. This release changes only native browser interaction protection; the separate hurdle-spacing / running-flow discussion is not implemented.
+
+Observed code gap: v1.2 applied user-select/touch-callout only on the limb button selector, and prevented contextmenu only there. Gameplay depended on Pointer Events with no scoped native touch/selection/drag defense for the arena, text descendants or gaps. No physical iOS reproduction is claimed. Apple documents independent long-press and emulated mouse behavior; WebKit's historical, resolved loupe issue demonstrates why pointer defaults and CSS alone are not equivalent to native-touch handling.
+
+Fix: mark only main (live arena + four controls) as the play surface. Apply explicit prefixed and unprefixed user-select, touch-callout, drag and touch-action rules to that surface/descendants. Make button child labels non-hit targets without removing their accessible names. Scope selectstart/contextmenu/dragstart and non-passive touchstart/move/end cancellation there. Never stop propagation, synthesize gameplay input, change pointer capture, or cancel pointerup/cancel/keyboard/assistive click. Result/start/settings/credits/footer/header remain outside; no document/body touch blocker and no viewport zoom restriction.
+
+Reference evidence (not a claim of a current WebKit regression):
+- Apple Safari Web Content Guide, Handling Events: https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/HandlingEvents.html
+- WebKit issue 231161, historical fixed loupe regression and active touchstart workaround: https://bugs.webkit.org/show_bug.cgi?id=231161
+
+Validation: 4 new RED/GREEN scope/default/multi-pointer/lifecycle tests plus existing 49 tests. Same result anti-ghost-click guard remains byte-identical. Production physics, character, renderer, audio and pacing are unchanged. Actual cloud Chromium review: rules outside the arena remained drag-selectable; 1200 ms held pointer on left-leg control released into a visible jump in both 695×390 landscape and 400×607 portrait; HUD drag produced empty text selection and right-click on the control did not open a menu. Orientation change paused and resume worked. Four portrait buttons remained 89×98 px, zero page overflow. Six audio buffers decoded and ready after user input. Physical iOS Safari and multi-touch are not available in the cloud desktop. WebGL remains disabled; same-character mesh compatibility renderer reviewed.
