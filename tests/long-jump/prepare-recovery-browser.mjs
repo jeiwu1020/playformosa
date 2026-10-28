@@ -1,12 +1,12 @@
 // Test-only native DOM fixture: replaces only WebGLRenderer, never production files.
 // Run after build: node tests/long-jump/prepare-recovery-browser.mjs [baseline-ref]
 import fs from 'node:fs/promises';import path from 'node:path';import {execFileSync} from 'node:child_process';
-const root=path.resolve(import.meta.dirname,'../..'),dist=path.join(root,'dist'),base=process.argv[2]||'167b6e3d7c53c45aa72e7c26ca66ff5939fd916c';
+const root=path.resolve(import.meta.dirname,'../..'),dist=path.join(root,'dist'),base=process.argv[2]||'5ff1d7cebaeb2a1058a8c70f32c18f3087ce981a';
 const renderer=`import * as RealTHREE from './vendor/three.module.min.js';
 const THREE={...RealTHREE,WebGLRenderer:class{constructor(){this.domElement=document.createElement('canvas');this.shadowMap={};this.ctx=this.domElement.getContext('2d');}setPixelRatio(){}setSize(w,h){this.domElement.width=w;this.domElement.height=h;}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld();this.ctx.fillStyle=scene.background.getStyle();this.ctx.fillRect(0,0,this.domElement.width,this.domElement.height);this.ctx.fillStyle='#23464e';this.ctx.font='13px sans-serif';this.ctx.fillText('Renderer stub — actual DOM / input / physics QA',12,190);}}};`;
 const setup=`<script>window.qaNative={shows:0,closes:0,presses:[],rotateNext:false};const show=HTMLDialogElement.prototype.showModal,close=HTMLDialogElement.prototype.close;HTMLDialogElement.prototype.showModal=function(){qaNative.shows++;return show.call(this);};HTMLDialogElement.prototype.close=function(){qaNative.closes++;return close.call(this);};const mode=new URLSearchParams(location.search).get('mode')==='standalone';Object.defineProperty(navigator,'standalone',{configurable:true,value:mode});const realMedia=matchMedia.bind(window);window.matchMedia=q=>q==='(pointer: coarse)'||q==='(display-mode: standalone)'?{matches:q==='(pointer: coarse)'||mode,addEventListener(){},removeEventListener(){}}:realMedia(q);</script>`;
 const inspect=`
-window.qaGame=()=>({playing,paused,phase:state.phase,held:[...input],pointers:[...controls.pointers.keys()],sceneWidth,sceneHeight,scenePlayHeight:typeof scenePlayHeight==='undefined'?sceneHeight:scenePlayHeight});
+window.qaGame=()=>({playing,paused,phase:state.phase,stateX:state.x,stateY:state.y,energy:state.energy,held:[...input],pointers:[...controls.pointers.keys()],sceneWidth,sceneHeight,scenePlayHeight:typeof scenePlayHeight==='undefined'?sceneHeight:scenePlayHeight});
 for(const b of buttons)b.addEventListener('pointerdown',()=>{qaNative.presses.push({limb:b.dataset.limb,held:[...input]});if(qaNative.rotateNext){qaNative.rotateNext=false;setTimeout(()=>parent.qaRotate(844,390),120);}});
 `;
 for(const [name,baseline]of [['qa-native-before',true],['qa-native-after',false]]){

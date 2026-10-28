@@ -1,4 +1,4 @@
-import {renderCameraBounds} from './layout.mjs';
+import {renderCameraBounds,isStandalone} from './layout.mjs';
 import {protectPlaySurface,protectSelection} from './play-surface.mjs';
 import {splitResultComment} from './result-view.mjs';
 import {createGameAudio,createAudioEvents} from './audio.mjs';
@@ -18,7 +18,7 @@ document.querySelectorAll('[data-play-surface]').forEach(protectPlaySurface);
 document.querySelectorAll('header h1, #sound-status, header button, .card button').forEach(protectSelection);
 const $=id=>document.getElementById(id), scene=new THREE.Scene();scene.background=new THREE.Color('#c4e6e4');scene.fog=new THREE.Fog('#c4e6e4',38,90);
 let paused=false;
-const modal=createDialogController($('overlay'),()=>{if(paused)resume();});
+const modal=createDialogController($('overlay'),()=>{if(paused)resume();},{forceFallback:isStandalone(window)});
 let renderer;
 try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});}catch{$('card-title').textContent='這個裝置暫時無法開啟 3D';$('card-text').textContent='請使用支援 WebGL 的瀏覽器再試。';$('start').disabled=true;modal.open();throw new Error('WebGL unavailable');}
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;$('scene').appendChild(renderer.domElement);
