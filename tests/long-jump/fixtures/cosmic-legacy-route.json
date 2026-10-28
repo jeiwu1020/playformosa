@@ -1,0 +1,284 @@
+[
+  {
+    "id": "taipei",
+    "name": "台北市",
+    "start": 0,
+    "kmStart": 0
+  },
+  {
+    "id": "keelung",
+    "name": "基隆市",
+    "start": 24,
+    "kmStart": 20.950462403621152
+  },
+  {
+    "id": "newtaipei",
+    "name": "新北市",
+    "start": 48,
+    "kmStart": 31.383670237552852
+  },
+  {
+    "id": "taoyuan",
+    "name": "桃園市",
+    "start": 72,
+    "kmStart": 92.89470167878362
+  },
+  {
+    "id": "hsinchu_county",
+    "name": "新竹縣",
+    "start": 96,
+    "kmStart": 127.54672489853684
+  },
+  {
+    "id": "hsinchu_city",
+    "name": "新竹市",
+    "start": 120,
+    "kmStart": 134.76120432320212
+  },
+  {
+    "id": "miaoli",
+    "name": "苗栗縣",
+    "start": 144,
+    "kmStart": 189.03199660780228
+  },
+  {
+    "id": "taichung",
+    "name": "台中市",
+    "start": 168,
+    "kmStart": 213.96287412382247
+  },
+  {
+    "id": "changhua",
+    "name": "彰化縣",
+    "start": 192,
+    "kmStart": 227.0980592502244
+  },
+  {
+    "id": "nantou",
+    "name": "南投縣",
+    "start": 216,
+    "kmStart": 271.24694353184003
+  },
+  {
+    "id": "yunlin",
+    "name": "雲林縣",
+    "start": 240,
+    "kmStart": 323.0974757501335
+  },
+  {
+    "id": "chiayi_county",
+    "name": "嘉義縣",
+    "start": 264,
+    "kmStart": 366.89786618380367
+  },
+  {
+    "id": "chiayi_city",
+    "name": "嘉義市",
+    "start": 288,
+    "kmStart": 403.29827446635704
+  },
+  {
+    "id": "tainan",
+    "name": "台南市",
+    "start": 312,
+    "kmStart": 463.3443678155919
+  },
+  {
+    "id": "kaohsiung",
+    "name": "高雄市",
+    "start": 336,
+    "kmStart": 506.14894794071256
+  },
+  {
+    "id": "pingtung",
+    "name": "屏東縣",
+    "start": 360,
+    "kmStart": 605.1896299130965
+  },
+  {
+    "id": "taitung",
+    "name": "台東縣",
+    "start": 384,
+    "kmStart": 721.1406508485608
+  },
+  {
+    "id": "hualien",
+    "name": "花蓮縣",
+    "start": 408,
+    "kmStart": 868.9412379432986
+  },
+  {
+    "id": "yilan",
+    "name": "宜蘭縣",
+    "start": 432,
+    "kmStart": 929.2460106535323
+  },
+  {
+    "id": "matsu",
+    "name": "馬祖（連江縣）",
+    "start": 456,
+    "kmStart": 1180.6108140214124
+  },
+  {
+    "id": "kinmen",
+    "name": "金門縣",
+    "start": 480,
+    "kmStart": 1431.1078318037708
+  },
+  {
+    "id": "penghu",
+    "name": "澎湖縣",
+    "start": 504,
+    "kmStart": 1590.7555454696437
+  },
+  {
+    "id": "okinawa",
+    "name": "日本・沖繩",
+    "start": 576,
+    "kmStart": 2462.4803875487514
+  },
+  {
+    "id": "seoul",
+    "name": "韓國・首爾",
+    "start": 648,
+    "kmStart": 3727.914721609657
+  },
+  {
+    "id": "osaka",
+    "name": "日本・大阪",
+    "start": 720,
+    "kmStart": 4559.911862183932
+  },
+  {
+    "id": "tokyo",
+    "name": "日本・東京",
+    "start": 792,
+    "kmStart": 4958.261200939434
+  },
+  {
+    "id": "bangkok",
+    "name": "泰國・曼谷",
+    "start": 864,
+    "kmStart": 9565.747039873637
+  },
+  {
+    "id": "singapore",
+    "name": "新加坡",
+    "start": 936,
+    "kmStart": 11000.70287049916
+  },
+  {
+    "id": "india",
+    "name": "印度・阿格拉",
+    "start": 1008,
+    "kmStart": 14983.903560681856
+  },
+  {
+    "id": "dubai",
+    "name": "阿聯酋・杜拜",
+    "start": 1080,
+    "kmStart": 17263.246951810885
+  },
+  {
+    "id": "egypt",
+    "name": "埃及・開羅",
+    "start": 1152,
+    "kmStart": 19696.028764431914
+  },
+  {
+    "id": "rome",
+    "name": "義大利・羅馬",
+    "start": 1224,
+    "kmStart": 21825.898077282378
+  },
+  {
+    "id": "france",
+    "name": "法國・巴黎",
+    "start": 1296,
+    "kmStart": 22935.26957984339
+  },
+  {
+    "id": "london",
+    "name": "英國・倫敦",
+    "start": 1368,
+    "kmStart": 23275.90810689858
+  },
+  {
+    "id": "usa",
+    "name": "美國・紐約",
+    "start": 1440,
+    "kmStart": 28850.758576278524
+  },
+  {
+    "id": "rio",
+    "name": "巴西・里約",
+    "start": 1512,
+    "kmStart": 36612.12861406979
+  },
+  {
+    "id": "losangeles",
+    "name": "美國・洛杉磯",
+    "start": 1584,
+    "kmStart": 46765.96788350066
+  },
+  {
+    "id": "hawaii",
+    "name": "美國・夏威夷",
+    "start": 1656,
+    "kmStart": 50878.08813788376
+  },
+  {
+    "id": "australia",
+    "name": "澳洲・雪梨",
+    "start": 1728,
+    "kmStart": 59042.88577566632
+  },
+  {
+    "id": "newzealand",
+    "name": "紐西蘭・奧克蘭",
+    "start": 1800,
+    "kmStart": 61198.60136889888
+  },
+  {
+    "id": "world_complete",
+    "name": "環球航線完成",
+    "start": 1872,
+    "kmStart": 61919.57621826174
+  },
+  {
+    "id": "atmosphere",
+    "name": "大氣層",
+    "start": 1944,
+    "kmStart": 61929.57621826174
+  },
+  {
+    "id": "space",
+    "name": "太空",
+    "start": 2040,
+    "kmStart": 62019.57621826174
+  },
+  {
+    "id": "moon",
+    "name": "月球",
+    "start": 2232,
+    "kmStart": 446319.57621826173
+  },
+  {
+    "id": "mars",
+    "name": "火星",
+    "start": 2520,
+    "kmStart": 78746319.57621826
+  },
+  {
+    "id": "saturn",
+    "name": "土星環",
+    "start": 2904,
+    "kmStart": 1284346319.5762184
+  },
+  {
+    "id": "deep_space",
+    "name": "星際遠航",
+    "start": 3288,
+    "kmStart": 1384346319.5762184
+  }
+]

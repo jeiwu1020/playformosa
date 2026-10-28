@@ -1,14 +1,16 @@
 import {chunkWindow,regionAt,REGIONS,CHUNK_SIZE} from './world.mjs';
 import {createArt} from './scenery-art.mjs';
 import {landmarkParts} from './landmarks.mjs';
+import {cosmicParts,CONSTELLATION_FOR} from './cosmic-art.mjs';
+import {cosmicSceneAt} from './cosmic-data.mjs';
 const BOARD=10;
 // Unique route landmarks have fixed anchors, not one stamp per repeating scenery cell.
-const anchors=REGIONS.map(r=>({r,at:r.id==='taipei'?-30:r.start+12}));
+const anchors=REGIONS.filter(r=>r.stage!=='space').map(r=>({r,at:r.id==='taipei'?-30:r.start+12}));
 const coast=new Set(['keelung','kaohsiung','pingtung','matsu','penghu','okinawa','singapore','hawaii','australia','newzealand']);
 const country=new Set(['hsinchu_county','miaoli','changhua','nantou','yunlin','chiayi_county','chiayi_city','taitung','hualien','yilan','rio']);
 const oldtown=new Set(['newtaipei','hsinchu_city','tainan','kinmen','seoul','osaka','bangkok','india','rome','france','london']);
 export function createScenery(THREE,scene){
- const group=new THREE.Group();group.name='cartoon-world';scene.add(group);const chunks=new Map(),art=createArt(THREE);
+ const group=new THREE.Group();group.name='cartoon-world';scene.add(group);const chunks=new Map(),art=createArt(THREE);let hero=null,heroKey='';
  function surroundings(parts,r,x,seed){const add=(shape,c,dx,y,sx,sy,sz,z=-7,rz=0)=>art.part(parts,shape,c,x+dx,y,z,sx,sy,sz,0,0,rz),v=((seed*17%11)+11)%11;
   const tree=(dx,z=-7,s=.7)=>{add('cylinder','#9a8065',dx,s*.5,.08,s,.08,z);add('sphere',r.stage==='world'?'#799780':'#71957b',dx,s*1.25,s*.55,s*.65,s*.5,z);};
   if(r.stage==='space'){
@@ -45,8 +47,18 @@ export function createScenery(THREE,scene){
   return g;
  }
  function release(g){g.traverse(o=>{if(o.isMesh)o.geometry.dispose();});group.remove(g);}
- function update(distance,origin=0){const window=chunkWindow(distance),needed=new Set(window.map(c=>c.index));for(const[id,g]of chunks)if(!needed.has(id)){release(g);chunks.delete(id);}for(const c of window){let g=chunks.get(c.index);if(!g){g=build(c);chunks.set(c.index,g);group.add(g);}g.position.x=BOARD+c.start-origin;}}
+ function updateHero(distance,origin,sceneDistance){
+  const r=regionAt(sceneDistance),visual=cosmicSceneAt(sceneDistance,r),key=r.stage==='space'?visual.id+':'+(visual.variantId||''):'';
+  if(key!==heroKey){if(hero){hero.geometry.dispose();group.remove(hero);hero=null;}heroKey=key;
+   if(key){const parts=cosmicParts(art,visual.id,visual.variantId)||landmarkParts(art,r);hero=art.batch(parts,r.landmark+'-landmark');const b=hero.geometry.boundingBox,size=b.getSize(new THREE.Vector3()),scale=Math.min(3.0/size.y,7.4/size.x,1);hero.geometry.translate(-(b.min.x+b.max.x)/2,-b.min.y,0);hero.geometry.scale(scale,scale,scale);hero.geometry.computeBoundingBox();hero.geometry.computeBoundingSphere();hero.userData.region=r.id;hero.userData.cosmicScene=visual.id;hero.userData.cosmicVariant=visual.variantId||null;hero.userData.constellation=CONSTELLATION_FOR[visual.id]||null;group.add(hero);}
+  }
+  // Identity follows the displayed journey/first contact; the local backdrop still
+  // follows the body/camera through settling, without moving the physics state.
+  // It is decorative only: no collision, score or motion state is read or changed.
+  if(hero){hero.position.set(BOARD+distance-origin+1.5,0,-4.1);hero.userData.worldAnchor=BOARD+distance+1.5;}
+ }
+ function update(distance,origin=0,sceneDistance=distance){updateHero(distance,origin,sceneDistance);const window=chunkWindow(distance),needed=new Set(window.map(c=>c.index));for(const[id,g]of chunks)if(!needed.has(id)){release(g);chunks.delete(id);}for(const c of window){let g=chunks.get(c.index);if(!g){g=build(c);chunks.set(c.index,g);group.add(g);}g.position.x=BOARD+c.start-origin;}}
  function stats(){let meshes=0,vertices=0;const geometries=new Set();group.traverse(o=>{if(o.isMesh){meshes++;vertices+=o.geometry.attributes.position.count;geometries.add(o.geometry);}});return{chunks:chunks.size,meshes,vertices,geometries:geometries.size,materials:1};}
- function dispose(){for(const g of chunks.values())release(g);chunks.clear();scene.remove(group);art.dispose();}
+ function dispose(){if(hero){hero.geometry.dispose();group.remove(hero);hero=null;}for(const g of chunks.values())release(g);chunks.clear();scene.remove(group);art.dispose();}
  return{group,update,stats,dispose};
 }
