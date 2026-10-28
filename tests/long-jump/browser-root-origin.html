@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><title>Standalone root-origin DOM regressions</title>
+<style>body{font:15px system-ui;margin:20px;background:#eee}iframe{border:1px solid #aaa;display:block}button{padding:12px}pre{white-space:pre-wrap}</style>
+<h1>Standalone root-origin DOM regressions</h1>
+<p>Uses real dialog, focus, selection, root scrolling and game handlers. Only WebGL rendering is stubbed. This does not reproduce or certify the physical iOS compositor.</p>
+<button id="run">Run regressions</button><pre id="results">Not run.</pre><iframe id="game" title="Game fixture" width="402" height="812"></iframe>
+<script type="module">
+const frame=document.querySelector('#game'),output=document.querySelector('#results'),run=document.querySelector('#run');let records=[];
+const record=(name,ok,detail)=>{records.push({name,ok,detail});output.textContent=JSON.stringify(records,null,2);if(!ok)throw new Error(name+': '+JSON.stringify(detail));};
+const settle=win=>new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
+async function loaded(mode){await new Promise(resolve=>{frame.onload=resolve;frame.src='/qa-root-origin/?mode='+mode;});const win=frame.contentWindow;for(let i=0;i<60&&!win.qaInspect;i++)await settle(win);if(!win.qaInspect)throw Error('Game module did not initialize');await settle(win);return win;}
+function pan(win,offset){win.document.documentElement.style.minHeight='calc(100vh + 180px)';win.scrollTo({left:0,top:offset,behavior:'instant'});return win.scrollY;}
+run.onclick=async()=>{run.disabled=true;records=[];try{
+ let win=await loaded('standalone'),doc=win.document,dialog=doc.querySelector('#overlay'),start=doc.querySelector('#start');
+ record('standalone fallback, not native top layer',!dialog.matches(':modal')&&dialog.classList.contains('fallback'));
+ start.click();win.qaRememberAttempt();
+ for(let i=0;i<3;i++){
+  frame.width='874';frame.height='402';win.dispatchEvent(new win.Event('orientationchange'));await settle(win);
+  frame.width='402';frame.height='812';await settle(win);win.dispatchEvent(new win.Event('orientationchange'));await settle(win);
+  const injected=pan(win,62);await settle(win);await settle(win);
+  record('cycle '+i+': actual root scroll recovers',injected===62&&win.scrollY===0,{injected,scrollY:win.scrollY});
+  const r=start.getBoundingClientRect(),hit=doc.elementFromPoint(r.x+r.width/2,r.y+r.height/2);record('cycle '+i+': Resume center hit',hit===start||start.contains(hit));
+  start.click();await settle(win);const state=win.qaInspect();record('cycle '+i+': same attempt resumes, background unlocked',state.sameAttempt&&!state.paused&&!state.dialogOpen&&!doc.querySelector('main').inert,state);
+ }
+ doc.querySelector('#pause').click();await settle(win);dialog.style.maxHeight='120px';dialog.scrollTop=dialog.scrollHeight;const innerBefore=dialog.scrollTop;
+ const before=pan(win,37);await settle(win);await settle(win);record('inner dialog scroll survives root recovery',before===37&&win.scrollY===0&&dialog.scrollTop===innerBefore,{innerBefore,innerAfter:dialog.scrollTop});
+ const text=doc.createElement('pre');text.textContent='manual diagnostic copy: preserved selection';text.style.userSelect='text';dialog.append(text);const range=doc.createRange();range.selectNodeContents(text);win.getSelection().removeAllRanges();win.getSelection().addRange(range);const selected=win.getSelection().toString();
+ pan(win,83);await settle(win);await settle(win);record('manual diagnostic text selection survives',win.getSelection().toString()===selected&&selected.length>0);
+ const input=doc.createElement('textarea');dialog.append(input);input.focus({preventScroll:true});pan(win,44);await settle(win);await settle(win);record('editable focus does not fight root scrolling',win.scrollY===44,{scrollY:win.scrollY});
+ start.focus({preventScroll:true});await settle(win);await settle(win);record('noneditable focus restores root origin',win.scrollY===0,{scrollY:win.scrollY});
+ dialog.style.maxHeight='';start.click();win.dispatchEvent(new win.KeyboardEvent('keydown',{code:'KeyK',bubbles:true}));record('keyboard limb works after recovery',doc.querySelector('[data-limb="1"]').getAttribute('aria-pressed')==='true');win.dispatchEvent(new win.KeyboardEvent('keyup',{code:'KeyK',bubbles:true}));
+ win=await loaded('browser');win.document.querySelector('#start').click();const browserPan=pan(win,62);await settle(win);await settle(win);record('ordinary browser root scrolling is not clamped',browserPan===62&&win.scrollY===62,{scrollY:win.scrollY});
+ output.textContent=JSON.stringify({status:'passed',scope:'native DOM / renderer stub; not physical iOS',records},null,2);
+ }catch(error){output.textContent=JSON.stringify({status:'failed',error:String(error),records},null,2);}finally{run.disabled=false;}};
+</script>
