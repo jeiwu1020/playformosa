@@ -7,3 +7,27 @@ test('viewport adapter measures URL-bar resize on desktop too and does not colla
 
 test('portrait landscape portrait viewport events restore bounds and offsets without duplicate queued updates',()=>{const values=new Map(),attrs=new Map(),events=new Map(),vevents=new Map(),queue=[];const probe={style:{},setAttribute(){},remove(){}};const doc={documentElement:{setAttribute:(k,v)=>attrs.set(k,v),style:{setProperty:(k,v)=>values.set(k,v)}},createElement:()=>probe,body:{appendChild(){}}};const win={innerWidth:390,innerHeight:844,visualViewport:{width:390,height:844,scale:1,offsetTop:0,offsetLeft:0,addEventListener:(k,v)=>vevents.set(k,v),removeEventListener(){}},getComputedStyle:()=>({}),addEventListener:(k,v)=>events.set(k,v),removeEventListener(){},requestAnimationFrame:f=>queue.push(f)};const dispose=layout.installViewportLayout(win,doc);for(const [width,height,top,mode]of [[844,390,8,'side'],[390,844,0,'bottom']]){Object.assign(win.visualViewport,{width,height,offsetTop:top});events.get('orientationchange')();vevents.get('resize')();assert.equal(queue.length,1);queue.shift()();assert.equal(attrs.get('data-layout'),mode);assert.equal(values.get('--visible-height'),height+'px');assert.equal(values.get('--visible-width'),width+'px');assert.equal(values.get('--visible-top'),top+'px');}dispose();});
 test('modal is explicitly positioned in visual viewport for rotated touch hit targets',()=>{const css=fs.readFileSync(new URL('../../public/games/long-jump/style.css',import.meta.url),'utf8');assert.ok(css.includes('.card,.card.fallback[open]{position:fixed;inset:auto;'));assert.ok(css.includes('left:calc(var(--visible-left,0px) + var(--visible-width,100vw)/2)'));assert.ok(css.includes('top:calc(var(--visible-top,0px) + var(--visible-height,100dvh)/2)'));});
+
+test('phone portrait control bottom aligns with previous control top at 375, 390 and 430 widths',()=>{
+ for(const [width,height,insets] of [[375,667,{}],[375,812,{top:44,bottom:34}],[390,844,{}],[390,844,{top:47,bottom:34}],[430,932,{top:59,bottom:34}]]){
+  const l=layout.gameLayout({width,height,insets,coarsePointer:true});
+  const oldBottom=height-(insets.bottom||0)-8,oldTop=oldBottom-96;
+  assert.equal(l.controlLift,96);assert.equal(oldBottom-l.controlLift,oldTop);
+  assert.equal(l.arenaHeight,height-(insets.top||0)-(insets.bottom||0)-264);
+  assert.ok(l.arenaHeight>=300,'reserve usable scene height');assert.equal(l.buttonHeight,96);
+ }
+});
+test('phone landscape, tablets and all desktop pointer layouts keep original control positions',()=>{
+ for(const [width,height,coarsePointer] of [[844,390,true],[667,375,true],[639,360,true],[768,1024,true],[1280,800,false],[390,844,false],[430,932,false]]){
+  const l=layout.gameLayout({width,height,coarsePointer});assert.equal(l.controlLift,0,[width,height,coarsePointer].join('/'));assert.equal(l.arenaHeight,l.mode==='side'?l.mainHeight:l.mainHeight-104);
+ }
+});
+test('viewport updates lift phone controls in portrait, clear lift in landscape and restore after rotation',()=>{
+ const values=new Map(),attrs=new Map(),events=new Map(),queue=[];const probe={style:{},setAttribute(){},remove(){}};
+ const doc={documentElement:{setAttribute:(k,v)=>attrs.set(k,v),style:{setProperty:(k,v)=>values.set(k,v)}},createElement:()=>probe,body:{appendChild(){}}};
+ const win={innerWidth:390,innerHeight:844,matchMedia:()=>({matches:true}),getComputedStyle:()=>({}),addEventListener:(k,v)=>events.set(k,v),removeEventListener(){},requestAnimationFrame:f=>queue.push(f)};
+ const dispose=layout.installViewportLayout(win,doc);
+ assert.equal(values.get('--controls-lift'),'96px');
+ for(const [width,height,lift] of [[844,390,'0px'],[390,844,'96px'],[430,932,'96px']]){Object.assign(win,{innerWidth:width,innerHeight:height});events.get('orientationchange')();queue.shift()();assert.equal(values.get('--controls-lift'),lift);}
+ dispose();
+});
