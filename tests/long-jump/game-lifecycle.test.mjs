@@ -139,3 +139,10 @@ test('contact on the same physics substep as rebase spawns dust at the true loca
  const h=harness();replayRound(h);h.context.step=s=>{s.t+=1/120;s.phase='land';s.origin=512;s.x=2;};h.get('reset').onclick();h.frame(620);
  assert.equal(vm.runInContext('dust[0].m.position.x',h.context),2);assert.equal(vm.runInContext('renderOrigin',h.context),512);
 });
+test('restart invalidates pending share before replay reset, and a replay draw cannot consume pending capture',()=>{
+ const h=harness();replayRound(h);
+ vm.runInContext("const oldToken=shareState.begin();shareState.accept(oldToken,{name:'old.png'});pendingCapture=true;const oldReset=replay.reset;replay.reset=()=>{if(shareState.file!==null||pendingCapture)throw Error('share invalidation must precede replay reset');oldReset();};",h.context);
+ h.get('reset').onclick();assert.equal(vm.runInContext('shareState.file',h.context),null);
+ const copies=h.copies.length;vm.runInContext('pendingCapture=true;draw(state,0,captureReplayView())',h.context);
+ assert.equal(h.copies.length,copies);assert.equal(vm.runInContext('pendingCapture',h.context),true);
+});
