@@ -127,3 +127,16 @@ dialog.card:not([open]){display:none!important}
 .card.result::-webkit-scrollbar-track{background:#e4e9df;border:2px solid #fffdf4;border-radius:12px;margin-block:16px}
 .card.result::-webkit-scrollbar-thumb{background:#527d6d;border:2px solid #fffdf4;border-radius:12px}
 .card.result::-webkit-scrollbar-thumb:hover{background:#172c3b}
+/* Full-width result: the complete photo is the focus; tall content scrolls, never crops. */
+.card.result{width:min(960px,calc(var(--visible-width,100vw) - 24px - var(--safe-left,0px) - var(--safe-right,0px)));display:flex;flex-direction:column;padding:20px;gap:0}
+.card.result>*{flex-shrink:0;min-width:0}
+.card.result #result-brand,.card.result #result-score-block,.card.result #card-title,.card.result #card-subtitle,.card.result #card-text{text-align:center}
+.card.result #result-brand{margin-bottom:6px}
+.card.result #result-score-block{margin-bottom:8px}
+.card.result #landing-preview{width:100%;margin:0 0 10px;align-self:stretch}
+.card.result #landing-preview canvas{max-height:none;object-fit:contain}
+.card.result .result-play-actions{margin:0 0 10px;gap:10px}
+.card.result .result-play-actions #start,.card.result .result-play-actions #replay-result{min-height:48px;font-size:16px;padding:11px}
+.card.result .music-credits{margin:8px 0 0}
+@media(max-width:600px){.card.result{padding:14px}.card.result .result-play-actions{gap:8px}}
+@media(max-height:430px) and (orientation:landscape){.card.result{padding:14px}.card.result #result-brand{margin-bottom:3px}.card.result #result-score-block{margin-bottom:4px}}
