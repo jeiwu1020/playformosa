@@ -118,3 +118,12 @@ dialog.card:not([open]){display:none!important}
  .card.result #card-subtitle{font-size:15px;margin-bottom:6px}
  .card.result #card-text{margin-bottom:6px}
 }
+/* Desktop keeps the original full-width photo; long results scroll inside the card. */
+@media(min-width:768px) and (min-height:431px){
+ .card.result #landing-preview canvas{max-height:none}
+}
+.card.result{scrollbar-width:thin;scrollbar-color:#527d6d #e4e9df}
+.card.result::-webkit-scrollbar{width:10px}
+.card.result::-webkit-scrollbar-track{background:#e4e9df;border:2px solid #fffdf4;border-radius:12px;margin-block:16px}
+.card.result::-webkit-scrollbar-thumb{background:#527d6d;border:2px solid #fffdf4;border-radius:12px}
+.card.result::-webkit-scrollbar-thumb:hover{background:#172c3b}
