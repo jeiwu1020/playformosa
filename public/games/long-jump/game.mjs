@@ -1,3 +1,4 @@
+import {createLandingReplay,captureReplayObjects,restoreReplayObjects} from './replay.mjs';
 import {syncPauseButton} from '../shared/game-ui.mjs';
 import {renderCameraBounds,isStandalone} from './layout.mjs';
 import {protectPlaySurface,protectSelection} from './play-surface.mjs';
@@ -35,6 +36,8 @@ const shadow=new THREE.Mesh(new THREE.CircleGeometry(.4,32),new THREE.MeshBasicM
 const dust=[];for(let i=0;i<30;i++){const m=new THREE.Mesh(new THREE.IcosahedronGeometry(.055),mat('#f4e5be'));m.visible=false;scene.add(m);dust.push({m,life:0,v:new THREE.Vector3()});}
 function burst(x){dust.forEach((d,i)=>{d.m.visible=true;d.m.position.set(x,.15,(i%5-2)*.15);d.v.set(Math.sin(i*5)*2,1+(i%7)*.3,Math.cos(i*4)*1.4);d.life=.6+(i%4)*.1;});}
 const landingCapture=createLandingCapture();
+const replay=createLandingReplay();let finalReplayView=null,resultScroll=0;
+$('replay-controls').hidden=true;$('replay-result').hidden=true;
 const shareState=createShareState();let pendingCapture=false;let storage=null;try{storage=localStorage;}catch{}
 const placeVisits=new Map();
 let renderOrigin=0,lastPlaceKey='',cueTime=0;
@@ -48,24 +51,24 @@ const pauseRecovery=createPauseDialogRecovery(window,modal,()=>playing&&paused);
 function sync(){buttons.forEach(b=>{const active=input[Number(b.dataset.limb)];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});}
 function clear(){clearCapturedInput(controls,buttons);sync();}
 buttons.forEach(b=>{const i=Number(b.dataset.limb);b.addEventListener('pointerdown',e=>{if(!playing||paused)return;e.preventDefault();b.setPointerCapture(e.pointerId);controls.pointer(e.pointerId,i);sync();});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{if(controls.endPointer(e.pointerId,type))pauseGame();sync();});b.addEventListener('contextmenu',e=>e.preventDefault());});
-window.addEventListener('keydown',e=>{if(handleGameKey(e,true,controls,playing&&!paused))sync();if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(handleGameKey(e,false,controls,playing&&!paused))sync();});
+window.addEventListener('keydown',e=>{if(replay.active){if(e.code==='Escape'){e.preventDefault();finishReplay();}return;}if(handleGameKey(e,true,controls,playing&&!paused))sync();if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(handleGameKey(e,false,controls,playing&&!paused))sync();});
 
 function show(title,text,button){$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;$('card-subtitle').textContent='';$('card-title').textContent=title;$('card-text').innerHTML=text;$('start').innerHTML=button+' <span>↗</span>';modal.open();}
-function pauseGame(){if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
-window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>paused?resume():pauseGame();
+function pauseGame(){if(replay.active){replay.setPaused(true);syncReplay();return;}if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
+window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>replay.active?toggleReplayPause():paused?resume():pauseGame();
 function resume(){pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
-function start(){shareState.begin();pendingCapture=false;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});modal.close();}
+function start(){replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;shareState.begin();pendingCapture=false;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());}
 $('start').onclick=()=>paused?resume():start();$('reset').onclick=start;
 let sceneWidth=1,sceneHeight=1,scenePlayHeight=1;
 function resize(){const el=$('scene');sceneWidth=Math.max(1,el.clientWidth);sceneHeight=Math.max(1,el.clientHeight);scenePlayHeight=Math.max(1,sceneHeight-(parseFloat(document.documentElement.style.getPropertyValue('--scene-extension'))||0));renderer.setSize(sceneWidth,sceneHeight,false);}new ResizeObserver(resize).observe($('scene'));resize();
-function renderAthlete(){character.update(pose(state),state);shadow.position.x=state.x;shadow.scale.setScalar(Math.max(.6,1-state.y*.08));}
+function renderAthlete(state){character.update(pose(state),state);shadow.position.x=state.x;shadow.scale.setScalar(Math.max(.6,1-state.y*.08));}
 const markLine=box(0,.035,0,.035,.05,3.35,'#8c4781');markLine.visible=false;
 const firstLine=box(0,.028,0,.022,.03,3.35,'#fff8db');firstLine.visible=false;
 const trails=[];for(let i=0;i<32;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.055,6,5),new THREE.MeshBasicMaterial({color:i%2?'#fdfca8':'#83e8e2',transparent:true,opacity:.8,depthWrite:false}));m.visible=false;scene.add(m);trails.push({m,life:0});}
 let trailWindow=0,trailIndex=0;
-function effects(elapsed){
+function effects(elapsed,state,freeze=false){
  if(state.phase==='air'&&state.airEffort>.35)trailWindow=.1;
- if(!paused){
+ if(!paused&&!freeze){
   if(trailWindow>0&&state.phase==='air'){const p=pose(state);for(let i=0;i<2;i++){const d=trails[trailIndex++%trails.length];d.life=.32;d.m.visible=true;d.m.position.set(p['foot'+i].x,p['foot'+i].y,i===0?.23:-.23);}}
   trailWindow=Math.max(0,trailWindow-elapsed);
   for(const d of trails)if(d.life>0){d.life-=elapsed;d.m.material.opacity=Math.max(0,d.life*2.5);d.m.scale.setScalar(Math.max(.1,d.life*3));d.m.visible=d.life>0;}
@@ -76,6 +79,22 @@ function effects(elapsed){
  $('air-count').textContent=(state.landingPose>.3?'收尾中 · ':state.charging?'放開腳起跳 · ':state.phase==='air'?'擺動續飛 · ':'腳長按蓄力 · ')+'體力 '+Math.round(state.energy*100)+'%';
  $('air-guide').setAttribute('aria-label','剩餘體力 '+Math.round(state.energy*100)+'%');
 }
+// Stable object pool; each retained visual snapshot contains numeric transforms only.
+const replayObjects=[...dust,...trails].map(d=>d.m);sandpits.group.traverse(o=>replayObjects.push(o));
+function captureReplayView(){return {origin:renderOrigin,objects:captureReplayObjects(replayObjects),sky:scene.background.toArray(),cue:cueTime,cueText:$('place-cue').textContent,trailWindow};}
+function syncReplay(){buttons.forEach(b=>b.disabled=replay.active);syncPauseButton($('replay-pause'),{paused:replay.paused,available:replay.active});$('replay-status').textContent=replay.paused?'落地重播 · 已暫停':'落地重播';}
+function toggleReplayPause(){if(!replay.active)return;replay.setPaused(!replay.paused);prev=performance.now();syncReplay();}
+function beginReplay(){
+ if(playing||pendingCapture||!replay.ready||replay.active)return;
+ finalReplayView=captureReplayView();if(!replay.start())return;
+ resultScroll=$('overlay').scrollTop;clear();acc=0;sound.setPlaying(false);modal.close();$('replay-controls').hidden=false;prev=performance.now();syncReplay();$('replay-pause').focus();
+}
+function finishReplay(){
+ replay.stop();buttons.forEach(b=>b.disabled=false);$('replay-controls').hidden=true;clear();acc=0;
+ if(finalReplayView)draw(state,0,finalReplayView);
+ modal.open();$('overlay').scrollTop=resultScroll;$('replay-result').focus();
+}
+$('replay-result').onclick=beginReplay;$('replay-close').onclick=finishReplay;$('replay-pause').onclick=toggleReplayPause;
 function downloadPNG(file){
  const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name||'playformosa-long-jump.png';document.body.appendChild(a);
  try{a.click();}finally{a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);}
@@ -118,9 +137,11 @@ $('save-result').onclick=async()=>{
  $('share-status').textContent=messages[outcome.status];
 };
 let prev=performance.now(),acc=0;function frame(now){
- requestAnimationFrame(frame);syncPauseButton($('pause'),{paused,available:playing});const elapsed=Math.min((now-prev)/1000,.06);prev=now;
- if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){step(state,input);audioEvents.update(state);acc-=DT;}
-  if(state.phase==='land'&&lastPhase!=='land')burst(state.x);lastPhase=state.phase;
+ requestAnimationFrame(frame);syncPauseButton($('pause'),{paused:replay.active?replay.paused:paused,available:playing||replay.active});const elapsed=Math.min((now-prev)/1000,.06);prev=now;
+ if(replay.active){replay.advance(elapsed);if(!replay.active){finishReplay();return;}const shot=replay.current;draw(shot.state,0,shot.visual||finalReplayView);return;}
+ const recording=playing&&!paused;
+ if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){const beforePhase=state.phase;step(state,input);replay.record(state);if(state.phase==='land'&&beforePhase!=='land'){burst(state.x+state.origin-renderOrigin);lastPhase='land';draw(state,0);replay.attachVisual(captureReplayView());}audioEvents.update(state);acc-=DT;}
+  if(state.phase==='land'&&lastPhase!=='land')burst(state.x+state.origin-renderOrigin);lastPhase=state.phase;
   if(state.phase==='done'&&!reported){
    reported=true;playing=false;clear();settleVerdict(state,result(state),storage);saveJourney(storage,state);const r=result(state);
    if(r.valid&&r.legalAdventureKm>best){best=r.legalAdventureKm;try{saveBest(storage,best);}catch{}}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
@@ -134,23 +155,28 @@ let prev=performance.now(),acc=0;function frame(now){
 
   }
  }
+ draw(state,elapsed);if(recording)replay.attachVisual(captureReplayView());$('replay-result').hidden=!replay.ready;$('replay-result').disabled=pendingCapture;
+}
+function draw(state,elapsed,replayView=null){
  const shift=state.origin-renderOrigin;if(shift){for(const d of[...trails,...dust])d.m.position.x-=shift;renderOrigin=state.origin;}
  const distance=Math.max(0,worldX(state)-BOARD),sceneDistance=(state.phase==='land'||state.phase==='done')?Math.max(0,(state.landingWorldX??worldX(state))-BOARD):distance,progress=adventureAt(sceneDistance),place=progress.region;world.update(distance,state.origin,sceneDistance);const sky=new THREE.Color(place.sky);scene.background.lerp(sky,Math.min(1,elapsed*2.5));scene.fog.color.copy(scene.background);
- const key=place.id;if(playing&&key!==lastPlaceKey){const achieved=progress.achievements.at(-1),special=['penghu','world_complete','space','moon','mars','saturn'].includes(place.id);const visit=placeVisits.get(key)||0;placeVisits.set(key,visit+1);$('place-cue').textContent=(special?achieved+'！ ':place.name+' · ')+arrivalFlavour(key,visit);cueTime=4.5;lastPlaceKey=key;}
- if(!paused)cueTime=Math.max(0,cueTime-elapsed);$('place-cue').classList.toggle('visible',cueTime>0);$('place-name').textContent=routeLabel(place.start);const measure=formatMileage(progress.km);$('travel-distance').textContent='冒險里程 約 '+measure.value+' '+measure.unit;$('wind-label').textContent='氣流 '+(state.wind.push>=0?'→':'←')+(Math.sign(state.wind.nextPush)!==Math.sign(state.wind.push)?' 前方轉向':'');
+ const key=place.id;if(!replayView&&playing&&key!==lastPlaceKey){const achieved=progress.achievements.at(-1),special=['penghu','world_complete','space','moon','mars','saturn'].includes(place.id);const visit=placeVisits.get(key)||0;placeVisits.set(key,visit+1);$('place-cue').textContent=(special?achieved+'！ ':place.name+' · ')+arrivalFlavour(key,visit);cueTime=4.5;lastPlaceKey=key;}
+ if(!replayView&&!paused)cueTime=Math.max(0,cueTime-elapsed);$('place-cue').classList.toggle('visible',cueTime>0);$('place-name').textContent=routeLabel(place.start);const measure=formatMileage(progress.km);$('travel-distance').textContent='冒險里程 約 '+measure.value+' '+measure.unit;$('wind-label').textContent='氣流 '+(state.wind.push>=0?'→':'←')+(Math.sign(state.wind.nextPush)!==Math.sign(state.wind.push)?' 前方轉向':'');
  const feedback=controlFeedback(state);buttons.forEach(b=>{const i=Number(b.dataset.limb),f=feedback[i];$('hint-'+i).textContent=f.hint;b.style.setProperty('--load',f.load);b.classList.toggle('loading',i>=2&&f.load>0);b.classList.toggle('armed',i>=2&&state.phase==='run'&&state.chargeFoot===i-2);b.classList.toggle('bracing',state.phase==='air'&&i>=2&&state.brace[i-2]>.3);b.setAttribute('aria-label',f.label+'，'+f.hint);});
- renderAthlete();const view=cameraFrame(state,sceneWidth,scenePlayHeight);Object.assign(camera,renderCameraBounds(view,scenePlayHeight,sceneHeight));camera.updateProjectionMatrix();camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);sun.position.set(state.x-5,18,8);sun.target.position.set(state.x,0,0);sun.target.updateMatrixWorld();
- if(!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
- effects(elapsed);
+ renderAthlete(state);const view=cameraFrame(state,sceneWidth,scenePlayHeight);Object.assign(camera,renderCameraBounds(view,scenePlayHeight,sceneHeight));camera.updateProjectionMatrix();camera.position.set(view.centerX,view.centerY+4,16);camera.lookAt(view.centerX,view.centerY,0);sun.position.set(state.x-5,18,8);sun.target.position.set(state.x,0,0);sun.target.updateMatrixWorld();
+ if(!replayView&&!paused)for(const d of dust)if(d.life>0){d.life-=elapsed;d.v.y-=elapsed*5;d.m.position.addScaledVector(d.v,elapsed);d.m.scale.setScalar(Math.max(0,d.life*1.4));d.m.visible=d.life>0;}
+ effects(elapsed,state,Boolean(replayView));
  // Read-only landing scenery must be ready before this frame is frozen below.
- sandpits.update(state,pose(state),{elapsed,paused});
+ if(!replayView)sandpits.update(state,pose(state),{elapsed,paused});
+ else{restoreReplayObjects(replayObjects,replayView.objects);const delta=state.origin-replayView.origin;for(const d of [...dust,...trails])d.m.position.x-=delta;sandpits.group.position.x-=delta;scene.background.fromArray(replayView.sky);scene.fog.color.copy(scene.background);$('place-cue').textContent=replayView.cueText;$('place-cue').classList.toggle('visible',replayView.cue>0);$('air-guide').classList.toggle('boost',replayView.trailWindow>0);}
  $('speed').innerHTML='<span class="speed-caption">'+(state.jumped?'起跳速度':'助跑速度')+'</span>'+toKmh(state.takeoffSpeed??state.vx).toFixed(1)+' <small>km/h</small>';
  renderer.render(scene,camera);
- if(pendingCapture&&sceneWidth>1&&sceneHeight>1&&!document.hidden){pendingCapture=false;
+ if(!replayView&&pendingCapture&&sceneWidth>1&&sceneHeight>1&&!document.hidden){pendingCapture=false;
   try{const point=new THREE.Vector3(state.x,state.y+.3,0).project(camera);const shot=landingCapture.freeze(renderer.domElement,{x:(point.x+1)/2,y:(1-point.y)/2});shot.canvas.setAttribute('role','img');shot.canvas.setAttribute('aria-label','這一跳最後落地的遊戲截圖');}catch{$('landing-preview').hidden=true;}
   prepareResultShare();
  }
 }
 modal.open();
 requestAnimationFrame(frame);
+
 

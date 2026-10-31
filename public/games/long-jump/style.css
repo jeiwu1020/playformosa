@@ -81,3 +81,14 @@ html[data-controls-raised="true"] #air-guide{bottom:calc(28px + var(--scene-exte
 .dialog-backdrop{position:fixed;inset:0;z-index:99;background:#153c4559;touch-action:none}
 .card.fallback[open]{z-index:100}
 .card.fallback:not([open]){display:none}
+
+
+/* Replay is opt-in; keep controls above the arena and outside limb hit targets. */
+#replay-controls[hidden],#replay-result[hidden]{display:none!important}
+#replay-controls{position:fixed;z-index:8;top:calc(env(safe-area-inset-top,0px) + 62px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;max-width:calc(100% - 16px);padding:6px 8px;border-radius:16px;background:#172c3bed;color:#fff;box-shadow:0 4px 18px #172c3b33;touch-action:manipulation}
+#replay-controls button,#replay-result{min-width:44px;min-height:44px;touch-action:manipulation;font:inherit;cursor:pointer}
+#replay-controls button{border:1px solid #ffffff55;border-radius:10px;background:#fff;color:#172c3b;padding:8px 12px;white-space:nowrap}
+#replay-status{font-size:12px;min-width:58px;text-align:center}
+#replay-result{margin:8px 0;border:1px solid currentColor;border-radius:12px;background:transparent;color:#172c3b;padding:10px 22px}
+#replay-controls button:focus-visible,#replay-result:focus-visible{outline:3px solid #e99c39;outline-offset:3px}
+@media(max-height:450px){#replay-controls{top:58px}}
