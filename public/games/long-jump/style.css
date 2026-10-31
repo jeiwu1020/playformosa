@@ -60,7 +60,7 @@ html[data-layout="bottom"] main{grid-template-columns:1fr 1fr;grid-template-rows
  .card.result .share-buttons #share-result{grid-column:2;grid-row:1;}
  .card.result .share-buttons #copy-result{grid-column:3;grid-row:1;}
  .card.result .music-credits{grid-column:1;grid-row:7;align-self:center;}
- .card.result #start{grid-column:2;grid-row:7;}
+ .card.result .result-play-actions{grid-column:2;grid-row:7;}
 }
 
 /* Protect live play, including canvas, HUD text, label descendants and gaps.
@@ -92,3 +92,29 @@ html[data-controls-raised="true"] #air-guide{bottom:calc(28px + var(--scene-exte
 #replay-result{margin:8px 0;border:1px solid currentColor;border-radius:12px;background:transparent;color:#172c3b;padding:10px 22px}
 #replay-controls button:focus-visible,#replay-result:focus-visible{outline:3px solid #e99c39;outline-offset:3px}
 @media(max-height:450px){#replay-controls{top:58px}}
+
+/* A closed native dialog must stay closed even when .result selects block/grid. */
+dialog.card:not([open]){display:none!important}
+.card.result .result-play-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-top:4px}
+.card.result .result-play-actions #replay-result,.card.result .result-play-actions #start{width:100%;min-width:0;min-height:44px;margin:0;padding:9px 10px;font-size:15px}
+.card.result #landing-preview canvas{max-height:clamp(88px,calc(var(--visible-height,100dvh) - 480px),220px);object-fit:contain}
+/* Keep the three existing share actions together, not three extra phone rows. */
+.pf-game .card.result .pf-share-actions.pf-share-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.pf-game .card.result .pf-share-actions.pf-share-actions button{font-size:13px;padding:8px 5px;min-height:44px}
+@media(max-height:700px) and (orientation:portrait){
+ .card.result #result-brand{margin-bottom:4px}
+ .card.result #result-score-block{margin-bottom:6px}
+ .card.result #card-subtitle{font-size:15px;margin-bottom:8px}
+ .card.result #card-text{margin-bottom:8px}
+}
+@media(max-height:430px) and (orientation:landscape){
+ .card.result #landing-preview canvas{max-height:160px}
+ .card.result .result-play-actions{grid-column:2;grid-row:7;}
+}
+@media(max-height:430px) and (orientation:landscape){
+ .card.result #result-brand{margin-bottom:4px}
+ .card.result #result-score-block{margin-bottom:6px}
+ .card.result h2{font-size:20px;margin-bottom:6px}
+ .card.result #card-subtitle{font-size:15px;margin-bottom:6px}
+ .card.result #card-text{margin-bottom:6px}
+}

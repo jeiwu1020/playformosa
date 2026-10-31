@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+const read=name=>fs.readFileSync(new URL('../../public/games/long-jump/'+name,import.meta.url),'utf8');
+test('closed native and fallback result cards override every responsive display rule',()=>{const css=read('style.css');assert.match(css,/dialog\.card:not\(\[open\]\)\s*\{\s*display:\s*none\s*!important/);});
+test('replay and restart share one explicit compact result action row',()=>{const html=read('index.html'),css=read('style.css'),row=html.match(/<div class="result-play-actions">([\s\S]*?)<\/div>/)?.[1];assert.ok(row);assert.match(row,/id="replay-result"/);assert.match(row,/id="start"/);assert.match(css,/\.card\.result \.result-play-actions\{[^}]*grid-column:2;[^}]*grid-row:7/);assert.match(css,/\.card\.result #landing-preview canvas\{[^}]*max-height:/);});
