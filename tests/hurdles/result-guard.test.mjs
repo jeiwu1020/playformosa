@@ -27,3 +27,9 @@ test('document binding blocks ghost bubbling and permits one fresh native click'
 
 test('capture loss does not pretend that a still-held old finger was released',()=>{const{g,time}=setup();g.pointerDown(7,null);g.begin();g.lostCapture(7);time(3000);assert.equal(tap(g,8),false);g.pointerUp(7,null);time(3400);assert.equal(tap(g,9),true);});
 test('unlabelled delayed zero-detail touch clicks cannot masquerade as assistive activation',()=>{const{g,time}=setup();g.pointerDown(7,null);g.begin();time(700);g.pointerUp(7,'share');time(1100);assert.equal(g.accept('share',{detail:0}),false);time(1800);assert.equal(g.accept('share',{detail:0,allowAssistive:false}),false);assert.equal(g.accept('share',{detail:0,allowAssistive:true}),true);});
+
+test('guard tracks held keys globally but does not swallow native activation of unrelated replay toolbar controls',()=>{
+ const{g,time}=setup(),doc=new EventTarget(),action={click(){}};api.bindResultGuard(doc,g,t=>t===action?action:null);g.begin();time(1000);
+ for(const type of ['keydown','keyup']){const e=new Event(type,{cancelable:true});Object.defineProperty(e,'target',{value:{id:'pause'}});Object.assign(e,{code:'Enter',repeat:false});doc.dispatchEvent(e);assert.equal(e.defaultPrevented,false);}
+ assert.equal(g.ready,false,'unrelated physical keys still establish a fresh release boundary');
+});
