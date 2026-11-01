@@ -2,7 +2,7 @@
 // Uses the real linked stylesheet order. JSDOM only supplies DOM/selector/focus APIs.
 import {readFileSync, existsSync} from 'node:fs';
 import {createRequire} from 'node:module';
-const dependencyRoot=process.env.PF_QA_DEPENDENCIES || new URL('../package.json',import.meta.url);
+const dependencyRoot=new URL('../../package.json',import.meta.url);
 const require=createRequire(dependencyRoot);
 const postcss=require('postcss'), {JSDOM}=require('jsdom'), {createCanvas,GlobalFonts}=require('@napi-rs/canvas');
 const font='/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc';
