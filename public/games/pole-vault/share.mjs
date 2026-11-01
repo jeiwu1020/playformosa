@@ -1,5 +1,5 @@
 export const heightText=h=>h>=1e12?(h/1000).toExponential(2)+' km':h>=100000?(h/1000).toLocaleString('en-US',{maximumFractionDigits:2})+' km':Number(h).toFixed(2)+' m';
-export const shareText=(s,url)=>`四肢各有想法｜撐竿跳\n我跳到 ${Number(s.maxHeight).toFixed(2)} 公尺！\n你能跳得比什麼還高？\nPlayFormosa 測試版\n${url}`;
+export const shareText=(s,url)=>`四肢各有想法｜撐竿跳\n我跳到 ${Number(s.maxHeight).toFixed(2)} 公尺！\n你能跳得比什麼還高？\nPlayFormosa\n${url}`;
 export const cardLines=(s,v)=>({height:heightText(s.maxHeight),title:v.title,subtitle:v.subtitle,badge:v.badge,detail:v.detail});
 export async function saveImage(file,{mobile=false,nav=globalThis.navigator,download}={}){if(!file)return'error';let supported=false;try{supported=mobile&&typeof nav?.share==='function'&&typeof nav?.canShare==='function'&&nav.canShare({files:[file]});}catch{}if(supported){try{await nav.share({files:[file]});return'shared';}catch(e){if(e?.name==='AbortError')return'cancelled';try{download(file);return'downloaded';}catch{return'error';}}}try{download(file);return'downloaded';}catch{return'error';}}
 export function drawResult(source,s,v){

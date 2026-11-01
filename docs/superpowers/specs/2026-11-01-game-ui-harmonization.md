@@ -1,0 +1,4 @@
+# Approved PlayFormosa interface harmonization
+User approved 2026-11-01 direct edits/publication to existing private jeiwu1020/playformosa preview/hurdles. Base99ae01cfd15b9144a26ce4d91bc70f6f140a6587.
+Four ordered batches: remove player-facing development/test/private/version copy; simplify pole-vault mobile HUD; harmonize results/download cards; simplify entry guidance.
+Preserve physics/input/storage/routes, per-game artwork and actual captured scene, foul/medical/non-realistic safety meaning, audio and share activation. No new timers/replays. Keep raw scene preview separate from full card. Beer inline onboarding and rod/beer distinct controls stay. Main and original prototype Sites untouched. Every usable batch needs precise manifest, private Library archive with fresh restore/hash, review, CAS publication and exact-commit Cloudflare/live verification.

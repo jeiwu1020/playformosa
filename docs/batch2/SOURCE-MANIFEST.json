@@ -80,16 +80,18 @@
         {
           "path": "game.mjs",
           "sourceSha256": "f25421828291a15cc2a409e6f04fcce5e89027cb869e2b7d112c64212be07f90",
-          "importedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
-          "unchanged": false
+          "importedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+          "unchanged": false,
+          "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "d2632439eb380498cfddaafde71811db4babe5c9de86c5071b9c3a6b378cd16c",
+          "importedSha256": "32b42a11b5bdd64daf335b3dcc2876b12af8915309396ade3e6a11d18b81f3cf",
           "unchanged": false,
-          "previousIntegratedSha256": "5b77b82c90be90344059f807c9756b72091767e6cafa67e89195e720d5d5193a",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "d2632439eb380498cfddaafde71811db4babe5c9de86c5071b9c3a6b378cd16c",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "pose.mjs",
@@ -118,10 +120,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "af1f416f8a79085371b6cf37fe105859460fea58cd5eea6e1020558f3eda1b92",
-          "importedSha256": "8c8e9c7fb9762240c60a2817c3dce0c51166b9b9287378de38e281c62f028261",
+          "importedSha256": "16114d0ed255f5818f68b637041875ab273494367e4597875051ba84ec07c276",
           "unchanged": false,
-          "previousIntegratedSha256": "e57b0f6a9bd93539ff93e3fd81a67cc1f206473349a220f0b40395a185dc0945",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "8c8e9c7fb9762240c60a2817c3dce0c51166b9b9287378de38e281c62f028261",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "shared/game-ui.css",
@@ -260,10 +262,10 @@
         {
           "path": "index.html",
           "sourceSha256": "79f1a71f46783a7e3cdf2b78f839a7e237029940761997837c4bb7970f2d472b",
-          "importedSha256": "7587e94a8a22717a7db10d282c56c5ab56c6189e50944b7ad3b7042f83aae88a",
+          "importedSha256": "ed500eccdfb3a8063fabf937aae5fcccfc5035cba7bf0890b9158683b6843680",
           "unchanged": false,
-          "previousIntegratedSha256": "219cb09825e6ad9e9ca80766846f2c134f0534957fd4df0928578df87b523fbd",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "7587e94a8a22717a7db10d282c56c5ab56c6189e50944b7ad3b7042f83aae88a",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "input.mjs",
@@ -298,10 +300,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "9e55dbcf9441c7a228749a19bc0c482f19c550e60899dd668049f4729fde7114",
-          "importedSha256": "e0bb787a6c04dbc0a601f8fadcec90d8b9286f87f454fdf9e24da97622381563",
+          "importedSha256": "5b6597ee40f5148eb5f8f50f6a96ab9e027164c8a17529cb89fe88dc3e85ceb6",
           "unchanged": false,
-          "previousIntegratedSha256": "105053cd68d131c5490ab5038dec1591e986ebd095f327fef40e152cc571a779",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "e0bb787a6c04dbc0a601f8fadcec90d8b9286f87f454fdf9e24da97622381563",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "shared/game-ui.css",

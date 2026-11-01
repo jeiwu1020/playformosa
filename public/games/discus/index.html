@@ -3,7 +3,7 @@
 <main><div class="mast"><span>風力滑翔</span><span id="record">最佳 —</span></div><section id="stage" aria-label="擲鐵餅場地"><canvas id="scene" tabindex="0" aria-label="擲鐵餅自由四肢：A左腳 S右腳 J平衡臂 K蓄力放開出手"></canvas><div class="stage-top"><span class="pill">ROUND 01 · 旋轉的藝術</span><span id="distance">0.0 m</span></div><div id="scene-label">先把鐵餅握好，再把地圖打開。</div><div id="start-panel"><p class="eyebrow">身體會轉，鐵餅才會飛。</p><h2>四肢一起玩。</h2><p>先按住 K，再放開甩出去。<br>A/S 蹬地旋轉，J 伸臂救重心。</p><button id="start" class="primary">開始挑戰 →</button></div><div id="pause-panel" hidden><h2>先喘一下。</h2><p id="pause-reason">進度已暫停，按繼續再出發。</p><button id="resume" class="primary">▶ 繼續遊戲</button></div><div id="error" hidden role="alert"></div></section>
 <section class="controls" aria-label="自由四肢操作"><p id="cue" aria-live="polite">按住 K 蓄力，放開甩出</p><div class="pads"><button id="foot-a"><kbd>A</kbd> 左腳<small>彎腿／蹬地</small></button><button id="foot-s"><kbd>S</kbd> 右腳<small>彎腿／蹬地</small></button><button id="spin"><kbd>J</kbd> 左臂<small>伸出／收回</small></button><button id="throw"><kbd>K</kbd> 右手<small>蓄力／出手</small></button></div></section><details class="tutorial"><summary>第一次玩？四肢怎麼配合</summary><p>A/S 按住彎腿、鬆開蹬地；換腳讓腰轉起來；也可放開雙腳落地減速，比較好抓出手。J 伸左臂穩住、轉慢一點，放開收回轉更快。K 把右臂蓄緊，放開時轉腰甩臂，再沿手邊方向飛出。穩定旋轉能滑翔；冷氣送順風，地面排氣口送上升熱風；歪丟不一定接得到。不用照順序，先只按 K 也能投！失焦或暫停會取消蓄力，不會誤投。</p></details><p class="footnote" id="audio-status" aria-live="polite">音樂會在你開始挑戰後開啟。P / Esc 暫停 · 離開視窗自動暫停</p><details class="credits"><summary>音樂與素材授權</summary><p>背景音樂：Funin and Sunin — Kevin MacLeod（incompetech.com），<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>。沿用平台完整 218.958 秒版本，已低通、音量正規化、淡入淡出及網頁編碼。無作者背書。<a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700011" target="_blank" rel="noopener">原曲來源</a>。角色為 PlayFormosa 原創程序模型；Three.js MIT 授權隨附。</p></details></main>
 <dialog id="result" class="pf-result throw-result" hidden aria-labelledby="result-title">
-  <div class="result-top throw-result__top"><span>PLAYFORMOSA · 擲鐵餅</span><span>測試版</span></div>
+  <div class="result-top throw-result__top"><span>PLAYFORMOSA · 擲鐵餅</span><span>本局成績</span></div>
   <div class="throw-result__layout">
     <section class="throw-result__report" aria-label="本局成績與操作">
       <h2 id="result-title" tabindex="-1">漂亮的一擲！</h2>
@@ -12,7 +12,7 @@
       <div class="result-actions throw-result__play"><button id="replay" class="secondary">↺ 看這次飛行</button><button id="again" class="primary">再擲一次 →</button></div>
       <div class="pf-share-actions"><a id="threads" data-share="threads" target="_blank" rel="noopener noreferrer">分享至Threads</a><button id="image" data-share="image" disabled>下載成績圖片</button><button id="copy" data-share="copy">複製成績與網址</button></div>
       <p id="share-status" role="status" aria-live="polite"></p>
-      <small class="throw-result__note">私人測試版尚無公開遊戲網址；分享文字不附私人網址。Threads 圖片需手動附加。</small>
+      <small class="throw-result__note">Threads 會帶入成績與遊戲網址；圖片請手動附加。</small>
     </section>
     <figure class="throw-result__photo"><img id="result-image" alt="本次擲鐵餅實際落地場景" hidden></figure>
   </div>

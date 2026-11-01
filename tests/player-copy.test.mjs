@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';
+const read=p=>readFileSync(new URL('../public/games/'+p,import.meta.url),'utf8');
+const files=['hurdles/index.html','hurdles/game.mjs','hurdles/share.mjs','pole-vault/index.html','pole-vault/share.mjs','high-jump/index.html','high-jump/game.mjs','shot-put/index.html','shot-put/game.mjs','shot-put/share.mjs','discus/index.html','discus/share.mjs','reaction-rod/index.html','reaction-rod/share.mjs','beer-slide/platform.mjs','beer-slide/index.html'];
+for(const p of files)test(`${p}: player copy avoids development, private-access and rule-version labels`,()=>{assert.doesNotMatch(read(p),/TEST BUILD|本原型|測試站|測試版|私人原型|私人測試|試玩版|測試網址|接力 v[0-9]|規則 v[0-9]|本版最佳|新版紀錄與舊版分開保存/);});
+test('safety, foul and meaningful rule guidance remain',()=>{assert.match(read('high-jump/game.mjs'),/誇張運動，請勿模仿/);assert.match(read('discus/share.mjs'),/非正式運動紀錄/);assert.match(read('shot-put/share.mjs'),/非正式運動紀錄/);assert.match(read('shot-put/index.html'),/每件只接力一次/);});

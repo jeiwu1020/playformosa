@@ -16,7 +16,7 @@ export function drawResultCard(canvas,snapshot,r){
  ctx.font='600 30px sans-serif';ctx.fillText(`遊戲評分 ${r.rating.toFixed(1)} / 10`,x,970);ctx.fillText(`坐倒 ${r.falls} 次`,x,1020);
  ctx.font='500 25px sans-serif';wrapLines(ctx,'手掌有接到，今天就算有運動。',width,2).forEach((s,i)=>ctx.fillText(s,x,1100+i*33));return canvas;
 }
-export function shareText(r,url){return `接棒啦！我接住 ${r.caught} / ${r.total} 根！\n${r.title}：${r.comment}\nPlayFormosa 小遊戲・測試版\n${url}`;}
+export function shareText(r,url){return `接棒啦！我接住 ${r.caught} / ${r.total} 根！\n${r.title}：${r.comment}\nPlayFormosa 小遊戲\n${url}`;}
 export function threadsURL(text){return 'https://www.threads.net/intent/post?text='+encodeURIComponent(text);}
 export async function shareResult({navigator,mobile,file}){
  if(!mobile||!file||!navigator?.share||!navigator?.canShare)return 'fallback';

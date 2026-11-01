@@ -40,8 +40,10 @@
         {
           "path": "game.mjs",
           "sourceSha256": "045c0ae073a93b59a2249e946010fdfb9a5b377f529bebd2705021f1f6ee6167",
-          "importedSha256": "b48084a98af598c6e722a615fe83b17019a856c85ae57694adcaace4afee7e84",
-          "unchanged": false
+          "importedSha256": "3bf3d4ccbcee20539dea53fd248476e80222bffc0d67f34602f0d27bb398e37f",
+          "unchanged": false,
+          "previousIntegratedSha256": "b48084a98af598c6e722a615fe83b17019a856c85ae57694adcaace4afee7e84",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "software-renderer.mjs",
@@ -52,10 +54,10 @@
         {
           "path": "index.html",
           "sourceSha256": "12306100a589e66d171062ebcc216b16e65b40be852550748ef20f0dff186b7c",
-          "importedSha256": "6c26b1f3019a6ac5f3d2854ce96796f421891fb4a2c44c97a26ff847c1b17a1b",
+          "importedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
           "unchanged": false,
-          "previousIntegratedSha256": "c48161b746705bb992dd6cfbc1f3ab369bc0b37ca6c6dba7a1bb366a83f039b8",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "6c26b1f3019a6ac5f3d2854ce96796f421891fb4a2c44c97a26ff847c1b17a1b",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "physics.mjs",
@@ -226,10 +228,10 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "f17f50b3efbed0f200065b2511ebf3290d18653232200afe78acafe0eb1732fe",
+          "importedSha256": "5c67b86b35a98befc18ac0aa2b90a64cc6984e207ac7906172b98cda448fbf53",
           "unchanged": false,
-          "previousIntegratedSha256": "cf135b73652eeb1c2d0660b541224576265be7521c9624edfa94bb9854dbb810",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "f17f50b3efbed0f200065b2511ebf3290d18653232200afe78acafe0eb1732fe",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "ui-state.mjs",
@@ -258,10 +260,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "c7d8e76db80509ce76442a057313b9416cf0983dcec4ae6b6492f26017b7426a",
-          "importedSha256": "75e3e66720282afff965c8ff2354629b0a44ec9933c5c1f4ec27fe5e88f9d663",
+          "importedSha256": "befc4d34baf59eeebe2eb3e42cc0c09d16a67e3b82f0ab3a930c7a06cc7dc413",
           "unchanged": false,
-          "previousIntegratedSha256": "9f6cc2e2c0910ce6e24bacfa3a4bb389d482a7ed8fced5a9a39bc7d468add0ee",
-          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
+          "previousIntegratedSha256": "75e3e66720282afff965c8ff2354629b0a44ec9933c5c1f4ec27fe5e88f9d663",
+          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
         },
         {
           "path": "render.mjs",

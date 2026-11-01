@@ -1,7 +1,7 @@
 // UI-only sharing: game owns the score and passes an already frozen actual-round image.
 import {drawBeerResultCard} from './share.mjs';
 import {createResultDialog} from '../shared/game-ui.mjs';
-function readResult(document,location){const get=id=>document.getElementById(id),score=get('score').textContent.trim(),verdict=get('verdict').textContent.trim(),distance=get('finalDistance').textContent.trim(),spill=get('finalSpill').textContent.trim();return {score,verdict,distance,spill,title:'別灑啊！｜PlayFormosa',text:`別灑啊！我推到 ${score} / 10.0 分！\n${verdict}\n離靶心 ${distance} · 灑出 ${spill}\nPlayFormosa 小遊戲・測試版`,url:location.origin+'/games/beer-slide/'};}
+function readResult(document,location){const get=id=>document.getElementById(id),score=get('score').textContent.trim(),verdict=get('verdict').textContent.trim(),distance=get('finalDistance').textContent.trim(),spill=get('finalSpill').textContent.trim();return {score,verdict,distance,spill,title:'別灑啊！｜PlayFormosa',text:`別灑啊！我推到 ${score} / 10.0 分！\n${verdict}\n離靶心 ${distance} · 灑出 ${spill}\nPlayFormosa 小遊戲`,url:location.origin+'/games/beer-slide/'};}
 export function resultShareData(document,location){return document.getElementById('result').hidden?null:readResult(document,location);}
 export function wirePlatformSharing({document,navigator,location,MutationObserver=globalThis.MutationObserver,mobile=()=>globalThis.matchMedia?.('(pointer: coarse)').matches||false,download=null}){
  const get=id=>document.getElementById(id),status=get('platformShareStatus'),button=get('platformShare');

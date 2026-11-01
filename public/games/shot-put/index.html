@@ -1,13 +1,13 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e5"><meta name="description" content="PlayFormosa 擲鉛球測試版：短蓄力，準出手，讓地板感受到你的熱情。"><title>四肢各有想法｜鉛球｜PlayFormosa</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="../shared/game-ui.css"></head><body class="pf-game">
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e5"><meta name="description" content="PlayFormosa 擲鉛球：短蓄力，準出手，讓地板感受到你的熱情。"><title>四肢各有想法｜鉛球｜PlayFormosa</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="../shared/game-ui.css"></head><body class="pf-game">
 <header class="pf-header"><a class="pf-home" href="/" aria-label="遊戲首頁">← 遊戲首頁</a><h1>四肢各有想法｜鉛球</h1><nav aria-label="遊戲操作"><button data-game-action="music" id="music" aria-pressed="false">♫ 音樂</button><button data-game-action="restart" id="restart">↻ 重來</button><button data-game-action="pause" id="pause" aria-pressed="false">Ⅱ 暫停</button></nav></header>
 <main>
-<section class="arena" aria-label="擲鉛球遊戲"><canvas id="game" tabindex="0" aria-label="A 左腿、S 右腿、J 平衡臂、K 持球臂；按住彎曲，放開伸展，K 放開投球"></canvas><div class="score"><small>實際飛行</small><strong id="distance">0.00 <em>m</em></strong></div><div id="sceneLabel">空中接力 v5</div><div id="center" class="center"><b>四肢各有想法。</b><p>按住 K 蓄力，放開推出。</p><button id="start" class="primary">開始挑戰</button></div><div class="corner">7.26 kg 的心意 · 誇張物理試玩版</div></section>
+<section class="arena" aria-label="擲鉛球遊戲"><canvas id="game" tabindex="0" aria-label="A 左腿、S 右腿、J 平衡臂、K 持球臂；按住彎曲，放開伸展，K 放開投球"></canvas><div class="score"><small>實際飛行</small><strong id="distance">0.00 <em>m</em></strong></div><div id="sceneLabel">空中接力</div><div id="center" class="center"><b>四肢各有想法。</b><p>按住 K 蓄力，放開推出。</p><button id="start" class="primary">開始挑戰</button></div><div class="corner">7.26 kg 的心意 · 誇張運動，請勿模仿</div></section>
 <p id="hint" class="hint">按住 K 蓄力，放開推出。</p>
 <div class="controls" aria-label="四肢控制">
 <button id="stepA" disabled><kbd>A</kbd><span>左腿<small>按彎 · 放蹬</small></span></button><button id="stepS" disabled><kbd>S</kbd><span>右腿<small>按彎 · 放蹬</small></span></button><button id="charge" disabled><kbd>J</kbd><span>平衡臂<small id="balanceCue">按伸 · 放收</small></span></button><button id="throw" disabled><kbd>K</kbd><span>持球臂<small>按蓄 · 放投</small></span></button></div>
-<details><summary>操作小抄</summary><p>A／S 各控制一腳：按住彎腿，放開蹬地。J 伸出左臂穩住身體。K 將球壓在頸邊蓄力，放開就推出；四鍵可以同時配合，不用照順序。只按 K 也能投，踩穩接上伸展才會遠；縮腳或過度後仰，球也會跟著鬧脾氣。出手後不用操作；斜坡彈跳墊、遮雨棚、翻炒巨鍋和彈簧床墊靠碰撞接力，額外距離全計分。金色邊緣標記會接球的彈性面，遠景只是裝飾。距離弧線為遊戲參考，出手後以離手點起算水平距離，並非犯規界線。接力 v5 加入接球設施；新版紀錄與舊版分開保存。每件只接力一次；同路線可重試，新路線改變配置。觸控可以多指或滑到另一鍵；移開按鍵外仍保持，抬指才放開。P 暫停；失焦或中斷觸控會取消蓄力，不會誤投。</p></details><p id="audioStatus" class="status" role="status">音樂不是出手判定依據。</p><footer>測試版 · 空中接力 v5 · <a href="./credits.html">素材與授權</a></footer></main>
+<details><summary>操作小抄</summary><p>A／S 各控制一腳：按住彎腿，放開蹬地。J 伸出左臂穩住身體。K 將球壓在頸邊蓄力，放開就推出；四鍵可以同時配合，不用照順序。只按 K 也能投，踩穩接上伸展才會遠；縮腳或過度後仰，球也會跟著鬧脾氣。出手後不用操作；斜坡彈跳墊、遮雨棚、翻炒巨鍋和彈簧床墊靠碰撞接力，額外距離全計分。金色邊緣標記會接球的彈性面，遠景只是裝飾。距離弧線為遊戲參考，出手後以離手點起算水平距離，並非犯規界線。接球設施能讓這一球繼續旅行。每件只接力一次；同路線可重試，新路線改變配置。觸控可以多指或滑到另一鍵；移開按鍵外仍保持，抬指才放開。P 暫停；失焦或中斷觸控會取消蓄力，不會誤投。</p></details><p id="audioStatus" class="status" role="status">音樂不是出手判定依據。</p><footer>空中接力 · <a href="./credits.html">素材與授權</a></footer></main>
 <dialog id="result" class="throw-result" hidden aria-labelledby="resultTitle">
-  <div class="throw-result__top"><p class="eyebrow">DELIVERY COMPLETE / 空中接力 v5</p><span>本局成績</span></div>
+  <div class="throw-result__top"><p class="eyebrow">DELIVERY COMPLETE / 空中接力</p><span>本局成績</span></div>
   <div class="throw-result__layout">
     <section class="throw-result__report" aria-label="本局成績與操作">
       <h2 id="resultTitle" tabindex="-1">重物已送達。</h2>
@@ -17,7 +17,7 @@
       <div class="resultActions throw-result__play"><button id="replay">▶ 重看這一球</button><button id="again" class="primary">同路線再試</button><button id="newRoute">換新路線</button></div>
       <div class="pf-share-actions"><a id="threads" data-share="threads" target="_blank" rel="noopener">分享至Threads</a><button id="image" data-share="image" disabled>下載成績圖片</button><button id="copy" data-share="copy">複製成績與網址</button></div>
       <p id="shareStatus" role="status">正在準備本次圖片…</p>
-      <p class="small throw-result__note">測試版；圖片可以自行分享。Threads 只帶文字，請自行附上成績圖片。</p>
+      <p class="small throw-result__note">成績圖片可以自行分享。Threads 只帶文字，請自行附上成績圖片。</p>
     </section>
     <figure class="throw-result__photo"><img id="resultImage" alt="本次落地場景截圖"><button id="retryPreview" hidden>重試場景圖片</button></figure>
   </div>

@@ -15,4 +15,4 @@ for(const source of manifest.sources)test(`${source.game}: shipped original runt
  assert.deepEqual(adapted,source.game==='reaction-rod'?['game.mjs','index.html','share.mjs','style.css']:['index.html','style.css']);
 });
 
-test('UI standard adapts only named controller/markup files, preserving original art physics and assets',()=>{assert.deepEqual(ui.files.map(x=>x.game+'/'+x.path).sort(),['beer-slide/game.mjs','beer-slide/index.html','reaction-rod/game.mjs','reaction-rod/index.html']);});
+test('UI standard adapts only named controller/markup files, preserving original art physics and assets',()=>{assert.deepEqual(ui.files.map(x=>x.game+'/'+x.path).sort(),['beer-slide/game.mjs','beer-slide/index.html','reaction-rod/game.mjs','reaction-rod/index.html','reaction-rod/share.mjs']);});
