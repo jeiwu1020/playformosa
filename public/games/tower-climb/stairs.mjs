@@ -1,0 +1,16 @@
+// Geometry fits the unscaled original shoe (forward envelope .215m), not vice versa.
+export const STAIRS=Object.freeze({risers:8,tread:.50,rise:.27,height:2.16,halfRun:2,landing:.50,stepsPerFloor:10,swingSeconds:.11,clearance:.14});
+export function stairPoint(n){n=Math.max(0,n);const flight=Math.floor(n/10),k=n%10,dir=flight%2?-1:1;return{x:-dir*STAIRS.halfRun+dir*(Math.min(k,8)*STAIRS.tread+(k===9?STAIRS.landing:0)),y:flight*STAIRS.height+Math.min(k,8)*STAIRS.rise};}
+// Renderer and mesh-clearance tests consume these same physical solids.
+export function stairSolids(flight=0){const d=flight%2?-1:1,base=flight*STAIRS.height,b=[];for(let k=1;k<=STAIRS.risers;k++)b.push({name:'riser-'+k,x:d*(-STAIRS.halfRun+k*STAIRS.tread),y:base+k*STAIRS.rise-STAIRS.rise/2,w:STAIRS.tread,h:STAIRS.rise,d:1.35});for(const side of[-1,1])b.push({name:side===1?'upper-landing':'lower-landing',x:d*side*(STAIRS.halfRun+STAIRS.landing/2),y:base+(side===1?STAIRS.height:0)-.12,w:STAIRS.landing+STAIRS.tread,h:.24,d:1.4});return b;}
+const smooth=t=>{t=Math.min(1,Math.max(0,t));return t*t*(3-2*t);};
+// Lift vertically before crossing any riser, traverse above the entire shoe envelope,
+// then lower vertically onto the target. C1 joins; no diagonal cutting of solid stairs.
+function swing(from,to,u){const top=Math.max(from.y,to.y)+STAIRS.clearance;if(u<=.3)return{x:from.x,y:from.y+(top-from.y)*smooth(u/.3)};if(u<.75)return{x:from.x+(to.x-from.x)*smooth((u-.3)/.45),y:top};return{x:to.x,y:top+(to.y-top)*smooth((u-.75)/.25)};}
+function knee(hip,foot){const dx=foot.x-hip.x,dy=foot.y-hip.y,d=Math.hypot(dx,dy),h=Math.sqrt(Math.max(0,.55**2-d*d/4));return{x:(hip.x+foot.x)/2-dy/d*h,y:(hip.y+foot.y)/2+dx/d*h};}
+export function stairPose(s){const n=Math.floor(s.progress),dir=Math.floor(n/10)%2?-1:1,moving=s.lastFoot==='s'?1:0,stance=1-moving,u=Math.min(1,Math.max(0,(s.time-s.lastStepAt)/STAIRS.swingSeconds)),from=stairPoint(n-2),to=stairPoint(n),feet=[stairPoint(Math.max(0,n-1)),stairPoint(Math.max(0,n-1))];feet[stance]=stairPoint(Math.max(0,n-1));feet[moving]=n?swing(from,to,u):stairPoint(0);if(u===1)feet[moving]=to;
+// .11s is shorter than the unchanged legal minimum .3 - 2*.09 = .12s.
+// Thus the previous accepted foot is already planted before any next legal input.
+// Do not force u=1 at fatigue: frozen terminal time preserves the actual final pose.
+const x=(feet[0].x+feet[1].x)/2,y=(feet[0].y+feet[1].y)/2,dx=Math.abs(feet[0].x-feet[1].x)/2,dy=Math.abs(feet[0].y-feet[1].y)/2,hipHeight=Math.min(.96,Math.sqrt(Math.max(.01,1.07**2-dx*dx))-dy),hip={x:0,y:hipHeight+.099};const points={hip,head:{x:.08,y:hip.y+1.04},shoulder:{x:.02,y:hip.y+.60}};for(let i=0;i<2;i++){points['foot'+i]={x:(feet[i].x-x)*dir,y:feet[i].y-y+.099};points['knee'+i]=knee(hip,points['foot'+i]);const arm=(i===moving?1:-1)*Math.sin(u*Math.PI)*.14;points['elbow'+i]={x:(i===0?.23:-.23)+arm,y:hip.y+.35};points['hand'+i]={x:(i===0?.38:-.38)+arm,y:hip.y+.13};}return{x,y,dir,feet,points};}
+export function applyStairPose(hero,s){const p=stairPose(s);hero.update(p.points,{phase:s.phase==='done'?'done':'run',lean:.08});hero.group.position.set(p.x,p.y,0);hero.group.scale.set(p.dir,1,1);hero.group.rotation.set(0,0,0);for(let i=0;i<2;i++)hero.group.getObjectByName('shoe-'+i).rotation.z=0;hero.group.updateMatrixWorld(true);return p;}

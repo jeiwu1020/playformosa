@@ -1,0 +1,2 @@
+/* Platform chrome only; indoor scene and controls stay game-owned. */
+body.pf-game.pf-tower-climb{grid-template-rows:auto minmax(0,1fr)}

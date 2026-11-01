@@ -49,3 +49,7 @@ All four preview games now follow [the platform game UI standard](docs/GAME-UI-S
 Adds the approved high-jump and pole-vault prototypes as self-contained local routes `/games/high-jump/` and `/games/pole-vault/`, both in the decathlon collection (now **4 / 10**). The independent minigame shelf remains Rod and Beer (**2**). The new approved transparent illustrations use a contained full-body layout; the additional approved Hurdles and Reaction Rod illustrations share that style. The original Long Jump and Beer art is unchanged.
 
 Exact original commits, per-file preservation hashes, interface deltas and verification limits are recorded in `docs/batch1/INTEGRATION.md` and `SOURCE-MANIFEST.json`. Prototype Sites and `main` are not edited. This source description is not a publication receipt.
+
+## Throws and indoor-climb integration batch 2 (preview/hurdles, 2026-11-01)
+
+Adds local Shot Put and Discus to decathlon (**6 / 10**) and current indoor Tower Climb (`上樓不容易`) to minigames (**3**). Exact source versions and minimal adaptations are recorded in `docs/batch2/INTEGRATION.md` and `SOURCE-MANIFEST.json`. Reconstructed after environment restart; first-batch games, prototype Sites and main are preserved.

@@ -1,0 +1,4 @@
+import test from'node:test';import assert from'node:assert/strict';
+let C;try{C=await import('../../public/games/shot-put/controls.mjs');}catch{}
+test('multiple sources release only on last source and deduplicate repeats',()=>{assert.ok(C?.createInput);const i=C.createInput();assert.deepEqual(i.set('key:k','k'),[['k',true]]);assert.deepEqual(i.set('key:k','k'),[]);assert.deepEqual(i.set('pointer:1','k'),[]);assert.deepEqual(i.set('key:k',null),[]);assert.deepEqual(i.set('pointer:1',null),[['k',false]]);});
+test('four fingers and slide retain unrelated limbs; clear returns no release actions',()=>{assert.ok(C?.createInput);let i=C.createInput();for(let k of ['a','s','j','k'])i.set(k,k);assert.deepEqual(i.values,[true,true,true,true]);assert.deepEqual(i.set('a','j'),[['a',false]]);i.clear();assert.deepEqual(i.values,[false,false,false,false]);});

@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import {catalog} from '../src/catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
-test('first batch adds only high jump and pole vault to decathlon, leaving minigames unchanged',()=>{
- assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles','high-jump','pole-vault']);
- assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod','beer-slide']);
- assert.match(renderPage(catalog),/4<span> \/ 10/);
+test('first batch jump entries survive subsequent admission',()=>{
+ assert.deepEqual(catalog.games.slice(0,4).map(g=>g.id),['long-jump','hurdles','high-jump','pole-vault']);
+ assert.deepEqual(catalog.minigames.slice(0,2).map(g=>g.id),['reaction-rod','beer-slide']);
+ assert.match(renderPage(catalog),/6<span> \/ 10/);
  for(const id of ['high-jump','pole-vault']){assert.ok(fs.existsSync(new URL('../public/games/'+id+'/index.html',import.meta.url)));assert.equal(catalog.games.find(g=>g.id===id).imageStyle,'illustration');}
 });
 test('new jump games have same-origin home, shared chrome and ordered share controls',()=>{
