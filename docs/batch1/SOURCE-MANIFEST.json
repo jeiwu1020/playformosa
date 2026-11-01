@@ -54,10 +54,10 @@
         {
           "path": "index.html",
           "sourceSha256": "12306100a589e66d171062ebcc216b16e65b40be852550748ef20f0dff186b7c",
-          "importedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
+          "importedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
           "unchanged": false,
-          "previousIntegratedSha256": "6c26b1f3019a6ac5f3d2854ce96796f421891fb4a2c44c97a26ff847c1b17a1b",
-          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          "previousIntegratedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
+          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
         },
         {
           "path": "physics.mjs",
@@ -230,10 +230,10 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
+          "importedSha256": "46d3536d70474cf58e6b869fde403974838343f5bdece0b34643ffc9ca5a8db0",
           "unchanged": false,
-          "previousIntegratedSha256": "c06c91ca5217beaf7cfe9f833a591dc4ccc45aa80e9927aeb8481c1eb954d6b1",
-          "adaptation": "Approved stage3 result/PNG presentation: hierarchy and aspect-preserving actual frozen scene, unchanged mechanics/capture ownership."
+          "previousIntegratedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
+          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
         },
         {
           "path": "ui-state.mjs",

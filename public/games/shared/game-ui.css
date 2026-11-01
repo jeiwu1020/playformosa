@@ -41,3 +41,12 @@
 .pf-game .pf-result-play>button{flex:1 1 150px;min-height:44px;margin:0;}
 .pf-game.pf-reaction-rod #againBtn{min-height:48px;}
 .pf-game .pf-result-details :is(.result-stats>div>span,.judge-scores span,.result-mini>span){font-size:14px;line-height:1.5;overflow-wrap:anywhere;}
+/* Optional entry details stay readable and easy to open without crowding core controls. */
+.pf-game .entry-help{grid-column:1/-1;text-align:left;}
+.pf-game .entry-help>summary{min-height:44px;display:flex;align-items:center;font-size:14px;line-height:1.5;cursor:pointer;}
+.pf-game .entry-help p{font-size:14px;line-height:1.6;display:block;}
+.pf-game [data-entry-operation]{font-size:18px!important;line-height:1.6!important;}
+.pf-game [data-entry-operation] :is(b,strong,span){font-size:inherit;line-height:inherit;}
+.pf-game #center:has([data-entry-goal]){overflow:auto;justify-content:flex-start;touch-action:pan-y;}
+.pf-game #center:has([data-entry-goal])>[data-entry-goal]{margin-top:auto;}
+.pf-game #center:has([data-entry-goal])>#start{margin-bottom:auto;flex-shrink:0;}

@@ -1,0 +1,8 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';
+const read=g=>readFileSync(new URL('../public/games/'+g+'/index.html',import.meta.url),'utf8');
+test('sports entry leads with goal and two core instructions, keeping advanced detail optional',()=>{for(const g of['long-jump','hurdles','high-jump','pole-vault','shot-put','discus']){const h=read(g);assert.equal((h.match(/data-entry-operation/g)||[]).length,2,g);assert.match(h,/data-entry-goal/,g);assert.ok(h.includes('<details'),g);}});
+test('distinct minigame onboarding remains native to the game',()=>{assert.match(read('reaction-rod'),/移動手掌接住 10 根棒/);assert.match(read('reaction-rod'),/往下拖可蹲下/);assert.match(read('beer-slide'),/按住杯子往前滑，放手線前放開/);assert.match(read('tower-climb'),/60 秒，衝上十層/);assert.match(read('tower-climb'),/提膝、放開踩穩/);});
+test('new optional entry disclosures keep a readable touch target',()=>{const css=readFileSync(new URL('../public/games/shared/game-ui.css',import.meta.url),'utf8');assert.match(css,/\.pf-game \.entry-help>summary\{[^}]*min-height:44px/);});
+
+test('highjump core explains hold/release and shot labels avoid giant title styling',()=>{assert.match(read('high-jump'),/長按蓄力，在綠區放開起跳/);assert.match(read('high-jump'),/空中用 A／S 收腿/);assert.doesNotMatch(read('shot-put'),/data-entry-operation><b>/);});
+test('primary core instructions stay large rather than shrinking to fit',()=>{const css=readFileSync(new URL('../public/games/shared/game-ui.css',import.meta.url),'utf8');assert.match(css,/\[data-entry-operation\]\{font-size:18px!important/);assert.match(css,/#center:has\(\[data-entry-goal\]\)\{[^}]*overflow:auto/);});

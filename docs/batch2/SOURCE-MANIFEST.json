@@ -88,10 +88,10 @@
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
+          "importedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
           "unchanged": false,
-          "previousIntegratedSha256": "32b42a11b5bdd64daf335b3dcc2876b12af8915309396ade3e6a11d18b81f3cf",
-          "adaptation": "Approved stage3 result/PNG presentation: hierarchy and aspect-preserving actual frozen scene, unchanged mechanics/capture ownership."
+          "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
+          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
         },
         {
           "path": "pose.mjs",
@@ -262,10 +262,10 @@
         {
           "path": "index.html",
           "sourceSha256": "79f1a71f46783a7e3cdf2b78f839a7e237029940761997837c4bb7970f2d472b",
-          "importedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
+          "importedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
           "unchanged": false,
-          "previousIntegratedSha256": "ed500eccdfb3a8063fabf937aae5fcccfc5035cba7bf0890b9158683b6843680",
-          "adaptation": "Approved stage3 result/PNG presentation: hierarchy and aspect-preserving actual frozen scene, unchanged mechanics/capture ownership."
+          "previousIntegratedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
+          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
         },
         {
           "path": "input.mjs",
