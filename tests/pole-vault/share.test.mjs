@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {saveImage,shareText,cardLines} from '../../public/games/pole-vault/share.mjs';
+test('desktop downloads file rather than native share',async()=>{let n=0;assert.equal(await saveImage(new Blob(['x']),{mobile:false,nav:{share(){throw Error('wrong route')}},download(){n++}}),'downloaded');assert.equal(n,1)});
+test('mobile native cancel never forces download',async()=>{let n=0;assert.equal(await saveImage(new Blob(['x']),{mobile:true,nav:{canShare:()=>true,share:async()=>{throw Object.assign(Error(),{name:'AbortError'})}},download(){n++}}),'cancelled');assert.equal(n,0)});
+test('mobile native error downloads same image',async()=>{let n=0;assert.equal(await saveImage(new Blob(['x']),{mobile:true,nav:{canShare:()=>true,share:async()=>{throw Error('denied')}},download(){n++}}),'downloaded');assert.equal(n,1)});
+test('share is height not distance/time and avoids asserting unverified platform access',()=>{let text=shareText({maxHeight:508.23},'https://example.com');assert.match(text,/508.23/);assert.match(text,/公尺/);assert.match(text,/測試版/);assert.doesNotMatch(text,/限擁有者|私人/);assert.doesNotMatch(text,/秒|完賽時間/)});
+test('card labels include height and descriptive badge without bonus score',()=>{let a=cardLines({maxHeight:12.34},{title:'比樹還有想法',subtitle:'四肢投票通過',badge:'節拍大師',detail:'最高點定格'});assert.equal(a.height,'12.34 m');assert.equal(a.title,'比樹還有想法');assert.equal(a.badge,'節拍大師')});

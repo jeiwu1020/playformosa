@@ -43,3 +43,9 @@ The separate 小遊戲 shelf now contains **接棒啦！** (reaction-rod v9 full
 ## Shared game interface / future admission
 
 All four preview games now follow [the platform game UI standard](docs/GAME-UI-STANDARD.md): the same **← 遊戲首頁** link, music/restart/pause toolbar, viewport-safe results and three result-share actions. Beer now prepares a PNG from the actual settled/visible-fall cup, score and verdict; it no longer offers text-only sharing. Threads still receives text and URL only—images must be attached manually. New games must import the shared UI layer and pass the lifecycle, accessibility, sharing, provenance and browser admission checklist, not merely copy the CSS.
+
+## Jump integration batch 1 (preview/hurdles, 2026-11-01)
+
+Adds the approved high-jump and pole-vault prototypes as self-contained local routes `/games/high-jump/` and `/games/pole-vault/`, both in the decathlon collection (now **4 / 10**). The independent minigame shelf remains Rod and Beer (**2**). The new approved transparent illustrations use a contained full-body layout; the additional approved Hurdles and Reaction Rod illustrations share that style. The original Long Jump and Beer art is unchanged.
+
+Exact original commits, per-file preservation hashes, interface deltas and verification limits are recorded in `docs/batch1/INTEGRATION.md` and `SOURCE-MANIFEST.json`. Prototype Sites and `main` are not edited. This source description is not a publication receipt.

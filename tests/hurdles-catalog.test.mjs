@@ -7,7 +7,7 @@ test('platform exposes the playable hurdles test entry without hiding long jump'
   const html=renderPage(catalog);
   assert.match(html,/href="\/games\/hurdles\/"/);
   assert.match(html,/href="\/games\/long-jump\/"/);
-  assert.match(html,/2<span[^>]*>\s*\/\s*10/);
+  assert.match(html,/4<span[^>]*>\s*\/\s*10/);
   const roadmap=html.match(/<details class="roadmap">([\s\S]*?)<\/details>/)[1];
   assert.doesNotMatch(roadmap,/110 公尺跨欄/);
   assert.match(html,/110 公尺跨欄 · 測試版/);

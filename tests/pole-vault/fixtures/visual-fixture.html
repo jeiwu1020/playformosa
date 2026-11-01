@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Local renderer QA fixture — not a played result</title><style>body{margin:0;background:#f7f3e8;color:#23414c;font-family:system-ui}nav{padding:8px;display:flex;gap:6px;flex-wrap:wrap}button{padding:8px}#scene{position:relative;height:calc(100vh - 125px)}#label{padding:0 12px;font-size:12px}</style><nav id="nav"></nav><div id="label">渲染測試場景，不是手動通關成績</div><div id="scene"></div><script type="module">
+import{fresh,step,DT}from'./physics.mjs';import{createWorld}from'./render.mjs';
+const s=fresh(),states=new Map(),none=[false,false,false,false];let finish=false;
+function snap(name){if(!states.has(name))states.set(name,structuredClone(s));}
+for(const[name,j]of[['未按手鍵',[0,0,0,0]],['只按 J',[1,0,0,0]],['只按 K',[0,1,0,0]],['J＋K 舉穩',[1,1,0,0]]])states.set(name,{...fresh(),x:4,j});
+for(const x of[9,11.5,13.8])states.set('接近 '+x+'m',{...fresh(),x,j:[1,1,0,0]});
+while(s.phase!=='done'&&s.t<80){let k=none;if(s.phase==='run'){const n=Math.floor(s.t/.28),on=s.t%.28<.10;k=[true,true,on&&n%2===0,on&&n%2===1];if(s.x>12)snap('握竿接近');}
+if(s.phase==='plant'){snap('竿尖插盒');if(s.charge>.75)snap('弧線蓄力');k=s.charge<.82?[true,true,false,false]:none;}
+if(s.phase==='air'&&!s.falling){if(s.airTime>.13&&s.airTime<.3)snap('回彈釋放');const n=Math.floor(s.airTime/.45),on=s.airTime>.25&&s.airTime%.45<.07;k=[s.lean>.08,s.lean<-.08,on&&n%2===1,on&&n%2===0];if(s.altitude>350)snap('城市對比');if(s.altitude>450000)snap('太空續升');if(s.airTime>30)finish=true;if(finish)k=[true,true,false,false];}
+if(s.phase==='finish'){if(s.finishTime>.25)snap('後空翻起身');if(s.finishTime>.72)snap('倒轉過桿');if(s.finishTime>1.3)snap('過桿落下');}
+step(s,k,DT);}
+snap('結果');const world=createWorld(document.querySelector('#scene'));
+for(const[name,state]of states){const b=document.createElement('button');b.textContent=name;b.onclick=()=>{world.render(state);document.querySelector('#label').textContent='渲染測試，不是手動通關 · '+name+' · '+state.maxHeight.toFixed(2)+' m · phase '+state.phase+' · cleared '+state.cleared+' · hit '+state.hitBar;document.body.dataset.case=name;};document.querySelector('#nav').append(b);}
+document.querySelector('button').click();
+</script></html>

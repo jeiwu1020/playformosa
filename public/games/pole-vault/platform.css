@@ -1,0 +1,7 @@
+/* Platform chrome only; original scene, character, camera and play area are unchanged. */
+body.pf-game.pf-pole-vault{grid-template-rows:auto minmax(0,1fr) 24px;}
+.pf-pole-vault .pf-header #sound{width:44px;}
+.pf-pole-vault #overlay{max-height:calc(100dvh - 24px);overscroll-behavior:contain;touch-action:pan-y;}
+.pf-pole-vault #overlay .pf-share-actions{grid-column:1/-1;}
+.pf-pole-vault #overlay .pf-share-actions button{min-height:44px;}
+.pf-pole-vault #share-status{user-select:text;}
