@@ -86,8 +86,10 @@
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "5b77b82c90be90344059f807c9756b72091767e6cafa67e89195e720d5d5193a",
-          "unchanged": false
+          "importedSha256": "d2632439eb380498cfddaafde71811db4babe5c9de86c5071b9c3a6b378cd16c",
+          "unchanged": false,
+          "previousIntegratedSha256": "5b77b82c90be90344059f807c9756b72091767e6cafa67e89195e720d5d5193a",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "pose.mjs",
@@ -116,8 +118,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "af1f416f8a79085371b6cf37fe105859460fea58cd5eea6e1020558f3eda1b92",
-          "importedSha256": "e57b0f6a9bd93539ff93e3fd81a67cc1f206473349a220f0b40395a185dc0945",
-          "unchanged": false
+          "importedSha256": "8c8e9c7fb9762240c60a2817c3dce0c51166b9b9287378de38e281c62f028261",
+          "unchanged": false,
+          "previousIntegratedSha256": "e57b0f6a9bd93539ff93e3fd81a67cc1f206473349a220f0b40395a185dc0945",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "shared/game-ui.css",
@@ -170,8 +174,10 @@
         {
           "path": "style.css",
           "sourceSha256": "e7c25901a43f4afe178231a2b8f1837a8e4ff8c107f527fafaaf394cf432e48b",
-          "importedSha256": "e7c25901a43f4afe178231a2b8f1837a8e4ff8c107f527fafaaf394cf432e48b",
-          "unchanged": true
+          "importedSha256": "dca27f88e386a91f45f8b1e76fdef5f8fe238ba7a96153631a28fa15d3c36da1",
+          "unchanged": false,
+          "previousIntegratedSha256": "e7c25901a43f4afe178231a2b8f1837a8e4ff8c107f527fafaaf394cf432e48b",
+          "adaptation": "User-approved narrow title visibility only: remove portrait h1 display:none so existing shared title row applies; landscape rule retained."
         },
         {
           "path": "vendor/THREE-LICENSE.txt",
@@ -254,8 +260,10 @@
         {
           "path": "index.html",
           "sourceSha256": "79f1a71f46783a7e3cdf2b78f839a7e237029940761997837c4bb7970f2d472b",
-          "importedSha256": "219cb09825e6ad9e9ca80766846f2c134f0534957fd4df0928578df87b523fbd",
-          "unchanged": false
+          "importedSha256": "7587e94a8a22717a7db10d282c56c5ab56c6189e50944b7ad3b7042f83aae88a",
+          "unchanged": false,
+          "previousIntegratedSha256": "219cb09825e6ad9e9ca80766846f2c134f0534957fd4df0928578df87b523fbd",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "input.mjs",
@@ -290,8 +298,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "9e55dbcf9441c7a228749a19bc0c482f19c550e60899dd668049f4729fde7114",
-          "importedSha256": "105053cd68d131c5490ab5038dec1591e986ebd095f327fef40e152cc571a779",
-          "unchanged": false
+          "importedSha256": "e0bb787a6c04dbc0a601f8fadcec90d8b9286f87f454fdf9e24da97622381563",
+          "unchanged": false,
+          "previousIntegratedSha256": "105053cd68d131c5490ab5038dec1591e986ebd095f327fef40e152cc571a779",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "shared/game-ui.css",

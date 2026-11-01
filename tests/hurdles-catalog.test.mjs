@@ -10,7 +10,7 @@ test('platform exposes the playable hurdles test entry without hiding long jump'
   assert.match(html,/6<span[^>]*>\s*\/\s*10/);
   const roadmap=html.match(/<details class="roadmap">([\s\S]*?)<\/details>/)[1];
   assert.doesNotMatch(roadmap,/110 公尺跨欄/);
-  assert.match(html,/110 公尺跨欄 · 測試版/);
+  assert.match(html,/110 公尺跨欄/);assert.doesNotMatch(html,/測試版/);
 });
 
 test('each game card renders its own visual and copy instead of reusing long-jump claims', () => {

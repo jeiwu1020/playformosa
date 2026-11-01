@@ -29,13 +29,13 @@ export function paintScoreCard(source,info,focus={x:.5,y:.5},createCanvas=()=>do
  }
  function place(b){b.draw(cursor);cursor+=b.height+gap;}
  place(block('PLAYFORMOSA STUDIO',27,'#607461'));
- place(block('四肢各有想法－跳遠',52));
+ place(block('四肢各有想法｜跳遠',52));
  place(block('冒險里程 · 約',24,'#607461'));
  place(block(resultDisplay(info).score,126,info.valid?'#172c3b':'#b65b43',900));
  place(block(info.title||'',29,'#536954',700,2));
  const footer=[block(info.journey||(info.valid?'這一跳，值得留念。':info.foul?'越線不計分，好笑照樣留念。':'下次再跟地心引力約。'),30,'#172c3b',700,2)];
  if(info.foul)footer.push(block('越線不計成績 · 探索紀錄保留',22,'#b65b43'));
- footer.push(block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法－跳遠',22,'#7e8a80',500));
+ footer.push(block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法｜跳遠',22,'#7e8a80',500));
  const footerHeight=footer.reduce((sum,b)=>sum+b.height+gap,0),h=Math.floor(Math.min(588,canvas.height-30-cursor-gap-footerHeight)),w=width,ratio=w/h,sw=source.width,sh=source.height;
  const cw=Math.min(sw,sh*ratio),ch=cw/ratio,sx=clamp(focus.x*sw-cw/2,0,sw-cw),sy=clamp(focus.y*sh-ch*.45,0,sh-ch);
  ctx.drawImage(source,sx,sy,cw,ch,x,cursor,w,h);

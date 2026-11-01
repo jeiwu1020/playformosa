@@ -24,7 +24,7 @@ export async function shareResult(file,{navigator=globalThis.navigator,download}
  if(supported){
   try{
    // Do not await preparation or scheduling before invoking share: activation may expire.
-   const pending=navigator.share({files:[file],title:'四肢各有想法｜跳遠成績'});
+   const pending=navigator.share({files:[file],title:'四肢各有想法｜跳遠'});
    await pending;
    return 'shared';
   }catch(error){return error?.name==='AbortError'?'cancelled':'error';}
@@ -43,7 +43,7 @@ export function openThreads(data,{open=globalThis.open}={}){
 export async function saveResultImage(file,{mobile=false,text='',url='',navigator=globalThis.navigator,download,openImage}={}){
  if(!file)return{status:'error',reason:'ImageNotReady'};
  if(!mobile){try{download(file);return{status:'downloaded'};}catch(error){return{status:'error',reason:error?.name||'DownloadError'};}}
- const payload={files:[file],title:'四肢各有想法－跳遠'};
+ const payload={files:[file],title:'四肢各有想法｜跳遠'};
  let supported=false;try{supported=typeof navigator?.canShare==='function'&&typeof navigator?.share==='function'&&navigator.canShare(payload);}catch{}
  if(!supported){try{return{status:openImage?.(file)?'opened-image':'unsupported'};}catch{return{status:'unsupported'};}}
  try{const pending=navigator.share(payload);await pending;return{status:'handed-off'};}catch(error){return error?.name==='AbortError'?{status:'cancelled'}:{status:'error',reason:error?.name||'ShareError'};}

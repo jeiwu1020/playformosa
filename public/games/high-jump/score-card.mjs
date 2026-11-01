@@ -17,11 +17,11 @@ export function paintScoreCard(source,info,createCanvas=()=>document.createEleme
  }
  function place(b){b.draw(cursor);cursor+=b.height+gap;}
  place(block('PLAYFORMOSA STUDIO',27,'#607461'));
- place(block('四肢各有想法－跳高',52));
+ place(block('四肢各有想法｜跳高',52));
  place(block('過桿成績',24,'#607461'));
  place(block(info.success?'過桿 '+info.height.toFixed(1)+' m':'未過桿',126,info.success?'#172c3b':'#b65b43',900));
  place(block(info.title||'',29,'#536954',700,2));
- const footer=[block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法－跳高',22,'#7e8a80',500)];
+ const footer=[block('島遊無界 · PLAYFORMOSA',29,'#607461'),block('四肢各有想法｜跳高',22,'#7e8a80',500)];
  const footerHeight=footer.reduce((sum,b)=>sum+b.height+gap,0),h=Math.floor(Math.min(588,canvas.height-30-cursor-gap-footerHeight)),w=width;
  // Production re-renders the complete original pose at the photo's aspect; never crops a portrait athlete.
  const photo=renderScene?renderScene(w,h):source,scale=Math.min(w/photo.width,h/photo.height);

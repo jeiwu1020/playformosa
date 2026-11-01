@@ -14,8 +14,10 @@
         {
           "path": "style.css",
           "sourceSha256": "fd91e2a5f61be975f24796d6afb54a7ddf7b4f41acb77f44438242c72ea16fcc",
-          "importedSha256": "fd91e2a5f61be975f24796d6afb54a7ddf7b4f41acb77f44438242c72ea16fcc",
-          "unchanged": true
+          "importedSha256": "50c5cec0baa689d4d9c99c2511bffa7cfcb1a204caf462f960cc5b0a922ac5c1",
+          "unchanged": false,
+          "previousIntegratedSha256": "fd91e2a5f61be975f24796d6afb54a7ddf7b4f41acb77f44438242c72ea16fcc",
+          "adaptation": "User-approved narrow title visibility only: remove portrait h1 display:none so existing shared title row applies; landscape rule retained."
         },
         {
           "path": "verdicts.mjs",
@@ -50,8 +52,10 @@
         {
           "path": "index.html",
           "sourceSha256": "12306100a589e66d171062ebcc216b16e65b40be852550748ef20f0dff186b7c",
-          "importedSha256": "c48161b746705bb992dd6cfbc1f3ab369bc0b37ca6c6dba7a1bb366a83f039b8",
-          "unchanged": false
+          "importedSha256": "6c26b1f3019a6ac5f3d2854ce96796f421891fb4a2c44c97a26ff847c1b17a1b",
+          "unchanged": false,
+          "previousIntegratedSha256": "c48161b746705bb992dd6cfbc1f3ab369bc0b37ca6c6dba7a1bb366a83f039b8",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "physics.mjs",
@@ -68,8 +72,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "36c2525cb2e9d119c638d5560905a5aad06fdae0db7fb51b06246cc9d46fbb06",
-          "importedSha256": "50fc8b99781381d1ebddec6cff507556aadf3ab3d94cbe99fc9298e26596ea32",
-          "unchanged": false
+          "importedSha256": "11b7d54bff0d1836771aeca3565ee1c1d73f0654adfbdaae702688b5d8fd5bfa",
+          "unchanged": false,
+          "previousIntegratedSha256": "50fc8b99781381d1ebddec6cff507556aadf3ab3d94cbe99fc9298e26596ea32",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "render.mjs",
@@ -86,8 +92,10 @@
         {
           "path": "score-card.mjs",
           "sourceSha256": "ec55f84025b9c25a6f66820701587445896dc0bcbefe6562e7b3fa61375401ce",
-          "importedSha256": "ec55f84025b9c25a6f66820701587445896dc0bcbefe6562e7b3fa61375401ce",
-          "unchanged": true
+          "importedSha256": "1662ebbfaae1f0568d2249e2096111626b346346ca4ada206b9c2749cb43085a",
+          "unchanged": false,
+          "previousIntegratedSha256": "ec55f84025b9c25a6f66820701587445896dc0bcbefe6562e7b3fa61375401ce",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "replay.mjs",
@@ -218,8 +226,10 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "cf135b73652eeb1c2d0660b541224576265be7521c9624edfa94bb9854dbb810",
-          "unchanged": false
+          "importedSha256": "f17f50b3efbed0f200065b2511ebf3290d18653232200afe78acafe0eb1732fe",
+          "unchanged": false,
+          "previousIntegratedSha256": "cf135b73652eeb1c2d0660b541224576265be7521c9624edfa94bb9854dbb810",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "ui-state.mjs",
@@ -248,8 +258,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "c7d8e76db80509ce76442a057313b9416cf0983dcec4ae6b6492f26017b7426a",
-          "importedSha256": "9f6cc2e2c0910ce6e24bacfa3a4bb389d482a7ed8fced5a9a39bc7d468add0ee",
-          "unchanged": false
+          "importedSha256": "75e3e66720282afff965c8ff2354629b0a44ec9933c5c1f4ec27fe5e88f9d663",
+          "unchanged": false,
+          "previousIntegratedSha256": "9f6cc2e2c0910ce6e24bacfa3a4bb389d482a7ed8fced5a9a39bc7d468add0ee",
+          "adaptation": "User-approved series naming only; sourceSha256 retains original source identity."
         },
         {
           "path": "render.mjs",
