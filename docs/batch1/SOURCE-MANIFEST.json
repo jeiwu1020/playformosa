@@ -198,8 +198,10 @@
         {
           "path": "game.mjs",
           "sourceSha256": "6d057b56ebfe397239cdad4c73b1fe65401242509866b690bcf5ae05a5c13292",
-          "importedSha256": "ba4e166d6f4e9bba9bbaa7aca2d832c328ad3a60de1c8cefa9ebe1098ee9020b",
-          "unchanged": false
+          "importedSha256": "8872b575f3f9b157489bfa619ace6970aed01657bb846d868b2a4d344a88374b",
+          "unchanged": false,
+          "previousIntegratedSha256": "ba4e166d6f4e9bba9bbaa7aca2d832c328ad3a60de1c8cefa9ebe1098ee9020b",
+          "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
         },
         {
           "path": "software-renderer.mjs",
@@ -228,16 +230,18 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "5c67b86b35a98befc18ac0aa2b90a64cc6984e207ac7906172b98cda448fbf53",
+          "importedSha256": "c06c91ca5217beaf7cfe9f833a591dc4ccc45aa80e9927aeb8481c1eb954d6b1",
           "unchanged": false,
-          "previousIntegratedSha256": "f17f50b3efbed0f200065b2511ebf3290d18653232200afe78acafe0eb1732fe",
-          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          "previousIntegratedSha256": "5c67b86b35a98befc18ac0aa2b90a64cc6984e207ac7906172b98cda448fbf53",
+          "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
         },
         {
           "path": "ui-state.mjs",
           "sourceSha256": "f94826de87590e25a993b4effa6302c257c11e043e10243ab5189a0793fe546c",
-          "importedSha256": "f94826de87590e25a993b4effa6302c257c11e043e10243ab5189a0793fe546c",
-          "unchanged": true
+          "importedSha256": "3d18a28d9345be5c0c6a9b0fe5263f71cc7ba63416b52c71b566351ff06c02c0",
+          "unchanged": false,
+          "previousIntegratedSha256": "f94826de87590e25a993b4effa6302c257c11e043e10243ab5189a0793fe546c",
+          "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
         },
         {
           "path": "physics.mjs",

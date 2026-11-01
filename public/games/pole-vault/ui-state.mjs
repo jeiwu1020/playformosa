@@ -9,3 +9,14 @@ export function flightCue(s){
  feedback:tilt>.45?'姿態偏斜':effort<.2?'動作停住了':efficiency>.65?'升力充足 ↑':'升力偏弱',
  feedbackType:effort>.4&&stable?'success':'',finish:'體力 '+Math.round((s.energy||0)*100)+'%'};
 }
+
+// Presentation only: reuse the existing phase/cue clock; never change simulation.
+export function mobileCue(s){
+ if(s.falling)return '成績已鎖定，準備回到軟墊。';
+ if(s.phase==='finish')return s.hitBar?'碰桿了，正在記錄這一跳。':'自動過桿，正在記錄這一跳。';
+ if(s.phase==='land'||s.phase==='done')return '成績已鎖定，軟墊接住這一跳。';
+ if(s.phase==='plant')return s.charge>=.7?'放開 J + K，彈起！':'按住 J + K，等放開提示。';
+ if(s.cue&&s.t<s.cueUntil)return s.cue;
+ if(s.phase==='air')return Math.abs(s.lean||0)>.45?'身體偏斜，調整手腳找回平衡。':'交替動動手腳，穩住身體向上。';
+ return 'A / S 交替跑，J + K 握竿。';
+}
