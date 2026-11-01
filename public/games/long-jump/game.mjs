@@ -108,6 +108,8 @@ function prepareResultShare(){
  const preview=document.createElement('canvas');
  captureResultPng({render:()=>{},source:shot.canvas,paint:source=>{
   const card=paintScoreCard(source,info,shot.focus,undefined,preview);
+  // Wide result previews show the complete frozen scene; exported PNG framing stays unchanged.
+  if(source.width>=source.height){preview.width=source.width;preview.height=source.height;preview.getContext('2d').drawImage(source,0,0);}
   preview.setAttribute('role','img');preview.setAttribute('aria-label',shot.canvas.getAttribute('aria-label'));$('landing-preview').replaceChildren(preview);$('landing-preview').hidden=false;return card;
  }}).then(blob=>{
   if(blob.type!=='image/png')throw new Error('Unsupported screenshot format');
