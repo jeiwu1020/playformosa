@@ -8,11 +8,13 @@ function lines(ctx,text,width){let line='',out=[];for(const c of String(text)){i
 export function drawBeerResultCard(canvas,snapshot,{score,verdict,distance,spill}){
  if(!snapshot||snapshot.width<2||snapshot.height<2)throw Error('No round snapshot');
  canvas.width=1200;canvas.height=1200;const ctx=canvas.getContext('2d');if(!ctx)throw Error('Card canvas unavailable');
- ctx.fillStyle='#f2eddb';ctx.fillRect(0,0,1200,1200);ctx.textBaseline='top';ctx.fillStyle='#244c38';ctx.font='700 40px sans-serif';ctx.fillText('PlayFormosa · 別灑啊！',48,40);
- ctx.fillStyle='#20372b';ctx.fillRect(40,110,1120,630);
- const scale=Math.min(1120/snapshot.width,630/snapshot.height),w=snapshot.width*scale,h=snapshot.height*scale;
- // Contain the full actual frame. Never crop the cup out to force a photo ratio.
- ctx.drawImage(snapshot,40+(1120-w)/2,110+(630-h)/2,w,h);
- ctx.fillStyle='#244c38';ctx.font='800 98px sans-serif';ctx.fillText(`${score} / 10.0`,48,780);ctx.font='700 42px sans-serif';lines(ctx,verdict,1104).slice(0,2).forEach((line,i)=>ctx.fillText(line,48,910+i*52));
- ctx.font='500 30px sans-serif';ctx.fillText(`離靶心 ${distance} · 灑出 ${spill}`,48,1050);ctx.font='500 23px sans-serif';ctx.fillText('本局實際停杯／掉落定格 · 精準度 × 留酒率¹·⁸',48,1130);return canvas;
+ ctx.fillStyle='#f4f1e9';ctx.fillRect(0,0,1200,1200);ctx.textBaseline='top';ctx.fillStyle='#607461';ctx.font='700 27px sans-serif';ctx.fillText('PLAYFORMOSA STUDIO',48,30);
+ ctx.fillStyle='#172c3b';ctx.font='700 52px sans-serif';ctx.fillText('別灑啊！',48,80);ctx.font='800 108px sans-serif';ctx.fillText(`${score} / 10.0`,48,165);
+ ctx.fillStyle='#536954';ctx.font='700 32px sans-serif';lines(ctx,verdict,1104).slice(0,2).forEach((line,i)=>ctx.fillText(line,48,300+i*42));
+ ctx.fillStyle='#20372b';ctx.fillRect(40,410,1120,590);
+ const scale=Math.min(1120/snapshot.width,590/snapshot.height),w=snapshot.width*scale,h=snapshot.height*scale;
+ // Square variant keeps the complete actual stop/fall scene, never a synthetic cup.
+ ctx.drawImage(snapshot,40+(1120-w)/2,410+(590-h)/2,w,h);
+ ctx.fillStyle='#536954';ctx.font='500 30px sans-serif';ctx.fillText(`離靶心 ${distance} · 灑出 ${spill}`,48,1040);
+ ctx.font='500 24px sans-serif';ctx.fillText('本局實際停杯／掉落定格 · 島遊無界 PLAYFORMOSA',48,1120);return canvas;
 }

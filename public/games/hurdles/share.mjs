@@ -1,8 +1,32 @@
 export const formatTime=t=>Number(t).toFixed(2);
 export const shareText=(s,url)=>`四肢各有想法｜110公尺跨欄\n110m / 8 欄 ${formatTime(s.t)} 秒\n乾淨通過 ${s.stats.clears} 道，撞倒 ${s.stats.hits} 道。\nPlayFormosa\n${url}`;
 export async function saveImage(file,{mobile=false,nav=globalThis.navigator,download}={}){if(!file)return'error';let supported=false;try{supported=mobile&&typeof nav?.share==='function'&&typeof nav?.canShare==='function'&&nav.canShare({files:[file]});}catch{}if(supported){try{await nav.share({files:[file]});return'shared';}catch(e){if(e?.name==='AbortError')return'cancelled';try{download(file);return'downloaded';}catch{return'error';}}}try{download(file);return'downloaded';}catch{return'error';}}
-export function drawResult(source,s,v){const c=document.createElement('canvas');c.width=1080;c.height=1280;const x=c.getContext('2d');x.fillStyle='#f7f2e5';x.fillRect(0,0,1080,1280);const text=(txt,px,y,color='#203d49',weight=700)=>{x.font=`${weight} ${px}px system-ui,sans-serif`;x.fillStyle=color;x.fillText(txt,55,y);};
- text('PLAYFORMOSA  /  四肢運動會',28,63,'#57756b');text('四肢各有想法｜110公尺跨欄',52,140);text('110m / 8 欄 完賽時間',26,199,'#57756b');text(s.phase==='dnf'?'未完賽':formatTime(s.t)+' 秒',116,316,'#234552',900);text(v.title,38,392);text(v.subtitle,26,441,'#57756b');
- const box={x:40,y:485,w:1000,h:530};x.save();x.beginPath();x.roundRect(box.x,box.y,box.w,box.h,26);x.clip();x.fillStyle='#c3e5df';x.fillRect(box.x,box.y,box.w,box.h);const aspect=box.w/box.h,sw=source.width,sh=source.height,cw=Math.min(sw,sh*aspect),ch=cw/aspect;const sx=Math.max(0,Math.min(sw-cw,sw*.40-cw*.4)),sy=Math.max(0,Math.min(sh-ch,sh*.5-ch*.5));x.drawImage(source,sx,sy,cw,ch,box.x,box.y,box.w,box.h);x.restore();
- text(v.detail,29,1080);text('本場稱號 · '+v.badge,32,1140,'#3a766e');text('島遊無界 · PLAYFORMOSA',26,1215,'#57756b');return c;
+export function drawResult(source,s,v){
+ const c=document.createElement('canvas');c.width=1080;c.height=1180;const x=c.getContext('2d');x.fillStyle='#f4f1e9';x.fillRect(0,0,1080,1180);
+ cardText(x,'PLAYFORMOSA STUDIO',27,44,30,992,1,'#607461');cardText(x,'四肢各有想法｜110公尺跨欄',48,44,80,992);
+ const bottom=cardScore(x,s.phase==='dnf'?'未完賽':formatTime(s.t)+' 秒',108,44,160,992),verdictY=Math.max(292,bottom+16),sceneY=Math.max(400,verdictY+82);cardText(x,v.title,32,44,verdictY,992,2,'#536954');
+ cardScene(x,source,44,sceneY,992,920-sceneY);cardText(x,v.detail,26,44,950,992,2,'#536954');
+ cardText(x,'110m / 8 欄 · '+v.badge,25,44,1040,992);cardText(x,'島遊無界 · PLAYFORMOSA',24,44,1110,992,1,'#607461');return c;
+}
+
+// Fixed readable type; wrap long copy rather than shrinking it to fine print.
+function cardText(ctx,value,size,x,y,width,maxLines=1,color='#172c3b'){
+ ctx.font=`700 ${size}px system-ui,sans-serif`;ctx.fillStyle=color;ctx.textBaseline='top';
+ const measure=t=>ctx.measureText?.(t).width??Array.from(t).length*size;
+ const lines=[];let line='';for(const char of String(value??'')){if(line&&measure(line+char)>width){lines.push(line);line=char;}else line+=char;}if(line)lines.push(line);
+ if(lines.length>maxLines){lines.length=maxLines;let last=lines[maxLines-1];while(last&&measure(last+'…')>width)last=last.slice(0,-1);lines[maxLines-1]=last+'…';}
+ lines.forEach((text,i)=>ctx.fillText(text,x,y+i*(size+9)));
+}
+function cardScene(ctx,source,x,y,w,h){const scale=Math.min(w/source.width,h/source.height),dw=source.width*scale,dh=source.height*scale;ctx.fillStyle='#beded1';ctx.fillRect(x,y,w,h);ctx.drawImage(source,x+(w-dw)/2,y+(h-dh)/2,dw,dh);}
+
+// Scores are data, not prose: never truncate or shrink their digits. Put the unit
+// on a second readable line when the full numeric value fills the score band.
+function cardScore(ctx,value,size,x,y,width){
+ const text=String(value),unit=text.match(/\s(m|km|秒)$/)?.[1],main=unit?text.slice(0,-unit.length-1):text;
+ ctx.font=`700 ${size}px system-ui,sans-serif`;ctx.fillStyle='#172c3b';ctx.textBaseline='top';
+ const measure=t=>ctx.measureText?.(t).width??Array.from(t).length*size;
+ if(measure(text)<=width){ctx.fillText(text,x,y);return y+size;}
+ let line='',top=y;for(const char of main){if(line&&measure(line+char)>width){ctx.fillText(line,x,top);top+=size+9;line=char;}else line+=char;}if(line){ctx.fillText(line,x,top);top+=size;}
+ if(unit){ctx.font='700 32px system-ui,sans-serif';ctx.fillText(unit,x,top+10);top+=42;}
+ return top;
 }

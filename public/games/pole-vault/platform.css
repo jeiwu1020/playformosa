@@ -28,3 +28,9 @@ body.pf-game.pf-pole-vault{grid-template-rows:auto minmax(0,1fr) 24px;}
  .pf-pole-vault #scene>canvas[aria-hidden="true"],.pf-pole-vault #energy-label{display:none;}
  .pf-pole-vault .mobile-energy-label{display:block;}
 }
+
+@media(max-width:640px){
+ .pf-pole-vault .hud{max-width:calc(100% - 156px);}
+ .pf-pole-vault .timer{max-width:100%;min-width:0;box-sizing:border-box;grid-template-columns:minmax(0,1fr) 24px;}
+ .pf-pole-vault .timer strong{max-width:100%;overflow-wrap:anywhere;word-break:break-word;white-space:normal;}
+}

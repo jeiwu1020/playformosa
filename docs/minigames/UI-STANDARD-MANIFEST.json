@@ -12,9 +12,9 @@
       "game": "reaction-rod",
       "path": "index.html",
       "baselineSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
-      "sha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
-      "reason": "Approved UI harmonization stage1: player-facing copy only; original physics/art preserved.",
-      "previousIntegratedSha256": "c8cd0ae12e1f65de99e7cb9503c82c1b7114311c4334e42014dd86d810f3c6c5"
+      "sha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+      "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
+      "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34"
     },
     {
       "game": "beer-slide",
@@ -27,16 +27,17 @@
       "game": "beer-slide",
       "path": "index.html",
       "baselineSha256": "cdd6d0b30e3a77450f09f9f63c09704389ab2fff3b91d23b9bfeeed936027ed9",
-      "sha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5",
-      "reason": "Approved UI harmonization stage1: player-facing copy only; original physics/art preserved.",
-      "previousIntegratedSha256": "565f2d15e794565bcb46eb37825131e0542da796dfea37f848508f0a2f373705"
+      "sha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
+      "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
+      "previousIntegratedSha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5"
     },
     {
       "game": "reaction-rod",
       "path": "share.mjs",
       "baselineSha256": "534dc3b8aeb44cdd677ef41a90350a606547a8ada2f468e5e3cc5c01e107eed5",
-      "sha256": "86418dd3d92609a45436912447322dc501bcc208050f7759ae900814c068eae8",
-      "reason": "Approved UI harmonization stage1: player-facing copy only; original physics/art preserved."
+      "sha256": "79a0209f65409979db9203475862973fd4c6b76b03f4b1fd799d2c07a9773ffe",
+      "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
+      "previousIntegratedSha256": "86418dd3d92609a45436912447322dc501bcc208050f7759ae900814c068eae8"
     }
   ]
 }

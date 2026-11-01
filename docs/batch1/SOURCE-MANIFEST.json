@@ -230,10 +230,10 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "c06c91ca5217beaf7cfe9f833a591dc4ccc45aa80e9927aeb8481c1eb954d6b1",
+          "importedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
           "unchanged": false,
-          "previousIntegratedSha256": "5c67b86b35a98befc18ac0aa2b90a64cc6984e207ac7906172b98cda448fbf53",
-          "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
+          "previousIntegratedSha256": "c06c91ca5217beaf7cfe9f833a591dc4ccc45aa80e9927aeb8481c1eb954d6b1",
+          "adaptation": "Approved stage3 result/PNG presentation: hierarchy and aspect-preserving actual frozen scene, unchanged mechanics/capture ownership."
         },
         {
           "path": "ui-state.mjs",
@@ -264,10 +264,10 @@
         {
           "path": "share.mjs",
           "sourceSha256": "c7d8e76db80509ce76442a057313b9416cf0983dcec4ae6b6492f26017b7426a",
-          "importedSha256": "befc4d34baf59eeebe2eb3e42cc0c09d16a67e3b82f0ab3a930c7a06cc7dc413",
+          "importedSha256": "4a6fab023f587b462e21ddb5f765cf0a6a76defafe3ca30b4b09ba3a8b591418",
           "unchanged": false,
-          "previousIntegratedSha256": "75e3e66720282afff965c8ff2354629b0a44ec9933c5c1f4ec27fe5e88f9d663",
-          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          "previousIntegratedSha256": "befc4d34baf59eeebe2eb3e42cc0c09d16a67e3b82f0ab3a930c7a06cc7dc413",
+          "adaptation": "Approved stage3 result/PNG presentation: hierarchy and aspect-preserving actual frozen scene, unchanged mechanics/capture ownership."
         },
         {
           "path": "render.mjs",
