@@ -720,6 +720,11 @@
     "games/shared/game-ui.css",
     "games/shared/game-ui.mjs",
     "games/shared/help-coordinator.mjs",
+    "games/shared/leaderboard-config.mjs",
+    "games/shared/leaderboard.css",
+    "games/shared/leaderboard.mjs",
+    "games/shared/production-jump-chrome.css",
+    "games/shared/production-jump-leaderboard.mjs",
     "index.html",
     "manifest.webmanifest"
   ],
@@ -833,6 +838,68 @@
         "beforeSha256": "753163f54e23acb0aee982a5ad055bf440dc7406bf223c7ab97471205367190e",
         "afterSha256": "5e451424a52731d767f4df1f2e58d3d9e794792514dc12fb489af7250945a8cf",
         "bodySha256": "562187bf54f70bedaa73876817b165a050d268ddb407867b4dfd81bd0fcc3e0e"
+      }
+    ]
+  },
+  "productionLeaderboard": {
+    "baseCommit": "c1222d33bb805018af59af9265847c72d4fe241b",
+    "previewSource": "91a34d322201ecc99379922cde0e1c5b0f19ba39",
+    "reason": "Only two released games; original Jump gameplay/replay absence/camera/PNG preserved. Main-only auxiliary adapter and actual header-height budget. Isolated production D1, no QA score copying.",
+    "files": [
+      {
+        "path": "public/games/hurdles/game.mjs",
+        "beforeSha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f",
+        "sha256": "7a73b4b75b157a4828e97f2c2a2985098d16f94f750f1d0caedefb42139e42bd"
+      },
+      {
+        "path": "public/games/long-jump/game.mjs",
+        "beforeSha256": "bd2f36abba55f7f0a04248acafc7b38f7a8f122f7e6114c4cc324a600c480fa0",
+        "sha256": "b8d6a35d444aa10bb3c0ccbb73372fb1a43b51690dde53510c51a24741e1b451"
+      },
+      {
+        "path": "public/games/long-jump/index.html",
+        "beforeSha256": "5e451424a52731d767f4df1f2e58d3d9e794792514dc12fb489af7250945a8cf",
+        "sha256": "5fda3d54475e1754f88b3788869e4448381877af3e4e5eee982c9afb68e08879"
+      },
+      {
+        "path": "public/games/long-jump/layout.mjs",
+        "beforeSha256": "ea4466b7ad1143e7cff89613f881a0766b592481992966e86488aadc9897615d",
+        "sha256": "4a31041a745d6f58b29624d527ffd02331d2420697f9adbdc3ec1d7853998957"
+      },
+      {
+        "path": "public/games/shared/entry-shell.mjs",
+        "beforeSha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c",
+        "sha256": "a43a9199e2e89fa455a265e031d5e6dc1c215126b93fbe928a6329fd851bd43f"
+      },
+      {
+        "path": "public/games/shared/leaderboard-config.mjs",
+        "beforeSha256": null,
+        "sha256": "5b22cd58a767ee839bf600a68d8f874661f554f19940182a19cfc131906580f9"
+      },
+      {
+        "path": "public/games/shared/leaderboard.css",
+        "beforeSha256": null,
+        "sha256": "93139e8523fc8eb52530d322e6984772432e358d5a1a6d319f4f92b1060c7f38"
+      },
+      {
+        "path": "public/games/shared/leaderboard.mjs",
+        "beforeSha256": null,
+        "sha256": "b3f06ff78e8342655134b71e46eef84c84534b876f9307cd0db83be2aa84cb49"
+      },
+      {
+        "path": "public/games/shared/production-jump-chrome.css",
+        "beforeSha256": null,
+        "sha256": "efe6f262ba822098aeafbae62e240e78623b1ee64c61571d1234cd5e023cd151"
+      },
+      {
+        "path": "public/games/shared/production-jump-leaderboard.mjs",
+        "beforeSha256": null,
+        "sha256": "71488eca2fd22adad8175c7f9a9b339d545b4476ae099e939a7cad2ea3d2c526"
+      },
+      {
+        "path": "tests/helpers/entry-boundary.mjs",
+        "beforeSha256": "b845820a3a42900a9b05941cf7fedd8e907a7e3fef5be390d5fd478c552012d3",
+        "sha256": "210c681c5b7e56218bc68d3fb589259096f2717185a13a57a32ccd3c0f5ae153"
       }
     ]
   }

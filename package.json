@@ -12,6 +12,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "jsdom": "26.1.0"
+    "jsdom": "26.1.0",
+    "sql.js": "1.13.0"
   }
 }

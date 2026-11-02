@@ -1,10 +1,27 @@
+// Separate production D1 and successful schema initialization confirmed by user.
 {
-  // Prepared only. Name is provisional; no account or deployment exists here.
   "name": "playformosa",
   "compatibility_date": "2026-10-25",
+  "main": "worker/leaderboard/index.mjs",
+  "vars": {
+    "LEADERBOARD_SCOPE": "production",
+    "LEADERBOARD_ORIGIN": "https://playformosa.playformosa.workers.dev",
+    "LEADERBOARD_ENABLED": "true"
+  },
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/leaderboard*"
+    ],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "playformosa-leaderboard",
+      "database_id": "8a0e7263-fe1a-4d98-a276-8603e50d6605"
+    }
+  ]
 }

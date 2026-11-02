@@ -11,16 +11,25 @@ export function createEntryShell({document,title,goal,operations,advanced=null,o
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='進階說明與素材授權';details.append(summary);if(advanced)details.append(advanced);
  const button=document.createElement('button');button.type='button';button.className='pf-entry-start';button.textContent='開始遊戲';button.autofocus=true;const recovery=document.createElement('p');recovery.className='pf-entry-error';recovery.hidden=true;recovery.append('遊戲畫面無法啟動，請返回首頁後重試。 ');const home=document.createElement('a');home.href='/';home.textContent='返回遊戲首頁';recovery.append(home);dialog.append(brand,heading,aim,core,details,button,recovery);document.body.append(dialog);
  const helpOwner=createHelpCoordinator(document,()=>onHelpEnter?onHelpEnter():onEnter('help'));let returnToEntry=false;
- const modal=createDialogController(dialog,()=>{}, {forceFallback});let active=false,help=false,destroyed=false,backdrop=null;const heldKeys=new Set();
+ const modal=createDialogController(dialog,()=>{}, {forceFallback});let active=false,help=false,destroyed=false,backdrop=null,view=null;const heldKeys=new Set();
  const keyId=e=>e.code||e.key;
  function keyGate(e){const key=keyId(e);if(active){if(e.key==='Tab'&&e.target?.nodeType&&dialog.contains(e.target))return;if(e.type==='keydown')heldKeys.add(key);else heldKeys.delete(key);if(!e.target?.nodeType||!dialog.contains(e.target)||e.key==='Escape')e.preventDefault();e.stopImmediatePropagation();}else if(heldKeys.has(key)){if(e.type==='keyup')heldKeys.delete(key);e.preventDefault();e.stopImmediatePropagation();}}
  function stopBubble(e){e.stopPropagation();if(e.key==='Escape')e.preventDefault();}
  win.addEventListener('keydown',keyGate,true);win.addEventListener('keyup',keyGate,true);dialog.addEventListener('keydown',stopBubble);dialog.addEventListener('keyup',stopBubble);
- function close({restoreView=true}={}){if(!active)return;active=false;modal.close();dialog.hidden=true;if(help)helpOwner.leave({restoreView});help=false;returnToEntry=false;}
+ function close({restoreView=true}={}){if(view)restoreAuxiliary();if(!active)return;active=false;modal.close();dialog.hidden=true;if(help)helpOwner.leave({restoreView});help=false;returnToEntry=false;}
  function open(options={}){if(destroyed)return;const nextHelp=Boolean(options.help);if(active&&help===nextHelp){button.disabled=!help&&!canStart();recovery.hidden=!button.disabled;return;}if(active&&!help&&nextHelp){returnToEntry=true;help=true;button.textContent='返回遊戲';button.disabled=false;return;}help=nextHelp;button.textContent=help?'返回遊戲':'開始遊戲';button.disabled=!help&&!canStart();recovery.hidden=!button.disabled;details.open=false;if(help)helpOwner.enter();else onEnter('entry');active=true;dialog.hidden=false;const prior=new Set(document.querySelectorAll('.dialog-backdrop'));modal.open();backdrop??=[...document.querySelectorAll('.dialog-backdrop')].find(x=>!prior.has(x))||null;backdrop?.classList.add('pf-entry-backdrop');(button.disabled?home:button).focus({preventScroll:true});}
 
+ function restoreAuxiliary(){if(!view)return null;const old=view;view=null;dialog.replaceChildren(...old.nodes);dialog.setAttribute('aria-label',old.label);dialog.classList.remove('pf-honor-dialog');dialog.scrollTop=old.scroll;old.onClose?.();return old;}
+ function closeView(){const old=restoreAuxiliary();if(!old)return;if(old.wasActive){old.focus?.focus({preventScroll:true});}else close();}
+ function openView(content,{label='排行榜',onClose=()=>{}}={}){
+  if(destroyed)return;if(view)closeView();const wasActive=active,focus=document.activeElement;if(!active)open({help:true});
+  view={wasActive,focus,scroll:dialog.scrollTop,nodes:[...dialog.childNodes],label:dialog.getAttribute('aria-label'),onClose};
+  const back=document.createElement('button');back.type='button';back.dataset.pfViewReturn='';back.className='pf-entry-start';back.textContent='返回';back.addEventListener('click',closeView);
+  const stash=document.createElement('div');stash.hidden=true;stash.setAttribute('inert','');stash.dataset.pfAuxStash='';stash.append(...view.nodes);dialog.append(stash,content,back);dialog.classList.add('pf-honor-dialog');dialog.setAttribute('aria-label',label);dialog.scrollTop=0;back.focus({preventScroll:true});
+ }
+
  button.addEventListener('click',event=>{event.stopPropagation();if(!active||button.disabled)return;if(help){if(returnToEntry){help=false;returnToEntry=false;button.textContent='開始遊戲';button.disabled=!canStart();recovery.hidden=!button.disabled;}else close();return;}if(!canStart())return;close();onStart(event);});
- return{dialog,open,close,get active(){return active;},destroy(){close({restoreView:false});destroyed=true;win.removeEventListener('keydown',keyGate,true);win.removeEventListener('keyup',keyGate,true);dialog.remove();backdrop?.remove();heldKeys.clear();}};
+ return{dialog,open,close,openView,closeView,get active(){return active;},destroy(){close({restoreView:false});destroyed=true;win.removeEventListener('keydown',keyGate,true);win.removeEventListener('keyup',keyGate,true);dialog.remove();backdrop?.remove();heldKeys.clear();}};
 }
 export function createGameEntry(options){const{document,gameId}=options,content=entryContent(document,gameId),win=document.defaultView;const forceFallback=options.forceFallback??Boolean(win.navigator?.standalone||win.matchMedia?.('(display-mode: standalone)').matches);const shell=createEntryShell({...content,...options,forceFallback});document.querySelector('[data-pf-entry-loading]')?.remove();
  // One header action for every game; retain old nodes for existing bindings, never as a second entry.

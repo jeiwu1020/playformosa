@@ -10,7 +10,7 @@ function fixture({standalone=true,scale=1}={}){
  const vv=Object.assign(target(),{width:402,height:812,offsetLeft:0,offsetTop:0,pageTop:0,scale});
  const safe={paddingTop:'0',paddingRight:'0',paddingBottom:'34',paddingLeft:'0'};
  const probe={style:{},setAttribute(){},remove(){}};
- const doc={activeElement:{tagName:'BUTTON'},documentElement:{setAttribute:(k,v)=>attrs.set(k,v),style:{setProperty:(k,v)=>values.set(k,v)}},createElement:()=>probe,body:{appendChild(){}}};
+ const doc={querySelector:()=>null,activeElement:{tagName:'BUTTON'},documentElement:{setAttribute:(k,v)=>attrs.set(k,v),style:{setProperty:(k,v)=>values.set(k,v)}},createElement:()=>probe,body:{appendChild(){}}};
  const win=Object.assign(target(),{innerWidth:402,innerHeight:812,scrollX:0,scrollY:0,navigator:{standalone},visualViewport:vv,matchMedia:q=>({matches:q==='(pointer: coarse)'}),getComputedStyle:()=>safe,requestAnimationFrame:f=>frames.push(f),scrollTo(...args){requests.push(args);}});
  const dispose=installViewportLayout(win,doc);
  function frame(){const pending=frames.splice(0);for(const f of pending)f();}

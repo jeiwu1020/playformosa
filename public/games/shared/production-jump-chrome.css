@@ -1,0 +1,8 @@
+/* Only production Jump toolbar/auxiliary board; original arena, controls and camera remain authored. */
+.pf-production-jump{grid-template-rows:auto minmax(0,1fr)}
+.pf-production-jump>.pf-header{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;height:auto;min-height:44px}
+.pf-production-jump .pf-header .pf-home{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0 8px;font-size:14px;border:1px solid #bdc9b9;border-radius:10px;background:#fffdf4}
+.pf-production-jump .pf-header nav{display:flex;gap:6px;margin:0}
+.pf-production-jump .pf-header nav button{min-width:44px;min-height:44px;height:44px;margin:0;padding:0 9px;font-size:14px;font-weight:700;white-space:nowrap}
+.pf-production-jump .pf-header nav #sound{width:44px}
+.pf-production-jump .pf-honor-board>header{height:auto;min-height:64px}
