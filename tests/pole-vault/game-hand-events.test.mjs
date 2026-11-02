@@ -1,3 +1,4 @@
+import {entryBoundary,controllerSource} from '../helpers/entry-boundary.mjs';
 import {syncPauseButton} from '../../public/games/shared/game-ui.mjs';
 import * as flightProfile from '../../public/games/pole-vault/flight-profile.mjs';
 import test from 'node:test';
@@ -24,10 +25,10 @@ function game(){
  const nodes=new Map(),buttons=[0,1,2,3].map(i=>new Element('limb'+i,i)),document=new EventTarget(),window=new EventTarget();
  document.getElementById=id=>{if(!nodes.has(id))nodes.set(id,new Element(id));return nodes.get(id);};document.querySelectorAll=()=>buttons;document.documentElement=new Element('html');
  const sound={setPlaying(){},unlock(){},play(){},ready:false,decoded:0};let now=0,nextFrame,last;
- const context={syncPauseButton,...flightProfile,...resultFrame,...physics,...input,...guard,...share,...ui,...milestones,document,window,structuredClone,innerWidth:900,innerHeight:700,visualViewport:null,localStorage:{getItem(){return null;}},performance:{now:()=>now},requestAnimationFrame:f=>nextFrame=f,createGameAudio:()=>sound,createWorld:()=>({software:false,resize(){},render(s){last=structuredClone(s);}})};
- vm.runInNewContext(readFileSync(new URL('../../public/games/pole-vault/game.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,''),context);
+ const entryUI=entryBoundary();const context={createGameEntry:entryUI.createGameEntry,syncPauseButton,...flightProfile,...resultFrame,...physics,...input,...guard,...share,...ui,...milestones,document,window,structuredClone,innerWidth:900,innerHeight:700,visualViewport:null,localStorage:{getItem(){return null;}},performance:{now:()=>now},requestAnimationFrame:f=>nextFrame=f,createGameAudio:()=>sound,createWorld:()=>({software:false,resize(){},render(s){last=structuredClone(s);}})};
+ vm.runInNewContext(controllerSource(readFileSync(new URL('../../public/games/pole-vault/game.mjs',import.meta.url),'utf8')),context);
  const advance=seconds=>{for(let i=0;i<Math.ceil(seconds*120);i++){now+=1000/120;nextFrame(now);}};
- nodes.get('start').onclick();advance(.05);assert.ok(Number(nodes.get('scene').dataset.time)>0,'first frame is immediately active');
+ entryUI.start();advance(.05);assert.ok(Number(nodes.get('scene').dataset.time)>0,'first frame is immediately active');
  return{window,buttons,advance,state:()=>last,nodes};
 }
 const rel=(s,i)=>{const p=physics.pose(s),h=p['hand'+i];return{x:h.x-p.shoulder.x,y:h.y-p.shoulder.y};};

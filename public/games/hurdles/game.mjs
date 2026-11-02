@@ -1,3 +1,6 @@
+import {mountControlsFrame} from '../shared/controls-shell.mjs';
+mountControlsFrame({document,game:"hurdles",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
+import {createGameEntry} from '../shared/entry-shell.mjs';
 import {syncPauseButton} from '../shared/game-ui.mjs';
 import{protectPlaySurface}from'./play-surface.mjs';
 import{createResultGuard,bindResultGuard}from'./result-guard.mjs';
@@ -64,4 +67,4 @@ $('threads').onclick=()=>{const intent=new URL('https://www.threads.com/intent/p
 $('copy').onclick=async()=>{const text=shareText(s,new URL('/games/hurdles/',location.origin).href),token=runId;try{await navigator.clipboard.writeText(text);if(token===runId)$('share-status').textContent='已複製成績與遊戲網址。';}catch{if(token===runId)$('share-status').textContent='請手動複製：'+text;}};
 function frame(now){requestAnimationFrame(frame);if(replayResultPending){endReplay();prev=now;return;}if(resultGuard.active)guardUI();const elapsed=Math.max(0,Math.min(.1,(now-prev)/1000));prev=now;if(replay.active){replay.advance(elapsed);const current=replay.current;ui(current.state);replayUI();if(!replay.active||now-lastDraw>(world.software?(replay.paused?350:66):16)){world.render(current.state,current.points);lastDraw=now;}if(!replay.active)replayResultPending=true;return;}if(playing&&!paused){acc+=elapsed;let count=0;while(acc>=DT&&count++<16){const wasReady=countdown.ready,go=countdown.advance(DT);if(go){clear();sound.setPlaying(true);}if(!wasReady){acc-=DT;continue;}step(s,input.values,DT);replay.record(s);for(const event of s.events){if(event==='step')sound.play('step');else if(event==='jump')sound.play('jump');else if(event==='impact')sound.play('land');else if(event==='land')sound.play('land');else if(event==='clear')sound.play('flight');}acc-=DT;if(s.phase==='done'||s.phase==='dnf'){finish();break;}}ui();}
  if(now-lastDraw>(world.software?(playing&&!paused?66:350):16)){world.render(s);lastDraw=now;}}
-layout();world.render(s);ui();openOverlay('intro');requestAnimationFrame(frame);
+const entry=createGameEntry({document,gameId:'hurdles',onStart:()=>start(),onEnter:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},canStart:()=>Boolean(world)});layout();world.render(s);ui();entry.open();requestAnimationFrame(frame);

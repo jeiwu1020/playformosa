@@ -60,3 +60,16 @@ test('real THREE orthographic projection preserves athlete pixels when the stand
   for(const point of Object.values(pose(s))){const p=new THREE.Vector3(point.x,point.y,point.z||0),a=p.clone().project(before),b=p.clone().project(after);assert.ok(Math.abs((a.x+1)*w/2-(b.x+1)*w/2)<1e-7);assert.ok(Math.abs((1-a.y)*oldH/2-(1-b.y)*newH/2)<1e-7,`${width}px athlete point must neither move nor stretch`);}
  }
 });
+
+test('explicit shared controls mode uses 900px independent of orientation, retaining legacy default',()=>{
+ for(const [width,height,mode]of [[844,390,'bottom'],[899,1000,'bottom'],[900,1366,'side'],[1024,1366,'side']]){
+  const l=layout.gameLayout({width,height,sharedControls:true});assert.equal(l.mode,mode);assert.equal(l.playHeight,height-64-(mode==='bottom'?104:0));assert.ok(l.buttonHeight>=96);
+ }
+ assert.equal(layout.gameLayout({width:844,height:390}).mode,'side');
+});
+test('shared standalone keeps original 96px lift and actual THREE athlete projection',async()=>{
+ const THREE=await import('../../public/games/long-jump/vendor/three.module.min.js');const {fresh,pose,cameraFrame}=await import('../../public/games/long-jump/physics.mjs');
+ const l=layout.gameLayout({width:390,height:844,coarsePointer:true,standalone:true,sharedControls:true});assert.equal(l.controlLift,96);assert.equal(l.playHeight,580);assert.equal(l.sceneExtension,200);assert.equal(l.arenaHeight,780);
+ const w=l.arenaWidth-2,oldH=578,newH=778,s=fresh(),view=cameraFrame(s,w,oldH);const project=h=>{const c=new THREE.OrthographicCamera(-1,1,1,-1,.1,140);Object.assign(c,layout.renderCameraBounds(view,oldH,h));c.position.set(view.centerX,view.centerY+4,16);c.lookAt(view.centerX,view.centerY,0);c.updateProjectionMatrix();c.updateMatrixWorld();return c;};const before=project(oldH),after=project(newH);
+ for(const p of Object.values(pose(s))){const v=new THREE.Vector3(p.x,p.y,p.z||0),a=v.clone().project(before),b=v.clone().project(after);assert.ok(Math.abs((a.x-b.x)*w/2)<1e-7);assert.ok(Math.abs((1-a.y)*oldH/2-(1-b.y)*newH/2)<1e-7);}
+});

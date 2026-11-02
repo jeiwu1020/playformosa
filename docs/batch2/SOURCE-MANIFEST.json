@@ -80,18 +80,28 @@
         {
           "path": "game.mjs",
           "sourceSha256": "f25421828291a15cc2a409e6f04fcce5e89027cb869e2b7d112c64212be07f90",
-          "importedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+          "importedSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
           "unchanged": false,
-          "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
-          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
+            "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
+          "importedSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
           "unchanged": false,
-          "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
-          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
+            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "pose.mjs",
@@ -250,8 +260,12 @@
         {
           "path": "game.mjs",
           "sourceSha256": "caf6724216d4b778c2df7bbfda1e4cc80aee600b55d615687e93da878bdc9196",
-          "importedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
-          "unchanged": false
+          "importedSha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+          "unchanged": false,
+          "priorAdaptation": {},
+          "previousIntegratedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "gust-audio.mjs",
@@ -262,10 +276,15 @@
         {
           "path": "index.html",
           "sourceSha256": "79f1a71f46783a7e3cdf2b78f839a7e237029940761997837c4bb7970f2d472b",
-          "importedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
+          "importedSha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
           "unchanged": false,
-          "previousIntegratedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
-          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          "previousIntegratedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
+            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "input.mjs",
@@ -422,14 +441,22 @@
         {
           "path": "game.mjs",
           "sourceSha256": "6d09d19727bacb32ebac9fbe9159dc9e194bb2dee12c4cdf55dce00b7d727701",
-          "importedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
-          "unchanged": false
+          "importedSha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+          "unchanged": false,
+          "priorAdaptation": {},
+          "previousIntegratedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "index.html",
           "sourceSha256": "6b36334bc7756ed11b379332a7df4850a39673eb9f1e9da6a9c8167d845e8f96",
-          "importedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
-          "unchanged": false
+          "importedSha256": "607a527cbe0ac182c142eb487e3f9864572866cf65c521a13c03b9e36b8f1d13",
+          "unchanged": false,
+          "priorAdaptation": {},
+          "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "indoor-engine.mjs",

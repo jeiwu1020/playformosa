@@ -40,10 +40,15 @@
         {
           "path": "game.mjs",
           "sourceSha256": "045c0ae073a93b59a2249e946010fdfb9a5b377f529bebd2705021f1f6ee6167",
-          "importedSha256": "3bf3d4ccbcee20539dea53fd248476e80222bffc0d67f34602f0d27bb398e37f",
+          "importedSha256": "fc25bd8ee1701902bb0a44694c78f43effc3b711daace88e2f4fbaf6879c6b47",
           "unchanged": false,
-          "previousIntegratedSha256": "b48084a98af598c6e722a615fe83b17019a856c85ae57694adcaace4afee7e84",
-          "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          "previousIntegratedSha256": "3bf3d4ccbcee20539dea53fd248476e80222bffc0d67f34602f0d27bb398e37f",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "b48084a98af598c6e722a615fe83b17019a856c85ae57694adcaace4afee7e84",
+            "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "software-renderer.mjs",
@@ -54,10 +59,15 @@
         {
           "path": "index.html",
           "sourceSha256": "12306100a589e66d171062ebcc216b16e65b40be852550748ef20f0dff186b7c",
-          "importedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
+          "importedSha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
           "unchanged": false,
-          "previousIntegratedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
-          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          "previousIntegratedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
+            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "physics.mjs",
@@ -198,10 +208,15 @@
         {
           "path": "game.mjs",
           "sourceSha256": "6d057b56ebfe397239cdad4c73b1fe65401242509866b690bcf5ae05a5c13292",
-          "importedSha256": "8872b575f3f9b157489bfa619ace6970aed01657bb846d868b2a4d344a88374b",
+          "importedSha256": "41cef66b50c460e11849e2438f6e94da38f8459df1c9162d8dfcffb353077ca4",
           "unchanged": false,
-          "previousIntegratedSha256": "ba4e166d6f4e9bba9bbaa7aca2d832c328ad3a60de1c8cefa9ebe1098ee9020b",
-          "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
+          "previousIntegratedSha256": "8872b575f3f9b157489bfa619ace6970aed01657bb846d868b2a4d344a88374b",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "ba4e166d6f4e9bba9bbaa7aca2d832c328ad3a60de1c8cefa9ebe1098ee9020b",
+            "adaptation": "Approved UI stage2: mobile HUD text/visibility and collapsed help only; reuse existing phase/cue timing, no simulation changes."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "software-renderer.mjs",
@@ -230,10 +245,15 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "46d3536d70474cf58e6b869fde403974838343f5bdece0b34643ffc9ca5a8db0",
+          "importedSha256": "8fa61b28bd20ef6b8e59cae6cc7877a1a4b053444c8842e49f421efaa9a79b53",
           "unchanged": false,
-          "previousIntegratedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
-          "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          "previousIntegratedSha256": "46d3536d70474cf58e6b869fde403974838343f5bdece0b34643ffc9ca5a8db0",
+          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
+            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+          },
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "ui-state.mjs",

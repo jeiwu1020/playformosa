@@ -1,3 +1,6 @@
+import {mountControlsFrame} from '../shared/controls-shell.mjs';
+mountControlsFrame({document,game:"long-jump",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
+import {createGameEntry} from '../shared/entry-shell.mjs';
 import {createLandingReplay,captureReplayObjects,restoreReplayObjects} from './replay.mjs';
 import {syncPauseButton} from '../shared/game-ui.mjs';
 import {renderCameraBounds,isStandalone} from './layout.mjs';
@@ -178,7 +181,7 @@ function draw(state,elapsed,replayView=null){
   prepareResultShare();
  }
 }
-modal.open();
+const entry=createGameEntry({document,gameId:'long-jump',onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});entry.open();
 requestAnimationFrame(frame);
 
 

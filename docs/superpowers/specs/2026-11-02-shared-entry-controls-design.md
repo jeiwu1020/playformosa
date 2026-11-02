@@ -1,0 +1,25 @@
+# PlayFormosa shared entry and control frame — phase 1
+
+## Approved intent
+All nine games should genuinely share the same entry presentation; seven limb-controlled games share desktop and phone control placement. User approved this phase explicitly (Sentinel_e826f91006a48191b3e1577e49019368) after the common-entry/AS-left-JK-right proposal. Stop after the coherent phase1 preview and wait for user confirmation before common HUD/pause/result work.
+
+## Baseline and boundaries
+Private jeiwu1020/playformosa preview/hurdles, fresh verified b482956d416457f85019d338477075af6781aae2. Dot only. No main, Codex, new dependencies, physics, scores, save keys, routes, artwork, sound assets or camera-design changes. Existing pause/result/replay UX is not redesigned. Preserve normal native share/audio gestures and Safari standalone/root-dialog safeguards.
+
+## Approach
+Use two shared presentation modules/styles, with small explicit per-game adapters. Nine independent CSS copies would repeat the inconsistency and are rejected. A new universal game engine/input controller is unnecessary and rejected. Keep original scene nodes and original control buttons/event listeners; only move presentation containers and bind existing lifecycle methods.
+
+### Entry shell (9 games)
+One page-level dialog/backdrop, warm card, width min(560px, viewport minus32px), same title/goal/two operation sections, core text18px, optional collapsed advanced details, primary button exactly「開始遊戲」. Max-height respects visual viewport/safe insets and scrolls instead of shrinking type. Shared native-dialog path plus explicit standalone/non-native fallback (focus/inert/backdrop) informed by existing proven modal helper. Start does not dismiss on outside click or Escape. Failure to initialize renderer must not enable a playable start.
+Small content descriptors reuse approved names/instructions. Existing licensing/safety remains accessible, not copied away or deleted. Rod/beer receive this same entry shell but their real drag controls remain distinct. Beer retains in-scene aiming teaching AFTER start.
+Entry-open is an explicit lifecycle gate: no physics/time/countdown/input progression, including beer ready-time stepping. Starting invokes the original game start/unlock callback synchronously in the click stack before any await. Clear held inputs/pointer capture without generating release mechanics on transitions. Closing starts exactly once; Space/Enter activation cannot leak to the game underneath. Retry/replay goes directly through original paths, not back to intro. Existing explicit-help controls stay legal and paused; later help/pause visual redesign is out of scope.
+
+### Limb control frame (7 games)
+Longjump,hurdles,highjump,pole,shot,discus,tower share one reusable DOM frame and stylesheet. Desktop wide (implementation choice: min-width900px) has A/S vertically on left and J/K vertically on right of original scene. Below900px all four keys are at bottom in A,S | J,K order. Existing IDs/data attributes/limb indices and listeners are preserved, never remapped by visual order. Rod/beer get no fake ASJK.
+Buttons share shape, key/label typography, pressed feedback, safe gaps and at least64px targets (phone row80px tall, desktop96px tall). Frame responds to actual viewport/safe insets; small heights may scroll rather than shrink text or hide controls. Renderer continues reading actual scene bounds and updating projection; no stretching or pointer/world coordinate offsets. Preserve longjump's standalone lower-field camera extension, not a universal override. Any unavoidable per-game sizing adapter is named and narrow.
+
+## Acceptance
+All9 initial starts visibly use the shared shell; all7 ASJK layouts use actual same shared module/CSS. Desktop and390px iframe evidence shows whole card/start and correct control positions. Lifecycle regressions prove no pre-start time/input, synchronous audio callback, no phantom release, retry bypass, and safe fallback focus. Representative real pointer/keyboard flow and resize/projection checks, not a speculative full gameplay matrix. Relevant existing tests and complete remote CF gate must pass; local missing legacy assets are disclosed, not bypassed. Exact before/after source provenance, independent review, Library archive with fresh restore/hash, normal CAS preview publication, live check. Then stop for user review.
+
+## Adapter contracts confirmed during review
+`onStart(event)` receives the original activation event. The shell removes its modal/inert state synchronously before invoking original start/audio callbacks. `close()`/`destroy()` never start a round; only the primary activation does. Original arena/stage and its play-surface ancestor remain intact. Initial draw must succeed before admission; failure keeps start disabled and an accessible return-home route. Dialog-derived advanced content is cloned into neutral content containers, not nested closed dialogs. Admission keys are isolated before existing document capture guards, with native Tab focus trapping preserved. Help cancels existing held state and returns to an explicitly paused state rather than auto-resuming.

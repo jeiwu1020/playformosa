@@ -1,3 +1,4 @@
+import {entryBoundary,controllerSource} from '../../helpers/entry-boundary.mjs';
 import {syncPauseButton} from '../../../public/games/shared/game-ui.mjs';
 import * as flightProfile from '../../../public/games/pole-vault/flight-profile.mjs';
 import vm from 'node:vm';import {readFileSync} from 'node:fs';
@@ -15,10 +16,10 @@ export function gameHarness({initial=physics.fresh(),autoStart=true}={}){
  const nodes=new Map(),buttons=[0,1,2,3].map(i=>new Element('limb'+i,i)),document=new EventTarget(),window=new EventTarget(),captures=[],cardSources=[];
  document.getElementById=id=>{if(!nodes.has(id))nodes.set(id,new Element(id));return nodes.get(id);};document.querySelectorAll=()=>buttons;document.documentElement=new Element('html');document.createElement=tag=>{const e=new Element(tag);e.getContext=()=>new Proxy({measureText:s=>({width:s.length*12}),drawImage:source=>cardSources.push(source.sourceState)}, {get:(o,k)=>o[k]??(()=>{})});e.toBlob=cb=>cb(new Blob(['encoding boundary'],{type:'image/png'}));return e;};
  const sound={setPlaying(){},unlock(){},play(){},ready:false,decoded:0};let now=0,nextFrame;
- const context={syncPauseButton,...flightProfile,...physics,...input,...guard,...share,...ui,...milestones,...resultFrame,fresh:()=>structuredClone(initial),drawResult:(...args)=>{const old=globalThis.document;globalThis.document=document;try{return share.drawResult(...args);}finally{globalThis.document=old;}},document,window,structuredClone,File,innerWidth:900,innerHeight:700,visualViewport:null,localStorage:{getItem(){return null;},setItem(){}},performance:{now:()=>now},requestAnimationFrame:f=>nextFrame=f,matchMedia:()=>({matches:false}),navigator:{maxTouchPoints:0},createGameAudio:()=>sound,createWorld:()=>({software:false,resize(){},render(){},capture(s){captures.push(structuredClone(s));const e=new Element('captured');e.sourceState=structuredClone(s);return e;}})};
- vm.runInNewContext(readFileSync(new URL('../../../public/games/pole-vault/game.mjs',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'')+'\nglobalThis.readState=()=>s;globalThis.readInput=()=>input.values;',context);
+ const entryUI=entryBoundary();const context={createGameEntry:entryUI.createGameEntry,syncPauseButton,...flightProfile,...physics,...input,...guard,...share,...ui,...milestones,...resultFrame,fresh:()=>structuredClone(initial),drawResult:(...args)=>{const old=globalThis.document;globalThis.document=document;try{return share.drawResult(...args);}finally{globalThis.document=old;}},document,window,structuredClone,File,innerWidth:900,innerHeight:700,visualViewport:null,localStorage:{getItem(){return null;},setItem(){}},performance:{now:()=>now},requestAnimationFrame:f=>nextFrame=f,matchMedia:()=>({matches:false}),navigator:{maxTouchPoints:0},createGameAudio:()=>sound,createWorld:()=>({software:false,resize(){},render(){},capture(s){captures.push(structuredClone(s));const e=new Element('captured');e.sourceState=structuredClone(s);return e;}})};
+ vm.runInNewContext(controllerSource(readFileSync(new URL('../../../public/games/pole-vault/game.mjs',import.meta.url),'utf8'))+'\nglobalThis.readState=()=>s;globalThis.readInput=()=>input.values;',context);
  const advance=seconds=>{for(let i=0;i<Math.ceil(seconds*120);i++){now+=1000/120;nextFrame(now);}};
  const setKeys=values=>{for(const[i,code]of['KeyJ','KeyK','KeyA','KeyS'].entries())window.dispatchEvent(event(values[i]?'keydown':'keyup',{code,repeat:false}));};
- if(autoStart)nodes.get('start').onclick();
- return{document,window,buttons,advance,setKeys,values:()=>Array.from(context.readInput()),state:()=>structuredClone(context.readState()),nodes,captures,cardSources};
+ if(autoStart)entryUI.start();
+ return{entryUI,startEntry:event=>entryUI.start(event),document,window,buttons,advance,setKeys,values:()=>Array.from(context.readInput()),state:()=>structuredClone(context.readState()),nodes,captures,cardSources};
 }

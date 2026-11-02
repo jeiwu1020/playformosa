@@ -1,3 +1,6 @@
+import {mountControlsFrame} from '../shared/controls-shell.mjs';
+mountControlsFrame({document,game:"pole-vault",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
+import {createGameEntry} from '../shared/entry-shell.mjs';
 import{syncPauseButton}from'../shared/game-ui.mjs';
 import{loadBest,storeBest}from'./flight-profile.mjs';
 import{createResultFrame}from'./result-frame.mjs';
@@ -60,4 +63,4 @@ $('threads').onclick=()=>{const intent=new URL('https://www.threads.com/intent/p
 $('copy').onclick=async()=>{const text=shareText(s,location.origin+'/games/pole-vault/'),token=runId;try{await navigator.clipboard.writeText(text);if(token===runId)$('share-status').textContent='已複製成績與網址。';}catch{if(token===runId)$('share-status').textContent='請手動複製：'+text;}};
 function frame(now){requestAnimationFrame(frame);if(resultGuard.active)guardUI();const elapsed=Math.max(0,Math.min(.1,(now-prev)/1000));prev=now;if(playing&&!paused){acc+=elapsed;let count=0;while(acc>=DT&&count++<16){step(s,input.values,DT);resultFrame.observe(s);for(const event of s.events){const soundName={step:'step',plant:'land',flex:'jump',jump:'jump',flight:'flight',land:'land',milestone:'flight',finish:'jump',clear:'result','bar-hit':'land'}[event];if(soundName)sound.play(soundName);}acc-=DT;if(s.phase==='done'){finish();break;}}ui();}
  if(now-lastDraw>(world.software?(playing&&!paused?66:350):16)){world.render(s);lastDraw=now;}}
-layout();world.render(s);ui();openOverlay('intro');requestAnimationFrame(frame);
+const entry=createGameEntry({document,gameId:'pole-vault',onStart:()=>start(),onEnter:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},canStart:()=>Boolean(world)});layout();world.render(s);ui();entry.open();requestAnimationFrame(frame);

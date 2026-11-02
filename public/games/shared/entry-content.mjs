@@ -1,0 +1,13 @@
+// Presentation-only text. Keys describe the existing inputs; they never remap them.
+export const ENTRY_CONTENT={
+ 'long-jump':{goal:'從台北出發，你能跳多遠？',operations:['A／S 左右腳：短按跑步，長按後放開起跳。','J／K 左右手：擺動手臂；空中配合手腳續飛。'],advanced:['#card-text .entry-help','.music-credits']},
+ hurdles:{goal:'跨過八道欄杆，越快跑完110公尺越好。',operations:['A／S 左右腳：短按交替跑，長按亮框後放開起跳。','J／K 左右手：擺動平衡，跌撞時揮手救回來。'],advanced:['#intro .entry-help','#credits']},
+ 'high-jump':{goal:'完整越過橫桿，挑戰更高的一跳。',operations:['A／S 左右腿：交替助跑，長按蓄力，在綠區放開起跳。','J／K 左右臂：彎伸調平衡；空中用A／S收腿過桿。'],advanced:['#intro details'],help:'#settings'},
+ 'pole-vault':{goal:'撐起自己，從椅背一路挑戰更高的世界。',operations:['A／S 左右腳：交替助跑，空中也能配合。','J／K 左右手：按住握竿蓄力，看到提示時兩手放開。'],advanced:['.vault-help','#credits']},
+ 'shot-put':{goal:'讓這一球接力飛得更遠。',operations:['K 持球臂：按住蓄力，放開推出。','A／S 蹬地，J穩住：配合伸展，讓出手更有力。'],advanced:['main>details','footer'],license:'./credits.html'},
+ discus:{goal:'讓鐵餅旋轉，飛得更遠。',operations:['K 持餅臂：按住蓄力，放開甩出去。','A／S 換腳，J伸臂：蹬地帶旋轉，伸臂穩住重心。'],advanced:['.tutorial','.credits']},
+ 'tower-climb':{goal:'60秒，挑戰十層樓。',operations:['A／S 左右腳：按住提膝，放開踩穩。','J／K 左右手：擺臂，靠近扶手時抓穩。'],advanced:['#help-dialog'],help:'#help-button'},
+ 'reaction-rod':{goal:'移動手掌，接住10根掉落的棒。',operations:['拖曳手掌移動；鍵盤也可用方向鍵或WASD。','往下拖可蹲下；回中間站穩，別把自己甩倒。'],advanced:['#help'],help:'#helpBtn'},
+ 'beer-slide':{goal:'把杯子推近靶心，也把酒留在杯裡。',operations:['按住杯子往前滑，在放手線前放開。','鍵盤可按住空白鍵蓄勢，放開推杯。'],advanced:['#aboutDialog'],help:'#about'}
+};
+export function entryContent(document,gameId){const c=ENTRY_CONTENT[gameId];if(!c)throw new Error('Unknown entry game: '+gameId);const advanced=document.createElement('div');for(const selector of c.advanced)for(const original of document.querySelectorAll(selector)){const copy=original.tagName==='DIALOG'?document.createElement('div'):original.cloneNode(true);if(original.tagName==='DIALOG')copy.append(...original.cloneNode(true).childNodes);for(const dialog of copy.querySelectorAll('dialog')){const content=document.createElement('div');content.append(...dialog.childNodes);dialog.replaceWith(content);}for(const el of[copy,...copy.querySelectorAll('*')]){el.removeAttribute('id');el.removeAttribute('open');el.removeAttribute('hidden');el.removeAttribute('autofocus');}for(const el of copy.querySelectorAll('button,input,select,textarea,script'))el.remove();advanced.append(copy);}if(c.license){const p=document.createElement('p'),a=document.createElement('a');a.href=c.license;a.textContent='素材與授權';p.append(a);advanced.append(p);}return{title:document.querySelector('.pf-header h1')?.textContent?.trim()||'PlayFormosa',goal:c.goal,operations:c.operations,advanced,existingHelp:c.help?document.querySelector(c.help):null};}

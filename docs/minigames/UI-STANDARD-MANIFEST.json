@@ -5,31 +5,47 @@
       "game": "reaction-rod",
       "path": "game.mjs",
       "baselineSha256": "fdd563ad7de3c8bd722d5b170f2ec07771202790a81c4cecc7a46623c02d7b6a",
-      "sha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
-      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+      "sha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
+      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "priorAdaptation": {
+        "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+      },
+      "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee"
     },
     {
       "game": "reaction-rod",
       "path": "index.html",
       "baselineSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
-      "sha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
-      "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
-      "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34"
+      "sha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
+      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+      "priorAdaptation": {
+        "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
+        "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+      }
     },
     {
       "game": "beer-slide",
       "path": "game.mjs",
       "baselineSha256": "313b23d3166a687cf99356b4c271722a0d00a81c7e68af9614e7b300fd56ad2e",
-      "sha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7",
-      "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+      "sha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
+      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "priorAdaptation": {
+        "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+      },
+      "previousIntegratedSha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7"
     },
     {
       "game": "beer-slide",
       "path": "index.html",
       "baselineSha256": "cdd6d0b30e3a77450f09f9f63c09704389ab2fff3b91d23b9bfeeed936027ed9",
-      "sha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
-      "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
-      "previousIntegratedSha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5"
+      "sha256": "ec4fae0f3cec8ef687a14070eaa467374b5c2048b6e10f428cf0ad96ca13e56a",
+      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "previousIntegratedSha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
+      "priorAdaptation": {
+        "previousIntegratedSha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5",
+        "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+      }
     },
     {
       "game": "reaction-rod",
@@ -39,5 +55,156 @@
       "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
       "previousIntegratedSha256": "86418dd3d92609a45436912447322dc501bcc208050f7759ae900814c068eae8"
     }
-  ]
+  ],
+  "sharedEntryControlsPhase1": {
+    "baselineCommit": "b482956d416457f85019d338477075af6781aae2",
+    "approval": "User approved same-page common entry for nine games and AS-left/JK-right wide, AS|JK-bottom narrow controls for seven games.",
+    "scope": "Presentation/admission only. Existing source manifests retain original source commits and all unchanged core/art/audio/render/input hashes. No physics, scores, storage, assets or camera-design changes.",
+    "files": [
+      {
+        "path": "long-jump/game.mjs",
+        "previousIntegratedSha256": "13d609c40faaff95250ba31a86788cbff213f002fb7dfb9ee62ea88295ebfe34",
+        "sha256": "faaf4b9b6c7316e4be74bc6b3fc9e2a6096542edfd9eb32863ca3222918cc2dc",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "long-jump/index.html",
+        "previousIntegratedSha256": "6c5b7c57506f39e0e3a99d321cca824364b38355772049194f8d422a2544821f",
+        "sha256": "e22237232721e6c23e6843e1fcf8a72ab14f77b808a020af23fc667c3d3549c3",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "hurdles/game.mjs",
+        "previousIntegratedSha256": "1475f11602029173c4f90e61a32ad44beacdc0e435a68ec8b30f01834740511e",
+        "sha256": "c8a49e8eeda2a4d53726b77d83fe240fe4b82664d1d6ce5e3c74d5cdf1c3984a",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "hurdles/index.html",
+        "previousIntegratedSha256": "361911c0a14af3428988ccc1624402017dd072012603f7d24786619b84a261ee",
+        "sha256": "21fb261b7dcb562ac124bb9f8f4d5225362b5178fdc8c650f7c1aa151615d79a",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "high-jump/game.mjs",
+        "previousIntegratedSha256": "3bf3d4ccbcee20539dea53fd248476e80222bffc0d67f34602f0d27bb398e37f",
+        "sha256": "fc25bd8ee1701902bb0a44694c78f43effc3b711daace88e2f4fbaf6879c6b47",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "high-jump/index.html",
+        "previousIntegratedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
+        "sha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "pole-vault/game.mjs",
+        "previousIntegratedSha256": "8872b575f3f9b157489bfa619ace6970aed01657bb846d868b2a4d344a88374b",
+        "sha256": "41cef66b50c460e11849e2438f6e94da38f8459df1c9162d8dfcffb353077ca4",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "pole-vault/index.html",
+        "previousIntegratedSha256": "46d3536d70474cf58e6b869fde403974838343f5bdece0b34643ffc9ca5a8db0",
+        "sha256": "8fa61b28bd20ef6b8e59cae6cc7877a1a4b053444c8842e49f421efaa9a79b53",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "shot-put/game.mjs",
+        "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+        "sha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "shot-put/index.html",
+        "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
+        "sha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "discus/game.mjs",
+        "previousIntegratedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
+        "sha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "discus/index.html",
+        "previousIntegratedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
+        "sha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "tower-climb/game.mjs",
+        "previousIntegratedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
+        "sha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "tower-climb/index.html",
+        "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
+        "sha256": "607a527cbe0ac182c142eb487e3f9864572866cf65c521a13c03b9e36b8f1d13",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "reaction-rod/game.mjs",
+        "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
+        "sha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "reaction-rod/index.html",
+        "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+        "sha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "beer-slide/game.mjs",
+        "previousIntegratedSha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7",
+        "sha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "beer-slide/index.html",
+        "previousIntegratedSha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
+        "sha256": "ec4fae0f3cec8ef687a14070eaa467374b5c2048b6e10f428cf0ad96ca13e56a",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+      },
+      {
+        "path": "shared/entry-shell.mjs",
+        "previousIntegratedSha256": null,
+        "sha256": "b3d402422a62d930c96d71f5b3584b302017c5480edaf2317dfbd2cd7508b85d",
+        "reason": "New shared presentation module; no prior runtime file."
+      },
+      {
+        "path": "shared/entry-shell.css",
+        "previousIntegratedSha256": null,
+        "sha256": "96fe370c624525f4d4ee309785d5a15357de1d961a174ee363164afa9ea8da8f",
+        "reason": "New shared presentation module; no prior runtime file."
+      },
+      {
+        "path": "shared/entry-content.mjs",
+        "previousIntegratedSha256": null,
+        "sha256": "f45349e0141b66750caba2d06982e19b1e87ac593dea9914ea8ac41c2be0432d",
+        "reason": "New shared presentation module; no prior runtime file."
+      },
+      {
+        "path": "shared/controls-shell.mjs",
+        "previousIntegratedSha256": null,
+        "sha256": "aec453041e9e63de39877fa18168b00d9552e1dfc030bd575ee4d2a603d7dfbd",
+        "reason": "New shared presentation module; no prior runtime file."
+      },
+      {
+        "path": "shared/controls-shell.css",
+        "previousIntegratedSha256": null,
+        "sha256": "c3d67c9c6ea130c1abe0bc36b2fbe6240a3a10131089ba8860333086975bf1e4",
+        "reason": "New shared presentation module; no prior runtime file."
+      },
+      {
+        "path": "long-jump/layout.mjs",
+        "previousIntegratedSha256": "ea4466b7ad1143e7cff89613f881a0766b592481992966e86488aadc9897615d",
+        "sha256": "094300ea5ea18f58f60dd3527226c5ee05ca3dc6b6435168b3a6665f23202cbc",
+        "reason": "Approved opt-in 900px control breakpoint and viewport budget; legacy defaults and standalone lower-field camera extension preserved."
+      }
+    ]
+  }
 }
