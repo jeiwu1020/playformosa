@@ -1,3 +1,4 @@
+import {handlePlayCounts} from '../play-counts/index.mjs';
 import {LeaderboardRepository} from './repository.mjs';
 export const BOARDS=Object.freeze({
  'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
@@ -16,6 +17,7 @@ export function validateSubmission(value){
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
 export async function handleRequest(request,env,now=Date.now()){
  const url=new URL(request.url);
+ if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});
  if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);
  const repo=new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);

@@ -629,6 +629,9 @@
     "assets/hero-long-jump.png",
     "assets/home.css",
     "assets/hurdles-card.png",
+    "assets/play-counts.mjs",
+    "assets/portal-taiwanfighter-logo.webp",
+    "assets/portal-taiwanfighter.webp",
     "experiments/long-jump-physics/controls.mjs",
     "experiments/long-jump-physics/game.mjs",
     "experiments/long-jump-physics/index.html",
@@ -723,6 +726,7 @@
     "games/shared/leaderboard-config.mjs",
     "games/shared/leaderboard.css",
     "games/shared/leaderboard.mjs",
+    "games/shared/play-counts.mjs",
     "games/shared/production-jump-chrome.css",
     "games/shared/production-jump-leaderboard.mjs",
     "index.html",
@@ -900,6 +904,72 @@
         "path": "tests/helpers/entry-boundary.mjs",
         "beforeSha256": "b845820a3a42900a9b05941cf7fedd8e907a7e3fef5be390d5fd478c552012d3",
         "sha256": "210c681c5b7e56218bc68d3fb589259096f2717185a13a57a32ccd3c0f5ae153"
+      }
+    ]
+  },
+  "productionCounts": {
+    "baseCommit": "633841b2b8f6fa4d8f6e356c22d1e06b869188f4",
+    "reason": "Approved recorded starts and only Fighter homepage entry; includes visible-once homepage views with server 30-minute dedupe; no Fighter click count. Original historical ledgers retained.",
+    "files": [
+      {
+        "path": "public/assets/home.css",
+        "beforeSha256": "356967c62d4c425d4fc11e86ec4e7a2bec06e412b09a2cddb190be918f00b732",
+        "sha256": "8ab966f8da5ee628938ab4b1ac4944b5d14a7317cd9f63efd06ba238fa23ff72"
+      },
+      {
+        "path": "public/index.html",
+        "beforeSha256": "d02e1caa0ce3d1c8db365d29b85fbfabe09ec0f92a77b519146aed1038c67825",
+        "sha256": "a4a13c883ebdf2aeac9c3936048ea50f080b73cc389afc8a06e242c397f9fd1d"
+      },
+      {
+        "path": "src/render.mjs",
+        "beforeSha256": "67e64b906d060ed46b6b5d14250d94ee371935a117b0439503ea9c8251262ceb",
+        "sha256": "85b46c15d239ec83d15ab540c112ae5a9a45ac0d56a65865d0d08b06e750dddd"
+      },
+      {
+        "path": "public/games/long-jump/game.mjs",
+        "beforeSha256": "b8d6a35d444aa10bb3c0ccbb73372fb1a43b51690dde53510c51a24741e1b451",
+        "sha256": "1538c4e2239f455bbdefafd1e56e06c06935bb83f8e283f0971741f58e799c84"
+      },
+      {
+        "path": "public/games/hurdles/game.mjs",
+        "beforeSha256": "7a73b4b75b157a4828e97f2c2a2985098d16f94f750f1d0caedefb42139e42bd",
+        "sha256": "782f69301f0b6014c58d7e2c7ca1f5ad539763c7ff52f0016293729bdfaf51c0"
+      },
+      {
+        "path": "tests/helpers/entry-boundary.mjs",
+        "beforeSha256": "210c681c5b7e56218bc68d3fb589259096f2717185a13a57a32ccd3c0f5ae153",
+        "sha256": "93b200e529728659764ae56082dba0069f027e2c08284e7485eef1f07fadeb30"
+      },
+      {
+        "path": "public/assets/play-counts.mjs",
+        "beforeSha256": null,
+        "sha256": "5a7c8bd84d8b89292c7aee4ec05c7dd3d902a95e86397487321952b8ee274a9d"
+      },
+      {
+        "path": "public/games/shared/play-counts.mjs",
+        "beforeSha256": null,
+        "sha256": "75c9bfcf3c185fb91cf64ba6eae53e0c16091e49ce69832d25ee2ee9ba7d48f7"
+      },
+      {
+        "path": "worker/leaderboard/index.mjs",
+        "beforeSha256": "93736ab213f45b3ff143459638288b7ddcd5ef545d44647cc5e58bce6567a7b7",
+        "sha256": "bf127a760807a791cd7e99840f51a5c743728acb02e101887643d6c60b0b3288"
+      },
+      {
+        "path": "worker/play-counts/index.mjs",
+        "beforeSha256": null,
+        "sha256": "9cdba42537a94d068ae818c4f7ac6e464185a3c7cdf2898d7fbbd5521eb6a5f3"
+      },
+      {
+        "path": "worker/play-counts/repository.mjs",
+        "beforeSha256": null,
+        "sha256": "dabbebdbd27d2aac6ba35976d5d71f04b1408604625e61bf560c31d8adbac0dd"
+      },
+      {
+        "path": "worker/play-counts/002.sql",
+        "beforeSha256": null,
+        "sha256": "53d6022ca5eef923f0dc37ab969150ffddbd571b565232c8589547de1a11151c"
       }
     ]
   }

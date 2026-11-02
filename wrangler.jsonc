@@ -6,13 +6,15 @@
   "vars": {
     "LEADERBOARD_SCOPE": "production",
     "LEADERBOARD_ORIGIN": "https://playformosa.playformosa.workers.dev",
-    "LEADERBOARD_ENABLED": "true"
+    "LEADERBOARD_ENABLED": "true",
+    "PLAY_COUNTS_ENABLED": "true"
   },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
     "run_worker_first": [
-      "/api/leaderboard*"
+      "/api/leaderboard*",
+      "/api/play-counts*"
     ],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
