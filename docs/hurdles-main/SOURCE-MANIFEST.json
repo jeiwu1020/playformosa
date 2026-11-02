@@ -972,5 +972,26 @@
         "sha256": "53d6022ca5eef923f0dc37ab969150ffddbd571b565232c8589547de1a11151c"
       }
     ]
+  },
+  "mainNavDiagnostic": {
+    "baseCommit": "a6b4efbb66317ae061c62937ab84db72b3d0c457",
+    "reason": "Remove player diagnostic module load only; homepage top navigation targets existing Fighter big-games section. No gameplay/data changes.",
+    "files": [
+      {
+        "path": "public/games/long-jump/index.html",
+        "beforeSha256": "5fda3d54475e1754f88b3788869e4448381877af3e4e5eee982c9afb68e08879",
+        "sha256": "3d3d121461ec24b314b81f44478bdf3a45c06dc77993fbf8b9e6f2cb65135e2a"
+      },
+      {
+        "path": "src/render.mjs",
+        "beforeSha256": "85b46c15d239ec83d15ab540c112ae5a9a45ac0d56a65865d0d08b06e750dddd",
+        "sha256": "0c3e7c3fc8894fa3c383984be6dd48d12bc34bafd69167f323e0aac305b9ff2e"
+      },
+      {
+        "path": "public/index.html",
+        "beforeSha256": "a4a13c883ebdf2aeac9c3936048ea50f080b73cc389afc8a06e242c397f9fd1d",
+        "sha256": "e55e92c6831adf6e61aad18f1808b2d54b586da1e558146d56aa6a6b4ac5c561"
+      }
+    ]
   }
 }
