@@ -35,7 +35,7 @@ test('external metadata is escaped and URLs/images fail closed',()=>{
  const first=fixtureCatalog.externalGames[0];
  const withEntry=entry=>({...catalog,externalGames:[entry],platforms:[]});
  const escaped=dom(withEntry({...first,title:'<img src=x onerror=alert(1)>',description:'<script>x</script>'}));
- assert.equal(escaped.querySelector('script'),null);assert.ok(escaped.querySelector('[data-external-id]').textContent.includes('<img src=x'));
+ assert.deepEqual([...escaped.querySelectorAll('script')].map(s=>[s.getAttribute('src'),s.type,s.textContent]),[['/assets/play-counts.mjs','module','']]);assert.equal(escaped.querySelector('[data-external-id] script'),null);assert.ok(escaped.querySelector('[data-external-id]').textContent.includes('<img src=x'));
  for(const href of ['javascript:alert(1)','https://evil.example/','https://formosabattle.playformosa.workers.dev.evil.example/','https://formosabattle.playformosa.workers.dev/?qa=1'])assert.throws(()=>dom(withEntry({...first,href})),/external URL/i);
  for(const image of ['https://evil.example/x.png','/assets/../secret.png','x" onerror="x'])assert.throws(()=>dom(withEntry({...first,image})),/image/i);
 });

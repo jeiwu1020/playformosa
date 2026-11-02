@@ -24,3 +24,6 @@
 @media(max-width:350px){.has-portal .site-header nav{column-gap:17px}.portal-card-body{padding:16px}.portal-card h3{font-size:24px}.portal-card-bottom{align-items:start;flex-direction:column}.platform-feature{padding:23px 18px}.platform-brand h3{font-size:33px}}
 
 .portal-arrow{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Online recorded starts only for currently released games. */
+.game-info .play-count{margin:8px 0 0;font-size:14px;line-height:1.5;color:#36574f;font-weight:650}

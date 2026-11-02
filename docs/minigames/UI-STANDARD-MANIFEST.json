@@ -704,5 +704,26 @@
         "sha256": "93139e8523fc8eb52530d322e6984772432e358d5a1a6d319f4f92b1060c7f38"
       }
     ]
+  },
+  "playCounts": {
+    "baseCommit": "91a34d322201ecc99379922cde0e1c5b0f19ba39",
+    "reason": "Best-effort start telemetry after successful actual start only; no physics/input/render changes.",
+    "files": [
+      {
+        "path": "long-jump/game.mjs",
+        "beforeSha256": "e2d6ac46087b3c3b5f54573edb002904b41ebcec60a065a2e5eeb8f0bdd0952a",
+        "sha256": "5719b0902c3edb89a3a4494efb2a74fc1e9c7cee691cb50ac3db40646ec17efb"
+      },
+      {
+        "path": "hurdles/game.mjs",
+        "beforeSha256": "7a73b4b75b157a4828e97f2c2a2985098d16f94f750f1d0caedefb42139e42bd",
+        "sha256": "782f69301f0b6014c58d7e2c7ca1f5ad539763c7ff52f0016293729bdfaf51c0"
+      },
+      {
+        "path": "shared/play-counts.mjs",
+        "beforeSha256": null,
+        "sha256": "75c9bfcf3c185fb91cf64ba6eae53e0c16091e49ce69832d25ee2ee9ba7d48f7"
+      }
+    ]
   }
 }
