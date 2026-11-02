@@ -28,3 +28,6 @@ html[data-controls-raised="true"] .pf-game .pf-controls-frame[data-game="long-ju
  .pf-game .pf-controls-frame [data-pf-key]{flex:none;min-height:96px}
  .pf-game .pf-controls-frame[data-game="long-jump"]{grid-template-rows:minmax(208px,1fr);grid-template-columns:var(--side-width,112px) minmax(0,1fr) var(--side-width,112px)}
 }
+
+/* Throw prototypes previously capped the common frame at 1160/1200px. */
+@media(min-width:900px){.pf-game.pf-shot-put>main,.pf-game.pf-discus>main,.pf-game:is(.pf-shot-put,.pf-discus)>.pf-header{max-width:none;width:100%}}

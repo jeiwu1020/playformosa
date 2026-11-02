@@ -5,23 +5,31 @@
       "game": "reaction-rod",
       "path": "game.mjs",
       "baselineSha256": "fdd563ad7de3c8bd722d5b170f2ec07771202790a81c4cecc7a46623c02d7b6a",
-      "sha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
-      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "sha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+      "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
       "priorAdaptation": {
-        "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+        "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "priorAdaptation": {
+          "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+        }
       },
-      "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee"
+      "previousIntegratedSha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45"
     },
     {
       "game": "reaction-rod",
       "path": "index.html",
       "baselineSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
-      "sha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
-      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
-      "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+      "sha256": "348c205eba1e2c7a1e34d6097b29f411c04e196267aed7b895a4e7f915e5ff17",
+      "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
+      "previousIntegratedSha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
       "priorAdaptation": {
-        "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
-        "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+        "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "priorAdaptation": {
+          "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
+          "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+        }
       }
     },
     {
@@ -112,14 +120,26 @@
       {
         "path": "shot-put/game.mjs",
         "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
-        "sha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
+          "afterSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "shot-put/index.html",
         "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
-        "sha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "a30a44057bab1ee1d89fa56d0a1b0c7b8e897348e16d4a1e3b8a1c62f430f893",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
+          "afterSha256": "a30a44057bab1ee1d89fa56d0a1b0c7b8e897348e16d4a1e3b8a1c62f430f893",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "discus/game.mjs",
@@ -130,8 +150,14 @@
       {
         "path": "discus/index.html",
         "previousIntegratedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
-        "sha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "bc5b0e9d080bf29e5f20123c492e96625b8bca37ef384afa3ffff38e0338904e",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
+          "afterSha256": "bc5b0e9d080bf29e5f20123c492e96625b8bca37ef384afa3ffff38e0338904e",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "tower-climb/game.mjs",
@@ -148,14 +174,26 @@
       {
         "path": "reaction-rod/game.mjs",
         "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
-        "sha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
+          "afterSha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "reaction-rod/index.html",
         "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
-        "sha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "348c205eba1e2c7a1e34d6097b29f411c04e196267aed7b895a4e7f915e5ff17",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
+          "afterSha256": "348c205eba1e2c7a1e34d6097b29f411c04e196267aed7b895a4e7f915e5ff17",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "beer-slide/game.mjs",
@@ -172,14 +210,26 @@
       {
         "path": "shared/entry-shell.mjs",
         "previousIntegratedSha256": null,
-        "sha256": "b3d402422a62d930c96d71f5b3584b302017c5480edaf2317dfbd2cd7508b85d",
-        "reason": "New shared presentation module; no prior runtime file."
+        "sha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
+        "reason": "New shared presentation module; no prior runtime file.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "b3d402422a62d930c96d71f5b3584b302017c5480edaf2317dfbd2cd7508b85d",
+          "afterSha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "shared/entry-shell.css",
         "previousIntegratedSha256": null,
-        "sha256": "96fe370c624525f4d4ee309785d5a15357de1d961a174ee363164afa9ea8da8f",
-        "reason": "New shared presentation module; no prior runtime file."
+        "sha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
+        "reason": "New shared presentation module; no prior runtime file.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "96fe370c624525f4d4ee309785d5a15357de1d961a174ee363164afa9ea8da8f",
+          "afterSha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "shared/entry-content.mjs",
@@ -196,8 +246,14 @@
       {
         "path": "shared/controls-shell.css",
         "previousIntegratedSha256": null,
-        "sha256": "c3d67c9c6ea130c1abe0bc36b2fbe6240a3a10131089ba8860333086975bf1e4",
-        "reason": "New shared presentation module; no prior runtime file."
+        "sha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
+        "reason": "New shared presentation module; no prior runtime file.",
+        "firstPaintWidthFix": {
+          "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+          "beforeSha256": "c3d67c9c6ea130c1abe0bc36b2fbe6240a3a10131089ba8860333086975bf1e4",
+          "afterSha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
+          "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        }
       },
       {
         "path": "long-jump/layout.mjs",

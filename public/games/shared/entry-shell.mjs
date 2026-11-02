@@ -18,7 +18,7 @@ export function createEntryShell({document,title,goal,operations,advanced=null,o
  button.addEventListener('click',event=>{event.stopPropagation();if(!active||button.disabled)return;if(help){close();return;}if(!canStart())return;close();onStart(event);});
  return{dialog,open,close,get active(){return active;},destroy(){close();destroyed=true;win.removeEventListener('keydown',keyGate,true);win.removeEventListener('keyup',keyGate,true);dialog.remove();backdrop?.remove();heldKeys.clear();}};
 }
-export function createGameEntry(options){const{document,gameId}=options,content=entryContent(document,gameId),win=document.defaultView;const forceFallback=options.forceFallback??Boolean(win.navigator?.standalone||win.matchMedia?.('(display-mode: standalone)').matches);const shell=createEntryShell({...content,...options,forceFallback});
+export function createGameEntry(options){const{document,gameId}=options,content=entryContent(document,gameId),win=document.defaultView;const forceFallback=options.forceFallback??Boolean(win.navigator?.standalone||win.matchMedia?.('(display-mode: standalone)').matches);const shell=createEntryShell({...content,...options,forceFallback});document.querySelector('[data-pf-entry-loading]')?.remove();
  // Existing help controls keep their original pause/settings behavior and license access.
  // Games without one get one small explicit entry; opening help never starts/resumes a round.
  if(!content.existingHelp){const help=document.createElement('button');help.type='button';help.className='pf-entry-help';help.textContent='說明';help.setAttribute('aria-label','操作說明與素材授權');help.addEventListener('click',()=>shell.open({help:true}));(document.querySelector('.pf-header nav')||document.body).append(help);}

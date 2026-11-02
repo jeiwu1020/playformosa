@@ -80,26 +80,34 @@
         {
           "path": "game.mjs",
           "sourceSha256": "f25421828291a15cc2a409e6f04fcce5e89027cb869e2b7d112c64212be07f90",
-          "importedSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
+          "importedSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
           "unchanged": false,
-          "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "previousIntegratedSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
+          "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
           "priorAdaptation": {
-            "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
-            "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+            "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {
+              "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
+              "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+            }
           },
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
+          "importedSha256": "a30a44057bab1ee1d89fa56d0a1b0c7b8e897348e16d4a1e3b8a1c62f430f893",
           "unchanged": false,
-          "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "previousIntegratedSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
+          "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
           "priorAdaptation": {
-            "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
-            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+            "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {
+              "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
+              "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+            }
           },
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
@@ -276,13 +284,17 @@
         {
           "path": "index.html",
           "sourceSha256": "79f1a71f46783a7e3cdf2b78f839a7e237029940761997837c4bb7970f2d472b",
-          "importedSha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
+          "importedSha256": "bc5b0e9d080bf29e5f20123c492e96625b8bca37ef384afa3ffff38e0338904e",
           "unchanged": false,
-          "previousIntegratedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "previousIntegratedSha256": "9c0529673eb6d67d3312fd0fd81cf27d2c62b67533705798de1923a41e1d445c",
+          "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
           "priorAdaptation": {
-            "previousIntegratedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
-            "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+            "previousIntegratedSha256": "2f14e8ebc638df71eb2cb68c8e1c7488163245668a95c42389d6027e2961c029",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {
+              "previousIntegratedSha256": "4aba1563a3e010a4c627560deca57aefb9b3547656ab06ae819671f0e6a87a79",
+              "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+            }
           },
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
