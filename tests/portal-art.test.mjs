@@ -9,7 +9,8 @@ for(const entry of [...catalog.externalGames,...catalog.platforms]){
   assert.equal(record.sourceHomepage,entry.href);
   for(const image of [entry.image,entry.logo].filter(Boolean)){
    const asset=record.assets.find(item=>item.path==='public'+image);assert.ok(asset,image);
-   assert.ok(asset.sourceUrl.startsWith(entry.href+'assets/'));
+   if(entry.id==='soul10power')assert.equal(asset.sourceUrl,'https://soul10power.vercel.app/bg-desktop.webp');
+   else assert.ok(asset.sourceUrl.startsWith(entry.href+'assets/'));
    const bytes=readFileSync(new URL('../public'+image,import.meta.url));assert.equal(bytes.length,asset.bytes);
    assert.equal(createHash('sha256').update(bytes).digest('hex'),asset.sha256);
   }

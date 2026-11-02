@@ -6,13 +6,14 @@ import {renderPage} from '../src/render.mjs';
 import {externalFixtures} from './fixtures/portal-catalog.mjs';
 const fixtureCatalog={...catalog,externalGames:externalFixtures.filter(entry=>entry.kind==='game'),platforms:externalFixtures.filter(entry=>entry.kind==='platform')};
 const dom=(data=fixtureCatalog,channel='preview')=>new JSDOM(renderPage(data,{channel})).window.document;
-const expected=[['formosabattle','福爾摩沙群俠傳'],['echosboundary','迴聲邊界：審判'],['taiwankart','台灣小島疾走'],['taiwanfighter','武鬥台灣魂'],['arcadeplatform','play. one more.']];
+const expected=[['formosabattle','福爾摩沙群俠傳'],['echosboundary','迴聲邊界：審判'],['taiwankart','台灣小島疾走'],['taiwanfighter','武鬥台灣魂'],['arcadeplatform','play. one more.'],['soul10power','心靈煉金術師']];
+const destination=id=>id==='soul10power'?'https://soul10power.vercel.app/':`https://${id}.playformosa.workers.dev/`;
 test('approved public catalog names, destinations and safe explicit external navigation',()=>{
- const doc=dom();assert.equal(doc.querySelectorAll('[data-external-id]').length,5);
+ const doc=dom();assert.equal(doc.querySelectorAll('[data-external-id]').length,expected.length);
  for(const [id,title] of expected){
   const card=doc.querySelector(`[data-external-id="${id}"]`);assert.ok(card,title);assert.ok(card.textContent.includes(title));
   const links=card.querySelectorAll('a');assert.equal(links.length,1);
-  assert.equal(links[0].href,`https://${id}.playformosa.workers.dev/`);assert.equal(links[0].target,'_blank');
+  assert.equal(links[0].href,destination(id));assert.equal(links[0].target,'_blank');
   assert.equal(links[0].rel,'noopener noreferrer');assert.ok(links[0].querySelector('svg.portal-arrow[aria-hidden="true"] path'));assert.match(links[0].getAttribute('aria-label'),/新分頁/);
  }
  assert.equal(doc.querySelectorAll('iframe').length,0);
@@ -47,7 +48,7 @@ test('each original-art game card loads lazily and has one accessible heading',(
 test('each installed entry has its approved identity and independent release metadata',()=>{
  const names=new Map(expected);
  for(const entry of [...catalog.externalGames,...catalog.platforms]){
-  assert.equal(entry.title,names.get(entry.id));assert.equal(entry.href,`https://${entry.id}.playformosa.workers.dev/`);
+  assert.equal(entry.title,names.get(entry.id));assert.equal(entry.href,destination(entry.id));
   assert.equal(typeof entry.release.preview,'boolean');assert.equal(typeof entry.release.production,'boolean');
  }
 });

@@ -99,5 +99,10 @@
       "beforeSha256": "3213c2ec676449fba2c5c432fdad8ae93427ad72d0b64af280d465d4a4737043",
       "afterSha256": "e817f404c640826bdd88dca0346e6d7655312afbc7ffd9f8eafe30433b012bd3"
     }
-  ]
+  ],
+  "homepageHeadBoundary": {
+    "referenceCommit": "f722b6b8cfce180a863464275826d5af78861828",
+    "sha256": "9cc0700ed219d65619574b5443abfe34da7c6c35125f6491e93e6f17dbbef192",
+    "scope": "Freeze the published installation head, not future authorized catalog body content. The original pages[] integration records above remain historical and unchanged; all nine game page body/full-file checks remain exact."
+  }
 }

@@ -62,6 +62,21 @@ export const externalFixtures = [
     }
   },
   {
+    "id": "soul10power",
+    "title": "心靈煉金術師",
+    "description": "把生活經歷煉成專屬能力卡片，展開靈魂冒險。",
+    "genre": "故事煉成・卡片冒險",
+    "image": "/assets/portal-soul10power.webp",
+    "eyebrow": "SOUL ALCHEMIST",
+    "order": 45,
+    "kind": "game",
+    "href": "https://soul10power.vercel.app/",
+    "release": {
+      "preview": true,
+      "production": false
+    }
+  },
+  {
     "id": "arcadeplatform",
     "title": "play. one more.",
     "description": "另一個小遊戲宇宙。從熟悉的經典到創意玩法，挑一款，現在就玩。",

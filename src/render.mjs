@@ -1,6 +1,7 @@
 import {filterReleased,resolveCatalogChannel} from './release.mjs';
 const escape = value => String(value).replace(/[&<>"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const publicDestinations = new Map(['formosabattle','echosboundary','taiwankart','taiwanfighter','arcadeplatform'].map(id=>[id,`https://${id}.playformosa.workers.dev/`]));
+publicDestinations.set('soul10power','https://soul10power.vercel.app/');
 function validateExternal(entry,needsImage=false) {
   if(!publicDestinations.has(entry.id)||publicDestinations.get(entry.id)!==entry.href)throw new Error('Expected an approved exact external URL');
   if(needsImage && typeof entry.image!=='string')throw new Error('Expected a local portal image');

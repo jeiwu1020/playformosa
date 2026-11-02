@@ -1,0 +1,22 @@
+{
+  "entry": "soul10power",
+  "verifiedAt": "2026-11-02",
+  "sourceHomepage": "https://soul10power.vercel.app/",
+  "method": "Read public homepage title/copy and rendered background CSS before accepting any terms; downloaded the observed public image with supported browser downloadMedia. Original bytes retained, no invented art or game screenshot. No login, story input or gameplay mutation.",
+  "observedTitle": "心靈煉金術師 | Soul Alchemist",
+  "copyEvidence": [
+    "首頁說明將經歷鍛造為專屬能力卡片",
+    "公開介面含卡片合成、卡片對戰、靈魂之塔；不作醫療或心理功效宣稱"
+  ],
+  "assets": [
+    {
+      "path": "public/assets/portal-soul10power.webp",
+      "sourceUrl": "https://soul10power.vercel.app/bg-desktop.webp",
+      "evidence": "Public homepage .app-bg-layer CSS background",
+      "width": 1672,
+      "height": 941,
+      "bytes": 399622,
+      "sha256": "999cf906d6c1f1a0eedf160af2de929769c41eb486d5743ef3a27b0848c24e42"
+    }
+  ]
+}

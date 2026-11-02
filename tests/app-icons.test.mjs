@@ -23,6 +23,7 @@ const origins=['https://preview-hurdles-playformosa.playformosa.workers.dev','ht
 const read=p=>readFileSync(new URL(p,root),'utf8');
 const bytes=p=>readFileSync(new URL(p,root));
 const digest=b=>createHash('sha256').update(b).digest('hex');
+const assertHomepageIconHead=(html,expected)=>assert.equal(digest(html.split('</head>')[0]),expected,'published platform installation head must remain unchanged');
 const pathOf=route=>`public${route}index.html`;
 const manifestOf=route=>JSON.parse(read(`public${route}manifest.webmanifest`));
 const png=p=>{const b=bytes(p);assert.equal(b.subarray(0,8).toString('hex'),'89504e470d0a1a0a');assert.equal(b[24],8);assert.equal(b[25],2,'opaque RGB PNG');return [b.readUInt32BE(16),b.readUInt32BE(20)];};
@@ -61,10 +62,29 @@ test('all ten installation IDs and raster identities are distinct after URL reso
 test('homepage build keeps its own metadata in both catalog channels',()=>{
  for(const channel of ['preview','production']){const d=new JSDOM(renderPage(catalog,{channel})).window.document;assert.equal(d.querySelector('link[rel="manifest"]').getAttribute('href'),'./manifest.webmanifest');assert.equal(d.querySelector('link[rel="apple-touch-icon"]').getAttribute('href'),'./assets/app-icons/platform/apple-touch-icon.png');}
 });
-test('head-only integration preserves all predecessor page bodies and explicit provenance',()=>{
+test('icon integration preserves installation head boundary and nine game-page provenance',()=>{
  const ledger=JSON.parse(read('docs/app-icons/INTEGRATION-MANIFEST.json'));assert.equal(ledger.baselineCommit,'c787bd58c3043fa255b9f52809848408b76bef87');assert.equal(ledger.baselineTree,'5a4cc33aae3502af2464bbc9005a9d762ce4b04e');
  const paths=apps.map(([, , ,route])=>pathOf(route));
  assert.deepEqual(ledger.pages.map(x=>x.path).sort(),paths.sort());
- for(const entry of ledger.pages){assert.equal(digest(bytes(entry.path)),entry.afterSha256);assert.match(entry.beforeSha256,/^[0-9a-f]{64}$/);assert.equal(digest(read(entry.path).split('</head>')[1]),entry.bodySha256);}
+ for(const entry of ledger.pages){
+  assert.match(entry.beforeSha256,/^[0-9a-f]{64}$/);
+  if(entry.path==='public/index.html'){
+   assert.equal(ledger.homepageHeadBoundary.referenceCommit,'f722b6b8cfce180a863464275826d5af78861828');
+   assertHomepageIconHead(read(entry.path),ledger.homepageHeadBoundary.sha256);
+  }else{
+   assert.equal(digest(bytes(entry.path)),entry.afterSha256);
+   assert.equal(digest(read(entry.path).split('</head>')[1]),entry.bodySha256);
+  }
+ }
  for(const [, , ,route] of apps)assert.doesNotMatch(read(pathOf(route)),/serviceWorker\.register|navigator\.serviceWorker|localStorage\.(?:clear|removeItem)/);
+});
+
+test('the homepage installation-head boundary rejects icon removal or replacement',()=>{
+ const ledger=JSON.parse(read('docs/app-icons/INTEGRATION-MANIFEST.json'));
+ const html=read('public/index.html'),expected=ledger.homepageHeadBoundary.sha256;
+ assertHomepageIconHead(html,expected);
+ for(const changed of [html.replace('apple-touch-icon.png','removed-icon.png'),html.replace('<link rel="manifest" href="./manifest.webmanifest">','')]){
+  assert.notEqual(changed,html);
+  assert.throws(()=>assertHomepageIconHead(changed,expected),/installation head must remain unchanged/);
+ }
 });
