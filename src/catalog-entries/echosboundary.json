@@ -1,0 +1,15 @@
+{
+  "id": "echosboundary",
+  "title": "迴聲邊界：審判",
+  "description": "重組記憶、法庭詰問，尋找被掩蓋的真相。",
+  "genre": "記憶重組・法庭詰問",
+  "image": "/assets/portal-echosboundary.png",
+  "eyebrow": "ECHO BOUNDARY",
+  "order": 20,
+  "kind": "game",
+  "href": "https://echosboundary.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": false
+  }
+}

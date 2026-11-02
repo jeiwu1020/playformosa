@@ -1,0 +1,15 @@
+{
+  "entry": "echosboundary",
+  "verifiedAt": "2026-11-02",
+  "sourceHomepage": "https://echosboundary.playformosa.workers.dev/",
+  "method": "Public rendered homepage DOM/CSS inspection, then supported browser downloadMedia; original bytes retained. No synthesized art or fabricated screenshots.",
+  "assets": [
+    {
+      "path": "public/assets/portal-echosboundary.png",
+      "sourceUrl": "https://echosboundary.playformosa.workers.dev/assets/splash_clean_20261014-DxtClms9.png",
+      "evidence": "visible Splash Backdrop Art image",
+      "bytes": 2388601,
+      "sha256": "c875e5dc77ebaa7acafe7a41a946043e307dd53cef330f89e3a370ad93fbf5ef"
+    }
+  ]
+}
