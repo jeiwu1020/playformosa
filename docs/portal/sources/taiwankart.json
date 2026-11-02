@@ -1,0 +1,15 @@
+{
+  "entry": "taiwankart",
+  "verifiedAt": "2026-11-02",
+  "sourceHomepage": "https://taiwankart.playformosa.workers.dev/",
+  "method": "Public rendered homepage DOM/CSS inspection, then supported browser downloadMedia; original bytes retained. No synthesized art or fabricated screenshots.",
+  "assets": [
+    {
+      "path": "public/assets/portal-taiwankart.webp",
+      "sourceUrl": "https://taiwankart.playformosa.workers.dev/assets/ui/home-cover-faces-20261006.webp",
+      "evidence": "visible four-animal food-kart cover image",
+      "bytes": 314772,
+      "sha256": "f5bad6a6a0f8282a21ce301290706544ecca0de53f3ea04af860470d7221d488"
+    }
+  ]
+}
