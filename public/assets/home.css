@@ -6,4 +6,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
 /* Approved Hurdles illustration only; original Jump thumbnail unchanged. */
-.game-thumbnail img.game-illustration{object-fit:contain;transform:none;padding:0;background:#f5edda;}
+.game-thumbnail img.game-illustration{object-fit:contain;transform:none;padding:0;background:linear-gradient(135deg,#b3e8e1,#f4db98);}
