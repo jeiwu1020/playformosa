@@ -688,5 +688,21 @@
         "sha256": "8685ffa334dde34bb0cf0e836c07c773668f234e04a5156f6baabe1de3b6e4d5"
       }
     ]
+  },
+  "rankingRefinement": {
+    "baseCommit": "79c7dd0d9d37b620cf003e9e02e9de2b889ea8fb",
+    "reason": "Concise leaderboard copy and full-width scoped phone toolbar only; API, raw rank, score, owner and other games unchanged.",
+    "files": [
+      {
+        "path": "shared/leaderboard.mjs",
+        "beforeSha256": "5e8b4b21b27dced5b3f30463af4db860c76e88f9884b124a61d893e9e0808db8",
+        "sha256": "b3f06ff78e8342655134b71e46eef84c84534b876f9307cd0db83be2aa84cb49"
+      },
+      {
+        "path": "shared/leaderboard.css",
+        "beforeSha256": "8685ffa334dde34bb0cf0e836c07c773668f234e04a5156f6baabe1de3b6e4d5",
+        "sha256": "93139e8523fc8eb52530d322e6984772432e358d5a1a6d319f4f92b1060c7f38"
+      }
+    ]
   }
 }
