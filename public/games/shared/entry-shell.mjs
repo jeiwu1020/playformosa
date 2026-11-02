@@ -25,8 +25,9 @@ export function createEntryShell({document,title,goal,operations,advanced=null,o
 export function createGameEntry(options){const{document,gameId}=options,content=entryContent(document,gameId),win=document.defaultView;const forceFallback=options.forceFallback??Boolean(win.navigator?.standalone||win.matchMedia?.('(display-mode: standalone)').matches);const shell=createEntryShell({...content,...options,forceFallback});document.querySelector('[data-pf-entry-loading]')?.remove();
  // One header action for every game; retain old nodes for existing bindings, never as a second entry.
  if(content.existingHelp)content.existingHelp.hidden=true;
- const help=document.createElement('button');help.type='button';help.className='pf-entry-help';help.textContent='? 說明';help.setAttribute('aria-label','操作說明與素材授權');help.addEventListener('click',()=>shell.open({help:true}));document.addEventListener('pf-help-request',()=>shell.open({help:true}));(document.querySelector('.pf-header nav')||document.body).append(help);
+ const help=document.createElement('button');help.type='button';help.className='pf-entry-help';help.textContent='說明';help.setAttribute('aria-label','操作說明與素材授權');help.addEventListener('click',()=>shell.open({help:true}));document.addEventListener('pf-help-request',()=>shell.open({help:true}));(document.querySelector('.pf-header nav')||document.body).append(help);
  // Keep actual audio controls and their trusted-gesture listeners; clones would be inert.
  if(gameId==='beer-slide'){const audio=document.querySelector('#aboutDialog .audio-settings');if(audio){shell.dialog.querySelector('.audio-settings')?.remove();shell.dialog.querySelector('details').append(audio);}}
+ if(gameId==='hurdles'||gameId==='pole-vault'){const settings=document.querySelector('#settings'),audio=document.createElement('section');audio.className='audio-settings';audio.setAttribute('aria-label','聲音設定');for(const node of settings?.querySelectorAll(':scope > label, :scope > #audio-status, :scope > #toggle-sound')||[])audio.append(node);shell.dialog.querySelector('details').append(audio);}
  return shell;
 }

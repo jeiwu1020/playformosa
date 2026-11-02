@@ -31,3 +31,22 @@ html[data-controls-raised="true"] .pf-game .pf-controls-frame[data-game="long-ju
 
 /* Throw prototypes previously capped the common frame at 1160/1200px. */
 @media(min-width:900px){.pf-game.pf-shot-put>main,.pf-game.pf-discus>main,.pf-game:is(.pf-shot-put,.pf-discus)>.pf-header{max-width:none;width:100%}}
+
+/* Let the viewport own the budget: header/status take natural space, scene takes the rest. */
+.pf-game:is(.pf-shot-put,.pf-discus){height:100dvh;display:flex;flex-direction:column;gap:6px;min-height:0;padding:calc(6px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left))}
+.pf-game:is(.pf-shot-put,.pf-discus)>main{display:flex!important;flex-direction:column;flex:1;min-height:0;width:100%;margin:0 auto;gap:4px}
+.pf-game:is(.pf-shot-put,.pf-discus) .pf-controls-frame{flex:1;height:auto;min-height:240px}
+.pf-game:is(.pf-shot-put,.pf-discus) :is(.mast,.hint,.footnote,.status){flex:none;margin:0;padding:2px 0;font-size:12px;line-height:1.4;min-height:0}
+.pf-game.pf-discus main>.controls{padding:0;margin:0;flex:none}
+.pf-game.pf-discus #cue{position:static;inset:auto;margin:0;padding:2px 0;font-size:12px;line-height:1.4}
+.pf-game.pf-high-jump [data-pf-controls-host="high-jump"]{display:flex!important;flex-direction:column;overflow:auto}
+.pf-game.pf-high-jump [data-pf-controls-host="high-jump"]>.pf-controls-frame{flex:1;height:auto;min-height:240px}
+.pf-game.pf-high-jump .control-panel{flex:none;gap:3px}
+.pf-game:is(.pf-hurdles,.pf-pole-vault){grid-template-rows:auto minmax(0,1fr) auto}
+.pf-game:is(.pf-hurdles,.pf-pole-vault)>footer{min-height:0;line-height:1.4}
+.pf-game.pf-tower-climb{grid-template-rows:auto minmax(0,1fr);padding:calc(8px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left))}
+/* On short screens retain readable controls; allow the host to scroll below this useful scene floor. */
+@media(max-height:500px){
+ .pf-game .pf-controls-frame{min-height:240px;grid-template-rows:minmax(140px,1fr) auto}
+ .pf-game .pf-controls-frame[data-game="long-jump"]{grid-template-rows:minmax(140px,1fr) 96px}
+}

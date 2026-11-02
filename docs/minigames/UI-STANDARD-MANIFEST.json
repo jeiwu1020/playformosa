@@ -234,7 +234,7 @@
       {
         "path": "shot-put/index.html",
         "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
-        "sha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+        "sha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
@@ -247,6 +247,12 @@
           "beforeSha256": "a30a44057bab1ee1d89fa56d0a1b0c7b8e897348e16d4a1e3b8a1c62f430f893",
           "afterSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+          "afterSha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
         }
       },
       {
@@ -294,7 +300,7 @@
       {
         "path": "tower-climb/index.html",
         "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
-        "sha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+        "sha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "appIconMetadata": {
           "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
@@ -307,6 +313,12 @@
           "beforeSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
           "afterSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
           "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        },
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+          "afterSha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
         }
       },
       {
@@ -384,7 +396,7 @@
       {
         "path": "shared/entry-shell.mjs",
         "previousIntegratedSha256": null,
-        "sha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
+        "sha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c",
         "reason": "New shared presentation module; no prior runtime file.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
@@ -397,12 +409,18 @@
           "beforeSha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
           "afterSha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
           "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        },
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
+          "afterSha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
         }
       },
       {
         "path": "shared/entry-shell.css",
         "previousIntegratedSha256": null,
-        "sha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
+        "sha256": "9bd8406474745537143bc8d16f8b7d44a5d7224891254852f765998c1fa083f4",
         "reason": "New shared presentation module; no prior runtime file.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
@@ -415,13 +433,25 @@
           "beforeSha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
           "afterSha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
           "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        },
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
+          "afterSha256": "9bd8406474745537143bc8d16f8b7d44a5d7224891254852f765998c1fa083f4",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
         }
       },
       {
         "path": "shared/entry-content.mjs",
         "previousIntegratedSha256": null,
-        "sha256": "f45349e0141b66750caba2d06982e19b1e87ac593dea9914ea8ac41c2be0432d",
-        "reason": "New shared presentation module; no prior runtime file."
+        "sha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2",
+        "reason": "New shared presentation module; no prior runtime file.",
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "f45349e0141b66750caba2d06982e19b1e87ac593dea9914ea8ac41c2be0432d",
+          "afterSha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
+        }
       },
       {
         "path": "shared/controls-shell.mjs",
@@ -432,13 +462,19 @@
       {
         "path": "shared/controls-shell.css",
         "previousIntegratedSha256": null,
-        "sha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
+        "sha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255",
         "reason": "New shared presentation module; no prior runtime file.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
           "beforeSha256": "c3d67c9c6ea130c1abe0bc36b2fbe6240a3a10131089ba8860333086975bf1e4",
           "afterSha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
           "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        },
+        "mobileBudget": {
+          "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+          "beforeSha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
+          "afterSha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255",
+          "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes."
         }
       },
       {
@@ -547,6 +583,47 @@
         "path": "long-jump/game.mjs",
         "beforeSha256": "faaf4b9b6c7316e4be74bc6b3fc9e2a6096542edfd9eb32863ca3222918cc2dc",
         "sha256": "b68c7d637d392e992ce05b439102c8aab3a68c93d54c9bb3978777e3e8424446"
+      }
+    ]
+  },
+  "mobileBudget": {
+    "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+    "reason": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes.",
+    "files": [
+      {
+        "path": "tower-climb/index.html",
+        "beforeSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+        "sha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4"
+      },
+      {
+        "path": "shared/entry-shell.css",
+        "beforeSha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
+        "sha256": "9bd8406474745537143bc8d16f8b7d44a5d7224891254852f765998c1fa083f4"
+      },
+      {
+        "path": "shared/help-coordinator.mjs",
+        "beforeSha256": "166a1f8b5a4cb62b4ce880781860c628f997b686067b1f20eb12d085958e50b8",
+        "sha256": "84827576270eac7348a582251ee9137d0fa5f0285cbe2c96e045034c14b8ee8e"
+      },
+      {
+        "path": "shared/entry-shell.mjs",
+        "beforeSha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
+        "sha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c"
+      },
+      {
+        "path": "shared/controls-shell.css",
+        "beforeSha256": "2306ca149c57a569396adfed6ca049ccb23caa2f94db02013713f69f206d86ae",
+        "sha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255"
+      },
+      {
+        "path": "shared/entry-content.mjs",
+        "beforeSha256": "f45349e0141b66750caba2d06982e19b1e87ac593dea9914ea8ac41c2be0432d",
+        "sha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2"
+      },
+      {
+        "path": "shot-put/index.html",
+        "beforeSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+        "sha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f"
       }
     ]
   }

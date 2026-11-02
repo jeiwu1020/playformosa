@@ -21,7 +21,7 @@
 
 /* A suspended underlying view cannot compete with the single help owner. */
 .pf-game [data-pf-help-suspended]{display:none!important}
-.pf-game .pf-header nav .pf-entry-help{min-width:72px!important;min-height:44px!important;font:700 18px/1.3 Arial,sans-serif!important;white-space:nowrap;flex-shrink:0}
+.pf-game .pf-header nav .pf-entry-help{min-width:72px!important;min-height:44px!important;white-space:nowrap;flex-shrink:0}
 .pf-game .pf-entry .audio-settings{font-size:18px;line-height:1.5}.pf-game .pf-entry .audio-settings button,.pf-game .pf-entry .audio-settings input{min-height:44px}
 
 .pf-game .pf-pause-help{min-height:44px;min-width:72px;font:700 18px/1.4 Arial,sans-serif;display:block;margin:12px auto;padding:10px 16px;border:1px solid #bdc9b8;border-radius:10px;background:#fff9e8;color:#243e38}.pf-game .pf-pause-help[hidden]{display:none!important}

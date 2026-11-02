@@ -145,5 +145,25 @@
         "headSha256": "2cbea2da85d68940141cacfb2135f9b9dc00fb621868a4a5a026fbb5c0434da1"
       }
     ]
+  },
+  "mobileBudget": {
+    "baseCommit": "d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7",
+    "reason": "Body-only full credit content consolidation, original icon installation head and prior ledgers unchanged.",
+    "pages": [
+      {
+        "path": "public/games/shot-put/index.html",
+        "beforeSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+        "afterSha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f",
+        "bodySha256": "feed15a4d49913e487be833f658f7628ccc94018d9571cb64cc6d84d2204dabe",
+        "headSha256": "b7cf9f1e77442ce24959a2e58e97eb215bce0e36bb353c14c90f4dd0be3fc1dc"
+      },
+      {
+        "path": "public/games/tower-climb/index.html",
+        "beforeSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+        "afterSha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4",
+        "bodySha256": "4d00af182cd4ad597459599eea9591f6483413c8c83b9fd051c85a25347f20c7",
+        "headSha256": "2cbea2da85d68940141cacfb2135f9b9dc00fb621868a4a5a026fbb5c0434da1"
+      }
+    ]
   }
 }

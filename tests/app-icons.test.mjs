@@ -73,8 +73,9 @@ test('icon integration preserves installation head boundary and nine game-page p
    assertHomepageIconHead(read(entry.path),ledger.homepageHeadBoundary.sha256);
   }else{
    const help=ledger.helpUnification?.pages.find(x=>x.path===entry.path);if(help){assert.equal(ledger.helpUnification.baseCommit,'f1a8ce126dafd975b4c7b2bcab56170162dcbd9d');assert.equal(help.beforeSha256,entry.afterSha256);assert.equal(digest(read(entry.path).split('</head>')[0]),help.headSha256,'game installation head unchanged');}
-   assert.equal(digest(bytes(entry.path)),help?.afterSha256||entry.afterSha256);
-   assert.equal(digest(read(entry.path).split('</head>')[1]),help?.bodySha256||entry.bodySha256);
+   const mobile=ledger.mobileBudget?.pages.find(x=>x.path===entry.path);if(mobile){assert.equal(ledger.mobileBudget.baseCommit,'d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7');assert.equal(mobile.beforeSha256,help?.afterSha256||entry.afterSha256);assert.equal(digest(read(entry.path).split('</head>')[0]),mobile.headSha256);}
+   assert.equal(digest(bytes(entry.path)),mobile?.afterSha256||help?.afterSha256||entry.afterSha256);
+   assert.equal(digest(read(entry.path).split('</head>')[1]),mobile?.bodySha256||help?.bodySha256||entry.bodySha256);
   }
  }
  for(const [, , ,route] of apps)assert.doesNotMatch(read(pathOf(route)),/serviceWorker\.register|navigator\.serviceWorker|localStorage\.(?:clear|removeItem)/);

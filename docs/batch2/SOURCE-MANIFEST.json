@@ -101,16 +101,20 @@
         {
           "path": "index.html",
           "sourceSha256": "3fbc56e1efa14f4ecafe21d74043a609bbaf19660e686c371b26426103aebcc7",
-          "importedSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+          "importedSha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f",
           "unchanged": false,
-          "previousIntegratedSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
-          "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
+          "previousIntegratedSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+          "adaptation": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes.",
           "priorAdaptation": {
-            "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
-            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "previousIntegratedSha256": "1c71cadc715061a3ab84a2e98fccfc356c3b81bb7eed4be5c3e397becccda261",
+            "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
             "priorAdaptation": {
-              "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
-              "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+              "previousIntegratedSha256": "1736ccbd9f04c1dbfc285b6c3126cf41b107cf844c44ab4b6dcb9742d97f7ffa",
+              "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+              "priorAdaptation": {
+                "previousIntegratedSha256": "fd3acebed6fb9534520e46e0d7d971c3f42a791675ac2249a9cdf70f0c16df74",
+                "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
+              }
             }
           },
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2",
@@ -487,15 +491,19 @@
         {
           "path": "index.html",
           "sourceSha256": "6b36334bc7756ed11b379332a7df4850a39673eb9f1e9da6a9c8167d845e8f96",
-          "importedSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+          "importedSha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4",
           "unchanged": false,
           "priorAdaptation": {
-            "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
-            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
-            "priorAdaptation": {}
+            "previousIntegratedSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+            "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
+            "priorAdaptation": {
+              "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
+              "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+              "priorAdaptation": {}
+            }
           },
-          "previousIntegratedSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
-          "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
+          "previousIntegratedSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+          "adaptation": "Approved toolbar typography and consolidated full credits in shared help, preserved actual audio settings; natural viewport height budget for original scenes and control targets. No physics/camera/input/scoring/media changes.",
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2",
           "appIconMetadata": {
             "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
