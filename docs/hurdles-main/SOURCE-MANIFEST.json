@@ -1,0 +1,720 @@
+{
+  "mainBase": "7d5391b4df15137d4f92df192f028cb691bb84fa",
+  "previewSource": "eeb32fce02712fbe9722af3e1ec272ee24818b24",
+  "reason": "User-approved Hurdles-only production promotion; exact verified preview closure, no other games promoted.",
+  "files": [
+    {
+      "path": "public/assets/app-icons/hurdles/apple-touch-icon.png",
+      "gitBlobSha": "1925e531295289eeb930d89c08fda13eed1c81e0",
+      "sha256": "28ade360a4173b7e68e52eda4a783acdc9d05eabbbbf6d98e1a8e9eeb2fc8aad",
+      "bytes": 53033
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-32.png",
+      "gitBlobSha": "e5f5573e097a9b461482f1f78f5dc90ef2fc0f1e",
+      "sha256": "c586b65fc23bcb33877c32c3a30e4175dd509eae6489c66b5b7da9fc48c833f2",
+      "bytes": 2578
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-48.png",
+      "gitBlobSha": "2d84fc504212446ab3c5df1f00593ec78142ea39",
+      "sha256": "06afe914e7236f93d51b2d3362a682b4ebfb80d3e9468b5af9abfb82efd8c0f4",
+      "bytes": 5172
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-192.png",
+      "gitBlobSha": "a711bf06b5ddd05a5d4584b1da0c625e8130492d",
+      "sha256": "3caec924ddefbf54b68a335c9364645beb6498aa381a0c32644a98c7b542c251",
+      "bytes": 59572
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-512.png",
+      "gitBlobSha": "57918aea81959f435abf558877bcd9f9d4e2461d",
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a",
+      "bytes": 354353
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-maskable-512.png",
+      "gitBlobSha": "57918aea81959f435abf558877bcd9f9d4e2461d",
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a",
+      "bytes": 354353
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "gitBlobSha": "30cdc66bd7ad4b675e4783e8c6a28397f13ed397",
+      "sha256": "c3b6df6f055bab4bbc836cca38f9ff1efc71e53a12672694e10a35d760f01721",
+      "bytes": 4394
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlobSha": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642",
+      "bytes": 21838
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "gitBlobSha": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "bytes": 478
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "gitBlobSha": "1ef3611968eaad15814890ef9330d3ea58fc495d",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8",
+      "bytes": 745
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "gitBlobSha": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585",
+      "bytes": 3504212
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "gitBlobSha": "60a770bd5cd1fd030ad24153f5d091ec6021d189",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab",
+      "bytes": 2606294
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "gitBlobSha": "914c682a51bb3bc81bf34a34cea126c340257cc6",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5",
+      "bytes": 6940
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "gitBlobSha": "04a054a7c6bc6404eb475096652c39439fec5a74",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe",
+      "bytes": 8757
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "gitBlobSha": "505f256d29a5a9abf548a330c61e9c931cea5566",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df",
+      "bytes": 6313
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "gitBlobSha": "769e7019e13806ad6c7b7f95cea39ddfbd77030a",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22",
+      "bytes": 7581
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "gitBlobSha": "3fd8fddeb89c546c302e064a613bdba29e8babb6",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10",
+      "bytes": 5686
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "gitBlobSha": "a6677e0956b575f08f963445915c03af5a4558e9",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f",
+      "bytes": 9380
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "gitBlobSha": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae",
+      "bytes": 48944
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "gitBlobSha": "480a8bb5e028b7f16709114667d4ef563d2fe65b",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f",
+      "bytes": 52026
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "gitBlobSha": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0",
+      "bytes": 6312
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "gitBlobSha": "c78918965fd3984b48e3d2813a06c764ac4a3f3b",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14",
+      "bytes": 7579
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "gitBlobSha": "c0ae4bd873a7b54e50b1df669615c4abc7307ae2",
+      "sha256": "5be3b9335761d33bc8d8426ef31c0a1aa165f4920f8136d91a84d66e70fee706",
+      "bytes": 6973
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "gitBlobSha": "e9d283733f265ea9ad1af01b071dfbec6d01c0f9",
+      "sha256": "69d0275dfa5a27e1b063f324f99afb9334b09b0a890322109b9a65acf000efa6",
+      "bytes": 491
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "gitBlobSha": "ae2b279c109df77c8d731fb2e00abfa4ce17431a",
+      "sha256": "14e435cae20d0154d58437773cc046fe0d2550af82c0f1a2036b8110298ab5a2",
+      "bytes": 261
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "gitBlobSha": "3db3905ba1313132b6f2cb048c15102b66686405",
+      "sha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f",
+      "bytes": 17133
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "gitBlobSha": "4ded21a15bbeb14a4dd6f0a9d5209e2e22af2c34",
+      "sha256": "85025bb8c2fdc49a05501ab155548ef50b5e4c445e45d6e4ee28d9db1b2b30b3",
+      "bytes": 7972
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "gitBlobSha": "a27e3758767227254404a8575392231e3767e7d1",
+      "sha256": "d6802f485d8ea78b5710df2de3ccc15a2c6c8c3783cab294e6f42466b5152230",
+      "bytes": 1771
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "gitBlobSha": "9df59d473fda2a5f905ca0f22f03d5ed1fb516c6",
+      "sha256": "65ad63a91a05706056786ab67f157f14ad94dc6a64894b0326bf5be22476b999",
+      "bytes": 740
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "gitBlobSha": "81a794a34f82b9e5129f17b62528598a7d98e77b",
+      "sha256": "cbf3685a1db0cbe6a73b0bfd6ca7a7bd550856c618faf9cffedde1c1b14009fa",
+      "bytes": 10485
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "gitBlobSha": "b64dbd9d42d3d402fa9424bb5400333065f57184",
+      "sha256": "c05ee8c98bcf5488f09b9a972d3e553a7600be8663985e160a616bea4b85660a",
+      "bytes": 714
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "gitBlobSha": "911b132a60bf3822586d86ac5b651d5819daf4eb",
+      "sha256": "5ce2cc0d11bb60b7504d852158f67584f3d7370b5dc596ab832dd86ec619fb63",
+      "bytes": 5480
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "gitBlobSha": "e9ee9e6842cddc56cf53539525071888b694fa7a",
+      "sha256": "bc9ac6a8e0d55f18a66ac7daa9309c40652b6731d29ac96905e6b2a487e2d397",
+      "bytes": 1603
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "gitBlobSha": "684bf04991b61dca268ede1e58d0ea4f14c530f4",
+      "sha256": "53c01b8ddad011f24df92fa56c717da856353934da86c3b4d70d1ddda80f1828",
+      "bytes": 4165
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "gitBlobSha": "a34b3e0f54bf195686c61d0b4b8437d59559fd35",
+      "sha256": "1dcaa0a0d19fa49d86cfcfe89b9aaa251a89c4c0daebb3792483ecbfb4918784",
+      "bytes": 3295
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "gitBlobSha": "a1e9be262883449f3366b2907901953622238231",
+      "sha256": "f4e9377824ae1380acf80f00fc3a16c8d18db79802baf0878c5507ca499475ab",
+      "bytes": 3022
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "gitBlobSha": "6fa3dfc2df3178f9c9f09eb9ce17e8bf93e1e374",
+      "sha256": "cdf337b373548c18e5f4a2f51a20caaa5b568374f9d9b651a12c5a3384c098ce",
+      "bytes": 20686
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "gitBlobSha": "556cb495510b5d4d61fa986975217a7ae2a76530",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "bytes": 1082
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "gitBlobSha": "316285237e5460597ad7c75bee315f73508611b3",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "bytes": 381125
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "gitBlobSha": "de2723256517cb522aa91fe273f3e68446701c0e",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "bytes": 338909
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "gitBlobSha": "987bba24c132b4c21928283f3e72e360cebabc2a",
+      "sha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255",
+      "bytes": 6378
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "gitBlobSha": "e1b1ecfc8784d5f1942c6c44b88c936b09b5863f",
+      "sha256": "aec453041e9e63de39877fa18168b00d9552e1dfc030bd575ee4d2a603d7dfbd",
+      "bytes": 2049
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "gitBlobSha": "e4c4e65df7fa784d8f5a0cbab29043d04ab8f001",
+      "sha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2",
+      "bytes": 4038
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "gitBlobSha": "2d3d013773be53dc87987b791b09b8f13e74397a",
+      "sha256": "9bd8406474745537143bc8d16f8b7d44a5d7224891254852f765998c1fa083f4",
+      "bytes": 4238
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "gitBlobSha": "cff4fd9b1f4d38d835610167cf3692df936093ec",
+      "sha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c",
+      "bytes": 6154
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "gitBlobSha": "f1d19c7be7a35cd11cc7de6cd2032397a115f71a",
+      "sha256": "8b700948252fc5e56a68eb5f5732455b6b5f41893d346fd0355df1d2ec89ad2a",
+      "bytes": 9295
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "gitBlobSha": "5612f1a8b28df61df4f81651756380a07c77af08",
+      "sha256": "d7dae6532aa51661186c386ecd643b2ee83b9f04e54fcf92ca3fdc6241cfcd10",
+      "bytes": 2163
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "gitBlobSha": "bab3051fe4b31b387cc16e64d92d208c4694173f",
+      "sha256": "84827576270eac7348a582251ee9137d0fa5f0285cbe2c96e045034c14b8ee8e",
+      "bytes": 2178
+    },
+    {
+      "path": "tests/hurdles/accessibility.test.mjs",
+      "gitBlobSha": "05c671e6ce36e869f66505bbc460f2d027aff418",
+      "sha256": "ab35355c54a2f02d7a39afb409363886414a0ad2d0a75342f5c97ee5f62df05f",
+      "bytes": 1451
+    },
+    {
+      "path": "tests/hurdles/helpers/matched-race.mjs",
+      "gitBlobSha": "5265b022c3c7042cadfcedc47be481dd55abea19",
+      "sha256": "9c64d2dc519739f924021ac871e97508968821bdc1ade172592c8669b3976f92",
+      "bytes": 1782
+    },
+    {
+      "path": "tests/hurdles/input.test.mjs",
+      "gitBlobSha": "8dd21c3bb0dc7209b1d1124cd17f09a00680fe4d",
+      "sha256": "19d8df2e07c45d46036c60729b31033bf635459ced3c2d982d8d4d2d4670ce60",
+      "bytes": 928
+    },
+    {
+      "path": "tests/hurdles/pacing.test.mjs",
+      "gitBlobSha": "4e229103bea03899b99dd8b075b64b3bf186115f",
+      "sha256": "ad8f4f2b7297525c5e651e0730f150b046fbcca00f661b98c347cf83c862a11d",
+      "bytes": 4685
+    },
+    {
+      "path": "tests/hurdles/physics.test.mjs",
+      "gitBlobSha": "6042c48f5d2c31a3ef8f1982e558072e5c773a72",
+      "sha256": "c94b2f57ed1fe2438825a327a7378d3306c172e3c821f6f99e3b5cf179e055df",
+      "bytes": 4839
+    },
+    {
+      "path": "tests/hurdles/platform-ui.test.mjs",
+      "gitBlobSha": "b92c6172af4633fba5ffd4a50265c3cd778f43ed",
+      "sha256": "5f72c55997344e62eea35c2da1fab9e61b3086c5d84a47935abdb224eff6db65",
+      "bytes": 14598
+    },
+    {
+      "path": "tests/hurdles/play-surface.test.mjs",
+      "gitBlobSha": "8e98e889cd0fa97074e6f9dc0b49658442af7745",
+      "sha256": "7ea36c5a7399e2b4330ec4c4d3af450a85d81ca67c84f70c26dfe85fd5445756",
+      "bytes": 2999
+    },
+    {
+      "path": "tests/hurdles/replay.test.mjs",
+      "gitBlobSha": "01e155bf3967e6f2dc08309fc29b93ab3348bb9c",
+      "sha256": "5dd609489e5e89e3554d2b4ea47d4ba9dae69883d332e18d866ae251d4755261",
+      "bytes": 3213
+    },
+    {
+      "path": "tests/hurdles/result-fit.test.mjs",
+      "gitBlobSha": "a85e2993c034c897aacbae272422a578cb773d85",
+      "sha256": "280894472f123c3bcc21305ab7a8b8e9dc3670b8ffa9d4d3abc85d8e839be2f5",
+      "bytes": 2743
+    },
+    {
+      "path": "tests/hurdles/result-guard.test.mjs",
+      "gitBlobSha": "438ae845b11b8277b7f25f32d19b201af5a1a694",
+      "sha256": "e26bfd79ebe133d1eb98456e242b5d2b32d9b68691df1733c756ecfea3a53a1d",
+      "bytes": 7441
+    },
+    {
+      "path": "tests/hurdles/revision.test.mjs",
+      "gitBlobSha": "a61444b4329ed21e57f2c272ba211c1a03c029e7",
+      "sha256": "265e410cf53c56afa948fe7a712f9fbc2a55938d2932e25333c4880332845a6a",
+      "bytes": 3133
+    },
+    {
+      "path": "tests/hurdles/share.test.mjs",
+      "gitBlobSha": "8d70050fe39a35d275b7750fa4a01a31c95e158a",
+      "sha256": "5050f4ffbaa1ccc94bbb2f0569c13ff72a118189cd0d0d420ff418c17552585c",
+      "bytes": 1822
+    },
+    {
+      "path": "public/assets/hurdles-card.png",
+      "gitBlobSha": "db89fb323cfff286621308512a944ee2d62d9824",
+      "sha256": "caad682489d49816676817dacfb8106daa6cda7be9e630430a23e9a4dd1547e3",
+      "bytes": 2206868
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "gitBlobSha": "2168b78aea1ab10e72dd5838174f83d71df4d9a2",
+      "sha256": "55a013e13e49bcdade6bf17bd2729e59063e6ba9888aa46891925cc46e274b03",
+      "bytes": 4255
+    },
+    {
+      "path": "tests/helpers/entry-boundary.mjs",
+      "gitBlobSha": "e2dae29692ae0cebe6fd175196c1aa1af3fdb0c7",
+      "sha256": "b845820a3a42900a9b05941cf7fedd8e907a7e3fef5be390d5fd478c552012d3",
+      "bytes": 1704
+    },
+    {
+      "path": "tests/hurdles-platform.test.mjs",
+      "gitBlobSha": "f8b61e3c3de932f4395db90c450a4554bc6f391e",
+      "sha256": "867b5e9ab5eb2d9b88db2a06c8779a786dc637234249fcf0f2d9189ff24d255c",
+      "bytes": 1432
+    }
+  ],
+  "originalJump": [
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "sha256": "37accd625a268dc1fa5ffa26049fe9f8c5064bceecdee2f9d53b1af1763dcb0e",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "sha256": "decdbf9a6203614d5b106e3163a9f5b8c5da8b2794419e20109c5532b23bfbb7",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "sha256": "3d657e27d2fcfc4964764dd600a4a6690de380860163f7ccff0db9bc78ee837f",
+      "adapted": true
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "sha256": "43ec04b7fb6ba40f03f2f49793aedcd86964fd7c711c36585773ca089e9544dd",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "sha256": "480e3258d45c99554c4afc7c2363c7eb81a86c56a0c53841a6e48e0c42940947",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "sha256": "d6b66884b3064084dedf831b946483242ef9cb9905afa81b525e89dc4f289d3d",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "sha256": "bf6dd11e465f514721af5aa0a1e5cf9b84de1622909f0a3cb9b6fe33fa19f0f2",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "sha256": "36a58937585bea8ba10073dee0ec435a25376abfd367f338de5c0350ea62d8ba",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "sha256": "74e22cf9a3c31b819b455aae953ecce870420990c64f0c0cebee872fb1e9ba5f",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "sha256": "eeb76b7790f38e5e5b5757ffa177e6bca4a9253566650e03ee7a77d3ccab2fda",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "sha256": "16c45b8e9798170b065bffe6be8a841dcd3b90c8548d308e88d7af83438e16af",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "sha256": "2e2b1ce3fd08b4b2962f84175101ae1aeb686acad037a69f18bf33a0ae06ed4a",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "sha256": "753163f54e23acb0aee982a5ad055bf440dc7406bf223c7ab97471205367190e",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "sha256": "ec9015c06d7fac5e85f415cf461d71c0ac5778d343bfda5fb94a52d54feac086",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "sha256": "bd2f36abba55f7f0a04248acafc7b38f7a8f122f7e6114c4cc324a600c480fa0",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "sha256": "ea4466b7ad1143e7cff89613f881a0766b592481992966e86488aadc9897615d",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "sha256": "60d91c10717d2757752a99191431dc42a9b0e4ad8c7a5fa2f7abe338d68ff653",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "sha256": "cbc935d7170e661196dd4be6a94065c16a2111e9c4c4b98ca9556005e20a910a",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "sha256": "f1c9cf49db20389db0bf9cbae2c01c2fdca4632849e41e964ab98fb3b36b053a",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "sha256": "0a752e5347b0990ae6328730bb1dfbe954b75d5a13398749b5ffbf202eff3512",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "sha256": "03f4fbe1a0731631ba88c7e6ad6dbe19878dbf6ff86572a699c3f33e471643cb",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "sha256": "ca844e5e0e1154e4346d5073d33ea9dc39eeff2b31ba7cf612e74e9c2f699252",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "sha256": "0720c2f82f9a3046510cc4683dc47eb40a2ac4f991277e39a999d7ef54b349dd",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "sha256": "1f90adade9deeb96fc68444a4ca311643a5eaf1d7c350391837ba33dd1d31be4",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "sha256": "02ebf2c90613a7f75f584a7d6efcab2a2aa5cd4d2c176408abb82ee0b136c1e4",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe",
+      "adapted": false
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0",
+      "adapted": false
+    }
+  ],
+  "originalFaviconSha256": "b8dc622496d3937166c569254a121c938df533ee2e425a94db63a96748655767",
+  "allowedPublicPaths": [
+    "assets/app-icons/hurdles/apple-touch-icon.png",
+    "assets/app-icons/hurdles/favicon-32.png",
+    "assets/app-icons/hurdles/favicon-48.png",
+    "assets/app-icons/hurdles/icon-192.png",
+    "assets/app-icons/hurdles/icon-512.png",
+    "assets/app-icons/hurdles/icon-maskable-512.png",
+    "assets/favicon.svg",
+    "assets/hero-long-jump.png",
+    "assets/home.css",
+    "assets/hurdles-card.png",
+    "experiments/long-jump-physics/controls.mjs",
+    "experiments/long-jump-physics/game.mjs",
+    "experiments/long-jump-physics/index.html",
+    "experiments/long-jump-physics/physics.mjs",
+    "experiments/long-jump-physics/style.css",
+    "games/hurdles/audio.mjs",
+    "games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+    "games/hurdles/audio/Kenney-RPG-License.txt",
+    "games/hurdles/audio/NotJam-CC0-source-statement.txt",
+    "games/hurdles/audio/bgm.mp3",
+    "games/hurdles/audio/bgm.ogg",
+    "games/hurdles/audio/flight.mp3",
+    "games/hurdles/audio/flight.ogg",
+    "games/hurdles/audio/jump.mp3",
+    "games/hurdles/audio/jump.ogg",
+    "games/hurdles/audio/land.mp3",
+    "games/hurdles/audio/land.ogg",
+    "games/hurdles/audio/result.mp3",
+    "games/hurdles/audio/result.ogg",
+    "games/hurdles/audio/step.mp3",
+    "games/hurdles/audio/step.ogg",
+    "games/hurdles/character.mjs",
+    "games/hurdles/countdown.mjs",
+    "games/hurdles/favicon.svg",
+    "games/hurdles/game.mjs",
+    "games/hurdles/index.html",
+    "games/hurdles/input.mjs",
+    "games/hurdles/manifest.webmanifest",
+    "games/hurdles/physics.mjs",
+    "games/hurdles/play-surface.mjs",
+    "games/hurdles/render.mjs",
+    "games/hurdles/replay.mjs",
+    "games/hurdles/result-guard.mjs",
+    "games/hurdles/share.mjs",
+    "games/hurdles/software-renderer.mjs",
+    "games/hurdles/style.css",
+    "games/hurdles/vendor/THREE-LICENSE.txt",
+    "games/hurdles/vendor/three.core.min.js",
+    "games/hurdles/vendor/three.module.min.js",
+    "games/long-jump/audio.mjs",
+    "games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+    "games/long-jump/audio/Kenney-RPG-License.txt",
+    "games/long-jump/audio/NotJam-CC0-source-statement.txt",
+    "games/long-jump/audio/bgm.mp3",
+    "games/long-jump/audio/bgm.ogg",
+    "games/long-jump/audio/flight.mp3",
+    "games/long-jump/audio/flight.ogg",
+    "games/long-jump/audio/jump.mp3",
+    "games/long-jump/audio/jump.ogg",
+    "games/long-jump/audio/land.mp3",
+    "games/long-jump/audio/land.ogg",
+    "games/long-jump/audio/result.mp3",
+    "games/long-jump/audio/result.ogg",
+    "games/long-jump/audio/step.mp3",
+    "games/long-jump/audio/step.ogg",
+    "games/long-jump/capture.mjs",
+    "games/long-jump/character.mjs",
+    "games/long-jump/controls.mjs",
+    "games/long-jump/cosmic-art.mjs",
+    "games/long-jump/cosmic-data.mjs",
+    "games/long-jump/dialogs.mjs",
+    "games/long-jump/flavour.mjs",
+    "games/long-jump/game.mjs",
+    "games/long-jump/index.html",
+    "games/long-jump/landmarks.mjs",
+    "games/long-jump/layout.mjs",
+    "games/long-jump/physics.mjs",
+    "games/long-jump/play-surface.mjs",
+    "games/long-jump/presentation.mjs",
+    "games/long-jump/result-view.mjs",
+    "games/long-jump/route-data.mjs",
+    "games/long-jump/sandpits.mjs",
+    "games/long-jump/scenery-art.mjs",
+    "games/long-jump/scenery.mjs",
+    "games/long-jump/share.mjs",
+    "games/long-jump/style.css",
+    "games/long-jump/vendor/THREE-LICENSE.txt",
+    "games/long-jump/vendor/three.core.min.js",
+    "games/long-jump/vendor/three.module.min.js",
+    "games/long-jump/verdicts.mjs",
+    "games/long-jump/viewport-diagnostics.mjs",
+    "games/long-jump/world.mjs",
+    "games/shared/controls-shell.css",
+    "games/shared/controls-shell.mjs",
+    "games/shared/entry-content.mjs",
+    "games/shared/entry-shell.css",
+    "games/shared/entry-shell.mjs",
+    "games/shared/game-ui.css",
+    "games/shared/game-ui.mjs",
+    "games/shared/help-coordinator.mjs",
+    "index.html"
+  ],
+  "upstreamHistory": {
+    "sealedHurdlesSiteCommit": "b6cc36dea79baa442361c3967147140ed98ce58f",
+    "sealedRelease": "1.3.0",
+    "librarySource": "libfile_3dc6ef08ebd481918a85b76ce68fb3be",
+    "libraryVersion": 4,
+    "archiveSha256": "53486b978c4b47c0704261aaa8cae685e6625429c606e8c0b7664f4e8d04872d",
+    "note": "Historical source from preview docs/hurdles/INTEGRATION.md. This promotion imports exact current preview hashes above, including later approved UI adaptations; it does not claim the whole current runtime equals the sealed original."
+  }
+}

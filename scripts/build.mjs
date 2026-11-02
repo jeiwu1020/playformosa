@@ -1,10 +1,16 @@
-import {cp,mkdir,rm,writeFile} from 'node:fs/promises';
+import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';
+import {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';
 import {catalog} from '../src/catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 const root = new URL('../',import.meta.url);
+await assertReleasedGames(new URL('public/',root));
+const release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));
+await assertProductionInventory(new URL('public/',root),release.allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);
 await rm(new URL('dist/',root),{recursive:true,force:true});
 await mkdir(new URL('dist/',root),{recursive:true});
 await cp(new URL('public/',root),new URL('dist/',root),{recursive:true});
+await assertReleasedGames(new URL('dist/',root));
+await assertProductionInventory(new URL('dist/',root),release.allowedPublicPaths);
 console.log('Built static Playformosa to dist/');
