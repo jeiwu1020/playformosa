@@ -613,6 +613,18 @@
     "assets/app-icons/hurdles/icon-192.png",
     "assets/app-icons/hurdles/icon-512.png",
     "assets/app-icons/hurdles/icon-maskable-512.png",
+    "assets/app-icons/long-jump/apple-touch-icon.png",
+    "assets/app-icons/long-jump/favicon-32.png",
+    "assets/app-icons/long-jump/favicon-48.png",
+    "assets/app-icons/long-jump/icon-192.png",
+    "assets/app-icons/long-jump/icon-512.png",
+    "assets/app-icons/long-jump/icon-maskable-512.png",
+    "assets/app-icons/platform/apple-touch-icon.png",
+    "assets/app-icons/platform/favicon-32.png",
+    "assets/app-icons/platform/favicon-48.png",
+    "assets/app-icons/platform/icon-192.png",
+    "assets/app-icons/platform/icon-512.png",
+    "assets/app-icons/platform/icon-maskable-512.png",
     "assets/favicon.svg",
     "assets/hero-long-jump.png",
     "assets/home.css",
@@ -683,6 +695,7 @@
     "games/long-jump/index.html",
     "games/long-jump/landmarks.mjs",
     "games/long-jump/layout.mjs",
+    "games/long-jump/manifest.webmanifest",
     "games/long-jump/physics.mjs",
     "games/long-jump/play-surface.mjs",
     "games/long-jump/presentation.mjs",
@@ -707,7 +720,8 @@
     "games/shared/game-ui.css",
     "games/shared/game-ui.mjs",
     "games/shared/help-coordinator.mjs",
-    "index.html"
+    "index.html",
+    "manifest.webmanifest"
   ],
   "upstreamHistory": {
     "sealedHurdlesSiteCommit": "b6cc36dea79baa442361c3967147140ed98ce58f",
@@ -716,5 +730,110 @@
     "libraryVersion": 4,
     "archiveSha256": "53486b978c4b47c0704261aaa8cae685e6625429c606e8c0b7664f4e8d04872d",
     "note": "Historical source from preview docs/hurdles/INTEGRATION.md. This promotion imports exact current preview hashes above, including later approved UI adaptations; it does not claim the whole current runtime equals the sealed original."
+  },
+  "productionIcons": {
+    "baseCommit": "c92050c6c4cf8aab18973bab2b472417e7b3d271",
+    "previewSource": "79c7dd0d9d37b620cf003e9e02e9de2b889ea8fb",
+    "reason": "User-approved platform and released-game icons only. Original favicon.svg retained byte-identically; no runtime/body/catalog changes. Hurdles icons already exact and unchanged.",
+    "files": [
+      {
+        "path": "public/assets/app-icons/platform/favicon-48.png",
+        "sha256": "7c4fe1e794b894e5809e41609977f6d5d0fb9d199970c396d327c67b23bff3a0",
+        "gitBlobSha": "b6978b692ca8da9f23232808c530be5da188bf6e",
+        "bytes": 3702
+      },
+      {
+        "path": "public/assets/app-icons/platform/icon-192.png",
+        "sha256": "0dded91288fa1af6ab5f4c9ae425e951b8fd7a743b99f148a6b6a9c6024ab17b",
+        "gitBlobSha": "0fec80b83cb6b8c3093159ac25261fda8b06a4f8",
+        "bytes": 39390
+      },
+      {
+        "path": "public/assets/app-icons/platform/icon-maskable-512.png",
+        "sha256": "9b4f917a38c06ea08ac7437550cb684b23737498775bc5d3db4f52db3d96fc2a",
+        "gitBlobSha": "314aed68f60b72f7447d6bd35bde11cdbc06b7cd",
+        "bytes": 214654
+      },
+      {
+        "path": "public/assets/app-icons/platform/apple-touch-icon.png",
+        "sha256": "306a60e722efa7992d7c9146dc106393583b4e0bf35dd3165b13e0b4e82ca3e7",
+        "gitBlobSha": "8672db4ed34ccf1f27010362ea1e64897e6068bf",
+        "bytes": 35238
+      },
+      {
+        "path": "public/assets/app-icons/platform/favicon-32.png",
+        "sha256": "e40c98f828e0754177b4d88aab9103fbae40998e0c1b604f1c64ef55b1572562",
+        "gitBlobSha": "279b02dfac70a4c0ffa8049ee846169b4cbe93f0",
+        "bytes": 1943
+      },
+      {
+        "path": "public/assets/app-icons/platform/icon-512.png",
+        "sha256": "b14d7085d22d513627419f4584c2fa9af8cfcd283aba042346516507309bdcb7",
+        "gitBlobSha": "359c490ff9842e32d8bf59aba98e5a404c7ff808",
+        "bytes": 246534
+      },
+      {
+        "path": "public/manifest.webmanifest",
+        "sha256": "82d54f50a5607b273813fa41ff2b8638bb0cbd4e6c1ddb34bfee393d90d6fa66",
+        "gitBlobSha": "aa16a9071ee62f9b769b5cc67dbc922673e7241a",
+        "bytes": 690
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/favicon-48.png",
+        "sha256": "8d3930104e5ccc006bc4062c6dd51c3d52457b5ba9a7b6e8b22ccf631e9e4aa6",
+        "gitBlobSha": "a571ee42abffa13cb4d635b42d2dfa72b73e7c5c",
+        "bytes": 4624
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/icon-192.png",
+        "sha256": "8e6f783ae1f2142f6670aab68bb0ccf00a9b1977fd74ac2d9d4a5b93bb083fdc",
+        "gitBlobSha": "ca7cfb984d41af6cd446941ac8820c7931070772",
+        "bytes": 58245
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/icon-maskable-512.png",
+        "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9",
+        "gitBlobSha": "c0739019cda5c544caa39793142ae6740a6dcfaf",
+        "bytes": 364798
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/apple-touch-icon.png",
+        "sha256": "8f4ad215070b4557f0cc9fccb901d20cfd501dc1fba2ba0519a27bbe1f5a8434",
+        "gitBlobSha": "6fd4c6232959e7e29c11fa20134bde1b589cf440",
+        "bytes": 51693
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/favicon-32.png",
+        "sha256": "a14ed1c5c58ca8723c8ca7c739b57e39f55944e779ff9f9c8c19287de611048b",
+        "gitBlobSha": "ef945c4a18164c7ca40d692a88d3942257b4d6a7",
+        "bytes": 2249
+      },
+      {
+        "path": "public/assets/app-icons/long-jump/icon-512.png",
+        "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9",
+        "gitBlobSha": "c0739019cda5c544caa39793142ae6740a6dcfaf",
+        "bytes": 364798
+      },
+      {
+        "path": "public/games/long-jump/manifest.webmanifest",
+        "sha256": "9000930c7fc060192c768863d330f7d12c001df1aea24ffe1708cc134f48432f",
+        "gitBlobSha": "827f01127c589b231e1078fe60cb578ec7301276",
+        "bytes": 730
+      }
+    ],
+    "headOnly": [
+      {
+        "path": "src/render.mjs",
+        "beforeSha256": "fc1bdd511470d1069dab7d307dc0dc2aee3d82b75833177a1308331b656a0204",
+        "afterSha256": "67e64b906d060ed46b6b5d14250d94ee371935a117b0439503ea9c8251262ceb",
+        "bodySha256": "dbe0929cb9610e6c586b68b9261162fab7bc2f12c926a5634ec7d771653bfbaf"
+      },
+      {
+        "path": "public/games/long-jump/index.html",
+        "beforeSha256": "753163f54e23acb0aee982a5ad055bf440dc7406bf223c7ab97471205367190e",
+        "afterSha256": "5e451424a52731d767f4df1f2e58d3d9e794792514dc12fb489af7250945a8cf",
+        "bodySha256": "562187bf54f70bedaa73876817b165a050d268ddb407867b4dfd81bd0fcc3e0e"
+      }
+    ]
   }
 }
