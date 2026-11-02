@@ -1,0 +1,31 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {JSDOM} from 'jsdom';
+// Execute complete controllers, real physics/input/clock/render transaction and
+// shared entry DOM. Only drawing/audio/share encoding are external boundaries.
+async function boot(game,failDraw=false,{standalone=false}={}){
+ const url=new URL(`../public/games/${game}/game.mjs`,import.meta.url),raw=fs.readFileSync(url,'utf8'),bindings={};
+ for(const match of raw.matchAll(/import\s*([^;]+?)\s*from\s*['"]([^'"]+)['"];?/g)){
+  const mod=await import(new URL(match[2],url));const clause=match[1].trim();if(clause.startsWith('*'))bindings[clause.match(/as\s+(\w+)/)[1]]=mod;else for(const item of clause.replace(/[{}]/g,'').split(',')){const [name,alias]=item.trim().split(/\s+as\s+/);bindings[alias||name]=mod[name];}
+ }
+ const dom=new JSDOM(fs.readFileSync(new URL('index.html',url),'utf8'),{url:'https://private.test/'}),w=dom.window,document=w.document;w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};let attempts=0;const recordedStarts=[];w.fetch=async(url,o={})=>{if(url==='/api/play-counts/starts'){recordedStarts.push(JSON.parse(o.body));return{ok:true,status:200};}return{ok:false,status:503,json:async()=>({error:'unavailable'})};};
+ Object.defineProperty(w.navigator,'standalone',{value:standalone});w.HTMLElement.prototype.setPointerCapture=function(id){(this.captures??=new Set()).add(id)};w.HTMLElement.prototype.hasPointerCapture=function(id){return this.captures?.has(id)};w.HTMLElement.prototype.releasePointerCapture=function(id){this.captures?.delete(id)};
+ const draw=()=>{attempts++;if(failDraw)throw Error('first presentation failed');};const renderer={draw,render:draw,resize(){}};
+ const context={...bindings,document,window:w,navigator:w.navigator,screen:w.screen,location:w.location,localStorage:w.localStorage,performance:{now:()=>0},requestAnimationFrame(){},addEventListener:w.addEventListener.bind(w),removeEventListener:w.removeEventListener.bind(w),matchMedia:()=>({matches:false}),structuredClone,URL,console:{error(){},warn(){}},createWorld:()=>renderer,createRenderer:()=>renderer,createMusicController:()=>({setPlaying(){},unlock(){},enabled:false}),createRelaySound:()=>({silence(){},reset(){},setEnabled(){},unlock(){}}),createSharing:()=>({reset(){}}),bindShare:()=>({reset(){}}),createGustAudio:()=>({unlock(){},play(){}})};
+ const source=raw.replace(/import\s*([^;]+?)\s*from\s*['"]([^'"]+)['"];?/g,'').replace(/^mountControlsFrame\([^\n]*\);\n/gm,'').replaceAll('import.meta.url',JSON.stringify(url.href));
+ vm.createContext(context);vm.runInContext(source,context);return{document,dom,attempts,recordedStarts,evaluate:code=>vm.runInContext(code,context)};
+}
+
+for(const game of ['high-jump','shot-put','discus','tower-climb'])for(const standalone of[false,true])test(`${game}: V2 real controller pause, audio, continue and result restore (${standalone?'fallback':'native'})`,async()=>{
+ const app=await boot(game,false,{standalone}),d=app.document,w=app.dom.window;
+ try{const start=d.querySelector('.pf-entry-start');start.click();const isShot=game==='shot-put',isHigh=game==='high-jump',stateName=isShot||isHigh?'s':'state';
+ app.evaluate(isShot?"input.set('key:k','k');press(s,'k')":game==='discus'?"input.set('key:k','k');setLimb(state,'k',true)":'');
+ d.querySelector('.pf-entry-help').click();assert.equal(d.querySelectorAll('dialog[open]').length,1);assert.equal(app.evaluate(stateName+'.paused'),true);assert.equal(app.evaluate(isShot?'input.sources.size':game==='discus'?'input.sources.size':isHigh?'s.held.some(Boolean)':'sources.ids.length'),isShot||game==='discus'?0:isHigh?false:0);
+ w.dispatchEvent(new w.Event('orientationchange'));w.dispatchEvent(new w.Event('blur'));assert.equal(d.querySelectorAll('dialog[open]').length,1);start.click();
+ const pause=d.querySelector('.pf-pause-dialog');assert.ok(pause?.open,'help returns to shared pause, not old per-game panel');assert.equal(pause.querySelectorAll('[data-pf-volume]').length,2);assert.equal(pause.querySelector('.pf-pause-help'),null);assert.equal(d.querySelectorAll('dialog[open]').length,1);assert.equal(app.evaluate(stateName+'.paused'),true);
+ pause.querySelector('[data-pf-continue]').click();assert.equal(app.evaluate(stateName+'.paused'),false);assert.equal(d.querySelectorAll('dialog[open]').length,0);assert.equal(d.querySelector('main')?.hasAttribute('inert')??false,false);
+ // Only a real committed result is modeled at the renderer/capture boundary. No new start.
+ app.evaluate(isShot?"running=false;s.phase='done';dialog.open()":isHigh?"active=false;s.phase='done';result.open()":"active=false;state.phase='done';resultDialog.open()");
+ d.getElementById('result').dataset.frozen='same-png-and-score';const before=app.evaluate('JSON.stringify('+stateName+')');app.evaluate('entry.open({help:true})');assert.equal(d.getElementById('result').open,false);start.click();assert.equal(d.getElementById('result').open,true);assert.equal(d.getElementById('result').dataset.frozen,'same-png-and-score');assert.equal(app.evaluate('JSON.stringify('+stateName+')'),before);assert.equal(d.getElementById('result').closest('[inert]'),null);
+ }finally{app.dom.window.close();}
+});
+
+for(const game of ['high-jump','shot-put','discus','tower-climb'])test(game+': actual start/retry count, menus do not; board is real and shares owner',async()=>{const app=await boot(game),d=app.document;try{assert.equal(app.recordedStarts.length,0);d.querySelector('.pf-entry-start').click();assert.equal(app.recordedStarts.length,1);const board=d.querySelector('.pf-rank-action');assert.ok(board);board.click();await new Promise(r=>setTimeout(r,0));assert.equal(d.querySelectorAll('dialog[open]').length,1);d.querySelector('[data-pf-view-return]').click();assert.ok(d.querySelector('.pf-pause-dialog').open);assert.equal(app.recordedStarts.length,1);d.querySelector('[data-pf-restart]').click();assert.equal(app.recordedStarts.length,2);assert.notEqual(app.recordedStarts[0].runId,app.recordedStarts[1].runId);assert.equal(d.querySelectorAll('dialog[open]').length,0);}finally{app.dom.window.close();}});

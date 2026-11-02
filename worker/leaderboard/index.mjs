@@ -2,17 +2,26 @@ import {handlePlayCounts} from '../play-counts/index.mjs';
 import {LeaderboardRepository} from './repository.mjs';
 export const BOARDS=Object.freeze({
  'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
- hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180})
+ hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),
+ 'high-jump':Object.freeze({rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE}),
+ 'pole-vault':Object.freeze({rules:'highest-feet-v1',unit:'m',status:'done',direction:'desc',max:Number.MAX_VALUE}),
+ 'shot-put':Object.freeze({rules:'relay-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
+ discus:Object.freeze({rules:'wind-ufo-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
+ 'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true}),
+ 'beer-slide':Object.freeze({rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc',max:10}),
+ 'tower-climb':Object.freeze({rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc',max:60})
 });
 const fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export function validateSubmission(value){
- if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');
+ if(!value||Array.isArray(value)||typeof value!=='object'||(Object.keys(value).length!==fields.length&&Object.keys(value).length!==fields.length+1)||fields.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>!fields.includes(k)&&k!=='secondaryScore'))throw Error('invalid_fields');
  const b=typeof value.game==='string'&&Object.hasOwn(BOARDS,value.game)?BOARDS[value.game]:null;if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
  if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max)throw Error('invalid_score');
+ if(b.secondary){if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>10)throw Error('invalid_secondary');}
+ else if(Object.hasOwn(value,'secondaryScore')&&value.secondaryScore!==0)throw Error('invalid_secondary');
  if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\p{Cc}\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');
  if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');
- return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));
+ return Object.fromEntries([...fields,...(b.secondary?['secondaryScore']:[])].map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));
 }
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
 export async function handleRequest(request,env,now=Date.now()){

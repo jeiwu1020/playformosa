@@ -49,7 +49,7 @@ const placeVisits=new Map();
 let renderOrigin=0,lastPlaceKey='',cueTime=0;
 const sound=createGameAudio({notify:message=>{$('sound-status').textContent=message;$('sound').title=message;$('sound').setAttribute('aria-label',message+'；切換音效');$('sound').setAttribute('aria-pressed',String(sound.ready));$('sound').textContent=sound.ready?'♪':'♩';}});
 const audioEvents=createAudioEvents(name=>{if(name==='result')sound.setPlaying(false);sound.play(name);});
-async function soundReady(preview=true){if(sound.enabled)await sound.unlock({preview});}
+async function soundReady(preview=true){await sound.unlock({preview});}
 $('sound').onclick=()=>{if(sound.ready||sound.pending){sound.setEnabled(false);}else{sound.setEnabled(true);soundReady();}};
 let state=fresh(),playing=false,best=0,reported=false,lastPhase='run';try{best=readBest(storage);}catch{}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
 const controls=createInput(),input=controls.values;const buttons=[...document.querySelectorAll('[data-limb]')];
@@ -61,10 +61,10 @@ window.addEventListener('keydown',e=>{if(replay.active){if(e.code==='Escape'){e.
 
 function show(title,text,button){$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;$('card-subtitle').textContent='';$('card-title').textContent=title;$('card-text').innerHTML=text;$('start').innerHTML=button+' <span>↗</span>';modal.open();}
 function pauseGame(){if(replay.active){replay.setPaused(true);syncReplay();return;}if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;if(!helpIsOpen(document))showPause();}
-function showPause(){ensurePauseHelp(document,document.querySelector('.card'));show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
+function showPause(){entry.openPause();}
 window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>replay.active?toggleReplayPause():paused?resume():pauseGame();
-function resume(){pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
-function start(){shareState.begin();pendingCapture=false;leaderboard?.reset();replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());void recordPlayStart(window,'long-jump');}
+function resume(){entry.close({restoreView:false});pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
+function start(){entry.close({restoreView:false});shareState.begin();pendingCapture=false;leaderboard?.reset();replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());void recordPlayStart(window,'long-jump');}
 $('start').onclick=()=>paused?resume():start();$('reset').onclick=start;
 let sceneWidth=1,sceneHeight=1,scenePlayHeight=1;
 function resize(){const el=$('scene');sceneWidth=Math.max(1,el.clientWidth);sceneHeight=Math.max(1,el.clientHeight);scenePlayHeight=Math.max(1,sceneHeight-(parseFloat(document.documentElement.style.getPropertyValue('--scene-extension'))||0));renderer.setSize(sceneWidth,sceneHeight,false);}new ResizeObserver(resize).observe($('scene'));resize();
@@ -190,3 +190,7 @@ const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,o
 requestAnimationFrame(frame);
 
 
+
+entry.setAudio(sound);
+
+entry.configurePause({onContinue:()=>resume(),onRestart:()=>start(),canContinue:()=>playing&&paused});

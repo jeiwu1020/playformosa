@@ -38,6 +38,7 @@ export function specificity(selector){
 export function mediaMatches(query,w,h){
  return split(query).some(part=>[...part.matchAll(/\(([^:]+):\s*([^)]*)\)/g)].every(([,property,value])=>{
   property=property.trim();value=value.trim();const size=/^([\d.]+)(px|rem|em)$/.exec(value),n=size?+size[1]*(size[2]==='px'?1:16):NaN;
+  if(property==='prefers-reduced-motion')return value==='no-preference';
   if(property==='orientation')return value===(w>h?'landscape':'portrait');
   if(property==='max-width')return w<=n;if(property==='min-width')return w>=n;
   if(property==='max-height')return h<=n;if(property==='min-height')return h>=n;

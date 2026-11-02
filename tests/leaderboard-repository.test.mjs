@@ -23,7 +23,7 @@ test('fixed top20; global daily cap and limited cleanup do not grow rejected row
  const db=await database(),repo=new LeaderboardRepository(db,'qa'),b=BOARDS['long-jump'],t=1_800_000_000_000;
  for(let i=0;i<21;i++)await repo.submit(entry(i+1,{deviceId:id(i+1),score:i+1}),b,t);
  assert.equal((await repo.top('long-jump',b)).length,20);assert.equal((await repo.top('long-jump',b))[0].score,21);
- const q=db.raw.prepare('INSERT INTO leaderboard_submissions VALUES(?,?,?,?,?,?,?,?,?,?)');
+ const q=db.raw.prepare('INSERT INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day) VALUES(?,?,?,?,?,?,?,?,?,?)');
  for(let i=21;i<1000;i++)q.run(['qa',id(i+1),'hash','d'+i,'long-jump',b.rules,'島',1,t,Math.floor(t/86400000)]);q.free();
  assert.equal((await repo.submit(entry(1001,{deviceId:id(1001)}),b,t)).error,'limited');
  assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_submissions')[0].values[0][0],1000);db.raw.close();
@@ -45,8 +45,8 @@ test('simultaneous same UUID is idempotent; conflicting race cannot update a sec
 });
 test('best storage cap refuses new devices, still accepts existing best; receipt cleanup is bounded',async()=>{
  const db=await database(),repo=new LeaderboardRepository(db,'qa'),b=BOARDS['long-jump'],t=1800000000000;
- await repo.submit(entry(1),b,t);const q=db.raw.prepare('INSERT INTO leaderboard_best VALUES(?,?,?,?,?,?,?)');for(let i=1;i<10000;i++)q.run(['qa','long-jump',b.rules,'f'+i,'島',1,t]);q.free();
+ await repo.submit(entry(1),b,t);const q=db.raw.prepare('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)');for(let i=1;i<10000;i++)q.run(['qa','long-jump',b.rules,'f'+i,'島',1,t]);q.free();
  assert.equal((await repo.submit(entry(2,{deviceId:id(2)}),b,t+60001)).error,'limited');assert.equal((await repo.submit(entry(3,{score:200}),b,t+60001)).accepted,true);
- const receipt=db.raw.prepare('INSERT INTO leaderboard_submissions VALUES(?,?,?,?,?,?,?,?,?,?)');for(let i=0;i<150;i++)receipt.run(['qa','old'+i,'hash','old','long-jump',b.rules,'島',1,t-8*86400000,0]);receipt.free();
+ const receipt=db.raw.prepare('INSERT INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day) VALUES(?,?,?,?,?,?,?,?,?,?)');for(let i=0;i<150;i++)receipt.run(['qa','old'+i,'hash','old','long-jump',b.rules,'島',1,t-8*86400000,0]);receipt.free();
  await repo.submit(entry(4,{score:300}),b,t+120002);assert.equal(db.raw.exec("SELECT count(*) FROM leaderboard_submissions WHERE id LIKE 'old%'")[0].values[0][0],50);db.raw.close();
 });

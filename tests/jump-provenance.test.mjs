@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createHash} from 'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readV2Baseline} from './helpers/v2-provenance.mjs';const fs={readFileSync:readV2Baseline};import {createHash} from 'node:crypto';
 const manifest=JSON.parse(fs.readFileSync(new URL('../docs/batch1/SOURCE-MANIFEST.json',import.meta.url)));
 for(const source of manifest.sources)test(source.game+' preserves approved physics, artwork, audio and all unchanged runtime bytes',()=>{for(const f of source.files){const bytes=fs.readFileSync(new URL('../public/games/'+source.game+'/'+f.path,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),f.importedSha256,f.path);if(!['game.mjs','index.html','share.mjs'].includes(f.path)&&!(source.game==='high-jump'&&['score-card.mjs','style.css'].includes(f.path))&&!(source.game==='pole-vault'&&f.path==='ui-state.mjs'))assert.equal(f.importedSha256,f.sourceSha256,f.path+' must be unchanged');}});
 

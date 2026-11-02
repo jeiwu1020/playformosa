@@ -33,7 +33,7 @@ export function bindResultGuard(doc,guard,resolveAction){
  doc.addEventListener('pointerup',e=>{guard.pointerUp(e.pointerId,resolveAction(doc.elementFromPoint(e.clientX,e.clientY)));starts.delete(e.pointerId);},true);
  doc.addEventListener('pointercancel',e=>{guard.pointerUp(e.pointerId,null,true);starts.delete(e.pointerId);},true);
  doc.addEventListener('lostpointercapture',e=>guard.lostCapture(e.pointerId),true);
- doc.addEventListener('keydown',e=>{const target=resolve(e);guard.keyDown(e.code,target,e.repeat);if(guard.active&&['Enter','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}},true);
- doc.addEventListener('keyup',e=>{const target=resolve(e),fire=guard.keyUp(e.code,target);if(guard.active&&['Enter','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();if(fire)target.click();}},true);
+ doc.addEventListener('keydown',e=>{const target=resolve(e);guard.keyDown(e.code,target,e.repeat);if(guard.active&&target&&['Enter','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}},true);
+ doc.addEventListener('keyup',e=>{const target=resolve(e),fire=guard.keyUp(e.code,target);if(guard.active&&target&&['Enter','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();if(fire)target.click();}},true);
  doc.addEventListener('click',e=>{const target=resolve(e);if(guard.active&&target&&!guard.accept(target,{detail:e.detail,pointerId:e.pointerId,pointerType:e.pointerType,fromTouch:e.sourceCapabilities?.firesTouchEvents,allowAssistive:e.isTrusted})){e.preventDefault();e.stopImmediatePropagation();}},true);
 }

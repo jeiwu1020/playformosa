@@ -34,8 +34,8 @@ test('default constructor preserves Window receiver when loading and starting mu
  const f=browserGlobals(t),audio=new GameAudio();
  assert.equal(await audio.unlock(true),true,audio.diagnostics().error);
  assert.equal(audio.status,'ready');assert.equal(audio.diagnostics().musicLoaded,true);
- assert.deepEqual(f.requests,['./audio/chill-menu.mp3']);
- assert.equal(f.decoded.length,1);assert.equal(f.sources.filter(s=>s.loop&&s.started).length,1);
+ assert.deepEqual(f.requests,['./audio/chill-menu.mp3','./audio/glass-tap.wav','./audio/spill-drop.wav','./audio/result-pizzicato.wav','./audio/ui-click.wav']);
+ assert.equal(f.decoded.length,5);assert.equal(f.sources.filter(s=>s.loop&&s.started).length,1);
  await audio.unlock(true);assert.equal(f.sources.length,1);
 });
 
@@ -45,7 +45,7 @@ test('default constructor preserves Window receiver for shipped push and result 
  assert.equal(await audio.cue('push',{preview:true}),true,audio.diagnostics().error);
  assert.equal(await audio.cue('success',{id:'result-7'}),true,audio.diagnostics().error);
  assert.equal(audio.diagnostics().effectsStarted,2);
- assert.deepEqual(f.requests,['./audio/chill-menu.mp3','./audio/glass-tap.wav','./audio/result-pizzicato.wav']);
- assert.equal(f.decoded.length,3);assert.equal(f.sources.filter(s=>!s.loop&&s.started).length,2);
+ assert.deepEqual(f.requests,['./audio/chill-menu.mp3','./audio/glass-tap.wav','./audio/spill-drop.wav','./audio/result-pizzicato.wav','./audio/ui-click.wav']);
+ assert.equal(f.decoded.length,5);assert.equal(f.sources.filter(s=>!s.loop&&s.started).length,2);
  await audio.cue('success',{id:'result-7'});assert.equal(audio.effectsStarted,2);
 });

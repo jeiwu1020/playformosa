@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readV2Baseline as readFileSync} from './helpers/v2-provenance.mjs';
 import {createHash} from 'node:crypto';
 const manifest=JSON.parse(readFileSync(new URL('../docs/minigames/SOURCE-MANIFEST.json',import.meta.url)));
 const ui=JSON.parse(readFileSync(new URL('../docs/minigames/UI-STANDARD-MANIFEST.json',import.meta.url)));

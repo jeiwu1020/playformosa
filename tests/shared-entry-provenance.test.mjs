@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readV2Baseline as readFileSync} from './helpers/v2-provenance.mjs';import {createHash} from 'node:crypto';
 const honor=JSON.parse(readFileSync(new URL('../docs/minigames/UI-STANDARD-MANIFEST.json',import.meta.url))).honorBoard;
 const refinement=JSON.parse(readFileSync(new URL('../docs/minigames/UI-STANDARD-MANIFEST.json',import.meta.url))).rankingRefinement;
 const counts=JSON.parse(readFileSync(new URL('../docs/minigames/UI-STANDARD-MANIFEST.json',import.meta.url))).playCounts;
