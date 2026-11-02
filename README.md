@@ -53,3 +53,7 @@ Exact original commits, per-file preservation hashes, interface deltas and verif
 ## Throws and indoor-climb integration batch 2 (preview/hurdles, 2026-11-01)
 
 Adds local Shot Put and Discus to decathlon (**6 / 10**) and current indoor Tower Climb (`上樓不容易`) to minigames (**3**). Exact source versions and minimal adaptations are recorded in `docs/batch2/INTEGRATION.md` and `SOURCE-MANIFEST.json`. Reconstructed after environment restart; first-batch games, prototype Sites and main are preserved.
+
+## Portal directory and selective publication
+
+The homepage directory links independent 大遊戲 and the play. one more. platform without embedding or rewriting them. Each new entry is managed independently in `src/catalog-entries/`. Preview visibility is not production approval or URL access control. See [the release workflow](docs/portal/RELEASE.md), including the **preview-only config that must never be promoted to main**, the explicit `check:release -- --expect=...` preflight and required destination-channel rebuild.

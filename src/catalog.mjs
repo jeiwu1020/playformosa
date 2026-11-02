@@ -1,5 +1,7 @@
+import {readExternalCatalog} from './external-catalog.mjs';
 // Add an actual game here only after its self-contained build is available.
 export const catalog = {
+  ...readExternalCatalog(),
   games: [
     {id:'long-jump', title:'四肢各有想法｜跳遠', event:'跳遠', href:'/games/long-jump/', status:'available'},
     {id:'hurdles', title:'四肢各有想法｜110公尺跨欄', event:'110 公尺跨欄', href:'/games/hurdles/', status:'available', image:'/assets/hurdles-card.png', imageStyle:'illustration', kicker:'八道欄杆，四肢過招。'},
