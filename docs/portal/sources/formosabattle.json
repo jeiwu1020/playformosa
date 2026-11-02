@@ -1,0 +1,15 @@
+{
+  "entry": "formosabattle",
+  "verifiedAt": "2026-11-02",
+  "sourceHomepage": "https://formosabattle.playformosa.workers.dev/",
+  "method": "Public rendered homepage DOM/CSS inspection, then supported browser downloadMedia; original bytes retained. No synthesized art or fabricated screenshots.",
+  "assets": [
+    {
+      "path": "public/assets/portal-formosabattle.png",
+      "sourceUrl": "https://formosabattle.playformosa.workers.dev/assets/scenes/menu-hero-map-wuxia-v2.png",
+      "evidence": "visible homepage CSS background",
+      "bytes": 2356215,
+      "sha256": "2d37213585fd2f6bee8506785c3a730d0181ff5014e2dbf49b12d5565121e722"
+    }
+  ]
+}

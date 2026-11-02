@@ -1,0 +1,15 @@
+{
+  "id": "formosabattle",
+  "title": "福爾摩沙群俠傳",
+  "description": "踏進山海江湖，尋訪散落島嶼的武學。",
+  "genre": "台灣武俠 RPG",
+  "image": "/assets/portal-formosabattle.png",
+  "eyebrow": "TAIWAN WUXIA RPG",
+  "order": 10,
+  "kind": "game",
+  "href": "https://formosabattle.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": false
+  }
+}
