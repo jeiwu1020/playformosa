@@ -1,0 +1,9 @@
+# Homepage views + selective production counters
+User approved 7c9c4b after QA starts acceptance. Keep counts small and truthful: footer 累積瀏覽 N 次, no historical invention or unique-person claim.
+## Approach
+Reuse existing additive 002 totals/receipt schema and fixed server home key, rather than paid analytics or client-only totals. QA and production retain separate DBs. Existing play counts and leaderboard data preserved. Production 002 needs user confirmation; never rerun QA schema.
+Visible homepage sends at most once per document (defer hidden/prerender). Same anonymous device home admission is atomic at server, rolling 30 minutes; no IP/fingerprint. Local receipt suppresses reload/tab traffic as optimization only; missing storage still server dedupes. Concurrent tabs cannot double count. No idle timer counts, polling or navigation tracking.
+GET combines two games plus home in one response. POST home uses a dedicated /api/play-counts/views route with same bounded UUID payload format and frozen retry identity. Home cannot be submitted as a game start. Game cooldown remains independent from home; shared daily budgets remain 100/device,10000/site; receipt cleanup bounded100 and TTL7days. Existing index scans at most device/day budget; no schema change. A successful but deduped home request returns counted:false and no receipt growth; retained existing request sameUUID is idempotent, conflict rejected.
+UI reads count after view admission; one combinedGET, no cache-busting/poll; up to30second cache lag accepted. Failure shows unavailable, not zero. Footer metadata states since activation, short-window filtering. No new player identity.
+## Main selective release
+Only original Jump/Hurdles + fighter external card at https://taiwanfighter.playformosa.workers.dev/. Reuse approved art/release entry selectively. No fighter playcount or other portal/unreleased games. Preserve main icons/physics/PNG/cameras and prior leaderboard.

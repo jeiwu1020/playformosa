@@ -27,3 +27,5 @@
 
 /* Online recorded starts only for currently released games. */
 .game-info .play-count{margin:8px 0 0;font-size:14px;line-height:1.5;color:#36574f;font-weight:650}
+
+.home-count{font-size:14px;line-height:1.5;color:#36574f}footer{flex-wrap:wrap;gap:12px}
