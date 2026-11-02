@@ -1,6 +1,6 @@
 import {mountControlsFrame} from '../shared/controls-shell.mjs';
 mountControlsFrame({document,game:"long-jump",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
-import {createGameEntry} from '../shared/entry-shell.mjs';
+import {createGameEntry,helpIsOpen,suspendHelpPresentation,ensurePauseHelp} from '../shared/entry-shell.mjs';
 import {createLandingReplay,captureReplayObjects,restoreReplayObjects} from './replay.mjs';
 import {syncPauseButton} from '../shared/game-ui.mjs';
 import {renderCameraBounds,isStandalone} from './layout.mjs';
@@ -50,14 +50,15 @@ async function soundReady(preview=true){if(sound.enabled)await sound.unlock({pre
 $('sound').onclick=()=>{if(sound.ready||sound.pending){sound.setEnabled(false);}else{sound.setEnabled(true);soundReady();}};
 let state=fresh(),playing=false,best=0,reported=false,lastPhase='run';try{best=readBest(storage);}catch{}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
 const controls=createInput(),input=controls.values;const buttons=[...document.querySelectorAll('[data-limb]')];
-const pauseRecovery=createPauseDialogRecovery(window,modal,()=>playing&&paused);
+const pauseRecovery=createPauseDialogRecovery(window,modal,()=>playing&&paused&&!helpIsOpen(document));
 function sync(){buttons.forEach(b=>{const active=input[Number(b.dataset.limb)];b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});}
 function clear(){clearCapturedInput(controls,buttons);sync();}
 buttons.forEach(b=>{const i=Number(b.dataset.limb);b.addEventListener('pointerdown',e=>{if(!playing||paused)return;e.preventDefault();b.setPointerCapture(e.pointerId);controls.pointer(e.pointerId,i);sync();});for(const type of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{if(controls.endPointer(e.pointerId,type))pauseGame();sync();});b.addEventListener('contextmenu',e=>e.preventDefault());});
 window.addEventListener('keydown',e=>{if(replay.active){if(e.code==='Escape'){e.preventDefault();finishReplay();}return;}if(handleGameKey(e,true,controls,playing&&!paused))sync();if(e.code==='Escape'&&playing&&!paused){e.preventDefault();pauseGame();}});window.addEventListener('keyup',e=>{if(handleGameKey(e,false,controls,playing&&!paused))sync();});
 
 function show(title,text,button){$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;$('card-subtitle').textContent='';$('card-title').textContent=title;$('card-text').innerHTML=text;$('start').innerHTML=button+' <span>↗</span>';modal.open();}
-function pauseGame(){if(replay.active){replay.setPaused(true);syncReplay();return;}if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
+function pauseGame(){if(replay.active){replay.setPaused(true);syncReplay();return;}if(!playing||paused)return;document.querySelector('.card').classList.remove('result');$('share-actions').hidden=true;paused=true;sound.setPlaying(false);clear();cancelPendingMotion(state);acc=0;if(!helpIsOpen(document))showPause();}
+function showPause(){ensurePauseHelp(document,document.querySelector('.card'));show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
 window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>replay.active?toggleReplayPause():paused?resume():pauseGame();
 function resume(){pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
 function start(){shareState.begin();pendingCapture=false;replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());}
@@ -152,7 +153,7 @@ let prev=performance.now(),acc=0;function frame(now){
    if(r.valid&&r.legalAdventureKm>best){best=r.legalAdventureKm;try{saveBest(storage,best);}catch{}}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
    const measure=formatMileage(r.legalAdventureKm),score=state.foul?'犯規':r.valid?measure.value+' <small>'+measure.unit+'</small>':'未計分';
 
-   document.querySelector('.card').classList.add('result');
+   document.querySelector('.card').classList.add('result');document.querySelector('.pf-pause-help')?.setAttribute('hidden','');
    const comment=splitResultComment(r.title);
    show(comment.primary,'<div class="journey-result">'+r.journey+'</div>'+(r.achievements.length?'<div class="stunt-result">'+r.achievements.at(-1)+'</div>':'')+(r.badge?'<div class="stunt-result">'+r.badge+'</div>':'')+(state.foul?'<div class="result-status">越線 · 不計成績，探索約 '+formatMileage(r.adventureKm).value+' '+formatMileage(r.adventureKm).unit+' 保留</div>':''),'再來一跳');
    $('result-brand').hidden=false;$('result-score-block').innerHTML='<div class="mileage-label">冒險里程 · 約</div><div class="result-score">'+score+'</div>';$('result-score-block').hidden=false;$('card-subtitle').textContent=comment.separator+comment.secondary;$('card-subtitle').hidden=!comment.secondary;
@@ -181,7 +182,8 @@ function draw(state,elapsed,replayView=null){
   prepareResultShare();
  }
 }
-const entry=createGameEntry({document,gameId:'long-jump',onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});entry.open();
+function helpVisit(){pauseRecovery.cancel();return suspendHelpPresentation(document,{pause:()=>{pauseGame();clear();},controllers:{overlay:modal},dialogs:['overlay'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused&&!replay.active)showPause();}});}
+const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});entry.open();
 requestAnimationFrame(frame);
 
 

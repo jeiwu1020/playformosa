@@ -72,8 +72,9 @@ test('icon integration preserves installation head boundary and nine game-page p
    assert.equal(ledger.homepageHeadBoundary.referenceCommit,'f722b6b8cfce180a863464275826d5af78861828');
    assertHomepageIconHead(read(entry.path),ledger.homepageHeadBoundary.sha256);
   }else{
-   assert.equal(digest(bytes(entry.path)),entry.afterSha256);
-   assert.equal(digest(read(entry.path).split('</head>')[1]),entry.bodySha256);
+   const help=ledger.helpUnification?.pages.find(x=>x.path===entry.path);if(help){assert.equal(ledger.helpUnification.baseCommit,'f1a8ce126dafd975b4c7b2bcab56170162dcbd9d');assert.equal(help.beforeSha256,entry.afterSha256);assert.equal(digest(read(entry.path).split('</head>')[0]),help.headSha256,'game installation head unchanged');}
+   assert.equal(digest(bytes(entry.path)),help?.afterSha256||entry.afterSha256);
+   assert.equal(digest(read(entry.path).split('</head>')[1]),help?.bodySha256||entry.bodySha256);
   }
  }
  for(const [, , ,route] of apps)assert.doesNotMatch(read(pathOf(route)),/serviceWorker\.register|navigator\.serviceWorker|localStorage\.(?:clear|removeItem)/);
@@ -88,3 +89,5 @@ test('the homepage installation-head boundary rejects icon removal or replacemen
   assert.throws(()=>assertHomepageIconHead(changed,expected),/installation head must remain unchanged/);
  }
 });
+
+test('help body revision cannot silently alter any game installation head',()=>{const ledger=JSON.parse(read('docs/app-icons/INTEGRATION-MANIFEST.json'));for(const p of ledger.helpUnification.pages){const head=read(p.path).split('</head>')[0];assert.equal(digest(head),p.headSha256);assert.notEqual(digest(head.replace('apple-touch-icon.png','wrong.png')),p.headSha256);}});

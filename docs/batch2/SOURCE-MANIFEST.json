@@ -80,16 +80,20 @@
         {
           "path": "game.mjs",
           "sourceSha256": "f25421828291a15cc2a409e6f04fcce5e89027cb869e2b7d112c64212be07f90",
-          "importedSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+          "importedSha256": "433f51f4a0eedc2c87b92eefc1506520cd543351d6b5642f835c5d9c7bf8acf5",
           "unchanged": false,
-          "previousIntegratedSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
-          "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
+          "previousIntegratedSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+          "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
           "priorAdaptation": {
-            "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
-            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "previousIntegratedSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
+            "adaptation": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
             "priorAdaptation": {
-              "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
-              "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+              "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
+              "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+              "priorAdaptation": {
+                "previousIntegratedSha256": "a481af5b09135f862d5233195c134094539aafb3417bb267bbc53e6d0df725b3",
+                "adaptation": "Approved UI harmonization stage1: player-facing development/private/version copy only; mechanics and source origin unchanged."
+              }
             }
           },
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
@@ -274,11 +278,15 @@
         {
           "path": "game.mjs",
           "sourceSha256": "caf6724216d4b778c2df7bbfda1e4cc80aee600b55d615687e93da878bdc9196",
-          "importedSha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+          "importedSha256": "ee07cc6c06ee236966178b5d86f7a9b0be4decd0b27d1a17992cd6835a35fc48",
           "unchanged": false,
-          "priorAdaptation": {},
-          "previousIntegratedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {}
+          },
+          "previousIntegratedSha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+          "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
@@ -465,21 +473,29 @@
         {
           "path": "game.mjs",
           "sourceSha256": "6d09d19727bacb32ebac9fbe9159dc9e194bb2dee12c4cdf55dce00b7d727701",
-          "importedSha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+          "importedSha256": "f37c7396f7a0e72dd9ce4f8e7bff31da48c1d302f1efe0848338831d7a6c2aa1",
           "unchanged": false,
-          "priorAdaptation": {},
-          "previousIntegratedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {}
+          },
+          "previousIntegratedSha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+          "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
         },
         {
           "path": "index.html",
           "sourceSha256": "6b36334bc7756ed11b379332a7df4850a39673eb9f1e9da6a9c8167d845e8f96",
-          "importedSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+          "importedSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
           "unchanged": false,
-          "priorAdaptation": {},
-          "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
-          "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
+            "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+            "priorAdaptation": {}
+          },
+          "previousIntegratedSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+          "adaptation": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
           "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2",
           "appIconMetadata": {
             "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",

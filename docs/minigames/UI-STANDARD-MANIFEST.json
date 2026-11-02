@@ -5,30 +5,38 @@
       "game": "reaction-rod",
       "path": "game.mjs",
       "baselineSha256": "fdd563ad7de3c8bd722d5b170f2ec07771202790a81c4cecc7a46623c02d7b6a",
-      "sha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
-      "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
+      "sha256": "c5ee7c67e204fc84255497bf937eae86f16519e5f51336b65e44aa5dccf3eddd",
+      "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
       "priorAdaptation": {
-        "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "previousIntegratedSha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
+        "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
         "priorAdaptation": {
-          "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+          "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
+          "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+          }
         }
       },
-      "previousIntegratedSha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45"
+      "previousIntegratedSha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71"
     },
     {
       "game": "reaction-rod",
       "path": "index.html",
       "baselineSha256": "2675beb0627e2b655640bb7349772312141b5523ea507fb6153b088406b42e84",
-      "sha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
-      "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
-      "previousIntegratedSha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
+      "sha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998",
+      "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
+      "previousIntegratedSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
       "priorAdaptation": {
-        "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "previousIntegratedSha256": "44ad74338bef5c80333b1656968db021219d098694b60764f160376f6878becc",
+        "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged.",
         "priorAdaptation": {
-          "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
-          "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+          "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
+          "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+          "priorAdaptation": {
+            "previousIntegratedSha256": "4b42375bf63f8b845587d04f4dd4d0016c56550f44629209feb0cfca87c46f34",
+            "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+          }
         }
       },
       "appIconMetadata": {
@@ -42,23 +50,31 @@
       "game": "beer-slide",
       "path": "game.mjs",
       "baselineSha256": "313b23d3166a687cf99356b4c271722a0d00a81c7e68af9614e7b300fd56ad2e",
-      "sha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
-      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+      "sha256": "2ce2f6ba7adf8ab3279adbbe51b4ae70a683102193b05ca4b31a568db4b86b8b",
+      "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
       "priorAdaptation": {
-        "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+        "previousIntegratedSha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "priorAdaptation": {
+          "reason": "Approved platform UI standard: real toolbar lifecycle, viewport result and current-round image sharing; original physics/art untouched."
+        }
       },
-      "previousIntegratedSha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7"
+      "previousIntegratedSha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429"
     },
     {
       "game": "beer-slide",
       "path": "index.html",
       "baselineSha256": "cdd6d0b30e3a77450f09f9f63c09704389ab2fff3b91d23b9bfeeed936027ed9",
-      "sha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
-      "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
-      "previousIntegratedSha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
+      "sha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680",
+      "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
+      "previousIntegratedSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
       "priorAdaptation": {
-        "previousIntegratedSha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5",
-        "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+        "previousIntegratedSha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "priorAdaptation": {
+          "previousIntegratedSha256": "311153622c29cdf295d228249f0c76e628b2725267866f05df2a8b2f6ffbb8e5",
+          "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved."
+        }
       },
       "appIconMetadata": {
         "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
@@ -74,6 +90,14 @@
       "sha256": "79a0209f65409979db9203475862973fd4c6b76b03f4b1fd799d2c07a9773ffe",
       "reason": "Approved stage3 result hierarchy and readable actual-scene PNG; original mechanics/art and sharing activation preserved.",
       "previousIntegratedSha256": "86418dd3d92609a45436912447322dc501bcc208050f7759ae900814c068eae8"
+    },
+    {
+      "game": "beer-slide",
+      "path": "audio-ui.mjs",
+      "baselineSha256": "ecdbf6fd59526f934749139884e1765c458533a040238123d1a18e00dcddad2d",
+      "previousIntegratedSha256": "ecdbf6fd59526f934749139884e1765c458533a040238123d1a18e00dcddad2d",
+      "sha256": "0905311c684208821132f60ecc11f356dcf8041d7bf72119dca964a50b389b4d",
+      "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
     }
   ],
   "sharedEntryControlsPhase1": {
@@ -84,26 +108,44 @@
       {
         "path": "long-jump/game.mjs",
         "previousIntegratedSha256": "13d609c40faaff95250ba31a86788cbff213f002fb7dfb9ee62ea88295ebfe34",
-        "sha256": "faaf4b9b6c7316e4be74bc6b3fc9e2a6096542edfd9eb32863ca3222918cc2dc",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "b68c7d637d392e992ce05b439102c8aab3a68c93d54c9bb3978777e3e8424446",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "faaf4b9b6c7316e4be74bc6b3fc9e2a6096542edfd9eb32863ca3222918cc2dc",
+          "afterSha256": "b68c7d637d392e992ce05b439102c8aab3a68c93d54c9bb3978777e3e8424446",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "long-jump/index.html",
         "previousIntegratedSha256": "6c5b7c57506f39e0e3a99d321cca824364b38355772049194f8d422a2544821f",
-        "sha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
+        "sha256": "d28c2e1b1025787a2ab01365b78b023e654d05c400583e95f961195961b3ec41",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "appIconMetadata": {
           "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
           "beforeSha256": "e22237232721e6c23e6843e1fcf8a72ab14f77b808a020af23fc667c3d3549c3",
           "afterSha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
+          "afterSha256": "d28c2e1b1025787a2ab01365b78b023e654d05c400583e95f961195961b3ec41",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "hurdles/game.mjs",
         "previousIntegratedSha256": "1475f11602029173c4f90e61a32ad44beacdc0e435a68ec8b30f01834740511e",
-        "sha256": "c8a49e8eeda2a4d53726b77d83fe240fe4b82664d1d6ce5e3c74d5cdf1c3984a",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "c8a49e8eeda2a4d53726b77d83fe240fe4b82664d1d6ce5e3c74d5cdf1c3984a",
+          "afterSha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "hurdles/index.html",
@@ -120,26 +162,44 @@
       {
         "path": "high-jump/game.mjs",
         "previousIntegratedSha256": "3bf3d4ccbcee20539dea53fd248476e80222bffc0d67f34602f0d27bb398e37f",
-        "sha256": "fc25bd8ee1701902bb0a44694c78f43effc3b711daace88e2f4fbaf6879c6b47",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "05db1686ff0c8a6e803f432277df8e104e54dae7d667ac1c26078cc6556a7480",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "fc25bd8ee1701902bb0a44694c78f43effc3b711daace88e2f4fbaf6879c6b47",
+          "afterSha256": "05db1686ff0c8a6e803f432277df8e104e54dae7d667ac1c26078cc6556a7480",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "high-jump/index.html",
         "previousIntegratedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
-        "sha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+        "sha256": "aa18309609f7ba2cb3376e99038045c85d6fec0fcac29413dea0d23738d72885",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "appIconMetadata": {
           "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
           "beforeSha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
           "afterSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+          "afterSha256": "aa18309609f7ba2cb3376e99038045c85d6fec0fcac29413dea0d23738d72885",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "pole-vault/game.mjs",
         "previousIntegratedSha256": "8872b575f3f9b157489bfa619ace6970aed01657bb846d868b2a4d344a88374b",
-        "sha256": "41cef66b50c460e11849e2438f6e94da38f8459df1c9162d8dfcffb353077ca4",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "7de3c92cca91b0e608efff7abde5d0adc9f9670d6545a35bce97f435eaa5035e",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "41cef66b50c460e11849e2438f6e94da38f8459df1c9162d8dfcffb353077ca4",
+          "afterSha256": "7de3c92cca91b0e608efff7abde5d0adc9f9670d6545a35bce97f435eaa5035e",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "pole-vault/index.html",
@@ -156,13 +216,19 @@
       {
         "path": "shot-put/game.mjs",
         "previousIntegratedSha256": "847679a06e6a3c5ebe45834a2480feec4cfe9aa68eaee7cad1b50481888e616c",
-        "sha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+        "sha256": "433f51f4a0eedc2c87b92eefc1506520cd543351d6b5642f835c5d9c7bf8acf5",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
           "beforeSha256": "5f9253b246fb37fa340b3140438db8668192e618c1c6b1cffae35be74562b7ab",
           "afterSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
           "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+          "afterSha256": "433f51f4a0eedc2c87b92eefc1506520cd543351d6b5642f835c5d9c7bf8acf5",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
@@ -186,8 +252,14 @@
       {
         "path": "discus/game.mjs",
         "previousIntegratedSha256": "eb6f44c8aeee4c05c5531e3e9f48970e6a05d3356a9d26abaec312e17b52fadf",
-        "sha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "ee07cc6c06ee236966178b5d86f7a9b0be4decd0b27d1a17992cd6835a35fc48",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+          "afterSha256": "ee07cc6c06ee236966178b5d86f7a9b0be4decd0b27d1a17992cd6835a35fc48",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "discus/index.html",
@@ -210,37 +282,55 @@
       {
         "path": "tower-climb/game.mjs",
         "previousIntegratedSha256": "39c68051753859f7c4930879e1990f14db44e70f7ba6aa89ac25ae3ff2b6e86b",
-        "sha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "f37c7396f7a0e72dd9ce4f8e7bff31da48c1d302f1efe0848338831d7a6c2aa1",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+          "afterSha256": "f37c7396f7a0e72dd9ce4f8e7bff31da48c1d302f1efe0848338831d7a6c2aa1",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "tower-climb/index.html",
         "previousIntegratedSha256": "f9e968a75bb7931679516a87f6a3ae7b4f7786a0fd17046633632af21bc30b4b",
-        "sha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+        "sha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "appIconMetadata": {
           "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
           "beforeSha256": "607a527cbe0ac182c142eb487e3f9864572866cf65c521a13c03b9e36b8f1d13",
           "afterSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+          "afterSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "reaction-rod/game.mjs",
         "previousIntegratedSha256": "72b8caacc01bb59858f30b71b7bdc8465067f852d30451ae8405000aad2f10ee",
-        "sha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+        "sha256": "c5ee7c67e204fc84255497bf937eae86f16519e5f51336b65e44aa5dccf3eddd",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
           "beforeSha256": "227b92e8638ad2d0fe7784fdb2d23800df06428da9cd9dab011c9f23d9e1eb45",
           "afterSha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
           "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+          "afterSha256": "c5ee7c67e204fc84255497bf937eae86f16519e5f51336b65e44aa5dccf3eddd",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "reaction-rod/index.html",
         "previousIntegratedSha256": "967d93dd2359a74483600a3bb30f2e74ce073132b1daaa8abca2e959c1331df9",
-        "sha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
+        "sha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
@@ -253,48 +343,78 @@
           "beforeSha256": "348c205eba1e2c7a1e34d6097b29f411c04e196267aed7b895a4e7f915e5ff17",
           "afterSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
+          "afterSha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "beer-slide/game.mjs",
         "previousIntegratedSha256": "419c80dfc4317968c2a8efdd93b177e2e59fec8560cc31e461150dd710e4f2d7",
-        "sha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
-        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation."
+        "sha256": "2ce2f6ba7adf8ab3279adbbe51b4ae70a683102193b05ca4b31a568db4b86b8b",
+        "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
+          "afterSha256": "2ce2f6ba7adf8ab3279adbbe51b4ae70a683102193b05ca4b31a568db4b86b8b",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
+        }
       },
       {
         "path": "beer-slide/index.html",
         "previousIntegratedSha256": "eef2f5f9f31ef6febf5c9de9877fc20e2f2af282c4a1e054c1af1de4df8e702b",
-        "sha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
+        "sha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680",
         "reason": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
         "appIconMetadata": {
           "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
           "beforeSha256": "ec4fae0f3cec8ef687a14070eaa467374b5c2048b6e10f428cf0ad96ca13e56a",
           "afterSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
           "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
+          "afterSha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "shared/entry-shell.mjs",
         "previousIntegratedSha256": null,
-        "sha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
+        "sha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
         "reason": "New shared presentation module; no prior runtime file.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
           "beforeSha256": "b3d402422a62d930c96d71f5b3584b302017c5480edaf2317dfbd2cd7508b85d",
           "afterSha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
           "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
+          "afterSha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
         "path": "shared/entry-shell.css",
         "previousIntegratedSha256": null,
-        "sha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
+        "sha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
         "reason": "New shared presentation module; no prior runtime file.",
         "firstPaintWidthFix": {
           "baseCommit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
           "beforeSha256": "96fe370c624525f4d4ee309785d5a15357de1d961a174ee363164afa9ea8da8f",
           "afterSha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
           "reason": "User-approved first-paint repair: legacy entry hidden in initial HTML, readable loading/home recovery, obsolete Rod intro stays hidden; shot error/pause center preserved. Desktop shot/discus shared frame and toolbar use available width at900px+, original renderer/camera/physics unchanged."
+        },
+        "helpUnification": {
+          "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+          "beforeSha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
+          "afterSha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b",
+          "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes."
         }
       },
       {
@@ -326,6 +446,107 @@
         "previousIntegratedSha256": "ea4466b7ad1143e7cff89613f881a0766b592481992966e86488aadc9897615d",
         "sha256": "094300ea5ea18f58f60dd3527226c5ee05ca3dc6b6435168b3a6665f23202cbc",
         "reason": "Approved opt-in 900px control breakpoint and viewport budget; legacy defaults and standalone lower-field camera extension preserved."
+      }
+    ]
+  },
+  "helpUnification": {
+    "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+    "reason": "Approved nine-game help unification: one header action and single modal owner, safe pause/cancel with explicit resume, preserved entry/result/replay and audio controls; player diagnostics removed. No physics, camera, scoring, assets, route or save changes.",
+    "files": [
+      {
+        "path": "hurdles/game.mjs",
+        "beforeSha256": "c8a49e8eeda2a4d53726b77d83fe240fe4b82664d1d6ce5e3c74d5cdf1c3984a",
+        "sha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f"
+      },
+      {
+        "path": "beer-slide/index.html",
+        "beforeSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
+        "sha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680"
+      },
+      {
+        "path": "beer-slide/game.mjs",
+        "beforeSha256": "2c83016f0505d4cb2c87baa53767e98f550c1bce31d604b85932922c54e5f429",
+        "sha256": "2ce2f6ba7adf8ab3279adbbe51b4ae70a683102193b05ca4b31a568db4b86b8b"
+      },
+      {
+        "path": "beer-slide/audio-ui.mjs",
+        "beforeSha256": "ecdbf6fd59526f934749139884e1765c458533a040238123d1a18e00dcddad2d",
+        "sha256": "0905311c684208821132f60ecc11f356dcf8041d7bf72119dca964a50b389b4d"
+      },
+      {
+        "path": "tower-climb/index.html",
+        "beforeSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+        "sha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3"
+      },
+      {
+        "path": "tower-climb/game.mjs",
+        "beforeSha256": "ee153015046fbf368f32e86aefb1b947786c98e004d88e126256d904a1c628c7",
+        "sha256": "f37c7396f7a0e72dd9ce4f8e7bff31da48c1d302f1efe0848338831d7a6c2aa1"
+      },
+      {
+        "path": "high-jump/index.html",
+        "beforeSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+        "sha256": "aa18309609f7ba2cb3376e99038045c85d6fec0fcac29413dea0d23738d72885"
+      },
+      {
+        "path": "high-jump/game.mjs",
+        "beforeSha256": "fc25bd8ee1701902bb0a44694c78f43effc3b711daace88e2f4fbaf6879c6b47",
+        "sha256": "05db1686ff0c8a6e803f432277df8e104e54dae7d667ac1c26078cc6556a7480"
+      },
+      {
+        "path": "discus/game.mjs",
+        "beforeSha256": "a41931ae774cb6bf0a456e8cb03d78aa72c66da1bac4bd574e0d312f13778191",
+        "sha256": "ee07cc6c06ee236966178b5d86f7a9b0be4decd0b27d1a17992cd6835a35fc48"
+      },
+      {
+        "path": "pole-vault/game.mjs",
+        "beforeSha256": "41cef66b50c460e11849e2438f6e94da38f8459df1c9162d8dfcffb353077ca4",
+        "sha256": "7de3c92cca91b0e608efff7abde5d0adc9f9670d6545a35bce97f435eaa5035e"
+      },
+      {
+        "path": "shared/entry-shell.css",
+        "beforeSha256": "876e8ee7aa108ef288bf2a40da66af30a90cf1b83b61c5e3ec1c85f1b4fc7baa",
+        "sha256": "a9475a3fb36a1dbcc229675be6bf7d395c73a15c0e02216aeff59d11892ad07b"
+      },
+      {
+        "path": "shared/help-coordinator.mjs",
+        "beforeSha256": null,
+        "sha256": "166a1f8b5a4cb62b4ce880781860c628f997b686067b1f20eb12d085958e50b8"
+      },
+      {
+        "path": "shared/entry-shell.mjs",
+        "beforeSha256": "504fff4e63c9afb50b3176eac89f4a38fd496a4b5bbe502d60efd947a8de6477",
+        "sha256": "4ac25f6b79860d2432df35a8ff8c6f79bce4cc08be7625f7f213df09b83f580e"
+      },
+      {
+        "path": "shot-put/game.mjs",
+        "beforeSha256": "61dc07a00830b3408429ee3606abbc67f4c6b3e2eddabc90bb1fc0c25dad0ec0",
+        "sha256": "433f51f4a0eedc2c87b92eefc1506520cd543351d6b5642f835c5d9c7bf8acf5"
+      },
+      {
+        "path": "reaction-rod/index.html",
+        "beforeSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
+        "sha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998"
+      },
+      {
+        "path": "reaction-rod/game.mjs",
+        "beforeSha256": "86733b3dd1f73d98b8d542266171be2c4d7597d83784dc121926bb8a6798dd71",
+        "sha256": "c5ee7c67e204fc84255497bf937eae86f16519e5f51336b65e44aa5dccf3eddd"
+      },
+      {
+        "path": "long-jump/dialogs.mjs",
+        "beforeSha256": "3d657e27d2fcfc4964764dd600a4a6690de380860163f7ccff0db9bc78ee837f",
+        "sha256": "55a013e13e49bcdade6bf17bd2729e59063e6ba9888aa46891925cc46e274b03"
+      },
+      {
+        "path": "long-jump/index.html",
+        "beforeSha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
+        "sha256": "d28c2e1b1025787a2ab01365b78b023e654d05c400583e95f961195961b3ec41"
+      },
+      {
+        "path": "long-jump/game.mjs",
+        "beforeSha256": "faaf4b9b6c7316e4be74bc6b3fc9e2a6096542edfd9eb32863ca3222918cc2dc",
+        "sha256": "b68c7d637d392e992ce05b439102c8aab3a68c93d54c9bb3978777e3e8424446"
       }
     ]
   }

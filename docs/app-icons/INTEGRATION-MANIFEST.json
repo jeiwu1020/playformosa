@@ -104,5 +104,46 @@
     "referenceCommit": "f722b6b8cfce180a863464275826d5af78861828",
     "sha256": "9cc0700ed219d65619574b5443abfe34da7c6c35125f6491e93e6f17dbbef192",
     "scope": "Freeze the published installation head, not future authorized catalog body content. The original pages[] integration records above remain historical and unchanged; all nine game page body/full-file checks remain exact."
+  },
+  "helpUnification": {
+    "baseCommit": "f1a8ce126dafd975b4c7b2bcab56170162dcbd9d",
+    "reason": "Approved body-only help/diagnostic presentation changes; original icon installation head and historical pages ledger preserved.",
+    "pages": [
+      {
+        "path": "public/games/long-jump/index.html",
+        "beforeSha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
+        "afterSha256": "d28c2e1b1025787a2ab01365b78b023e654d05c400583e95f961195961b3ec41",
+        "bodySha256": "200fe678dc67ccceffdd4731d1e8c2f7d7587d66130c549d6ef332ed4b137be2",
+        "headSha256": "3397f25db0b1ed6d5faa4e067ddd43843cbfdfe2c2d90ae0045571c8a6a91665"
+      },
+      {
+        "path": "public/games/high-jump/index.html",
+        "beforeSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+        "afterSha256": "aa18309609f7ba2cb3376e99038045c85d6fec0fcac29413dea0d23738d72885",
+        "bodySha256": "6eb110881a5f3d8ef2e8325ffcca4002a09a94af5eca648508dc494ec7ac3105",
+        "headSha256": "8c2f0411f6ec4face8055f1d5f5520c19e22caa622a43dfeda871987a8fe7391"
+      },
+      {
+        "path": "public/games/reaction-rod/index.html",
+        "beforeSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
+        "afterSha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998",
+        "bodySha256": "60c9fa78b516752ac447a4574c32498f3b3f96ec7776766b3c338dee83521568",
+        "headSha256": "f8ad88664656e5b2504126339b369346afa0ef592e49eadb60b5b9d6df0a6d56"
+      },
+      {
+        "path": "public/games/beer-slide/index.html",
+        "beforeSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
+        "afterSha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680",
+        "bodySha256": "ac621d860e23f76d432615eb6becb853c4f49f3234e84acca91d919273f25c64",
+        "headSha256": "f1383a4603034da6f2687c94b038d32a1a234fd2893134d743517fa4310cf4b7"
+      },
+      {
+        "path": "public/games/tower-climb/index.html",
+        "beforeSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+        "afterSha256": "598751ffd4815b1215dac8f6c82cbfc25752e811cd1eb9032244f8a461dd13b3",
+        "bodySha256": "af7e170428bb780b6222ad3769809b0b193f11f1840a405eeb9aaf3216872868",
+        "headSha256": "2cbea2da85d68940141cacfb2135f9b9dc00fb621868a4a5a026fbb5c0434da1"
+      }
+    ]
   }
 }

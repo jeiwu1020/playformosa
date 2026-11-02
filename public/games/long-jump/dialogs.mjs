@@ -3,7 +3,7 @@ export function createDialogController(dialog,onCancel,{forceFallback=false}={})
  let backdrop=null,previousFocus=null,background=[],modalAttributes=[];
  const isOpen=()=>dialog.open||dialog.hasAttribute?.('open');
  const visibleControl=el=>el&&!el.disabled&&!el.closest('[hidden]')&&el.getClientRects().length&&el.tabIndex>=0;
- const focusable=()=>[...dialog.querySelectorAll('button:not([disabled]),a[href],summary')].filter(visibleControl);
+ const focusable=()=>[...dialog.querySelectorAll('button:not([disabled]),a[href],summary,input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]')].filter(visibleControl);
  const focusStart=(preventScroll=true)=>{const preferred=dialog.querySelector('[autofocus]');(visibleControl(preferred)?preferred:focusable()[0]||dialog).focus({preventScroll});};
  const restore=(el,name,value)=>value===null?el.removeAttribute(name):el.setAttribute(name,value);
  function openFallback(){

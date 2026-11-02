@@ -1,6 +1,6 @@
 import {mountControlsFrame} from '../shared/controls-shell.mjs';
 mountControlsFrame({document,game:"pole-vault",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
-import {createGameEntry} from '../shared/entry-shell.mjs';
+import {createGameEntry,helpIsOpen,suspendHelpPresentation,ensurePauseHelp} from '../shared/entry-shell.mjs';
 import{syncPauseButton}from'../shared/game-ui.mjs';
 import{loadBest,storeBest}from'./flight-profile.mjs';
 import{createResultFrame}from'./result-frame.mjs';
@@ -20,7 +20,7 @@ const resultActions=[$('start'),$('save-image'),$('threads'),$('copy')];
 bindResultGuard(document,resultGuard,target=>{const b=target?.closest?.('button');return resultActions.includes(b)?b:null;});
 function guardUI(){const active=resultGuard.active;for(const b of resultActions){const value=String(!resultGuard.usable||b.disabled);if(active&&b.getAttribute('aria-disabled')!==value)b.setAttribute('aria-disabled',value);else if(!active)b.removeAttribute('aria-disabled');}const label=active&&!resultGuard.usable?'先放開所有按鍵，再選擇操作':'PLAYFORMOSA · 四肢運動會';if($('card-label').textContent!==label)$('card-label').textContent=label;}
 const sound=createGameAudio({notify:t=>{$('audio-status').textContent=t;$('sound').title=t;const status=$('platform-audio-status');status.textContent=t;status.hidden=!t;}});
-const world=createWorld($('scene'));if(world.software)$('render-note').hidden=false;
+const world=createWorld($('scene'));if(world.software)$('render-note').hidden=true;
 $('height-rail').innerHTML=milestones.map(m=>`<i title="${m.label}"></i>`).join('');
 const marks=[...$('height-rail').children];
 let orientation=innerWidth>innerHeight;
@@ -28,9 +28,9 @@ function layout(){const v=visualViewport,width=v&&v.scale===1?v.width:innerWidth
 window.addEventListener('resize',layout);visualViewport?.addEventListener('resize',layout);window.addEventListener('orientationchange',()=>{resultGuard.interrupt();pause();requestAnimationFrame(layout);});
 function clear(){const ids=[...input.pointers.keys()];input.clear();cancelMotion(s);for(const id of ids)for(const b of buttons)try{if(b.hasPointerCapture(id))b.releasePointerCapture(id);}catch{}sync();}
 function sync(){buttons.forEach(b=>{const i=Number(b.dataset.limb);b.classList.toggle('active',input.values[i]);b.setAttribute('aria-pressed',String(input.values[i]));b.classList.toggle('armed',i<2&&s.phase==='plant'&&s.charge>=.70&&s.charge<=.95);});}
-function openOverlay(type){$('overlay').insertBefore($('start'),type==='result'?$('result'):$('intro-note'));guardUI();$('intro').hidden=type!=='intro';$('result').hidden=type!=='result';$('paused').hidden=type!=='pause';$('intro-note').hidden=type!=='intro';$('overlay').classList.toggle('result',type==='result');$('overlay').setAttribute('aria-labelledby',type==='result'?'verdict':type==='pause'?'paused':'card-title');$('start').textContent=type==='pause'?'四肢集合，繼續跳 ↗':type==='result'?'再高一點，再跳一次 ↻':'借我一根竿子 ↗';if(!$('overlay').open)$('overlay').showModal();}
+function openOverlay(type){ensurePauseHelp(document,$('overlay'),type==='pause');$('overlay').insertBefore($('start'),type==='result'?$('result'):$('intro-note'));guardUI();$('intro').hidden=type!=='intro';$('result').hidden=type!=='result';$('paused').hidden=type!=='pause';$('intro-note').hidden=type!=='intro';$('overlay').classList.toggle('result',type==='result');$('overlay').setAttribute('aria-labelledby',type==='result'?'verdict':type==='pause'?'paused':'card-title');$('start').textContent=type==='pause'?'四肢集合，繼續跳 ↗':type==='result'?'再高一點，再跳一次 ↻':'借我一根竿子 ↗';if(!$('overlay').open)$('overlay').showModal();}
 function start(){resultGuard.end();guardUI();runId++;resultFile=null;frozen=null;resultFrame=createResultFrame();$('finish-frame').replaceChildren();$('share-status').textContent='';clear();s=fresh();playing=true;paused=false;acc=0;prev=performance.now();$('overlay').close();$('settings').close();sound.setPlaying(true);sound.unlock({preview:false});lastDraw=0;ui();}
-function pause(){if(!playing||paused)return;paused=true;clear();acc=0;sound.setPlaying(false);openOverlay('pause');platformControls();}
+function pause(){if(!playing||paused)return;paused=true;clear();acc=0;sound.setPlaying(false);if(!helpIsOpen(document))openOverlay('pause');platformControls();}
 function resume(){if(!playing||!paused)return;clear();paused=false;acc=0;prev=performance.now();$('overlay').close();sound.setPlaying(true);sound.unlock({preview:false});platformControls();}
 $('start').onclick=()=>{if(!$('overlay').open)return;paused?resume():start();};$('reset').onclick=()=>{if(!resultGuard.active)start();};$('pause').onclick=()=>paused?resume():pause();
 $('overlay').addEventListener('cancel',e=>{e.preventDefault();if(paused)resume();});
@@ -63,4 +63,5 @@ $('threads').onclick=()=>{const intent=new URL('https://www.threads.com/intent/p
 $('copy').onclick=async()=>{const text=shareText(s,location.origin+'/games/pole-vault/'),token=runId;try{await navigator.clipboard.writeText(text);if(token===runId)$('share-status').textContent='已複製成績與網址。';}catch{if(token===runId)$('share-status').textContent='請手動複製：'+text;}};
 function frame(now){requestAnimationFrame(frame);if(resultGuard.active)guardUI();const elapsed=Math.max(0,Math.min(.1,(now-prev)/1000));prev=now;if(playing&&!paused){acc+=elapsed;let count=0;while(acc>=DT&&count++<16){step(s,input.values,DT);resultFrame.observe(s);for(const event of s.events){const soundName={step:'step',plant:'land',flex:'jump',jump:'jump',flight:'flight',land:'land',milestone:'flight',finish:'jump',clear:'result','bar-hit':'land'}[event];if(soundName)sound.play(soundName);}acc-=DT;if(s.phase==='done'){finish();break;}}ui();}
  if(now-lastDraw>(world.software?(playing&&!paused?66:350):16)){world.render(s);lastDraw=now;}}
-const entry=createGameEntry({document,gameId:'pole-vault',onStart:()=>start(),onEnter:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},canStart:()=>Boolean(world)});layout();world.render(s);ui();entry.open();requestAnimationFrame(frame);
+function helpVisit(){return suspendHelpPresentation(document,{pause:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},dialogs:['overlay','settings'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused)openOverlay('pause');}});}
+const entry=createGameEntry({document,gameId:'pole-vault',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},canStart:()=>Boolean(world)});layout();world.render(s);ui();entry.open();requestAnimationFrame(frame);
