@@ -23,7 +23,8 @@ export async function handleRequest(request,env,now=Date.now()){
   if(request.method==='GET'&&url.pathname==='/api/leaderboard'){
    const game=url.searchParams.get('game'),board=Object.hasOwn(BOARDS,game)?BOARDS[game]:null;
    if(!board||[...url.searchParams.keys()].some(k=>k!=='game'))return json({error:'invalid_board'},400);
-   return json({game,rules:board.rules,unit:board.unit,entries:await repo.top(game,board) },200,{'Cache-Control':'public, max-age=30'});
+   const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);
+   return json({game,rules:board.rules,unit:board.unit,...await repo.board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});
   }
   if(request.method!=='POST'||url.pathname!=='/api/leaderboard/submissions')return json({error:'method_not_allowed'},405);
   if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);

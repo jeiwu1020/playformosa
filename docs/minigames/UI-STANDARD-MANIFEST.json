@@ -657,5 +657,36 @@
         "sha256": "a882b57a52e10e2bba2a133bf35bd2e2786d3deb8883139c1cf61e0d0fcdd774"
       }
     ]
+  },
+  "honorBoard": {
+    "baseCommit": "08d5d4eef20b005f072587d1c093f0ac7543fc41",
+    "reason": "Two-game online honor board, optional single-owner auxiliary view and scoped toolbar; no physics/input/camera/PNG changes. All earlier ledgers retained.",
+    "files": [
+      {
+        "path": "long-jump/game.mjs",
+        "beforeSha256": "4117e9621c0135d8c52229d0721b022844be7cd2a0ddf897d47a986c96ff5761",
+        "sha256": "e2d6ac46087b3c3b5f54573edb002904b41ebcec60a065a2e5eeb8f0bdd0952a"
+      },
+      {
+        "path": "hurdles/game.mjs",
+        "beforeSha256": "849a983db0eef2c4808d7d13f1f7fa6b8af7beeb5e0ab5eecc4aba134e99703b",
+        "sha256": "7a73b4b75b157a4828e97f2c2a2985098d16f94f750f1d0caedefb42139e42bd"
+      },
+      {
+        "path": "shared/entry-shell.mjs",
+        "beforeSha256": "7054ce5e6528e2f059942475916fec920e3b1da78967924abf98235ab434260c",
+        "sha256": "a43a9199e2e89fa455a265e031d5e6dc1c215126b93fbe928a6329fd851bd43f"
+      },
+      {
+        "path": "shared/leaderboard.mjs",
+        "beforeSha256": "f049dc1ea39021aae20e5477b91f985ad669c00ca3fc0612cb34f422533fda92",
+        "sha256": "5e8b4b21b27dced5b3f30463af4db860c76e88f9884b124a61d893e9e0808db8"
+      },
+      {
+        "path": "shared/leaderboard.css",
+        "beforeSha256": "23b4645b5a96a8d3b18bc04c97d927f5611881d53ed16f81aa4dd049879a0958",
+        "sha256": "8685ffa334dde34bb0cf0e836c07c773668f234e04a5156f6baabe1de3b6e4d5"
+      }
+    ]
   }
 }

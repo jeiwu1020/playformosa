@@ -35,7 +35,7 @@ test('API strict same-origin/body bounded before DB and no client scope',async()
  assert.equal((await handleRequest(post('x'.repeat(2049)),env)).status,413);
  assert.equal((await handleRequest(post(JSON.stringify({...entry(1),environment:'production'})),env)).status,400);
  assert.equal((await handleRequest(post(JSON.stringify(entry(1))),env)).status,200);
- const result=await (await handleRequest(new Request('https://qa.example/api/leaderboard?game=long-jump'),env)).json();assert.equal(result.entries.length,1);assert.deepEqual(Object.keys(result.entries[0]).sort(),['nickname','score']);
+ const result=await (await handleRequest(new Request('https://qa.example/api/leaderboard?game=long-jump'),env)).json();assert.equal(result.entries.length,1);assert.deepEqual(Object.keys(result.entries[0]).sort(),['isMe','nickname','rank','score']);
  assert.equal((await handleRequest(new Request('https://qa.example/api/leaderboard?game=constructor'),env)).status,400);db.raw.close();
 });
 test('simultaneous same UUID is idempotent; conflicting race cannot update a second score',async()=>{

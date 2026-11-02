@@ -185,7 +185,7 @@ function draw(state,elapsed,replayView=null){
  }
 }
 function helpVisit(){leaderboard?.suspend();pauseRecovery.cancel();return suspendHelpPresentation(document,{pause:()=>{pauseGame();clear();},controllers:{overlay:modal},dialogs:['overlay'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused&&!replay.active)showPause();}});}
-const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});leaderboard=mountLeaderboard({document,game:'long-jump',entry:entry.dialog,result:$('overlay')});entry.open();
+const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});leaderboard=mountLeaderboard({document,game:'long-jump',entry:entry.dialog,shell:entry,result:$('overlay')});entry.open();
 requestAnimationFrame(frame);
 
 

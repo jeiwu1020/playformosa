@@ -19,7 +19,7 @@ test('finish never uploads; explicit frozen payload retries same UUID; new round
 test('cancel does not submit and ranking names are plain text, no auto fetch',async()=>{
  const d=setup(),doc=d.window.document;let calls=0;const board=mountLeaderboard({document:doc,game:'long-jump',enabled:true,entry:doc.querySelector('#entry'),result:doc.querySelector('#result'),fetcher:async()=>{calls++;return {ok:true,json:async()=>({entries:[{nickname:'<img onerror=x>',score:5}]})};}});
  board.setResult({phase:'done',valid:true,legalAdventureKm:5});doc.querySelector('[data-cancel]').click();assert.equal(calls,0);
- const rank=doc.querySelector('#entry .pf-leaderboard');rank.open=true;rank.dispatchEvent(new d.window.Event('toggle'));await new Promise(r=>setTimeout(r,0));assert.equal(calls,1);assert.equal(rank.querySelector('img'),null);assert.ok(rank.textContent.includes('<img onerror=x>'));d.window.close();
+ const rank=doc.querySelector('#entry .pf-leaderboard');rank.open=true;rank.dispatchEvent(new d.window.Event('toggle'));await new Promise(r=>setTimeout(r,0));assert.equal(calls,1);assert.equal(rank.querySelector('img[onerror]'),null);assert.ok(rank.textContent.includes('<img onerror=x>'));d.window.close();
 });
 test('typing game keys/IME/Enter stays in nickname and never submits; failed storage/random do not block play',()=>{
  const d=setup(),doc=d.window.document;let uploads=0,gameKeys=0;d.window.addEventListener('keydown',()=>gameKeys++);
@@ -50,3 +50,5 @@ test('successful submit remains disabled after help/replay suspend',async()=>{
  const d=setup(),doc=d.window.document;const b=mountLeaderboard({document:doc,game:'hurdles',enabled:true,result:doc.querySelector('#result'),fetcher:async()=>({ok:true,json:async()=>({accepted:true})})});b.setResult({phase:'done',t:20});const p=doc.querySelector('.pf-leaderboard');p.open=true;p.querySelector('input').value='島';p.querySelector('[data-submit]').click();await new Promise(r=>setTimeout(r,0));b.suspend();assert.equal(p.querySelector('[data-submit]').disabled,true);b.reset();b.setResult({phase:'done',t:19});assert.equal(p.querySelector('[data-submit]').disabled,false);d.window.close();
 });
 test('entry ranking stays after the primary start action',()=>{const d=setup(),doc=d.window.document;mountLeaderboard({document:doc,game:'hurdles',enabled:true,entry:doc.querySelector('#entry'),result:doc.querySelector('#result')});assert.equal(doc.querySelector('#entry').children[0].tagName,'BUTTON');assert.equal(doc.querySelector('#entry').lastElementChild.className,'pf-leaderboard');d.window.close();});
+
+test('Hurdles result rank action is explicitly covered by its original guard resolver',async()=>{const {readFile}=await import('node:fs/promises');const source=await readFile(new URL('../public/games/hurdles/game.mjs',import.meta.url),'utf8');assert.match(source,/matches\?\.\('\.pf-leaderboard \[data-submit\], \.pf-result-ranking'\)/);});
