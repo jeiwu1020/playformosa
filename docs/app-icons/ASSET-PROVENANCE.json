@@ -1,0 +1,1013 @@
+{
+  "source_commit": "0cbb77c801ca2198104c9263d0d0b26a9c45658d",
+  "creation_tool": "image_gen",
+  "exports": "ImageMagick Lanczos resize only, opaque PNG24; no crop/padding/art edits",
+  "records": [
+    {
+      "slug": "beer-slide",
+      "master": "masters/beer-slide-v1.png",
+      "sha256": "cfeec9017e25bab51885f168c4e6088769880cd58adad0e4450318bcc615c69f",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/beer-slide-v1.png",
+        "file_id": "file_000000002be881f691ba0fe5dd54e2fe",
+        "library_file_id": "libfile_e2771f41511481918def57024c4ba6f3",
+        "file_name": "beer-slide-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1612558,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/beer-slide-card.svg",
+        "repo_path": "public/assets/beer-slide-card.svg",
+        "git_blob": "134f2c595a903257a51d12d271fad5c10e2032a2",
+        "bytes": 1381839
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/beer-slide-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game's character/equipment identity reference; preserve the identity and polished playful 3D illustration. For athlete games keep curly brown hair, large anxious eyes, orange singlet with blank white bib, navy clothing. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. BEER SLIDING. Image 1 contains several historical designs: preserve ONLY the accepted TOP-RIGHT v6/smile mug (and matching bottom-left v6/landscape smile), not the old large-white-eye v5. Subject is ONE friendly clear chunky glass beer mug, amber beer, pale cream foam, handle at right, compact black bead eyes with tiny white glints, peach cheeks and simple curved black smile. Recompose as a large polished toy-like 3D mug sliding gently toward a simple bold teal-and-cream target ring underneath; keep the mug upright and all beer inside. No human character, no text, no history comparison sheet. Amber-gold accent. Use the family's opaque deep navy #102b36 background over the ENTIRE square, with only a restrained accent glow behind the central subject. Keep the subject COMPACT with generous 20% quiet navy margins on every side, all face and identifying equipment inside the central circle radius 38% of canvas width. No subject touching canvas edges. Favor broad shapes, clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    },
+    {
+      "slug": "discus",
+      "master": "masters/discus-v1.png",
+      "sha256": "315cbfc5dd7043e4dc77e13833bbe4215107988b4c30d5bb6ed4cad8beab49ef",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/discus-v1.png",
+        "file_id": "file_00000000455081f68a886b358485d0ac",
+        "library_file_id": "libfile_4a2998bf63a8819181ce58a485569871",
+        "file_name": "discus-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 2018745,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/discus-card.png",
+        "repo_path": "public/assets/discus-card.png",
+        "git_blob": "d06d54918503c0331ae60b3e76be1965e84911b6",
+        "bytes": 2206568
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/discus-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game's character/equipment identity reference; preserve the identity and polished playful 3D illustration. For athlete games keep curly brown hair, large anxious eyes, orange singlet with blank white bib, navy clothing. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. DISCUS THROW. Compact portrait of the exact athlete winding up with ONE large clearly FLAT DISCUS beside his face and shoulder, tilted to show the broad orange wooden face and shiny silver rim. Face, bent arm and discus dominate together. One broad curved motion swoosh is enough. Do not make the discus a ball or steering wheel. No arena or full body. Copper-orange accent. Use the family's opaque deep navy #102b36 background over the ENTIRE square, with only a restrained accent glow behind the central subject. Keep the subject COMPACT with generous 20% quiet navy margins on every side, all face and identifying equipment inside the central circle radius 38% of canvas width. No subject touching canvas edges. Favor broad shapes, clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    },
+    {
+      "slug": "high-jump",
+      "master": "masters/high-jump-v1.png",
+      "sha256": "0b19c246ff07da5bf259871e4e35942f9665e214f559d464cead6f72a8e86e96",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/high-jump-v1.png",
+        "file_id": "file_000000006f4081f6b1d38cca65d8e42d",
+        "library_file_id": "libfile_d05014c2a0ac8191a211b571d0104fea",
+        "file_name": "high-jump-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1931064,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/high-jump-card-source.png",
+        "repo_path": "public/assets/high-jump-card.png",
+        "git_blob": "4a128d0e717b50344e62a697adda34423c0e232d",
+        "bytes": 1968991
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/high-jump-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game character/equipment reference; preserve its curly brown hair, large anxious expressive eyes and teeth, orange singlet with blank white bib, navy shorts and blue-orange shoes, and polished playful 3D toy-like illustration style. Image 2 is family style/background reference ONLY, do not copy its island or play symbol. Recompose for a square icon, not a cropped or shrunken landscape cover. HIGH JUMP. Recompose the same athlete in an unmistakable compact backward arch over one bright gold horizontal HIGH-JUMP BAR, with a small turquoise landing-pad corner below. Face and arched upper body are large; the raised knee and bar distinguish this from hurdles. No pole, no hurdle frame. Gold accent. Use the same opaque deep navy #102b36 full-bleed background as the platform icon, with a restrained accent glow only behind subject. Favor broad shapes, crisp separation and large face+equipment readable at 32px. Keep ALL essential face/equipment comfortably within a centered circle radius 38% of canvas, with quiet navy corners; do not clip head, hands or equipment. Entire image opaque, square 1024x1024. No words, letters, digits, logos, watermark, UI, mockup frame, baked rounded corners, extra people, tiny scenery or confetti. Preserve source character identity; only recompose and simplify the scene for icon readability."
+    },
+    {
+      "slug": "hurdles",
+      "master": "masters/hurdles-v1.png",
+      "sha256": "0c74eb166dd054324d4c9bd7cdaa026bb8e7e8556ea8124f5a146b3ff1bfbf17",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/hurdles-v1.png",
+        "file_id": "file_00000000aa0c81f69d4e9294d4e39972",
+        "library_file_id": "libfile_4e7b9663b5388191a634522b8b9a173e",
+        "file_name": "hurdles-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1941238,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/hurdles-card-source.png",
+        "repo_path": "public/assets/hurdles-card.png",
+        "git_blob": "db89fb323cfff286621308512a944ee2d62d9824",
+        "bytes": 2206868
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/hurdles-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game character/equipment reference; preserve its curly brown hair, large anxious expressive eyes and teeth, orange singlet with blank white bib, navy shorts and blue-orange shoes, and polished playful 3D toy-like illustration style. Image 2 is family style/background reference ONLY, do not copy its island or play symbol. Recompose for a square icon, not a cropped or shrunken landscape cover. 110-metre HURDLES. Recompose the same athlete into a compact expressive jumping pose immediately above one unmistakable thick teal-and-cream striped HURDLE, with one shoe coming toward the viewer, large anxious face. The hurdle and shoe are bold foreground identifiers; no full stadium or track. Teal accent. Use the same opaque deep navy #102b36 full-bleed background as the platform icon, with a restrained accent glow only behind subject. Favor broad shapes, crisp separation and large face+equipment readable at 32px. Keep ALL essential face/equipment comfortably within a centered circle radius 38% of canvas, with quiet navy corners; do not clip head, hands or equipment. Entire image opaque, square 1024x1024. No words, letters, digits, logos, watermark, UI, mockup frame, baked rounded corners, extra people, tiny scenery or confetti. Preserve source character identity; only recompose and simplify the scene for icon readability."
+    },
+    {
+      "slug": "long-jump",
+      "master": "masters/long-jump-v1.png",
+      "sha256": "1219e3f7361d4c027cd30b41ce747b8eda5fa23485c3f4bfe419398753f4ad68",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/long-jump-v1.png",
+        "file_id": "file_000000001a8481f6af3b8d1860f726ce",
+        "library_file_id": "libfile_7cab004c82a88191b3d481ae9f038e4f",
+        "file_name": "long-jump-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 2153030,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/hero-long-jump.png",
+        "repo_path": "public/assets/hero-long-jump.png",
+        "git_blob": "89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f",
+        "bytes": 2290523
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/long-jump-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing long-jump game's character identity reference; preserve this curly brown hair, huge anxious eyes, gritted teeth, orange singlet with blank white bib, navy shorts, blue-orange sneakers and polished playful 3D illustration. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. LONG JUMP: compact forward landing pose, athlete's large expressive face in upper center and TWO chunky blue-orange shoes pointing forward in lower center above ONE simple golden sand swoosh. A minimal golden sand splash is the defining equipment-like cue. No hurdle, no bar, no pole, no stairs. Keep the face, hands and both shoes compact and entirely inside the central circle radius 38% of canvas width. Subject occupies only the CENTRAL 60% of the square, with generous 20% quiet navy margins on all sides; no part touches the edges. Use family opaque deep navy #102b36 background over ENTIRE square, restrained warm accent glow only behind central subject. Broad shapes and clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    },
+    {
+      "slug": "platform",
+      "master": "masters/platform-v1.png",
+      "sha256": "34a1b17e02e8a25579674f028c76688c7a22827c9ffc06a28d169df7f3bcf118",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/platform-v1.png",
+        "file_id": "file_000000001c00820dbcb1e244c6d961ff",
+        "library_file_id": "libfile_d3ba0f157c2c819180462a9eeff000bd",
+        "file_name": "platform-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1461547,
+        "external_connectors_accessed": false
+      },
+      "source_ref": null,
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/platform-v1.prompt.txt",
+      "generationPrompt": "Use case: stylized-concept. Asset type: production square raster app icon for the Taiwanese playful game platform 島遊無界 PlayFormosa. Create ONE polished icon, not a sheet or mockup. Subject: a bold friendly sculpted island-shaped badge with one large unmistakable triangular PLAY symbol integrated into it, suggesting Taiwan and boundless playful exploration. Refined toy-like 3D illustration with very simple broad forms, clean edge separation, warm orange main island, vivid teal sea accent, cream highlight, deep navy #102b36 full-bleed OPAQUE background. Center the symbol inside a circle of radius 37% of canvas width, all identity-defining detail within that circle, leaving quiet navy outer corners so arbitrary circle/squircle icon masking never clips the island or play mark. Visually large and legible at 32 pixels; use only two or three principal shapes, no tiny details. Square 1024 by 1024 composition, no text, no letters, no numbers, no slogans, no watermark, no app-device frame, no baked rounded corners, no transparency. Keep the playful high-quality soft 3D visual family suitable for character-and-sports-equipment icons, but the platform itself is a distinct abstract brand badge, not a sport."
+    },
+    {
+      "slug": "pole-vault",
+      "master": "masters/pole-vault-v1.png",
+      "sha256": "35c001d1d51d2d24fb4824a6f87947a178e712f9027689cacb56c3189cca5345",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/pole-vault-v1.png",
+        "file_id": "file_0000000095f081f6a4ca7747f46c3abf",
+        "library_file_id": "libfile_13d76dc4acec8191b5a849e5b37ab53a",
+        "file_name": "pole-vault-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 2036763,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/pole-vault-card-source.png",
+        "repo_path": "public/assets/pole-vault-card.png",
+        "git_blob": "3cf0d64cdb6ac290fff92a81ac73f34e6a3dffdd",
+        "bytes": 1761226
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/pole-vault-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game character/equipment reference; preserve its curly brown hair, large anxious expressive eyes and teeth, orange singlet with blank white bib, navy shorts and blue-orange shoes, and polished playful 3D toy-like illustration style. Image 2 is family style/background reference ONLY, do not copy its island or play symbol. Recompose for a square icon, not a cropped or shrunken landscape cover. POLE VAULT. Recompose the same athlete in a compact tucked flying pose with both hands visibly gripping one oversized flexing cream-and-red VAULTING POLE, curving around the face like a strong C shape. Face and pole dominate; only a tiny hint of the landing mat, no stadium. Coral-red accent. Use the same opaque deep navy #102b36 full-bleed background as the platform icon, with a restrained accent glow only behind subject. Favor broad shapes, crisp separation and large face+equipment readable at 32px. Keep ALL essential face/equipment comfortably within a centered circle radius 38% of canvas, with quiet navy corners; do not clip head, hands or equipment. Entire image opaque, square 1024x1024. No words, letters, digits, logos, watermark, UI, mockup frame, baked rounded corners, extra people, tiny scenery or confetti. Preserve source character identity; only recompose and simplify the scene for icon readability."
+    },
+    {
+      "slug": "reaction-rod",
+      "master": "masters/reaction-rod-v1.png",
+      "sha256": "e4d2436b40c7f33e18de7a66068f0f81937c9eec9163c6be5e1f5aa6590e8f45",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/reaction-rod-v1.png",
+        "file_id": "file_000000000e7881f6a72ceec7a570653d",
+        "library_file_id": "libfile_4fc5d6477de08191a5b00c975f7b7f35",
+        "file_name": "reaction-rod-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1778959,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/reaction-rod-card-source.png",
+        "repo_path": "public/assets/reaction-rod-card.png",
+        "git_blob": "8405deb9228d1402625b2f9a1703f1c216e59126",
+        "bytes": 1612035
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/reaction-rod-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game's character/equipment identity reference; preserve the identity and polished playful 3D illustration. For athlete games keep curly brown hair, large anxious eyes, orange singlet with blank white bib, navy clothing. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. REACTION ROD CATCHING night-market game. Compact portrait of the same reference athlete reaching up with one large open hand just below ONE vertical falling orange-and-cream short baton. Include one contrasting teal baton slightly behind to clearly suggest reaction catching; no full rack. Face, palm and falling batons must dominate together. Make the action readable at tiny size, no full body or complex scene. Lime-teal accent. Use the family's opaque deep navy #102b36 background over the ENTIRE square, with only a restrained accent glow behind the central subject. Keep the subject COMPACT with generous 20% quiet navy margins on every side, all face and identifying equipment inside the central circle radius 38% of canvas width. No subject touching canvas edges. Favor broad shapes, clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    },
+    {
+      "slug": "shot-put",
+      "master": "masters/shot-put-v1.png",
+      "sha256": "6fd605199a16e4342a3a7c415982e4914145ccdf55f15836d98ebab4c9e928fd",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/shot-put-v1.png",
+        "file_id": "file_00000000e94081f6b5c39711c1756b1b",
+        "library_file_id": "libfile_04d81c0bc2f0819192ad35fd4930fe8f",
+        "file_name": "shot-put-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 2030616,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/shot-put-card.png",
+        "repo_path": "public/assets/shot-put-card.png",
+        "git_blob": "a4333c66526a6e7a0d60913960a0610c87e1fcad",
+        "bytes": 2076959
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/shot-put-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game's character/equipment identity reference; preserve the identity and polished playful 3D illustration. For athlete games keep curly brown hair, large anxious eyes, orange singlet with blank white bib, navy clothing. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. SHOT PUT. Compact portrait of the exact reference athlete bracing ONE large dark metallic SHOT-PUT BALL against his neck and cheek with a strong hand. Large anxious face and clearly SPHERICAL ball dominate together, shoulders and one bent arm only. No full body or arena. Silver-grey ball and warm amber accent. Use the family's opaque deep navy #102b36 background over the ENTIRE square, with only a restrained accent glow behind the central subject. Keep the subject COMPACT with generous 20% quiet navy margins on every side, all face and identifying equipment inside the central circle radius 38% of canvas width. No subject touching canvas edges. Favor broad shapes, clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    },
+    {
+      "slug": "tower-climb",
+      "master": "masters/tower-climb-v1.png",
+      "sha256": "f9870a48e0d24f4d8ed5ffc0a31522c185b1c82aa9efa639e2fe49bc4d3332cc",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/tower-climb-v1.png",
+        "file_id": "file_00000000c25481f69009b58938d0f6d1",
+        "library_file_id": "libfile_9cdf1b9020508191b4e18cc7c834097a",
+        "file_name": "tower-climb-v1.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1880122,
+        "external_connectors_accessed": false
+      },
+      "source_ref": {
+        "local_path": "refs/tower-climb-card.png",
+        "repo_path": "public/assets/tower-climb-card.png",
+        "git_blob": "1f31e119fd8a5eab0bcafb6539096ae04a74b6be",
+        "bytes": 2089545
+      },
+      "fresh_restore_verified": true,
+      "prompt_file": "masters/tower-climb-v1.prompt.txt",
+      "generationPrompt": "Use case: identity-preserve. Asset type: ONE production square raster app icon, not a contact sheet. Image 1 is the exact existing game's character/equipment identity reference; preserve the identity and polished playful 3D illustration. For athlete games keep curly brown hair, large anxious eyes, orange singlet with blank white bib, navy clothing. Image 2 is family background/finish reference ONLY; never copy its island or play symbol. Recompose specifically for an app icon, not a shrunken landscape cover. INDOOR STAIR CLIMB. Compact pose of the exact reference athlete with large anxious face and ONE oversized bent knee and blue-orange shoe stepping up TWO chunky cream stairs, plus a short teal handrail. Diagonal rising steps must clearly identify stair climbing. Keep pose integrated as one compact badge, no full staircase or building. Cream and teal accent. Use the family's opaque deep navy #102b36 background over the ENTIRE square, with only a restrained accent glow behind the central subject. Keep the subject COMPACT with generous 20% quiet navy margins on every side, all face and identifying equipment inside the central circle radius 38% of canvas width. No subject touching canvas edges. Favor broad shapes, clear silhouette, large face/object, strong contrast readable at 32px. Square 1024x1024, opaque. Absolutely no words, letters, digits, logos, watermarks, UI, devices, frame, rounded-corner cutout, tiny scenery or confetti. Change only composition and simplify scene; preserve accepted source identity."
+    }
+  ],
+  "maskable_variants": [
+    {
+      "slug": "platform",
+      "master": "masters/platform-maskable-v2.png",
+      "sha256": "704bbdd2a8a4dbbe4d740406837120acb7e18b452ab7c33c10c694836852efbf",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/platform-maskable-v2.png",
+        "file_id": "file_00000000ffd081f6823c0bca0ceff0c7",
+        "library_file_id": "libfile_14e388f4ada08191ba66507c306f19fc",
+        "file_name": "platform-maskable-v2.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1340635,
+        "external_connectors_accessed": false
+      },
+      "prompt_file": "masters/platform-maskable-v2.prompt.txt",
+      "reason": "Keep complete island silhouette inside safe circle",
+      "fresh_restore_verified": true,
+      "normal_master_unchanged": true,
+      "generationPrompt": "Edit the reference into a dedicated MASKABLE APP ICON variant. Preserve exactly the original orange Taiwan-like island silhouette, cream triangular play mark, teal curling wave, playful sculpted 3D materials and deep navy background. The current island tip is cut off by a circular launcher mask. REFRAME by making the entire existing badge substantially smaller: approximately 70% of its current size, centered in the same square. The COMPLETE island silhouette including its north tip and bottom southern tip MUST fit within a central circle radius 32% of canvas width, with quiet navy space around it. Whole badge should span no more than 64% of canvas height. The integrated play triangle stays large relative to island. Surround with a continuous opaque deep navy #102b36 background, never a framed box or inset panel. Do not draw a circle or border. Square full-bleed opaque image, no transparent corners, no text, no added objects. This is safety re-framing, not a new brand design. Keep recognizable large simple forms despite smaller overall size."
+    },
+    {
+      "slug": "high-jump",
+      "master": "masters/high-jump-maskable-v2.png",
+      "sha256": "0f9f389e2e053648e560c6ed310694d694745d24ff906c8df90e94d94b54c421",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "library": {
+        "operation": "create_library_file",
+        "status": "succeeded",
+        "path": "/high-jump-maskable-v2.png",
+        "file_id": "file_00000000299081f6943d9536a5ff56d4",
+        "library_file_id": "libfile_0bdf4fe9a5c08191b1b94d54002925a4",
+        "file_name": "high-jump-maskable-v2.png",
+        "current_version_number": 0,
+        "restored_from_version_number": null,
+        "xattrs": [
+          {
+            "name": "user.library-file-version",
+            "value": "0"
+          }
+        ],
+        "directory_id": "libdir_305c837bb2788191b36ec4661d2f2944",
+        "mime_type": "image/png",
+        "library_artifact_type": "image_gen",
+        "file_size_bytes": 1588569,
+        "external_connectors_accessed": false
+      },
+      "prompt_file": "masters/high-jump-maskable-v2.prompt.txt",
+      "reason": "Keep face and backward-arch athlete silhouette inside safe circle",
+      "fresh_restore_verified": true,
+      "normal_master_unchanged": true,
+      "generationPrompt": "Edit the reference into a dedicated MASKABLE APP ICON variant. Preserve this exact anxious curly brown-haired athlete, orange blank-bib singlet, navy shorts, blue-orange sneakers, backward high-jump arch pose, golden horizontal bar and small teal mat. The athlete is currently too wide and circle masking cuts off hair and shoes. Recompose as a compact centered backward arch, approximately 65% the current overall width. The entire athlete silhouette INCLUDING all hair, both hands and BOTH complete shoes must fit fully inside a central circle radius 35% of canvas width. Leave at least 20% quiet deep navy margin on every outer side. Large face relative to compact torso; tucked bent knees to keep feet closer to center, while obvious back arch over the golden high-jump bar stays recognizable. The bar can extend beyond the safe circle, the athlete cannot. Make mat a small simple low teal shape below the bar, not a giant foreground block. Keep original polished playful 3D illustration, full-square opaque deep navy #102b36 background, subtle warm glow. Do not draw a circle, border or inset panel. No text, numbers, logos, new equipment or transparency. This is mask safety reframing of the same identity, not a new game illustration."
+    }
+  ],
+  "durableAssetArchive": {
+    "libraryFileId": "libfile_038927422d2481918cb119416e125ade",
+    "sha256": "9b05cad52357de817e5bc4d528102a08408d816fa781f69660b7a410eb6d35ca",
+    "fileName": "pf-app-icons-assets-20261102.tar.gz",
+    "freshRestoreVerified": true
+  },
+  "exportedFiles": [
+    {
+      "slug": "platform",
+      "path": "export/platform/favicon-32.png",
+      "source": "masters/platform-v1.png",
+      "size": 32,
+      "bytes": 1943,
+      "sha256": "e40c98f828e0754177b4d88aab9103fbae40998e0c1b604f1c64ef55b1572562",
+      "repoPath": "public/assets/app-icons/platform/favicon-32.png"
+    },
+    {
+      "slug": "platform",
+      "path": "export/platform/favicon-48.png",
+      "source": "masters/platform-v1.png",
+      "size": 48,
+      "bytes": 3702,
+      "sha256": "7c4fe1e794b894e5809e41609977f6d5d0fb9d199970c396d327c67b23bff3a0",
+      "repoPath": "public/assets/app-icons/platform/favicon-48.png"
+    },
+    {
+      "slug": "platform",
+      "path": "export/platform/apple-touch-icon.png",
+      "source": "masters/platform-v1.png",
+      "size": 180,
+      "bytes": 35238,
+      "sha256": "306a60e722efa7992d7c9146dc106393583b4e0bf35dd3165b13e0b4e82ca3e7",
+      "repoPath": "public/assets/app-icons/platform/apple-touch-icon.png"
+    },
+    {
+      "slug": "platform",
+      "path": "export/platform/icon-192.png",
+      "source": "masters/platform-v1.png",
+      "size": 192,
+      "bytes": 39390,
+      "sha256": "0dded91288fa1af6ab5f4c9ae425e951b8fd7a743b99f148a6b6a9c6024ab17b",
+      "repoPath": "public/assets/app-icons/platform/icon-192.png"
+    },
+    {
+      "slug": "platform",
+      "path": "export/platform/icon-512.png",
+      "source": "masters/platform-v1.png",
+      "size": 512,
+      "bytes": 246534,
+      "sha256": "b14d7085d22d513627419f4584c2fa9af8cfcd283aba042346516507309bdcb7",
+      "repoPath": "public/assets/app-icons/platform/icon-512.png"
+    },
+    {
+      "slug": "platform",
+      "path": "export/platform/icon-maskable-512.png",
+      "source": "masters/platform-maskable-v2.png",
+      "size": 512,
+      "bytes": 214654,
+      "sha256": "9b4f917a38c06ea08ac7437550cb684b23737498775bc5d3db4f52db3d96fc2a",
+      "repoPath": "public/assets/app-icons/platform/icon-maskable-512.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/favicon-32.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 32,
+      "bytes": 2249,
+      "sha256": "a14ed1c5c58ca8723c8ca7c739b57e39f55944e779ff9f9c8c19287de611048b",
+      "repoPath": "public/assets/app-icons/long-jump/favicon-32.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/favicon-48.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 48,
+      "bytes": 4624,
+      "sha256": "8d3930104e5ccc006bc4062c6dd51c3d52457b5ba9a7b6e8b22ccf631e9e4aa6",
+      "repoPath": "public/assets/app-icons/long-jump/favicon-48.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/apple-touch-icon.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 180,
+      "bytes": 51693,
+      "sha256": "8f4ad215070b4557f0cc9fccb901d20cfd501dc1fba2ba0519a27bbe1f5a8434",
+      "repoPath": "public/assets/app-icons/long-jump/apple-touch-icon.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/icon-192.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 192,
+      "bytes": 58245,
+      "sha256": "8e6f783ae1f2142f6670aab68bb0ccf00a9b1977fd74ac2d9d4a5b93bb083fdc",
+      "repoPath": "public/assets/app-icons/long-jump/icon-192.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/icon-512.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 512,
+      "bytes": 364798,
+      "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9",
+      "repoPath": "public/assets/app-icons/long-jump/icon-512.png"
+    },
+    {
+      "slug": "long-jump",
+      "path": "export/long-jump/icon-maskable-512.png",
+      "source": "masters/long-jump-v1.png",
+      "size": 512,
+      "bytes": 364798,
+      "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9",
+      "repoPath": "public/assets/app-icons/long-jump/icon-maskable-512.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/favicon-32.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 32,
+      "bytes": 2578,
+      "sha256": "c586b65fc23bcb33877c32c3a30e4175dd509eae6489c66b5b7da9fc48c833f2",
+      "repoPath": "public/assets/app-icons/hurdles/favicon-32.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/favicon-48.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 48,
+      "bytes": 5172,
+      "sha256": "06afe914e7236f93d51b2d3362a682b4ebfb80d3e9468b5af9abfb82efd8c0f4",
+      "repoPath": "public/assets/app-icons/hurdles/favicon-48.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/apple-touch-icon.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 180,
+      "bytes": 53033,
+      "sha256": "28ade360a4173b7e68e52eda4a783acdc9d05eabbbbf6d98e1a8e9eeb2fc8aad",
+      "repoPath": "public/assets/app-icons/hurdles/apple-touch-icon.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/icon-192.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 192,
+      "bytes": 59572,
+      "sha256": "3caec924ddefbf54b68a335c9364645beb6498aa381a0c32644a98c7b542c251",
+      "repoPath": "public/assets/app-icons/hurdles/icon-192.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/icon-512.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 512,
+      "bytes": 354353,
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a",
+      "repoPath": "public/assets/app-icons/hurdles/icon-512.png"
+    },
+    {
+      "slug": "hurdles",
+      "path": "export/hurdles/icon-maskable-512.png",
+      "source": "masters/hurdles-v1.png",
+      "size": 512,
+      "bytes": 354353,
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a",
+      "repoPath": "public/assets/app-icons/hurdles/icon-maskable-512.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/favicon-32.png",
+      "source": "masters/high-jump-v1.png",
+      "size": 32,
+      "bytes": 2375,
+      "sha256": "0184010b748f433da4d104ea846cd8bd2ad8fe9a635997cd1cd15f8bf045a2b6",
+      "repoPath": "public/assets/app-icons/high-jump/favicon-32.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/favicon-48.png",
+      "source": "masters/high-jump-v1.png",
+      "size": 48,
+      "bytes": 4846,
+      "sha256": "e58ee705dfad11e50fef63262b01ccafc391b04736ed5be3c52d230c559b0d1f",
+      "repoPath": "public/assets/app-icons/high-jump/favicon-48.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/apple-touch-icon.png",
+      "source": "masters/high-jump-v1.png",
+      "size": 180,
+      "bytes": 49178,
+      "sha256": "4015f936f7f21d6558ac279e20f0d478396b6356a63016c11aca0eab9bde515d",
+      "repoPath": "public/assets/app-icons/high-jump/apple-touch-icon.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/icon-192.png",
+      "source": "masters/high-jump-v1.png",
+      "size": 192,
+      "bytes": 55073,
+      "sha256": "7dd79b6f90c441c0cf1f767755853e004f9591c74efb1ac93e01311f20e9e17c",
+      "repoPath": "public/assets/app-icons/high-jump/icon-192.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/icon-512.png",
+      "source": "masters/high-jump-v1.png",
+      "size": 512,
+      "bytes": 329238,
+      "sha256": "feae7dcf60883088ca0830c5096d773388a9d726436f71735efdfbf0c6940314",
+      "repoPath": "public/assets/app-icons/high-jump/icon-512.png"
+    },
+    {
+      "slug": "high-jump",
+      "path": "export/high-jump/icon-maskable-512.png",
+      "source": "masters/high-jump-maskable-v2.png",
+      "size": 512,
+      "bytes": 268563,
+      "sha256": "9d14254607e16211993ac128855ece243df0a64333038a889258f145769c5a7f",
+      "repoPath": "public/assets/app-icons/high-jump/icon-maskable-512.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/favicon-32.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 32,
+      "bytes": 2490,
+      "sha256": "67e7a86af5663cc3c6a157c87c088803aad873ea5558f416577994c5d6cbeb9f",
+      "repoPath": "public/assets/app-icons/pole-vault/favicon-32.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/favicon-48.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 48,
+      "bytes": 4968,
+      "sha256": "2ee91f97bfb64504aaae0cfa8921402192496273a28b6a0db4166d9cc8f56aab",
+      "repoPath": "public/assets/app-icons/pole-vault/favicon-48.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/apple-touch-icon.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 180,
+      "bytes": 51861,
+      "sha256": "983153fada20a20f0c3c079e37b6e317615bfefd5f8dc88b46fd3af1ef149b96",
+      "repoPath": "public/assets/app-icons/pole-vault/apple-touch-icon.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/icon-192.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 192,
+      "bytes": 58118,
+      "sha256": "d06865d2b826d69d1489eb457b07129b48823029b653fd669f8c6f17a95de43b",
+      "repoPath": "public/assets/app-icons/pole-vault/icon-192.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/icon-512.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 512,
+      "bytes": 348307,
+      "sha256": "cbaf93a2ee89cdc7b2fec6ef02d861e7665879f92dbe84688ff2c966e95ce656",
+      "repoPath": "public/assets/app-icons/pole-vault/icon-512.png"
+    },
+    {
+      "slug": "pole-vault",
+      "path": "export/pole-vault/icon-maskable-512.png",
+      "source": "masters/pole-vault-v1.png",
+      "size": 512,
+      "bytes": 348307,
+      "sha256": "cbaf93a2ee89cdc7b2fec6ef02d861e7665879f92dbe84688ff2c966e95ce656",
+      "repoPath": "public/assets/app-icons/pole-vault/icon-maskable-512.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/favicon-32.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 32,
+      "bytes": 2227,
+      "sha256": "0270979e62e3bb753a49eee4cb89d75393e9259e3eaf92643924282a8777ffec",
+      "repoPath": "public/assets/app-icons/shot-put/favicon-32.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/favicon-48.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 48,
+      "bytes": 4428,
+      "sha256": "c3333a47bf7f1c277ec13e6eecde16c894d5a342a94db05b09f2322a72d09dad",
+      "repoPath": "public/assets/app-icons/shot-put/favicon-48.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/apple-touch-icon.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 180,
+      "bytes": 45451,
+      "sha256": "5a4db78d865a3fbe16eb58ca9c3d09924eccc72ceff04c368e7c0aa2ce969613",
+      "repoPath": "public/assets/app-icons/shot-put/apple-touch-icon.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/icon-192.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 192,
+      "bytes": 50938,
+      "sha256": "5f2a93f8944b0bfc02ca82f6dea3040839d2491d0b23df9828a59bad64d95c36",
+      "repoPath": "public/assets/app-icons/shot-put/icon-192.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/icon-512.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 512,
+      "bytes": 319632,
+      "sha256": "9d3a5e06809ac649c03bb1e2ed0a6e0878581563fa58cc6027735aae32bc9c40",
+      "repoPath": "public/assets/app-icons/shot-put/icon-512.png"
+    },
+    {
+      "slug": "shot-put",
+      "path": "export/shot-put/icon-maskable-512.png",
+      "source": "masters/shot-put-v1.png",
+      "size": 512,
+      "bytes": 319632,
+      "sha256": "9d3a5e06809ac649c03bb1e2ed0a6e0878581563fa58cc6027735aae32bc9c40",
+      "repoPath": "public/assets/app-icons/shot-put/icon-maskable-512.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/favicon-32.png",
+      "source": "masters/discus-v1.png",
+      "size": 32,
+      "bytes": 2310,
+      "sha256": "1208885f05e8eef765fafd6033f6404793f5f6d69128649ca41c149b577f416c",
+      "repoPath": "public/assets/app-icons/discus/favicon-32.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/favicon-48.png",
+      "source": "masters/discus-v1.png",
+      "size": 48,
+      "bytes": 4648,
+      "sha256": "9ec88fde6399535c888b7d3e660511767e7f6930d2bd41ea1e122b36a203f331",
+      "repoPath": "public/assets/app-icons/discus/favicon-48.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/apple-touch-icon.png",
+      "source": "masters/discus-v1.png",
+      "size": 180,
+      "bytes": 48468,
+      "sha256": "25a0027c589aaf7b27524253188b0eaad8fc868e8a9bbc4d75b911e992801eec",
+      "repoPath": "public/assets/app-icons/discus/apple-touch-icon.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/icon-192.png",
+      "source": "masters/discus-v1.png",
+      "size": 192,
+      "bytes": 54292,
+      "sha256": "50ed92bffa4cc457a88a22f17448dad1f4b5d9ed910887238b288b5a9c9a3ba7",
+      "repoPath": "public/assets/app-icons/discus/icon-192.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/icon-512.png",
+      "source": "masters/discus-v1.png",
+      "size": 512,
+      "bytes": 328992,
+      "sha256": "c9f9302482bdc37888785cff32f91be3e876f7bb34e53842628cfaa1be8a5c04",
+      "repoPath": "public/assets/app-icons/discus/icon-512.png"
+    },
+    {
+      "slug": "discus",
+      "path": "export/discus/icon-maskable-512.png",
+      "source": "masters/discus-v1.png",
+      "size": 512,
+      "bytes": 328992,
+      "sha256": "c9f9302482bdc37888785cff32f91be3e876f7bb34e53842628cfaa1be8a5c04",
+      "repoPath": "public/assets/app-icons/discus/icon-maskable-512.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/favicon-32.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 32,
+      "bytes": 2198,
+      "sha256": "1191dd582f3f06bd819ae58f71d28ae9695a4e31e761bd77c3f756c72a08bf75",
+      "repoPath": "public/assets/app-icons/reaction-rod/favicon-32.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/favicon-48.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 48,
+      "bytes": 4439,
+      "sha256": "f53b46516cd501fc539d190f30039a656797308ac8cab68d760a4ecbc9792de5",
+      "repoPath": "public/assets/app-icons/reaction-rod/favicon-48.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/apple-touch-icon.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 180,
+      "bytes": 44974,
+      "sha256": "c2584c71ca1cb86df920d461b12b0e0a85b46108717728353b74bc97b0f0540f",
+      "repoPath": "public/assets/app-icons/reaction-rod/apple-touch-icon.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/icon-192.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 192,
+      "bytes": 50314,
+      "sha256": "d747eb51ef28faedd29e5e10607a44b52832ef55da9f6d8866fdd7f6dbc89377",
+      "repoPath": "public/assets/app-icons/reaction-rod/icon-192.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/icon-512.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 512,
+      "bytes": 293960,
+      "sha256": "8f19ab07ad0ac9208b70c4dd400662ff5df163de44eb0be8ebe75e6345b31a7e",
+      "repoPath": "public/assets/app-icons/reaction-rod/icon-512.png"
+    },
+    {
+      "slug": "reaction-rod",
+      "path": "export/reaction-rod/icon-maskable-512.png",
+      "source": "masters/reaction-rod-v1.png",
+      "size": 512,
+      "bytes": 293960,
+      "sha256": "8f19ab07ad0ac9208b70c4dd400662ff5df163de44eb0be8ebe75e6345b31a7e",
+      "repoPath": "public/assets/app-icons/reaction-rod/icon-maskable-512.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/favicon-32.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 32,
+      "bytes": 2046,
+      "sha256": "b7ef059da257580105a2d8a2c28c4ddb255667759ffc21efed7cca752ae3db7a",
+      "repoPath": "public/assets/app-icons/beer-slide/favicon-32.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/favicon-48.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 48,
+      "bytes": 3962,
+      "sha256": "1456ae7d537c9be59df7566594db60d331855f777599c92db6f819743ab29d49",
+      "repoPath": "public/assets/app-icons/beer-slide/favicon-48.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/apple-touch-icon.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 180,
+      "bytes": 39132,
+      "sha256": "d7e0aa9f2b82de2100d9fb0a8a0acd63fe6ddfb2e24389d7b7e53149cb79a13d",
+      "repoPath": "public/assets/app-icons/beer-slide/apple-touch-icon.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/icon-192.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 192,
+      "bytes": 43757,
+      "sha256": "8be4dbcb6b9061beedf3440748d4406ee77549e7f4472d56b34168a500828932",
+      "repoPath": "public/assets/app-icons/beer-slide/icon-192.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/icon-512.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 512,
+      "bytes": 267508,
+      "sha256": "6a3994b3bca2533408ccc14a519108284cecb96baf0e44df6ecc4425e485eee2",
+      "repoPath": "public/assets/app-icons/beer-slide/icon-512.png"
+    },
+    {
+      "slug": "beer-slide",
+      "path": "export/beer-slide/icon-maskable-512.png",
+      "source": "masters/beer-slide-v1.png",
+      "size": 512,
+      "bytes": 267508,
+      "sha256": "6a3994b3bca2533408ccc14a519108284cecb96baf0e44df6ecc4425e485eee2",
+      "repoPath": "public/assets/app-icons/beer-slide/icon-maskable-512.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/favicon-32.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 32,
+      "bytes": 2159,
+      "sha256": "eda1bebfdbe6ecac431459b0c676e76b8dd1f7d0343cb61077dc0b5855af6b3c",
+      "repoPath": "public/assets/app-icons/tower-climb/favicon-32.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/favicon-48.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 48,
+      "bytes": 4285,
+      "sha256": "60a30c21a971287376cf06334462c8c2cba80d74f73b44cf1d30e66bc1040a2a",
+      "repoPath": "public/assets/app-icons/tower-climb/favicon-48.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/apple-touch-icon.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 180,
+      "bytes": 44330,
+      "sha256": "c883c27036406f83e97a959f555f452d95ee99bd79262b1878418552826cf41e",
+      "repoPath": "public/assets/app-icons/tower-climb/apple-touch-icon.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/icon-192.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 192,
+      "bytes": 49785,
+      "sha256": "0344ad4205833c5bbc7073c57c9251996b455d9a6d1f29507b037c2969c22e0c",
+      "repoPath": "public/assets/app-icons/tower-climb/icon-192.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/icon-512.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 512,
+      "bytes": 307790,
+      "sha256": "c314c90295b10437005d9e7bfa38b98d270e6e638dbe02cf736d4468b82e4f2b",
+      "repoPath": "public/assets/app-icons/tower-climb/icon-512.png"
+    },
+    {
+      "slug": "tower-climb",
+      "path": "export/tower-climb/icon-maskable-512.png",
+      "source": "masters/tower-climb-v1.png",
+      "size": 512,
+      "bytes": 307790,
+      "sha256": "c314c90295b10437005d9e7bfa38b98d270e6e638dbe02cf736d4468b82e4f2b",
+      "repoPath": "public/assets/app-icons/tower-climb/icon-maskable-512.png"
+    }
+  ],
+  "review": "Independent root review approved all ten normal icons at 32/48px and radius40% circular masks, with dedicated image_gen v2 platform/high-jump maskable variants."
+}

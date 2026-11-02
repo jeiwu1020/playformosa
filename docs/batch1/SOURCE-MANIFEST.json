@@ -59,7 +59,7 @@
         {
           "path": "index.html",
           "sourceSha256": "12306100a589e66d171062ebcc216b16e65b40be852550748ef20f0dff186b7c",
-          "importedSha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
+          "importedSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
           "unchanged": false,
           "previousIntegratedSha256": "113cb052fcef38561a1b44aaa3636819657e71f15e59eeb6d8d2ba9e97b3adcd",
           "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
@@ -67,7 +67,13 @@
             "previousIntegratedSha256": "e1915b1d0e069410fe63170629ac93936fed6d750fb25db129dab1dcda22e284",
             "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
           },
-          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2",
+          "appIconMetadata": {
+            "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
+            "beforeSha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
+            "afterSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+            "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+          }
         },
         {
           "path": "physics.mjs",
@@ -245,7 +251,7 @@
         {
           "path": "index.html",
           "sourceSha256": "abd1158798e23300d870f4ded12e956056fb6c31b1ffb6cd9d967b198d2f24a6",
-          "importedSha256": "8fa61b28bd20ef6b8e59cae6cc7877a1a4b053444c8842e49f421efaa9a79b53",
+          "importedSha256": "b8aef13ff6bc3d98c4b0906242e1c12eb803e62c0c0c952f9df49ec427d5c309",
           "unchanged": false,
           "previousIntegratedSha256": "46d3536d70474cf58e6b869fde403974838343f5bdece0b34643ffc9ca5a8db0",
           "adaptation": "User-approved phase1: shared page-level entry admission and seven-game AS/JK presentation frame; original source origin, physics, input identities, rendering algorithms, scores and assets preserved. Initial start requires successful renderer presentation.",
@@ -253,7 +259,13 @@
             "previousIntegratedSha256": "1d0d63e1ccdf1746c536b69b86a5fc7a8f38ace003f6eb503bbf9ed6c05cf4f7",
             "adaptation": "Approved stage4 entry copy: one goal and two core operations, advanced help collapsed; original mechanics/input identities unchanged."
           },
-          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2"
+          "adaptationBaselineCommit": "b482956d416457f85019d338477075af6781aae2",
+          "appIconMetadata": {
+            "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
+            "beforeSha256": "8fa61b28bd20ef6b8e59cae6cc7877a1a4b053444c8842e49f421efaa9a79b53",
+            "afterSha256": "b8aef13ff6bc3d98c4b0906242e1c12eb803e62c0c0c952f9df49ec427d5c309",
+            "scope": "Head-only per-game favicon, Apple home-screen icon, manifest and names. Body, storage, mechanics, audio and original art unchanged."
+          }
         },
         {
           "path": "ui-state.mjs",

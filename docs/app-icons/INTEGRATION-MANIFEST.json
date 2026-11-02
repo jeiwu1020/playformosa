@@ -1,0 +1,103 @@
+{
+  "baselineCommit": "c787bd58c3043fa255b9f52809848408b76bef87",
+  "baselineTree": "5a4cc33aae3502af2464bbc9005a9d762ce4b04e",
+  "scope": "Metadata-only head changes. Original bodies, original game art, controls, physics, storage and service-worker state untouched. Platform root scope overlaps children; separate-install behavior is browser-dependent.",
+  "pages": [
+    {
+      "path": "public/index.html",
+      "beforeGitBlobSha": "7ad054f7b03f1457d6fdfb1d5cdbcdb6bde8368b",
+      "beforeSha256": "bae37b4b987bbb747d5a9e03620f9bf430b45e7cc5b97e1e762eb519f465f237",
+      "afterSha256": "cc6400bc243ecc0b39bbcd6737a8d47545c5543065f349b659674f6ea6764db9",
+      "bodySha256": "f540ba3039e2db0551f40c0eef0d826298149cd683eee0f8c560985d9e11914f"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "beforeGitBlobSha": "9642cdef93606252e431e56579312e9afc48a397",
+      "beforeSha256": "e22237232721e6c23e6843e1fcf8a72ab14f77b808a020af23fc667c3d3549c3",
+      "afterSha256": "af8f0e9553401d49558aff9bc7140af2b3ee647e18a589f3db5c87256c98786c",
+      "bodySha256": "6603949c7fb564c8480349d6e304133177f506e2ca09cb648bb98426916b292e"
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "beforeGitBlobSha": "f7aee20a7db6d0179a66fec01672063e8205b56c",
+      "beforeSha256": "21fb261b7dcb562ac124bb9f8f4d5225362b5178fdc8c650f7c1aa151615d79a",
+      "afterSha256": "85025bb8c2fdc49a05501ab155548ef50b5e4c445e45d6e4ee28d9db1b2b30b3",
+      "bodySha256": "1faf11212e81935520bfd43320e485a1e89161f8ad8860508d1dcabb0d5e3e5c"
+    },
+    {
+      "path": "public/games/high-jump/index.html",
+      "beforeGitBlobSha": "f12191a38d6b7d7235854c42a8711ba0f2e3d106",
+      "beforeSha256": "86dcd34e5f8d1e1206ff4e81241e2ea1491c2ef980c8d15d454546ecf96c8020",
+      "afterSha256": "0525cb94d23b6983f41edeeca4d8e7e29909fac0ea8d066b67d2b1f40954ced9",
+      "bodySha256": "f66d37e8ca95686b661a0860bb00e74b6ddf81b9956ed86771f9db8d88dc0c1d"
+    },
+    {
+      "path": "public/games/pole-vault/index.html",
+      "beforeGitBlobSha": "a6f21a5308849c55860bca16b523e3a5add2c7c2",
+      "beforeSha256": "8fa61b28bd20ef6b8e59cae6cc7877a1a4b053444c8842e49f421efaa9a79b53",
+      "afterSha256": "b8aef13ff6bc3d98c4b0906242e1c12eb803e62c0c0c952f9df49ec427d5c309",
+      "bodySha256": "7b9905146ec461b85b28a6524957219c6438f227d544f5d1d9f00a871ca29940"
+    },
+    {
+      "path": "public/games/shot-put/index.html",
+      "beforeGitBlobSha": "aab8341cf1a41a913d36cb858b5291a65f559231",
+      "beforeSha256": "a30a44057bab1ee1d89fa56d0a1b0c7b8e897348e16d4a1e3b8a1c62f430f893",
+      "afterSha256": "be61107f30de72daffcb7c840cb8dfb29fd34740a2d70f20cc70d8822e69b3e8",
+      "bodySha256": "1c99feb573e41dc60f525529497464ef84af9c67099a70b017cdd894e1146ddf"
+    },
+    {
+      "path": "public/games/discus/index.html",
+      "beforeGitBlobSha": "74c8363fdb6833459b35b7bbb9036970b7e6ae0d",
+      "beforeSha256": "bc5b0e9d080bf29e5f20123c492e96625b8bca37ef384afa3ffff38e0338904e",
+      "afterSha256": "31b8b5afcde973aa09bf41d240da8ca3eaf2f5b2c83f96edb494188a4971194a",
+      "bodySha256": "a388026f49fe7950756742f8b058b622f3bed452fcd5d1de83887431c4b6e5d6"
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "beforeGitBlobSha": "28d8b230e78d1b8cd882be72b3e04e2886d0d5d8",
+      "beforeSha256": "348c205eba1e2c7a1e34d6097b29f411c04e196267aed7b895a4e7f915e5ff17",
+      "afterSha256": "638f33491f5edc52a799d45174dcd9073dce98b7ecb4a2149ff16da7b0974088",
+      "bodySha256": "f286ee81b8e6fe0eca9e0c803ca04cccc732912f30731ca71f8c30407a46b1d2"
+    },
+    {
+      "path": "public/games/beer-slide/index.html",
+      "beforeGitBlobSha": "e932f70653f4cd6351877214d0bdb811acc711a2",
+      "beforeSha256": "ec4fae0f3cec8ef687a14070eaa467374b5c2048b6e10f428cf0ad96ca13e56a",
+      "afterSha256": "d6a61e380a3c2b9162c5f626fe473f152bf7858fbb0363e564045d3d6a7ee1f7",
+      "bodySha256": "f27efc59f88d44e748b3c7311bb3288b762de58aa70f6f0a1e3097e9f0ec502d"
+    },
+    {
+      "path": "public/games/tower-climb/index.html",
+      "beforeGitBlobSha": "e02d0cd6bce3e9b654944e980a100938c14c4896",
+      "beforeSha256": "607a527cbe0ac182c142eb487e3f9864572866cf65c521a13c03b9e36b8f1d13",
+      "afterSha256": "b66e435404f5c546253132d6def24af06e0c3c61948fa41e474a7b05bba2371e",
+      "bodySha256": "ee438429a6f6de1eb74fbf4bb03bd9e920af8e25f91d407acb854c30977e10a3"
+    }
+  ],
+  "supportingFiles": [
+    {
+      "path": "src/render.mjs",
+      "beforeGitBlobSha": "d69942e8e4410d253d868f8a48339ef978504650",
+      "beforeSha256": "74eaaf6112e2607c2939b2c05c98aff20f3119e588e44ca2d509bfdbe310b3d6",
+      "afterSha256": "02f5a3bcd2da25ec1e73341cb398be85a40a198e8552288c4dd1ebad6db65516"
+    },
+    {
+      "path": "docs/batch1/SOURCE-MANIFEST.json",
+      "beforeGitBlobSha": "846cf8593595006f0c15cd1157252b2de0b206d5",
+      "beforeSha256": "ca653240482f099486aaffa850fa646eed23684e3386cc1d897615cb5e80491a",
+      "afterSha256": "cfd2fbb2f8a71b315b7b36bf4d058d3b78052ff516b8c70855ccc4275ed69d72"
+    },
+    {
+      "path": "docs/batch2/SOURCE-MANIFEST.json",
+      "beforeGitBlobSha": "01aa293116a372b323fcb21b7408ff1d3113f957",
+      "beforeSha256": "089e8972679d4071185d4f84dcbe06c8d6892825dfa3c1a7f8b7744d222ab402",
+      "afterSha256": "eb7d3e35b9dcd6a28afe88d982dc30427d2dbc82d41e0c7ada776e522a1244a7"
+    },
+    {
+      "path": "docs/minigames/UI-STANDARD-MANIFEST.json",
+      "beforeGitBlobSha": "0fe41a1a10178a96979e580aaa3ad5d25868ea16",
+      "beforeSha256": "3213c2ec676449fba2c5c432fdad8ae93427ad72d0b64af280d465d4a4737043",
+      "afterSha256": "e817f404c640826bdd88dca0346e6d7655312afbc7ffd9f8eafe30433b012bd3"
+    }
+  ]
+}
