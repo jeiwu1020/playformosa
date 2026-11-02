@@ -1,0 +1,22 @@
+{
+  "entry": "taiwanfighter",
+  "verifiedAt": "2026-11-02",
+  "sourceHomepage": "https://taiwanfighter.playformosa.workers.dev/",
+  "method": "Public rendered homepage DOM/CSS inspection, then supported browser downloadMedia; original bytes retained. No synthesized art or fabricated screenshots.",
+  "assets": [
+    {
+      "path": "public/assets/portal-taiwanfighter.webp",
+      "sourceUrl": "https://taiwanfighter.playformosa.workers.dev/assets/ui/backgrounds/bg_main_menu_signs_v3.webp",
+      "evidence": "homepage backdrop image",
+      "bytes": 1330786,
+      "sha256": "d0bdbe0c59f980057e5bd9e51b396b5be5553977f5717645cfc79722eff587b1"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter-logo.webp",
+      "sourceUrl": "https://taiwanfighter.playformosa.workers.dev/assets/ui/main-menu/main-menu-logo-v1.webp",
+      "evidence": "visible original game logo",
+      "bytes": 505338,
+      "sha256": "292ba1fbc8c420980a013c07d9db667ce2742e7ed65edbf6238e12f4a2c942d3"
+    }
+  ]
+}

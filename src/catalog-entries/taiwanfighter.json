@@ -1,0 +1,16 @@
+{
+  "id": "taiwanfighter",
+  "title": "武鬥台灣魂",
+  "description": "走進台灣街景，準備好了就進場吧。",
+  "genre": "2D 格鬥・建議橫向",
+  "image": "/assets/portal-taiwanfighter.webp",
+  "logo": "/assets/portal-taiwanfighter-logo.webp",
+  "eyebrow": "TAIWAN BATTLE SPIRIT",
+  "order": 40,
+  "kind": "game",
+  "href": "https://taiwanfighter.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": false
+  }
+}
