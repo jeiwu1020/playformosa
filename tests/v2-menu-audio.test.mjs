@@ -1,0 +1,21 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{JSDOM}from'jsdom';
+import{createEntryShell}from'../public/games/shared/entry-shell.mjs';
+function setup(){const dom=new JSDOM('<!doctype html><body><header class="pf-header"><nav><button id="old-music">♫ 關</button></nav></header><main></main></body>',{url:'https://example.test'});return{dom,d:dom.window.document};}
+// Browser audio boundary only: state and subscriptions mirror the agreed real audio contract.
+function audio(){let state={musicEnabled:true,effectsEnabled:true,musicVolume:.5,effectsVolume:.7,musicStatus:'locked',effectsStatus:'locked',musicPlaying:false,suspended:true},listeners=new Set(),unlocks=0;const emit=()=>listeners.forEach(fn=>fn({...state}));return{getState:()=>({...state}),subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},setMusicEnabled(v){state.musicEnabled=v;emit();},setEffectsEnabled(v){state.effectsEnabled=v;emit();},setMusicVolume(v){state.musicVolume=v;emit();},setEffectsVolume(v){state.effectsVolume=v;emit();},unlock(){unlocks++;},change(p){Object.assign(state,p);emit();},get unlocks(){return unlocks;},get listeners(){return listeners.size;}};}
+test('music ON describes enabled preference even before gesture; separate numeric sliders update their own channels',()=>{
+ const{dom,d}=setup(),a=audio(),shell=createEntryShell({document:d,title:'x',goal:'g',operations:['a','b'],onStart(){},forceFallback:true});assert.equal(typeof shell.setAudio,'function');shell.setAudio(a);shell.configurePause({onContinue(){},onRestart(){}});shell.openPause();
+ const music=d.querySelector('[data-pf-music-toggle]');assert.equal(music.textContent,'音樂 開');assert.equal(music.getAttribute('aria-pressed'),'true');assert.match(shell.dialog.querySelector('[data-pf-audio-status]').textContent,/點擊.*啟用/);
+ const m=shell.dialog.querySelector('[data-pf-volume="music"]'),s=shell.dialog.querySelector('[data-pf-volume="effects"]');assert.equal(m.value,'50');assert.equal(s.value,'70');m.value='0';m.dispatchEvent(new dom.window.Event('input',{bubbles:true}));assert.equal(a.getState().musicVolume,0);assert.equal(a.getState().effectsVolume,.7);assert.equal(music.textContent,'音樂 開');
+ s.value='25';s.dispatchEvent(new dom.window.Event('input',{bubbles:true}));assert.equal(a.getState().effectsVolume,.25);assert.equal(shell.dialog.querySelector('[data-pf-volume-value="effects"]').textContent,'25%');assert.equal(a.unlocks,2);
+ shell.destroy();assert.equal(a.listeners,0);dom.window.close();
+});
+test('adapter replacement unsubscribes, mute is independent, and loading/errors never masquerade as preference OFF',()=>{
+ const{dom,d}=setup(),a=audio(),b=audio(),shell=createEntryShell({document:d,title:'x',goal:'g',operations:['a','b'],onStart(){},forceFallback:true});assert.equal(typeof shell.setAudio,'function');shell.setAudio(a);shell.setAudio(b);assert.equal(a.listeners,0);shell.configurePause({onContinue(){},onRestart(){}});shell.openPause();
+ shell.dialog.querySelector('[data-pf-enable="effects"]').click();assert.equal(b.getState().effectsEnabled,false);assert.equal(b.getState().musicEnabled,true);b.change({musicStatus:'error',message:'音樂載入失敗'});assert.equal(d.querySelector('[data-pf-music-toggle]').textContent,'音樂 開');assert.match(shell.dialog.querySelector('[data-pf-audio-status]').textContent,/失敗/);b.change({musicStatus:'loading'});assert.match(shell.dialog.querySelector('[data-pf-audio-status]').textContent,/載入/);shell.destroy();dom.window.close();
+});
+
+test('late audio attachment hides legacy header music but keeps its listener node and canonical help last',()=>{
+ const{dom,d}=setup(),a=audio(),help=d.createElement('button');help.className='pf-entry-help';d.querySelector('nav').append(help);d.querySelector('#old-music').id='music';const old=d.querySelector('#music');let oldClicks=0;old.addEventListener('click',()=>oldClicks++);
+ const shell=createEntryShell({document:d,title:'x',goal:'g',operations:['a','b'],onStart(){},forceFallback:true});shell.setAudio(a);assert.equal(old.hidden,true);assert.equal(old.isConnected,true);assert.equal(d.querySelector('nav').lastElementChild,help);old.click();assert.equal(oldClicks,1);shell.destroy();dom.window.close();
+});

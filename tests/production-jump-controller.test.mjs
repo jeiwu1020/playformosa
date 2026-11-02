@@ -32,7 +32,7 @@ function boot(standalone){
  const context={recordPlayStart,...physics,...world,...presentation,...controls,...dialogs,...layout,...surface,...share,splitResultComment,mountProductionJumpLeaderboard,helpIsOpen,ensurePauseHelp,
  THREE:{...Three,WebGLRenderer:function(){return renderer}},document:d,window:w,navigator:w.navigator,location:w.location,localStorage:w.localStorage,
  ResizeObserver:class{observe(){}disconnect(){}},devicePixelRatio:1,performance:{now:()=>0},requestAnimationFrame:f=>frames.push(f),matchMedia:w.matchMedia,URL,Blob,File,console,setTimeout,clearTimeout,
- createGameAudio:()=>({enabled:false,ready:false,setPlaying(){},play(){},setEnabled(){}}),createAudioEvents:()=>({reset(){},update(){}}),
+ createGameAudio:()=>({unlock:async()=>true,subscribe:()=>()=>{},getState:()=>({musicEnabled:true,effectsEnabled:true,musicVolume:.5,effectsVolume:.7}),enabled:false,ready:false,setPlaying(){},play(){},setEnabled(){}}),createAudioEvents:()=>({reset(){},update(){}}),
  createScenery:()=>({update(){}}),createSandpits:()=>({reset(){},update(){}}),createCharacter:()=>({update(){}}),arrivalFlavour:()=>'',settleVerdict(){},
  // Only pixels/media are replaced; real controller/physics/input/dialog/share-state/board run.
  createLandingCapture:()=>({reset(){frozen=null},get current(){return frozen},freeze(){return frozen={canvas:d.createElement('canvas'),focus:{x:.5,y:.5}}}}),
@@ -44,13 +44,13 @@ function boot(standalone){
 }
 for(const standalone of [false,true])test(`real main Jump controller + real board (${standalone?'standalone fallback':'native queued close'}) keeps round, PNG and explicit resume`,async()=>{
  const h=boot(standalone),{d,w}=h;try{
- assert.equal(h.recordedStarts.length,0);d.getElementById('start').click();assert.equal(h.recordedStarts.length,1);assert.equal(h.run('playing&&!paused'),true);
+ assert.equal(h.recordedStarts.length,0);assert.equal(d.querySelector('.pf-entry').open,true);assert.match(d.querySelector('.pf-entry').textContent,/腳短按跑步|短按跑步/);assert.match(d.querySelector('.pf-entry').textContent,/Funin and Sunin/);assert.equal(d.querySelector('#replay-controls'),null,'no preview replay is promoted');d.querySelector('.pf-entry-start').click();assert.equal(h.recordedStarts.length,1);assert.equal(h.run('playing&&!paused'),true);
  const firstState=h.run('state');w.dispatchEvent(new w.KeyboardEvent('keydown',{code:'KeyA',bubbles:true}));assert.equal(h.run('input[2]'),true);
- d.querySelector('.pf-rank-action').click();assert.equal(h.run('paused'),true);assert.equal(h.run('input.some(Boolean)'),false);assert.equal(d.getElementById('overlay').open,false);assert.equal(d.querySelectorAll('dialog[open]').length,1);
+ d.getElementById('pause').click();assert.equal(h.run('paused'),true);assert.equal(d.querySelector('.pf-pause-dialog').open,true);assert.equal(d.querySelector('[data-pf-volume=music]').value,'50');assert.equal(d.querySelector('[data-pf-volume=effects]').value,'70');d.querySelector('[data-pf-pause-ranking]').click();assert.equal(h.run('paused'),true);assert.equal(h.run('input.some(Boolean)'),false);assert.equal(d.getElementById('overlay').open,false);assert.equal(d.querySelectorAll('dialog[open]').length,1);
  await tick();assert.equal(h.requests.at(-1).options.signal.aborted,false);h.requests.at(-1).resolve({ok:false,status:503});await tick();assert.match(d.querySelector('.pf-honor-board').textContent,/暫時無法讀取/);
  w.dispatchEvent(new w.Event('orientationchange'));w.dispatchEvent(new w.Event('resize'));assert.equal(d.getElementById('overlay').open,false);
- d.querySelector('[data-pf-view-return]').click();assert.equal(d.getElementById('overlay').open,true);assert.equal(h.run('paused'),true);assert.equal(h.run('state'),firstState);
- d.getElementById('start').click();assert.equal(h.run('paused'),false);assert.equal(h.run('state'),firstState);assert.equal(h.recordedStarts.length,1,'pause/rank/resume do not count');
+ d.querySelector('[data-pf-view-return]').click();assert.equal(d.getElementById('overlay').open,false);assert.equal(d.querySelector('.pf-pause-dialog').open,true);assert.equal(h.run('paused'),true);assert.equal(h.run('state'),firstState);
+ d.querySelector('[data-pf-continue]').click();assert.equal(h.run('paused'),false);assert.equal(h.run('state'),firstState);assert.equal(h.recordedStarts.length,1,'pause/rank/resume do not count');
  const settled=trial({air:'left',flightSeconds:1,maxSeconds:20});assert.equal(settled.phase,'done');assert.equal(physics.result(settled).valid,true);h.run('state').phase='done';Object.assign(h.run('state'),settled);h.frame(20);await tick();
  assert.equal(h.run('playing'),false);const file=h.run('shareState.file'),preview=d.getElementById('landing-preview').firstChild,score=d.getElementById('result-score-block').innerHTML;assert.ok(file);assert.ok(preview);assert.equal(d.getElementById('overlay').open,true);
  d.querySelector('.pf-result-ranking').click();await tick();assert.equal(h.requests.at(-1).options.signal.aborted,false);h.requests.at(-1).resolve({ok:true,json:async()=>({entries:[],own:null})});await tick();assert.doesNotMatch(d.querySelector('.pf-honor-board').textContent,/讀取中/);assert.equal(d.querySelectorAll('dialog[open]').length,1);

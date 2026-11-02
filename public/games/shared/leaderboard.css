@@ -16,3 +16,19 @@
 .pf-honor-dialog.pf-entry{padding:18px}.pf-honor-board h2{font-size:25px}.pf-rank-list li{gap:6px;padding:12px 2px}.pf-rank-list strong{max-width:130px;font-size:18px}
 }
 .pf-honor-dialog>[data-pf-view-return]{position:sticky;bottom:0;z-index:1;box-shadow:0 -8px 12px #fff9e8;margin-bottom:0}
+/* V2 honor rows share the pause/help menu surfaces; no oversized podium. */
+.pf-game .pf-honor-board>header{padding:16px;border:1.5px solid #7fa895;border-radius:20px;background:#dcebdd;box-shadow:0 4px 0 #bed2bd;}
+.pf-game .pf-honor-board>header img{transform:rotate(-5deg);filter:drop-shadow(0 3px 0 #17494120);}
+.pf-game .pf-honor-board>header p{font-weight:800;color:#316153;}
+.pf-game .pf-honor-board h2{color:#123f3c;}
+.pf-game .pf-rank-own{background:#f3df9e;border:1.5px solid #8b9260;box-shadow:0 4px 0 #ded1a5;border-radius:19px;}
+.pf-game .pf-rank-list li{padding:13px 12px;margin:8px 0;border:1px solid #c5d6c3;border-radius:14px;background:#fffdf4;}
+.pf-game .pf-rank-list li.is-me{background:#dcebdd;border-color:#397967;}
+.pf-game .pf-rank-place{width:32px;height:32px;border:1px solid #789987;background:#e7eddf;}
+.pf-game .pf-rank-place[data-medal="1"]{border-color:#b38f35;background:#f2ce65;box-shadow:0 2px 0 #bca25d;}
+.pf-game .pf-rank-place[data-medal="2"]{border-color:#91a5a5;background:#dce5e4;box-shadow:0 2px 0 #adbeba;}
+.pf-game .pf-rank-place[data-medal="3"]{border-color:#ad7c50;background:#e8be8c;box-shadow:0 2px 0 #bc9976;}
+.pf-game .pf-rank-secondary{display:block;margin:3px 0 0;font-size:13px;}
+.pf-game .pf-result-ranking{background:#dcebdd;color:#174941;border:1.5px solid #638b76;border-radius:15px;box-shadow:0 3px 0 #c4d6ba;}
+.pf-game .pf-leaderboard button[data-submit]{background:#ef945a;border-color:#174941;color:#123f3c;box-shadow:0 3px 0 #174941;}
+.pf-game .pf-honor-dialog>[data-pf-view-return]{box-shadow:0 4px 0 #174941,0 -10px 14px #fff9e9!important;}

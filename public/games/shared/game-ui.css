@@ -50,3 +50,9 @@
 .pf-game #center:has([data-entry-goal]){overflow:auto;justify-content:flex-start;touch-action:pan-y;}
 .pf-game #center:has([data-entry-goal])>[data-entry-goal]{margin-top:auto;}
 .pf-game #center:has([data-entry-goal])>#start{margin-bottom:auto;flex-shrink:0;}
+
+/* Result presentation adopts the same V2 material; scene, score and share pixels are unchanged. */
+.pf-game .pf-result-dialog,.pf-game dialog#overlay.result{background:#fff9e9;color:#173f39;border:2px solid #174941;border-radius:24px;box-shadow:0 7px 0 #17494128,0 22px 70px #123c3e45;}
+.pf-game .card.result{background:#fff9e9;color:#173f39;border:2px solid #174941;border-radius:24px;}
+.pf-game :is(.pf-result-dialog,.card.result,dialog#overlay.result) :is(#again,#againBtn,#retry,#start){background:#ef945a;color:#123f3c;border:2px solid #174941;border-radius:16px;box-shadow:0 4px 0 #174941;min-height:48px;font-weight:800;}
+.pf-game :is(.pf-result-dialog,.card.result,dialog#overlay.result) :is(.pf-result-ranking,#replay,#view-final,#replay-last,#watchReplay){min-height:44px;border-radius:14px;}
