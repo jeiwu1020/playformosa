@@ -1,0 +1,23 @@
+# Leaderboard: dedicated QA release candidate (not yet live)
+
+Preview source base eeb32fce. Main is not changed. Client/server gates are true in this approved preview release candidate. Wrangler adds the Worker API and a QA-only binding; publication/live validation is still pending.
+
+## Free-only authority and remaining blocker
+User confirmed the same Cloudflare Workers account is Free in Sentinel_5f21fad78f808191a1611259996ac00d (2026-11-02). This is user-provided account evidence, not a new dashboard inspection. No Cloudflare management connector is available and the dashboard is not authenticated. User created `playformosa-leaderboard-qa`, UUID `75be2ba1-d2b8-455d-82c2-e5392ead01d4`, and confirmed successful execution of the reviewed schema in Sentinel_8cdce0cc480481918d99542da0b8358f. Local repo binding is prepared; no remote deployment has occurred yet. Do not upgrade, add paid services, create credentials, or use Fighter/Sites databases.
+Official documentation consulted: Workers Free100,000requests/day stops at limit; D1 Free5M rows read/day,100k written/day,5GB total, up to10DB/500MB each. Limits are account-shared, not player counts. Paid billing/alerts/app caps do not promise zero spend. Links: https://developers.cloudflare.com/workers/platform/limits/ https://developers.cloudflare.com/d1/platform/pricing/ https://developers.cloudflare.com/d1/platform/limits/
+
+## Activation evidence and live gates
+1. COMPLETE by user: dedicated QA database above, no production DB created.
+2. COMPLETE by user: `0001.sql` succeeded in the new empty QA DB. Do not rerun it. No local fixture/test rows copied.
+3. PREPARED in branch `wrangler.jsonc`: `previews.d1_databases` binding `DB` to that exact database. Set server `LEADERBOARD_SCOPE=qa`, `LEADERBOARD_ORIGIN` to exact verified QA origin and `LEADERBOARD_ENABLED=true`. Production later requires an entirely separate DB and separate binding, not merely changing scope in the same DB. Do not infer isolation from branch headers or client data; verify actual Worker Previews binding behavior before activation.
+4. PREPARED: Worker entry `worker/leaderboard/index.mjs`, ASSETS binding and selective `/api/leaderboard*` routing; all other requests preserve asset handling. No top-level production binding/vars. Exact QA origin is locked server-side.
+5. Root authorized one QA release with both gates true after user DB/schema confirmation. Sole publisher must verify API GET valid JSON/QA binding, controlled manual submit/idempotency/best reads, two game UI and asset routes after full CI. Use clearly marked QA nickname, never genuine-user claims. On binding503, repair exact config or disable client promptly; do not claim complete. Main requires separate explicit approval.
+6. If unavailable/limit reached, return503/429 and keep normal gameplay; no paid fallback.
+
+## API and trust
+GET `/api/leaderboard?game=long-jump|hurdles`: fixed top20; server fixes rules/units/sort. POST `/api/leaderboard/submissions`: exactly game,rules,unit,status,score,nickname,deviceId,submissionId; same Origin required,2048byte streaming cap,20Unicode chars/80UTF8bytes, pure text; prepared SQL.
+Jump is valid legalAdventureKm only (km,journey-km-v1,descending), positive finite float without an arbitrary journey cap. Hurdles is completed110m/8h time (s,110m-8h-v1,ascending),0<time<=180. These validate format, NOT proof of play; a client can forge score/device. No accounts, IP storage or strong anti-cheat.
+Each anonymous device/rules board keeps best. Nickname is not identity; ties remain separate. Device ID hashed with server scope before DB storage; no public device IDs. Losing storage loses continuity. No old localbest upload.
+One manually confirmed payload/UUID is frozen per round. Max3 manual attempts,10s request timeout; cancel stops waiting, not a server submission already received. Server UUID receipts retained7days; frontend does not persist pending receipts across reload. Best rows capped10,000; accepted receipts capped1,000/day globally; per-device60second cooldown. All admission/best changes in one atomic D1 batch. Prune at most100 expired receipts/request. No unbounded polling/retry; top20 cached30s at HTTP layer, frontend reload at mostonce/minute per open view. Rejected requests can still use Free quotas; limits do not authenticate users or guarantee availability.
+
+Tests use test-only sql.js1.13.0 to execute actual SQLite schema/statements with an in-memory D1 interface, no real DB. This proves SQL logic, not live D1 integration. Live completion remains gated on the publisher checks above; local tests do not prove remote D1 execution.

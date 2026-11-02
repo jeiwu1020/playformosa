@@ -1,3 +1,5 @@
+import {mountLeaderboard} from '../shared/leaderboard.mjs';
+let leaderboard=null;
 import {mountControlsFrame} from '../shared/controls-shell.mjs';
 mountControlsFrame({document,game:"long-jump",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
 import {createGameEntry,helpIsOpen,suspendHelpPresentation,ensurePauseHelp} from '../shared/entry-shell.mjs';
@@ -61,7 +63,7 @@ function pauseGame(){if(replay.active){replay.setPaused(true);syncReplay();retur
 function showPause(){ensurePauseHelp(document,document.querySelector('.card'));show('四肢休息一下。','已暫停。回來時按繼續，重新按住你的四肢控制鍵。','繼續這一跳');}
 window.addEventListener('blur',pauseGame);document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('orientationchange',pauseGame);window.addEventListener('orientationchange',pauseRecovery.schedule);window.addEventListener('resize',pauseRecovery.schedule);window.visualViewport?.addEventListener('resize',pauseRecovery.schedule);window.screen?.orientation?.addEventListener('change',()=>{pauseGame();pauseRecovery.schedule();});$('pause').onclick=()=>replay.active?toggleReplayPause():paused?resume():pauseGame();
 function resume(){pauseRecovery.cancel();paused=false;clear();modal.close();sound.setPlaying(true);soundReady(false);}
-function start(){shareState.begin();pendingCapture=false;replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());}
+function start(){shareState.begin();pendingCapture=false;leaderboard?.reset();replay.reset();finalReplayView=null;$('replay-controls').hidden=true;$('replay-result').hidden=true;pauseRecovery.cancel();landingCapture.reset();sandpits.reset();sandpits.group.position.x=0;$('landing-preview').replaceChildren();$('landing-preview').hidden=true;sound.setPlaying(false);audioEvents.reset();sound.setPlaying(true);soundReady();renderOrigin=0;lastPlaceKey='';cueTime=0;$('share-actions').hidden=true;document.querySelector('.card').classList.remove('result');$('result-brand').hidden=true;$('result-score-block').hidden=true;$('card-subtitle').hidden=true;clear();state=fresh();playing=true;paused=false;reported=false;lastPhase='run';acc=0;trailWindow=0;trails.forEach(d=>{d.life=0;d.m.visible=false;});dust.forEach(d=>{d.life=0;d.m.visible=false;});buttons.forEach(b=>b.disabled=false);modal.close();draw(state,0);replay.record(state);replay.attachVisual(captureReplayView());}
 $('start').onclick=()=>paused?resume():start();$('reset').onclick=start;
 let sceneWidth=1,sceneHeight=1,scenePlayHeight=1;
 function resize(){const el=$('scene');sceneWidth=Math.max(1,el.clientWidth);sceneHeight=Math.max(1,el.clientHeight);scenePlayHeight=Math.max(1,sceneHeight-(parseFloat(document.documentElement.style.getPropertyValue('--scene-extension'))||0));renderer.setSize(sceneWidth,sceneHeight,false);}new ResizeObserver(resize).observe($('scene'));resize();
@@ -90,7 +92,7 @@ function syncReplay(){buttons.forEach(b=>b.disabled=replay.active);syncPauseButt
 function toggleReplayPause(){if(!replay.active)return;replay.setPaused(!replay.paused);prev=performance.now();syncReplay();}
 function beginReplay(){
  if(playing||pendingCapture||!replay.ready||replay.active)return;
- finalReplayView=captureReplayView();if(!replay.start())return;
+ finalReplayView=captureReplayView();if(!replay.start())return;leaderboard?.suspend();
  resultScroll=$('overlay').scrollTop;clear();acc=0;sound.setPlaying(false);modal.close();$('replay-controls').hidden=false;prev=performance.now();syncReplay();$('replay-pause').focus();
 }
 function finishReplay(){
@@ -149,7 +151,7 @@ let prev=performance.now(),acc=0;function frame(now){
  if(playing&&!paused){acc+=elapsed;let n=0;while(acc>=DT&&n++<8){const beforePhase=state.phase;step(state,input);replay.record(state);if(state.phase==='land'&&beforePhase!=='land'){burst(state.x+state.origin-renderOrigin);lastPhase='land';draw(state,0);replay.attachVisual(captureReplayView());}audioEvents.update(state);acc-=DT;}
   if(state.phase==='land'&&lastPhase!=='land')burst(state.x+state.origin-renderOrigin);lastPhase=state.phase;
   if(state.phase==='done'&&!reported){
-   reported=true;playing=false;clear();settleVerdict(state,result(state),storage);saveJourney(storage,state);const r=result(state);
+   reported=true;playing=false;clear();settleVerdict(state,result(state),storage);saveJourney(storage,state);const r=result(state);leaderboard?.setResult({phase:state.phase,valid:r.valid,legalAdventureKm:r.legalAdventureKm});
    if(r.valid&&r.legalAdventureKm>best){best=r.legalAdventureKm;try{saveBest(storage,best);}catch{}}$('best').textContent=formatMileage(best).value+' '+formatMileage(best).unit;
    const measure=formatMileage(r.legalAdventureKm),score=state.foul?'犯規':r.valid?measure.value+' <small>'+measure.unit+'</small>':'未計分';
 
@@ -182,8 +184,8 @@ function draw(state,elapsed,replayView=null){
   prepareResultShare();
  }
 }
-function helpVisit(){pauseRecovery.cancel();return suspendHelpPresentation(document,{pause:()=>{pauseGame();clear();},controllers:{overlay:modal},dialogs:['overlay'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused&&!replay.active)showPause();}});}
-const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});entry.open();
+function helpVisit(){leaderboard?.suspend();pauseRecovery.cancel();return suspendHelpPresentation(document,{pause:()=>{pauseGame();clear();},controllers:{overlay:modal},dialogs:['overlay'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused&&!replay.active)showPause();}});}
+const entry=createGameEntry({document,gameId:'long-jump',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pauseGame();clear();},canStart:()=>Boolean(renderer)});leaderboard=mountLeaderboard({document,game:'long-jump',entry:entry.dialog,result:$('overlay')});entry.open();
 requestAnimationFrame(frame);
 
 

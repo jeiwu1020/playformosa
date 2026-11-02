@@ -626,5 +626,36 @@
         "sha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f"
       }
     ]
+  },
+  "leaderboardOptIn": {
+    "baseCommit": "eeb32fce02712fbe9722af3e1ec272ee24818b24",
+    "reason": "Disabled-by-default manual leaderboard UI adapter; exact new-round reset and completed legal-score snapshots only. No simulation/input/render/PNG changes. Earlier ledgers preserved unchanged.",
+    "files": [
+      {
+        "path": "long-jump/game.mjs",
+        "beforeSha256": "b68c7d637d392e992ce05b439102c8aab3a68c93d54c9bb3978777e3e8424446",
+        "sha256": "4117e9621c0135d8c52229d0721b022844be7cd2a0ddf897d47a986c96ff5761"
+      },
+      {
+        "path": "hurdles/game.mjs",
+        "beforeSha256": "6106cbfed2ea7b193e317ac20751e430d13d28d3d060676770325ad9ede9f52f",
+        "sha256": "849a983db0eef2c4808d7d13f1f7fa6b8af7beeb5e0ab5eecc4aba134e99703b"
+      },
+      {
+        "path": "shared/leaderboard.mjs",
+        "beforeSha256": null,
+        "sha256": "f049dc1ea39021aae20e5477b91f985ad669c00ca3fc0612cb34f422533fda92"
+      },
+      {
+        "path": "shared/leaderboard.css",
+        "beforeSha256": null,
+        "sha256": "23b4645b5a96a8d3b18bc04c97d927f5611881d53ed16f81aa4dd049879a0958"
+      },
+      {
+        "path": "shared/leaderboard-config.mjs",
+        "beforeSha256": null,
+        "sha256": "a882b57a52e10e2bba2a133bf35bd2e2786d3deb8883139c1cf61e0d0fcdd774"
+      }
+    ]
   }
 }
