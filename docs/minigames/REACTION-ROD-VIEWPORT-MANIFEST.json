@@ -1,0 +1,76 @@
+{
+  "baseCommit": "1862880407edecb4270d1778641cf6770ba4b548",
+  "purpose": "Reaction Rod viewport-only repair; no publication receipt.",
+  "files": [
+    {
+      "path": "reaction-rod/index.html",
+      "beforeSha256": "4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998",
+      "sha256": "e56fa61f3d7d81a8f3131101086be2da6c843bab3d710182e6ad0ad9d5ed4442",
+      "baseGitBlob": "727aba20cb1e4d23c34731247d117d99f45aa924"
+    },
+    {
+      "path": "reaction-rod/viewport.css",
+      "beforeSha256": null,
+      "sha256": "709e7bcaf35de1b845ae40b760c6e044aaf1d466f5a2a546c5e82b719ca40994",
+      "baseGitBlob": null
+    }
+  ],
+  "htmlInsertions": [
+    "<link rel=\"stylesheet\" href=\"./viewport.css\">",
+    "<script type=\"module\" src=\"../long-jump/layout.mjs\"></script>"
+  ],
+  "preserved": [
+    {
+      "path": "reaction-rod/game.mjs",
+      "sha256": "437395bd66861f401683d323a4ae2aed2876a8c7e759f341508c41df10b36b23"
+    },
+    {
+      "path": "reaction-rod/style.css",
+      "sha256": "bc169309c2e101b66e0d1f4fb2c70ae0c650c2674c5f9a7e2ef30589251c894b"
+    },
+    {
+      "path": "reaction-rod/physics.mjs",
+      "sha256": "51a7764ceec2d04d262a8b415ddb824364b50cafbc3a4cf9f1b489d1e8ab323c"
+    },
+    {
+      "path": "reaction-rod/framing.mjs",
+      "sha256": "3d6756fb4d9055f842b4c5104b2356fa32777ff4b8cff5d5a972e2249bf0122d"
+    },
+    {
+      "path": "reaction-rod/scene.mjs",
+      "sha256": "09f6fd9c3c5965f725e66344cbe8ae087a77a88dffae04f4992d9b7c2101374c"
+    },
+    {
+      "path": "reaction-rod/snapshot.mjs",
+      "sha256": "3f83133ad7c85d29289e03ee1d85d16973047a1a74861b25c7472ace8dfafd40"
+    },
+    {
+      "path": "reaction-rod/share.mjs",
+      "sha256": "79a0209f65409979db9203475862973fd4c6b76b03f4b1fd799d2c07a9773ffe"
+    },
+    {
+      "path": "long-jump/layout.mjs",
+      "sha256": "094300ea5ea18f58f60dd3527226c5ee05ca3dc6b6435168b3a6665f23202cbc"
+    },
+    {
+      "path": "long-jump/dialogs.mjs",
+      "sha256": "55a013e13e49bcdade6bf17bd2729e59063e6ba9888aa46891925cc46e274b03"
+    },
+    {
+      "path": "shared/entry-shell.mjs",
+      "sha256": "56dcbc33d1320ba492c2e5788f6a8c70e82d566a4a1d6a50e3c84f336cde1f3c"
+    },
+    {
+      "path": "shared/entry-shell.css",
+      "sha256": "23367f95a5a978f086c38730339e6a7059a0f6d05f561d54da0a1d648e6bca61"
+    },
+    {
+      "path": "shared/game-ui.mjs",
+      "sha256": "d7dae6532aa51661186c386ecd643b2ee83b9f04e54fcf92ca3fdc6241cfcd10"
+    },
+    {
+      "path": "shared/game-ui.css",
+      "sha256": "fc4e6ee5863bec79c0cf5d02ef8241aa6d169bc318f18323e54c764916093fc2"
+    }
+  ]
+}

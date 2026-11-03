@@ -1,3 +1,4 @@
+import {reverseRodViewport} from './rod-viewport-provenance.mjs';
 import {readFileSync as readActual} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep} from 'node:path';
@@ -21,7 +22,7 @@ export function reverseV2(path,bytes,ledger=ledgerV2()){
 export function readV2Baseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file));
  const rel=relative(resolve(root,'public/games'),absolute).split(sep).join('/');
- const bytes=readActual(file);const record=!rel.startsWith('../')&&ledgerV2().files.find(x=>x.path===rel);
+ const bytes=reverseRodViewport(rel,readActual(file));const record=!rel.startsWith('../')&&ledgerV2().files.find(x=>x.path===rel);
  const result=record?.beforeSha256?reverseV2(rel,bytes):bytes;
  const encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }

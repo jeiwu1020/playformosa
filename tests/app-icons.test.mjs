@@ -1,3 +1,4 @@
+import {reverseRodViewport} from './helpers/rod-viewport-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
@@ -22,6 +23,8 @@ const apps=[
 const origins=['https://preview-hurdles-playformosa.playformosa.workers.dev','https://playformosa.example'];
 const read=p=>readFileSync(new URL(p,root),'utf8');
 const bytes=p=>readFileSync(new URL(p,root));
+const beforeViewport=p=>reverseRodViewport(p.replace(/^public\/games\//,''),bytes(p));
+const beforeViewportText=p=>beforeViewport(p).toString();
 const digest=b=>createHash('sha256').update(b).digest('hex');
 const assertHomepageIconHead=(html,expected)=>assert.equal(digest(html.split('</head>')[0]),expected,'published platform installation head must remain unchanged');
 const pathOf=route=>`public${route}index.html`;
@@ -70,12 +73,12 @@ test('icon integration preserves installation head boundary and nine game-page p
   assert.match(entry.beforeSha256,/^[0-9a-f]{64}$/);
   if(entry.path==='public/index.html'){
    assert.equal(ledger.homepageHeadBoundary.referenceCommit,'f722b6b8cfce180a863464275826d5af78861828');
-   assertHomepageIconHead(read(entry.path),ledger.homepageHeadBoundary.sha256);
+   assertHomepageIconHead(beforeViewportText(entry.path),ledger.homepageHeadBoundary.sha256);
   }else{
-   const help=ledger.helpUnification?.pages.find(x=>x.path===entry.path);if(help){assert.equal(ledger.helpUnification.baseCommit,'f1a8ce126dafd975b4c7b2bcab56170162dcbd9d');assert.equal(help.beforeSha256,entry.afterSha256);assert.equal(digest(read(entry.path).split('</head>')[0]),help.headSha256,'game installation head unchanged');}
-   const mobile=ledger.mobileBudget?.pages.find(x=>x.path===entry.path);if(mobile){assert.equal(ledger.mobileBudget.baseCommit,'d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7');assert.equal(mobile.beforeSha256,help?.afterSha256||entry.afterSha256);assert.equal(digest(read(entry.path).split('</head>')[0]),mobile.headSha256);}
-   assert.equal(digest(bytes(entry.path)),mobile?.afterSha256||help?.afterSha256||entry.afterSha256);
-   assert.equal(digest(read(entry.path).split('</head>')[1]),mobile?.bodySha256||help?.bodySha256||entry.bodySha256);
+   const help=ledger.helpUnification?.pages.find(x=>x.path===entry.path);if(help){assert.equal(ledger.helpUnification.baseCommit,'f1a8ce126dafd975b4c7b2bcab56170162dcbd9d');assert.equal(help.beforeSha256,entry.afterSha256);assert.equal(digest(beforeViewportText(entry.path).split('</head>')[0]),help.headSha256,'game installation head unchanged');}
+   const mobile=ledger.mobileBudget?.pages.find(x=>x.path===entry.path);if(mobile){assert.equal(ledger.mobileBudget.baseCommit,'d5fb870032c7b46ed8260c0bde2c5156ad9e8cd7');assert.equal(mobile.beforeSha256,help?.afterSha256||entry.afterSha256);assert.equal(digest(beforeViewportText(entry.path).split('</head>')[0]),mobile.headSha256);}
+   assert.equal(digest(beforeViewport(entry.path)),mobile?.afterSha256||help?.afterSha256||entry.afterSha256);
+   assert.equal(digest(beforeViewportText(entry.path).split('</head>')[1]),mobile?.bodySha256||help?.bodySha256||entry.bodySha256);
   }
  }
  for(const [, , ,route] of apps)assert.doesNotMatch(read(pathOf(route)),/serviceWorker\.register|navigator\.serviceWorker|localStorage\.(?:clear|removeItem)/);
@@ -91,4 +94,4 @@ test('the homepage installation-head boundary rejects icon removal or replacemen
  }
 });
 
-test('help body revision cannot silently alter any game installation head',()=>{const ledger=JSON.parse(read('docs/app-icons/INTEGRATION-MANIFEST.json'));for(const p of ledger.helpUnification.pages){const head=read(p.path).split('</head>')[0];assert.equal(digest(head),p.headSha256);assert.notEqual(digest(head.replace('apple-touch-icon.png','wrong.png')),p.headSha256);}});
+test('help body revision cannot silently alter any game installation head',()=>{const ledger=JSON.parse(read('docs/app-icons/INTEGRATION-MANIFEST.json'));for(const p of ledger.helpUnification.pages){const head=beforeViewportText(p.path).split('</head>')[0];assert.equal(digest(head),p.headSha256);assert.notEqual(digest(head.replace('apple-touch-icon.png','wrong.png')),p.headSha256);}});
