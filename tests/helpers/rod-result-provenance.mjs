@@ -1,3 +1,4 @@
+import {reverseRodReplay} from './rod-replay-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -8,6 +9,7 @@ export const resultLedger=()=>JSON.parse(readFileSync(new URL('../../docs/miniga
 export const resultHash=bytes=>createHash('sha256').update(bytes).digest('hex');
 // Only exact documented presentation edits can be reversed into historical tests.
 export function reverseRodResult(path,bytes){
+ bytes=reverseRodReplay(path,bytes);
  const entry=resultLedger().files.find(file=>file.path===path);
  if(!entry?.beforeSha256)return Buffer.from(bytes);
  assert.equal(resultHash(bytes),entry.sha256,'Rod result current bytes '+path);

@@ -1,4 +1,5 @@
 import {LEADERBOARD_ENABLED} from './leaderboard-config.mjs';
+import {bindManualUploadScroll} from './leaderboard-scroll.mjs';
 export const formatLeaderboardScore=n=>n>0&&n<.001?'<0.001':n.toLocaleString(undefined,{maximumFractionDigits:3});
 import {BOARD_METRICS as boards,resultToSubmission} from './leaderboard-metrics.mjs';
 export const eligibleResult=resultToSubmission;
@@ -10,7 +11,7 @@ const boardLabels={
  'reaction-rod':['接棒啦！','先比接住根數，再比評分。'],'beer-slide':['別灑啊！','準度與留酒率，一杯決勝負。'],
  'tower-climb':['上樓不容易','十層完成時間，越短越前面。']
 };
-export function mountLeaderboard({document,game,entry,result,shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
+export function mountLeaderboard({document,game,entry,result,resultActionContainer=result,resultActionLabel='查看榮譽榜',shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
  if(!enabled||!Object.hasOwn(boards,game))return null;
  const win=document.defaultView,b=boards[game],make=(tag,text)=>{const n=document.createElement(tag);if(text)n.textContent=text;return n;};
  if(!document.querySelector('link[data-leaderboard-style]')){const l=make('link');l.rel='stylesheet';l.href='/games/shared/leaderboard.css';l.dataset.leaderboardStyle='';document.head.append(l);}
@@ -33,12 +34,13 @@ export function mountLeaderboard({document,game,entry,result,shell=null,enabled=
  function showRanking(){if(boardOpen&&shell)return;boardOpen=true;if(shell){shell.openView(content,{label:'榮譽榜',onClose(){boardOpen=false;stopRanking();ranking.append(content);ranking.open=false;}});}else ranking.open=true;refreshRanking();}
  ranking.addEventListener('toggle',()=>{if(ranking.open)showRanking();});shell?.setRankingAction?.(showRanking);
  const headerAction=make('button','排行');headerAction.type='button';headerAction.className='pf-rank-action';headerAction.setAttribute('aria-label','查看線上榮譽榜');headerAction.addEventListener('click',showRanking);if(shell){document.querySelector('.pf-header nav')?.insertBefore(headerAction,document.querySelector('.pf-entry-help'));document.body.classList.add('pf-has-ranking');const home=document.querySelector('.pf-header .pf-home');if(home)home.textContent='首頁';}
- const resultAction=make('button','查看榮譽榜');resultAction.type='button';resultAction.className='pf-result-ranking';resultAction.addEventListener('click',showRanking);result?.append(resultAction);
+ const resultAction=make('button',resultActionLabel);resultAction.type='button';resultAction.className='pf-result-ranking';resultAction.addEventListener('click',showRanking);resultActionContainer?.append(resultAction);
  const panel=make('details');panel.className='pf-leaderboard';panel.hidden=true;panel.append(make('summary','手動上傳本次成績'),make('p',note));const scoreText=make('p'),label=make('label','暱稱（1–20字）'),input=make('input');input.type='text';input.maxLength=40;input.autocomplete='nickname';input.value=read('pf-leaderboard-nickname-v1')||'';label.append(input);const submit=make('button','提交本次成績'),cancel=make('button','關閉'),status=make('p');submit.type=cancel.type='button';submit.dataset.submit='';cancel.dataset.cancel='';status.setAttribute('role','status');panel.append(scoreText,label,submit,cancel,status);result?.append(panel);
+ const uploadScroll=bindManualUploadScroll({panel,result});
  // Do not let nickname typing/IME bubble to game shortcuts. No form/implicit Enter submit.
  for(const event of ['keydown','keyup','keypress'])panel.addEventListener(event,e=>{if(e.key!=='Tab')e.stopPropagation();});
  let snapshot=null,payload=null,generation=0,pending=false,attempts=0,abort=null,timer=null;
- function stop(){generation++;abort?.abort();abort=null;win.clearTimeout(timer);pending=false;submit.disabled=!snapshot||!device||attempts>=3;}
+ function stop(){uploadScroll.cancel();generation++;abort?.abort();abort=null;win.clearTimeout(timer);pending=false;submit.disabled=!snapshot||!device||attempts>=3;}
  function reset(){if(boardOpen&&shell)shell.closeView();stop();stopRanking();snapshot=null;payload=null;attempts=0;panel.open=false;panel.hidden=true;status.textContent='';input.disabled=false;submit.textContent='提交本次成績';}
  function setResult(r){reset();snapshot=eligibleResult(game,r);if(!snapshot)return;panel.hidden=false;scoreText.textContent='本次：'+scoreLabel(snapshot);submit.disabled=!device;if(!device)status.textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩。';}
  cancel.addEventListener('click',()=>{const wasPending=pending;stop();panel.open=false;if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';});
@@ -55,5 +57,5 @@ export function mountLeaderboard({document,game,entry,result,shell=null,enabled=
  });
  function suspend(){const wasPending=pending;stop();if(!boardOpen)stopRanking();if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';}
  const resultDialog=result?.closest('dialog');resultDialog?.addEventListener('close',suspend);
- return {setResult,reset,suspend,showRanking,destroy(){shell?.setRankingAction?.(null);reset();resultDialog?.removeEventListener('close',suspend);stopRanking();ranking.remove();panel.remove();headerAction.remove();resultAction.remove();document.body.classList.remove('pf-has-ranking');}};
+ return {setResult,reset,suspend,showRanking,destroy(){uploadScroll.destroy();shell?.setRankingAction?.(null);reset();resultDialog?.removeEventListener('close',suspend);stopRanking();ranking.remove();panel.remove();headerAction.remove();resultAction.remove();document.body.classList.remove('pf-has-ranking');}};
 }

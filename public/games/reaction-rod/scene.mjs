@@ -63,4 +63,23 @@ for(let i=0;i<2;i++){
 for(let i=0;i<5;i++){rods[i].visible=w.state!=='done';rods[i].position.set(CONFIG.lanes[i],CONFIG.spawnY,.22);rods[i].rotation.z=0;bulbs[i].material=w.rod?.lane===i?yellow:white;}if(w.rod){rods[w.rod.lane].position.y=w.rod.y;}target.visible=w.input.engaged&&w.state==='playing'&&b.phase==='upright';target.position.set(w.input.x,w.input.y,-.1);for(const e of effects){e.age+=dt;e.vy-=2*dt;e.mesh.position.x+=e.vx*dt;e.mesh.position.y+=e.vy*dt;e.mesh.scale.setScalar(Math.max(0,1-e.age/.45));}effects=effects.filter(e=>{if(e.age>.45){scene.remove(e.mesh);return false;}return true;});}
 function resize(width,height){const b=playBounds(width,height);camera.left=b.left;camera.right=b.right;camera.top=b.top-1.3;camera.bottom=b.bottom-1.3;camera.updateProjectionMatrix();return b;}
 function clear(){effects.forEach(e=>scene.remove(e.mesh));effects=[];}
-return{scene,camera,update,resize,burst,clear,hands,torso,arms,legs,feet,rods};}
+// Replay stores only detached effect values, never meshes or simulation state.
+function captureVisual(){
+ if(effects.length>100)throw Error('Too many replay particles');
+ return{effects:effects.map(e=>({x:e.mesh.position.x,y:e.mesh.position.y,z:e.mesh.position.z,scale:e.mesh.scale.x,age:e.age,vx:e.vx,vy:e.vy,color:palette.indexOf(e.mesh.material)}))};
+}
+function restoreVisual(snapshot){
+ try{
+  const saved=snapshot?.effects;
+  if(!Array.isArray(saved)||saved.length>100||saved.some(e=>!e||!['x','y','z','scale','age','vx','vy'].every(k=>Number.isFinite(e[k]))||e.scale<0||e.scale>1||e.age<0||e.age>.45||!Number.isInteger(e.color)||e.color<0||e.color>=palette.length)){clear();return false;}
+  while(effects.length>saved.length)scene.remove(effects.pop().mesh);
+  for(let i=0;i<saved.length;i++){
+   const value=saved[i];let effect=effects[i];
+   if(!effect){effect={mesh:mesh(particleGeometry,palette[value.color])};effects.push(effect);}
+   effect.mesh.material=palette[value.color];effect.mesh.position.set(value.x,value.y,value.z);effect.mesh.scale.setScalar(value.scale);
+   effect.age=value.age;effect.vx=value.vx;effect.vy=value.vy;
+  }
+  return true;
+ }catch{clear();return false;}
+}
+return{scene,camera,update,resize,burst,clear,captureVisual,restoreVisual,hands,torso,arms,legs,feet,rods};}

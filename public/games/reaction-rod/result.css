@@ -1,32 +1,48 @@
-/* The final photo is a frozen 2D image. These rules never resize the live stage. */
-.pf-game.pf-reaction-rod #result{width:min(720px,calc(var(--visible-width,100vw) - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));height:min(740px,calc(var(--visible-height,100dvh) - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));max-height:calc(var(--visible-height,100dvh) - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:16px;display:flex;flex-direction:column;gap:10px;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin}
-.pf-game.pf-reaction-rod #result .result-panel{display:flex;flex-direction:column;flex:1 0 auto;min-height:0;gap:10px;border:0;padding:0;margin:0;max-width:none;text-align:center}
+/* Result-only compact layout. The live stage and its pointer coordinates are unchanged. */
+.pf-game.pf-reaction-rod #result{width:min(900px,calc(var(--visible-width,100vw) - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));height:fit-content;max-height:calc(var(--visible-height,100dvh) - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:14px;display:flex;flex-direction:column;gap:8px;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin}
+.pf-game.pf-reaction-rod #result .result-panel{display:flex;flex-direction:column;flex:none;min-height:0;gap:8px;border:0;padding:0;margin:0;max-width:none;text-align:center}
 .pf-game.pf-reaction-rod #result .result-panel>*{flex-shrink:0;min-width:0}
-.pf-game.pf-reaction-rod #result .ticket{font-size:11px;padding:3px 8px}
-.pf-game.pf-reaction-rod #result h2{font-size:22px;line-height:1.25;margin:7px 0 2px}
-.pf-game.pf-reaction-rod #result .result-count strong{font-size:46px;line-height:1.1}
-.pf-game.pf-reaction-rod #result .result-count>span{font-size:15px}
-.pf-game.pf-reaction-rod #result #resultComment{font-size:13px;line-height:1.45;margin:4px 0}
-.pf-game.pf-reaction-rod #result .fall-count{font-size:12px;margin:3px 0 0}
-.pf-game.pf-reaction-rod #result .result-scene{flex:1 0 220px;min-height:220px;width:100%;margin:0;border-radius:12px;background:#e8f1da;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.pf-game.pf-reaction-rod #resultPhoto{display:block;width:100%;height:220px;max-height:280px;object-fit:contain;touch-action:pan-y;cursor:default}
-.pf-game.pf-reaction-rod #result .result-actions{width:100%;display:flex;flex-direction:column;gap:8px}
-.pf-game.pf-reaction-rod #result #againBtn{margin:0;min-height:44px;justify-content:center;gap:12px}
-.pf-game.pf-reaction-rod #result .pf-result-details{margin:0;width:100%;text-align:left}
-.pf-game.pf-reaction-rod #result .score-note{display:block;margin:8px 0;font-size:11px;line-height:1.5}
+.pf-game.pf-reaction-rod #result .ticket{font-size:10px;padding:2px 7px}
+.pf-game.pf-reaction-rod #result h2{font-size:20px;line-height:1.2;margin:5px 0 0}
+.pf-game.pf-reaction-rod #result .result-count strong{font-size:38px;line-height:1.1}
+.pf-game.pf-reaction-rod #result .result-count>span{font-size:14px}
+.pf-game.pf-reaction-rod #result #resultComment{font-size:12px;line-height:1.4;margin:3px 0}
+.pf-game.pf-reaction-rod #result .fall-count{font-size:12px;margin:2px 0 0}
+.pf-game.pf-reaction-rod #result .result-scene{flex:none;min-height:200px;width:100%;margin:0;border-radius:12px;background:#e8f1da;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pf-game.pf-reaction-rod #resultPhoto{display:block;width:100%;height:200px;object-fit:contain;touch-action:pan-y;cursor:default}
+.pf-game.pf-reaction-rod #result .result-actions{width:100%;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pf-game.pf-reaction-rod #result .result-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+.pf-game.pf-reaction-rod #result .result-buttons>button{margin:0;min-width:0;min-height:44px;width:100%;padding:8px 6px;font-size:15px;line-height:1.25;border:1.5px solid #638b76;border-radius:14px;color:#174941;background:#dcebdd;cursor:pointer}
+.pf-game.pf-reaction-rod #result .result-buttons>#againBtn{background:#ef945a;justify-content:center;gap:8px}
+.pf-game.pf-reaction-rod #result .result-buttons>button:disabled{opacity:.5;cursor:default}
+.pf-game.pf-reaction-rod #result .pf-result-details{margin:0;width:100%;text-align:left;padding:10px;border:1px solid #c4d1cb;border-radius:12px;box-sizing:border-box;background:#fffdf4}
+.pf-game.pf-reaction-rod #result .score-note{display:block;margin:6px 0 0;font-size:11px;line-height:1.4}
 .pf-game.pf-reaction-rod #result .share-actions{margin:0;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
 .pf-game.pf-reaction-rod #result .share-actions #shareBtn{grid-column:auto}
-.pf-game.pf-reaction-rod #result .share-actions :is(button,a){min-height:44px;padding:7px 5px;font-size:12px}
-.pf-game.pf-reaction-rod #result #shareStatus{margin:0;line-height:1.4;font-size:12px}
-.pf-game.pf-reaction-rod #result>.pf-result-ranking{display:block;width:100%;margin:0;flex:none;min-height:44px}
-@media(max-width:430px){.pf-game.pf-reaction-rod #result{padding:12px}.pf-game.pf-reaction-rod #result h2{font-size:20px}.pf-game.pf-reaction-rod #resultPhoto{height:200px}.pf-game.pf-reaction-rod #result .result-scene{flex-basis:200px;min-height:200px}.pf-game.pf-reaction-rod #result .share-actions :is(button,a){font-size:11px}}
-@media(max-height:540px) and (min-width:600px){
- .pf-game.pf-reaction-rod #result{width:min(860px,calc(var(--visible-width,100vw) - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));height:auto;padding:12px}
- .pf-game.pf-reaction-rod #result .result-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 16px;align-items:start;min-height:0}
- .pf-game.pf-reaction-rod #result .result-summary{grid-column:1;grid-row:1}
- .pf-game.pf-reaction-rod #result .result-scene{min-height:180px;grid-column:2;grid-row:1/3;align-self:stretch}
- .pf-game.pf-reaction-rod #resultPhoto{height:100%;max-height:320px;min-height:180px}
- .pf-game.pf-reaction-rod #result .result-actions{grid-column:1;grid-row:2}
- .pf-game.pf-reaction-rod #result .share-actions{grid-template-columns:repeat(3,minmax(0,1fr))}
- .pf-game.pf-reaction-rod #result h2{font-size:20px}
+.pf-game.pf-reaction-rod #result .share-actions :is(button,a){min-height:44px;padding:7px 4px;font-size:12px}
+.pf-game.pf-reaction-rod #result #shareStatus,.pf-game.pf-reaction-rod #result .replay-availability{margin:0;line-height:1.4;font-size:12px}
+.pf-game.pf-reaction-rod #result #shareStatus:empty{display:none}
+.pf-game.pf-reaction-rod #result>.pf-leaderboard{margin:0;padding:8px 10px;flex:none}
+.pf-game.pf-reaction-rod #result>.pf-leaderboard>summary{font-size:15px;min-height:44px;line-height:44px}
+.pf-game.pf-reaction-rod .replay-controls{position:absolute;z-index:6;left:8px;right:8px;bottom:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;padding:7px;border:1px solid #638b76;border-radius:14px;background:#fff9e8f5;color:#174941;box-shadow:0 3px 0 #17494125;touch-action:manipulation}
+.pf-game.pf-reaction-rod .replay-controls>span{font-size:13px;flex:1 1 110px;text-align:center}
+.pf-game.pf-reaction-rod .replay-controls>button{min-height:44px;min-width:84px;padding:8px 10px;border:1px solid #638b76;border-radius:10px;background:#dcebdd;color:#174941;font-size:14px;cursor:pointer}
+.pf-game.pf-reaction-rod #result [hidden],.pf-game.pf-reaction-rod .replay-controls[hidden]{display:none!important}
+@media(max-width:430px){.pf-game.pf-reaction-rod #result{padding:10px}.pf-game.pf-reaction-rod #result h2{font-size:19px}.pf-game.pf-reaction-rod #result .share-actions :is(button,a){font-size:11px}}
+@media(max-height:700px){.pf-game.pf-reaction-rod #resultPhoto{height:160px}.pf-game.pf-reaction-rod #result .result-scene{min-height:160px}}
+@media(max-height:570px){.pf-game.pf-reaction-rod #resultPhoto{height:140px}.pf-game.pf-reaction-rod #result .result-scene{min-height:140px}}
+@media(min-width:760px),(max-height:540px) and (min-width:600px){
+ .pf-game.pf-reaction-rod #result .result-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:8px 16px;align-items:start;min-height:0}
+ .pf-game.pf-reaction-rod #result .result-summary{grid-column:2;grid-row:1}
+ .pf-game.pf-reaction-rod #result .result-scene{min-height:280px;height:100%;grid-column:1;grid-row:1/3;align-self:stretch}
+ .pf-game.pf-reaction-rod #resultPhoto{height:100%;min-height:280px;max-height:460px}
+ .pf-game.pf-reaction-rod #result .result-actions{grid-column:2;grid-row:2}
 }
+@media(max-height:540px) and (min-width:600px){.pf-game.pf-reaction-rod #result{padding:10px}.pf-game.pf-reaction-rod #result .result-scene{min-height:260px}.pf-game.pf-reaction-rod #resultPhoto{min-height:260px}}
+/* Playback chrome must not cover the game's bottom warning/toast. These offsets
+   use the actual wrapped controls/notice heights and never resize the stage. */
+.pf-game.pf-reaction-rod #stage[data-replay="true"] .toast{bottom:calc(var(--replay-controls-height,80px) + 16px);left:50%;right:auto;transform:translateX(-50%);max-width:calc(100% - 24px);width:max-content;white-space:normal;text-align:center}
+.pf-game.pf-reaction-rod #stage[data-replay="true"] .toast.pop{transform:translateX(-50%) scale(1.02)}
+.pf-game.pf-reaction-rod #stage[data-replay="true"] .balance{bottom:calc(var(--replay-controls-height,80px) + var(--replay-toast-height,42px) + 24px);left:50%;right:auto;transform:translateX(-50%);max-width:calc(100% - 24px)}
+.pf-game.pf-reaction-rod #stage[data-replay="true"][data-replay-compact="true"] :is(.balance,.live){display:none!important}
+.pf-game.pf-reaction-rod #result[data-photo="false"] .result-panel{display:flex}
