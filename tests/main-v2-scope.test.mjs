@@ -1,10 +1,11 @@
+import {readBeforeRod} from './helpers/rod-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {catalog} from '../src/catalog.mjs';
 import {eligibleResult} from '../public/games/shared/leaderboard.mjs';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforeRod(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 const manifest=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')),v2=manifest.v2Promotion;
@@ -16,7 +17,7 @@ test('V2 promotion exact bytes retain auditable historical production chain',()=
 test('production backend, D1 config, scoring physics and catalog stay byte-identical',()=>{
  assert.ok(v2.protectedFiles.some(f=>f.path==='wrangler.jsonc'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/leaderboard/0001.sql'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/play-counts/002.sql'));
  for(const f of v2.protectedFiles)assert.equal(hash(read(f.path)),f.sha256,f.path);
- assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','shared']);assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform']);
+ assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform','reaction-rod']);
  assert.doesNotMatch(read('public/games/long-jump/game.mjs').toString(),/createLandingReplay|mountControlsFrame/);
  assert.equal(read('public/games/shared/leaderboard-config.mjs').toString().includes('LEADERBOARD_ENABLED = true'),true);
 });

@@ -1,0 +1,9 @@
+/* Reuse the platform's proven standalone origin recovery (long-jump/layout.mjs).
+   One measured, fixed surface keeps the toolbar and canvas in the same viewport;
+   clip avoids a second scroll origin when focus changes after device rotation. */
+.pf-game.pf-reaction-rod .shell{position:fixed;left:var(--visible-left,0px);top:var(--visible-top,0px);width:var(--visible-width,100vw);height:var(--visible-height,100dvh);overflow:hidden;overflow:clip}
+/* The shared shell moved this prototype HUD into normal flow. Restore its inset
+   so both hint lines clear the card's rounded, clipped bottom corners. */
+.pf-game.pf-reaction-rod .game-card .bottomline{min-height:52px;padding:8px 18px}
+@media(max-width:650px) and (orientation:portrait){.pf-game.pf-reaction-rod .game-card .bottomline{min-height:42px;padding:8px 12px}}
+@media(max-height:540px) and (orientation:landscape){.pf-game.pf-reaction-rod .game-card .bottomline{min-height:36px;padding:6px 14px}}

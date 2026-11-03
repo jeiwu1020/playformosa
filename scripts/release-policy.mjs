@@ -1,5 +1,5 @@
 import{readdir,stat}from'node:fs/promises';import path from'node:path';import{fileURLToPath}from'node:url';
-export const releasedGameIds=['long-jump','hurdles'];
+export const releasedGameIds=['long-jump','hurdles','reaction-rod'];
 // Production artifact admission, not merely homepage visibility.
 export async function assertReleasedGames(root){root=root instanceof URL?fileURLToPath(root):root;const dir=path.join(root,'games'),entries=await readdir(dir,{withFileTypes:true});for(const e of entries){if(!e.isDirectory()||![...releasedGameIds,'shared'].includes(e.name))throw Error('Unapproved game directory: '+e.name);}for(const id of releasedGameIds)await stat(path.join(dir,id,'index.html'));const walk=async p=>{for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else if(e.name.endsWith('.html')&&!releasedGameIds.some(id=>full===path.join(dir,id,'index.html')))throw Error('Unapproved game HTML: '+path.relative(dir,full));}};await walk(dir);return releasedGameIds;}
 

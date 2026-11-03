@@ -1,0 +1,1661 @@
+{
+  "baseCommit": "af138c1631b553b65531016f24888266c3ef2bbe",
+  "previewSource": "52c60d195e494146f95bc702763cbe6d7bcc742a",
+  "scope": [
+    "reaction-rod",
+    "homepage-minigames"
+  ],
+  "addedPublicPaths": [
+    "assets/app-icons/reaction-rod/apple-touch-icon.png",
+    "assets/app-icons/reaction-rod/favicon-32.png",
+    "assets/app-icons/reaction-rod/favicon-48.png",
+    "assets/app-icons/reaction-rod/icon-192.png",
+    "assets/app-icons/reaction-rod/icon-512.png",
+    "assets/app-icons/reaction-rod/icon-maskable-512.png",
+    "assets/reaction-rod-card.png",
+    "games/reaction-rod/audio.mjs",
+    "games/reaction-rod/audio/CREDITS.md",
+    "games/reaction-rod/audio/chill-menu.mp3",
+    "games/reaction-rod/audio/glass-tap.wav",
+    "games/reaction-rod/audio/spill-drop.wav",
+    "games/reaction-rod/final-moment.mjs",
+    "games/reaction-rod/framing.mjs",
+    "games/reaction-rod/game-audio-events.mjs",
+    "games/reaction-rod/game.mjs",
+    "games/reaction-rod/index.html",
+    "games/reaction-rod/layout.mjs",
+    "games/reaction-rod/leaderboard-metrics.mjs",
+    "games/reaction-rod/leaderboard-scroll.mjs",
+    "games/reaction-rod/leaderboard.mjs",
+    "games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+    "games/reaction-rod/licenses/Kenney-Interface-License.txt",
+    "games/reaction-rod/licenses/Not-Jam-License.txt",
+    "games/reaction-rod/manifest.webmanifest",
+    "games/reaction-rod/physics.mjs",
+    "games/reaction-rod/play-counts.mjs",
+    "games/reaction-rod/replay.mjs",
+    "games/reaction-rod/result.css",
+    "games/reaction-rod/scene.mjs",
+    "games/reaction-rod/share.mjs",
+    "games/reaction-rod/snapshot.mjs",
+    "games/reaction-rod/style.css",
+    "games/reaction-rod/vendor/THREE-LICENSE.txt",
+    "games/reaction-rod/vendor/three.core.min.js",
+    "games/reaction-rod/vendor/three.module.min.js",
+    "games/reaction-rod/viewport.css"
+  ],
+  "files": [
+    {
+      "path": "docs/reaction-rod-main/PLAN.md",
+      "sha256": "5a8e4f8aceb3f25e1e116ee4d72fbff6a89fb1b2fb977fc37bb0f08941c043dc",
+      "bytes": 1690
+    },
+    {
+      "path": "docs/reaction-rod-main/VERIFICATION.md",
+      "sha256": "17766d2477951bc97b801b6bb37b1529748303734da5867559e1097aab3ff625",
+      "bytes": 2847
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "baec7111f240b7a874f438073fdd7fff9d44dddf615118f0bcbe6b886ad92bb9",
+      "bytes": 27283,
+      "beforeSha256": "aa8c5c39abe8bf72e43e553a986ac833085d48538c51814f13938cca087382f2",
+      "beforeText": "{\n  \"name\": \"playformosa\",\n  \"version\": \"0.1.0\",\n  \"lockfileVersion\": 3,\n  \"requires\": true,\n  \"packages\": {\n    \"\": {\n      \"name\": \"playformosa\",\n      \"version\": \"0.1.0\",\n      \"devDependencies\": {\n        \"jsdom\": \"26.1.0\",\n        \"sql.js\": \"1.13.0\"\n      },\n      \"engines\": {\n        \"node\": \">=20\"\n      }\n    },\n    \"node_modules/@asamuzakjp/css-color\": {\n      \"version\": \"3.2.0\",\n      \"resolved\": \"https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-3.2.0.tgz\",\n      \"integrity\": \"sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"@csstools/css-calc\": \"^2.1.3\",\n        \"@csstools/css-color-parser\": \"^3.0.9\",\n        \"@csstools/css-parser-algorithms\": \"^3.0.4\",\n        \"@csstools/css-tokenizer\": \"^3.0.3\",\n        \"lru-cache\": \"^10.4.3\"\n      }\n    },\n    \"node_modules/@csstools/color-helpers\": {\n      \"version\": \"5.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/@csstools/color-helpers/-/color-helpers-5.1.0.tgz\",\n      \"integrity\": \"sha512-S11EXWJyy0Mz5SYvRmY8nJYTFFd1LCNV+7cXyAgQtOOuzb4EsgfqDufL+9esx72/eLhsRdGZwaldu/h+E4t4BA==\",\n      \"dev\": true,\n      \"funding\": [\n        {\n          \"type\": \"github\",\n          \"url\": \"https://github.com/sponsors/csstools\"\n        },\n        {\n          \"type\": \"opencollective\",\n          \"url\": \"https://opencollective.com/csstools\"\n        }\n      ],\n      \"license\": \"MIT-0\",\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/@csstools/css-calc\": {\n      \"version\": \"2.1.4\",\n      \"resolved\": \"https://registry.npmjs.org/@csstools/css-calc/-/css-calc-2.1.4.tgz\",\n      \"integrity\": \"sha512-3N8oaj+0juUw/1H3YwmDDJXCgTB1gKU6Hc/bB502u9zR0q2vd786XJH9QfrKIEgFlZmhZiq6epXl4rHqhzsIgQ==\",\n      \"dev\": true,\n      \"funding\": [\n        {\n          \"type\": \"github\",\n          \"url\": \"https://github.com/sponsors/csstools\"\n        },\n        {\n          \"type\": \"opencollective\",\n          \"url\": \"https://opencollective.com/csstools\"\n        }\n      ],\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"peerDependencies\": {\n        \"@csstools/css-parser-algorithms\": \"^3.0.5\",\n        \"@csstools/css-tokenizer\": \"^3.0.4\"\n      }\n    },\n    \"node_modules/@csstools/css-color-parser\": {\n      \"version\": \"3.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/@csstools/css-color-parser/-/css-color-parser-3.1.0.tgz\",\n      \"integrity\": \"sha512-nbtKwh3a6xNVIp/VRuXV64yTKnb1IjTAEEh3irzS+HkKjAOYLTGNb9pmVNntZ8iVBHcWDA2Dof0QtPgFI1BaTA==\",\n      \"dev\": true,\n      \"funding\": [\n        {\n          \"type\": \"github\",\n          \"url\": \"https://github.com/sponsors/csstools\"\n        },\n        {\n          \"type\": \"opencollective\",\n          \"url\": \"https://opencollective.com/csstools\"\n        }\n      ],\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"@csstools/color-helpers\": \"^5.1.0\",\n        \"@csstools/css-calc\": \"^2.1.4\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"peerDependencies\": {\n        \"@csstools/css-parser-algorithms\": \"^3.0.5\",\n        \"@csstools/css-tokenizer\": \"^3.0.4\"\n      }\n    },\n    \"node_modules/@csstools/css-parser-algorithms\": {\n      \"version\": \"3.0.5\",\n      \"resolved\": \"https://registry.npmjs.org/@csstools/css-parser-algorithms/-/css-parser-algorithms-3.0.5.tgz\",\n      \"integrity\": \"sha512-DaDeUkXZKjdGhgYaHNJTV9pV7Y9B3b644jCLs9Upc3VeNGg6LWARAT6O+Q+/COo+2gg/bM5rhpMAtf70WqfBdQ==\",\n      \"dev\": true,\n      \"funding\": [\n        {\n          \"type\": \"github\",\n          \"url\": \"https://github.com/sponsors/csstools\"\n        },\n        {\n          \"type\": \"opencollective\",\n          \"url\": \"https://opencollective.com/csstools\"\n        }\n      ],\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"peerDependencies\": {\n        \"@csstools/css-tokenizer\": \"^3.0.4\"\n      }\n    },\n    \"node_modules/@csstools/css-tokenizer\": {\n      \"version\": \"3.0.4\",\n      \"resolved\": \"https://registry.npmjs.org/@csstools/css-tokenizer/-/css-tokenizer-3.0.4.tgz\",\n      \"integrity\": \"sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==\",\n      \"dev\": true,\n      \"funding\": [\n        {\n          \"type\": \"github\",\n          \"url\": \"https://github.com/sponsors/csstools\"\n        },\n        {\n          \"type\": \"opencollective\",\n          \"url\": \"https://opencollective.com/csstools\"\n        }\n      ],\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/agent-base\": {\n      \"version\": \"7.1.4\",\n      \"resolved\": \"https://registry.npmjs.org/agent-base/-/agent-base-7.1.4.tgz\",\n      \"integrity\": \"sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">= 14\"\n      }\n    },\n    \"node_modules/cssstyle\": {\n      \"version\": \"4.6.0\",\n      \"resolved\": \"https://registry.npmjs.org/cssstyle/-/cssstyle-4.6.0.tgz\",\n      \"integrity\": \"sha512-2z+rWdzbbSZv6/rhtvzvqeZQHrBaqgogqt85sqFNbabZOuFbCVFb8kPeEtZjiKkbrm395irpNKiYeFeLiQnFPg==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"@asamuzakjp/css-color\": \"^3.2.0\",\n        \"rrweb-cssom\": \"^0.8.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/data-urls\": {\n      \"version\": \"5.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/data-urls/-/data-urls-5.0.0.tgz\",\n      \"integrity\": \"sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"whatwg-mimetype\": \"^4.0.0\",\n        \"whatwg-url\": \"^14.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/debug\": {\n      \"version\": \"4.4.3\",\n      \"resolved\": \"https://registry.npmjs.org/debug/-/debug-4.4.3.tgz\",\n      \"integrity\": \"sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"ms\": \"^2.1.3\"\n      },\n      \"engines\": {\n        \"node\": \">=6.0\"\n      },\n      \"peerDependenciesMeta\": {\n        \"supports-color\": {\n          \"optional\": true\n        }\n      }\n    },\n    \"node_modules/decimal.js\": {\n      \"version\": \"10.6.0\",\n      \"resolved\": \"https://registry.npmjs.org/decimal.js/-/decimal.js-10.6.0.tgz\",\n      \"integrity\": \"sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/entities\": {\n      \"version\": \"6.0.1\",\n      \"resolved\": \"https://registry.npmjs.org/entities/-/entities-6.0.1.tgz\",\n      \"integrity\": \"sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==\",\n      \"dev\": true,\n      \"license\": \"BSD-2-Clause\",\n      \"engines\": {\n        \"node\": \">=0.12\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/fb55/entities?sponsor=1\"\n      }\n    },\n    \"node_modules/html-encoding-sniffer\": {\n      \"version\": \"4.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/html-encoding-sniffer/-/html-encoding-sniffer-4.0.0.tgz\",\n      \"integrity\": \"sha512-Y22oTqIU4uuPgEemfz7NDJz6OeKf12Lsu+QC+s3BVpda64lTiMYCyGwg5ki4vFxkMwQdeZDl2adZoqUgdFuTgQ==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"whatwg-encoding\": \"^3.1.1\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/http-proxy-agent\": {\n      \"version\": \"7.0.2\",\n      \"resolved\": \"https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-7.0.2.tgz\",\n      \"integrity\": \"sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"agent-base\": \"^7.1.0\",\n        \"debug\": \"^4.3.4\"\n      },\n      \"engines\": {\n        \"node\": \">= 14\"\n      }\n    },\n    \"node_modules/https-proxy-agent\": {\n      \"version\": \"7.0.6\",\n      \"resolved\": \"https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-7.0.6.tgz\",\n      \"integrity\": \"sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"agent-base\": \"^7.1.2\",\n        \"debug\": \"4\"\n      },\n      \"engines\": {\n        \"node\": \">= 14\"\n      }\n    },\n    \"node_modules/iconv-lite\": {\n      \"version\": \"0.6.3\",\n      \"resolved\": \"https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.6.3.tgz\",\n      \"integrity\": \"sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"safer-buffer\": \">= 2.1.2 < 3.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=0.10.0\"\n      }\n    },\n    \"node_modules/is-potential-custom-element-name\": {\n      \"version\": \"1.0.1\",\n      \"resolved\": \"https://registry.npmjs.org/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz\",\n      \"integrity\": \"sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/jsdom\": {\n      \"version\": \"26.1.0\",\n      \"resolved\": \"https://registry.npmjs.org/jsdom/-/jsdom-26.1.0.tgz\",\n      \"integrity\": \"sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"cssstyle\": \"^4.2.1\",\n        \"data-urls\": \"^5.0.0\",\n        \"decimal.js\": \"^10.5.0\",\n        \"html-encoding-sniffer\": \"^4.0.0\",\n        \"http-proxy-agent\": \"^7.0.2\",\n        \"https-proxy-agent\": \"^7.0.6\",\n        \"is-potential-custom-element-name\": \"^1.0.1\",\n        \"nwsapi\": \"^2.2.16\",\n        \"parse5\": \"^7.2.1\",\n        \"rrweb-cssom\": \"^0.8.0\",\n        \"saxes\": \"^6.0.0\",\n        \"symbol-tree\": \"^3.2.4\",\n        \"tough-cookie\": \"^5.1.1\",\n        \"w3c-xmlserializer\": \"^5.0.0\",\n        \"webidl-conversions\": \"^7.0.0\",\n        \"whatwg-encoding\": \"^3.1.1\",\n        \"whatwg-mimetype\": \"^4.0.0\",\n        \"whatwg-url\": \"^14.1.1\",\n        \"ws\": \"^8.18.0\",\n        \"xml-name-validator\": \"^5.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      },\n      \"peerDependencies\": {\n        \"canvas\": \"^3.0.0\"\n      },\n      \"peerDependenciesMeta\": {\n        \"canvas\": {\n          \"optional\": true\n        }\n      }\n    },\n    \"node_modules/lru-cache\": {\n      \"version\": \"10.4.3\",\n      \"resolved\": \"https://registry.npmjs.org/lru-cache/-/lru-cache-10.4.3.tgz\",\n      \"integrity\": \"sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==\",\n      \"dev\": true,\n      \"license\": \"ISC\"\n    },\n    \"node_modules/ms\": {\n      \"version\": \"2.1.3\",\n      \"resolved\": \"https://registry.npmjs.org/ms/-/ms-2.1.3.tgz\",\n      \"integrity\": \"sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/nwsapi\": {\n      \"version\": \"2.2.28\",\n      \"resolved\": \"https://registry.npmjs.org/nwsapi/-/nwsapi-2.2.28.tgz\",\n      \"integrity\": \"sha512-IlVB7OS7qrOsVYlpnFIkETjMwT9jwvmocJmmM+GZU/PAB3uGi9Ezd7vcWhWBUnSc0ya4ppmQITOyP1ez9gg8cg==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/parse5\": {\n      \"version\": \"7.3.0\",\n      \"resolved\": \"https://registry.npmjs.org/parse5/-/parse5-7.3.0.tgz\",\n      \"integrity\": \"sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"entities\": \"^6.0.0\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/inikulin/parse5?sponsor=1\"\n      }\n    },\n    \"node_modules/punycode\": {\n      \"version\": \"2.3.1\",\n      \"resolved\": \"https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz\",\n      \"integrity\": \"sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=6\"\n      }\n    },\n    \"node_modules/rrweb-cssom\": {\n      \"version\": \"0.8.0\",\n      \"resolved\": \"https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz\",\n      \"integrity\": \"sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/safer-buffer\": {\n      \"version\": \"2.1.2\",\n      \"resolved\": \"https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz\",\n      \"integrity\": \"sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/saxes\": {\n      \"version\": \"6.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz\",\n      \"integrity\": \"sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==\",\n      \"dev\": true,\n      \"license\": \"ISC\",\n      \"dependencies\": {\n        \"xmlchars\": \"^2.2.0\"\n      },\n      \"engines\": {\n        \"node\": \">=v12.22.7\"\n      }\n    },\n    \"node_modules/symbol-tree\": {\n      \"version\": \"3.2.4\",\n      \"resolved\": \"https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz\",\n      \"integrity\": \"sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/tldts\": {\n      \"version\": \"6.1.86\",\n      \"resolved\": \"https://registry.npmjs.org/tldts/-/tldts-6.1.86.tgz\",\n      \"integrity\": \"sha512-WMi/OQ2axVTf/ykqCQgXiIct+mSQDFdH2fkwhPwgEwvJ1kSzZRiinb0zF2Xb8u4+OqPChmyI6MEu4EezNJz+FQ==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"tldts-core\": \"^6.1.86\"\n      },\n      \"bin\": {\n        \"tldts\": \"bin/cli.js\"\n      }\n    },\n    \"node_modules/tldts-core\": {\n      \"version\": \"6.1.86\",\n      \"resolved\": \"https://registry.npmjs.org/tldts-core/-/tldts-core-6.1.86.tgz\",\n      \"integrity\": \"sha512-Je6p7pkk+KMzMv2XXKmAE3McmolOQFdxkKw0R8EYNr7sELW46JqnNeTX8ybPiQgvg1ymCoF8LXs5fzFaZvJPTA==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/tough-cookie\": {\n      \"version\": \"5.1.2\",\n      \"resolved\": \"https://registry.npmjs.org/tough-cookie/-/tough-cookie-5.1.2.tgz\",\n      \"integrity\": \"sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==\",\n      \"dev\": true,\n      \"license\": \"BSD-3-Clause\",\n      \"dependencies\": {\n        \"tldts\": \"^6.1.32\"\n      },\n      \"engines\": {\n        \"node\": \">=16\"\n      }\n    },\n    \"node_modules/tr46\": {\n      \"version\": \"5.1.1\",\n      \"resolved\": \"https://registry.npmjs.org/tr46/-/tr46-5.1.1.tgz\",\n      \"integrity\": \"sha512-hdF5ZgjTqgAntKkklYw0R03MG2x/bSzTtkxmIRw/sTNV8YXsCJ1tfLAX23lhxhHJlEf3CRCOCGGWw3vI3GaSPw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"punycode\": \"^2.3.1\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/w3c-xmlserializer\": {\n      \"version\": \"5.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-5.0.0.tgz\",\n      \"integrity\": \"sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"xml-name-validator\": \"^5.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/webidl-conversions\": {\n      \"version\": \"7.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz\",\n      \"integrity\": \"sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==\",\n      \"dev\": true,\n      \"license\": \"BSD-2-Clause\",\n      \"engines\": {\n        \"node\": \">=12\"\n      }\n    },\n    \"node_modules/whatwg-encoding\": {\n      \"version\": \"3.1.1\",\n      \"resolved\": \"https://registry.npmjs.org/whatwg-encoding/-/whatwg-encoding-3.1.1.tgz\",\n      \"integrity\": \"sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==\",\n      \"deprecated\": \"Use @exodus/bytes instead for a more spec-conformant and faster implementation\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"iconv-lite\": \"0.6.3\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/whatwg-mimetype\": {\n      \"version\": \"4.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/whatwg-mimetype/-/whatwg-mimetype-4.0.0.tgz\",\n      \"integrity\": \"sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/whatwg-url\": {\n      \"version\": \"14.2.0\",\n      \"resolved\": \"https://registry.npmjs.org/whatwg-url/-/whatwg-url-14.2.0.tgz\",\n      \"integrity\": \"sha512-De72GdQZzNTUBBChsXueQUnPKDkg/5A5zp7pFDuQAj5UFoENpiACU0wlCvzpAGnTkj++ihpKwKyYewn/XNUbKw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"dependencies\": {\n        \"tr46\": \"^5.1.0\",\n        \"webidl-conversions\": \"^7.0.0\"\n      },\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/ws\": {\n      \"version\": \"8.22.1\",\n      \"resolved\": \"https://registry.npmjs.org/ws/-/ws-8.22.1.tgz\",\n      \"integrity\": \"sha512-oyL6OPYme/CmiFvNuGzeoxCJ4nOrZE2O1FwM9MWM1AsGri6nLXB2pg+lNA8aLeXMSav0J6eIVS1j6vUPzUtK9g==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \">=10.0.0\"\n      },\n      \"peerDependencies\": {\n        \"bufferutil\": \"^4.0.1\",\n        \"utf-8-validate\": \">=5.0.2\"\n      },\n      \"peerDependenciesMeta\": {\n        \"bufferutil\": {\n          \"optional\": true\n        },\n        \"utf-8-validate\": {\n          \"optional\": true\n        }\n      }\n    },\n    \"node_modules/xml-name-validator\": {\n      \"version\": \"5.0.0\",\n      \"resolved\": \"https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-5.0.0.tgz\",\n      \"integrity\": \"sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==\",\n      \"dev\": true,\n      \"license\": \"Apache-2.0\",\n      \"engines\": {\n        \"node\": \">=18\"\n      }\n    },\n    \"node_modules/xmlchars\": {\n      \"version\": \"2.2.0\",\n      \"resolved\": \"https://registry.npmjs.org/xmlchars/-/xmlchars-2.2.0.tgz\",\n      \"integrity\": \"sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    },\n    \"node_modules/sql.js\": {\n      \"version\": \"1.13.0\",\n      \"resolved\": \"https://registry.npmjs.org/sql.js/-/sql.js-1.13.0.tgz\",\n      \"integrity\": \"sha512-RJbVP1HRDlUUXahJ7VMTcu9Rm1Nzw+EBpoPr94vnbD4LwR715F3CcxE2G2k45PewcaZ57pjetYa+LoSJLAASgA==\",\n      \"dev\": true,\n      \"license\": \"MIT\"\n    }\n  }\n}\n"
+    },
+    {
+      "path": "package.json",
+      "sha256": "0761cb013d15bd57cba71ba4e85f7042fcb9ad7e2c717fa900185f74bd1a564e",
+      "bytes": 512,
+      "beforeSha256": "c4939f4aa9487edbc9519517905842ef4f19feec1f4201ebf97a3bc885db2bfd",
+      "beforeText": "{\n  \"name\": \"playformosa\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"build\": \"node scripts/build.mjs\",\n    \"test\": \"node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs\",\n    \"check\": \"npm test && npm run build && node scripts/verify.mjs\"\n  },\n  \"engines\": {\n    \"node\": \">=20\"\n  },\n  \"devDependencies\": {\n    \"jsdom\": \"26.1.0\",\n    \"sql.js\": \"1.13.0\"\n  }\n}\n"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/apple-touch-icon.png",
+      "sha256": "c2584c71ca1cb86df920d461b12b0e0a85b46108717728353b74bc97b0f0540f",
+      "bytes": 44974,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-32.png",
+      "sha256": "1191dd582f3f06bd819ae58f71d28ae9695a4e31e761bd77c3f756c72a08bf75",
+      "bytes": 2198,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-48.png",
+      "sha256": "f53b46516cd501fc539d190f30039a656797308ac8cab68d760a4ecbc9792de5",
+      "bytes": 4439,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-192.png",
+      "sha256": "d747eb51ef28faedd29e5e10607a44b52832ef55da9f6d8866fdd7f6dbc89377",
+      "bytes": 50314,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-512.png",
+      "sha256": "8f19ab07ad0ac9208b70c4dd400662ff5df163de44eb0be8ebe75e6345b31a7e",
+      "bytes": 293960,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-maskable-512.png",
+      "sha256": "8f19ab07ad0ac9208b70c4dd400662ff5df163de44eb0be8ebe75e6345b31a7e",
+      "bytes": 293960,
+      "previewExact": true
+    },
+    {
+      "path": "public/assets/home.css",
+      "sha256": "b5d80be105ac0568d7ccb9a62feb9e81b9a1db439116f04388ad814fbe2691fb",
+      "bytes": 14480,
+      "beforeSha256": "8ab966f8da5ee628938ab4b1ac4944b5d14a7317cd9f63efd06ba238fa23ff72",
+      "beforeText": ":root{color-scheme:light;--cream:#fff8e9;--ink:#0b1c31;--orange:#ff601c;--teal:#66c5c5;--line:3px solid var(--ink);font-family:\"Noto Sans TC\",\"PingFang TC\",\"Microsoft JhengHei\",system-ui,sans-serif;color:var(--ink);background:var(--cream);font-synthesis:none}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:radial-gradient(ellipse at 88% 20%,#e8f2e9 0,transparent 35%),var(--cream)}a{color:inherit;text-decoration:none}button,a,summary{-webkit-tap-highlight-color:transparent}a:focus-visible,summary:focus-visible{outline:4px solid #007f86;outline-offset:6px}img{display:block;max-width:100%;height:auto}.page-shell{width:min(1280px,100%);padding:0 40px;margin:auto}.skip-link{position:absolute;left:16px;top:-100px;z-index:10;padding:14px;background:var(--ink);color:white}.skip-link:focus{top:10px}.site-header{display:flex;align-items:center;gap:64px;padding:30px 0 22px}.wordmark{display:flex;flex-direction:column;text-align:center;transform:rotate(-2deg);flex-shrink:0}.wordmark>span{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1.1}.wordmark small{font-weight:900;letter-spacing:2px;font-size:11px;margin-top:5px}nav{display:flex;gap:36px}nav a{font-size:17px;font-weight:850;min-height:44px;display:flex;align-items:center}nav a:hover{color:#b63b00}.hero{position:relative;display:grid;grid-template-columns:1.13fr 1fr;align-items:center;min-height:505px;padding:28px 0 52px}.hero-copy{position:relative;z-index:2}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:850;margin:0 0 16px}.hero h1{font-size:clamp(35px,4.55vw,59px);font-weight:1000;letter-spacing:-2.5px;line-height:1.47;margin:0;white-space:nowrap}.underline{position:relative;isolation:isolate}.underline:after{content:\"\";height:9px;border-radius:100%;position:absolute;left:0;right:0;bottom:-3px;z-index:-1;transform:rotate(-4deg)}.orange:after{background:var(--orange)}.teal:after{background:var(--teal)}.hero-subtitle{font-size:23px;font-weight:800;letter-spacing:1px;margin:23px 0 27px}.hero-actions{display:flex;gap:17px}.button{display:inline-flex;justify-content:center;align-items:center;gap:20px;min-height:64px;padding:13px 28px;border:var(--line);border-radius:19px;font-size:22px;font-weight:900;box-shadow:0 5px 0 var(--ink);transition:transform .15s,box-shadow .15s;touch-action:manipulation}.button:hover{transform:translateY(-3px);box-shadow:0 8px 0 var(--ink)}.button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}.button-primary{background:var(--orange);color:var(--ink)}.button-secondary{background:var(--cream);font-size:18px}.hero-art{position:relative;min-width:0;align-self:stretch;display:flex;align-items:center;justify-content:center}.hero-art img{width:116%;max-width:none;position:relative;object-fit:contain;aspect-ratio:3/2;z-index:1}.art-halo{position:absolute;inset:7% -2% 2%;background:radial-gradient(ellipse,#d7eeeb 10%,#f1e8cd 55%,transparent 71%);transform:rotate(-7deg)}.comic-sticker{position:absolute;z-index:2;right:-3%;top:9%;padding:12px 16px;border:2px solid var(--ink);border-radius:8px;background:#e9f460;font-weight:950;font-size:19px;transform:rotate(-11deg);box-shadow:3px 4px 0 var(--ink)}.hero-caption{position:absolute;z-index:2;bottom:3%;right:2%;font-size:13px;font-weight:750;background:var(--cream);padding:6px 12px;border-radius:20px;transform:rotate(-4deg)}.series{border:var(--line);border-radius:25px;overflow:hidden;box-shadow:0 3px 0 var(--ink);background:var(--cream);position:relative;z-index:3}.series-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:23px 30px;background:var(--teal);border-bottom:var(--line)}.series-heading .eyebrow{font-size:10px;margin-bottom:4px;letter-spacing:1.7px}h2{margin:0;font-weight:1000;letter-spacing:-1px}.series-heading h2{font-size:43px;line-height:1.2;text-shadow:2px 2px var(--cream)}.progress{background:var(--cream);border:2px solid var(--ink);border-radius:24px;padding:10px 17px;white-space:nowrap;font-weight:800;font-size:14px;margin:0;box-shadow:2px 3px 0 var(--ink)}.progress strong{font-size:30px;margin:0 4px}.progress strong span{font-size:20px}.series-body{padding:25px 28px 0}.game-card{display:grid;grid-template-columns:32% 1fr auto;gap:26px;align-items:center;padding-bottom:25px}.game-card+.game-card{border-top:2px dashed #b1b3ad;padding-top:25px}.game-thumbnail{position:relative;border-radius:17px;overflow:hidden;background:linear-gradient(150deg,#98dce2,#c8efec 55%,#f1cc85);height:184px}.game-thumbnail img{height:100%;width:100%;object-fit:contain;transform:scale(1.13)}.game-thumbnail>span{position:absolute;left:10px;bottom:10px;font-weight:900;font-size:11px;background:var(--cream);border:2px solid var(--ink);border-radius:20px;padding:5px 10px}.game-info{min-width:0}.game-kicker{font-size:12px;font-weight:650;letter-spacing:.5px;margin:0 0 8px}.game-info h3{font-size:32px;line-height:1.25;letter-spacing:-1px;margin:0;font-weight:1000}.event-label{font-size:16px;font-weight:750;margin:7px 0 14px}.input-chip{font-size:14px;font-weight:800;margin:0;display:flex;align-items:center;gap:10px}.input-chip>span{font-size:24px;border:1px solid #b8b6a9;border-radius:10px;padding:4px 9px;background:#fffaf0}.game-cta{font-size:20px;padding:12px 23px;gap:10px;min-height:62px}.roadmap{border-top:2px dashed #a5aaa7}.roadmap summary{list-style:none;cursor:pointer;min-height:55px;display:flex;justify-content:center;align-items:center;gap:12px;font-weight:850;font-size:16px;padding:15px}.roadmap summary::-webkit-details-marker{display:none}.roadmap summary span{font-size:23px;line-height:1;transition:transform .15s}.roadmap[open] summary span{transform:rotate(45deg)}.roadmap-content{padding:0 0 22px}.roadmap-content>p{text-align:center;font-size:15px;line-height:1.7}.roadmap ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.roadmap li{border:1px solid #d2cbb9;border-radius:12px;padding:13px 15px;display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:750}.roadmap small{color:#555d61;font-size:11px;white-space:nowrap}.roadmap-note{color:#555d61;font-size:12px!important}.shelf{display:flex;align-items:center;gap:35px;position:relative;overflow:hidden;margin:24px 0;padding:24px 30px;border:2px solid #ded4bd;border-radius:22px;min-height:115px;background:linear-gradient(170deg,transparent 60%,#eee5d2 61%,#f4eddd 73%,#e5e1cb 74%)}.shelf h2{font-size:40px;position:relative}.shelf h2:after{content:\"\";height:6px;border-radius:100%;position:absolute;background:var(--teal);left:0;right:0;bottom:-6px;transform:rotate(-5deg)}.shelf p{font-weight:750;color:#626771;font-size:19px;letter-spacing:2px}.shelf-doodle{font-size:46px;transform:rotate(-15deg)}.about{border-top:1px solid #dfd5c0;padding:21px 3px 14px;display:flex;justify-content:space-between;gap:18px;align-items:center}.about h2{font-size:13px;letter-spacing:.4px}.about h2 span{font-size:11px;font-weight:650}.about p{font-size:12px;letter-spacing:1px;margin:0;line-height:1.8}footer{display:flex;justify-content:space-between;align-items:center;padding:0 3px 20px;font-size:10px;letter-spacing:1.2px;color:#626771}footer a{display:flex;align-items:center;min-height:44px;font-weight:750;font-size:12px}\n@media(min-width:1400px){.hero h1{font-size:61px}}\n@media(max-width:1000px){.page-shell{padding:0 25px}.hero{min-height:440px}.hero h1{font-size:4.6vw}.hero-subtitle{font-size:19px}.button{padding:12px 20px;font-size:20px}.button-secondary{font-size:16px}.comic-sticker{font-size:15px;right:0}.game-card{grid-template-columns:30% 1fr;gap:20px}.game-cta{grid-column:2;justify-self:start;grid-row:2}.game-thumbnail{grid-row:1 / 3;height:215px}.game-info h3{font-size:29px}.game-card{row-gap:12px}.game-info{align-self:end}.game-cta{align-self:start}.series-heading h2{font-size:36px}.about{align-items:flex-start;flex-direction:column;gap:9px}}\n@media(max-width:640px){.page-shell{padding:0 17px}.site-header{padding:22px 0 10px;gap:12px;justify-content:space-between}.wordmark>span{font-size:27px}.wordmark small{font-size:8px;letter-spacing:1.4px}nav{gap:12px}nav a{font-size:13px}.hero{grid-template-columns:minmax(0,1fr);padding:27px 0 28px;min-height:0}.hero-copy{display:contents}.hero .eyebrow{font-size:10px;letter-spacing:1.5px;margin-bottom:10px}.hero h1{font-size:clamp(31px,7.9vw,49px);letter-spacing:-1.8px;line-height:1.35;z-index:2}.hero-subtitle{font-size:17px;margin:16px 0 0;z-index:2}.hero-art{grid-row:4;grid-column:1;width:100%;height:auto;min-height:0;aspect-ratio:1.25;margin:-3px 0 -4px}.hero-art img{position:absolute;inset:0;height:100%;width:100%;max-width:none;aspect-ratio:auto}.art-halo{inset:7% 4% 2%}.comic-sticker{top:14%;right:0;font-size:15px;padding:8px 11px}.hero-caption{bottom:7%;font-size:10px}.hero-actions{grid-row:5;display:grid;grid-template-columns:1fr;gap:12px;z-index:3}.button{min-height:56px;font-size:23px;border-radius:16px}.button-secondary{font-size:17px;min-height:48px;padding:9px 18px}.series{border-radius:19px}.series-heading{gap:10px;padding:16px 14px;align-items:center}.series-heading .eyebrow{display:none}.series-heading h2{font-size:clamp(22px,6vw,32px);letter-spacing:-1px}.progress{font-size:9px;padding:8px 9px;border-radius:15px;box-shadow:1px 2px 0 var(--ink)}.progress strong{font-size:20px;margin:0 1px}.progress strong span{font-size:12px}.series-body{padding:15px 15px 0}.game-card{grid-template-columns:1fr auto;gap:15px 9px;padding-bottom:20px}.game-thumbnail{grid-row:1;grid-column:1 / -1;height:155px}.game-thumbnail img{object-fit:contain;transform:scale(1.35)}.game-info{grid-row:2;grid-column:1;align-self:center}.game-kicker{display:none}.game-info h3{font-size:23px;letter-spacing:-1px}.event-label{font-size:13px;margin:6px 0 10px}.input-chip{font-size:11px;gap:6px}.input-chip>span{font-size:17px;padding:3px 6px}.game-cta{grid-row:2;grid-column:2;align-self:end;font-size:15px;min-height:51px;padding:10px 12px;gap:5px;border-radius:14px}.game-cta>span{display:none}.roadmap summary{font-size:13px;min-height:48px;padding:12px}.roadmap ul{grid-template-columns:1fr 1fr;gap:7px}.roadmap li{font-size:12px;padding:10px;align-items:flex-start;flex-direction:column;gap:5px}.roadmap-content>p{font-size:13px}.shelf{padding:20px 17px;margin:20px 0;gap:18px;min-height:100px;border-radius:17px}.shelf h2{font-size:29px;white-space:nowrap}.shelf p{font-size:13px;letter-spacing:.3px;line-height:1.8}.shelf-doodle{display:none}.about{padding:17px 0 8px;gap:6px}.about h2{font-size:11px;letter-spacing:0}.about h2 span{font-size:10px}.about p{font-size:11px;letter-spacing:.3px}footer{font-size:8px;padding-bottom:12px}}\n@media(max-width:350px){.page-shell{padding:0 12px}.wordmark>span{font-size:24px}nav{gap:9px}nav a{font-size:12px}.hero h1{font-size:29px}.series-heading{padding:14px 10px}.series-body{padding:13px 11px 0}.game-info h3{font-size:21px}.game-cta{font-size:13px;padding:10px}.input-chip{font-size:10px}}\n@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}\n\n/* Approved Hurdles illustration only; original Jump thumbnail unchanged. */\n.game-thumbnail img.game-illustration{object-fit:contain;transform:none;padding:0;background:linear-gradient(135deg,#b3e8e1,#f4db98);}\n\n/* Approved single Fighter entry, scoped independently from the two local cards. */\n.portal-section{margin:50px 0;scroll-margin-top:24px}.portal-section-heading{display:flex;justify-content:space-between;align-items:end;gap:16px}.portal-section-heading .eyebrow{margin-bottom:8px;font-size:10px;letter-spacing:2.1px}.portal-section-heading h2{font-size:42px;line-height:1.2}.portal-section-note{font-size:15px;font-weight:800;margin:0 0 3px}.portal-intro{font-size:17px;line-height:1.8;margin:15px 0 4px}.portal-external-note{color:#53616b;font-size:13px;line-height:1.7;margin:0 0 23px}.portal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.portal-card{min-width:0;overflow:hidden;border:var(--line);border-radius:21px;background:#fffdf6;box-shadow:0 4px 0 var(--ink);display:flex;flex-direction:column}.portal-art{position:relative;aspect-ratio:1672/941;background:#0a1720;overflow:hidden}.portal-art>img{width:100%;height:100%;object-fit:cover}.portal-art-label{position:absolute;left:14px;top:14px;font-size:9px;font-weight:850;letter-spacing:1.5px;color:#fff8e9;background:#071621dd;border:1px solid #ffffff55;border-radius:6px;padding:7px 9px}.portal-card--taiwanfighter .portal-art>img:first-child{filter:brightness(.54)}.portal-art>img.portal-game-logo{position:absolute;width:66%;height:86%;object-fit:contain;left:17%;top:7%}.portal-card-body{padding:23px 24px 24px;display:flex;flex:1;flex-direction:column}.portal-genre{font-size:12px;font-weight:800;color:#53616b;margin:0 0 8px;letter-spacing:.4px}.portal-card h3{font-size:29px;line-height:1.35;font-weight:950;margin:0;letter-spacing:-.6px;overflow-wrap:anywhere}.portal-description{font-size:15px;line-height:1.8;margin:11px 0 22px;flex:1}.portal-card-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.portal-destination{font-size:12px;color:#53616b;font-weight:650;line-height:1.6}.portal-cta{min-height:48px;padding:10px 16px;font-size:16px;gap:12px;border-width:2px;border-radius:12px;box-shadow:0 3px 0 var(--ink);background:var(--cream);white-space:normal}.portal-cta:hover{background:#f8cd78;box-shadow:0 5px 0 var(--ink)}.portal-cta:active{box-shadow:0 1px 0 var(--ink)}\n.portal-section>.portal-card{max-width:640px;margin-top:20px}.play-count{font-size:14px;line-height:1.5;font-weight:700;color:#53616b;margin:8px 0}\n@media(max-width:600px){.portal-section h2{font-size:30px}.portal-card-body{padding:18px}.portal-card h3{font-size:25px}.portal-art-label{font-size:8px}}\n\n.home-count{font-size:14px;line-height:1.5;color:#36574f}footer{flex-wrap:wrap;gap:12px}\n"
+    },
+    {
+      "path": "public/assets/reaction-rod-card.png",
+      "sha256": "ee56c57508449135ce6accc6d7488660ab1e7ca05f57480a674462ca49bd7fd3",
+      "bytes": 1612035,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/audio/CREDITS.md",
+      "sha256": "3696d096294da387261dc89d7acfa74784fee85fbd9bddb3f292aad1474b45b5",
+      "bytes": 1212
+    },
+    {
+      "path": "public/games/reaction-rod/audio/chill-menu.mp3",
+      "sha256": "d25497f3bf59bc90c1a6ba097881cf749744372e09f06a3e5747bdbe0207e144",
+      "bytes": 1247651
+    },
+    {
+      "path": "public/games/reaction-rod/audio/glass-tap.wav",
+      "sha256": "66af77a37cbc7de354f4ba1a7a4653959e4ea815a705dc3aeff0077985c398e7",
+      "bytes": 12196
+    },
+    {
+      "path": "public/games/reaction-rod/audio/spill-drop.wav",
+      "sha256": "e027afbd01a9504c634a21a78e3492cebac24e226d53343da83381b0ed18312f",
+      "bytes": 5868
+    },
+    {
+      "path": "public/games/reaction-rod/audio.mjs",
+      "sha256": "c21bb70ba28bf40c2808b475c94ad9a3d89ef293b8e872034d0949bf43191b20",
+      "bytes": 780
+    },
+    {
+      "path": "public/games/reaction-rod/final-moment.mjs",
+      "sha256": "ef2fdd563339101ee7dc3c0624565216072d90b2d89eaa6534c13dd8f7ab6d6b",
+      "bytes": 716,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/framing.mjs",
+      "sha256": "3d6756fb4d9055f842b4c5104b2356fa32777ff4b8cff5d5a972e2249bf0122d",
+      "bytes": 668,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/game-audio-events.mjs",
+      "sha256": "5853805cf13054acd6f29604fac510df44c03963135e7956c5979fbd1d3225c8",
+      "bytes": 793
+    },
+    {
+      "path": "public/games/reaction-rod/game.mjs",
+      "sha256": "1110eb6913b28a1256febed83683d1d7ce48c4902e14e261329cc5e16da93645",
+      "bytes": 22350
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "sha256": "2d468bdf1e92b84661c780dfe3ecd92444e0f0f4dbf3c0ea4fe456dc2cc03e10",
+      "bytes": 8178
+    },
+    {
+      "path": "public/games/reaction-rod/layout.mjs",
+      "sha256": "094300ea5ea18f58f60dd3527226c5ee05ca3dc6b6435168b3a6665f23202cbc",
+      "bytes": 5116
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-metrics.mjs",
+      "sha256": "0e84221496d5b05d71cb67e0ae1f4365d05052dec025625e5b19945e66596385",
+      "bytes": 496
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-scroll.mjs",
+      "sha256": "5302800b40e29c386c7ac555841805f33a6503a76393f47004a63eb9799be4c6",
+      "bytes": 4878
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard.mjs",
+      "sha256": "337f77f07a988ab572691d34261ab6ff8c44e77fc2012e502c7b96b8ff6ea550",
+      "bytes": 11191
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+      "sha256": "8bdc7b952ae0a12e08ccf9463a4750f7288f4d05bf7f2124cc5805ecaabdb01c",
+      "bytes": 7038
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Kenney-Interface-License.txt",
+      "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+      "bytes": 574
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Not-Jam-License.txt",
+      "sha256": "b245a49364790d5f30079864efffc212f9ab9011711ea7a3ad2e8b71b90fdfc2",
+      "bytes": 1229
+    },
+    {
+      "path": "public/games/reaction-rod/manifest.webmanifest",
+      "sha256": "27fa1cfb8a58f885ca828e82f956280344fdb7b71ddc6fd78fc3121c5aace879",
+      "bytes": 733,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/physics.mjs",
+      "sha256": "129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f",
+      "bytes": 11989,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/play-counts.mjs",
+      "sha256": "d9c6b612c3adf1862155f1228a1c18c6b80192972ac51a39e8f70a74d81cde80",
+      "bytes": 1163
+    },
+    {
+      "path": "public/games/reaction-rod/replay.mjs",
+      "sha256": "2f280ab4ea09b47c61630b1c458411593fcb410897ba144805378e8a3a790b2f",
+      "bytes": 5935,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/result.css",
+      "sha256": "c66cd9ffc998aa7e2968f667f8b61dedc48b27ca3c8519134559bf5ecb9fea42",
+      "bytes": 7047,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/scene.mjs",
+      "sha256": "39ccb8c31358684a2557dfc6e547dea71de66f8895d3d3cae2d85fa5bbc219c1",
+      "bytes": 11355,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/share.mjs",
+      "sha256": "79a0209f65409979db9203475862973fd4c6b76b03f4b1fd799d2c07a9773ffe",
+      "bytes": 3066,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/snapshot.mjs",
+      "sha256": "1c1bce4734d18f4c48605c7310bf1d3aff26921dbdf7dd29ad7eb0d4895cbd79",
+      "bytes": 1900,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/style.css",
+      "sha256": "bc169309c2e101b66e0d1f4fb2c70ae0c650c2674c5f9a7e2ef30589251c894b",
+      "bytes": 20285,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "bytes": 1082,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "bytes": 381125,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "bytes": 338909,
+      "previewExact": true
+    },
+    {
+      "path": "public/games/reaction-rod/viewport.css",
+      "sha256": "709e7bcaf35de1b845ae40b760c6e044aaf1d466f5a2a546c5e82b719ca40994",
+      "bytes": 958,
+      "previewExact": true
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "eef93b9a5c88eeca9f8770547c109ae2c79681959ad3884d7b05bfed46c3171f",
+      "bytes": 8248,
+      "beforeSha256": "e55e92c6831adf6e61aad18f1808b2d54b586da1e558146d56aa6a6b4ac5c561",
+      "beforeText": "<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#big-games\">大遊戲</a><a href=\"#decathlon\">十項全能</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\"><a class=\"button button-primary\" href=\"/games/long-jump/\">先跳一場 <span aria-hidden=\"true\">↗</span></a><a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>2<span> / 10</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\"><article class=\"game-card\"><a href=\"/games/long-jump/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hero-long-jump.png\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 跳遠</span></a><div class=\"game-info\"><p class=\"game-kicker\">第一個挑戰，先落地再說。</p><h3>四肢各有想法</h3><p class=\"event-label\">跳遠</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"long-jump\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/long-jump/\" aria-label=\"開始挑戰：四肢各有想法\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/hurdles/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hurdles-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 110 公尺跨欄</span></a><div class=\"game-info\"><p class=\"game-kicker\">八道欄杆，四肢過招。</p><h3>四肢各有想法｜110公尺跨欄</h3><p class=\"event-label\">110 公尺跨欄</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"hurdles\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/hurdles/\" aria-label=\"開始挑戰：四肢各有想法｜110公尺跨欄\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div><details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 8 個項目正在暖身。先把這一跳玩明白！</p><ul><li><span>100 公尺</span><small>尚未開放</small></li><li><span>鉛球</span><small>尚未開放</small></li><li><span>跳高</span><small>尚未開放</small></li><li><span>400 公尺</span><small>尚未開放</small></li><li><span>鐵餅</span><small>尚未開放</small></li><li><span>撐竿跳高</span><small>尚未開放</small></li><li><span>標槍</span><small>尚未開放</small></li><li><span>1500 公尺</span><small>尚未開放</small></li></ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details></div></section>\n<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"/assets/portal-taiwanfighter.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"/assets/portal-taiwanfighter-logo.webp\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">TAIWAN BATTLE SPIRIT</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">2D 格鬥・建議橫向</p><h3>武鬥台灣魂</h3><p class=\"portal-description\">走進台灣街景，準備好了就進場吧。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"https://taiwanfighter.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：武鬥台灣魂（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "b9e1268ccfd0b5e2583d638d7a4f2e06ef1666f26f4418eb0a3883c1f8bc6548",
+      "bytes": 1158,
+      "beforeSha256": "53b96584fe64889cd5d52e07586d4336761500ad07d2d61ee24c0adc8dee6b1d",
+      "beforeText": "import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';\nimport {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nconst root = new URL('../',import.meta.url);\nawait assertReleasedGames(new URL('public/',root));\nconst release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));\nawait assertProductionInventory(new URL('public/',root),release.allowedPublicPaths);\nconst html=renderPage(catalog);\nawait writeFile(new URL('public/index.html',root),html);\nawait rm(new URL('dist/',root),{recursive:true,force:true});\nawait mkdir(new URL('dist/',root),{recursive:true});\nawait cp(new URL('public/',root),new URL('dist/',root),{recursive:true});\nawait assertReleasedGames(new URL('dist/',root));\nawait assertProductionInventory(new URL('dist/',root),release.allowedPublicPaths);\nconsole.log('Built static Playformosa to dist/');\n"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "sha256": "3d48d1ad53ecaef87a230bd52fc412bd01786d8c57d245aa6b686e096e02115e",
+      "bytes": 1573,
+      "beforeSha256": "ae76f12db2dbac319e251e4bdb175a899c97a3a9805251fb1fd1f5de3b9fffe7",
+      "beforeText": "import{readdir,stat}from'node:fs/promises';import path from'node:path';import{fileURLToPath}from'node:url';\nexport const releasedGameIds=['long-jump','hurdles'];\n// Production artifact admission, not merely homepage visibility.\nexport async function assertReleasedGames(root){root=root instanceof URL?fileURLToPath(root):root;const dir=path.join(root,'games'),entries=await readdir(dir,{withFileTypes:true});for(const e of entries){if(!e.isDirectory()||![...releasedGameIds,'shared'].includes(e.name))throw Error('Unapproved game directory: '+e.name);}for(const id of releasedGameIds)await stat(path.join(dir,id,'index.html'));const walk=async p=>{for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else if(e.name.endsWith('.html')&&!releasedGameIds.some(id=>full===path.join(dir,id,'index.html')))throw Error('Unapproved game HTML: '+path.relative(dir,full));}};await walk(dir);return releasedGameIds;}\n\nexport async function assertProductionInventory(root,allowedPaths){root=root instanceof URL?fileURLToPath(root):root;const seen=[];async function walk(p){for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else seen.push(path.relative(root,full).split(path.sep).join('/'));}}await walk(root);const allowed=new Set(allowedPaths);for(const p of seen)if(!allowed.has(p))throw Error('Unapproved production file: '+p);for(const p of allowed)if(!seen.includes(p))throw Error('Missing production file: '+p);return seen;}\n"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "sha256": "945deb3fddc1cd6e5eb8e99a88e7a12c5341a2d6ae28331afbd4d3afe1489854",
+      "bytes": 2074,
+      "beforeSha256": "158b7e74a1ed1e0c4d5dda9ca1754d5db02e7986728a425a4fa511c5d767a560",
+      "beforeText": "import {readFile,readdir,stat} from 'node:fs/promises';\nimport{assertReleasedGames,assertProductionInventory}from'./release-policy.mjs';\nimport path from 'node:path';\nimport {fileURLToPath} from 'node:url';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../dist/',import.meta.url));\nasync function files(dir){const entries=await readdir(dir,{withFileTypes:true});return (await Promise.all(entries.map(item=>item.isDirectory()?files(path.join(dir,item.name)):path.join(dir,item.name)))).flat();}\nawait assertReleasedGames(root);\nconst release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,release.allowedPublicPaths);\nconst paths=await files(root);\nlet checked=0;\nfor(const file of paths){\n  if(!/\\.(html|mjs|css)$/.test(file))continue;\n  const source=await readFile(file,'utf8');\n  const refs=file.endsWith('.html')?[...source.matchAll(/(?:src|href)=\"([^\"]+)\"/g)].map(m=>m[1]):file.endsWith('.mjs')?[...source.matchAll(/(?:from\\s*|import\\s*)['\"](\\.[^'\"]+)['\"]/g)].map(m=>m[1]):[...source.matchAll(/url\\(['\"]?([^)'\"\\s]+)['\"]?\\)/g)].map(m=>m[1]);\n  for(const ref of refs){\n    if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;\n    if(ref==='#'){checked++;continue;}\n    if(ref.startsWith('#')){assert.ok(new RegExp(`id=[\"']${ref.slice(1)}[\"']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}\n    let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);\n    target=target.split(/[?#]/)[0];\n    let info;try{info=await stat(target);}catch{throw new Error(`Missing local reference ${ref} from ${path.relative(root,file)}`);}\n    if(info.isDirectory())await stat(path.join(target,'index.html'));\n    checked++;\n  }\n}\nconsole.log(`Verified ${checked} local references across ${paths.length} output files. Browser visual/touch QA not performed.`);\n"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "sha256": "73f35b7f0d51ab57f269c855fe0cbb6d82387edf89fbcb5e6bcefa1dee0d4d6c",
+      "bytes": 913,
+      "beforeSha256": "4d985aa79ab3deb6f526700f1e560b85e1910ca07f30d43b7bed95a31302fad3",
+      "beforeText": "import {readExternalCatalog} from './external-catalog.mjs';\n// Add an actual game here only after its self-contained build is available.\nexport const catalog = {\n  ...readExternalCatalog(),\n  games: [{id:'long-jump', title:'四肢各有想法', event:'跳遠', href:'/games/long-jump/', status:'available'}, {id:'hurdles',title:'四肢各有想法｜110公尺跨欄',event:'110 公尺跨欄',href:'/games/hurdles/',status:'available',image:'/assets/hurdles-card.png',kicker:'八道欄杆，四肢過招。'}],\n  events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']\n};\n"
+    },
+    {
+      "path": "src/render.mjs",
+      "sha256": "9da3482acf5caae8eb8d194254139e3a16dac6d61dede78d0a35ed972077ef61",
+      "bytes": 9188,
+      "beforeSha256": "0c3e7c3fc8894fa3c383984be6dd48d12bc34bafd69167f323e0aac305b9ff2e",
+      "beforeText": "const escape = value => String(value).replace(/[&<>\"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[char]));\nexport function renderPage({games,events,externalGames=[]}) {\n  const fighter=externalGames.filter(e=>e.release?.production===true);\n  if(fighter.length>1)throw new Error('Only one approved external entry');\n  for(const e of fighter)if(e.id!=='taiwanfighter'||e.href!=='https://taiwanfighter.playformosa.workers.dev/'||e.image!=='/assets/portal-taiwanfighter.webp'||e.logo!=='/assets/portal-taiwanfighter-logo.webp')throw new Error('Unapproved Fighter destination or asset');\n  const externalSection=fighter.map(e=>`<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"${escape(e.image)}\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"${escape(e.logo)}\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">${escape(e.eyebrow)}</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">${escape(e.genre)}</p><h3>${escape(e.title)}</h3><p class=\"portal-description\">${escape(e.description)}</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"${escape(e.href)}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：${escape(e.title)}（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>`).join('');\n  const available=games.filter(game=>game.status==='available');\n  for (const game of available) if (!/^\\/games\\/[a-z0-9-]+\\/$/.test(game.href)) throw new Error('Expected a local game route');\n  for(const game of available)if(game.image&&game.image!=='/assets/hurdles-card.png')throw new Error('Expected a local card image');\n  const nextEvents=events.filter(event=>!available.some(game=>game.event===event));\n  const featured=available[0];\n  return `<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#big-games\">大遊戲</a><a href=\"#decathlon\">十項全能</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\">${featured ? `<a class=\"button button-primary\" href=\"${escape(featured.href)}\">先跳一場 <span aria-hidden=\"true\">↗</span></a>` : ''}<a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>${available.length}<span> / ${events.length}</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\">${available.map(game=>`<article class=\"game-card\"><a href=\"${escape(game.href)}\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"${escape(game.image || \"/assets/hero-long-jump.png\")}\"${game.image ? ' class=\"game-illustration\"' : ''} alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · ${escape(game.event)}</span></a><div class=\"game-info\"><p class=\"game-kicker\">${escape(game.kicker || \"第一個挑戰，先落地再說。\")}</p><h3>${escape(game.title)}</h3><p class=\"event-label\">${escape(game.event)}</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"${escape(game.id)}\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"${escape(game.href)}\" aria-label=\"開始挑戰：${escape(game.title)}\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article>`).join('')}</div>${nextEvents.length?`<details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 ${nextEvents.length} 個項目正在暖身。先把這一跳玩明白！</p><ul>${nextEvents.map(event=>`<li><span>${escape(event)}</span><small>尚未開放</small></li>`).join('')}</ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details>`:''}</div></section>\n${externalSection}\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>`;\n}\n"
+    },
+    {
+      "path": "tests/helpers/rod-entry-boundary.mjs",
+      "sha256": "48e053b9f545c1de99ee131508e1d34276aec25757386d775c5a9496ddf85e9a",
+      "bytes": 4483
+    },
+    {
+      "path": "tests/helpers/rod-main-provenance.mjs",
+      "sha256": "2b51e7ed9de2a1cc627a60c54422a57814a23044cc91aed97e03c478bf3b1db9",
+      "bytes": 949
+    },
+    {
+      "path": "tests/hurdles-admission.test.mjs",
+      "sha256": "48754e3113d5ee2a77244a05090b25c3d5946073df3df5b28b9e8dff23792eeb",
+      "bytes": 6051,
+      "beforeSha256": "4fc0fb930b10e61781594fcfb20684a280f9e3e64ad0b631aeec0a95120bce2a",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';import{JSDOM}from'jsdom';import{createGameEntry}from'../public/games/shared/entry-shell.mjs';import{createDialogController}from'../public/games/long-jump/dialogs.mjs';import{createHelpCoordinator,suspendHelpPresentation}from'../public/games/shared/help-coordinator.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readFileSync(new URL('../'+p,import.meta.url));};\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url)),hash=b=>createHash('sha256').update(b).digest('hex');\ntest('exact preview dependency bundle and every other main Jump file are preserved',()=>{const m=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json'));const promoted=p=>m.productionLeaderboard.files.find(x=>x.path===p);const current=(p,prior)=>{const a=m.productionCounts.files.find(x=>x.path===p);if(a)assert.equal(a.beforeSha256,prior);const correction=m.mainNavDiagnostic?.files.find(x=>x.path===p);if(correction)assert.equal(correction.beforeSha256,a?.sha256||prior);return correction?.sha256||a?.sha256||prior;};for(const f of m.files){const a=promoted(f.path);if(a)assert.equal(a.beforeSha256,f.sha256);assert.equal(hash(readBeforeV2(f.path)),current(f.path,a?.sha256||f.sha256),f.path);}for(const f of m.originalJump){let bytes=readBeforeV2(f.path);const adaptation=promoted(f.path);if(adaptation){assert.equal(hash(bytes),current(f.path,adaptation.sha256));continue;}if(f.adapted)bytes=Buffer.from(bytes.toString().replace('button:not([disabled]),a[href],summary,input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]','button:not([disabled]),a[href],summary'));const icon=m.productionIcons?.headOnly.find(x=>x.path===f.path);if(icon){assert.equal(icon.beforeSha256,f.sha256);assert.equal(hash(bytes),icon.afterSha256,f.path);assert.equal(hash(Buffer.from(bytes.toString().split('</head>')[1])),icon.bodySha256);}else assert.equal(hash(bytes),f.sha256,f.path);}assert.equal(hash(read('public/assets/favicon.svg')),m.originalFaviconSha256);});\nfor(const fallback of[false,true])test('Hurdles actual shell '+(fallback?'fallback':'native')+' preserves full credits, live audio controls and one paused owner',()=>{const dom=new JSDOM(read('public/games/hurdles/index.html'),{url:'https://example.test/games/hurdles/'}),d=dom.window.document;if(!fallback){dom.window.HTMLDialogElement.prototype.showModal=function(){this.open=true;};dom.window.HTMLDialogElement.prototype.close=function(){this.open=false;};}let starts=0,input=0,resumes=0;const range=d.getElementById('music-volume');range.addEventListener('input',()=>input++);const pause=d.getElementById('overlay'),owner=createDialogController(pause,()=>{},{forceFallback:fallback});const sourceText=d.getElementById('credits').textContent.replace(/\\s+/g,' ').trim();const shell=createGameEntry({document:d,gameId:'hurdles',forceFallback:fallback,onStart(){starts++},onHelpEnter(){return suspendHelpPresentation(d,{controllers:{overlay:owner},dialogs:['overlay'],pause(){},after(){}})}});shell.open();shell.dialog.querySelector('.pf-entry-start').click();assert.equal(starts,1);assert.equal(d.querySelector('.pf-entry-help').textContent,'說明');assert.equal(d.getElementById('credits-button').hidden,true);assert.ok(shell.dialog.textContent.replace(/\\s+/g,' ').includes(sourceText));assert.ok(shell.dialog.contains(range));range.value='25';range.dispatchEvent(new dom.window.Event('input'));assert.equal(input,1);owner.open();shell.open({help:true});assert.equal(d.querySelectorAll('dialog[open]').length,1);assert.equal(shell.dialog.closest('[inert]'),null);shell.dialog.querySelector('.pf-entry-start').click();assert.equal(pause.open,true);assert.equal(d.querySelectorAll('dialog[open]').length,1);assert.equal(starts,1);assert.equal(resumes,0);owner.close();shell.destroy();dom.window.close();});\ntest('unsafe or unrelated card images are rejected and kicker text is escaped',async()=>{const{renderPage}=await import('../src/render.mjs');const game={id:'hurdles',title:'H',href:'/games/hurdles/',event:'110 公尺跨欄',status:'available',image:'/assets/hurdles-card.png',kicker:'<script>bad</script>'};const html=renderPage({games:[game],events:[]});assert.match(html,/&lt;script&gt;bad&lt;\\/script&gt;/);for(const image of['https://evil.test/x.png','/assets/other.png','javascript:x'])assert.throws(()=>renderPage({games:[{...game,image}],events:[]}),/local card image/);});\n\ntest('Hurdles illustration fits full pose without inheriting Jump zoom',()=>{assert.match(read('public/assets/home.css').toString(),/img\\.game-illustration\\{object-fit:contain;transform:none;/);});\n\ntest('production leaderboard exact adaptation retains old before hashes and only approved Jump UI/layout files',()=>{const m=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')),l=m.productionLeaderboard;assert.equal(l.baseCommit,'c1222d33bb805018af59af9265847c72d4fe241b');for(const f of l.files){const a=m.productionCounts.files.find(x=>x.path===f.path);if(a)assert.equal(a.beforeSha256,f.sha256);const correction=m.mainNavDiagnostic?.files.find(x=>x.path===f.path);if(correction)assert.equal(correction.beforeSha256,a?.sha256||f.sha256);assert.equal(hash(readBeforeV2(f.path)),correction?.sha256||a?.sha256||f.sha256,f.path);}assert.deepEqual(l.files.filter(f=>f.path.startsWith('public/games/long-jump/')).map(f=>f.path).sort(),['public/games/long-jump/game.mjs','public/games/long-jump/index.html','public/games/long-jump/layout.mjs']);for(const f of l.files.filter(f=>f.path.startsWith('public/games/long-jump/'))){const original=m.originalJump.find(x=>x.path===f.path),icon=m.productionIcons.headOnly.find(x=>x.path===f.path);assert.equal(f.beforeSha256,icon?.afterSha256||original.sha256);}});\n"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "sha256": "d30155066040d485f5e60a43dfee0dbd0df0b0a851b15864b4f2cc4afeb0f177",
+      "bytes": 3396,
+      "beforeSha256": "e31b2a7af9c8d6111b53cb8ff75d1d480ab16976b78559ec6bc1d8f7cd297297",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{readFileSync,existsSync}from'node:fs';import{mkdtemp,mkdir,writeFile,rm}from'node:fs/promises';import{tmpdir}from'node:os';import path from'node:path';import{catalog}from'../src/catalog.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\ntest('production catalog contains only original Jump plus Hurdles and retains original P favicon',()=>{assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.equal(catalog.minigames,undefined);assert.deepEqual(catalog.externalGames.map(e=>e.id),['taiwanfighter']);assert.deepEqual(catalog.platforms,[]);assert.match(read('src/render.mjs'),/app-icons\\/platform/);assert.ok(existsSync(new URL('../public/assets/favicon.svg',import.meta.url)));});\ntest('artifact guard rejects another game even when it has no catalog card',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-main-release-'));try{for(const game of['long-jump','hurdles']){await mkdir(path.join(root,'games',game),{recursive:true});await writeFile(path.join(root,'games',game,'index.html'),'<title>game</title>');}await assertReleasedGames(root);await mkdir(path.join(root,'games','shot-put'));await writeFile(path.join(root,'games','shot-put','index.html'),'<title>unreleased</title>');await assert.rejects(assertReleasedGames(root),/Unapproved game directory/);}finally{await rm(root,{recursive:true,force:true});}});\ntest('actual public game artifact policy and hurdle dependencies are complete',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');await assertReleasedGames(new URL('../public/',import.meta.url));for(const name of['bgm','step','jump','flight','land','result'])for(const ext of['ogg','mp3'])assert.ok(existsSync(new URL('../public/games/hurdles/audio/'+name+'.'+ext,import.meta.url)));const manifest=JSON.parse(read('public/games/hurdles/manifest.webmanifest'));assert.equal(manifest.scope,'./');for(const icon of manifest.icons)assert.ok(existsSync(new URL(icon.src,new URL('../public/games/hurdles/',import.meta.url))));assert.match(read('wrangler.jsonc'),/\"not_found_handling\": \"404-page\"/);});\ntest('artifact guard rejects extra HTML inside shared and unapproved files outside games',async()=>{const{assertReleasedGames,assertProductionInventory}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-extra-'));try{for(const id of['long-jump','hurdles','shared'])await mkdir(path.join(root,'games',id),{recursive:true});for(const id of['long-jump','hurdles'])await writeFile(path.join(root,'games',id,'index.html'),'game');await writeFile(path.join(root,'games/shared/index.html'),'unreleased');await assert.rejects(assertReleasedGames(root),/Unapproved game HTML/);await rm(path.join(root,'games/shared/index.html'));await assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html']);await writeFile(path.join(root,'secret-game.html'),'game');await assert.rejects(assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html']),/Unapproved production file/);}finally{await rm(root,{recursive:true,force:true});}});\n"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "sha256": "c1b41b0cfe6359a0e6baf64dedfd45cdf79246301d03f438913a47937422fa9b",
+      "bytes": 3581,
+      "beforeSha256": "6e151ccda0fcbc462262776ccc02a65ebecdd7fc994358d5d80e5ac9dfdbcc7e",
+      "beforeText": "import {tmpdir} from 'node:os';import path from 'node:path';import {pathToFileURL} from 'node:url';import {readExternalCatalog} from '../src/external-catalog.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import{readFileSync,mkdtempSync,writeFileSync,rmSync}from'node:fs';import{JSDOM}from'jsdom';import{catalog}from'../src/catalog.mjs';import{renderPage}from'../src/render.mjs';\ntest('main has exactly two recorded-start cards and only approved fighter external',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles']);const external=[...d.querySelectorAll('[data-external-id]')];assert.equal(external.length,1);assert.equal(external[0].dataset.externalId,'taiwanfighter');const a=external[0].querySelector('a');assert.equal(a.href,'https://taiwanfighter.playformosa.workers.dev/');assert.equal(a.target,'_blank');assert.match(a.rel,/noopener/);assert.equal(d.querySelectorAll('script[src=\"/assets/play-counts.mjs\"]').length,1);});\ntest('fighter production flag and exact destination are admission boundaries',()=>{const entry=catalog.externalGames?.[0];assert.ok(entry);assert.equal(new JSDOM(renderPage({...catalog,externalGames:[{...entry,release:{preview:true,production:false}}]})).window.document.querySelector('[data-external-id]'),null);for(const patch of [{href:'https://evil.test/'},{id:'other'},{image:'/assets/other.png'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...entry,...patch}]}));});\ntest('each released controller counts only at successful start tail',()=>{for(const id of ['long-jump','hurdles']){const s=readFileSync(new URL('../public/games/'+id+'/game.mjs',import.meta.url),'utf8');assert.equal((s.match(/void recordPlayStart\\(window,/g)||[]).length,1);assert.match(s,new RegExp(\"void recordPlayStart\\\\(window,'\"+id+\"'\\\\);}\"));}});\n\ntest('single footer visit counter remains separate from two game starts',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.equal(d.querySelectorAll('footer [data-home-count]').length,1);assert.equal(d.querySelectorAll('[data-play-count]').length,2);for(const n of d.querySelectorAll('[data-play-count]'))assert.equal(n.title,'本功能啟用後累計的開局紀錄');assert.match(d.querySelector('[data-home-count]').title,/短時間重訪不重複/);});\ntest('Fighter metadata is text and exact URL/logo restrictions reject lookalikes',()=>{const e=catalog.externalGames[0];const d=new JSDOM(renderPage({...catalog,externalGames:[{...e,title:'<script>evil()</script>',description:'<img src=x onerror=evil()>'}]})).window.document;assert.equal(d.querySelector('[data-external-id] h3').textContent,'<script>evil()</script>');assert.equal(d.querySelector('[data-external-id] script'),null);assert.equal(d.querySelector('[data-external-id] [onerror]'),null);for(const patch of [{logo:'/assets/evil.webp'},{href:e.href+'?x=1'},{href:'https://taiwanfighter.playformosa.workers.dev.evil.test/'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...e,...patch}]}));});\ntest('external reader rejects missing or nonboolean release flags',()=>{const dir=mkdtempSync(path.join(tmpdir(),'pf-fighter-'));try{for(const release of [undefined,{preview:true},{preview:true,production:'true'}]){writeFileSync(path.join(dir,'taiwanfighter.json'),JSON.stringify({...catalog.externalGames[0],release}));assert.throws(()=>readExternalCatalog(pathToFileURL(dir+'/')));}}finally{rmSync(dir,{recursive:true,force:true});}});\n"
+    },
+    {
+      "path": "tests/main-icons.test.mjs",
+      "sha256": "ca0c498b917edbe9e0b88b8e70a525b16e70fee007e10fa117dcfeb038c2dbf1",
+      "bytes": 3460,
+      "beforeSha256": "8bfe65dbe4c38671b110b6c1f37777d8153ca1803da4ff9121576f8aefeb1c46",
+      "beforeText": "import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,existsSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';import {JSDOM} from 'jsdom';import {renderPage} from '../src/render.mjs';import {catalog} from '../src/catalog.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readFileSync(new URL('../'+p,import.meta.url));};\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root)),hash=x=>createHash('sha256').update(x).digest('hex');\ntest('only platform Jump Hurdles have complete exact icon identities; original P remains',()=>{assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform']);for(const [slug,route] of [['platform',''],['long-jump','games/long-jump/'],['hurdles','games/hurdles/']]){const m=JSON.parse(read('public/'+route+'manifest.webmanifest'));assert.equal(m.id,'/'+route);assert.equal(m.scope,'./');assert.equal(m.start_url,'./');for(const i of m.icons)assert.ok(existsSync(new URL(i.src,new URL('public/'+route,root))));const html=route?read('public/'+route+'index.html').toString():renderPage(catalog),doc=new JSDOM(html).window.document;assert.equal(doc.querySelectorAll('link[rel=\"manifest\"]').length,1);assert.equal(doc.querySelectorAll('link[rel=\"apple-touch-icon\"]').length,1);assert.ok([...doc.querySelectorAll('link[rel=\"icon\"]')].every(n=>n.href.includes('/app-icons/'+slug+'/')));}assert.equal(hash(read('public/assets/favicon.svg')),JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).originalFaviconSha256);});\ntest('icon promotion keeps exact imported bytes and all prior runtime body content',()=>{const m=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionIcons;assert.ok(m);for(const f of m.files)assert.equal(hash(readBeforeV2(f.path)),f.sha256);for(const f of m.headOnly){const a=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionLeaderboard.files.find(x=>x.path===f.path);if(a){assert.equal(a.beforeSha256,f.afterSha256);const correction=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).mainNavDiagnostic?.files.find(x=>x.path===f.path);if(correction)assert.equal(correction.beforeSha256,a.sha256);assert.equal(hash(readBeforeV2(f.path)),correction?.sha256||a.sha256);const doc=new JSDOM(readBeforeV2(f.path).toString()).window.document;assert.equal(doc.querySelectorAll('link[rel=icon]').length,2);assert.equal(doc.querySelector('link[rel=manifest]').getAttribute('href'),'./manifest.webmanifest');}else {const later=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionCounts.files.find(x=>x.path===f.path);if(later){const correction=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).mainNavDiagnostic?.files.find(x=>x.path===f.path);if(correction)assert.equal(correction.beforeSha256,later.sha256);assert.equal(hash(readBeforeV2(f.path)),correction?.sha256||later.sha256);assert.match(readBeforeV2(f.path).toString(),/app-icons\\/platform\\/favicon-32.png/);}else assert.equal(hash(Buffer.from(readBeforeV2(f.path).toString().split('</head>')[1])),f.bodySha256);}}assert.equal(m.files.length,14);});\n"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "sha256": "8fabac1948c157c112f001269093b797c2b5c2146257d95cd6f839f1153bf7d2",
+      "bytes": 2759,
+      "beforeSha256": "b3b1812b70f4ed704320fd6d4b444448631285f54ca0925c34c8138a26966d22",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{JSDOM}from'jsdom';import{renderPage}from'../src/render.mjs';import{catalog}from'../src/catalog.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readFileSync(new URL('../'+p,import.meta.url));};\ntest('released page entrypoints never load diagnostics in any display mode',()=>{for(const id of['long-jump','hurdles']){const doc=new JSDOM(readFileSync(new URL('../public/games/'+id+'/index.html',import.meta.url),'utf8')).window.document;assert.equal([...doc.scripts].filter(s=>/diagnostic/i.test(s.src)).length,0);assert.doesNotMatch(doc.body.textContent,/診斷|複製轉向/);assert.ok([...doc.scripts].some(s=>/^game\\.mjs(?:\\?|$)/.test(s.getAttribute('src')||'')));assert.ok(doc.querySelector('header a[href]'));}});\ntest('top nav names real big-game target, keeps sports grid and no unshipped minigame link',()=>{const d=new JSDOM(renderPage(catalog)).window.document,nav=d.querySelector('.site-header nav');assert.deepEqual([...nav.querySelectorAll('a')].map(a=>[a.textContent,a.getAttribute('href')]),[['大遊戲','#big-games'],['十項全能','#decathlon'],['關於','#about']]);assert.equal(d.querySelectorAll('#big-games').length,1);assert.ok(d.querySelector('#big-games [data-external-id=\"taiwanfighter\"]'));assert.equal(d.querySelectorAll('[data-play-count]').length,2);assert.ok(d.querySelector('#games'));assert.ok(d.querySelector('[data-home-count]'));});\ntest('correction ledger permits only exact diagnostic load removal and navigation delta',async()=>{const{createHash}=await import('node:crypto'),m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url))),l=m.mainNavDiagnostic,hash=s=>createHash('sha256').update(s).digest('hex');assert.deepEqual(l.files.map(f=>f.path),['public/games/long-jump/index.html','src/render.mjs','public/index.html']);for(const f of l.files){const s=readBeforeV2(f.path).toString();assert.equal(hash(s),f.sha256);const old=f.path.includes('long-jump')?s.replace('</body>','<script type=\"module\" src=\"viewport-diagnostics.mjs\"></script></body>'):s.replace('<a href=\"#big-games\">大遊戲</a>','<a href=\"#games\">遊戲</a>').replace('<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\">','<section class=\"portal-section\" aria-labelledby=\"fighter-title\">');assert.equal(hash(old),f.beforeSha256);assert.notEqual(hash(old+'unexpected'),f.beforeSha256);}});\n"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "sha256": "81acf714ba45c58172b0483f9afa38558ed789afd0295e15ea3d46022009c492",
+      "bytes": 3315,
+      "beforeSha256": "00d3c16e20a643a21237dbd7235a5674d61e2750594c865e674fd89c097a0201",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {catalog} from '../src/catalog.mjs';\nimport {eligibleResult} from '../public/games/shared/leaderboard.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst manifest=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')),v2=manifest.v2Promotion;\ntest('V2 promotion exact bytes retain auditable historical production chain',()=>{\n assert.equal(v2.baseCommit,'2091d1927ba7378119da7b78be7f936366a41bf2');assert.equal(v2.previewSource,'772d85e2cb063c4dbab38b7adf26956e13c22d57');assert.deepEqual(v2.scope,['long-jump','hurdles']);assert.ok(v2.files.length>0);\n const paths=v2.files.map(f=>f.path);assert.equal(new Set(paths).size,paths.length);\n for(const f of v2.files){assert.match(f.path,/^(public\\/games\\/(long-jump|hurdles|shared)\\/|tests\\/)/);const current=read(f.path);assert.equal(hash(current),f.sha256,f.path);assert.equal(blob(current),f.gitBlob,f.path);assert.equal(current.length,f.bytes);if(f.beforeText!==undefined){const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,f.path+' old sha256');assert.equal(blob(before),f.beforeGitBlob,f.path+' old git blob');}}\n});\ntest('production backend, D1 config, scoring physics and catalog stay byte-identical',()=>{\n assert.ok(v2.protectedFiles.some(f=>f.path==='wrangler.jsonc'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/leaderboard/0001.sql'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/play-counts/002.sql'));\n for(const f of v2.protectedFiles)assert.equal(hash(read(f.path)),f.sha256,f.path);\n assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','shared']);assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform']);\n assert.doesNotMatch(read('public/games/long-jump/game.mjs').toString(),/createLandingReplay|mountControlsFrame/);\n assert.equal(read('public/games/shared/leaderboard-config.mjs').toString().includes('LEADERBOARD_ENABLED = true'),true);\n});\ntest('two-game leaderboard accepts only original legal final-round metrics',()=>{\n assert.deepEqual(eligibleResult('long-jump',{phase:'done',valid:true,legalAdventureKm:12.5,adventureKm:999}),{score:12.5,status:'valid'});\n assert.equal(eligibleResult('long-jump',{phase:'done',valid:false,legalAdventureKm:12.5}),null);\n assert.deepEqual(eligibleResult('hurdles',{phase:'done',t:20}),{score:20,status:'done'});\n assert.equal(eligibleResult('hurdles',{phase:'done',t:181}),null);\n for(const game of ['long-jump','hurdles'])assert.equal(eligibleResult(game,{phase:'run',valid:true,legalAdventureKm:1,t:20}),null);\n for(const game of ['high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'])assert.equal(eligibleResult(game,{phase:'done',valid:true,legalAdventureKm:1,t:20}),null);\n});\n"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "sha256": "f98cab1d231e0d5655554d09c0b7eabc09606a75e20a65b03dcde3f5fa3dda36",
+      "bytes": 5022,
+      "beforeSha256": "0df38c58e9608bdddf99535c7ee1aea6ddfb66aa0abcd479e6e7292fd8b501a3",
+      "beforeText": "import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{database}from'./helpers/leaderboard-sqlite.mjs';import{PlayCountsRepository}from'../worker/play-counts/repository.mjs';\nconst now=1793620800000,base={game:'hurdles',deviceId:'22222222-2222-4222-8222-222222222222',runId:'11111111-1111-4111-8111-111111111111',startedAt:now};async function setup(){const db=await database();db.raw.run(readFileSync(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));return{db,r:new PlayCountsRepository(db,'qa')}}\ntest('new empty counters and atomic concurrent same receipt only count once',async()=>{const{db,r}=await setup();assert.deepEqual(await r.totals(),{'long-jump':{count:0,since:null},hurdles:{count:0,since:null},home:{count:0,since:null}});const results=await Promise.all([r.start(base,now),r.start(base,now)]);assert.equal(results.filter(x=>x.duplicate).length,1);assert.equal((await r.totals()).hurdles.count,1);assert.equal((await r.totals()).hurdles.since,now);assert.equal((await r.start({...base,game:'long-jump'},now)).error,'conflict');assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_best')[0].values[0][0],0);});\ntest('cooldown refuses new id, subsequent genuine attempt increments, cleanup never increments twice',async()=>{const{db,r}=await setup();await r.start(base,now);assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+1000)).error,'limited');await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000);assert.equal((await r.totals()).hurdles.count,2);db.raw.run('UPDATE play_count_receipts SET created_at=0');await r.start({...base,runId:'44444444-4444-4444-8444-444444444444'},now+6000);assert.equal((await r.totals()).hurdles.count,3);assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],1);});\ntest('transaction rollback never leaves receipt without total',async()=>{const{db,r}=await setup();db.raw.run(\"CREATE TRIGGER deny_counter BEFORE INSERT ON play_count_totals BEGIN SELECT RAISE(ABORT,'test failure');END\");await assert.rejects(r.start(base,now));assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],0);});\ntest('daily global cap uses bounded aggregate rows and admits only one concurrent final slot',async()=>{const{db,r}=await setup(),day=Math.floor(now/86400000);db.raw.run('INSERT INTO play_count_totals VALUES (?,?,?,?,?,?)',['qa','hurdles',9999,now,day,9999]);const results=await Promise.all([r.start(base,now),r.start({...base,deviceId:'33333333-3333-4333-8333-333333333333',runId:'44444444-4444-4444-8444-444444444444'},now)]);assert.equal(results.filter(x=>x.accepted).length,1);assert.equal(results.filter(x=>x.error==='limited').length,1);assert.equal((await r.totals()).hurdles.count,10000);await r.start({...base,runId:'55555555-5555-4555-8555-555555555555'},now+86400000);assert.equal((await r.totals()).hurdles.count,10001);});\ntest('device daily cap and bounded indexed cleanup limit storage and read work',async()=>{const{db,r}=await setup();await r.start(base,now);const dev=db.raw.exec('SELECT device FROM play_count_receipts')[0].values[0][0],day=Math.floor(now/86400000);db.raw.run('BEGIN');for(let i=0;i<99;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','seed'+i,'p',dev,'hurdles',now-3000,day]);for(let i=0;i<150;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','old'+i,'p','other','hurdles',0,0]);db.raw.run('COMMIT');assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000)).error,'limited');assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts WHERE created_at=0')[0].values[0][0],50);for(const [sql,args,index]of[['SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?',['qa',day,dev],'play_count_daily'],['SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>?',['qa',dev,now-2000],'play_count_device'],['SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100',['qa',1],'play_count_expiry']]){const q=db.raw.prepare('EXPLAIN QUERY PLAN '+sql);q.bind(args);let details='';while(q.step())details+=q.getAsObject().detail;q.free();assert.match(details,new RegExp(index));}assert.equal((await r.totals()).hurdles.count,1);});\ntest('duplicate accepted before cap stays accepted and conflicting race never counts twice',async()=>{const{db,r}=await setup();const result=await Promise.all([r.start(base,now),r.start({...base,game:'long-jump'},now)]);assert.equal(result.filter(x=>x.accepted).length,1);assert.equal(result.filter(x=>x.error==='conflict').length,1);const winner=(await r.totals()).hurdles.count?base:{...base,game:'long-jump'};db.raw.run('UPDATE play_count_totals SET day_total=10000');assert.deepEqual(await r.start(winner,now+3000),{accepted:true,duplicate:true});assert.equal(Object.values(await r.totals()).reduce((a,x)=>a+x.count,0),1);});\n"
+    },
+    {
+      "path": "tests/reaction-rod/art-v4-baseline.json",
+      "sha256": "d56a85278a9ab961800cd7a3dc4122b65e3c6513735bc8f80840ad8793561bc7",
+      "bytes": 41251,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/art.test.mjs",
+      "sha256": "e01d3b29fe82c01bc648e75f6091bb55d1c56d2de20bbce00e8ff10097d33c0b",
+      "bytes": 2871,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/crouch.test.mjs",
+      "sha256": "59f487adc4349bdc78ba004163f8371a3d9956e34ba44a55b29cfa765be86b9c",
+      "bytes": 7164,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/difficulty.test.mjs",
+      "sha256": "113802b2c7d4fb796594e5718c30fbb92136869ce5fca7e24ed69e4cb2391377",
+      "bytes": 1148,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/final-moment.test.mjs",
+      "sha256": "202d4e366a5e97b8dbe2fd6a7cddec02ad6b2ff027ff08f762368445882d16a6",
+      "bytes": 4585,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/final-photo.test.mjs",
+      "sha256": "500617e684c2d2e0104a5b06ff2a92e34874c304b702c5f7133963f0878da412",
+      "bytes": 2921,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-result-base-physics.mjs",
+      "sha256": "51a7764ceec2d04d262a8b415ddb824364b50cafbc3a4cf9f1b489d1e8ab323c",
+      "bytes": 11898,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-v9-game.mjs",
+      "sha256": "044bd0d3a03305ccd23cb25b442cf68051908a29ae8e102fac80bb342ef39e00",
+      "bytes": 12895,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/framing-v7.test.mjs",
+      "sha256": "a5b9cca7a6467bba52be9a0fa5d66ca8483ad7b22a343c51188f7bf404aa2c99",
+      "bytes": 3318,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/model-crouch.test.mjs",
+      "sha256": "f4fde73876e203f2a7868278f417adca7c129eb2676ceab9e1316c12e9fce788",
+      "bytes": 2920,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/physics.test.mjs",
+      "sha256": "32780c4911e5eec140c0e2447c0fe043df29e50e5a3048a191a6becf0f97b713",
+      "bytes": 4645,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/replay-integration.test.mjs",
+      "sha256": "0b8474f7d716f3587b255c1bccfe013b287c30d5f06031c61a57e09cc230d3e6",
+      "bytes": 6339
+    },
+    {
+      "path": "tests/reaction-rod/replay-layout.test.mjs",
+      "sha256": "0c9fb53d81e0e7098843ccb1f25a6aba34f5a3f824add32db8c8501bcde25f42",
+      "bytes": 3802,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/replay-scene.test.mjs",
+      "sha256": "9d4f20780507e122771bcf6cc080f7633f71994df5fb222860f9193238ef0e89",
+      "bytes": 6023,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/replay.test.mjs",
+      "sha256": "3e6bb4f25e6af9b6f270a8e80258a590362089eb1a0e2c8454a2b1ab61a708d5",
+      "bytes": 10437,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/result-layout.test.mjs",
+      "sha256": "aca722e398fedba4d51f34ac0df1829bde09c5b24beda171fe11307ff55bfb90",
+      "bytes": 5540,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/result-polish.test.mjs",
+      "sha256": "f2331c6888cdee973c2740b5cf5342c900d34cc50e1b307abdcf9b88408ae9d3",
+      "bytes": 5601
+    },
+    {
+      "path": "tests/reaction-rod/share.test.mjs",
+      "sha256": "9695c953f9fe7ad6255c081e639116244329c30e07bd8f4fd9a3e16abbe40620",
+      "bytes": 2456,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/snapshot-v7.test.mjs",
+      "sha256": "c0eec1afc0addf8c556b6181b5850df66eab3fc3578b5170d97d2ce04ae27452",
+      "bytes": 2556,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/standing.test.mjs",
+      "sha256": "b44127cd309ed2a89ddab2726181eb24e1a59b058eaf453d8c5c1b88603b8246",
+      "bytes": 1710,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod/ui.test.mjs",
+      "sha256": "d494e9286ee550997131e464aa485a954c73003d51d850cdb143e818d63b9f88",
+      "bytes": 31408
+    },
+    {
+      "path": "tests/reaction-rod/viewport.test.mjs",
+      "sha256": "ac335228d27b2a1ca2e35be547119d11e070f20aea6749dff8d5ae85c0358fbe",
+      "bytes": 4566,
+      "previewExact": true
+    },
+    {
+      "path": "tests/reaction-rod-database.test.mjs",
+      "sha256": "32d6537d7ca4e702e899a4399152b42a68c935cb2a88274df6059c7b0afc97ea",
+      "bytes": 4467
+    },
+    {
+      "path": "tests/reaction-rod-main-integrity.test.mjs",
+      "sha256": "ecb0fd3407d2a2df183fd9d04ec9274ff0dcde8696ed9df8ed5660c6a431e114",
+      "bytes": 1990
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "sha256": "87f1205636581ed6c7964b180ceb827d31d0f8240f5f21cda90611c40f248d2f",
+      "bytes": 2754
+    },
+    {
+      "path": "tests/reaction-rod-upload-scroll.test.mjs",
+      "sha256": "2ae6c7ed8618c05bffeb9cbadad815c8543d41d4c0965ee0d3b3f70b1c077e7d",
+      "bytes": 15149
+    },
+    {
+      "path": "worker/leaderboard/003-reaction-rod-production.sql",
+      "sha256": "d199a2a50835c7b167180d1aefc4b5afcaa532ae019067f8853129b593992290",
+      "bytes": 728
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "sha256": "38ae04fdfe7bfe0ce6b57d3af45b5fa1e4241729ce6b0bc1ac8cc32f524200b4",
+      "bytes": 5086,
+      "beforeSha256": "bf127a760807a791cd7e99840f51a5c743728acb02e101887643d6c60b0b3288",
+      "beforeText": "import {handlePlayCounts} from '../play-counts/index.mjs';\nimport {LeaderboardRepository} from './repository.mjs';\nexport const BOARDS=Object.freeze({\n 'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180})\n});\nconst fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\nexport function validateSubmission(value){\n if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');\n const b=typeof value.game==='string'&&Object.hasOwn(BOARDS,value.game)?BOARDS[value.game]:null;if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');\n if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max)throw Error('invalid_score');\n if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\\p{Cc}\\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');\n if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');\n return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));\n}\nconst json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});\nexport async function handleRequest(request,env,now=Date.now()){\n const url=new URL(request.url);\n if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);\n if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});\n if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);\n const repo=new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);\n try{\n  if(request.method==='GET'&&url.pathname==='/api/leaderboard'){\n   const game=url.searchParams.get('game'),board=Object.hasOwn(BOARDS,game)?BOARDS[game]:null;\n   if(!board||[...url.searchParams.keys()].some(k=>k!=='game'))return json({error:'invalid_board'},400);\n   const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);\n   return json({game,rules:board.rules,unit:board.unit,...await repo.board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});\n  }\n  if(request.method!=='POST'||url.pathname!=='/api/leaderboard/submissions')return json({error:'method_not_allowed'},405);\n  if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n  if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n  if(Number(request.headers.get('Content-Length'))>2048)return json({error:'too_large'},413);\n  const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);\n  let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}\n  const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}\n  let data;try{data=validateSubmission(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)));}catch{return json({error:'invalid_submission'},400);}\n  const result=await repo.submit(data,BOARDS[data.game],now);\n  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'60'}:{});\n }catch{return json({error:'temporarily_unavailable'},503);}\n}\nexport default {fetch(request,env){return handleRequest(request,env);}};\n"
+    },
+    {
+      "path": "worker/leaderboard/reaction-rod-repository.mjs",
+      "sha256": "187d9f1264820ef71ef22db5fd2b391bb54e00d499b0689e7b52ae05d02245ca",
+      "bytes": 5771
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "sha256": "29f3b0ae1ff4d1cd894e3c9635423f8023b7bd17d478a5d1a60e3d780de1d4a0",
+      "bytes": 2769,
+      "beforeSha256": "9cdba42537a94d068ae818c4f7ac6e464185a3c7cdf2898d7fbbd5521eb6a5f3",
+      "beforeText": "import{PlayCountsRepository}from'./repository.mjs';\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,fields=['game','deviceId','runId','startedAt'];\nexport function validateStart(v,now,home=false){if(!v||Array.isArray(v)||typeof v!=='object'||Object.keys(v).length!==4||Object.keys(v).some(k=>!fields.includes(k))||!(home?['home']:['long-jump','hurdles']).includes(v.game)||typeof v.deviceId!=='string'||typeof v.runId!=='string'||!uuid.test(v.deviceId)||!uuid.test(v.runId)||!Number.isSafeInteger(v.startedAt)||v.startedAt<now-600000||v.startedAt>now+30000)throw Error('invalid_start');return{game:v.game,deviceId:v.deviceId.toLowerCase(),runId:v.runId.toLowerCase(),startedAt:v.startedAt};}\nconst json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers}});\nexport async function handlePlayCounts(request,env,now=Date.now()){\n const u=new URL(request.url);if(env.PLAY_COUNTS_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||env.LEADERBOARD_ORIGIN!==u.origin||!env.DB)return json({error:'unavailable'},503);\n try{const repo=new PlayCountsRepository(env.DB,env.LEADERBOARD_SCOPE);\n if(u.search)return json({error:'invalid_query'},400);\n if(request.method==='GET'&&u.pathname==='/api/play-counts')return json({counts:await repo.totals()},200,{'Cache-Control':'public, max-age=30'});\n if(request.method!=='POST'||!['/api/play-counts/starts','/api/play-counts/views'].includes(u.pathname))return json({error:'method_not_allowed'},405);\n if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n if(Number(request.headers.get('Content-Length'))>1024)return json({error:'too_large'},413);\n const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);let size=0,chunks=[];while(true){const{done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>1024){await reader.cancel();return json({error:'too_large'},413)}chunks.push(value)}\n const bytes=new Uint8Array(size);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length}let data;try{data=validateStart(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),now,u.pathname.endsWith('/views'))}catch{return json({error:'invalid_start'},400)}\n const result=await repo.start(data,now);return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'2'}:{});\n }catch{return json({error:'temporarily_unavailable'},503)}\n}\n"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "sha256": "50b945343c94862a25a6e87a44f22fa4742779f1cc37bf180d3e844c7beb5a4c",
+      "bytes": 3015,
+      "beforeSha256": "dabbebdbd27d2aac6ba35976d5d71f04b1408604625e61bf560c31d8adbac0dd",
+      "beforeText": "const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');\nexport class PlayCountsRepository{\n constructor(db,scope){this.db=db;this.scope=scope;}\n async totals(){const rows=await this.db.prepare('SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (?,?,?)').bind(this.scope,'long-jump','hurdles','home').all();const out={'long-jump':{count:0,since:null},hurdles:{count:0,since:null},home:{count:0,since:null}};for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}\n async start(data,now){const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify([data.game,data.deviceId,data.runId,data.startedAt])),day=Math.floor(now/86400000),p=(q,...args)=>this.db.prepare(q).bind(...args);\n const home=data.game==='home',windowMs=home?1800000:2000;\n const rows=await this.db.batch([\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n p('DELETE FROM play_count_receipts WHERE rowid IN (SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),\n p(`INSERT OR IGNORE INTO play_count_receipts(scope,id,payload,device,counter_key,created_at,day)\n SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS(SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND ${home?\"counter_key='home'\":\"counter_key!='home'\"})\n AND (SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?)<100\n AND (SELECT COALESCE(SUM(day_total),0) FROM play_count_totals WHERE scope=? AND day=?)<10000`,this.scope,data.runId,payload,device,data.game,now,day,this.scope,device,now-windowMs,this.scope,day,device,this.scope,day),\n // Immediately follows receipt INSERT: changes() belongs to that INSERT, never cleanup.\n p(`INSERT INTO play_count_totals(scope,counter_key,total,since,day,day_total) SELECT ?,?,1,?,?,1 WHERE changes()=1\n ON CONFLICT(scope,counter_key) DO UPDATE SET total=play_count_totals.total+1,day=excluded.day,day_total=CASE WHEN play_count_totals.day=excluded.day THEN play_count_totals.day_total+1 ELSE 1 END`,this.scope,data.game,now,day),\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n ...(home?[p(\"SELECT created_at FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND counter_key='home' ORDER BY created_at DESC LIMIT 1\",this.scope,device,now-1800000)]:[])]);\n const receipt=rows[4].results[0],lastHome=rows[5]?.results[0]?.created_at,nextEligibleAt=lastHome==null?null:lastHome+1800000;if(!receipt){if(home&&nextEligibleAt>now)return{accepted:true,counted:false,nextEligibleAt};return{error:'limited'}};if(receipt.payload!==payload)return{error:'conflict'};return{accepted:true,duplicate:rows[0].results.length>0,...(home?{counted:rows[0].results.length===0,nextEligibleAt}:{})};\n }\n}\n"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": ".gitignore",
+      "sha256": "4faf47a72d508fd27fb2d97d50199faf25197118445d378eb5d38023e07b5540"
+    },
+    {
+      "path": "APPLY-CANDIDATE.md",
+      "sha256": "1c1a3bddfd07b143af0c40fe6029ba807de7fd2ff1ed848ffee399074de903b8"
+    },
+    {
+      "path": "README.md",
+      "sha256": "dc8f2536202154a110ce26c1a65ffe58fd2228dac8ba277b0b4a149a0bb2e56b"
+    },
+    {
+      "path": "docs/audio/PROVENANCE.md",
+      "sha256": "f329289ae7c0ca57d6e60e2cfef27e04ae4a84847f62122e342f8b57a99ea684"
+    },
+    {
+      "path": "docs/audio/QA-20261027.md",
+      "sha256": "867a6af4c49c8f1e700512ba1466569546e79926155b863cf8e77b08c86ea880"
+    },
+    {
+      "path": "docs/audio/manifest.json",
+      "sha256": "ab045d403275cc5d3bee97a836f2b8bb54b1cb32cc7f1821dc6a61d2d122476e"
+    },
+    {
+      "path": "docs/audio/selected-manifest.json",
+      "sha256": "78da1e25632399c67377ffda75ce89a2a4d4c24d001ab6a9770e6a040b34f083"
+    },
+    {
+      "path": "docs/cosmos/PROVENANCE.md",
+      "sha256": "354c3e149057df7c7a6e15dddd8fa44fac67b2273bf0baa534b2894dad029b2d"
+    },
+    {
+      "path": "docs/history/long-jump-v7.md",
+      "sha256": "13d505b63b2f7fb3dea98ab40897f27e6db20812b69831944fb6b6e86b853e76"
+    },
+    {
+      "path": "docs/history/long-jump-v8-route.md",
+      "sha256": "a7c75072afd9de10d1a8b3f769820b199d5d0dc0eabcdc436a43248aa076b1c0"
+    },
+    {
+      "path": "docs/history/long-jump-v8.md",
+      "sha256": "2649d9fa51f2704149b26b03c22509c15de87f2e364ae36aea159ad2a80384a9"
+    },
+    {
+      "path": "docs/history/v7-tests/README.md",
+      "sha256": "59ca681da7ba75b90c73034aaa3d25360f28b1449c7608b694cc920b308653c2"
+    },
+    {
+      "path": "docs/history/v7-tests/air-stride.test.mjs",
+      "sha256": "003752a51657e5da1e722bce0bd0fedc1742afb907bff9486bed87ef3b3978bf"
+    },
+    {
+      "path": "docs/history/v7-tests/anatomy-flips.test.mjs",
+      "sha256": "2a4ba555b53ec4cb289525b57da2fda8905a11d43d663a69cf1661e0c41129ba"
+    },
+    {
+      "path": "docs/history/v7-tests/controls-v06.test.mjs",
+      "sha256": "d3c90e479fcdebb10131dd46e43add143d3fad9c92523d1f9ff30fe100799ad2"
+    },
+    {
+      "path": "docs/history/v7-tests/glides.test.mjs",
+      "sha256": "0b22ebce3d6664ba843b530722d8288c8ffb9e8173edbb22ba13c71e9e4cef27"
+    },
+    {
+      "path": "docs/history/v7-tests/intents-v06.test.mjs",
+      "sha256": "785503d5bc247034c603ae36dc25ea5f175844fad63122dda4bd1e5be33bac02"
+    },
+    {
+      "path": "docs/history/v7-tests/landing-v7.test.mjs",
+      "sha256": "ae0291f7b2ce274b40d5dc8f93345fa4af930ee6c40e9546b4963eac13bc2a2c"
+    },
+    {
+      "path": "docs/history/v7-tests/physics.test.mjs",
+      "sha256": "f7830da6ece1496ee41a03234b658ebe1905bcce3298d78cf6fcddae3728bd19"
+    },
+    {
+      "path": "docs/history/v7-tests/readiness.test.mjs",
+      "sha256": "568036999026dfd366cb23b4865bd015f14da261322d50caa4d899e40f688999"
+    },
+    {
+      "path": "docs/hurdles-main/SOURCE-MANIFEST.json",
+      "sha256": "b667d75097802c9f2165a7c0e1b388bc4f55e9462bb7d26b2363a9976a037f28"
+    },
+    {
+      "path": "docs/landmark-art.md",
+      "sha256": "15f7204b7802c7741a99ef2632b8dd502c2c27687445bae962258027a5b360e4"
+    },
+    {
+      "path": "docs/long-jump-physics.md",
+      "sha256": "922b76a5b59db521951c374eaf3fab73a919e1648876596d2cff2bf668117967"
+    },
+    {
+      "path": "docs/long-jump.md",
+      "sha256": "9a292fd20d4e812be4f9bc3d4a1d5865644c9d4f2a3613f163e3f44bb809451a"
+    },
+    {
+      "path": "docs/plans/2026-10-25-approved-design.md",
+      "sha256": "dbe15974e28849acc0ceee91a4c4fa9870c6fbcb932b1511e311cb42b925d5db"
+    },
+    {
+      "path": "docs/plans/2026-10-27-v8-implementation.md",
+      "sha256": "e32569d53dfbc76c7e3afe7d8d81ffe3fff9ae7d4802f5661a84cf282341eafd"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-adventure-route.md",
+      "sha256": "29f7cc5dc4495bc66016279e483e5f6b076b2fa5de06ef84a93b808ab54dbdfc"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-jump-polish.md",
+      "sha256": "3df0e9edb1be27b14cce8afaf9e392a006ad6a1816385789bddbbafa3f0215d3"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-landmark-polish.md",
+      "sha256": "812432c6151c9f9825980ab1fbeee1fe65b4969987febe0aec47ec22d98e3be5"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-cosmic-journey.md",
+      "sha256": "3250f99f11acf91afb54b8a2f4bfb1d331c040cf89b24a908591e3ee1ee365e1"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-current-visual-sandpits.md",
+      "sha256": "e255dddebbd3ea6f63de9a5f1de7f8f5483e35552a0b12f931ba2a27cf962855"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-hurdles-main.md",
+      "sha256": "ff17abd83d68f95871fc54d1cc6becd84c564db335d6676d02f37bcabc7cc596"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-main-counts-fighter.md",
+      "sha256": "456833b2b67a477c8d8205f3ba25f6ab8684721d5c7c653f0f84e208e41ee861"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-production-leaderboard.md",
+      "sha256": "8c77270d121c810bf9175862532aacce06acbfc0d5d5a168fccaffb1f8851dca"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-adventure-route-design.md",
+      "sha256": "b45e0ebfce7e96792331f9c330c0d079761ba3bd77e958b654c5ae565d400f52"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-landmark-polish.md",
+      "sha256": "dbec44f3ef4ded9112672bb0d7f24e58e955dd2bea4e1ed17f0b832bea3dd07c"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-cosmic-journey.md",
+      "sha256": "906b8aa9b485154332a92add9ff2a7059e659582a8c656a9de8a9b3f6e73bded"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-visual-sandpits-design.md",
+      "sha256": "27fca631f7c1f2db7e95c8210bc307f39fb9d29923a94bbb0f2543fa64c5857c"
+    },
+    {
+      "path": "docs/verification.md",
+      "sha256": "174bb2acaddac170c9fe047da2c24f070e3f93de2ca0efdcbb66f10f768e6729"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/apple-touch-icon.png",
+      "sha256": "28ade360a4173b7e68e52eda4a783acdc9d05eabbbbf6d98e1a8e9eeb2fc8aad"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-32.png",
+      "sha256": "c586b65fc23bcb33877c32c3a30e4175dd509eae6489c66b5b7da9fc48c833f2"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-48.png",
+      "sha256": "06afe914e7236f93d51b2d3362a682b4ebfb80d3e9468b5af9abfb82efd8c0f4"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-192.png",
+      "sha256": "3caec924ddefbf54b68a335c9364645beb6498aa381a0c32644a98c7b542c251"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-512.png",
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-maskable-512.png",
+      "sha256": "7b6b3dfb101b1d4d83088d303b0e9be2351c2c854905f2fc2f6b415ef654343a"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/apple-touch-icon.png",
+      "sha256": "8f4ad215070b4557f0cc9fccb901d20cfd501dc1fba2ba0519a27bbe1f5a8434"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-32.png",
+      "sha256": "a14ed1c5c58ca8723c8ca7c739b57e39f55944e779ff9f9c8c19287de611048b"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-48.png",
+      "sha256": "8d3930104e5ccc006bc4062c6dd51c3d52457b5ba9a7b6e8b22ccf631e9e4aa6"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-192.png",
+      "sha256": "8e6f783ae1f2142f6670aab68bb0ccf00a9b1977fd74ac2d9d4a5b93bb083fdc"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-512.png",
+      "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-maskable-512.png",
+      "sha256": "66f61ac001f99e7a3797e3364dbfa1d4fe80944ad760322ec6ab2d09abb5e7d9"
+    },
+    {
+      "path": "public/assets/app-icons/platform/apple-touch-icon.png",
+      "sha256": "306a60e722efa7992d7c9146dc106393583b4e0bf35dd3165b13e0b4e82ca3e7"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-32.png",
+      "sha256": "e40c98f828e0754177b4d88aab9103fbae40998e0c1b604f1c64ef55b1572562"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-48.png",
+      "sha256": "7c4fe1e794b894e5809e41609977f6d5d0fb9d199970c396d327c67b23bff3a0"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-192.png",
+      "sha256": "0dded91288fa1af6ab5f4c9ae425e951b8fd7a743b99f148a6b6a9c6024ab17b"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-512.png",
+      "sha256": "b14d7085d22d513627419f4584c2fa9af8cfcd283aba042346516507309bdcb7"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-maskable-512.png",
+      "sha256": "9b4f917a38c06ea08ac7437550cb684b23737498775bc5d3db4f52db3d96fc2a"
+    },
+    {
+      "path": "public/assets/favicon.svg",
+      "sha256": "b8dc622496d3937166c569254a121c938df533ee2e425a94db63a96748655767"
+    },
+    {
+      "path": "public/assets/hero-long-jump.png",
+      "sha256": "67e7684103457a98a6bd3d30ce15964d6cc367ba6d673996e5d5d0472ecc1c49"
+    },
+    {
+      "path": "public/assets/hurdles-card.png",
+      "sha256": "caad682489d49816676817dacfb8106daa6cda7be9e630430a23e9a4dd1547e3"
+    },
+    {
+      "path": "public/assets/play-counts.mjs",
+      "sha256": "5a7c8bd84d8b89292c7aee4ec05c7dd3d902a95e86397487321952b8ee274a9d"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter-logo.webp",
+      "sha256": "292ba1fbc8c420980a013c07d9db667ce2742e7ed65edbf6238e12f4a2c942d3"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter.webp",
+      "sha256": "d0bdbe0c59f980057e5bd9e51b396b5be5553977f5717645cfc79722eff587b1"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/controls.mjs",
+      "sha256": "4ca21ddc2f90e5f1c6fe8bcd98ad7022083b0617e321ecc78e1f5e57e41972b2"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/game.mjs",
+      "sha256": "36aad1b70c4662487a71a5c7452e34cc1e7682b6782e67e5fb6b5764558d90fe"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/index.html",
+      "sha256": "1dc25e2f98bc5d956191f2cbf54d10ca3641fa094eb858dcfdaff0dfd6a5ef36"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/physics.mjs",
+      "sha256": "de5f5a74c4dd09c51386861caf0063fcd5a18edec87b759e892b2b5344991a90"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/style.css",
+      "sha256": "cedcd1fc5d3b101c87b4ee71dc8ef434c3972fc9478a26e9ebb4ea97667ae11d"
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642"
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14"
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "sha256": "7530720e9cea5f7944169c9c272874c319655745cbf681c1979e80b258f386b2"
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "sha256": "5be3b9335761d33bc8d8426ef31c0a1aa165f4920f8136d91a84d66e70fee706"
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "sha256": "69d0275dfa5a27e1b063f324f99afb9334b09b0a890322109b9a65acf000efa6"
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "sha256": "14e435cae20d0154d58437773cc046fe0d2550af82c0f1a2036b8110298ab5a2"
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "sha256": "4da85e8dd6601018d788decfda3819ca60501a610b153be2d0b85fcb7a0df39d"
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "sha256": "85025bb8c2fdc49a05501ab155548ef50b5e4c445e45d6e4ee28d9db1b2b30b3"
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "sha256": "d6802f485d8ea78b5710df2de3ccc15a2c6c8c3783cab294e6f42466b5152230"
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "sha256": "65ad63a91a05706056786ab67f157f14ad94dc6a64894b0326bf5be22476b999"
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "sha256": "cbf3685a1db0cbe6a73b0bfd6ca7a7bd550856c618faf9cffedde1c1b14009fa"
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "sha256": "c05ee8c98bcf5488f09b9a972d3e553a7600be8663985e160a616bea4b85660a"
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "sha256": "5ce2cc0d11bb60b7504d852158f67584f3d7370b5dc596ab832dd86ec619fb63"
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "sha256": "bc9ac6a8e0d55f18a66ac7daa9309c40652b6731d29ac96905e6b2a487e2d397"
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "sha256": "53c01b8ddad011f24df92fa56c717da856353934da86c3b4d70d1ddda80f1828"
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "sha256": "1dcaa0a0d19fa49d86cfcfe89b9aaa251a89c4c0daebb3792483ecbfb4918784"
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "sha256": "f4e9377824ae1380acf80f00fc3a16c8d18db79802baf0878c5507ca499475ab"
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "sha256": "cdf337b373548c18e5f4a2f51a20caaa5b568374f9d9b651a12c5a3384c098ce"
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018"
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642"
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14"
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "sha256": "7530720e9cea5f7944169c9c272874c319655745cbf681c1979e80b258f386b2"
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "sha256": "0a752e5347b0990ae6328730bb1dfbe954b75d5a13398749b5ffbf202eff3512"
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "sha256": "1f90adade9deeb96fc68444a4ca311643a5eaf1d7c350391837ba33dd1d31be4"
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "sha256": "f1c9cf49db20389db0bf9cbae2c01c2fdca4632849e41e964ab98fb3b36b053a"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "sha256": "0720c2f82f9a3046510cc4683dc47eb40a2ac4f991277e39a999d7ef54b349dd"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "sha256": "2e2b1ce3fd08b4b2962f84175101ae1aeb686acad037a69f18bf33a0ae06ed4a"
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "sha256": "55a013e13e49bcdade6bf17bd2729e59063e6ba9888aa46891925cc46e274b03"
+    },
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "sha256": "37accd625a268dc1fa5ffa26049fe9f8c5064bceecdee2f9d53b1af1763dcb0e"
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "sha256": "5ac110fc44310fb1bee030bf2125e5baa339187720c3d5990629ed8ddc6bbdd8"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "sha256": "3b825520cee2535f45b59f2ad9585be430d58a8f04d76129ff522b30690b9446"
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "sha256": "480e3258d45c99554c4afc7c2363c7eb81a86c56a0c53841a6e48e0c42940947"
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "sha256": "4a31041a745d6f58b29624d527ffd02331d2420697f9adbdc3ec1d7853998957"
+    },
+    {
+      "path": "public/games/long-jump/manifest.webmanifest",
+      "sha256": "9000930c7fc060192c768863d330f7d12c001df1aea24ffe1708cc134f48432f"
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "sha256": "02ebf2c90613a7f75f584a7d6efcab2a2aa5cd4d2c176408abb82ee0b136c1e4"
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "sha256": "eeb76b7790f38e5e5b5757ffa177e6bca4a9253566650e03ee7a77d3ccab2fda"
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "sha256": "ec9015c06d7fac5e85f415cf461d71c0ac5778d343bfda5fb94a52d54feac086"
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "sha256": "43ec04b7fb6ba40f03f2f49793aedcd86964fd7c711c36585773ca089e9544dd"
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "sha256": "decdbf9a6203614d5b106e3163a9f5b8c5da8b2794419e20109c5532b23bfbb7"
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "sha256": "36a58937585bea8ba10073dee0ec435a25376abfd367f338de5c0350ea62d8ba"
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "sha256": "d6b66884b3064084dedf831b946483242ef9cb9905afa81b525e89dc4f289d3d"
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "sha256": "bf6dd11e465f514721af5aa0a1e5cf9b84de1622909f0a3cb9b6fe33fa19f0f2"
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "sha256": "74e22cf9a3c31b819b455aae953ecce870420990c64f0c0cebee872fb1e9ba5f"
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "sha256": "16c45b8e9798170b065bffe6be8a841dcd3b90c8548d308e88d7af83438e16af"
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "sha256": "cbc935d7170e661196dd4be6a94065c16a2111e9c4c4b98ca9556005e20a910a"
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "sha256": "60d91c10717d2757752a99191431dc42a9b0e4ad8c7a5fa2f7abe338d68ff653"
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "sha256": "ca844e5e0e1154e4346d5073d33ea9dc39eeff2b31ba7cf612e74e9c2f699252"
+    },
+    {
+      "path": "public/games/shared/audio-preferences.mjs",
+      "sha256": "1318f610966c84dea651912fbf71513bcb224c27d06f45e194e7652a98caa3f7"
+    },
+    {
+      "path": "public/games/shared/audio-runtime.mjs",
+      "sha256": "67561c08b444a881ce2658fde9cbc85da9e478a70d31fd6beb3c2ec74c85ffb5"
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "sha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255"
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "sha256": "aec453041e9e63de39877fa18168b00d9552e1dfc030bd575ee4d2a603d7dfbd"
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "sha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2"
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "sha256": "23367f95a5a978f086c38730339e6a7059a0f6d05f561d54da0a1d648e6bca61"
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "sha256": "183598c62ae6422424d88189e7ffdb5ff3f8e46a10358660efa595e10a603695"
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "sha256": "fc4e6ee5863bec79c0cf5d02ef8241aa6d169bc318f18323e54c764916093fc2"
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "sha256": "d7dae6532aa51661186c386ecd643b2ee83b9f04e54fcf92ca3fdc6241cfcd10"
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "sha256": "593950baa39ee4440a4404fa254425f15236e75cc6ac06bd9dc07eb2a52a2c44"
+    },
+    {
+      "path": "public/games/shared/leaderboard-config.mjs",
+      "sha256": "5b22cd58a767ee839bf600a68d8f874661f554f19940182a19cfc131906580f9"
+    },
+    {
+      "path": "public/games/shared/leaderboard.css",
+      "sha256": "ca71933d2116f98adb9a37057a037d43211b69dc2f22267e2d2b91b91cc6675d"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "sha256": "c5205cd84c4d02774d1e0b0d0f460bc73e43ab9975e4b771415241376797eb5c"
+    },
+    {
+      "path": "public/games/shared/menu-audio.mjs",
+      "sha256": "458789a922d6fd28f06a827e8cc55aafeb4992fe1579ffa6bb7989e6b4ca7b35"
+    },
+    {
+      "path": "public/games/shared/menu-content.mjs",
+      "sha256": "e5098b2985cf370fb00a98b35731c80af440ea6bacd3e6379fb73066b9f5e2dd"
+    },
+    {
+      "path": "public/games/shared/play-counts.mjs",
+      "sha256": "75c9bfcf3c185fb91cf64ba6eae53e0c16091e49ce69832d25ee2ee9ba7d48f7"
+    },
+    {
+      "path": "public/games/shared/production-jump-chrome.css",
+      "sha256": "efe6f262ba822098aeafbae62e240e78623b1ee64c61571d1234cd5e023cd151"
+    },
+    {
+      "path": "public/games/shared/production-jump-leaderboard.mjs",
+      "sha256": "a45824a85c6d785655efa8f9189e4ca75311af5ac70c5eea77b7ad6cab1fb705"
+    },
+    {
+      "path": "public/games/shared/scene-audio.mjs",
+      "sha256": "406155feda2dd61cdf37cc5cb902ee41dc6f268156879ec63312ddcf84fd66e2"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "sha256": "82d54f50a5607b273813fa41ff2b8638bb0cbd4e6c1ddb34bfee393d90d6fa66"
+    },
+    {
+      "path": "scripts/check-cosmos-parity.mjs",
+      "sha256": "797e8cf2cb81407f8ecc06734e68180d9a504c49846e20564e814354ef87ac03"
+    },
+    {
+      "path": "scripts/paint-cosmos-evidence.py",
+      "sha256": "1ff5f97defb1e8a1dd09b3d3add97eb62012558010ea39798bff49004821310f"
+    },
+    {
+      "path": "scripts/render-cosmos-evidence.mjs",
+      "sha256": "2b6aa33f95d7fa8d3b9fafd900d01a82b1d3bd6409e9c2d98b2ebb55baf984e4"
+    },
+    {
+      "path": "scripts/render-v10-blender.py",
+      "sha256": "5f0f42d049ac978002234aa8213aa3fbedc0cf3d0b10140c73d9086de75ad124"
+    },
+    {
+      "path": "scripts/render-v10-evidence.mjs",
+      "sha256": "2d3871fcb43f765aeb80d35e911aa119dbadf26a2e66ddfb3fa62b822d9b102a"
+    },
+    {
+      "path": "scripts/render-v8-blender.py",
+      "sha256": "0b64e54b942a7725fda79fd5770be7e3a5a8e2aceb68493da80825a68c48b792"
+    },
+    {
+      "path": "scripts/render-v8-evidence.mjs",
+      "sha256": "50b2862cc48954d8ec356960a231e0051b364bd0e9a8c006b5f013e442dd2a21"
+    },
+    {
+      "path": "scripts/render-v9-blender.py",
+      "sha256": "230d52823dfa70527eb25a5c67250e45d56d0c5d59900a656acacd01b0c6c752"
+    },
+    {
+      "path": "scripts/render-v9-evidence.mjs",
+      "sha256": "5ee7edb5e6e59f38a05f6a514de301efea8979c28b33b408a41d8be10ad78405"
+    },
+    {
+      "path": "src/catalog-entries/taiwanfighter.json",
+      "sha256": "ed5584fe57dd268e2f9b94723dac82be2e37372cf1c9f429010e053e60b8f5e4"
+    },
+    {
+      "path": "src/external-catalog.mjs",
+      "sha256": "8a25f52fbd90e77b52e4449a215fbffe212a6b1fa2fa1faa6bb566772acc9130"
+    },
+    {
+      "path": "tests/build.test.mjs",
+      "sha256": "ced17847fba5b3351c366636867744feed7e035ab11f35f9cfb22301072444f1"
+    },
+    {
+      "path": "tests/experiment-physics.test.mjs",
+      "sha256": "ed51dcd82f5204d170d93d2e2930be7d947ca78188beb9f3d39968125abe97fe"
+    },
+    {
+      "path": "tests/experiment-ui.test.mjs",
+      "sha256": "f1a735acf3b328951a81fd758d70f7506235e4c440e3922ecd66e86cc3d9ae14"
+    },
+    {
+      "path": "tests/experiment-v2.test.mjs",
+      "sha256": "b6b772d8458c15ed62de9b6ecbc8606c82eff14550907ca00fef898a7fad603d"
+    },
+    {
+      "path": "tests/helpers/entry-boundary.mjs",
+      "sha256": "c6882866cfb6b129679cb36a95b8d972e407d1c9a084e50cf1cf66157fedf518"
+    },
+    {
+      "path": "tests/helpers/leaderboard-sqlite.mjs",
+      "sha256": "37616c78937071254bd33f953b37d48e92175537011af4a42d6ac50b334edebd"
+    },
+    {
+      "path": "tests/home-layout.browser.html",
+      "sha256": "19b6c3a6ddfeb3d29a7d323d33c75c9f8ad6fe8fd04bb74fde6b2f263a0e8d18"
+    },
+    {
+      "path": "tests/home-layout.test.mjs",
+      "sha256": "6eb20ae87006738f42e43ee62b81c8bfb52bf0d7d37649ef34d8142abc1c4897"
+    },
+    {
+      "path": "tests/home-views-api.test.mjs",
+      "sha256": "9b53097cef031cde2b89cfcdb2f32064528123e3a14cc9cec729afdda789caff"
+    },
+    {
+      "path": "tests/home-views-client.test.mjs",
+      "sha256": "a6abe5e69aad33870c1111ce2e6dfa5f452b4b4d791846151f70d54645664ff8"
+    },
+    {
+      "path": "tests/honor-board-api.test.mjs",
+      "sha256": "9895a5eb10d0efde2210978faa9cebdf05954ffda9d6b54c29aa69e2ed442961"
+    },
+    {
+      "path": "tests/honor-board-view.test.mjs",
+      "sha256": "3c5ec7da972c0a09927ba0b0571abe05af979b4f8ad0cbe6cc10b9008dfc6789"
+    },
+    {
+      "path": "tests/hurdles/accessibility.test.mjs",
+      "sha256": "ab35355c54a2f02d7a39afb409363886414a0ad2d0a75342f5c97ee5f62df05f"
+    },
+    {
+      "path": "tests/hurdles/helpers/matched-race.mjs",
+      "sha256": "9c64d2dc519739f924021ac871e97508968821bdc1ade172592c8669b3976f92"
+    },
+    {
+      "path": "tests/hurdles/input.test.mjs",
+      "sha256": "19d8df2e07c45d46036c60729b31033bf635459ced3c2d982d8d4d2d4670ce60"
+    },
+    {
+      "path": "tests/hurdles/pacing.test.mjs",
+      "sha256": "ad8f4f2b7297525c5e651e0730f150b046fbcca00f661b98c347cf83c862a11d"
+    },
+    {
+      "path": "tests/hurdles/physics.test.mjs",
+      "sha256": "c94b2f57ed1fe2438825a327a7378d3306c172e3c821f6f99e3b5cf179e055df"
+    },
+    {
+      "path": "tests/hurdles/platform-ui.test.mjs",
+      "sha256": "36af692c9493a3ecb32ddbc55fe5425c35fcc4e26c439654feddd3b32df856e4"
+    },
+    {
+      "path": "tests/hurdles/play-surface.test.mjs",
+      "sha256": "7ea36c5a7399e2b4330ec4c4d3af450a85d81ca67c84f70c26dfe85fd5445756"
+    },
+    {
+      "path": "tests/hurdles/replay.test.mjs",
+      "sha256": "5dd609489e5e89e3554d2b4ea47d4ba9dae69883d332e18d866ae251d4755261"
+    },
+    {
+      "path": "tests/hurdles/result-fit.test.mjs",
+      "sha256": "280894472f123c3bcc21305ab7a8b8e9dc3670b8ffa9d4d3abc85d8e839be2f5"
+    },
+    {
+      "path": "tests/hurdles/result-guard.test.mjs",
+      "sha256": "e26bfd79ebe133d1eb98456e242b5d2b32d9b68691df1733c756ecfea3a53a1d"
+    },
+    {
+      "path": "tests/hurdles/revision.test.mjs",
+      "sha256": "265e410cf53c56afa948fe7a712f9fbc2a55938d2932e25333c4880332845a6a"
+    },
+    {
+      "path": "tests/hurdles/share.test.mjs",
+      "sha256": "5050f4ffbaa1ccc94bbb2f0569c13ff72a118189cd0d0d420ff418c17552585c"
+    },
+    {
+      "path": "tests/hurdles-platform.test.mjs",
+      "sha256": "867b5e9ab5eb2d9b88db2a06c8779a786dc637234249fcf0f2d9189ff24d255c"
+    },
+    {
+      "path": "tests/leaderboard-api.test.mjs",
+      "sha256": "deb443421af248c74529f8a21ae18eb91273bc78474a423a354233d70c7b43d8"
+    },
+    {
+      "path": "tests/leaderboard-client.test.mjs",
+      "sha256": "6cae97ec57f3f52dfeb406658c30e9e932a1c2b11393caf35759d9f8a00efe3a"
+    },
+    {
+      "path": "tests/leaderboard-enabled-controller.test.mjs",
+      "sha256": "6211dfd753c8fbed3de5af2b291692c55dd74658d4feca5f4cd331ea4c38f051"
+    },
+    {
+      "path": "tests/leaderboard-repository.test.mjs",
+      "sha256": "a164b1804155c466ae0c8365e862e9d9d27dcdd09c2238952c45a0d3d3933b69"
+    },
+    {
+      "path": "tests/long-jump/audio.test.mjs",
+      "sha256": "d2dddc03a0ad021678fdec2dcbdde47a68783fb86e95c953120dfa63a96caa96"
+    },
+    {
+      "path": "tests/long-jump/browser-dom.html",
+      "sha256": "fb8836f50c5188b2fc8b1a304e2af6a6a57a3987b56916a8680a60a724276a96"
+    },
+    {
+      "path": "tests/long-jump/browser-portrait-layout.html",
+      "sha256": "d896b5d10d5d68c4b442547866eb81264ad4f3cc6ca97507c20b3f422ea9fe5c"
+    },
+    {
+      "path": "tests/long-jump/browser-recovery.html",
+      "sha256": "8de1238267ed259ebe3b5e6b320e52d058bb977b41a5e69782bc3849b41d9d55"
+    },
+    {
+      "path": "tests/long-jump/browser-root-origin.html",
+      "sha256": "15eeec0f02ea0b8acf1779c0c7b7720c651c31fa10ac9f04672df7b455ea9171"
+    },
+    {
+      "path": "tests/long-jump/capture.test.mjs",
+      "sha256": "90251bb9588f53c7b9bcc86900c4e408570e9056b1ddf052ad2629e07ee48e05"
+    },
+    {
+      "path": "tests/long-jump/character.test.mjs",
+      "sha256": "38946d2feeef38c8731347263d6e52abbb8eb7e2564b948288e6ea3bd945f565"
+    },
+    {
+      "path": "tests/long-jump/controls.test.mjs",
+      "sha256": "ee38768fed26da0f595b0a7f4e6c0986e8e2da7338c537171d96325c339097db"
+    },
+    {
+      "path": "tests/long-jump/cosmic-route.test.mjs",
+      "sha256": "81885c47301caa365bced967dec01b9ccdb634547481d7e9feed65632c00fb7a"
+    },
+    {
+      "path": "tests/long-jump/cosmic-scenery.test.mjs",
+      "sha256": "f80171e1614b3559e7ee680ef81cc105b785c85dc08e6bd93308785ffe0728a5"
+    },
+    {
+      "path": "tests/long-jump/cosmic-verdicts.test.mjs",
+      "sha256": "a18434cd26ec37a3b0a5f8b89c666035b46957abe9d8eb7ecd7cc6d393eb3f9f"
+    },
+    {
+      "path": "tests/long-jump/dialogs.test.mjs",
+      "sha256": "8e3030598dfc0f89b65de76b7c59fc0d0fe22aab77fcde3342800aab01d0f564"
+    },
+    {
+      "path": "tests/long-jump/endless-multiverse.test.mjs",
+      "sha256": "b7f61ad757c63594d02cb6186e0727278fcb6e0f141bc199fe10d53cd6f132a1"
+    },
+    {
+      "path": "tests/long-jump/fixtures/cosmic-legacy-route.json",
+      "sha256": "127a831683b3d05b2effe71fe940c6cdeed2d7469037e7eb694ef887a32967c7"
+    },
+    {
+      "path": "tests/long-jump/fixtures/v8-feel.json",
+      "sha256": "757c11477100b3711531a4112e60e354c38d93769291d5623183c73b6ae21a17"
+    },
+    {
+      "path": "tests/long-jump/flavour.test.mjs",
+      "sha256": "b9a56433c76e8a95e7f8c4d60c4dda46affc80c46a74428ec2a0cce7e43ccc2d"
+    },
+    {
+      "path": "tests/long-jump/game-lifecycle.test.mjs",
+      "sha256": "2f660b3b71124f3b99547f58721781ba8b3a590e3d283df6afcadf01f1005dab"
+    },
+    {
+      "path": "tests/long-jump/landing-preview.test.mjs",
+      "sha256": "f1a91b532d766e284fdec20b4cb305515908aa54711bde9c9e560965a93a6bcc"
+    },
+    {
+      "path": "tests/long-jump/layout.test.mjs",
+      "sha256": "1060c3c5032735aba981f3b90bb34b1cc536f61c2fc3b354ff24bdea0a96694a"
+    },
+    {
+      "path": "tests/long-jump/play-surface.test.mjs",
+      "sha256": "960e159f2de58d6be8bd9fcf7ef1fb8cb3a5de63342a023817fed76623dab0e5"
+    },
+    {
+      "path": "tests/long-jump/polish.test.mjs",
+      "sha256": "70f0c31b89a9609806fbf5fa60d3c58d6725e359238b5db914ec29d484aad447"
+    },
+    {
+      "path": "tests/long-jump/prepare-recovery-browser.mjs",
+      "sha256": "96b7c62ffe7ef09622938bd33c5475d1001daae72b0c6ee2000456b7c440e0b5"
+    },
+    {
+      "path": "tests/long-jump/prepare-root-origin-browser.mjs",
+      "sha256": "42590af2221e6396601a6adceaa7b46a08c9ca6fe9da404b377183e96923e470"
+    },
+    {
+      "path": "tests/long-jump/prepare-viewport-diagnostics-browser.mjs",
+      "sha256": "a04091261446d7d60d71f74f19d337537fb3a0ec6d47748739b43150793b73b8"
+    },
+    {
+      "path": "tests/long-jump/result-view.test.mjs",
+      "sha256": "18ca8d69c3d7a59af3d42987078dfdf617cfe08f67f2012a1e6802eaf904196f"
+    },
+    {
+      "path": "tests/long-jump/rotation-dialog.test.mjs",
+      "sha256": "5fda8bafee7e24a55cdd677924cb439e81324d7ada03e7552675f43768f1176f"
+    },
+    {
+      "path": "tests/long-jump/rotation-input.test.mjs",
+      "sha256": "d6decacc22d2f30c17896d6fd70e7be649954366bacbc22a616e7fe91c02079d"
+    },
+    {
+      "path": "tests/long-jump/sandpits.test.mjs",
+      "sha256": "8a8b15dbb33f150515ad9d91b923df2c5d8b8f622a8519b5a43212928623255d"
+    },
+    {
+      "path": "tests/long-jump/scenario-v06.mjs",
+      "sha256": "4fe2f5705b8f663f33898141387147ed0467f2c1691849656741e30519d1e536"
+    },
+    {
+      "path": "tests/long-jump/selected-audio.test.mjs",
+      "sha256": "bee253611e4e8fac323762d4af56be4697472be46a3b510a356692e4cfb42968"
+    },
+    {
+      "path": "tests/long-jump/selected-dialog.test.mjs",
+      "sha256": "98648d8fc18bf08bb5a72394de80f0cd5adfa1da79b79dc8c2208c5a297c4fb7"
+    },
+    {
+      "path": "tests/long-jump/share-v04.test.mjs",
+      "sha256": "fbef40193b76d586ef897f549b39c5f5fc0a5f6827338643450b71ed52cf48ea"
+    },
+    {
+      "path": "tests/long-jump/share-v05.test.mjs",
+      "sha256": "db4c5787c063da411c2d1cb25140a41fb46f81c7698a5b3922cc4abde5803c5d"
+    },
+    {
+      "path": "tests/long-jump/share.test.mjs",
+      "sha256": "c70a5c07aaf5120574af9f2e9d62adc90b501ce85ebed2d3043eaa75a9e5ee90"
+    },
+    {
+      "path": "tests/long-jump/standalone-dialog.test.mjs",
+      "sha256": "7cdf7a397a9a7ddb4b045c443b9303fb86798b0647047c3a6e0d6e377f754ca2"
+    },
+    {
+      "path": "tests/long-jump/v10-landmark-structure.test.mjs",
+      "sha256": "efc90d206c65e04e476949cc83e8b6e1cb4e4182df1fbc90b3488212ea9646e5"
+    },
+    {
+      "path": "tests/long-jump/v10-scenery.test.mjs",
+      "sha256": "5e8aef5846c549514994823eecbd85f140908558ea4d99f6312e34b8e8735f36"
+    },
+    {
+      "path": "tests/long-jump/v8-motion.test.mjs",
+      "sha256": "08c75d1e93d6fff8c0609d0d26b755f8e55e2292c4e782e6d80a0557076c0482"
+    },
+    {
+      "path": "tests/long-jump/v8-presentation.test.mjs",
+      "sha256": "7f3db3412446d30f2899b442716227cef135071a9e8e8a27c5aba71d1a460eb1"
+    },
+    {
+      "path": "tests/long-jump/v8-scenarios.mjs",
+      "sha256": "b1e5cb84c49dc74cce5daa49ba1c0ff0a1b069e82a0302f1e77877becbf82c38"
+    },
+    {
+      "path": "tests/long-jump/v8-scenery.test.mjs",
+      "sha256": "e793271047b6b071507bf8a40e3d4588dd30112e7eec2f19b05965cf39568096"
+    },
+    {
+      "path": "tests/long-jump/v8-verdicts.test.mjs",
+      "sha256": "243b13cbab0ef964b99a0937830abea7138b3cc2c67b4336cf060efecaa3ff2d"
+    },
+    {
+      "path": "tests/long-jump/v8-world.test.mjs",
+      "sha256": "79383c78e4160755d9ea25221bd1127a8bdd88fec93df62608a218586d6432d5"
+    },
+    {
+      "path": "tests/long-jump/v9-feel.test.mjs",
+      "sha256": "f6eba332dfa86cf208afe5a007fd8f6ab01262115d499ccf3de28a3ae112a49e"
+    },
+    {
+      "path": "tests/long-jump/v9-presentation.test.mjs",
+      "sha256": "6d2b7d90752a4357b5a915b438102fc2205058c26600348ddc35095cfe2ec6e2"
+    },
+    {
+      "path": "tests/long-jump/v9-route.test.mjs",
+      "sha256": "57e7f48efab1b39aaa4be888faccf1ba05e9c9913365e0b64be0d0b5e096695d"
+    },
+    {
+      "path": "tests/long-jump/v9-scenery.test.mjs",
+      "sha256": "b604535cca14a46d23a5e069fa1455dc57293cc4790740faf6f6b76bd3690bd4"
+    },
+    {
+      "path": "tests/long-jump/verdicts.test.mjs",
+      "sha256": "0dba77d9f020da8fb63c448fac05c163a474bc4a09a3ffe8a851170b022789c5"
+    },
+    {
+      "path": "tests/long-jump/viewport-diagnostics.test.mjs",
+      "sha256": "131c0e94fb2b148cd464077994f9096afd74e714527110ee45bb75d15dfd2295"
+    },
+    {
+      "path": "tests/long-jump/viewport-root-origin.test.mjs",
+      "sha256": "e1f65dd722b5f413389518eb735ab3a0f34ada2606f8792653beb577e4ddd84e"
+    },
+    {
+      "path": "tests/play-counts-api.test.mjs",
+      "sha256": "08efc40cbdef973987364f71c1bd8aca5f62c1f5e7f074720ee20f2f087e18f7"
+    },
+    {
+      "path": "tests/play-counts-client.test.mjs",
+      "sha256": "7350709001f38fe9938f9a1fd09672edde76db3011d3b054abe2b59a6fb7df77"
+    },
+    {
+      "path": "tests/production-jump-controller.test.mjs",
+      "sha256": "8aea9b9a7f168065b1d33ed1a3838cfa9acb8ada704e97ba1fa1cedb6e68652d"
+    },
+    {
+      "path": "tests/production-jump-leaderboard.test.mjs",
+      "sha256": "7141951d11283fb8dba224903baebc1c9683a69787362976de0f05833f7bbac5"
+    },
+    {
+      "path": "tests/production-leaderboard.test.mjs",
+      "sha256": "1946e80079b71e19eeb9668d98f7716a41c8f0633374de3c516ee860db5871bf"
+    },
+    {
+      "path": "tests/ranking-refinement.test.mjs",
+      "sha256": "3eef4a491abc40fc52ec3ce7dd62bebb54ddaabbb18960e92086c881397f6db4"
+    },
+    {
+      "path": "tests/render.test.mjs",
+      "sha256": "7efbfd5b9aae0b0b169f304cd7561b18616a036a5f93c4ee85dc5acc2697573a"
+    },
+    {
+      "path": "tests/v2-menu-audio.test.mjs",
+      "sha256": "80aac963f279b1e50fd8288c30a3e33160c90f87b86a92fc241fc3a64b85d885"
+    },
+    {
+      "path": "tests/v2-menu-style.test.mjs",
+      "sha256": "0044821a9da20328cb437f7ddd5a46f012c52242c2f3ca7dc27765e86dbcb0fa"
+    },
+    {
+      "path": "tests/v2-menu.test.mjs",
+      "sha256": "ae6f621299f864ef1085ca3e4468f504c1538967670062df46df6caa8cdb6c7a"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "sha256": "9a7fa89204f6a143d319863d72081e255fca9721bb212aabe8a35ef022b263d4"
+    },
+    {
+      "path": "worker/leaderboard/DEPLOYMENT-NOTES.md",
+      "sha256": "d8bb9ff4e8aff80d0e2e6054fa94d1edb687bb096ebcd51d3c3195008a82abc7"
+    },
+    {
+      "path": "worker/leaderboard/README.md",
+      "sha256": "c2d2f33437a4bbef61bc2cac399c81b7a22d9e170ab4110450f49b7dffed530f"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "sha256": "050933532687d876da292c513e7e81c785f83462b023c1b8fa4c27721cf51ba0"
+    },
+    {
+      "path": "worker/play-counts/002.sql",
+      "sha256": "53d6022ca5eef923f0dc37ab969150ffddbd571b565232c8589547de1a11151c"
+    },
+    {
+      "path": "worker/play-counts/README.md",
+      "sha256": "0c4b8403048933b04b2aeb4782efef5b0db3953debf3ee94a7fbf19e475e63d3"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "sha256": "0b0b187e4cca9cacffd9c9b8e1a10b12a8012bd614afc606078822eaf100be80"
+    }
+  ]
+}
