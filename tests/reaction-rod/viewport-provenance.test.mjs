@@ -1,3 +1,4 @@
+import {reverseRodResult} from '../helpers/rod-result-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -8,13 +9,13 @@ test('viewport repair has only two exact runtime files and restores the pinned o
  const ledger=viewportLedger();
  assert.equal(ledger.baseCommit,'1862880407edecb4270d1778641cf6770ba4b548');
  assert.deepEqual(ledger.files.map(f=>f.path),['reaction-rod/index.html','reaction-rod/viewport.css']);
- for(const file of ledger.files)assert.equal(hashViewport(read(file.path)),file.sha256,file.path);
+ for(const file of ledger.files)assert.equal(hashViewport(reverseRodResult(file.path,read(file.path))),file.sha256,file.path);
  assert.equal(hashViewport(reverseRodViewport('reaction-rod/index.html',read('reaction-rod/index.html'))),'4ec5b229adc2fa13b464100e0686be3db2960cec0efaeae672086055ccab2998');
 });
 
 test('viewport repair preserves original camera, input, score, art and shared runtime bytes',()=>{
  const ledger=viewportLedger();assert.deepEqual(ledger.preserved.map(f=>f.path),['reaction-rod/game.mjs','reaction-rod/style.css','reaction-rod/physics.mjs','reaction-rod/framing.mjs','reaction-rod/scene.mjs','reaction-rod/snapshot.mjs','reaction-rod/share.mjs','long-jump/layout.mjs','long-jump/dialogs.mjs','shared/entry-shell.mjs','shared/entry-shell.css','shared/game-ui.mjs','shared/game-ui.css']);
- for(const file of ledger.preserved)assert.equal(hashViewport(read(file.path)),file.sha256,file.path);
+ for(const file of ledger.preserved)assert.equal(hashViewport(reverseRodResult(file.path,read(file.path))),file.sha256,file.path);
 });
 
 test('historical provenance adapter rejects extra HTML/icon changes, missing or duplicate viewport imports',()=>{

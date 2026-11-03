@@ -1,3 +1,4 @@
+import {reverseRodResult} from './rod-result-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -7,6 +8,7 @@ export const hashViewport=bytes=>createHash('sha256').update(bytes).digest('hex'
 // A narrowly reversible later overlay. Historical manifests remain byte-exact;
 // every current byte must match the new ledger before old assertions can run.
 export function reverseRodViewport(path,bytes){
+ bytes=reverseRodResult(path,bytes);
  if(path!=='reaction-rod/index.html')return Buffer.from(bytes);
  const ledger=viewportLedger(),entry=ledger.files.find(f=>f.path===path);
  assert.equal(hashViewport(bytes),entry.sha256,'Rod viewport current bytes');

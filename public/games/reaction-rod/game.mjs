@@ -9,7 +9,8 @@ import * as THREE from './vendor/three.module.min.js';
 import {CONFIG,clamp,makeWorld,start,pause,resume,aim,releaseInput,advance,result,verdict,cameraBounds,screenToWorld} from './physics.mjs';
 import {createScene} from './scene.mjs';
 import {shareResult,shareText,threadsURL} from './share.mjs';
-import {captureResultCard} from './snapshot.mjs';
+import {captureResultPhoto,captureResultCard} from './snapshot.mjs';
+import {readFinalMoment} from './final-moment.mjs';
 const $=id=>document.getElementById(id),canvas=$('game'),stage=$('stage'),view=createScene();
 const resultModal=createResultDialog($('result'),{focusTarget:()=>$('verdict'),returnFocus:()=>canvas});
 const music=createSceneAudio({game:'reaction-rod',src:'../beer-slide/audio/chill-menu.mp3',notify:({ready,enabled,pending})=>{$('musicBtn').setAttribute('aria-pressed',String(ready));$('musicBtn').setAttribute('aria-label',ready?'關閉音樂':'開啟音樂');$('musicBtn').textContent=ready?'♪':'♩';$('musicStatus').textContent=!enabled?'音樂已關閉':pending?'正在開啟音樂…':ready?'音樂已開啟':'按音樂按鈕開啟或重試。';}});
@@ -32,15 +33,24 @@ function updatePanels(){$('ready').hidden=true;$('paused').hidden=true;if(world.
 function begin(){if(!renderer||!resize())return;const wasReady=world.state==='ready';start(world);music.setPlaying(true);music.unlock();updatePanels();toast('左右各一隻手，掌心接棒、別把自己甩出去！');canvas.focus({preventScroll:true});last=performance.now();if(wasReady&&world.state==='playing')void recordPlayStart(window,'reaction-rod');}
 function pauseGame(){const changed=pause(world);clearControlInput();if(changed){music.setPlaying(false);updatePanels();toast('暫停中，棒子與屁股都不會偷跑。');}}
 function resumeGame(){if(!resize())return;entry.close({restoreView:false});clearControlInput();if(resume(world)){music.setPlaying(true);music.unlock();updatePanels();last=performance.now();canvas.focus({preventScroll:true});}}
-function reset(){leaderboard?.reset();entry.close({restoreView:false});music.setPlaying(false);clearControlInput();clearShare();world=makeWorld(freshSeed());audioEvents.reset();audioEvents.update(world,{emitResult:false});history=[];wasDone=false;held=[0,0];keys.clear();pointerId=null;view.clear();updatePanels();updateHud();toast('重新站好。這次屁股不准搶戲。');}
+function reset(){leaderboard?.reset();entry.close({restoreView:false});music.setPlaying(false);clearControlInput();clearShare();clearResultPhoto();world=makeWorld(freshSeed());audioEvents.reset();audioEvents.update(world,{emitResult:false});history=[];wasDone=false;held=[0,0];keys.clear();pointerId=null;view.clear();updatePanels();updateHud();toast('重新站好。這次屁股不准搶戲。');}
 function showResult(){music.setPlaying(false);audioEvents.finish();clearControlInput();const r=result(world);leaderboard?.setResult({...r,phase:'done'});const v=verdict(r.caught,r.falls);$('verdict').textContent=v[0];$('resultComment').textContent=v[1];$('resultCount').textContent=r.caught;$('rating').textContent=r.rating.toFixed(1);$('streak').textContent=`${r.bestStreak} 根`;$('elapsed').textContent=r.caught?`${r.meanElapsed.toFixed(2)} 秒`:'—';$('falls').textContent=`坐倒 ${r.falls} 次`;saveBest(r);prepareShare(r,v);updatePanels();}
-let shareFile=null,shareBlob=null,shareMessage='',shareGeneration=0,shareBusy=false;
+let shareFile=null,shareBlob=null,shareMessage='',shareGeneration=0,shareBusy=false,frozenPhoto=null,encodeTimer=null;
+function clearResultPhoto(){frozenPhoto=null;$('resultPhoto').width=$('resultPhoto').height=1;$('resultScene').hidden=true;}
+clearResultPhoto();
+function showResultPhoto(){const preview=$('resultPhoto');preview.width=frozenPhoto.width;preview.height=frozenPhoto.height;const context=preview.getContext('2d');if(!context)throw Error('Preview canvas unavailable');context.drawImage(frozenPhoto,0,0);$('resultScene').hidden=false;}
 const isMobile=()=>typeof window.matchMedia==='function'&&window.matchMedia('(pointer: coarse)').matches;
-function clearShare(){shareGeneration++;shareFile=null;shareBlob=null;shareBusy=false;$('shareStatus').textContent='';if($('copyFallback').open)$('copyFallback').close();$('shareBtn').disabled=true;if($('imageFallback').open)$('imageFallback').close();clearPreview();}
+function clearShare(){shareGeneration++;clearTimeout(encodeTimer);encodeTimer=null;shareFile=null;shareBlob=null;shareBusy=false;$('shareStatus').textContent='';if($('copyFallback').open)$('copyFallback').close();$('shareBtn').disabled=true;if($('imageFallback').open)$('imageFallback').close();clearPreview();}
 function prepareShare(r,v){
  clearShare();const generation=shareGeneration,record={...r,total:CONFIG.count,title:v[0],comment:v[1]};
  const url=typeof window.location?.origin==='string'?window.location.origin+window.location.pathname:'';shareMessage=shareText(record,url);$('threadsBtn').href=threadsURL(shareMessage);$('shareBtn').textContent='製作成績圖…';
- try{view.update(world,0,held);const card=captureResultCard({view,record,createCanvas:()=>document.createElement('canvas'),Renderer:THREE.WebGLRenderer});card.toBlob(blob=>{if(generation!==shareGeneration)return;if(!blob){shareUnavailable();return;}shareBlob=blob;try{shareFile=new File([blob],'接棒啦-成績.png',{type:'image/png'});}catch{}$('shareBtn').disabled=false;$('shareBtn').textContent=isMobile()?'分享成績圖片':'下載成績圖片';},'image/png');}catch{shareUnavailable();}
+ try{
+  frozenPhoto??=captureResultPhoto({moment:readFinalMoment(world),createCanvas:()=>document.createElement('canvas'),Renderer:THREE.WebGLRenderer});
+  showResultPhoto();
+  const card=captureResultCard({photo:frozenPhoto,record,createCanvas:()=>document.createElement('canvas')});let settled=false;
+  const finish=blob=>{if(settled||generation!==shareGeneration)return;settled=true;clearTimeout(encodeTimer);encodeTimer=null;if(!blob){shareUnavailable();return;}shareBlob=blob;try{shareFile=new File([blob],'接棒啦-成績.png',{type:'image/png'});}catch{}$('shareBtn').disabled=false;$('shareBtn').textContent=isMobile()?'分享成績圖片':'下載成績圖片';};
+  encodeTimer=setTimeout(()=>finish(null),6000);card.toBlob(finish,'image/png');
+ }catch{clearTimeout(encodeTimer);encodeTimer=null;shareUnavailable();}
 }
 let previewURL=null;
 function clearPreview(){if(previewURL){URL.revokeObjectURL(previewURL);previewURL=null;}$('sharePreview').src='';}

@@ -1,0 +1,375 @@
+{
+  "baseCommit": "128f1c45ab47af45e46e950a6c6f4007a7b2cdc4",
+  "purpose": "Local candidate; final result presentation and read-only final-moment observation. Not a publication receipt.",
+  "files": [
+    {
+      "path": "reaction-rod/index.html",
+      "sha256": "a3a8965e48439485e4bcb037c3db932b37a499f4001d05a9f33c42476ee1d7d6",
+      "beforeSha256": "e56fa61f3d7d81a8f3131101086be2da6c843bab3d710182e6ad0ad9d5ed4442",
+      "baseGitBlob": "a75b52c6bec448f6db2ea5deb352bde81696f658",
+      "reverseEdits": [
+        {
+          "start": 561,
+          "end": 604,
+          "beforeBase64": ""
+        },
+        {
+          "start": 4761,
+          "end": 4928,
+          "beforeBase64": ""
+        },
+        {
+          "start": 4999,
+          "end": 5001,
+          "beforeBase64": "77yB6Q=="
+        },
+        {
+          "start": 5002,
+          "end": 5005,
+          "beforeBase64": "measoeiqjeecnw=="
+        },
+        {
+          "start": 5346,
+          "end": 5419,
+          "beforeBase64": ""
+        },
+        {
+          "start": 5784,
+          "end": 5784,
+          "beforeBase64": "PjxzbWFsbCBjbGFzcz0icHJpdmF0ZS1ub3RlIj5QbGF5Rm9ybW9zYeODu+WPr+WIhuS6q+aIkOe4vuWclueJh+iIh+acrOmggemAo+e1kOOAgiA8YSBjbGFzcz0icGxhdGZvcm0tcmV0dXJuIiBocmVmPSIvIj7ihpAg6YGK5oiy6aaW6aCBPC9hPjwvc21hbGw+PHNtYWxsIGNsYXNzPSJzY29yZS1ub3RlIj7pgYrmiLLoqZXliIbvvIzpnZ7phqvlrbjlj43mh4nmuKzpqZfjgII8L3NtYWxs"
+        }
+      ]
+    },
+    {
+      "path": "reaction-rod/game.mjs",
+      "sha256": "cc7f9c762b53991a7a20d7560ff7934105256d86cf0d4c70a007bcdf871ebeef",
+      "beforeSha256": "437395bd66861f401683d323a4ae2aed2876a8c7e759f341508c41df10b36b23",
+      "baseGitBlob": "07a7ba8c8cb05c45cb9dcf53fbff79b7bd18180c",
+      "reverseEdits": [
+        {
+          "start": 797,
+          "end": 816,
+          "beforeBase64": ""
+        },
+        {
+          "start": 837,
+          "end": 889,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6008,
+          "end": 6027,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6911,
+          "end": 6945,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6946,
+          "end": 7375,
+          "beforeBase64": ""
+        },
+        {
+          "start": 7521,
+          "end": 7564,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8165,
+          "end": 8172,
+          "beforeBase64": "dmk="
+        },
+        {
+          "start": 8173,
+          "end": 8177,
+          "beforeBase64": "dy51cGRh"
+        },
+        {
+          "start": 8178,
+          "end": 8178,
+          "beforeBase64": "ZSh3"
+        },
+        {
+          "start": 8179,
+          "end": 8181,
+          "beforeBase64": "cmxkLDAsaGVsZCk7Y29uc3QgY2FyZA=="
+        },
+        {
+          "start": 8195,
+          "end": 8200,
+          "beforeBase64": "Q2FyZA=="
+        },
+        {
+          "start": 8202,
+          "end": 8205,
+          "beforeBase64": "dmk="
+        },
+        {
+          "start": 8206,
+          "end": 8209,
+          "beforeBase64": "dyw="
+        },
+        {
+          "start": 8211,
+          "end": 8226,
+          "beforeBase64": "Yw=="
+        },
+        {
+          "start": 8228,
+          "end": 8229,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8230,
+          "end": 8231,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8313,
+          "end": 8343,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8347,
+          "end": 8370,
+          "beforeBase64": "Lg=="
+        },
+        {
+          "start": 8372,
+          "end": 8425,
+          "beforeBase64": "Qg=="
+        },
+        {
+          "start": 8426,
+          "end": 8466,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8467,
+          "end": 8478,
+          "beforeBase64": "Yig="
+        },
+        {
+          "start": 8488,
+          "end": 8497,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8532,
+          "end": 8588,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8831,
+          "end": 8899,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8913,
+          "end": 8915,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8922,
+          "end": 8965,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "reaction-rod/physics.mjs",
+      "sha256": "129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f",
+      "beforeSha256": "51a7764ceec2d04d262a8b415ddb824364b50cafbc3a4cf9f1b489d1e8ab323c",
+      "baseGitBlob": "087846f9432cfc622ac20f7f552b89f3011f9fae",
+      "reverseEdits": [
+        {
+          "start": 0,
+          "end": 56,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6383,
+          "end": 6418,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "reaction-rod/snapshot.mjs",
+      "sha256": "1c1bce4734d18f4c48605c7310bf1d3aff26921dbdf7dd29ad7eb0d4895cbd79",
+      "beforeSha256": "3f83133ad7c85d29289e03ee1d85d16973047a1a74861b25c7472ace8dfafd40",
+      "baseGitBlob": "ce4da2ac8ba7d08f7d4f136590bf2ad9b4546c9e",
+      "reverseEdits": [
+        {
+          "start": 122,
+          "end": 163,
+          "beforeBase64": ""
+        },
+        {
+          "start": 199,
+          "end": 484,
+          "beforeBase64": ""
+        },
+        {
+          "start": 494,
+          "end": 495,
+          "beforeBase64": "dGhlIGV4aXN0aQ=="
+        },
+        {
+          "start": 496,
+          "end": 498,
+          "beforeBase64": "ZyBmcm96ZW4gZW5kLXBvc2Ugc2NlbmUsIG5ldmVyIGFkdmFuY2UvcmV3aW5k"
+        },
+        {
+          "start": 503,
+          "end": 505,
+          "beforeBase64": "d29ybGQgb3Ig"
+        },
+        {
+          "start": 509,
+          "end": 527,
+          "beforeBase64": ""
+        },
+        {
+          "start": 529,
+          "end": 530,
+          "beforeBase64": ""
+        },
+        {
+          "start": 531,
+          "end": 616,
+          "beforeBase64": ""
+        },
+        {
+          "start": 618,
+          "end": 619,
+          "beforeBase64": "dmUgY2Ft"
+        },
+        {
+          "start": 622,
+          "end": 646,
+          "beforeBase64": ""
+        },
+        {
+          "start": 677,
+          "end": 682,
+          "beforeBase64": "Q2FyZA=="
+        },
+        {
+          "start": 684,
+          "end": 687,
+          "beforeBase64": "dmk="
+        },
+        {
+          "start": 688,
+          "end": 690,
+          "beforeBase64": "dyxyZWNvcmQ="
+        },
+        {
+          "start": 737,
+          "end": 795,
+          "beforeBase64": ""
+        },
+        {
+          "start": 825,
+          "end": 830,
+          "beforeBase64": "Y2FyZA=="
+        },
+        {
+          "start": 858,
+          "end": 863,
+          "beforeBase64": ""
+        },
+        {
+          "start": 870,
+          "end": 917,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1011,
+          "end": 1014,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1107,
+          "end": 1110,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1239,
+          "end": 1242,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1285,
+          "end": 1459,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1463,
+          "end": 1467,
+          "beforeBase64": "Ug=="
+        },
+        {
+          "start": 1468,
+          "end": 1468,
+          "beforeBase64": "c3VsdENhcmQ="
+        },
+        {
+          "start": 1469,
+          "end": 1469,
+          "beforeBase64": "Y2FyZCw="
+        },
+        {
+          "start": 1478,
+          "end": 1481,
+          "beforeBase64": "cmVjb3Jk"
+        },
+        {
+          "start": 1490,
+          "end": 1495,
+          "beforeBase64": "Y2FyZA=="
+        },
+        {
+          "start": 1496,
+          "end": 1498,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1505,
+          "end": 1512,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1534,
+          "end": 1549,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1581,
+          "end": 1620,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1623,
+          "end": 1900,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "reaction-rod/final-moment.mjs",
+      "sha256": "ef2fdd563339101ee7dc3c0624565216072d90b2d89eaa6534c13dd8f7ab6d6b",
+      "beforeSha256": null,
+      "baseGitBlob": null
+    },
+    {
+      "path": "reaction-rod/result.css",
+      "sha256": "018d0c5706accbb969a59a889dff0ad71c111d6c8674492f2c66f88edaf46add",
+      "beforeSha256": null,
+      "baseGitBlob": null
+    }
+  ]
+}
