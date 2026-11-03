@@ -8,10 +8,10 @@ test('reaction rod is a separate playable minigame, never an eleventh decathlon 
  const entry=catalog.minigames?.find(game=>game.id==='reaction-rod');
  assert.ok(entry,'separate minigames catalog entry');
  assert.equal(entry.href,'/games/reaction-rod/');
- assert.equal(catalog.games.length,6);assert.equal(catalog.events.length,10);
+ assert.equal(catalog.games.length,8);assert.equal(catalog.events.length,10);
  const html=renderPage(catalog),mini=html.match(/<section[^>]*id="minigames"[\s\S]*?<\/section>/)?.[0];
  assert.ok(mini,'minigames section');assert.match(mini,/接棒啦！/);assert.match(mini,/3<\/strong> 款/);
- assert.match(html,/6<span[^>]*>\s*\/\s*10/);assert.doesNotMatch(mini,/十項全能/);
+ assert.match(html,/8<span[^>]*>\s*\/\s*10/);assert.doesNotMatch(mini,/十項全能/);
  assert.match(mini,/href="\/games\/reaction-rod\/"/);assert.match(mini,/滑鼠／觸控／鍵盤/);
  assert.ok(existsSync(new URL('../public'+entry.href+'index.html',import.meta.url)));
 });

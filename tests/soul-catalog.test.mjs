@@ -15,7 +15,7 @@ test('Soul Alchemist is the fifth independently listed preview game, with produc
  const card=preview.querySelector('[data-external-id="soul10power"]');assert.ok(card);assert.equal(card.querySelector('a').href,official);assert.equal(card.querySelector('a').target,'_blank');assert.equal(card.querySelector('a').rel,'noopener noreferrer');
  assert.match(preview.querySelector('#big-games .portal-section-note').textContent,/5 個世界/);
  assert.equal(doc('production').querySelector('[data-external-id="soul10power"]'),null);
- assert.equal(catalog.games.length+catalog.minigames.length,9);
+ assert.equal(catalog.games.length+catalog.minigames.length,11);
 });
 test('the new allowed host does not allow redirects, lookalikes, extra paths or query URLs',()=>{
  const entry=catalog.externalGames.find(e=>e.id==='soul10power');assert.ok(entry);

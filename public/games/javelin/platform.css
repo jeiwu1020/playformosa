@@ -1,0 +1,43 @@
+/* Integration only: consistent platform chrome, original scene and controls remain intact. */
+.pf-game.pf-javelin{font-family:Arial,'Microsoft JhengHei','Noto Sans TC',system-ui,sans-serif;padding-right:calc(8px + env(safe-area-inset-right));padding-left:calc(8px + env(safe-area-inset-left));overflow:hidden}
+.pf-javelin .pf-header .pf-home{font-size:14px;padding:0 8px}
+.pf-javelin .pf-header nav{gap:6px}
+.pf-javelin .pf-header nav button{min-width:44px;min-height:44px;height:44px;font-size:14px;padding:0 9px}
+.pf-javelin #world:focus-visible{outline:3px solid #dc683e;outline-offset:-4px}
+.pf-javelin footer button{min-height:44px}
+.pf-javelin .result-summary .pf-share-actions{margin-top:16px}
+.pf-javelin .result-summary .pf-share-actions :is(a,button){font-size:14px}
+.pf-javelin #shareStatus:empty{display:none}
+.pf-javelin #shareFallbackImage{max-width:100%;height:auto;max-height:50dvh;object-fit:contain;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
+.pf-javelin #shareFallbackText{user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
+.pf-javelin .result-summary .pf-result-details p,.pf-javelin .result-summary .feedback{font-size:14px}
+.pf-javelin .pf-result-dialog.has-result{width:min(1080px,calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));max-width:1080px}
+.pf-javelin .pf-result-dialog.has-result #resultPhoto{max-height:440px;object-fit:contain}
+.pf-javelin .pf-controls-frame [data-pf-key]{min-width:44px}
+.pf-javelin .pf-controls-frame{height:100%;min-height:0;grid-template-rows:minmax(0,1fr) auto}
+@media(min-width:900px){.pf-javelin .pf-controls-frame{grid-template-rows:minmax(0,1fr)}}
+.pf-javelin #replayBadge button{min-height:44px}
+@media(max-width:640px){.pf-javelin .pf-header nav button{font-size:13px;padding:0 7px}.pf-javelin footer{font-size:11px}.pf-javelin .pf-header h1{font-size:15px}}
+@media(max-height:520px) and (orientation:landscape){.pf-javelin .pf-header{min-height:44px}.pf-javelin .pf-controls-frame [data-pf-key]{min-height:44px}.pf-javelin .pf-result-dialog.has-result .result-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}.pf-javelin .pf-result-dialog.has-result #resultPhoto{max-height:260px}.pf-javelin .result-summary .bigtime{font-size:38px}.pf-javelin #replayBadge{top:60px}}
+@media(max-height:520px) and (orientation:landscape){.pf-javelin .pf-controls-frame{grid-template-columns:85px minmax(0,1fr) 85px;grid-template-rows:minmax(0,1fr)}.pf-javelin .pf-controls-frame>[data-pf-controls-scene]{grid-column:2!important}.pf-javelin .pf-controls-frame .pf-controls-left,.pf-javelin .pf-controls-frame .pf-controls-right{grid-row:1;flex-direction:column;gap:6px}.pf-javelin .pf-controls-frame .pf-controls-right{grid-column:3}.pf-javelin .pf-controls-frame [data-pf-key]{flex:1;min-height:64px}.pf-javelin .pf-controls-frame [data-pf-key] :is(span,b){font-size:14px}.pf-javelin .pf-controls-frame [data-pf-key] small{font-size:10px}}
+/* Fit the initial ticket and start action, without hiding or clipping advanced help. */
+@media(max-height:520px) and (orientation:landscape){
+ .pf-game.pf-javelin dialog.pf-entry{width:min(720px,calc(100vw - 32px))!important;padding:12px!important}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket{grid-template-columns:minmax(0,1fr) 56px;column-gap:10px;margin:-12px -12px 10px!important;padding:10px 14px!important}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket>img{width:56px;height:56px;border-radius:14px}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket h2{font-size:23px!important;line-height:1.25!important;margin:3px 0!important}
+ .pf-game.pf-javelin .pf-entry .pf-entry-goal,.pf-game.pf-javelin .pf-entry .pf-entry-operation{font-size:16px!important;line-height:1.45!important;margin:0 0 7px!important}
+ .pf-game.pf-javelin .pf-entry details{margin:7px 0!important}
+ .pf-game.pf-javelin .pf-entry details>summary{min-height:44px;margin:0;padding:7px 12px;font-size:16px!important}
+ .pf-game.pf-javelin .pf-entry .pf-entry-start{min-height:44px!important;margin:10px 0 5px!important;padding:8px 14px!important;font-size:17px!important}
+}
+@media(max-width:380px) and (orientation:portrait){
+ .pf-game.pf-javelin dialog.pf-entry{padding:14px!important}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket{grid-template-columns:minmax(0,1fr) 48px;column-gap:8px;margin:-14px -14px 12px!important;padding:12px!important}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket>img{width:48px;height:48px;border-radius:12px}
+ .pf-game.pf-javelin .pf-entry .pf-menu-ticket h2{font-size:22px!important;line-height:1.25!important;margin:3px 0!important}
+ .pf-game.pf-javelin .pf-entry .pf-entry-goal,.pf-game.pf-javelin .pf-entry .pf-entry-operation{font-size:17px!important;line-height:1.45!important;margin:0 0 9px!important}
+ .pf-game.pf-javelin .pf-entry details{margin:8px 0!important}
+ .pf-game.pf-javelin .pf-entry details>summary{min-height:44px;margin:0;padding:8px 10px;font-size:16px!important}
+ .pf-game.pf-javelin .pf-entry .pf-entry-start{min-height:44px!important;margin:10px 0 5px!important;padding:8px 14px!important;font-size:17px!important}
+}

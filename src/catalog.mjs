@@ -9,6 +9,8 @@ export const catalog = {
     {id:'pole-vault',title:'四肢各有想法｜撐竿跳',event:'撐竿跳高',href:'/games/pole-vault/',status:'available',image:'/assets/pole-vault-card.png',imageStyle:'illustration',kicker:'你能跳得比什麼還高？'},
     {id:'shot-put',title:'四肢各有想法｜鉛球',event:'鉛球',href:'/games/shot-put/',status:'available',image:'/assets/shot-put-card.png',imageStyle:'illustration',kicker:'短蓄力，準出手，空中接力。'},
     {id:'discus',title:'四肢各有想法｜鐵餅',event:'鐵餅',href:'/games/discus/',status:'available',image:'/assets/discus-card.png',imageStyle:'illustration',kicker:'旋轉出手，順風遠行。'}
+    ,{id:'sprint-100m',title:'四肢各有想法｜100公尺衝刺',event:'100 公尺',href:'/games/sprint-100m/',status:'available',image:'/assets/sprint-100m-card.png',imageStyle:'illustration',kicker:'蹲好起跑，挺胸搶線。'}
+    ,{id:'javelin',title:'四肢各有想法｜標槍',event:'標槍',href:'/games/javelin/',status:'available',image:'/assets/javelin-card.png',imageStyle:'illustration',kicker:'助跑送力，出手還要煞得住。'}
   ],
   minigames: [
     {id:'reaction-rod', title:'接棒啦！', event:'夜市反應力', href:'/games/reaction-rod/', status:'available', image:'/assets/reaction-rod-card.png', imageStyle:'illustration', kicker:'十根棒子，手腦各憑本事。', input:'滑鼠／觸控／鍵盤'},

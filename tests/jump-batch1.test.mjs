@@ -7,7 +7,7 @@ const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('first batch jump entries survive subsequent admission',()=>{
  assert.deepEqual(catalog.games.slice(0,4).map(g=>g.id),['long-jump','hurdles','high-jump','pole-vault']);
  assert.deepEqual(catalog.minigames.slice(0,2).map(g=>g.id),['reaction-rod','beer-slide']);
- assert.match(renderPage(catalog),/6<span> \/ 10/);
+ assert.match(renderPage(catalog),/8<span> \/ 10/);
  for(const id of ['high-jump','pole-vault']){assert.ok(fs.existsSync(new URL('../public/games/'+id+'/index.html',import.meta.url)));assert.equal(catalog.games.find(g=>g.id===id).imageStyle,'illustration');}
 });
 test('new jump games have same-origin home, shared chrome and ordered share controls',()=>{
