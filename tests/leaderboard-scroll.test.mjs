@@ -26,7 +26,7 @@ function geometry(node,{top=20,height=200,scrollHeight=1000,overflow='auto',clie
  node.scrollTo=options=>{calls.push(options);node.scrollTop=options.top;};
  return calls;
 }
-function fixture(t,{game='hurdles',realDOM=false,nested=false,reduced=false,actionContainer=false,raf=true}={}){
+function fixture(t,{game='hurdles',realDOM=false,nested=false,reduced=false,actionContainer=false,uploadContainer=false,raf=true}={}){
  const html=realDOM?readFileSync(new URL(`../public/games/${game}/index.html`,import.meta.url),'utf8'):
   '<dialog open id="dialog"><section id="result"><button id="again">Again</button><div id="actions"></div></section></dialog>';
  const dom=new JSDOM(html,{url:'https://qa.example/'}),win=dom.window,doc=win.document;
@@ -49,6 +49,7 @@ function fixture(t,{game='hurdles',realDOM=false,nested=false,reduced=false,acti
  if(result!==dialog){result.getClientRects=()=>[rect(20,800)];result.getBoundingClientRect=()=>rect(20,800);}
  const innerCalls=nested?geometry(result,{top:40,height:100,scrollHeight:900}):[];
  const options=actionContainer?{resultActionContainer:doc.getElementById('actions'),resultActionLabel:'榮譽榜'}:{};
+ if(uploadContainer){let slot=doc.getElementById('resultUpload');if(!slot){slot=doc.createElement('div');slot.id='resultUpload';result.append(slot);}options.resultUploadContainer=slot;}
  const board=mountLeaderboard({document:doc,game,enabled:true,result,...options,fetcher:async(url,options)=>{network.push({url,options});return {ok:true,json:async()=>({entries:[],own:null})};}});
  board.setResult(rounds[game]);
  const panel=result.querySelector('details.pf-leaderboard'),summary=panel.querySelector('summary'),label=panel.querySelector('label'),cancel=panel.querySelector('[data-cancel]');
@@ -64,7 +65,7 @@ function fixture(t,{game='hurdles',realDOM=false,nested=false,reduced=false,acti
 
 // Missing expansion handling would leave the upload controls below every game's result viewport.
 for(const game of Object.keys(rounds))test(`${game}: manual upload expansion reveals controls inside the existing result dialog`,async t=>{
- const f=fixture(t,{game,realDOM:true});f.summary.click();
+ const f=fixture(t,{game,realDOM:true});assert.equal(f.panel.parentElement,f.result,'default placement stays unchanged');f.summary.click();
  assert.equal(f.panel.open,true);assert.equal(f.dialog.scrollTop,0,'wait for expanded layout');
  await f.flush();
  assert.equal(f.dialog.scrollTop,268,'expanded 300..480 panel moves into 20..220 viewport with 8px inset');
@@ -202,3 +203,15 @@ test('visual viewport offsets constrain the reveal without panning the document'
  assert.deepEqual(f.win.visualViewport,{offsetTop:50,offsetLeft:12,height:140,width:300});assert.deepEqual(f.forbidden,[]);
  assert.equal(f.doc.body.scrollTop,17);assert.equal(f.doc.documentElement.scrollTop,23);
 });
+
+// Reparenting by duplication or scrolling a disconnected result would break this contract.
+test('Rod upload slot keeps one live panel, nickname and scroll boundary across suspend and reopen',async t=>{
+ const f=fixture(t,{game:'reaction-rod',realDOM:true,uploadContainer:true}),input=f.panel.querySelector('input'),submit=f.panel.querySelector('[data-submit]');
+ assert.equal(f.panel.parentElement,f.doc.querySelector('#resultUpload'));assert.equal(f.result.querySelectorAll('details.pf-leaderboard').length,1);
+ input.value='尚未提交的暱稱';f.summary.focus();f.summary.click();await f.flush();assert.equal(f.dialog.scrollTop,268);assert.equal(f.doc.activeElement,f.summary);assert.equal(input.value,'尚未提交的暱稱');assert.equal(f.network.length,0);
+ let escaped=0;f.win.addEventListener('keydown',()=>escaped++);input.dispatchEvent(new f.win.KeyboardEvent('keydown',{key:'w',bubbles:true}));input.dispatchEvent(new f.win.KeyboardEvent('keydown',{key:'Enter',bubbles:true}));assert.equal(escaped,0);assert.equal(f.network.length,0);input.dispatchEvent(new f.win.KeyboardEvent('keydown',{key:'Tab',bubbles:true}));assert.equal(escaped,1);
+ f.board.suspend();assert.equal(input.value,'尚未提交的暱稱');assert.equal(f.panel.open,true);assert.equal(f.panel.querySelector('[data-submit]'),submit);
+ f.cancel.click();assert.equal(f.panel.open,false);f.summary.click();await f.flush();assert.equal(input.value,'尚未提交的暱稱');assert.equal(f.result.querySelectorAll('details.pf-leaderboard').length,1);assert.deepEqual(f.forbidden,[]);
+ f.board.reset();await f.flush();assert.equal(f.panel.hidden,true);assert.equal(f.panel.open,false);assert.equal(f.panel.parentElement,f.doc.querySelector('#resultUpload'));
+});
+test('queued upload scroll is cancelled when its custom slot is hidden and restored',async t=>{const f=fixture(t,{uploadContainer:true});f.summary.click();const slot=f.panel.parentElement;slot.hidden=true;slot.hidden=false;await f.flush();assert.equal(f.calls.length,0);assert.equal(f.network.length,0);});

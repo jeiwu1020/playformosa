@@ -92,4 +92,4 @@ entry.setAudio(music);
 
 entry.configurePause({onContinue:()=>resumeGame(),onRestart:()=>{reset();begin();},canContinue:()=>world.state==='paused'||replay.active});
 
-leaderboard=mountLeaderboard({document,game:'reaction-rod',entry:entry.dialog,shell:entry,result:$('result'),resultActionContainer:$('resultButtons'),resultActionLabel:'榮譽榜'});
+leaderboard=mountLeaderboard({document,game:'reaction-rod',entry:entry.dialog,shell:entry,result:$('result'),resultActionContainer:$('resultButtons'),resultUploadContainer:$('resultUpload'),resultActionLabel:'榮譽榜'});

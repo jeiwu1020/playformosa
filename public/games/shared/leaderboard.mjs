@@ -11,7 +11,7 @@ const boardLabels={
  'reaction-rod':['接棒啦！','先比接住根數，再比評分。'],'beer-slide':['別灑啊！','準度與留酒率，一杯決勝負。'],
  'tower-climb':['上樓不容易','十層完成時間，越短越前面。']
 };
-export function mountLeaderboard({document,game,entry,result,resultActionContainer=result,resultActionLabel='查看榮譽榜',shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
+export function mountLeaderboard({document,game,entry,result,resultActionContainer=result,resultUploadContainer=result,resultActionLabel='查看榮譽榜',shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
  if(!enabled||!Object.hasOwn(boards,game))return null;
  const win=document.defaultView,b=boards[game],make=(tag,text)=>{const n=document.createElement(tag);if(text)n.textContent=text;return n;};
  if(!document.querySelector('link[data-leaderboard-style]')){const l=make('link');l.rel='stylesheet';l.href='/games/shared/leaderboard.css';l.dataset.leaderboardStyle='';document.head.append(l);}
@@ -35,7 +35,7 @@ export function mountLeaderboard({document,game,entry,result,resultActionContain
  ranking.addEventListener('toggle',()=>{if(ranking.open)showRanking();});shell?.setRankingAction?.(showRanking);
  const headerAction=make('button','排行');headerAction.type='button';headerAction.className='pf-rank-action';headerAction.setAttribute('aria-label','查看線上榮譽榜');headerAction.addEventListener('click',showRanking);if(shell){document.querySelector('.pf-header nav')?.insertBefore(headerAction,document.querySelector('.pf-entry-help'));document.body.classList.add('pf-has-ranking');const home=document.querySelector('.pf-header .pf-home');if(home)home.textContent='首頁';}
  const resultAction=make('button',resultActionLabel);resultAction.type='button';resultAction.className='pf-result-ranking';resultAction.addEventListener('click',showRanking);resultActionContainer?.append(resultAction);
- const panel=make('details');panel.className='pf-leaderboard';panel.hidden=true;panel.append(make('summary','手動上傳本次成績'),make('p',note));const scoreText=make('p'),label=make('label','暱稱（1–20字）'),input=make('input');input.type='text';input.maxLength=40;input.autocomplete='nickname';input.value=read('pf-leaderboard-nickname-v1')||'';label.append(input);const submit=make('button','提交本次成績'),cancel=make('button','關閉'),status=make('p');submit.type=cancel.type='button';submit.dataset.submit='';cancel.dataset.cancel='';status.setAttribute('role','status');panel.append(scoreText,label,submit,cancel,status);result?.append(panel);
+ const panel=make('details');panel.className='pf-leaderboard';panel.hidden=true;panel.append(make('summary','手動上傳本次成績'),make('p',note));const scoreText=make('p'),label=make('label','暱稱（1–20字）'),input=make('input');input.type='text';input.maxLength=40;input.autocomplete='nickname';input.value=read('pf-leaderboard-nickname-v1')||'';label.append(input);const submit=make('button','提交本次成績'),cancel=make('button','關閉'),status=make('p');submit.type=cancel.type='button';submit.dataset.submit='';cancel.dataset.cancel='';status.setAttribute('role','status');panel.append(scoreText,label,submit,cancel,status);resultUploadContainer?.append(panel);
  const uploadScroll=bindManualUploadScroll({panel,result});
  // Do not let nickname typing/IME bubble to game shortcuts. No form/implicit Enter submit.
  for(const event of ['keydown','keyup','keypress'])panel.addEventListener(event,e=>{if(e.key!=='Tab')e.stopPropagation();});
