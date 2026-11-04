@@ -1,3 +1,4 @@
+import {reverseEntry,entryLedger,entryRuntimeAdditions} from './fast-hands-entry-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -11,7 +12,8 @@ export const CLUB_CHANGED=Object.freeze(['app.mjs','catch.html','duel.html','ind
 export const CLUB_ADDED=Object.freeze(['club.css','club.mjs'].map(path=>prefix+path));
 export const CLUB_ALLOWED=Object.freeze([...CLUB_CHANGED,...CLUB_ADDED]);
 export const clubLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/CLUB-MANIFEST.json',root),'utf8'));
-export function reverseClub(path,bytes,ledger=clubLedger()){
+export function reverseClub(path,bytes,ledger=clubLedger(),outerLedger=entryLedger()){
+ bytes=reverseEntry(path,bytes,outerLedger);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(CLUB_ALLOWED.includes(path),'Unapproved club path '+path);
@@ -49,5 +51,5 @@ export function readClubBaseline(file,options){
 export function clubRuntimeAdditions(){
  const ledger=clubLedger();assert.deepEqual(ledger.files.map(file=>file.path).sort(),[...CLUB_ALLOWED].sort());
  for(const path of CLUB_ADDED)reverseClub(path,readFileSync(new URL(path,root)),ledger);
- return [...CLUB_ADDED];
+ return [...CLUB_ADDED,...entryRuntimeAdditions()];
 }
