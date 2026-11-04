@@ -15,17 +15,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -133,17 +133,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -251,17 +251,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -290,9 +290,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         -0.5,
@@ -374,17 +374,17 @@
     },
     "settledAt": 1180,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -413,9 +413,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0.5,
@@ -498,17 +498,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -537,9 +537,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         -0.5,
@@ -622,17 +622,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -661,9 +661,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         -0.5,
@@ -745,17 +745,17 @@
     },
     "settledAt": 1180,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -784,9 +784,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0.5,
@@ -861,17 +861,17 @@
     "phase": "waiting",
     "now": 500,
     "stats": {
-      "meshes": 131,
-      "triangles": 13704,
-      "rasterizedTriangles": 13671,
+      "meshes": 133,
+      "triangles": 13027,
+      "rasterizedTriangles": 12994,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -979,17 +979,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -1097,17 +1097,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -1215,17 +1215,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -1333,17 +1333,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -1451,17 +1451,17 @@
     "pressedAt": 1400,
     "settledAt": 1400,
     "stats": {
-      "meshes": 131,
-      "triangles": 13700,
-      "rasterizedTriangles": 13667,
+      "meshes": 133,
+      "triangles": 13023,
+      "rasterizedTriangles": 12990,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 140,
-      "triangles": 30544,
+      "meshes": 156,
+      "triangles": 31328,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -1561,17 +1561,17 @@
     "phase": "waiting",
     "now": 500,
     "stats": {
-      "meshes": 222,
-      "triangles": 24560,
-      "rasterizedTriangles": 24527,
+      "meshes": 226,
+      "triangles": 24247,
+      "rasterizedTriangles": 24214,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -1600,9 +1600,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0,
@@ -1685,17 +1685,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -1724,9 +1724,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0,
@@ -1809,17 +1809,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -1848,9 +1848,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0,
@@ -1933,17 +1933,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -1972,9 +1972,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         -0.26,
@@ -2057,17 +2057,17 @@
     "pressedAt": 1110,
     "settledAt": 1110,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -2096,9 +2096,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         -0.52,
@@ -2173,17 +2173,17 @@
     "phase": "live",
     "now": 1090,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -2212,9 +2212,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0,
@@ -2296,17 +2296,17 @@
     },
     "settledAt": 1180,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -2335,9 +2335,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0,
@@ -2419,17 +2419,17 @@
     },
     "settledAt": 1180,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -2458,9 +2458,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0.25,
@@ -2542,17 +2542,17 @@
     },
     "settledAt": 1180,
     "stats": {
-      "meshes": 222,
-      "triangles": 24554,
-      "rasterizedTriangles": 24521,
+      "meshes": 226,
+      "triangles": 24241,
+      "rasterizedTriangles": 24208,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "duel",
-      "meshes": 232,
-      "triangles": 52394,
+      "meshes": 250,
+      "triangles": 53882,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs",
@@ -2581,9 +2581,9 @@
         -0.15347961607494695
       ],
       "athleteHead": [
-        -0.62,
-        1.89,
-        0
+        -0.6265841714008906,
+        1.74,
+        -0.05460447497196265
       ],
       "item": [
         0.5,

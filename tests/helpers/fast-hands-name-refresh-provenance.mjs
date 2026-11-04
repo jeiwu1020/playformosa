@@ -1,3 +1,4 @@
+import {reverseCharacterAppearance} from './fast-hands-character-appearance-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
@@ -182,7 +183,7 @@ export function assertNameRefreshCurrent(path,bytes,ledger=nameRefreshLedger()){
 /** Restore only the exact approved rename, retaining exact parent input for old layers. */
 export function reverseNameRefresh(path,bytes,ledger=nameRefreshLedger()){
  validateNameRefreshLedger(ledger);
- const row=ledger.files.find(row=>row.path===path),current=Buffer.from(bytes);
+ const row=ledger.files.find(row=>row.path===path),current=reverseCharacterAppearance(path,bytes);
  if(!row)return current;
  if(sha(current)===row.beforeSha256)return validateParent(row,current);
  assertNameRefreshCurrent(path,current,ledger);

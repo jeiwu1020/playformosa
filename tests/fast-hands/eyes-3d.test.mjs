@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import * as THREE from '../../public/games/fast-hands/three3d/vendor/three.module.min.js';
 import {createDemoWorld} from '../../public/games/fast-hands/three3d/world.mjs';
+import {createHistoricalDemoWorld} from '../helpers/fast-hands-historical-world.mjs';
 
 // Portable V2 baseline from commit 24278f2127c8df0a0af39ccc904d95d60793cf6c.
 // Generated from the verified V2 restore before this eye-only change. Tests never
@@ -73,7 +74,7 @@ test('all colored eye layers move continuously and identically after reverse see
 });
 
 test('all non-eye geometry and materials exactly match the portable V2 baseline',()=>{
-  const w=createDemoWorld(THREE),meshes=[],hash=createHash('sha256');
+  const w=createHistoricalDemoWorld(THREE),meshes=[],hash=createHash('sha256');
   w.scene.traverse(o=>{if(o.isMesh&&!isEye(o.name))meshes.push(o)});meshes.sort((a,b)=>a.name.localeCompare(b.name));
   assert.equal(meshes.length,V2.nonEyeMeshes);
   for(const o of meshes){
@@ -88,7 +89,7 @@ test('all non-eye geometry and materials exactly match the portable V2 baseline'
 });
 
 test('701 frames of all non-eye matrices including head, brows, face and hands exactly match V2',()=>{
-  const w=createDemoWorld(THREE),objects=[],hash=createHash('sha256');w.scene.traverse(o=>{if(!isEye(o.name))objects.push(o)});objects.sort((a,b)=>a.name.localeCompare(b.name));
+  const w=createHistoricalDemoWorld(THREE),objects=[],hash=createHash('sha256');w.scene.traverse(o=>{if(!isEye(o.name))objects.push(o)});objects.sort((a,b)=>a.name.localeCompare(b.name));
   assert.equal(objects.length,V2.nonEyeObjects);
   for(let i=0;i<=700;i++){w.update(i/100);for(const o of objects){hash.update(o.name);hash.update(JSON.stringify(o.matrixWorld.elements));}}
   assert.equal(hash.digest('hex'),V2.matrices701);w.dispose();

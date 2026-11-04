@@ -6,8 +6,18 @@ export function createRig(THREE, scene, kit) {
   const root=node(scene,'hero-runner');
   const body=node(root,'hero-body'); body.position.set(0,.90,-.15);
   capsule(body,'hero-shirt','khaki',.64,.215,0,.32,0);
-  sphere(body,'hero-shorts','navy',0,-.025,0,.235,.17,.225);
-  mesh(body,'hero-waistband',g.cylinder,'navyLight',0,.025,0,.229,.055,.218);
+  // Reference-inspired gray-brown casual trousers. The original pelvis volume
+  // stays the same; only the garment changes, with a narrow black belt.
+  sphere(body,'hero-trousers-seat','trousers',0,-.025,0,.235,.17,.225);
+  mesh(body,'hero-waistband',g.cylinder,'trousers',0,.025,0,.229,.055,.218);
+  mesh(body,'hero-trousers-belt',g.cylinder,'trousersBelt',0,.025,0,.235,.037,.225);
+  box(body,'hero-trousers-buckle','trousersBuckle',0,.025,.228,.044,.028,.009);
+  box(body,'hero-trousers-buckle-center','trousersBelt',0,.025,.234,.029,.016,.003);
+  for(const side of[-1,1]){
+    box(body,'hero-trousers-belt-loop-'+side,'trousers',side*.13,.026,.189,.017,.056,.019);
+    const pocket=box(body,'hero-trousers-pocket-'+side,'trousersSeam',side*.168,-.043,.139,.003,.071,.003);pocket.rotation.z=side*-.33;
+  }
+  box(body,'hero-trousers-fly','trousersSeam',.014,-.061,.218,.003,.081,.003);
   box(body,'hero-shirt-placket','khakiLight',0,.32,.216,.025,.53,.012);
   box(body,'hero-shirt-seam','khakiDark',.015,.32,.223,.002,.52,.003);
   for(let i=0;i<4;i++)sphere(body,'hero-shirt-button-'+i,'khakiDark',0,.13+i*.12,.229,.010,.010,.004);
@@ -63,12 +73,44 @@ export function createRig(THREE, scene, kit) {
     lower:capsule(root,'hero-forearm-'+i,'khaki',.34,.067),
     elbow:sphere(root,'hero-elbow-'+i,'khaki',0,0,0,.077),cuff:capsule(root,'hero-shirt-cuff-'+i,'khakiDark',.055,.056),hand,shoulder:shoulders[i],
   }));
+  // One continuous cloth surface per leg, rather than recolored skin capsules.
+  // Ring centers follow the same fixed hip/knee/ankle solution as the original
+  // rig, including the knee bend; the taper ends on the untouched shoe upper.
+  const trouserProfile=[[-.055,.104,.207],[.12,.117,.195],[.4,.115,.162],[.72,.105,.117],[1,.099,.098],[1.55,.091,.091],[1.8,.085,.086],[1.98,.081,.082]];
+  const trouserAngles=Array.from({length:17},(_,i)=>i*Math.PI/8);
+  function trouserSurface(name,profile,material,angles=trouserAngles){
+    const geometry=new THREE.BufferGeometry(),indices=[],columns=angles.length;
+    geometry.setAttribute('position',new THREE.Float32BufferAttribute(new Float32Array(profile.length*columns*3),3));
+    for(let row=0;row<profile.length-1;row++)for(let column=0;column<columns-1;column++){
+      const a=row*columns+column;indices.push(a,a+1,a+columns+1,a,a+columns+1,a+columns);
+    }
+    geometry.setIndex(indices);
+    return {mesh:mesh(root,name,geometry,material),profile,angles};
+  }
+  function fitTrousers(surface,hip,knee,ankle){
+    const positions=surface.mesh.geometry.attributes.position,center=new THREE.Vector3();let index=0;
+    for(const [t,rx,rz] of surface.profile){
+      if(t<=1)center.copy(hip).lerp(knee,t);else center.copy(knee).lerp(ankle,t-1);
+      for(const angle of surface.angles)positions.setXYZ(index++,center.x+Math.cos(angle)*rx,center.y,center.z+Math.sin(angle)*rz);
+    }
+    positions.needsUpdate=true;surface.mesh.geometry.computeVertexNormals();surface.mesh.geometry.computeBoundingSphere();
+  }
   const legs=[1,-1].map((side,i)=>{
     const leg={upper:capsule(root,'hero-thigh-'+i,'skin',.39,.086),lower:capsule(root,'hero-shin-'+i,'skin',.40,.067),knee:sphere(root,'hero-knee-'+i,'skinShade',0,0,0,.078)};
     leg.shorts=mesh(root,'hero-shorts-leg-'+i,g.cylinder,'navy',0,0,0,.111,.17,.111);
     leg.hem=mesh(root,'hero-shorts-hem-'+i,g.cylinder,'navyLight',0,0,0,.112,.021,.112);
     leg.sock=mesh(root,'hero-sock-'+i,g.cylinder,'white',0,0,0,.072,.17,.072);
     leg.band=mesh(root,'hero-sock-band-'+i,g.cylinder,'orange',0,0,0,.074,.024,.074);
+    // Keep the anatomical meshes and their transforms for the existing rig,
+    // but never render bare knees/shins, short hems or sports socks through cloth.
+    for(const original of [leg.upper,leg.lower,leg.knee,leg.shorts,leg.hem,leg.sock,leg.band])original.visible=false;
+    const seamAngle=side===1?0:Math.PI;
+    leg.trouserSurfaces=[
+      trouserSurface('hero-trousers-leg-'+i,trouserProfile,'trousers'),
+      trouserSurface('hero-trousers-side-seam-'+i,trouserProfile.map(([t,rx,rz])=>[t,rx+.001,rz+.001]),'trousersSeam',[seamAngle-.012,seamAngle+.012]),
+      trouserSurface('hero-trousers-cuff-'+i,[[1.94,.083,.084],[1.985,.082,.083]],'trousers'),
+      trouserSurface('hero-trousers-cuff-stitch-'+i,[[1.935,.0834,.0844],[1.945,.0832,.0842]],'trousersSeam'),
+    ];
     leg.foot=node(root,'hero-shoe-'+i);sphere(leg.foot,'hero-shoe-upper-'+i,'navy',0,-.026,.065,.095,.065,.149);
     sphere(leg.foot,'hero-shoe-sole-'+i,'white',0,-.079,.066,.097,.016,.151);
     box(leg.foot,'hero-shoe-stripe-'+i,'orange',0,-.012,.190,.106,.025,.012);
@@ -114,6 +156,7 @@ export function createRig(THREE, scene, kit) {
       const knee=solve(leg.hip,leg.ankle,.39,.40,new THREE.Vector3(0,0,1));
       bone(leg.upper,leg.hip,knee);bone(leg.lower,knee,leg.ankle);leg.knee.position.copy(knee);
       placeBand(leg.shorts,leg.hip,knee,.16);placeBand(leg.hem,leg.hip,knee,.35);placeBand(leg.sock,knee,leg.ankle,.78);placeBand(leg.band,knee,leg.ankle,.59);
+      for(const surface of leg.trouserSurfaces)fitTrousers(surface,leg.hip,knee,leg.ankle);
       leg.foot.position.copy(leg.ankle);
       anatomy.legs.push({hip:leg.hip.toArray(),knee:knee.toArray(),ankle:leg.ankle.toArray()});
     }

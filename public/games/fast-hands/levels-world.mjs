@@ -11,7 +11,7 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
   if(!['catch','duel'].includes(mode))throw new TypeError('Unknown level');
   const catching=mode==='catch',scene=new THREE.Scene();
   scene.background=new THREE.Color('#142537');
-  const palette={khaki:'#b8a178',khakiLight:'#c6b18b',khakiDark:'#97825d',iris:'#7b8b82',skin:'#f1bd83',skinShade:'#e7a66e',orange:'#f47625',orangeDark:'#d8521e',navy:'#243d54',navyLight:'#35556b',brown:'#2e2825',brownLight:'#40332c',white:'#fff8e8',ink:'#211e1b',ear:'#d98c68',table:'#365d66',edge:'#1a3547',leg:'#112839',floor:'#192e40',teal:'#63d8bc',gold:'#ffd282',blue:'#437993',red:'#dc725c'};
+  const palette={trousers:'#827b6e',trousersSeam:'#746e62',trousersBelt:'#292824',trousersBuckle:'#77716a',khaki:'#b8a178',khakiLight:'#c6b18b',khakiDark:'#97825d',iris:'#7b8b82',skin:'#f1bd83',skinShade:'#e7a66e',orange:'#f47625',orangeDark:'#d8521e',navy:'#243d54',navyLight:'#35556b',brown:'#2e2825',brownLight:'#40332c',white:'#fff8e8',ink:'#211e1b',ear:'#d98c68',table:'#365d66',edge:'#1a3547',leg:'#112839',floor:'#192e40',teal:'#63d8bc',gold:'#ffd282',blue:'#437993',red:'#dc725c'};
   const materials=Object.fromEntries(Object.entries(palette).map(([key,color])=>[key,new THREE.MeshStandardMaterial({color,roughness:.7})]));
   materials.teal.emissive.set('#286d5c');materials.teal.emissiveIntensity=.55;
   materials.gold.emissive.set('#735221');materials.gold.emissiveIntensity=.25;
@@ -73,6 +73,54 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
   
   const athletePalm=athlete?node(athlete.group.getObjectByName('hand-1'),'athlete-grip-contact'):null;
   if(athletePalm)athletePalm.position.copy(athleteGripOffset);
+  // reaction-rod's front-facing hero uses a .50 singlet, .76 head and .445
+  // legs. The runner's .55 legs folded deeply when forced between y=.95 and
+  // y=.12, and its shoes inherited the calf pitch. Adapt only this instance:
+  // retain the canonical geometry and all existing arm/hand joint poses.
+  const athleteFacing=new THREE.Quaternion().setFromAxisAngle(v(0,1,0),Math.PI/2+.12);
+  const athletePelvis=v(0,1.04,0),athleteLegLength=.445;
+  const athleteLegs=[];
+  if(athlete){
+    const part=name=>athlete.group.getObjectByName(name);
+    part('singlet').position.set(0,.18,.02);part('singlet').scale.set(.17/.215,.50/.64,.17/.215);
+    part('shorts').position.set(0,0,.015);part('shorts').scale.set(.18,.13,.16);
+    part('waistband').position.set(0,.08,.03);part('waistband').scale.set(.16,.035,.11);
+    part('bib').position.set(0,.29,.195);part('bib').scale.set(.20,.145,.018);
+    part('neck').position.set(0,.47,.015);part('neck').scale.set(.055,.0605,.055);
+    part('collar').position.set(0,.43,.015);part('collar').scale.setScalar(.08/.102);
+    part('head').scale.setScalar(.76);
+    for(let i=0;i<2;i++){
+      const leg=Object.fromEntries(['thigh','knee','shin','shorts-leg','shorts-hem','sock','sock-band','shoe'].map(name=>[name,part(name+'-'+i)]));
+      leg.knee.scale.setScalar(.05);athleteLegs.push(leg);
+      // The reference's shoulder caps bridge its narrower singlet to the
+      // preserved duel arm anchors, without moving or stretching either arm.
+      const shoulder=sphere(part('body'),'athlete-shoulder-'+i,part('thigh-'+i).material,i===0?-.17:.17,.41,.02,.08);
+      shoulder.castShadow=true;
+    }
+  }
+  function athleteLegSegment(mesh,a,b,radius,sourceRadius=1,sourceLength=1){
+    const direction=b.clone().sub(a);
+    mesh.position.copy(a).add(b).multiplyScalar(.5);
+    mesh.quaternion.setFromUnitVectors(v(0,1,0),direction.clone().normalize());
+    mesh.scale.set(radius/sourceRadius,direction.length()/sourceLength,radius/sourceRadius);
+  }
+  function athleteStandingLeg(i){
+    const side=i===0?-1:1,local=p=>p.applyQuaternion(athleteFacing).add(athletePelvis);
+    const hip=local(v(side*.105,-.03,.035)),ankle=local(v(side*.15,.13-athletePelvis.y,.08));
+    const knee=solve(hip,ankle,athleteLegLength,athleteLegLength,v(0,0,1).applyQuaternion(athleteFacing)),leg=athleteLegs[i];
+    athleteLegSegment(leg.thigh,hip,knee,.06,.097,.55);
+    athleteLegSegment(leg.shin,knee,ankle,.045,.078,.55);
+    leg.knee.position.copy(knee);
+    athleteLegSegment(leg['shorts-leg'],hip,hip.clone().lerp(knee,.32),.072);
+    athleteLegSegment(leg['shorts-hem'],hip.clone().lerp(knee,.29),hip.clone().lerp(knee,.33),.074);
+    athleteLegSegment(leg.sock,knee.clone().lerp(ankle,.62),ankle,.047);
+    athleteLegSegment(leg['sock-band'],knee.clone().lerp(ankle,.62),knee.clone().lerp(ankle,.70),.049);
+    leg.shoe.position.copy(ankle);leg.shoe.rotation.set(0,.12,0);
+    // The reused runner shoe points along local +X. Keep its sole horizontal,
+    // and match the reference's .18 depth and .195 width in the facing frame.
+    leg.shoe.scale.set(.5,1,.0975/.102);
+    return{hip:hip.toArray(),knee:knee.toArray(),ankle:ankle.toArray()};
+  }
   function solve(a,c,l1,l2,pole){
     const delta=c.clone().sub(a),d=delta.length();
     if(d>l1+l2+1e-8||d<Math.abs(l1-l2)+1e-8)throw new RangeError('Level pose exceeds fixed bone reach');
@@ -85,21 +133,30 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
     if(!athlete)return null;
     const handRotation=athleteHandRotation.clone().slerp(new THREE.Quaternion().setFromAxisAngle(v(0,0,1),Math.PI/2),gun);
     const handTarget=target.clone().sub(athleteGripOffset.clone().applyQuaternion(handRotation)).sub(athletePosition).applyQuaternion(inverseAthlete);
-    const points={hip:{x:0,y:.95,z:0},shoulder:{x:0,y:1.50,z:0},head:{x:0,y:1.89,z:0}},anatomy={arms:[],legs:[]};
+    const headPosition=v(0,.70,-.055).applyQuaternion(athleteFacing).add(athletePelvis);
+    const points={hip:asPoint(athletePelvis),shoulder:{x:0,y:1.50,z:0},head:asPoint(headPosition)},anatomy={arms:[],legs:[]};
     for(let i=0;i<2;i++){
       const z=i===0?.205:-.205,shoulder=v(0,1.50,z),wrist=i===1?handTarget:v(.22,1.13,.27).lerp(v(.15,1.16,.27),gun);
       const elbow=solve(shoulder,wrist,.34,.32,v(-.4,-1,i===0?1:-1));
       points['elbow'+i]=asPoint(elbow,z);points['hand'+i]=asPoint(wrist,z);
-      const hip=v(0,.95,z),ankle=v(.01,.12,z+(i===0?.045:-.045)),knee=solve(hip,ankle,.55,.55,v(.8,0,0));
-      points['knee'+i]=asPoint(knee,z);points['foot'+i]=asPoint(ankle,z);
+      // createCharacter also updates its runner legs. Supply finite temporary
+      // anchors; the front-facing connected stance below owns their final pose.
+      points['knee'+i]={x:0,y:.57,z:0};points['foot'+i]={x:0,y:.13,z:0};
       anatomy.arms.push({shoulder:shoulder.toArray(),elbow:elbow.toArray(),wrist:wrist.toArray()});
-      anatomy.legs.push({hip:hip.toArray(),knee:knee.toArray(),ankle:ankle.toArray()});
     }
     athlete.update(points,{phase:'done',lean:0});
     // The sports mesh was authored for a side-on running camera. Its original
     // body/head are turned toward this camera without touching its geometry.
-    athlete.group.getObjectByName('body').rotation.set(0,Math.PI/2+.12,0);
+    athlete.group.getObjectByName('body').quaternion.copy(athleteFacing);
     athlete.group.getObjectByName('head').rotation.set(breath,Math.PI/2+.08,0);
+    for(let i=0;i<2;i++){
+      // Reference limb radii change silhouette only. The original IK lengths,
+      // joint positions, joint rotations and receiving hands remain exact.
+      const upper=athlete.group.getObjectByName('upper-arm-'+i),lower=athlete.group.getObjectByName('forearm-'+i);
+      upper.scale.x=upper.scale.z=.048/.074;lower.scale.x=lower.scale.z=.038/.065;
+      athlete.group.getObjectByName('elbow-'+i).scale.setScalar(.043);
+      anatomy.legs.push(athleteStandingLeg(i));
+    }
     const hand=athlete.group.getObjectByName('hand-1');hand.quaternion.copy(inverseAthlete).multiply(handRotation);
     for(let i=0;i<4;i++)athlete.group.getObjectByName('finger-1-'+i).rotation.x=-grip*1.35;
     athlete.group.getObjectByName('thumb-1').rotation.x=-grip*.9;

@@ -1,0 +1,2653 @@
+[
+  {
+    "filename": "levels-catch-place.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-place",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 2100,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.5,
+        1.05,
+        0.27999999999999997
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.5,
+        1.05,
+        0.28
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6423324150596879,
+        "y": 0.5512739705569925
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.6423324150596879,
+        "y": 0.5512739705569925
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-place",
+        "to": "levels-catch-place",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-guns.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-guns",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 2350,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.4,
+        1.15,
+        0.18
+      ],
+      "kingOuterPalm": [
+        1.0600065459447874,
+        1.1179999999999999,
+        0.35246877808642535
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.5,
+        1.05,
+        0.28
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6138659320477502,
+        "y": 0.5024910431039833
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.6423324150596879,
+        "y": 0.5512739705569925
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-guns",
+        "to": "levels-catch-guns",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player-place.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player-place",
+    "mode": "duel",
+    "phase": "done",
+    "now": 1830,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.49999999999999994,
+        1.14,
+        0.48
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        -0.5,
+        1.14,
+        0.48
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.3576675849403122,
+        "y": 0.5314494191877909
+      },
+      "prizeArtCenter": {
+        "x": 0.3576675849403122,
+        "y": 0.514728292352302
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.277961432506887,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.6280707535835489
+        },
+        {
+          "x": 0.277961432506887,
+          "y": 0.6280707535835489
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.35766758494031226,
+        "y": 0.5314494191877909
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player-place",
+        "to": "levels-duel-player-place",
+        "mix": 0
+      },
+      "durationMs": 1600,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai-place.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai-place",
+    "mode": "duel",
+    "phase": "done",
+    "now": 1900,
+    "result": {
+      "winner": "ai",
+      "reason": "ai-first",
+      "playerMs": null,
+      "round": 1
+    },
+    "settledAt": 1180,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.5,
+        1.14,
+        0.48
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0.5,
+        1.14,
+        0.48
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.6423324150596879,
+        "y": 0.5314494191877909
+      },
+      "prizeArtCenter": {
+        "x": 0.6423324150596879,
+        "y": 0.514728292352302
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.5626262626262626,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.6280707535835489
+        },
+        {
+          "x": 0.5626262626262626,
+          "y": 0.6280707535835489
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6423324150596879,
+        "y": 0.5314494191877909
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai-place",
+        "to": "levels-duel-ai-place",
+        "mix": 0
+      },
+      "durationMs": 1600,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-neutral.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-neutral",
+    "mode": "duel",
+    "phase": "done",
+    "now": 1960,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        -0.5,
+        1.14,
+        0.48
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.3576675849403122,
+        "y": 0.5314494191877909
+      },
+      "prizeArtCenter": {
+        "x": 0.3576675849403122,
+        "y": 0.514728292352302
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.277961432506887,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.6280707535835489
+        },
+        {
+          "x": 0.277961432506887,
+          "y": 0.6280707535835489
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-neutral",
+        "to": "levels-duel-neutral",
+        "mix": 0
+      },
+      "durationMs": 1600,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player-guns.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player-guns",
+    "mode": "duel",
+    "phase": "done",
+    "now": 2360,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.43,
+        1.16,
+        0.2
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        -0.5,
+        1.14,
+        0.48
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.3576675849403122,
+        "y": 0.5314494191877909
+      },
+      "prizeArtCenter": {
+        "x": 0.3576675849403122,
+        "y": 0.514728292352302
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.277961432506887,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.43737373737373736,
+          "y": 0.6280707535835489
+        },
+        {
+          "x": 0.277961432506887,
+          "y": 0.6280707535835489
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.37759412304866846,
+        "y": 0.5001037934626658
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player-guns",
+        "to": "levels-duel-player-guns",
+        "mix": 0
+      },
+      "durationMs": 1600,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai-guns.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai-guns",
+    "mode": "duel",
+    "phase": "done",
+    "now": 2430,
+    "result": {
+      "winner": "ai",
+      "reason": "ai-first",
+      "playerMs": null,
+      "round": 1
+    },
+    "settledAt": 1180,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.4,
+        1.15,
+        0.18
+      ],
+      "kingOuterPalm": [
+        1.0600065459447874,
+        1.1179999999999999,
+        0.35246877808642535
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0.5,
+        1.14,
+        0.48
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.6423324150596879,
+        "y": 0.5314494191877909
+      },
+      "prizeArtCenter": {
+        "x": 0.6423324150596879,
+        "y": 0.514728292352302
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.5626262626262626,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.4013858311210552
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.6280707535835489
+        },
+        {
+          "x": 0.5626262626262626,
+          "y": 0.6280707535835489
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6138659320477502,
+        "y": 0.5024910431039833
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai-guns",
+        "to": "levels-duel-ai-guns",
+        "mix": 0
+      },
+      "durationMs": 1600,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-ready.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-ready",
+    "mode": "catch",
+    "phase": "waiting",
+    "now": 500,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13704,
+      "rasterizedTriangles": 13671,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.4,
+        0.8999999999999999,
+        0.05000000000000001
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        -0.85,
+        1.33,
+        0.35
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5018150902349512
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.38847262900370444
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.38847262900370444
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6151575514661981
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6151575514661981
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6138659320477502,
+        "y": 0.5928951490860492
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-ready",
+        "to": "levels-catch-ready",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-reach.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-reach",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 1460,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.22499999999999998,
+        1.115,
+        0.20000000000000004
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.050000000000000024,
+        1.33,
+        0.35
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5640495867768595,
+        "y": 0.5183195461605448
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.5142332415059688,
+        "y": 0.44374394323504035
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-reach",
+        "to": "levels-catch-reach",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-grab.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-grab",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 1520,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.049999999999999975,
+        1.33,
+        0.3499999999999999
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.04999999999999999,
+        1.33,
+        0.35
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5142332415059687,
+        "y": 0.44374394323504035
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.5142332415059688,
+        "y": 0.44374394323504035
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-grab",
+        "to": "levels-catch-grab",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": true
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-return-mid.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-return-mid",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 1705,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.2750000000000001,
+        1.315,
+        0.33499999999999996
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.275,
+        1.315,
+        0.33499999999999996
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5782828282828283,
+        "y": 0.44857033924900835
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.5782828282828283,
+        "y": 0.44857033924900835
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-return-mid",
+        "to": "levels-catch-return-mid",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": true
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-return.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-return",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 1835,
+    "result": {
+      "winner": "player",
+      "reason": "caught",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.5,
+        1.3,
+        0.32
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.5,
+        1.3,
+        0.32
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6423324150596879,
+        "y": 0.4533967352629762
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.6423324150596879,
+        "y": 0.4533967352629762
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-return",
+        "to": "levels-catch-return",
+        "mix": 0
+      },
+      "durationMs": 1100,
+      "itemAttachedTo": null,
+      "dartAttached": true
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-catch-empty-mid.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-catch-empty-mid",
+    "mode": "catch",
+    "phase": "feedback",
+    "now": 1705,
+    "result": {
+      "winner": "none",
+      "reason": "early",
+      "offsetMs": 0,
+      "round": 1
+    },
+    "pressedAt": 1400,
+    "settledAt": 1400,
+    "stats": {
+      "meshes": 131,
+      "triangles": 13700,
+      "rasterizedTriangles": 13667,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "catch",
+      "meshes": 140,
+      "triangles": 30544,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.22499999999999998,
+        1.115,
+        0.2
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": null,
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": null,
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0.73625,
+        1.33,
+        0.35
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5640495867768595,
+        "y": 0.5183195461605448
+      },
+      "playerHand": null,
+      "dartStart": {
+        "x": 0.2580348943985308,
+        "y": 0.44374394323504035
+      },
+      "dartTip": {
+        "x": 0.7095844811753903,
+        "y": 0.44374394323504035
+      }
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-catch-empty-mid",
+        "to": "levels-catch-empty-mid",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ready.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ready",
+    "mode": "duel",
+    "phase": "waiting",
+    "now": 500,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24560,
+      "rasterizedTriangles": 24527,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5018150902349512
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.38847262900370444
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.38847262900370444
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6151575514661981
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6151575514661981
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ready",
+        "to": "levels-duel-ready",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player-reach.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player-reach",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1185,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.2767310119512956,
+        1.1738854300348525,
+        0.31787671160277037
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.255,
+        1.16,
+        0.32499999999999996
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5787755865058785,
+        "y": 0.5042709133453085
+      },
+      "playerHand": {
+        "x": 0.4274104683195592,
+        "y": 0.5104831397292635
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player-reach",
+        "to": "levels-duel-player-reach",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player-grab.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player-grab",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1260,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.4528148812120128,
+        1.1954467201484096,
+        0.2783476797279155
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        4.163336342344337e-17,
+        1.14,
+        0.38
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6289004712357429,
+        "y": 0.4922607375243245
+      },
+      "playerHand": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player-grab",
+        "to": "levels-duel-player-grab",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "athlete",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player-return-mid.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player-return-mid",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1470,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.26,
+        1.22,
+        0.34499999999999986
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        -0.26,
+        1.22,
+        0.345
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.42598714416896233,
+        "y": 0.48785616486808053
+      },
+      "prizeArtCenter": {
+        "x": 0.42598714416896233,
+        "y": 0.4711350380325917
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.34628099173553717,
+          "y": 0.3577925768013449
+        },
+        {
+          "x": 0.5056932966023875,
+          "y": 0.3577925768013449
+        },
+        {
+          "x": 0.5056932966023875,
+          "y": 0.5844774992638384
+        },
+        {
+          "x": 0.34628099173553717,
+          "y": 0.5844774992638384
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.42598714416896233,
+        "y": 0.4878561648680805
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player-return-mid",
+        "to": "levels-duel-player-return-mid",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "athlete",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-player.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-player",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1620,
+    "result": {
+      "winner": "player",
+      "reason": "player-first",
+      "playerMs": 110,
+      "round": 1
+    },
+    "pressedAt": 1110,
+    "settledAt": 1110,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.49000000000000005,
+        1.2,
+        0.27
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.52,
+        1.3,
+        0.31000000000000005
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        -0.52,
+        1.3,
+        0.31
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.35197428833792466,
+        "y": 0.45256638756164835
+      },
+      "prizeArtCenter": {
+        "x": 0.35197428833792466,
+        "y": 0.4358452607261595
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.2722681359044995,
+          "y": 0.3225027994949127
+        },
+        {
+          "x": 0.43168044077134987,
+          "y": 0.3225027994949127
+        },
+        {
+          "x": 0.43168044077134987,
+          "y": 0.5491877219574063
+        },
+        {
+          "x": 0.2722681359044995,
+          "y": 0.5491877219574063
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6394857667584941,
+        "y": 0.48972444719606806
+      },
+      "playerHand": {
+        "x": 0.35197428833792466,
+        "y": 0.45256638756164835
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-player",
+        "to": "levels-duel-player",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "athlete",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai-reach.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai-reach",
+    "mode": "duel",
+    "phase": "live",
+    "now": 1090,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.24499999999999994,
+        1.17,
+        0.32500000000000007
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5044592293317824
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39111676810053564
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39111676810053564
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6178016905630292
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6178016905630292
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5697428833792471,
+        "y": 0.5064351946852904
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai-reach",
+        "to": "levels-duel-ai-reach",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": null,
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai-grab.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai-grab",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1180,
+    "result": {
+      "winner": "ai",
+      "reason": "ai-first",
+      "playerMs": null,
+      "round": 1
+    },
+    "settledAt": 1180,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        -5.551115123125783e-17,
+        1.14,
+        0.38000000000000006
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0,
+        1.14,
+        0.38
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "prizeArtCenter": {
+        "x": 0.5,
+        "y": 0.5064248153390238
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.42029384756657484,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.39308235410777703
+        },
+        {
+          "x": 0.5797061524334252,
+          "y": 0.6197672765702706
+        },
+        {
+          "x": 0.42029384756657484,
+          "y": 0.6197672765702706
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5,
+        "y": 0.5231459421745127
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai-grab",
+        "to": "levels-duel-ai-grab",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "king",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai-return-mid.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai-return-mid",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1390,
+    "result": {
+      "winner": "ai",
+      "reason": "ai-first",
+      "playerMs": null,
+      "round": 1
+    },
+    "settledAt": 1180,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.24999999999999994,
+        1.22,
+        0.35
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0.25,
+        1.22,
+        0.35
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.5711662075298439,
+        "y": 0.48827133871874445
+      },
+      "prizeArtCenter": {
+        "x": 0.5711662075298439,
+        "y": 0.4715502118832556
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.4914600550964187,
+          "y": 0.3582077506520088
+        },
+        {
+          "x": 0.6508723599632691,
+          "y": 0.3582077506520088
+        },
+        {
+          "x": 0.6508723599632691,
+          "y": 0.5848926731145023
+        },
+        {
+          "x": 0.4914600550964187,
+          "y": 0.5848926731145023
+        }
+      ],
+      "receivingHand": {
+        "x": 0.5711662075298439,
+        "y": 0.48827133871874445
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai-return-mid",
+        "to": "levels-duel-ai-return-mid",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "king",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  },
+  {
+    "filename": "levels-duel-ai.png",
+    "kind": "Offline source-mesh pose fallback, not a browser screenshot",
+    "name": "levels-duel-ai",
+    "mode": "duel",
+    "phase": "feedback",
+    "now": 1540,
+    "result": {
+      "winner": "ai",
+      "reason": "ai-first",
+      "playerMs": null,
+      "round": 1
+    },
+    "settledAt": 1180,
+    "stats": {
+      "meshes": 222,
+      "triangles": 24554,
+      "rasterizedTriangles": 24521,
+      "width": 900,
+      "height": 620,
+      "supersample": 2
+    },
+    "source": {
+      "mode": "duel",
+      "meshes": 232,
+      "triangles": 52394,
+      "tableTop": 1.004,
+      "characterSources": [
+        "fast-hands/three3d/rig.mjs",
+        "javelin/character3d.mjs"
+      ]
+    },
+    "contacts": {
+      "kingPalm": [
+        0.5,
+        1.3,
+        0.32
+      ],
+      "kingOuterPalm": [
+        1.0464712079871175,
+        1.0867284249427396,
+        0.35565011546685416
+      ],
+      "athletePalm": [
+        -0.51,
+        1.18,
+        0.27
+      ],
+      "kingHead": [
+        0.6479286134544285,
+        1.85,
+        -0.15347961607494695
+      ],
+      "athleteHead": [
+        -0.62,
+        1.89,
+        0
+      ],
+      "item": [
+        0.5,
+        1.3,
+        0.32
+      ],
+      "dartTip": [
+        0,
+        0,
+        0
+      ]
+    },
+    "overlay": {
+      "prize": {
+        "x": 0.6423324150596879,
+        "y": 0.4533967352629762
+      },
+      "prizeArtCenter": {
+        "x": 0.6423324150596879,
+        "y": 0.4366756084274873
+      },
+      "prizeArtCorners": [
+        {
+          "x": 0.5626262626262626,
+          "y": 0.3233331471962405
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.3233331471962405
+        },
+        {
+          "x": 0.722038567493113,
+          "y": 0.5500180696587341
+        },
+        {
+          "x": 0.5626262626262626,
+          "y": 0.5500180696587341
+        }
+      ],
+      "receivingHand": {
+        "x": 0.6423324150596879,
+        "y": 0.4533967352629762
+      },
+      "playerHand": {
+        "x": 0.3548209366391184,
+        "y": 0.4978203372840143
+      },
+      "dartStart": null,
+      "dartTip": null
+    },
+    "motion": {
+      "fallbackFrame": {
+        "from": "levels-duel-ai",
+        "to": "levels-duel-ai",
+        "mix": 0
+      },
+      "durationMs": 520,
+      "itemAttachedTo": "king",
+      "dartAttached": false
+    },
+    "omittedProps": [
+      "duel-prize",
+      "foam-dart",
+      "dart-trail"
+    ]
+  }
+]

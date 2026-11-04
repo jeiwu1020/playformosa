@@ -1,3 +1,4 @@
+import {reverseCharacterAppearance} from '../helpers/fast-hands-character-appearance-provenance.mjs';
 import {historicalCatalog,renderHistoricalPage} from '../helpers/fast-hands-split-entries-catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -95,7 +96,7 @@ test('all game entry media and imported modules resolve locally with no developm
 test('archived original front-facing card remains available after the requested generated cover', () => {
   const card = new URL('public/assets/fast-hands-card.png', root);
   assert.ok(existsSync(card), 'original-character card must exist');
-  assert.deepEqual(readFileSync(card), readFileSync(new URL('assets/front-demo-poster.png', gameRoot)));
+  assert.deepEqual(readFileSync(card), reverseCharacterAppearance('public/games/fast-hands/assets/front-demo-poster.png', readFileSync(new URL('assets/front-demo-poster.png', gameRoot))));
 });
 
 test('local PNG drawing includes the formal studio signature below the existing score', async () => {

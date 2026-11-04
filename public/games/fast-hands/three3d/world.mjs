@@ -3,7 +3,7 @@ import {createRig} from './rig.mjs';
 
 export function createDemoWorld(THREE) {
   const scene=new THREE.Scene();scene.background=new THREE.Color('#eee9d9');
-  const colors={khaki:'#b8a178',khakiLight:'#c6b18b',khakiDark:'#97825d',iris:'#7b8b82',skin:'#f1bd83',skinShade:'#e7a66e',orange:'#f47625',orangeDark:'#d8521e',navy:'#243d54',navyLight:'#35556b',brown:'#2e2825',brownLight:'#40332c',white:'#fff8e8',ink:'#211e1b',ear:'#d98c68',table:'#6a8c78',edge:'#466b59',leg:'#385747',floor:'#e9e4d2',bill:'#e3ecd0',billDark:'#6d9270',billLight:'#f3f4dc',yellow:'#ffd447',yellowLight:'#ffe784',beak:'#ed8e31'};
+  const colors={trousers:'#827b6e',trousersSeam:'#746e62',trousersBelt:'#292824',trousersBuckle:'#77716a',khaki:'#b8a178',khakiLight:'#c6b18b',khakiDark:'#97825d',iris:'#7b8b82',skin:'#f1bd83',skinShade:'#e7a66e',orange:'#f47625',orangeDark:'#d8521e',navy:'#243d54',navyLight:'#35556b',brown:'#2e2825',brownLight:'#40332c',white:'#fff8e8',ink:'#211e1b',ear:'#d98c68',table:'#6a8c78',edge:'#466b59',leg:'#385747',floor:'#e9e4d2',bill:'#e3ecd0',billDark:'#6d9270',billLight:'#f3f4dc',yellow:'#ffd447',yellowLight:'#ffe784',beak:'#ed8e31'};
   const materials=Object.fromEntries(Object.entries(colors).map(([k,color])=>[k,new THREE.MeshStandardMaterial({color,roughness:.78})]));
   materials.yellow.roughness=.46;materials.yellowLight.roughness=.46;
   const geos={sphere:new THREE.SphereGeometry(1,16,12),box:new THREE.BoxGeometry(1,1,1),cylinder:new THREE.CylinderGeometry(1,1,1,12),hair:new THREE.SphereGeometry(.305,18,10,0,Math.PI*2,0,1.25),collar:new THREE.TorusGeometry(.102,.019,6,16)};
