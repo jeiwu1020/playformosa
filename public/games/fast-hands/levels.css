@@ -55,3 +55,19 @@ body[data-summary="true"] .round-results{max-height:none;overflow:visible}
 /* Small screens scroll naturally: a floating control must never cover the
    projectile, a result row, or the other controls. */
 @media(max-width:999px){.level-controls{position:static;margin-top:0;background:none}.level-controls .practice-button{background:#f7f2e6}}
+
+/* Pick one renderer before revealing the stage. A 2D loading poster is never
+   briefly shown and replaced by differently lit WebGL characters. */
+.scene-loading{position:absolute;inset:0;z-index:6;display:grid;place-items:center;background:#142537;color:#c0d1c7;font-size:13px;font-weight:750}
+body:not([data-renderer="pending"]) .scene-loading{display:none}
+body[data-renderer="pending"] .fallback-layer,body[data-renderer="pending"] .level-canvas,body[data-renderer="pending"] .character-labels,body[data-renderer="pending"] .signal{visibility:hidden}
+/* Stable input footprint across practice, waiting, action and feedback. */
+.primary-control{height:78px;position:relative;flex:none}.primary-control>.action-button{position:absolute;inset:0;height:100%;min-height:0;margin:0;padding:8px 14px}.secondary-control{height:44px;display:flex;justify-content:center;align-items:center;flex:none}.secondary-control>.practice-button{height:44px;margin:0}.input-help{height:15px;min-height:15px;line-height:15px;margin:5px 0 0}
+.level-hud{height:79px;min-height:79px}.level-hud .round-label{height:52px;align-content:center}.level-hud #roundLabel{line-height:20px;min-height:20px}.level-hud .arcade-badge{height:26px;line-height:13px;display:flex;justify-content:center;align-items:center}
+.round-feedback{height:168px;min-height:168px;max-height:168px;display:grid;grid-template-rows:14px 56px 38px 28px;row-gap:6px;align-content:center}.round-feedback>.eyebrow{margin:0;line-height:14px}.round-feedback h2{font-size:23px;line-height:28px;height:56px;margin:0;display:flex;align-items:center;justify-content:center}.round-feedback p:not(.eyebrow){min-height:0;height:38px;line-height:19px;margin:0;display:flex;align-items:center;justify-content:center}.round-dots{height:28px;margin:0;align-content:center}.prize-caption{height:83px;min-height:83px}.prize-caption strong{display:block;line-height:22px;height:22px}.prize-caption p:last-child{height:16px;line-height:16px}
+@media(max-width:420px){.primary-control{height:70px}.level-hud{height:73px;min-height:73px}.round-feedback{height:162px;min-height:162px;max-height:162px}.round-feedback h2{font-size:20px}.round-feedback p:not(.eyebrow){font-size:11px}.prize-caption{height:77px;min-height:77px}.prize-caption strong{font-size:15px}}
+@media(max-height:700px) and (orientation:portrait){.primary-control{height:63px}.level-hud{height:66px;min-height:66px}.round-feedback{height:148px;min-height:148px;max-height:148px;grid-template-rows:56px 38px 28px}.round-feedback>.eyebrow{display:none}.prize-caption{height:65px;min-height:65px}}
+@media(min-width:1000px) and (min-height:560px){.primary-control{height:70px}.level-hud{height:64px;min-height:64px}.round-feedback{height:146px;min-height:0;max-height:146px;grid-template-rows:14px 56px 38px 26px;row-gap:4px}.prize-caption{height:68px;min-height:68px}.level-controls{gap:6px}.secondary-control{height:44px}.match-summary~.level-controls{align-self:end}body[data-summary="true"] .primary-control{grid-column:1;grid-row:1;height:54px}body[data-summary="true"] .secondary-control{grid-column:2;grid-row:1;align-self:center}body[data-summary="true"] #roundButton{height:54px;min-height:54px}.level-controls .practice-button{min-width:100px}}
+.fallback-blend{opacity:0}.level-stage .scene-item,.level-stage[data-winner="player"] .scene-item,.level-stage[data-winner="ai"] .scene-item{transform:translate(-50%,-50%);transition:none}
+.level-stage[data-result="caught"] .foam-dart{visibility:visible}
+body:not([data-phase="live"]) .foam-dart:before{display:none}

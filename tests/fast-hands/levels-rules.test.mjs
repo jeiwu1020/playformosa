@@ -27,7 +27,7 @@ test('signal onset is established by the frame and never retroactively by input'
 test('foam ball has a fixed visible travel time and symmetrical inclusive catch window',()=>{
  for(const offset of [-CATCH_WINDOW_MS,0,CATCH_WINDOW_MS]){
   const s=signal(ready()),out=press(s,s.targetAt+offset);
-  assert.equal(out.results[0].winner,'player');assert.equal(out.results[0].offsetMs,offset);
+  assert.equal(out.results[0].winner,'player');assert.ok(Math.abs(out.results[0].offsetMs-offset)<1e-9,'timing offset matches within floating-point precision');
  }
 });
 test('too early, too late and missed catches finish once and do not score',()=>{

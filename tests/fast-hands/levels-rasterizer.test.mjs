@@ -24,3 +24,11 @@ test('offline level renderer respects invisible ancestors and scene background',
   assert.ok(p[1] > 150 && p[0] < 50, `scene background remains visible: ${p}`);
   assert.equal(stats.meshes, 0);
 });
+
+test('fallback rendering supplies same-model reach, grasp, return, and empty-hand keyframes',async()=>{
+ const {LEVEL_FALLBACK_SHOTS:shots}=await import('../../scripts/render-fast-hands-levels.mjs');
+ assert.ok(Array.isArray(shots),'the render script must export the exact fallback keyframe list');
+ const names=new Set(shots.map(shot=>shot.name));
+ for(const name of ['levels-catch-ready','levels-catch-reach','levels-catch-grab','levels-catch-return-mid','levels-catch-return','levels-catch-empty-mid','levels-duel-ready','levels-duel-player-reach','levels-duel-player-grab','levels-duel-player-return-mid','levels-duel-player','levels-duel-ai-reach','levels-duel-ai-grab','levels-duel-ai-return-mid','levels-duel-ai'])assert.ok(names.has(name),name);
+ assert.equal(shots.length,15,'keep the complete pose set under two dozen images');
+});

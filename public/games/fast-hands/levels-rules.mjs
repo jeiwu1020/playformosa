@@ -1,6 +1,6 @@
 // These are local arcade rounds, deliberately separate from the duck leaderboard.
 // Bounded, explicit tuning values: speed rises without becoming impossible.
-export const LEVEL_TUNING=Object.freeze({catchStartMs:520,catchFloorMs:220,catchDecay:.86,catchWindowRatio:.15,catchWindowFloorMs:35,practiceFlightMs:650,practiceWindowMs:100,aiMinMs:150,aiMaxMs:280,aiStumbleRate:.14});
+export const LEVEL_TUNING=Object.freeze({catchStartMs:220+300*.86**4,catchFloorMs:220,catchDecay:.86,catchWindowRatio:.15,catchWindowFloorMs:35,practiceFlightMs:650,practiceWindowMs:100,aiMinMs:150,aiMaxMs:280,aiStumbleRate:.14});
 export function catchStageSettings(level,{practice=false}={}){
  const stage=Math.max(1,Number.isFinite(level)?Math.floor(level):1),c=LEVEL_TUNING;
  const flightMs=practice?c.practiceFlightMs:c.catchFloorMs+(c.catchStartMs-c.catchFloorMs)*c.catchDecay**(stage-1);
@@ -70,8 +70,8 @@ export function press(state,now) {
   if(state.phase==='waiting')return settle(state,{winner:state.mode==='duel'?'ai':'none',reason:'early'});
   if(now<state.liveAt)return state;
   if(state.mode==='catch'){
-    const offsetMs=now-state.targetAt;
-    return settle(state,{winner:Math.abs(offsetMs)<=state.windowMs?'player':'none',reason:Math.abs(offsetMs)<=state.windowMs?'caught':offsetMs<0?'early':'late',offsetMs});
+    const offsetMs=now-state.targetAt,withinWindow=now>=state.targetAt-state.windowMs&&now<=state.targetAt+state.windowMs;
+    return settle(state,{winner:withinWindow?'player':'none',reason:withinWindow?'caught':offsetMs<0?'early':'late',offsetMs});
   }
   const playerMs=now-state.liveAt;
   return settle(state,{winner:playerMs<state.aiMs?'player':playerMs>state.aiMs?'ai':'draw',reason:playerMs<state.aiMs?'player-first':playerMs>state.aiMs?'ai-first':'tie',playerMs});

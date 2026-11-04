@@ -4,9 +4,9 @@ const root=new URL('../../public/games/fast-hands/',import.meta.url);
 const html=mode=>readFileSync(new URL(mode==='duel'?'duel.html':'catch.html',root),'utf8');
 function harness(mode='catch'){
  const dom=new JSDOM(html(mode),{url:`https://game.test/games/fast-hands/${mode}.html`,pretendToBeVisual:true});let now=0,frame;
- const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;},stageLoader:async()=>null});
+ const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;},stageLoader:()=>null});
  const $=id=>dom.window.document.getElementById(id);
- return {dom,app,$,step(ms){now+=ms;frame?.(now);},elapse(ms){now+=ms;},at(value){now=value;frame?.(now);},click(id){$(id).click();},get now(){return now;},pointer(type='mouse',primary=true,button=0){const e=new dom.window.Event('pointerdown',{bubbles:true,cancelable:true});Object.assign(e,{pointerType:type,isPrimary:primary,button});$('actionButton').dispatchEvent(e);},key(key='Space',repeat=false){const e=new dom.window.KeyboardEvent('keydown',{code:key,key:key==='Space'?' ':key,bubbles:true,cancelable:true,repeat});$('actionButton').dispatchEvent(e);}};
+ return {dom,app,$,step(ms){now+=ms;frame?.(now);},elapse(ms){now+=ms;},at(value){now=value;frame?.(now);},click(id){if(id==='roundButton'&&['feedback','done'].includes(app.state.phase)){now+=520;frame?.(now);}$(id).click();},get now(){return now;},pointer(type='mouse',primary=true,button=0){const e=new dom.window.Event('pointerdown',{bubbles:true,cancelable:true});Object.assign(e,{pointerType:type,isPrimary:primary,button});$('actionButton').dispatchEvent(e);},key(key='Space',repeat=false){const e=new dom.window.KeyboardEvent('keydown',{code:key,key:key==='Space'?' ':key,bubbles:true,cancelable:true,repeat});$('actionButton').dispatchEvent(e);}};
 }
 test('every level has three direct accessible links and the original entry and result can switch',()=>{
  for(const file of ['index.html','catch.html','duel.html']){
@@ -69,6 +69,6 @@ test('a full duel displays all ten changing items and ten scores with no extra r
  for(let i=0;i<10;i++){
   items.push(h.$('itemName').textContent);h.pointer();if(i<9)h.click('roundButton');
  }
- assert.equal(h.app.state.phase,'done');assert.equal(new Set(items).size,10);assert.equal(h.$('roundResults').children.length,10);assert.match(h.$('summaryTitle').textContent,/快手王/);assert.equal(h.$('summary').hidden,false);
+ h.step(520);assert.equal(h.app.state.phase,'done');assert.equal(new Set(items).size,10);assert.equal(h.$('roundResults').children.length,10);assert.match(h.$('summaryTitle').textContent,/快手王/);assert.equal(h.$('summary').hidden,false);
  h.click('restartButton');assert.equal(h.app.state.phase,'idle');assert.equal(h.app.state.results.length,0);h.app.destroy();
 });

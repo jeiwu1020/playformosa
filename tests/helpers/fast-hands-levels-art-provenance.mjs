@@ -1,3 +1,4 @@
+import {stabilityRuntimeAdditions} from './fast-hands-stability-provenance.mjs';
 import {reverseLayoutDart} from './fast-hands-layout-dart-provenance.mjs';
 import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';import assert from 'node:assert/strict';
 const root=new URL('../../',import.meta.url),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -13,4 +14,4 @@ export function reverseArt(path,bytes,ledger=artLedger()){
  let restored=Buffer.from(bytes);for(const e of [...row.reverseEdits].reverse())restored=Buffer.concat([restored.subarray(0,e.start),Buffer.from(e.beforeBase64,'base64'),restored.subarray(e.end)]);
  assert.equal(hash(restored),row.beforeSha256);assert.equal(createHash('sha1').update(`blob ${restored.length}\0`).update(restored).digest('hex'),row.baseGitBlob);return restored;
 }
-export function artRuntimeAdditions(){const ledger=artLedger();assert.deepEqual(ledger.files.map(f=>f.path),[...ART_CHANGED,...ART_ADDED]);for(const path of ART_ADDED)reverseArt(path,readFileSync(new URL(path,root)),ledger);return [...ART_ADDED];}
+export function artRuntimeAdditions(){const ledger=artLedger();assert.deepEqual(ledger.files.map(f=>f.path),[...ART_CHANGED,...ART_ADDED]);for(const path of ART_ADDED)reverseArt(path,readFileSync(new URL(path,root)),ledger);return [...ART_ADDED,...stabilityRuntimeAdditions()];}

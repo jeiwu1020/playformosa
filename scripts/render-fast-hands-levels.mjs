@@ -111,6 +111,29 @@ export function rasterizeScene(THREE, scene, camera, {width = 900, height = 620,
   return {canvas:output, stats};
 }
 
+const caught={winner:'player',reason:'caught',offsetMs:0,round:1};
+const player={winner:'player',reason:'player-first',playerMs:110,round:1};
+const ai={winner:'ai',reason:'ai-first',playerMs:null,round:1};
+// These times are the exact shared-motion contact and halfway poses, not
+// independently authored approximations. DOM overlays supply both props.
+export const LEVEL_FALLBACK_SHOTS = Object.freeze([
+  {name:'levels-catch-ready',mode:'catch',phase:'waiting',now:500},
+  {name:'levels-catch-reach',mode:'catch',phase:'feedback',now:1460,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-catch-grab',mode:'catch',phase:'feedback',now:1520,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-catch-return-mid',mode:'catch',phase:'feedback',now:1705,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-catch-return',mode:'catch',phase:'feedback',now:1835,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-catch-empty-mid',mode:'catch',phase:'feedback',now:1705,result:{winner:'none',reason:'early',offsetMs:0,round:1},pressedAt:1400,settledAt:1400},
+  {name:'levels-duel-ready',mode:'duel',phase:'waiting',now:500},
+  {name:'levels-duel-player-reach',mode:'duel',phase:'feedback',now:1185,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-player-grab',mode:'duel',phase:'feedback',now:1260,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-player-return-mid',mode:'duel',phase:'feedback',now:1470,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-player',mode:'duel',phase:'feedback',now:1620,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-ai-reach',mode:'duel',phase:'live',now:1090},
+  {name:'levels-duel-ai-grab',mode:'duel',phase:'feedback',now:1180,result:ai,settledAt:1180},
+  {name:'levels-duel-ai-return-mid',mode:'duel',phase:'feedback',now:1390,result:ai,settledAt:1180},
+  {name:'levels-duel-ai',mode:'duel',phase:'feedback',now:1540,result:ai,settledAt:1180},
+]);
+
 async function main() {
   const THREE = await import('../public/games/fast-hands/three3d/vendor/three.module.min.js');
   const {createLevelWorld} = await import('../public/games/fast-hands/levels-world.mjs');
@@ -119,17 +142,11 @@ async function main() {
   const camera = new THREE.OrthographicCamera(-viewHeight * aspect / 2, viewHeight * aspect / 2, viewHeight / 2, -viewHeight / 2, .1, 30);
   camera.position.set(0, 2.35, 6); camera.lookAt(0, 1.15, .15);
   const base = {items:[{artIndex:0}], results:[], liveAt:1000, targetAt:1400, flightMs:400, aiMs:180};
-  const shots = [
-    {name:'levels-catch-ready', mode:'catch', phase:'waiting', now:500},
-    {name:'levels-catch-grab', mode:'catch', phase:'feedback', now:1700, result:{winner:'player', reason:'caught', offsetMs:0, round:1}},
-    {name:'levels-duel-ready', mode:'duel', phase:'waiting', now:500},
-    {name:'levels-duel-player', mode:'duel', phase:'feedback', now:1500, result:{winner:'player', reason:'player-first', playerMs:110, round:1}},
-    {name:'levels-duel-ai', mode:'duel', phase:'feedback', now:1600, result:{winner:'ai', reason:'ai-first', playerMs:null, round:1}},
-  ];
+  const shots = LEVEL_FALLBACK_SHOTS;
   const manifest = [];
   for (const shot of shots) {
     const world = createLevelWorld(THREE, {mode:shot.mode});
-    const state = {...base, phase:shot.phase, results:shot.result ? [shot.result] : []};
+    const state = {...base, phase:shot.phase, results:shot.result ? [shot.result] : [], presentation:{pressedAt:shot.pressedAt??null,settledAt:shot.settledAt??null}};
     const startSample = world.update({state:{...base, phase:'live'}, now:base.liveAt});
     const sample = world.update({state, now:shot.now});
     camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
@@ -139,7 +156,7 @@ async function main() {
     const overlay = {
       prize:project(sample.contacts.item),
       prizeArtCenter:project(itemArt.getWorldPosition(new THREE.Vector3()).toArray()),
-      prizeArtCorners:[artCorner(-.20,.20), artCorner(.20,.20), artCorner(.20,-.20), artCorner(-.20,-.20)],
+      prizeArtCorners:[artCorner(-.28,.28), artCorner(.28,.28), artCorner(.28,-.28), artCorner(-.28,-.28)],
       receivingHand:project(sample.contacts.kingPalm),
       playerHand:sample.contacts.athletePalm ? project(sample.contacts.athletePalm) : null,
       dartStart:shot.mode === 'catch' ? project(startSample.contacts.dartTip) : null,
@@ -148,9 +165,11 @@ async function main() {
     // The generated item atlas is composited by the DOM in fallback mode. Do
     // not bake the world's emergency gold core into the character pose image.
     world.objects.item.visible = false;
+    world.objects.dart.visible = false;
+    world.scene.getObjectByName('dart-trail').visible = false;
     const {canvas, stats} = rasterizeScene(THREE, world.scene, camera, {width, height});
     const filename = `${shot.name}.png`; fs.writeFileSync(path.join(out, filename), canvas.toBuffer('image/png'));
-    manifest.push({filename, kind:'Offline source-mesh pose fallback, not a browser screenshot', ...shot, stats, source:world.diagnostics(), contacts:sample.contacts, overlay});
+    manifest.push({filename, kind:'Offline source-mesh pose fallback, not a browser screenshot', ...shot, stats, source:world.diagnostics(), contacts:sample.contacts, overlay, motion:{fallbackFrame:sample.fallbackFrame,durationMs:sample.durationMs,itemAttachedTo:sample.itemAttachedTo,dartAttached:sample.dartAttached}, omittedProps:['duel-prize','foam-dart','dart-trail']});
     console.log(filename, JSON.stringify(stats)); world.dispose();
   }
   fs.writeFileSync(path.join(out, 'levels-pose-provenance.json'), JSON.stringify(manifest, null, 2) + '\n');

@@ -1,3 +1,4 @@
+import {sampleLevelMotion,MOTION_DURATION_MS,FALLBACK_FRAME_NAMES} from './levels-motion.mjs';
 import {newMatch,beginRound,advance,press,pauseMatch,catchStageSettings,itemArtFrame} from './levels-rules.mjs';
 const loadStage=async(canvas,options)=>{const {createLevelStage}=await import('./levels-stage.mjs');return createLevelStage(canvas,options);};
 
@@ -5,8 +6,10 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  const $=id=>document.getElementById(id),mode=document.body.dataset.level;
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
- let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0;
+ let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='';
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
+ const poseImages=new Map();
+ for(const name of FALLBACK_FRAME_NAMES.filter(n=>n.startsWith(`levels-${mode}`))){const img=new window.Image();img.src=`assets/${name}.png`;poseImages.set(name,img);}
  const count=who=>state.results.filter(r=>r.winner===who).length;
  function art(element,item){element.style.backgroundImage=`url("${atlasUrl}")`;const f=itemArtFrame(item.artIndex);element.style.backgroundSize=`${100/f.width}% ${100/f.height}%`;element.style.backgroundPosition=`${100*f.left/(1-f.width)}% ${100*f.top/(1-f.height)}%`;element.setAttribute('aria-label',item.name);}
 
@@ -43,15 +46,18 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  function render(now=clock()){
   if(disposed)return;
   const active=['waiting','live'].includes(state.phase),feedback=['feedback','done'].includes(state.phase),result=state.results.at(-1),current=state.results.length+(feedback?0:1);
-  document.body.dataset.phase=state.phase;document.body.dataset.summary=String(state.phase==='done'&&!state.practice);
-  if(state!==lastRendered){
+  if(feedback&&settledAt===null)settledAt=now;
+  const visualState={...state,presentation:{pressedAt,settledAt}},motion=sampleLevelMotion({mode,state:visualState,now}),motionReady=motion.complete;
+  document.body.dataset.phase=state.phase;document.body.dataset.summary=String(state.phase==='done'&&!state.practice&&motionReady);
+  if(state!==lastRendered||motionReady!==lastMotionReady){
+   lastMotionReady=motionReady;
    lastRendered=state;
    $('roundLabel').textContent=state.practice?'不計分練習':catching?`第 ${current} 關`:`回合 ${Math.min(current,10)} / 10`;
    $('playerScore').textContent=state.practice?'—':String(count('player'));
    $('opponentScore').textContent=state.practice?'—':catching?String(current):String(count('ai'));
    const timing=state.flightMs??catchStageSettings(1,{practice:state.practice}).flightMs;
    $('speedLabel').textContent=catching?`${Math.round(timing)} ms 飛行 · 每關加速`:'AI 虛擬對手 · 150–280 ms 常態反應';
-   $('actionButton').disabled=artError;$('roundButton').disabled=artError;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('summary').hidden=!(state.phase==='done'&&!state.practice);
+   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(state.phase==='done'&&!state.practice&&motionReady);
    $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?(catching?'開始逐關挑戰':'開始十回合對決'):state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
    $('actionButton').textContent=catching?'接！':'搶！';$('actionButton').setAttribute('aria-label',catching?'伸手接泡棉彈':'出手搶物品');
    let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到掌心前時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'看準掌心':'等訊號';
@@ -63,24 +69,33 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    if(!catching){const item=state.items[Math.min(feedback?state.results.length-1:state.results.length,9)];art($('itemArt'),item);$('itemName').textContent=item.name;$('itemQuip').textContent=item.quip;}
    else{$('itemName').textContent=state.practice?'先抓到接彈的節奏':feedback&&result.winner==='player'?`下一關 ${Math.round(catchStageSettings(state.results.length+1).flightMs)} ms，準備好了嗎？`:'每過一關，手速再快一點';$('itemQuip').textContent='泡棉玩具挑戰 · 一次失誤，本局結束。';}
    $('stage').dataset.winner=feedback?result.winner:'';$('stage').dataset.result=feedback?result.reason:'';$('stage').dataset.launched=String(Number.isFinite(state.liveAt));
-   const pose=feedback?(catching?(result.winner==='player'?'grab':'ready'):result.winner==='player'?'player':result.winner==='ai'?'ai':'ready'):'ready';
-   $('fallbackScene').src=`assets/levels-${mode}-${pose}.png`;
    const start=catching?Math.max(0,state.results.length-7):0,end=state.practice?1:catching?state.results.length+(state.phase==='done'?0:1):10;
    $('roundDots').replaceChildren(...Array.from({length:end-start},(_,j)=>{const i=start+j,dot=document.createElement('span'),r=state.results[i];dot.className='round-dot';dot.dataset.outcome=r?r.winner:i===state.results.length?'current':'pending';dot.textContent=r?(r.winner==='player'?'✓':r.winner==='draw'?'=':'×'):String(i+1);dot.setAttribute('aria-label',`第 ${i+1} ${catching?'關':'回合'}${r?'：'+(r.winner==='player'?'成功':r.winner==='draw'?'平手':'未成功'):''}`);return dot;}));
    if(state.phase==='done'&&!state.practice){resultPage=0;summary();}
   }
   if(catching){const progress=state.phase==='live'?Math.max(0,(now-state.liveAt)/state.flightMs):feedback&&result?.winner==='player'?1:feedback?1.22:0;$('foamBall').style.setProperty('--flight',String(Math.min(1.23,progress)));$('stage').dataset.inWindow=String(state.phase==='live'&&Math.abs(now-state.targetAt)<=state.windowMs);}
-  stageView?.render(state,now);
+  drawFallback(motion);
+  const painted=stageView?.render(visualState,now);if(painted&&stageView?.artReady&&rendererState==='pending')chooseRenderer('3d');
+ }
+ function drawFallback(motion){
+  const {from,to,mix}=motion.fallbackFrame;
+  const fromReady=poseImages.get(from)?.complete&&poseImages.get(from)?.naturalWidth,toReady=poseImages.get(to)?.complete&&poseImages.get(to)?.naturalWidth;
+  if((fromReady||!lastPoseFrom)&&from!==lastPoseFrom){$('fallbackScene').src=`assets/${from}.png`;lastPoseFrom=from;}
+  if(toReady&&to!==lastPoseTo){$('fallbackBlend').src=`assets/${to}.png`;lastPoseTo=to;}
+  $('fallbackBlend').style.opacity=String(toReady&&fromReady?mix:0);$('fallbackScene').style.opacity='1';
+  const o=motion.overlay;
+  if(catching){const show=state.phase==='live'||motion.feedback&&Number.isFinite(state.liveAt);$('foamBall').style.visibility=show?'visible':'hidden';$('foamBall').style.left=`${o.dartTip.x*100}%`;$('foamBall').style.top=`${o.dartTip.y*100}%`;}
+  else{const xs=o.prizeArtCorners.map(p=>p.x),ys=o.prizeArtCorners.map(p=>p.y);$('itemArt').style.left=`${o.prizeArtCenter.x*100}%`;$('itemArt').style.top=`${o.prizeArtCenter.y*100}%`;$('itemArt').style.width=`${(Math.max(...xs)-Math.min(...xs))*100}%`;$('itemArt').style.height=`${(Math.max(...ys)-Math.min(...ys))*100}%`;}
  }
  function sceneVisible(){
   const r=$('stage').getBoundingClientRect();if(!r.width&&!r.height)return true;
   const cue=$('signal').getBoundingClientRect(),scene=$('levelCanvas').getBoundingClientRect(),height=window.visualViewport?.height||window.innerHeight;
   return cue.top>=0&&cue.bottom<=height&&scene.top+scene.height*.5>0&&scene.top+scene.height*.5<height;
  }
- function begin(){if(artError||['waiting','live'].includes(state.phase))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});state=beginRound(state,clock(),random);lastFrame=null;render();if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});}
- function act(){const now=clock();if(artError)return;if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}state=press(state,now);render(now);}
- function pause(){state=pauseMatch(state);lastFrame=null;render();}
- function practice(){state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ function begin(){if(artError||rendererState==='pending'||['waiting','live'].includes(state.phase)||(['feedback','done'].includes(state.phase)&&settledAt!==null&&clock()-settledAt<MOTION_DURATION_MS))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});pressedAt=null;settledAt=null;state=beginRound(state,clock(),random);lastFrame=null;render();if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});}
+ function act(){const now=clock();if(artError||rendererState==='pending')return;if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}const next=press(state,now);if(next!==state){pressedAt=now;settledAt=now;}state=next;render(now);}
+ function pause(){const next=pauseMatch(state);if(next!==state){pressedAt=null;settledAt=null;}state=next;lastFrame=null;render();}
+ function practice(){pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
  listen($('resultPrev'),'click',()=>{if(resultPage>0){resultPage--;summary();}});listen($('resultNext'),'click',()=>{if((resultPage+1)*10<state.results.length){resultPage++;summary();}});
  listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
  listen($('actionButton'),'pointerdown',event=>{if(event.isPrimary===false||(event.pointerType==='mouse'&&event.button!==0))return;event.preventDefault();act();});
@@ -88,14 +103,22 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  listen(document,'keydown',event=>{if(!['Space','Enter'].includes(event.code))return;const target=event.target;if(target?.closest?.('a,input,select,textarea,summary')||target?.closest?.('button')!==$('actionButton')&&target?.closest?.('button'))return;if(!['waiting','live'].includes(state.phase))return;event.preventDefault();if(!event.repeat)act();});
  listen(window,'scroll',()=>{if(['waiting','live'].includes(state.phase)&&!sceneVisible())pause();},{passive:true});listen(window,'blur',pause);listen(document,'visibilitychange',()=>{if(document.hidden)pause();});listen(window,'resize',()=>{if(Math.abs(window.innerWidth-width)>8){width=window.innerWidth;pause();}});listen(window,'pagehide',event=>{pause();if(!event.persisted)destroy();});
  function frame(now){if(disposed)return;if(document.hidden||(['waiting','live'].includes(state.phase)&&!sceneVisible()))pause();else if(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)pause();else state=advance(state,now);lastFrame=now;render(now);frameId=requestFrame(frame);}
- function destroy(){if(disposed)return;disposed=true;cancelFrame(frameId);stageView?.dispose();for(const remove of listeners)remove();}
+ function destroy(){if(disposed)return;disposed=true;window.clearTimeout(startupTimer);cancelFrame(frameId);stageView?.dispose();for(const remove of listeners)remove();}
  function artFailed(){if(disposed||catching)return;artError=true;$('artStatus').hidden=false;$('artStatus').textContent='道具圖像載入失敗，請重試後再開始。';$('retryArtButton').hidden=false;lastRendered=null;pause();}
  function artLoaded(){if(disposed||catching)return;artError=false;$('artStatus').hidden=true;$('retryArtButton').hidden=true;atlasUrl=$('atlasProbe').getAttribute('src');lastRendered=null;render();}
  listen($('atlasProbe'),'error',artFailed);listen($('atlasProbe'),'load',artLoaded);
  listen($('retryArtButton'),'click',()=>{$('artStatus').textContent='正在重新載入道具圖像…';$('atlasProbe').src=`assets/duel-items-atlas.png?retry=${Date.now()}`;});
- const unavailable=message=>{if(disposed)return;$('stage').classList.remove('has-3d');$('renderMode').textContent='2D 相容模式 · 同模型畫面';if(/atlas/i.test(message||''))artFailed();};
- const ready3d=()=>{if(disposed)return;$('stage').classList.add('has-3d');$('renderMode').textContent='3D 角色演出';};
- try{Promise.resolve(stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d})).then(stage=>{if(disposed){stage?.dispose();return;}stageView=stage;if(stage?.available){if(stage.artReady)ready3d();}else unavailable();render();}).catch(unavailable);}catch{unavailable();}
+ function chooseRenderer(choice){
+  if(disposed||rendererState==='fallback'&&choice==='3d')return;
+  rendererState=choice;document.body.dataset.renderer=choice;window.clearTimeout(startupTimer);
+  $('stage').classList.toggle('has-3d',choice==='3d');$('renderMode').textContent=choice==='3d'?'3D 角色演出':'2D 相容模式 · 同模型畫面';
+  $('actionButton').disabled=artError;$('roundButton').disabled=artError;
+ }
+ const unavailable=message=>{if(disposed)return;chooseRenderer('fallback');if(/atlas/i.test(message||''))artFailed();};
+ const ready3d=()=>{if(disposed||rendererState==='fallback')return;render();};
+ function stageResolved(stage){if(disposed||rendererState==='fallback'){stage?.dispose();return;}stageView=stage;if(!stage?.available)unavailable();render();}
+ startupTimer=window.setTimeout(()=>unavailable('Renderer preparation timed out'),5000);
+ try{const stage=stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d});if(stage?.then)stage.then(stageResolved).catch(unavailable);else stageResolved(stage);}catch{unavailable();}
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};

@@ -1,3 +1,4 @@
+import {STABILITY_ADDED} from '../helpers/fast-hands-stability-provenance.mjs';
 import {readLayoutDartBaseline} from '../helpers/fast-hands-layout-dart-provenance.mjs';
 import {ART_ADDED} from '../helpers/fast-hands-levels-art-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';
@@ -9,7 +10,7 @@ test('new levels admit one navigation-only original edit and six isolated runtim
  for(const f of ledger.files){const bytes=readFileSync(new URL(f.path,root));reverseLevels(f.path,bytes);assert.throws(()=>reverseLevels(f.path,Buffer.concat([bytes,Buffer.from('unreviewed drift')])));}
  const file=new URL('public/games/fast-hands/index.html',root),old=readLevelsBaseline(file,'utf8'),current=readFileSync(file,'utf8');
  assert.equal(current.replace(/^.*<nav class="level-switch"[^>]*>.*<\/nav>\n/gm,'').replace(/^.*<link rel="stylesheet" href="level-nav.css">\n/gm,''),old);
- assert.deepEqual(levelsRuntimeAdditions(),[...LEVEL_ADDED,...ART_ADDED]);
+ assert.deepEqual(levelsRuntimeAdditions(),[...LEVEL_ADDED,...ART_ADDED,...STABILITY_ADDED]);
 });
 test('original duck runtime, presentation CSS, records and board contracts remain byte-exact',()=>{
  const ledger=levelLedger();for(const row of ledger.preserved){const actual=readLayoutDartBaseline(new URL(row.path,root));assert.equal(createHash('sha1').update(`blob ${actual.length}\0`).update(actual).digest('hex'),row.gitBlob,row.path);}

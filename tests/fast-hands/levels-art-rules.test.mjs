@@ -11,7 +11,7 @@ test('catch survival continues after ten, stops at first miss and records reache
 test('catch speed strictly increases through 100 stages but has a safe bounded floor',()=>{
  assert.ok(rules.catchStageSettings,'stage config must be exported for measured tuning');let previous=Infinity;
  for(let level=1;level<=100;level++){const {flightMs,windowMs}=rules.catchStageSettings(level);assert.ok(flightMs<previous);assert.ok(flightMs>=220);assert.ok(windowMs>=35);assert.ok(windowMs<=flightMs*.25);previous=flightMs;}
- assert.equal(rules.catchStageSettings(1).flightMs,520);assert.ok(rules.catchStageSettings(10).flightMs<300);
+ assert.equal(rules.catchStageSettings(1).flightMs,220+300*.86**4);assert.ok(rules.catchStageSettings(10).flightMs<300);
 });
 test('each catch round has its own inclusive window, and practice cannot end scored progress',()=>{
  let state=live(rules.newMatch('catch',{practice:true,random}));assert.equal(state.flightMs,650);assert.equal(state.windowMs,100);

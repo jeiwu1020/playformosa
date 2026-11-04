@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜玩具彈接接樂</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"></head>
-<body class="level-page" data-level="catch" data-phase="idle">
+<body class="level-page" data-level="catch" data-phase="idle" data-renderer="pending">
 <main class="level-main">
  <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>玩具彈接接樂</h1></div><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
  <nav class="level-switch" aria-label="切換快手王關卡"><a href="./"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
@@ -8,9 +8,10 @@
  <section id="stage" class="level-stage" aria-label="快手王伸手接住泡棉玩具彈">
   <div class="stage-top"><span class="stage-kicker">CATCH / SURVIVAL</span><span id="renderMode" class="stage-tag">正在載入 3D 場景</span></div>
   <div id="signal" class="signal">看準掌心</div>
-  <div class="scene-viewport">
+  <div class="scene-viewport"><div class="scene-loading" role="status">正在準備角色…</div>
    <div class="fallback-layer">
    <img id="fallbackScene" class="fallback-scene" src="assets/levels-catch-ready.png" alt="快手王在玩具發射器前準備接彈">
+   <img id="fallbackBlend" class="fallback-scene fallback-blend" src="assets/levels-catch-ready.png" alt="" aria-hidden="true">
    <div class="fallback-flight"   aria-hidden="true"><div id="foamBall" class="foam-dart" style="--flight:0"><i></i></div></div>
    <div id="itemArt" class="item-art scene-item" hidden role="img" aria-label="本回合物品"></div>
    </div><canvas id="levelCanvas" class="level-canvas" aria-hidden="true"></canvas>
@@ -23,8 +24,8 @@
  <img id="atlasProbe" alt="" hidden>
  <p id="artStatus" class="art-status" role="status" hidden></p>
  <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
- <div class="level-controls"><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="roundButton" type="button" class="action-button">先練習一次</button><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div>
- <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一發，再開始逐關加速挑戰。</li><li>泡棉彈飛到掌心時按「接！」，每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li><li>第 1 關飛行 520 ms，此後每關加速，逐步接近 220 ms 的速度上限。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>這是泡棉玩具的虛構接彈遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details>
+ <div class="level-controls"><div class="primary-control"><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div></div>
+ <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一發，再開始逐關加速挑戰。</li><li>泡棉彈飛到掌心時按「接！」，每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li><li>第 1 關飛行約 384 ms（原第 5 關），此後每關加速，逐步接近 220 ms 的速度上限。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>這是泡棉玩具的虛構接彈遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details>
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
  <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./">回到小鴨關卡</a></noscript>
 </main><script type="module" src="levels-app.mjs"></script></body></html>

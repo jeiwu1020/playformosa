@@ -34,7 +34,7 @@ test('duel reaches and visibly closes fingers at the item without stretching eit
   const idle=w.update({state:state('duel'),now:900});
   const before=w.actors.athlete.group.getObjectByName('finger-1-0').rotation.x;
   const won=state('duel',{phase:'feedback',results:[{winner:'player',reason:'player-first',playerMs:110,round:1}]});
-  const sample=w.update({state:won,now:1500});
+  const sample=w.update({state:won,now:1260});
   assert.ok(distance(idle.contacts.athletePalm,sample.contacts.athletePalm)>.25);
   assert.ok(w.actors.athlete.group.getObjectByName('finger-1-0').rotation.x<before-.4);
   assert.equal(sample.itemAttachedTo,'athlete');
@@ -48,7 +48,7 @@ test('duel reaches and visibly closes fingers at the item without stretching eit
 
 test('catch uses the original king with an open receiving hand and closes around a real foam dart',()=>{
   const w=create('catch');
-  const open=w.update({state:state('catch',{phase:'live'}),now:1250});
+  const open=w.update({state:state('catch',{phase:'feedback',presentation:{pressedAt:1400,settledAt:1400},results:[{winner:'player',reason:'caught',offsetMs:0,round:1}]}),now:1480});
   assert.equal(w.actors.athlete,null);
   assert.equal(w.objects.targetRing.visible,false,'catch has only its hand target, not a second tabletop target');
   assert.equal(w.objects.catchRing.visible,false,'the receiving hand has no target ring');
@@ -57,7 +57,7 @@ test('catch uses the original king with an open receiving hand and closes around
   assert.ok(palmNormal.x<-.6&&palmNormal.z>.3,'open receiving palm must face the dart and remain visible to the camera');
   const openTip=w.actors.king.hands[1].fingers[2].tip.getWorldPosition(new THREE.Vector3());
   const openGap=openTip.distanceTo(new THREE.Vector3(...open.contacts.kingPalm));
-  assert.ok(open.contacts.dartTip[0]<open.contacts.kingPalm[0]);
+  assert.equal(open.dartAttached,false,'the approaching dart is not attached before palm contact');
   const caught=state('catch',{phase:'feedback',results:[{winner:'player',reason:'caught',offsetMs:0,round:1}]});
   const sample=w.update({state:caught,now:1700});
   assert.equal(sample.grip,1);
