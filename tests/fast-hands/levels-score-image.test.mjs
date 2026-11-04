@@ -16,7 +16,7 @@ function renderer({decodeFailure=false,encodeFailure=false,nullBlob=false,dimens
 test('level scores freeze counts from settled gameplay without changing or inventing speed',()=>{
  assert.equal(typeof mod.describeLevelScore,'function');
  const state=catchState(),copy=JSON.stringify(state),result=mod.describeLevelScore(state,'catch');
- assert.equal(JSON.stringify(state),copy);assert.ok(Object.isFrozen(result));assert.equal(result.mode,'catch');assert.equal(result.modeText,'玩具彈接接樂');assert.equal(result.scoreText,'3 關通過');assert.equal(result.title,'闖到第 4 關');assert.match(result.note,/302 ms/);state.results[0].winner='none';assert.equal(result.scoreText,'3 關通過');
+ assert.equal(JSON.stringify(state),copy);assert.ok(Object.isFrozen(result));assert.equal(result.mode,'catch');assert.equal(result.modeText,'彈無虛接');assert.equal(result.scoreText,'3 關通過');assert.equal(result.title,'闖到第 4 關');assert.match(result.note,/302 ms/);state.results[0].winner='none';assert.equal(result.scoreText,'3 關通過');
  const duel=mod.describeLevelScore(duelState(),'duel');assert.equal(duel.scoreText,'6 : 3');assert.equal(duel.title,'你贏了快手王！');assert.match(duel.note,/搶跑 1 次/);assert.match(duel.note,/平手 1 次/);
  for(const invalid of [{...catchState(),practice:true},{...catchState(),phase:'feedback'},{...duelState(),results:[]},{...duelState(),results:[{winner:'player'}]}])assert.throws(()=>mod.describeLevelScore(invalid,invalid.mode),/成績|完成/);
 });

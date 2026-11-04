@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
 import assert from 'node:assert/strict';
+import {reverseNameRefresh} from './fast-hands-name-refresh-provenance.mjs';
 import {SPLIT_ENTRIES_BASE_COMMIT,SPLIT_ENTRIES_BASE_TREE,SPLIT_ENTRIES_BASE_BLOBS,SPLIT_ENTRIES_BEFORE_SHA,SPLIT_ENTRIES_TEST_ADAPTER_BLOBS,SPLIT_ENTRIES_HISTORY_SHA,SPLIT_ENTRIES_HISTORY_BLOBS,SPLIT_ENTRIES_HISTORY_PREIMAGE_BLOBS} from './fast-hands-split-entries-pins.mjs';
 const root=new URL('../../',import.meta.url),rootPath=fileURLToPath(root);
 const hash=b=>createHash('sha256').update(b).digest('hex');
@@ -67,10 +68,11 @@ export function reverseSplitEntries(path,bytes,ledger=splitEntriesLedger()){
  const rows=[...ledger.files,...(ledger.testAdapters??[])].filter(r=>r.path===path);assert.ok(rows.length<=1,'Duplicate split entries entry '+path);
  if(!rows.length){
   const preserved=ledger.preserved?.filter(r=>r.path===path)??[];assert.ok(preserved.length<=1,'Duplicate split entries preserved entry '+path);
-  if(preserved.length){assert.equal(preserved[0].gitBlob,SPLIT_ENTRIES_BASE_BLOBS[path],path);assert.equal(blob(bytes),preserved[0].gitBlob,'Split entries preserved bytes '+path)}
+  if(preserved.length){assert.equal(preserved[0].gitBlob,SPLIT_ENTRIES_BASE_BLOBS[path],path);bytes=reverseNameRefresh(path,bytes);assert.equal(blob(bytes),preserved[0].gitBlob,'Split entries preserved bytes '+path)}
   return Buffer.from(bytes);
  }
  const row=rows[0];validateFile(row);
+ bytes=reverseNameRefresh(path,bytes);
  assert.equal(hash(bytes),row.sha256,'Split entries current bytes '+path);
  if(row.beforeSha256===null)return Buffer.from(bytes);
  const restored=readFileSync(new URL(row.beforeAsset,root));

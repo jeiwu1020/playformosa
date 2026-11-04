@@ -17,7 +17,7 @@ test('every level has three direct accessible links and the original entry and r
   }
   assert.ok(doc.querySelector('.level-switch'));
   assert.equal(doc.querySelectorAll('#entryDialog .club-card').length,1);
-  assert.equal(doc.querySelector('#entryDialog .club-card h3').textContent,{'index.html':'鴨沒漏補','catch.html':'玩具彈接接樂','duel.html':'十回合對決'}[file]);
+  assert.equal(doc.querySelector('#entryDialog .club-card h3').textContent,{'index.html':'鴨沒漏補','catch.html':'彈無虛接','duel.html':'快手對決'}[file]);
   if(file==='index.html')assert.ok(doc.querySelector('#resultDialog .level-switch'));
  }
 });

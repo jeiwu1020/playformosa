@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜玩具彈接接樂</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="levels-ranking.css"><link rel="stylesheet" href="finale.css"></head>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜彈無虛接</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="levels-ranking.css"><link rel="stylesheet" href="finale.css"></head>
 <body class="level-page fast-hands-club" data-club-mode="catch" data-level="catch" data-phase="idle" data-renderer="pending">
 <main class="level-main">
- <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>玩具彈接接樂</h1></div><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
- <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+ <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>彈無虛接</h1></div><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
+ <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>彈無虛接</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>快手對決</a></nav>
  <section class="level-hud" aria-label="本場比分"><div><span>已通過</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span id="speedLabel" class="arcade-badge">每關更快 · 一次失誤結束</span></div><div><span>挑戰關卡</span><strong id="opponentScore">—</strong></div></section>
  <section id="stage" class="level-stage" aria-label="快手王伸手接住泡棉玩具彈">
   <div class="stage-top"><span class="stage-kicker">CATCH / SURVIVAL</span><span id="renderMode" class="stage-tag">正在載入 3D 場景</span></div>
@@ -37,7 +37,7 @@
    <section id="summaryUploadHost" class="finale-upload-host" aria-label="上傳本次成績" hidden></section>
    <details class="summary-scroll finale-details"><summary>詳細紀錄與選項</summary>
     <ol id="roundResults" class="round-results"></ol><nav id="resultPages" class="result-pages" aria-label="關卡紀錄分頁" hidden><button id="resultPrev" type="button" class="quiet-button">上一頁</button><span id="resultPageLabel" aria-live="polite"></span><button id="resultNext" type="button" class="quiet-button">下一頁</button></nav>
-    <p class="local-note">本局紀錄 · 測試榜由玩家自願回報</p><button id="summaryPractice" type="button" class="practice-button">回到練習</button><nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+    <p class="local-note">本局紀錄 · 測試榜由玩家自願回報</p><button id="summaryPractice" type="button" class="practice-button">回到練習</button><nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>彈無虛接</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>快手對決</a></nav>
    </details>
    <details class="finale-share level-finale-share"><summary>分享本次成績</summary>
     <div class="result-share-actions"><a id="summaryThreads" class="secondary" target="_blank" rel="noopener noreferrer" aria-disabled="true">分享到 Threads</a><button id="summaryDownload" type="button" class="quiet-button" disabled>分享成績圖片</button><button id="summaryCopy" type="button" class="quiet-button" disabled>複製成績與網址</button></div>
@@ -59,12 +59,12 @@
     <div class="ticket-top">
       <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
       <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
-      <h2 id="entryTitle">玩具彈接接樂</h2>
+      <h2 id="entryTitle">彈無虛接</h2>
       <p id="entryDescription">先練手感，再挑戰逐關加速。</p>
     </div>
     <div class="ticket-body">
       <div class="club-cards">
-        <article class="club-card"><img src="assets/intro-catch-generated.webp" alt="快手王伸手接住玩具發射器射出的短藍色泡棉彈" width="1536" height="1024"><h3>玩具彈接接樂</h3><p>玩具彈到掌心時，按「接！」。</p></article>
+        <article class="club-card"><img src="assets/intro-catch-generated.webp" alt="快手王伸手接住玩具發射器射出的短藍色泡棉彈" width="1536" height="1024"><h3>彈無虛接</h3><p>玩具彈到掌心時，按「接！」。</p></article>
       </div>
       <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button></div>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>

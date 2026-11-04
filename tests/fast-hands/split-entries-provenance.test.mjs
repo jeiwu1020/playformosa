@@ -5,6 +5,7 @@ import {tmpdir} from 'node:os';
 import {join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {NAME_REFRESH_PATHS,reverseNameRefresh} from '../helpers/fast-hands-name-refresh-provenance.mjs';
 let api,pins;try{api=await import('../helpers/fast-hands-split-entries-provenance.mjs');pins=await import('../helpers/fast-hands-split-entries-pins.mjs')}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e}
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -52,7 +53,7 @@ test('split entries pins its published parent, exact inventory and complete prei
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(pins.SPLIT_ENTRIES_BASE_BLOBS).sort());
  for(const r of l.files){
   const bytes=read(r.path),restored=api.reverseSplitEntries(r.path,bytes,l);
-  assert.equal(sha(bytes),r.sha256);assert.throws(()=>api.reverseSplitEntries(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/current bytes/);
+  assert.equal(sha(reverseNameRefresh(r.path,bytes)),r.sha256);assert.throws(()=>api.reverseSplitEntries(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/current bytes/);
   if(r.beforeSha256!==null){assert.equal(sha(restored),r.beforeSha256);assert.equal(blob(restored),r.baseGitBlob);assert.equal(r.baseGitBlob,pins.SPLIT_ENTRIES_BASE_BLOBS[r.path]);assert.deepEqual(restored,read(r.beforeAsset))}
  }
  assert.deepEqual(walk('docs/fast-hands/baselines/split-entries').sort(),[...l.files,...l.testAdapters].filter(r=>r.beforeAsset).map(r=>r.beforeAsset).sort());
@@ -76,7 +77,7 @@ test('split entries protects game rules, AI, speed, rigs, boards, schema and con
  for(const name of ['levels-rules.mjs','levels-motion.mjs','levels-world.mjs','levels-stage.mjs','physics.mjs','finish-timing.mjs','levels-replay.mjs','levels-sound.mjs','levels-sharing.mjs','levels-leaderboard.mjs','three3d/rig.mjs','three3d/world.mjs'])assert.ok(preserved.has(prefix+name),name);
  for(const path of ['public/assets/fast-hands-card-v2.webp','public/assets/play-counts.mjs','public/games/shared/play-counts.mjs','worker/play-counts/002.sql','worker/leaderboard/index.mjs','worker/leaderboard/repository.mjs','wrangler.jsonc'])assert.ok(preserved.has(path),path);
  for(const path of Object.keys(pins.SPLIT_ENTRIES_BASE_BLOBS).filter(p=>p.startsWith(prefix+'assets/')&&!changed.includes(p)))assert.ok(preserved.has(path),path);
- for(const r of l.preserved){const bytes=read(r.path);assert.equal(blob(bytes),r.gitBlob,r.path);assert.deepEqual(api.reverseSplitEntries(r.path,bytes,l),bytes);assert.throws(()=>api.reverseSplitEntries(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/preserved bytes/)}
+ for(const r of l.preserved){const bytes=read(r.path),baseline=reverseNameRefresh(r.path,bytes);assert.equal(blob(baseline),r.gitBlob,r.path);assert.deepEqual(api.reverseSplitEntries(r.path,bytes,l),baseline);assert.throws(()=>api.reverseSplitEntries(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),NAME_REFRESH_PATHS.includes(r.path)?/Name refresh current bytes/:/preserved bytes/)}
 });
 
 test('split entries retains every historical ledger and preimage byte for byte',()=>{
@@ -91,7 +92,7 @@ test('split entries retains every historical ledger and preimage byte for byte',
 test('split entries rejects a corrupted frozen preimage even if the caller repins its hash',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'split-entries-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','docs/fast-hands/SPLIT-ENTRIES-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/SPLIT-ENTRIES-MANIFEST.json','docs/fast-hands/NAME-REFRESH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.splitEntriesLedger(),row=l.files.find(r=>r.path==='src/catalog.mjs'),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-split-entries-provenance.mjs')).href);

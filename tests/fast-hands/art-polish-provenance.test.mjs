@@ -70,7 +70,7 @@ test('art polish retains every old ledger byte for byte including result upload'
 test('art polish rejects a corrupted frozen preimage even when its manifest hash is repinned',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'art-polish-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/ART-POLISH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/NAME-REFRESH-MANIFEST.json','tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/ART-POLISH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.artPolishLedger(),row=l.files.find(r=>r.beforeSha256!==null),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-art-polish-provenance.mjs')).href);

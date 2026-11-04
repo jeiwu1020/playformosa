@@ -7,7 +7,7 @@ import {renderPage} from '../../src/render.mjs';
 import {mountClub} from '../../public/games/fast-hands/club.mjs';
 
 const root=new URL('../../public/games/fast-hands/',import.meta.url);
-const modes={duck:{id:'fast-hands',name:'鴨沒漏補',file:'index.html',href:'/games/fast-hands/?intro=1',image:'/assets/fast-hands-card-v2.webp'},catch:{id:'fast-hands-catch',name:'玩具彈接接樂',file:'catch.html',href:'/games/fast-hands/catch.html?intro=1',image:'/games/fast-hands/assets/intro-catch-generated.webp'},duel:{id:'fast-hands-duel',name:'十回合對決',file:'duel.html',href:'/games/fast-hands/duel.html?intro=1',image:'/games/fast-hands/assets/intro-duel-generated.webp'}};
+const modes={duck:{id:'fast-hands',name:'鴨沒漏補',file:'index.html',href:'/games/fast-hands/?intro=1',image:'/assets/fast-hands-card-v2.webp'},catch:{id:'fast-hands-catch',name:'彈無虛接',file:'catch.html',href:'/games/fast-hands/catch.html?intro=1',image:'/games/fast-hands/assets/intro-catch-generated.webp'},duel:{id:'fast-hands-duel',name:'快手對決',file:'duel.html',href:'/games/fast-hands/duel.html?intro=1',image:'/games/fast-hands/assets/intro-duel-generated.webp'}};
 function fixture(mode,{seen=false,query=''}={}){
  const info=modes[mode],dom=new JSDOM(readFileSync(new URL(info.file,root),'utf8'),{url:`https://qa.test/games/fast-hands/${mode==='duck'?'':info.file}${query}`,pretendToBeVisual:true}),w=dom.window,d=w.document;
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'))};

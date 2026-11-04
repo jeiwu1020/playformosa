@@ -14,7 +14,7 @@ export function describeLevelScore(state,mode=state?.mode){
  const wins=results.filter(r=>r.winner==='player').length,opponent=results.filter(r=>r.winner==='ai').length,draws=results.filter(r=>r.winner==='draw').length,early=results.filter(r=>r.reason==='early').length;
  const catching=mode==='catch',flight=results.at(-1).flightMs;
  const speed=Number.isFinite(flight)&&flight>0?` · 最快挑戰 ${Math.round(flight)} ms 飛行速度`:'';
- return Object.freeze({mode,modeText:catching?'玩具彈接接樂':'十回合對決',wins,opponent,draws,rounds:results.length,
+ return Object.freeze({mode,modeText:catching?'彈無虛接':'快手對決',wins,opponent,draws,rounds:results.length,
   title:catching?`闖到第 ${results.length} 關`:wins>opponent?'你贏了快手王！':wins<opponent?'這次快手王贏了！':'十回合，不分高下！',
   scoreText:catching?`${wins} 關通過`:`${wins} : ${opponent}`,
   note:catching?`第 ${results.length} 關失誤${speed}。每次從第 1 關重新出發。`:`你的勝場 : 快手王勝場 · 搶跑 ${early} 次 · 平手 ${draws} 次`,

@@ -1,7 +1,7 @@
 import {mountResultUploadHost} from './result-upload-host.mjs';
 const DEVICE_KEY='pf-leaderboard-device-v1',NICKNAME_KEY='pf-leaderboard-nickname-v1';
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-export const LEVEL_RULES=Object.freeze({catch:Object.freeze({game:'fast-hands-catch',rules:'cleared-levels-v1',unit:'levels',max:Number.MAX_SAFE_INTEGER,label:'玩具彈通關'}),duel:Object.freeze({game:'fast-hands-duel',rules:'ten-round-wins-v1',unit:'wins',max:10,label:'十回合對決'})});
+export const LEVEL_RULES=Object.freeze({catch:Object.freeze({game:'fast-hands-catch',rules:'cleared-levels-v1',unit:'levels',max:Number.MAX_SAFE_INTEGER,label:'彈無虛接'}),duel:Object.freeze({game:'fast-hands-duel',rules:'ten-round-wins-v1',unit:'wins',max:10,label:'快手對決'})});
 export function freezeLevelLeaderboardResult(state,{replay=false}={}){
  if(replay||state?.practice!==false||state?.phase!=='done'||!Object.hasOwn(LEVEL_RULES,state?.mode)||!Array.isArray(state.results))return null;
  const {mode,results}=state;
