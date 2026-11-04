@@ -14,12 +14,12 @@ const byId = id => tags.find(tag => tag.id === id);
 test('entry and result dialogs expose uniquely labelled, usable actions to the app', () => {
   const ids = tags.filter(tag => tag.id).map(tag => tag.id);
   assert.equal(new Set(ids).size, ids.length, 'duplicate IDs would detach app handlers');
-  for (const id of ['entryDialog', 'resultDialog', 'info']) {
+  for (const id of ['entryDialog', 'resultDialog', 'info', 'rankingDialog']) {
     const dialog = byId(id);
     assert.equal(dialog?.name, 'dialog', `${id} must be a native modal dialog`);
     assert.ok(byId(dialog['aria-labelledby']), `${id} must have an accessible title`);
   }
-  for (const id of ['entryStart', 'entryClose', 'resultAgain', 'resultDemo', 'resultDownload', 'resultUpload', 'resultClose', 'openMenu', 'viewResult']) {
+  for (const id of ['entryStart', 'entryClose', 'resultAgain', 'resultDemo', 'resultDownload', 'resultUpload', 'resultClose', 'openMenu', 'viewResult', 'entryRanking', 'resultRanking', 'headerRanking', 'headerSettings', 'rankingClose', 'rankingReturn', 'rankingSubmit', 'rankingMouse', 'rankingTouch']) {
     assert.equal(byId(id)?.name, 'button', `${id} action must be keyboard-operable`);
     assert.equal(byId(id).type, 'button', `${id} must not submit a surrounding form`);
   }
@@ -63,10 +63,18 @@ test('results expose the actual character portrait and a live download status', 
   assert.equal(byId('downloadStatus')?.['aria-live'], 'polite', 'download failures must be announced without a modal');
 });
 
-test('leaderboard upload starts unavailable with an accessible visible explanation', () => {
+test('leaderboard upload starts disabled until a genuine success, with an accessible explanation', () => {
   const upload = byId('resultUpload');
-  assert.ok(upload && 'disabled' in upload, 'no upload may be offered before a backend exists');
+  assert.ok(upload && 'disabled' in upload, 'a result must be captured before upload becomes available');
   const status = byId(upload['aria-describedby']);
   assert.equal(status?.id, 'leaderboardStatus', 'the unavailable upload action must identify its explanation');
   assert.ok(!('hidden' in status), 'the unavailable reason must be visible before interaction');
+});
+
+test('leaderboard has bounded scroll and explicit separate-mode accessible controls',()=>{
+  assert.equal(byId('rankingMouse')?.['aria-pressed'],'true');
+  assert.equal(byId('rankingTouch')?.['aria-pressed'],'false');
+  assert.equal(byId('rankingConsent')?.type,'checkbox');
+  assert.ok(tags.some(tag=>tag.role==='region'&&tag.class==='ranking-scroll'&&tag['aria-label']));
+  assert.match(html,/暱稱與本次成績會公開顯示在測試榜/);
 });

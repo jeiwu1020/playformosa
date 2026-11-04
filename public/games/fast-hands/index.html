@@ -47,21 +47,24 @@
 <body class="pf-game pf-fast-hands" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><p id="pf-startup-status" role="status">正在準備遊戲…</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></section>
   <main>
     <header class="game-header pf-header">
+      <a class="pf-home" href="/#minigames" aria-label="返回小遊戲首頁">← 首頁</a>
       <div class="brand pf-studio-heading">
         <div class="eyebrow">PLAYFORMOSA · 反應挑戰</div>
         <h1>快手王 <span>一筆往返</span></h1>
         <span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span>
       </div>
-      <div class="header-tools">
+      <nav class="header-tools" aria-label="遊戲操作">
         <span id="currentMode" class="mode-status">自動辨識操作</span>
+        <button id="headerRanking" type="button" class="quiet-button">排行</button>
+        <button id="headerSettings" type="button" class="quiet-button">設定</button>
         <button id="openMenu" type="button" class="menu-button" aria-label="開啟遊戲選單"><span aria-hidden="true">☰</span><span>選單</span></button>
-      </div>
+      </nav>
     </header>
 
     <section class="scene-card" aria-label="鈔票與小鴨示範舞台">
       <div class="scene-heading">
         <span id="badge">先看一次</span>
-        <strong id="status" aria-live="polite">3D動作示範</strong>
+        <strong id="status" aria-live="polite">動作示範</strong>
         <span class="scene-tag">放鈔 · 抓鴨 · 回接</span>
       </div>
       <div class="canvas-wrap">
@@ -70,7 +73,7 @@
         <video id="demo3d" controls muted playsinline loop preload="metadata" poster="assets/front-demo-poster.png" aria-label="正面3D七秒示範，離線渲染"><source id="demoSource" src="assets/front-demo.mp4" type="video/mp4"></video>
         <canvas id="scene" aria-label="Q版人物放鈔、抓鴨與回接示範"></canvas>
       </div>
-      <div class="scene-caption" id="sceneCaption">正面視角 · 手指留在下面，畫面看得清楚。</div>
+      <div class="scene-caption" id="sceneCaption">從紙鈔開始，按住後滑去抓小鴨。</div>
     </section>
 
     <section class="score-row" aria-label="本次與最佳成績">
@@ -80,7 +83,7 @@
     </section>
 
     <section class="control-section" aria-label="一筆往返操作">
-      <div class="instruction"><strong id="instruction">按住鈔票 → 滑到小鴨 → 滑回鈔票</strong><span id="gestureHint">全程不放開</span></div>
+      <div class="instruction"><strong id="instruction">從紙鈔開始 → 抓小鴨 → 回紙鈔</strong><span id="gestureHint">全程不放開</span></div>
       <div id="pad" role="application" aria-label="按住左側鈔票區，向右滑至小鴨區，再滑回鈔票區，全程不放開" tabindex="0">
         <div class="pad-track" aria-hidden="true"></div>
         <div class="gate home">
@@ -118,14 +121,14 @@
         <img src="assets/control-bill.svg" alt=""><span><b>抓鴨 →</b><b>← 接鈔</b></span><img src="assets/control-duck.svg" alt="">
       </div>
       <ol class="entry-steps">
-        <li><span>1</span><div><strong>按住鈔票區</strong><small>按住左側，準備好再出發。</small></div></li>
+        <li><span>1</span><div><strong>從紙鈔開始</strong><small>按住左側紙鈔區，準備好再出發。</small></div></li>
         <li><span>2</span><div><strong>滑到小鴨，再滑回來</strong><small>一路不放開，碰到小鴨就回頭。</small></div></li>
         <li><span>3</span><div><strong>搶在鈔票落地前回家</strong><small>只計離開起點後的完整往返時間。</small></div></li>
       </ol>
       <div class="entry-buttons">
         <button id="entryStart" type="button" class="primary">開始挑戰 <span aria-hidden="true">→</span></button>
+        <button id="entryRanking" type="button" class="secondary">查看測試排行榜</button>
         <button id="about" type="button" class="quiet-button">玩法與設定</button>
-        <a class="platform-return quiet-button" href="/#minigames">← 返回小遊戲首頁</a>
       </div>
       <p class="ticket-note">滑鼠、觸控自動辨識 · 同一筆完成</p>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
@@ -151,14 +154,47 @@
       <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
       <div class="result-buttons">
         <button id="resultAgain" type="button" class="primary">再挑戰一次 <span aria-hidden="true">→</span></button>
-        <button id="resultDemo" type="button" class="quiet-button">重看示範</button>
+        <button id="resultDemo" type="button" class="quiet-button" disabled>重播本次</button>
         <button id="resultDownload" type="button" class="secondary">下載成績圖</button>
         <button id="resultUpload" type="button" class="secondary" aria-describedby="leaderboardStatus" disabled>上傳排行榜</button>
+        <button id="resultRanking" type="button" class="quiet-button">查看測試排行榜</button>
       </div>
       <p id="downloadStatus" class="result-status" aria-live="polite"></p>
-      <p id="leaderboardStatus" class="ticket-note">此測試版尚未連接排行榜，暫不開放上傳。</p>
+      <p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
       <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
+  </dialog>
+
+  <dialog id="rankingDialog" class="ranking-dialog" aria-labelledby="rankingTitle" aria-describedby="rankingDisclaimer">
+    <header class="ranking-header">
+      <span class="ticket-kicker">FAST HANDS · QA</span>
+      <button id="rankingClose" type="button" class="close-button" aria-label="關閉排行榜，返回上一畫面">×</button>
+      <h2 id="rankingTitle">測試排行榜</h2>
+      <p id="rankingDisclaimer">休閒比一比。成績由玩家回報，非經驗證的正式競賽。</p>
+    </header>
+    <div class="ranking-scroll" role="region" aria-label="排行榜與提交內容，可捲動" tabindex="0">
+      <section id="rankingBoard" aria-label="查看測試排行榜">
+        <div class="ranking-modes" role="group" aria-label="排行榜操作類別">
+          <button id="rankingMouse" type="button" class="secondary" aria-pressed="true">滑鼠榜</button>
+          <button id="rankingTouch" type="button" class="secondary" aria-pressed="false">觸控榜</button>
+        </div>
+        <p class="ranking-rule">滑鼠與觸控分開排名，完整往返時間越短越前面。同分同名次。</p>
+        <section id="rankingOwn" class="ranking-own" aria-label="本瀏覽器線上最佳"></section>
+        <p id="rankingBoardStatus" class="ranking-status" role="status" aria-live="polite"></p>
+        <ol id="rankingEntries" class="ranking-entries" aria-label="前二十名成績"></ol>
+        <button id="rankingRefresh" type="button" class="quiet-button">重新讀取排行榜</button>
+      </section>
+      <section id="rankingUpload" aria-label="自願提交本次成績" hidden>
+        <p id="rankingFrozenScore" class="ranking-frozen"></p>
+        <p id="rankingPrivacy">提交後，暱稱與本次成績會公開顯示在測試榜。以匿名瀏覽器識別記錄最佳，這不是登入帳號；同名不會合併，換裝置或清除資料也不會自動連回。</p>
+        <label class="ranking-nickname" for="rankingNickname">暱稱（1–20字純文字）</label>
+        <input id="rankingNickname" type="text" autocomplete="nickname" inputmode="text" maxlength="40" aria-describedby="rankingPrivacy rankingUploadStatus">
+        <label class="ranking-consent"><input id="rankingConsent" type="checkbox"><span>我同意公開以上暱稱與本次成績至測試榜。</span></label>
+        <button id="rankingSubmit" type="button" class="primary">提交本次成績</button>
+        <p id="rankingUploadStatus" class="ranking-status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <footer class="ranking-footer"><button id="rankingReturn" type="button" class="quiet-button">返回上一畫面</button></footer>
   </dialog>
 
   <dialog id="info" class="info-dialog" aria-labelledby="infoTitle">
@@ -174,7 +210,7 @@
     </div>
     <details class="fine-print"><summary>紀錄、判定與畫面說明</summary>
       <p>只計一個連續觸點；中途放開、切換視窗或旋轉畫面會中止。</p>
-      <p>時間與下落距離來自遊戲模型，不是人體反應測量。裝置尺寸與輸入延遲仍會影響成績。僅儲存這個瀏覽器的最佳紀錄，不是經驗證的線上排行榜；新版不會覆蓋舊版紀錄。</p>
+      <p>時間與下落距離來自遊戲模型，不是人體反應測量。裝置尺寸與輸入延遲仍會影響成績。本機最佳留在這個瀏覽器；成功後可自願上傳測試排行榜。線上成績由玩家回報，並非經驗證的正式競賽；新版不會覆蓋舊版紀錄。</p>
       <p>人物為已確認的程序 3D 造型，非真人實拍或代言。預設正面視角；裝置無法啟用 3D 時會標示並保留 2D 玩法。示範影片是同場景離線渲染，並非即時遊戲畫面。</p>
     </details>
     <button id="closeInfo" type="button" class="primary">知道了</button>

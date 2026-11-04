@@ -26,15 +26,18 @@ test('homepage presents Fast Hands as the fourth playable minigame without a pla
   assert.equal(card.querySelector('.play-count'), null);
   assert.equal(doc.querySelectorAll('#decathlon .game-card').length, 8);
   const image = card.querySelector('img').getAttribute('src');
-  assert.equal(image, '/assets/fast-hands-card.png');
+  assert.equal(image, '/assets/fast-hands-card-v2.webp');
   assert.ok(existsSync(new URL('public'+image, root)), 'homepage card must load locally');
 });
 
-test('entry menu has a keyboard-operable route back to the minigame shelf', () => {
+test('the platform toolbar has home, ranking and settings while entry prioritizes play', () => {
   const doc = gameDocument();
-  const link = doc.querySelector('#entryDialog a[href="/#minigames"]');
-  assert.ok(link, 'entry menu must let the player return to the platform');
-  assert.match(link.textContent, /返回.*小遊戲/);
+  const link = doc.querySelector('.pf-header a[href="/#minigames"]');
+  assert.ok(link, 'home belongs in the toolbar, like the other minigames');
+  assert.match(link.textContent, /首頁/);
+  assert.equal(doc.querySelector('#entryDialog a[href="/#minigames"]'),null);
+  assert.ok(doc.querySelector('.pf-header nav #headerRanking'));
+  assert.ok(doc.querySelector('.pf-header nav #headerSettings'));
   assert.notEqual(link.getAttribute('tabindex'), '-1');
   assert.ok(!link.hidden);
   assert.equal(doc.querySelector('#entryStart').tagName, 'BUTTON');
@@ -53,12 +56,12 @@ test('studio signature is visible in entry, next to the game heading, and on the
   assert.match(doc.querySelector('.pf-header > .pf-studio-heading > h1').textContent, /快手王/);
 });
 
-test('unavailable upload explains the test build without implying a private leaderboard', () => {
+test('upload starts disabled and explains voluntary successful-score sharing to the test board', () => {
   const doc = gameDocument();
   const upload = doc.querySelector('#resultUpload');
   assert.equal(upload.disabled, true);
   const status = doc.getElementById(upload.getAttribute('aria-describedby'));
-  assert.equal(status.textContent, '此測試版尚未連接排行榜，暫不開放上傳。');
+  assert.equal(status.textContent, '完成有效挑戰後，可自願上傳本次成績至測試排行榜。');
   assert.ok(!status.hidden);
 });
 
@@ -86,7 +89,7 @@ test('all game entry media and imported modules resolve locally with no developm
   }
 });
 
-test('homepage uses the original front-facing game character rather than substitute art', () => {
+test('archived original front-facing card remains available after the requested generated cover', () => {
   const card = new URL('public/assets/fast-hands-card.png', root);
   assert.ok(existsSync(card), 'original-character card must exist');
   assert.deepEqual(readFileSync(card), readFileSync(new URL('assets/front-demo-poster.png', gameRoot)));

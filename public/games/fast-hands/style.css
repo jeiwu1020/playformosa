@@ -225,3 +225,50 @@ body[data-renderer="fallback"][data-phase="demo"] .fallback-badge{bottom:38px}
   .entry-dialog .ticket-body{padding-top:10px;padding-bottom:10px}
   .entry-dialog .ticket-note,.entry-dialog .pf-entry-brand{margin-top:4px}
 }
+
+/* Fast Hands-only QA board. One native dialog, bounded independent scrolling. */
+body[data-overlay="ranking"] .actions{visibility:hidden}
+.ranking-dialog{width:calc(100% - 28px);max-width:480px;max-height:calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:hidden}
+.ranking-dialog[open]{display:flex;flex-direction:column}
+.ranking-header{position:relative;flex:none;background:var(--gold);padding:18px 22px 14px;border-bottom:1px dashed #c0ad7d}
+.ranking-header h2{font-size:24px;line-height:1.3;margin:8px 38px 7px 0}
+.ranking-header p{font-size:12px;line-height:1.55;margin:0;padding-right:12px;color:#46614b}
+.ranking-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;padding:18px 22px;scroll-padding:18px;-webkit-overflow-scrolling:touch}
+.ranking-scroll:focus-visible,.ranking-dialog input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.ranking-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ranking-modes button{min-width:44px;min-height:44px;padding:10px}
+.ranking-modes button[aria-pressed="true"]{color:var(--cream);background:var(--green);border-color:var(--green)}
+.ranking-rule,#rankingPrivacy{font-size:12px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}
+.ranking-own{background:var(--mint);border-radius:12px;padding:12px 14px}
+.ranking-own h3{margin:0 0 7px;font-size:13px}.ranking-own p{margin:5px 0 0;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.ranking-own strong{font-size:24px;font-variant-numeric:tabular-nums}
+.ranking-status{font-size:12px;line-height:1.65;margin:12px 0;overflow-wrap:anywhere}.ranking-status:empty{display:none}
+.ranking-entries{list-style:none;margin:12px 0;padding:0}
+.ranking-entries li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #dedfcb;font-size:13px}
+.ranking-place{font-weight:800;text-align:center}.ranking-name{overflow-wrap:anywhere}.ranking-entries strong{font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}.ranking-entries .is-me{background:#dcebdd70}
+.ranking-frozen{font-size:17px;font-weight:850;line-height:1.6;margin:0 0 12px}.ranking-nickname{display:block;font-size:14px;font-weight:750;margin:16px 0 8px}
+#rankingNickname{display:block;width:100%;min-height:46px;padding:10px 12px;border:1.5px solid #b8c8ae;border-radius:10px;background:#fffdf4;color:var(--green);font:16px/1.4 system-ui,sans-serif;user-select:text;-webkit-user-select:text}
+.ranking-consent{display:flex;align-items:center;gap:10px;min-height:48px;font-size:12px;line-height:1.6;margin:12px 0;cursor:pointer}
+.ranking-consent input{width:22px;height:22px;margin:11px 0;flex:none;accent-color:var(--green)}
+#rankingSubmit,#rankingRefresh{width:100%;min-height:44px;white-space:normal}
+.ranking-footer{display:block;flex:none;padding:10px 22px;border-top:1px solid #dedfcb;background:var(--cream)}
+.ranking-footer button{width:100%;min-height:44px}
+.result-buttons>#resultRanking{grid-column:1/-1}
+@media(max-height:400px){.ranking-header{padding:10px 16px}.ranking-header h2{font-size:20px;margin-top:4px;margin-bottom:4px}.ranking-header p{font-size:11px}.ranking-scroll{padding:12px 16px}.ranking-footer{padding:8px 16px}}
+@media(max-width:350px){.ranking-header,.ranking-scroll{padding-left:16px;padding-right:16px}.ranking-frozen{font-size:15px}.ranking-entries li{gap:5px;font-size:12px}.ranking-entries strong{font-size:12px}}
+
+/* Match the platform toolbar while keeping the single-gesture game layout. */
+.game-header{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
+.game-header .pf-home{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:8px 10px;border:1.5px solid #d5d9c7;border-radius:12px;color:var(--green);font-size:13px;font-weight:750;text-decoration:none;white-space:nowrap}
+.game-header .pf-home:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.header-tools{gap:6px}.header-tools>button{min-width:44px;min-height:44px;padding:9px 12px;font-size:13px}.header-tools .mode-status{display:none}
+.instruction strong{font-size:21px;line-height:1.45}.instruction>span{font-size:14px}
+.entry-steps strong{font-size:20px}.entry-steps small{font-size:14px}.help-steps li{font-size:16px}
+body[data-renderer="webgl"] .scene-caption{display:none}
+@media(max-width:600px) and (orientation:portrait){
+ .game-header{grid-template-columns:auto 1fr;gap:7px}.game-header .pf-home{grid-column:1;grid-row:1;justify-self:start}.game-header .header-tools{grid-column:2;grid-row:1;justify-self:end}.pf-game.pf-fast-hands .game-header>.pf-studio-heading{grid-column:1/-1;grid-row:2}.game-header h1{font-size:25px}.game-header .eyebrow{display:none}.header-tools .menu-button{width:44px;min-width:44px}.instruction strong{font-size:18px;letter-spacing:-.4px}.instruction>span{font-size:12px}.entry-steps strong{font-size:19px}.entry-steps small{font-size:13px}
+}
+@media(max-height:550px) and (orientation:landscape){
+ .game-header{grid-template-columns:auto minmax(0,1fr) auto;gap:8px}.game-header h1{font-size:21px}.game-header h1 span{display:none}.game-header .pf-studio-live{font-size:9px}.header-tools>button{padding:8px 10px;font-size:12px}.header-tools .menu-button{min-width:44px;width:44px}.header-tools .menu-button>span:last-child{display:none}.instruction strong{font-size:15px;line-height:1.45}.instruction>span{font-size:11px}.entry-steps strong{font-size:17px}.entry-steps small{font-size:12px}
+}
+
+body[data-playback="replay"] #pad{cursor:default;border-style:dashed}body[data-playback="replay"] #thumb{opacity:1}

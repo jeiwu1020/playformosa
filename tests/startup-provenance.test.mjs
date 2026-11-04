@@ -1,10 +1,11 @@
+import {readRankingBaseline} from './helpers/fast-hands-ranking-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {startupLedger,startupHash,reverseStartup,readStartupBaseline,startupRuntimeAdditions} from './helpers/startup-provenance.mjs';
 
-const root=new URL('../',import.meta.url),read=path=>readFileSync(new URL(path,root));
+const root=new URL('../',import.meta.url),read=path=>readRankingBaseline(new URL(path,root));
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const games=['beer-slide','discus','fast-hands','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];
@@ -35,7 +36,7 @@ test('startup overlay admits exactly twelve HTML pages and one new classic scrip
  assert.deepEqual(ledger.files.filter(file=>file.beforeSha256===null).map(file=>file.path),['shared/startup.js']);
  assert.deepEqual(startupRuntimeAdditions(),['public/games/shared/startup.js']);
  for(const file of ledger.files){
-  const url=new URL('public/games/'+file.path,root),bytes=readFileSync(url);
+  const url=new URL('public/games/'+file.path,root),bytes=readRankingBaseline(url);
   assert.equal(startupHash(bytes),file.sha256,file.path);
   const old=reverseStartup(file.path,bytes);
   if(file.beforeSha256){assert.equal(hash(old),file.beforeSha256);assert.equal(blob(old),file.baseGitBlob);}

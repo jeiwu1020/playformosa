@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "baseCommit": "4cb67f2f56be12e66c3f1669249ac2f33f40cc12",
+  "baseTree": "b8b0b35ac56eaa7713fb5161e4005937cdd42877",
+  "scope": "QA Fast Hands ranking, real-round replay, interface refinement and two homepage covers; no production binding, schema, physics or scoring changes",
+  "files": [
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "sha256": "0d70b2c5affee450df661b116d1d38815b260b9b5f9c0a71c1a30f9751dcabab",
+      "beforeSha256": "52b276f8181bb4ef8cc3870eb973a4e443d077f417b9880690b2896a37d79d69",
+      "baseGitBlob": "7a7e4e1dad791de25c0f7c97eede3148f22bbe70",
+      "reverseEdits": [
+        {
+          "start": 0,
+          "end": 151,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1338,
+          "end": 1521,
+          "beforeBase64": "Y29uc3Qgb2ZmbGluZT0kKCdkZW1vM2QnKSxkaWFsb2dzPVskKCdlbnRyeURpYWxvZycpLCQoJ2luZm8nKSwkKCdyZXN1bHREaWFsb2cnKV07Cg=="
+        },
+        {
+          "start": 1648,
+          "end": 1989,
+          "beforeBase64": "ZnVuY3Rpb24gc3luY092ZXJsYXkoKXtkb2N1bWVudC5ib2R5LmRhdGFzZXQub3ZlcmxheT0kKCdlbnRyeURpYWxvZycpLm9wZW4/J2VudHJ5JzokKCdyZXN1bHREaWFsb2cnKS5vcGVuPydyZXN1bHQnOiQoJ2luZm8nKS5vcGVuPydoZWxwJzonJztzeW5jVmlkZW8oKTt9CmZ1bmN0aW9uIGNsb3NlRGlhbG9ncygpe2Zvcihjb25zdCBkaWFsb2cgb2YgZGlhbG9ncylpZihkaWFsb2cub3BlbilkaWFsb2cuY2xvc2UoKTtzeW5jT3ZlcmxheSgpO30K"
+        },
+        {
+          "start": 2162,
+          "end": 2400,
+          "beforeBase64": ""
+        },
+        {
+          "start": 3103,
+          "end": 3386,
+          "beforeBase64": "IGlmKGRpc3Bvc2VkKXtyZXN1bHQuc3RhZ2UuZGlzcG9zZSgpO3JldHVybjt9c3RhZ2U9cmVzdWx0LnN0YWdlO3NhbXBsZUZvclJ1bj1yZXN1bHQuc2FtcGxlRm9yUnVuO3JlbmRlcmVyTW9kZT0nd2ViZ2wnO2RvY3VtZW50LmJvZHkuZGF0YXNldC5yZW5kZXJlcj0nd2ViZ2wnO2RvY3VtZW50LmJvZHkuZGF0YXNldC5yZWFkeT0ndHJ1ZSc7JCgnc2NlbmVDYXB0aW9uJykudGV4dENvbnRlbnQ9J+ato+mdojNEIMK3IOaJi+aMh+eVmeWcqOS4i+mdou+8jOeVq+mdoueci+W+l+a4healmuOAgic7c3luY1ZpZGVvKCk7Cg=="
+        },
+        {
+          "start": 4680,
+          "end": 5590,
+          "beforeBase64": "ZnVuY3Rpb24gcmVzZXQoKXtyZXNldERvd25sb2FkKCk7Y2xlYXJQb2ludGVyKCk7cz1uZXdSdW4oKTtsYXN0UGhhc2U9Jyc7ZmluaXNoU3RhcnRlZEF0PW51bGw7cHJldmlvdXNCZXN0PW51bGw7cmVzdWx0U2hvd249ZmFsc2U7dGVybWluYWxTZWVuQXQ9bnVsbDtyZWNvcmRTYXZlRmFpbGVkPWZhbHNlO30KZnVuY3Rpb24gaW50ZXJydXB0KHJlYXNvbil7aWYoYWN0aXZlUG9pbnRlciE9PW51bGwpcz1jYW5jZWwocyxjbG9jaygpLHJlYXNvbik7Y2xlYXJQb2ludGVyKCk7fQpmdW5jdGlvbiBhcHBseShuZXh0KXtjb25zdCBwcmV2PXM7cz1uZXh0O2lmKHByZXYucGlja3VwQXQ9PT1udWxsJiZzLnBpY2t1cEF0IT09bnVsbClxdWFjaygpO2lmKHByZXYucGhhc2UhPT0nc3VjY2VzcycmJnMucGhhc2U9PT0nc3VjY2Vzcycpe2ZpbmlzaFN0YXJ0ZWRBdD1jbG9jaygpO3ByZXZpb3VzQmVzdD1yZWFkQmVzdChzdG9yYWdlLG1vZGUpO2NvbnN0IHNhdmVkPXNhdmVCZXN0KHN0b3JhZ2UsbW9kZSxzLmVsYXBzZWRNcyk7cmVjb3JkU2F2ZUZhaWxlZD1zYXZlZD09PW51bGw7Y2FjaGVkQmVzdD1zYXZlZD8/cHJldmlvdXNCZXN0O319Cg=="
+        },
+        {
+          "start": 5801,
+          "end": 6927,
+          "beforeBase64": "cGFkLmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJkb3duJyxlPT57ZS5wcmV2ZW50RGVmYXVsdCgpO2lmKGRlbW98fGJsb2NrZWQoKXx8YWN0aXZlUG9pbnRlciE9PW51bGwpcmV0dXJuO2NvbnN0IGlucHV0TW9kZT1yZXNvbHZlSW5wdXRNb2RlKGUscHJlZmVyZW5jZSk7aWYoIWlucHV0TW9kZSlyZXR1cm47Y29uc3QgcmVjdD1wYWQuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCkseD0oZS5jbGllbnRYLXJlY3QubGVmdCkvcmVjdC53aWR0aDtpZih4PDB8fHg+VFJBQ0suaG9tZSlyZXR1cm47aWYoaXNUZXJtaW5hbChzbmFwc2hvdChzLGNsb2NrKCkpLnBoYXNlKSlyZXNldCgpO2NvbnN0IG5leHQ9YXJtKHMse3gsYXQ6c2FtcGxlVGltZShlKSxpZDplLnBvaW50ZXJJZH0pO2lmKG5leHQ9PT1zKXJldHVybjtzPW5leHQ7bW9kZT1pbnB1dE1vZGU7Y2FjaGVkQmVzdD1yZWFkQmVzdChzdG9yYWdlLG1vZGUpO2FjdGl2ZVBvaW50ZXI9ZS5wb2ludGVySWQ7YWN0aXZlVHlwZT1lLnBvaW50ZXJUeXBlO2dlc3R1cmVSZWN0PXJlY3Q7cGFkLnNldFBvaW50ZXJDYXB0dXJlKGUucG9pbnRlcklkKTt1bmxvY2soKTt9KTsKcGFkLmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJtb3ZlJyxlPT57aWYoYWN0aXZlUG9pbnRlciE9PWUucG9pbnRlcklkfHxhY3RpdmVUeXBlIT09ZS5wb2ludGVyVHlwZXx8IWdlc3R1cmVSZWN0KXJldHVybjtlLnByZXZlbnREZWZhdWx0KCk7Zm9yKGNvbnN0IGl0ZW0gb2Ygb3JkZXJlZFNhbXBsZXMoZSkpYXBwbHkobW92ZShzLHt4OnNhbXBsZVgoaXRlbSksYXQ6c2FtcGxlVGltZShpdGVtKSxpZDplLnBvaW50ZXJJZH0pKTt9KTsKcGFkLmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJ1cCcsZT0+e2lmKGFjdGl2ZVBvaW50ZXIhPT1lLnBvaW50ZXJJZHx8YWN0aXZlVHlwZSE9PWUucG9pbnRlclR5cGUpcmV0dXJuO2UucHJldmVudERlZmF1bHQoKTthcHBseShyZWxlYXNlKHMse2F0OnNhbXBsZVRpbWUoZSksaWQ6ZS5wb2ludGVySWR9KSk7Y2xlYXJQb2ludGVyKCk7fSk7Cg=="
+        },
+        {
+          "start": 7137,
+          "end": 7552,
+          "beforeBase64": "d2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2JsdXInLCgpPT5pbnRlcnJ1cHQoJ2JsdXInKSk7ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcigndmlzaWJpbGl0eWNoYW5nZScsKCk9PntpZihkb2N1bWVudC5oaWRkZW4paW50ZXJydXB0KCdoaWRkZW4nKTt9KTt3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncmVzaXplJywoKT0+aW50ZXJydXB0KCdyZXNpemUnKSk7d2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ3BhZ2VoaWRlJyxldmVudD0+e2ludGVycnVwdCgnaGlkZGVuJyk7b2ZmbGluZS5wYXVzZSgpO2lmKCFldmVudC5wZXJzaXN0ZWQpe2Rpc3Bvc2VkPXRydWU7Y2FuY2VsQW5pbWF0aW9uRnJhbWUocmFmKTtzdGFnZT8uZGlzcG9zZSgpO319KTsK"
+        },
+        {
+          "start": 8065,
+          "end": 8080,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8177,
+          "end": 8252,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8877,
+          "end": 9106,
+          "beforeBase64": ""
+        },
+        {
+          "start": 10489,
+          "end": 10875,
+          "beforeBase64": "JCgndmlld1Jlc3VsdCcpLm9uY2xpY2s9c2hvd1Jlc3VsdDskKCdyZXN1bHRBZ2FpbicpLm9uY2xpY2s9c3RhcnRHYW1lOyQoJ3Jlc3VsdERlbW8nKS5vbmNsaWNrPXNob3dEZW1vOwo="
+        },
+        {
+          "start": 11116,
+          "end": 11226,
+          "beforeBase64": "JCgnYWJvdXQnKS5vbmNsaWNrPSgpPT57aW50ZXJydXB0KCdoZWxwJyk7Y2xvc2VEaWFsb2dzKCk7b3BlbkRpYWxvZygkKCdpbmZvJykpO307Cg=="
+        },
+        {
+          "start": 11774,
+          "end": 11861,
+          "beforeBase64": "ICQoJ2hvbWVMYWJlbCcpLnRleHRDb250ZW50PSfpiJTnpagnOyQoJ2hvbWVIaW50JykudGV4dENvbnRlbnQ9aG9tZUhpbnRzW3BoYXNlXTsK"
+        },
+        {
+          "start": 12185,
+          "end": 12341,
+          "beforeBase64": "ICQoJ3ZpZXdSZXN1bHQnKS5oaWRkZW49ZGVtb3x8YWN0aXZlUG9pbnRlciE9PW51bGx8fCFpc1Rlcm1pbmFsKHZpZXcucGhhc2UpOwo="
+        },
+        {
+          "start": 12343,
+          "end": 15228,
+          "beforeBase64": "Y29uc3QgbGFiZWxzPXtpZGxlOifmjInkvY/lt6bpgorvvIzmupblgpnlh7rmiYsnLGFybWVkOifmupblgpnlpb3kuobvvIzlsLHlvoDlj7Pmu5EnLG91dGJvdW5kOifkuIDot6/lvoDlj7PvvIzmipPlsI/ptKjvvIEnLHJldHVybmluZzon5oqT5Yiw5LqG77yM5b+r5ruR5Zue5bem6YKK77yBJyxzdWNjZXNzOiflhanmqKPpg73mjqXkvY/kuobvvIEnLGZhaWxlZDon6YiU56Wo6JC95Zyw5LqG77yM5YaN6Kmm5LiA5qyhJyxjYW5jZWxsZWQ6J+mAmei8quS4reatou+8jOS4jeeVmeaIkOe4vid9Owpjb25zdCBwcm9tcHRzPXtpZGxlOifmjInkvY/otbfpu54g4oaSIOa7keWIsOWPs+mCiiDihpIg5ruR5Zue6LW36bueJyxhcm1lZDon5ruR5Ye65bem6YKK6LW36bue77yM5omN6ZaL5aeL6KiI5pmCJyxvdXRib3VuZDon5YWo56iL5oyJ5L2P77yM56Kw5Yiw5Y+z6YKK5bCx5oqT6LW3JyxyZXR1cm5pbmc6J+S4jeimgeaUvumWi++8geS4gOWPo+awo+a7keWbnuW3pumCiicsc3VjY2Vzczon5ryC5Lqu77yB5YaN5q+U5LiA5qyh6Ieq5bex55qE57SA6YyEJyxmYWlsZWQ6J+WcqOW3pumCiumHjeaWsOaMieS9j++8jOWwseiDveWGjeaMkeaIsCcsY2FuY2VsbGVkOiflnKjlt6bpgorph43mlrDmjInkvY/vvIzlsLHog73lho3mjJHmiLAnfTsKZnVuY3Rpb24gZHJhdygpe2lmKGRpc3Bvc2VkKXJldHVybjtjb25zdCBub3c9Y2xvY2soKSxkZW1vVGltZT1yZW5kZXJlck1vZGU9PT0nZmFsbGJhY2snJiZvZmZsaW5lLnJlYWR5U3RhdGU+PTEmJmRvY3VtZW50LmJvZHkuZGF0YXNldC52aWRlbyE9PSdmYWlsZWQnP29mZmxpbmUuY3VycmVudFRpbWUqMTAwMDpub3ctZGVtb1N0YXJ0LGQ9ZGVtbz8ocmVuZGVyZXJNb2RlPT09J2xvYWRpbmcnfHwocmVuZGVyZXJNb2RlPT09J2ZhbGxiYWNrJyYmZG9jdW1lbnQuYm9keS5kYXRhc2V0LnZpZGVvPT09J2ZhaWxlZCcpP2RlbW9TYW1wbGUobm93LWRlbW9TdGFydCk6ZGVtbzNEKGRlbW9UaW1lKSk6bnVsbCx2aWV3PWQ/ZC5zdGF0ZTpzbmFwc2hvdChzLG5vdykscGhhc2U9ZGVtbz8nZGVtbyc6dmlldy5waGFzZTtpZihsYXN0UGhhc2UhPT1waGFzZSl7ZG9jdW1lbnQuYm9keS5kYXRhc2V0LnBoYXNlPXBoYXNlOyQoJ3N0YXR1cycpLnRleHRDb250ZW50PWRlbW8/JzNE5YuV5L2c56S656+EJzpsYWJlbHNbdmlldy5waGFzZV07bGFzdFBoYXNlPXBoYXNlO31pZihkKSQoJ3N0YXR1cycpLnRleHRDb250ZW50PWQubGFiZWw7JCgnYmFkZ2UnKS50ZXh0Q29udGVudD1kZW1vPyflhYjnnIvkuIDmrKEnOnZpZXcucGhhc2U9PT0nc3VjY2Vzcyc/J+WujOaIkO+8gSc6dmlldy5waGFzZT09PSdhcm1lZCc/J+a6luWCmeS4rSc6J+S4gOethuaMkeaIsCc7JCgncGxheScpLmhpZGRlbj0hZGVtbzskKCdyZXRyeScpLmhpZGRlbj1kZW1vOyQoJ3Nob3dEZW1vJykuaGlkZGVuPWRlbW87JCgnbW9kZScpLmRpc2FibGVkPWFjdGl2ZVBvaW50ZXIhPT1udWxsOyQoJ2luc3RydWN0aW9uJykudGV4dENvbnRlbnQ9ZGVtbz8n5oyJ5L2P5bem6YKKIOKGkiDmu5HliLDlj7Ppgoog4oaSIOa7keWbnuW3pumCiic6cHJvbXB0c1t2aWV3LnBoYXNlXTskKCdnZXN0dXJlSGludCcpLnRleHRDb250ZW50PWRlbW8/J+WFqOeoi+S4jeeUqOaUvumWiyc6cHJlZmVyZW5jZT09PSdhdXRvJyYmdmlldy5waGFzZT09PSdpZGxlJz8n5ruR6byg5oiW5Zau5oyH77yM5YWo56iL5oyJ5L2PJzptb2RlPT09J3RvdWNoJz8n5ZCM5LiA5qC55omL5oyH77yM5LiN5pS+6ZaLJzon5oyJ5L2P5bem6Y2177yM5LiN5pS+6ZaLJzt1cGRhdGVDb250cm9scyh2aWV3KTtjb25zdCBtcz1kZW1vPzA6dmlldy5lbGFwc2VkTXM7JCgndGltZScpLmlubmVySFRNTD0obXMvMTAwMCkudG9GaXhlZCgzKSsnIDxzbWFsbD5zPC9zbWFsbD4nOyQoJ3RpbWUnKS5kYXRhc2V0Lm1zPVN0cmluZyhtcyk7Y29uc3QgYmVzdD1jYWNoZWRCZXN0OyQoJ2Jlc3QnKS50ZXh0Q29udGVudD1iZXN0PT09bnVsbD8n4oCUJzooYmVzdC8xMDAwKS50b0ZpeGVkKDMpKycgcyc7JCgnYmVzdE1vZGUnKS50ZXh0Q29udGVudD1tb2RlPT09J3RvdWNoJz8n6Ke45o6nJzon5ruR6bygJzskKCdkaXN0YW5jZScpLmlubmVySFRNTD0oKGRlbW8/MDp2aWV3LmRyb3BQeCkvMTUwKjEwMCkudG9GaXhlZCgxKSsnIDxzbWFsbD5jbTwvc21hbGw+JzskKCd0aHVtYicpLnN0eWxlLmxlZnQ9KCh2aWV3LmNvbnRyb2xYPz8uMSkqMTAwKSsnJSc7Y29uc3QgZmluaXNoQWdlPWZpbmlzaFN0YXJ0ZWRBdD09PW51bGw/MDpNYXRoLm1heCgwLG5vdy1maW5pc2hTdGFydGVkQXQpOwogaWYoIWRlbW8mJmlzVGVybWluYWwodmlldy5waGFzZSkpe3Rlcm1pbmFsU2VlbkF0Pz89bm93O2lmKGFjdGl2ZVBvaW50ZXI9PT1udWxsJiYhcmVzdWx0U2hvd24mJiFibG9ja2VkKCkmJiFkb2N1bWVudC5oaWRkZW4mJm5vdy0odmlldy5waGFzZT09PSdzdWNjZXNzJz9maW5pc2hTdGFydGVkQXQ6dGVybWluYWxTZWVuQXQpPj0odmlldy5waGFzZT09PSdzdWNjZXNzJz9GSU5JU0hfUkVTVUxUX0RFTEFZX01TOjM1MCkpc2hvd1Jlc3VsdCgpO31lbHNlIHRlcm1pbmFsU2VlbkF0PW51bGw7Cg=="
+        },
+        {
+          "start": 15716,
+          "end": 15779,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "sha256": "abd50a69c427592c26808c870848c9e960869f0274f017283a5d4ccff899f7a2",
+      "beforeSha256": "0e7e97c5a510598d6c3d93f1b9dbd38adebfe650c828c57e4ae324aeda314825",
+      "baseGitBlob": "44eb84c29d7c689dc64bd376a045334e47f531fb",
+      "reverseEdits": [
+        {
+          "start": 3171,
+          "end": 3265,
+          "beforeBase64": ""
+        },
+        {
+          "start": 3525,
+          "end": 3584,
+          "beforeBase64": "ICAgICAgPGRpdiBjbGFzcz0iaGVhZGVyLXRvb2xzIj4K"
+        },
+        {
+          "start": 3661,
+          "end": 3834,
+          "beforeBase64": ""
+        },
+        {
+          "start": 3994,
+          "end": 4007,
+          "beforeBase64": "ICAgICAgPC9kaXY+Cg=="
+        },
+        {
+          "start": 4175,
+          "end": 4244,
+          "beforeBase64": "ICAgICAgICA8c3Ryb25nIGlkPSJzdGF0dXMiIGFyaWEtbGl2ZT0icG9saXRlIj4zROWLleS9nOekuuevhDwvc3Ryb25nPgo="
+        },
+        {
+          "start": 4873,
+          "end": 4976,
+          "beforeBase64": "ICAgICAgPGRpdiBjbGFzcz0ic2NlbmUtY2FwdGlvbiIgaWQ9InNjZW5lQ2FwdGlvbiI+5q2j6Z2i6KaW6KeSIMK3IOaJi+aMh+eVmeWcqOS4i+mdou+8jOeVq+mdoueci+W+l+a4healmuOAgjwvZGl2Pgo="
+        },
+        {
+          "start": 5514,
+          "end": 5674,
+          "beforeBase64": "ICAgICAgPGRpdiBjbGFzcz0iaW5zdHJ1Y3Rpb24iPjxzdHJvbmcgaWQ9Imluc3RydWN0aW9uIj7mjInkvY/piJTnpagg4oaSIOa7keWIsOWwj+m0qCDihpIg5ruR5Zue6YiU56WoPC9zdHJvbmc+PHNwYW4gaWQ9Imdlc3R1cmVIaW50Ij7lhajnqIvkuI3mlL7plos8L3NwYW4+PC9kaXY+Cg=="
+        },
+        {
+          "start": 7992,
+          "end": 8127,
+          "beforeBase64": "ICAgICAgICA8bGk+PHNwYW4+MTwvc3Bhbj48ZGl2PjxzdHJvbmc+5oyJ5L2P6YiU56Wo5Y2APC9zdHJvbmc+PHNtYWxsPuaMieS9j+W3puWBtO+8jOa6luWCmeWlveWGjeWHuueZvOOAgjwvc21hbGw+PC9kaXY+PC9saT4K"
+        },
+        {
+          "start": 8584,
+          "end": 8681,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8768,
+          "end": 8768,
+          "beforeBase64": "ICAgICAgICA8YSBjbGFzcz0icGxhdGZvcm0tcmV0dXJuIHF1aWV0LWJ1dHRvbiIgaHJlZj0iLyNtaW5pZ2FtZXMiPuKGkCDov5Tlm57lsI/pgYrmiLLpppbpoIE8L2E+Cg=="
+        },
+        {
+          "start": 10295,
+          "end": 10393,
+          "beforeBase64": "ICAgICAgICA8YnV0dG9uIGlkPSJyZXN1bHREZW1vIiB0eXBlPSJidXR0b24iIGNsYXNzPSJxdWlldC1idXR0b24iPumHjeeci+ekuuevhDwvYnV0dG9uPgo="
+        },
+        {
+          "start": 10623,
+          "end": 10724,
+          "beforeBase64": ""
+        },
+        {
+          "start": 10812,
+          "end": 10941,
+          "beforeBase64": "ICAgICAgPHAgaWQ9ImxlYWRlcmJvYXJkU3RhdHVzIiBjbGFzcz0idGlja2V0LW5vdGUiPuatpOa4rOippueJiOWwmuacqumAo+aOpeaOkuihjOamnO+8jOaaq+S4jemWi+aUvuS4iuWCs+OAgjwvcD4K"
+        },
+        {
+          "start": 11033,
+          "end": 13734,
+          "beforeBase64": ""
+        },
+        {
+          "start": 14902,
+          "end": 15207,
+          "beforeBase64": "ICAgICAgPHA+5pmC6ZaT6IiH5LiL6JC96Led6Zui5L6G6Ieq6YGK5oiy5qih5Z6L77yM5LiN5piv5Lq66auU5Y+N5oeJ5ris6YeP44CC6KOd572u5bC65a+46IiH6Ly45YWl5bu26YGy5LuN5pyD5b2x6Z+/5oiQ57i+44CC5YOF5YSy5a2Y6YCZ5YCL54CP6Ka95Zmo55qE5pyA5L2z57SA6YyE77yM5LiN5piv57aT6amX6K2J55qE57ea5LiK5o6S6KGM5qac77yb5paw54mI5LiN5pyD6KaG6JOL6IiK54mI57SA6YyE44CCPC9wPgo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "sha256": "50f0c256b43fae2030fc7fa08535c8ddbaa48b39be2107d3ac7499eff69426c2",
+      "beforeSha256": "14bf3a3231f58781e6019e78ce9a239ffdf4913e0031e09ad5b19d3939067f37",
+      "baseGitBlob": "958fe5d9bdfc7a7e553cc63db9af442e1db9e5bb",
+      "reverseEdits": [
+        {
+          "start": 24753,
+          "end": 30386,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "sha256": "901accf6c5b797887bdae8f7cd688a10d56ca49b396d2b8aed01a0e4b641be05",
+      "beforeSha256": "28cffe283ebdc3ef4ea44295ec13002143b5bde35e26731a9b6a7eb47f17999a",
+      "baseGitBlob": "abcf36ffc32b422eba398c7dad72c28d6234cc8b",
+      "reverseEdits": [
+        {
+          "start": 115,
+          "end": 190,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1260,
+          "end": 1876,
+          "beforeBase64": ""
+        },
+        {
+          "start": 2387,
+          "end": 2811,
+          "beforeBase64": "IGNvbnN0IGI9dHlwZW9mIHZhbHVlLmdhbWU9PT0nc3RyaW5nJyYmT2JqZWN0Lmhhc093bihCT0FSRFMsdmFsdWUuZ2FtZSk/Qk9BUkRTW3ZhbHVlLmdhbWVdOm51bGw7aWYoIWJ8fHZhbHVlLnJ1bGVzIT09Yi5ydWxlc3x8dmFsdWUudW5pdCE9PWIudW5pdHx8dmFsdWUuc3RhdHVzIT09Yi5zdGF0dXMpdGhyb3cgRXJyb3IoJ2ludmFsaWRfYm9hcmQnKTsKIGlmKHR5cGVvZiB2YWx1ZS5zY29yZSE9PSdudW1iZXInfHwhTnVtYmVyLmlzRmluaXRlKHZhbHVlLnNjb3JlKXx8dmFsdWUuc2NvcmU8PTB8fHZhbHVlLnNjb3JlPmIubWF4KXRocm93IEVycm9yKCdpbnZhbGlkX3Njb3JlJyk7Cg=="
+        },
+        {
+          "start": 3719,
+          "end": 4303,
+          "beforeBase64": ""
+        },
+        {
+          "start": 5148,
+          "end": 5746,
+          "beforeBase64": "ICAgY29uc3QgZ2FtZT11cmwuc2VhcmNoUGFyYW1zLmdldCgnZ2FtZScpLGJvYXJkPU9iamVjdC5oYXNPd24oQk9BUkRTLGdhbWUpP0JPQVJEU1tnYW1lXTpudWxsOwogICBpZighYm9hcmR8fFsuLi51cmwuc2VhcmNoUGFyYW1zLmtleXMoKV0uc29tZShrPT5rIT09J2dhbWUnKSlyZXR1cm4ganNvbih7ZXJyb3I6J2ludmFsaWRfYm9hcmQnfSw0MDApOwo="
+        },
+        {
+          "start": 6936,
+          "end": 7334,
+          "beforeBase64": "ICBsZXQgZGF0YTt0cnl7ZGF0YT12YWxpZGF0ZVN1Ym1pc3Npb24oSlNPTi5wYXJzZShuZXcgVGV4dERlY29kZXIoJ3V0Zi04Jyx7ZmF0YWw6dHJ1ZX0pLmRlY29kZShieXRlcykpKTt9Y2F0Y2h7cmV0dXJuIGpzb24oe2Vycm9yOidpbnZhbGlkX3N1Ym1pc3Npb24nfSw0MDApO30KICBjb25zdCByZXN1bHQ9YXdhaXQgcmVwby5zdWJtaXQoZGF0YSxCT0FSRFNbZGF0YS5nYW1lXSxub3cpOwo="
+        }
+      ]
+    },
+    {
+      "path": "src/catalog.mjs",
+      "sha256": "02cc56920026c9b4f184d1dab2a9a12dc0d47ff73114aa0dc4708da48b95e38c",
+      "beforeSha256": "ca55dc3f5d47c78044649421e732a58dbd8f6a15a1edbc7532d3c5af5850ea00",
+      "baseGitBlob": "7ce3029f071b25676776b02a58a686f9581aa305",
+      "reverseEdits": [
+        {
+          "start": 2192,
+          "end": 2464,
+          "beforeBase64": "ICAgIHtpZDonYmVlci1zbGlkZScsIHRpdGxlOifliKXngZHllYrvvIEnLCBldmVudDon5ZWk6YWS57K+5rqW5o6o5p2vJywgaHJlZjonL2dhbWVzL2JlZXItc2xpZGUvJywgc3RhdHVzOidhdmFpbGFibGUnLCBpbWFnZTonL2Fzc2V0cy9iZWVyLXNsaWRlLWNhcmQuc3ZnJywga2lja2VyOifmna/lrZDopoHliLDnq5nvvIzllaTphZLliKXkuIvnj63jgIInLCBpbnB1dDon5ruR6byg77yP6Ke45o6n77yP56m655m96Y21J30sCg=="
+        },
+        {
+          "start": 2703,
+          "end": 2978,
+          "beforeBase64": "ICAgIHtpZDonZmFzdC1oYW5kcycsdGl0bGU6J+W/q+aJi+eOi++9nOS4gOethuW+gOi/lCcsZXZlbnQ6J+S4gOethuW+gOi/lOaJi+mAn+aMkeaIsCcsaHJlZjonL2dhbWVzL2Zhc3QtaGFuZHMvJyxzdGF0dXM6J2F2YWlsYWJsZScsaW1hZ2U6Jy9hc3NldHMvZmFzdC1oYW5kcy1jYXJkLnBuZycsa2lja2VyOifmlL7piJTjgIHmipPptKjjgIHlm57mjqXvvIzkuIDnrYblrozmiJDjgIInLGlucHV0Oifmu5HpvKDvvI/op7jmjqcnfQo="
+        }
+      ]
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "bd88ad0454f41c5bd87c790bc40e3788ffe1273fa110f2576cf7d20097d18c60",
+      "beforeSha256": "70088534aaa8b69e05f21cdfad46ab50dacb3e7ab6fd11ff5445d91905b8620d",
+      "baseGitBlob": "139a5e47a2997e9ce86019c0712d7a3235b4bc51",
+      "reverseEdits": [
+        {
+          "start": 9727,
+          "end": 13317,
+          "beforeBase64": "PHNlY3Rpb24gY2xhc3M9InNlcmllcyBtaW5pZ2FtZXMiIGlkPSJtaW5pZ2FtZXMiIGFyaWEtbGFiZWxsZWRieT0ibWluaWdhbWVzLXRpdGxlIj48ZGl2IGNsYXNzPSJzZXJpZXMtaGVhZGluZyI+PGRpdj48cCBjbGFzcz0iZXllYnJvdyI+U01BTEwgR0FNRVMsIEJJRyBSRUFDVElPTlM8L3A+PGgyIGlkPSJtaW5pZ2FtZXMtdGl0bGUiPuWwj+mBiuaIsjwvaDI+PC9kaXY+PHAgY2xhc3M9InByb2dyZXNzIj7nm67liY3plovmlL4gPHN0cm9uZz40PC9zdHJvbmc+IOasvjwvcD48L2Rpdj48ZGl2IGNsYXNzPSJzZXJpZXMtYm9keSI+PGRpdiBjbGFzcz0iZ2FtZS1saXN0Ij48YXJ0aWNsZSBjbGFzcz0iZ2FtZS1jYXJkIj48YSBocmVmPSIvZ2FtZXMvcmVhY3Rpb24tcm9kLyIgY2xhc3M9ImdhbWUtdGh1bWJuYWlsIiB0YWJpbmRleD0iLTEiIGFyaWEtaGlkZGVuPSJ0cnVlIj48aW1nIHNyYz0iL2Fzc2V0cy9yZWFjdGlvbi1yb2QtY2FyZC5wbmciIGNsYXNzPSJnYW1lLWlsbHVzdHJhdGlvbiIgYWx0PSIiIHdpZHRoPSIxNTM2IiBoZWlnaHQ9IjEwMjQiIGxvYWRpbmc9ImxhenkiPjxzcGFuPuWwj+mBiuaIsiDCtyDlpJzluILlj43mh4nlips8L3NwYW4+PC9hPjxkaXYgY2xhc3M9ImdhbWUtaW5mbyI+PHAgY2xhc3M9ImdhbWUta2lja2VyIj7ljYHmoLnmo5LlrZDvvIzmiYvohablkITmhpHmnKzkuovjgII8L3A+PGgzPuaOpeajkuWVpu+8gTwvaDM+PHAgY2xhc3M9ImV2ZW50LWxhYmVsIj7lpJzluILlj43mh4nlips8L3A+PHAgY2xhc3M9ImlucHV0LWNoaXAiPjxzcGFuIGFyaWEtaGlkZGVuPSJ0cnVlIj7ijKggLyDimJ08L3NwYW4+IOa7kem8oO+8j+inuOaOp++8j+mNteebpDwvcD48cCBjbGFzcz0icGxheS1jb3VudCIgdGl0bGU9IuacrOWKn+iDveWVn+eUqOW+jOe0r+ioiOeahOmWi+WxgOe0gOmMhCIgZGF0YS1wbGF5LWNvdW50PSJyZWFjdGlvbi1yb2QiIGFyaWEtbGl2ZT0icG9saXRlIj7pgYrnjqnmrKHmlbjoroDlj5bkuK3igKY8L3A+PC9kaXY+PGEgY2xhc3M9ImJ1dHRvbiBidXR0b24tcHJpbWFyeSBnYW1lLWN0YSIgaHJlZj0iL2dhbWVzL3JlYWN0aW9uLXJvZC8iIGFyaWEtbGFiZWw9IumWi+Wni+aMkeaIsO+8muaOpeajkuWVpu+8gSI+6ZaL5aeL5oyR5oiwIDxzcGFuIGFyaWEtaGlkZGVuPSJ0cnVlIj7ihpc8L3NwYW4+PC9hPjwvYXJ0aWNsZT48YXJ0aWNsZSBjbGFzcz0iZ2FtZS1jYXJkIj48YSBocmVmPSIvZ2FtZXMvYmVlci1zbGlkZS8iIGNsYXNzPSJnYW1lLXRodW1ibmFpbCIgdGFiaW5kZXg9Ii0xIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PGltZyBzcmM9Ii9hc3NldHMvYmVlci1zbGlkZS1jYXJkLnN2ZyIgY2xhc3M9ImdhbWUtc2NlbmUiIGFsdD0iIiB3aWR0aD0iMTUzNiIgaGVpZ2h0PSIxMDI0IiBsb2FkaW5nPSJsYXp5Ij48c3Bhbj7lsI/pgYrmiLIgwrcg5ZWk6YWS57K+5rqW5o6o5p2vPC9zcGFuPjwvYT48ZGl2IGNsYXNzPSJnYW1lLWluZm8iPjxwIGNsYXNzPSJnYW1lLWtpY2tlciI+5p2v5a2Q6KaB5Yiw56uZ77yM5ZWk6YWS5Yil5LiL54+t44CCPC9wPjxoMz7liKXngZHllYrvvIE8L2gzPjxwIGNsYXNzPSJldmVudC1sYWJlbCI+5ZWk6YWS57K+5rqW5o6o5p2vPC9wPjxwIGNsYXNzPSJpbnB1dC1jaGlwIj48c3BhbiBhcmlhLWhpZGRlbj0idHJ1ZSI+4oyoIC8g4pidPC9zcGFuPiDmu5HpvKDvvI/op7jmjqfvvI/nqbrnmb3pjbU8L3A+PHAgY2xhc3M9InBsYXktY291bnQiIHRpdGxlPSLmnKzlip/og73llZ/nlKjlvozntK/oqIjnmoTplovlsYDntIDpjIQiIGRhdGEtcGxheS1jb3VudD0iYmVlci1zbGlkZSIgYXJpYS1saXZlPSJwb2xpdGUiPumBiueOqeasoeaVuOiugOWPluS4reKApjwvcD48L2Rpdj48YSBjbGFzcz0iYnV0dG9uIGJ1dHRvbi1wcmltYXJ5IGdhbWUtY3RhIiBocmVmPSIvZ2FtZXMvYmVlci1zbGlkZS8iIGFyaWEtbGFiZWw9IumWi+Wni+aMkeaIsO+8muWIpeeBkeWViu+8gSI+6ZaL5aeL5oyR5oiwIDxzcGFuIGFyaWEtaGlkZGVuPSJ0cnVlIj7ihpc8L3NwYW4+PC9hPjwvYXJ0aWNsZT48YXJ0aWNsZSBjbGFzcz0iZ2FtZS1jYXJkIj48YSBocmVmPSIvZ2FtZXMvdG93ZXItY2xpbWIvIiBjbGFzcz0iZ2FtZS10aHVtYm5haWwiIHRhYmluZGV4PSItMSIgYXJpYS1oaWRkZW49InRydWUiPjxpbWcgc3JjPSIvYXNzZXRzL3Rvd2VyLWNsaW1iLWNhcmQucG5nIiBjbGFzcz0iZ2FtZS1pbGx1c3RyYXRpb24iIGFsdD0iIiB3aWR0aD0iMTUzNiIgaGVpZ2h0PSIxMDI0IiBsb2FkaW5nPSJsYXp5Ij48c3Bhbj7lsI/pgYrmiLIgwrcg5a6k5YWn55m76auYPC9zcGFuPjwvYT48ZGl2IGNsYXNzPSJnYW1lLWluZm8iPjxwIGNsYXNzPSJnYW1lLWtpY2tlciI+NjAg56eS77yM5oyR5oiw5Y2B5bGk5qiT44CCPC9wPjxoMz7kuIrmqJPkuI3lrrnmmJM8L2gzPjxwIGNsYXNzPSJldmVudC1sYWJlbCI+5a6k5YWn55m76auYPC9wPjxwIGNsYXNzPSJpbnB1dC1jaGlwIj48c3BhbiBhcmlhLWhpZGRlbj0idHJ1ZSI+4oyoIC8g4pidPC9zcGFuPiDpjbXnm6TvvI/op7jmjqc8L3A+PHAgY2xhc3M9InBsYXktY291bnQiIHRpdGxlPSLmnKzlip/og73llZ/nlKjlvozntK/oqIjnmoTplovlsYDntIDpjIQiIGRhdGEtcGxheS1jb3VudD0idG93ZXItY2xpbWIiIGFyaWEtbGl2ZT0icG9saXRlIj7pgYrnjqnmrKHmlbjoroDlj5bkuK3igKY8L3A+PC9kaXY+PGEgY2xhc3M9ImJ1dHRvbiBidXR0b24tcHJpbWFyeSBnYW1lLWN0YSIgaHJlZj0iL2dhbWVzL3Rvd2VyLWNsaW1iLyIgYXJpYS1sYWJlbD0i6ZaL5aeL5oyR5oiw77ya5LiK5qiT5LiN5a655piTIj7plovlp4vmjJHmiLAgPHNwYW4gYXJpYS1oaWRkZW49InRydWUiPuKGlzwvc3Bhbj48L2E+PC9hcnRpY2xlPjxhcnRpY2xlIGNsYXNzPSJnYW1lLWNhcmQiPjxhIGhyZWY9Ii9nYW1lcy9mYXN0LWhhbmRzLyIgY2xhc3M9ImdhbWUtdGh1bWJuYWlsIiB0YWJpbmRleD0iLTEiIGFyaWEtaGlkZGVuPSJ0cnVlIj48aW1nIHNyYz0iL2Fzc2V0cy9mYXN0LWhhbmRzLWNhcmQucG5nIiBjbGFzcz0iZ2FtZS1zY2VuZSIgYWx0PSIiIHdpZHRoPSIxNTM2IiBoZWlnaHQ9IjEwMjQiIGxvYWRpbmc9ImxhenkiPjxzcGFuPuWwj+mBiuaIsiDCtyDkuIDnrYblvoDov5TmiYvpgJ/mjJHmiLA8L3NwYW4+PC9hPjxkaXYgY2xhc3M9ImdhbWUtaW5mbyI+PHAgY2xhc3M9ImdhbWUta2lja2VyIj7mlL7piJTjgIHmipPptKjjgIHlm57mjqXvvIzkuIDnrYblrozmiJDjgII8L3A+PGgzPuW/q+aJi+eOi++9nOS4gOethuW+gOi/lDwvaDM+PHAgY2xhc3M9ImV2ZW50LWxhYmVsIj7kuIDnrYblvoDov5TmiYvpgJ/mjJHmiLA8L3A+PHAgY2xhc3M9ImlucHV0LWNoaXAiPjxzcGFuIGFyaWEtaGlkZGVuPSJ0cnVlIj7ijKggLyDimJ08L3NwYW4+IOa7kem8oO+8j+inuOaOpzwvcD48L2Rpdj48YSBjbGFzcz0iYnV0dG9uIGJ1dHRvbi1wcmltYXJ5IGdhbWUtY3RhIiBocmVmPSIvZ2FtZXMvZmFzdC1oYW5kcy8iIGFyaWEtbGFiZWw9IumWi+Wni+aMkeaIsO+8muW/q+aJi+eOi++9nOS4gOethuW+gOi/lCI+6ZaL5aeL5oyR5oiwIDxzcGFuIGFyaWEtaGlkZGVuPSJ0cnVlIj7ihpc8L3NwYW4+PC9hPjwvYXJ0aWNsZT48L2Rpdj48L2Rpdj48L3NlY3Rpb24+Cg=="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "sha256": "843916bae791d0e0fb3cdaa8f424100042383a7bce8bf5e85cadd372819d9a41",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "sha256": "b3f3d36c13a1639d0a2996fba7910ebcbab45c436f3e5e0a8e6be97b08e6e1e7",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/assets/fast-hands-card-v2.webp",
+      "sha256": "00309b43cdcf7711a4e51cd25e89a16611fcd11f89831e3e454c69210a027b94",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/assets/beer-slide-card-v2.webp",
+      "sha256": "815f70f12f9660e9fa1f637dab002c21b4a1211dc1a1d4e923fc86360b463e07",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    }
+  ],
+  "protected": [
+    {
+      "path": "docs/minigames/STARTUP-MANIFEST.json",
+      "sha256": "ea21e7505c9308c33557390368ef67526c543de9e50cd70b4aecfca61c6f071a"
+    },
+    {
+      "path": "docs/minigames/STUDIO-BRAND-MANIFEST.json",
+      "sha256": "bcf2e65e2ced664cd18934d94508d8984d5e3384cd47045c652821634f566b12"
+    },
+    {
+      "path": "docs/fast-hands/platform-manifest.json",
+      "sha256": "b2b1ec4c803e66a54e345fd85a1a060ab491554a6dd1f04b2368001e73d6ca5f"
+    },
+    {
+      "path": "docs/fast-hands/import-manifest.json",
+      "sha256": "731aa36d01e5cbe16f0ee4b86129f8b57a0c6d6244bfaa8689a4939e41864f54"
+    },
+    {
+      "path": "docs/minigames/UI-STANDARD-MANIFEST.json",
+      "sha256": "2c259504917e091644ea9f9a021d228168c969d6b5ee08e83f40994b8f9f673a"
+    },
+    {
+      "path": "docs/minigames/REACTION-ROD-POLISH-MANIFEST.json",
+      "sha256": "7309e4a63dc155aa46c17adf203104e10860406cd51e8545846d957444944a35"
+    },
+    {
+      "path": "docs/minigames/REACTION-ROD-REPLAY-MANIFEST.json",
+      "sha256": "8cafbb6ad8b06784c6c3ddb72ea6830166c05441e870346d670c0f55558bc5c6"
+    },
+    {
+      "path": "docs/minigames/REACTION-ROD-RESULT-MANIFEST.json",
+      "sha256": "bc9abea91aeebc4546c69e34fcd0d1982347e13142574dbe913144f510ac1edb"
+    },
+    {
+      "path": "docs/minigames/REACTION-ROD-VIEWPORT-MANIFEST.json",
+      "sha256": "cbe2463ebdf8703323008c708db769cd52a6cc47592fb6de8adc5e9d94052bc0"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "sha256": "bae744f80a5eb23bb60c8a06f821dcdc5bc8c00a39f73eb66ec9b1856c9ba036"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "sha256": "e752cccea04800a4b2c7139044c088bbb638a241263d590860d4f65d21d35a7a"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "sha256": "9a7fa89204f6a143d319863d72081e255fca9721bb212aabe8a35ef022b263d4"
+    },
+    {
+      "path": "worker/leaderboard/003.sql",
+      "sha256": "ade193f51fbc67a11b9a271bcccfc150d1bcdfbf5f91f50e048b4f94d1404939"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "sha256": "35907ce78143c176138280fbedeca9f60ac11bfa49a49afee2db9af58379a459"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "sha256": "5e994219a4ed816d143af9a6ae8c6ea3a296d00b883ac68d7a1714e1d89c298b"
+    },
+    {
+      "path": "package.json",
+      "sha256": "5972f8e0f14ec38a051ca99735a1a6038357884724bba61d8b6acdda024ad61e"
+    }
+  ]
+}
