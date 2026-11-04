@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff9e9"><title>快手王｜十回合對決</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"></head>
+<body class="level-page" data-level="duel" data-phase="idle">
+<main class="level-main">
+ <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · 快手王</p><h1>十回合對決</h1></div><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
+ <nav class="level-switch" aria-label="切換快手王關卡"><a href="./"><span aria-hidden="true">🦆</span>小鴨往返</a><a href="catch.html"><span aria-hidden="true">🟠</span>玩具彈接接樂</a><a href="duel.html" aria-current="page"><span aria-hidden="true">⚡</span>十回合對決</a></nav>
+ <section class="level-hud" aria-label="本場比分"><div><span>你</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span class="arcade-badge">AI 虛擬對手</span></div><div><span>快手王</span><strong id="opponentScore">—</strong></div></section>
+ <section id="stage" class="level-stage" aria-label="玩家與 AI 搶同一件物品">
+  <div class="stage-top"><span class="stage-kicker">THE SILLY SHOWDOWN</span><span class="stage-tag">每回合不同物品</span></div>
+  <div id="signal" class="signal">等訊號</div>
+  <div class="catch-scene" hidden aria-hidden="true">
+   <div class="toy-launcher"><span>POF!</span><i></i><b></b></div><div class="flight-path"></div><div class="catch-zone"><span>接球圈</span></div><div id="foamBall" class="foam-ball" style="--flight:0"></div><div class="catch-hand">✋</div><span class="launcher-label">泡棉發射器</span>
+  </div>
+  <div class="duel-scene" >
+   <div class="contestant player"><div class="avatar" aria-hidden="true">✋</div><span>你</span><div class="duel-hand" aria-hidden="true">🤏</div></div>
+   <div class="prize"><span class="prize-star" aria-hidden="true">✦</span><span id="itemEmoji" class="item-emoji" aria-hidden="true">🩴</span><strong id="itemName">阿嬤的飛天拖鞋</strong><p id="itemQuip">這次不用閃，搶到算你的。</p></div>
+   <div class="contestant rival"><div class="avatar"><img src="assets/result-pose.png" alt="虛擬快手王"></div><span>AI 快手王</span><div class="duel-hand" aria-hidden="true">🤏</div></div>
+  </div>
+  <p class="stage-bottom">跟快手王搶怪東西！</p>
+ </section>
+ <section class="round-feedback" aria-label="當前回合"><h2 id="roundStatus" aria-live="polite">準備好了嗎？</h2><p id="roundHint">先練習一次，再開始正式挑戰。</p><div id="roundDots" class="round-dots" aria-label="回合進度"></div></section>
+ <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><p class="eyebrow">本場成績</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p><ol id="roundResults" class="round-results"></ol><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
+ <div class="level-controls"><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="roundButton" type="button" class="action-button">先練習一次</button><p class="input-help">點大按鈕 · 電腦也可按空白鍵或 Enter</p><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div>
+ <details class="level-help"><summary>怎麼玩？</summary><ol><li>先試一回合，再跟 AI 打滿十回合。</li><li>每回合搶同一件怪東西，等「出手！」訊號再按「搶！」。</li><li>提前按算搶跑，直接輸掉該回合。AI 的時間在訊號前決定，有快有慢，不會偷看你的操作。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。</p></details>
+ <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
+ <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./">回到小鴨關卡</a></noscript>
+</main><script type="module" src="levels-app.mjs"></script></body></html>

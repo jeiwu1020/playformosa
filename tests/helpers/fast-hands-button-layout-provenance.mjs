@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';import {resolve,relative,sep,isAbsolute} from 'node:path';import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';import {readLevelsBaseline} from './fast-hands-levels-provenance.mjs';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';import {resolve,relative,sep,isAbsolute} from 'node:path';import assert from 'node:assert/strict';
 const root=new URL('../../',import.meta.url),rootPath=fileURLToPath(root),hash=b=>createHash('sha256').update(b).digest('hex');
 export const BUTTON_LAYOUT_PATHS=Object.freeze(['public/games/fast-hands/index.html','public/games/fast-hands/style.css']);
 export const buttonLayoutLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/BUTTON-LAYOUT-MANIFEST.json',root),'utf8'));
@@ -10,5 +10,5 @@ export function reverseButtonLayout(path,bytes,ledger=buttonLayoutLedger()){
  assert.equal(hash(restored),entry.beforeSha256);assert.equal(createHash('sha1').update(`blob ${restored.length}\0`).update(restored).digest('hex'),entry.baseGitBlob);return restored;
 }
 export function readButtonLayoutBaseline(file,options){
- const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);const result=within?reverseButtonLayout(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
+ const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');const bytes=readLevelsBaseline(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);const result=within?reverseButtonLayout(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }
