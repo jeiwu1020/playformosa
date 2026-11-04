@@ -7,7 +7,7 @@ import{createMenuAudio}from'./menu-audio.mjs';
 // Shared presentation only: original game callbacks own all clocks, input and audio.
 export function createEntryShell({document,title,goal,operations,gameId=null,advanced=null,onStart,onEnter=()=>{},onHelpEnter=null,canStart=()=>true,forceFallback=false}){
  const win=document.defaultView,dialog=document.createElement('dialog');dialog.className='pf-entry';dialog.setAttribute('aria-label',title);dialog.setAttribute('data-pf-entry','');
- const brand=document.createElement('p');brand.className='pf-entry-brand';brand.textContent='PLAYFORMOSA';const heading=document.createElement('h2');heading.textContent=title;
+ const brand=document.createElement('p');brand.className='pf-entry-brand';brand.textContent='島遊無界工作室 | PLAYFORMOSA STUDIO';const heading=document.createElement('h2');heading.textContent=title;
  const aim=document.createElement('p');aim.className='pf-entry-goal';aim.textContent=goal;const core=document.createElement('div');core.className='pf-entry-operations';
  for(const text of operations){const p=document.createElement('p');p.className='pf-entry-operation';p.textContent=text;core.append(p);}
  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='進階說明與素材授權';details.append(summary);if(advanced)details.append(advanced);

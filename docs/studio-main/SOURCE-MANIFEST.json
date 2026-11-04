@@ -1,0 +1,1504 @@
+{
+  "mainBase": "90e6690ca248752917955839d8c1ee2903a903d2",
+  "baseOverlay": "loading-main",
+  "previewSource": "1b79d1f22f84638f44b69bd7274bc84670af4876",
+  "scope": [
+    "hurdles",
+    "reaction-rod",
+    "shared-entry-attribution"
+  ],
+  "addedPublicPaths": [
+    "games/shared/studio-brand.css"
+  ],
+  "addedFiles": [
+    {
+      "path": "public/games/shared/studio-brand.css",
+      "gitBlob": "18ba8abc165e498154dd167de0c0045e36b7df36",
+      "sha256": "9b20939944d6b0d6a0368c9840ad9ef3be1a0e7c95ada1adfe795a8a0970bcce"
+    }
+  ],
+  "files": [
+    {
+      "path": "public/games/hurdles/index.html",
+      "beforeText": "<!doctype html>\n<html data-pf-startup=\"pending\" lang=\"zh-Hant\" data-layout=\"bottom\"><head><meta charset=\"utf-8\"><style id=\"pf-startup-style\">html[data-pf-startup]:not([data-pf-startup=\"ready\"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}\n#pf-startup{position:fixed;inset:0;z-index:2147483647;display:flex;overflow:auto;box-sizing:border-box;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));background:#f6f1df;color:#243e38;font:16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center}\n#pf-startup .pf-loading-card{box-sizing:border-box;width:min(100%,440px);flex:none;margin:auto;padding:22px 22px 16px;border:2px solid #294c40;border-radius:24px;background:#fff9e8;box-shadow:0 7px 0 #d7dfc8}\n#pf-startup .pf-loading-brand{margin:0;color:#667969;font-size:11px;font-weight:700;letter-spacing:2px}\n#pf-startup .pf-loading-art{display:block;width:170px;height:132px;margin:12px auto 4px;overflow:visible}\n#pf-startup .pf-loading-person{transform-origin:90px 112px;animation:pf-loading-warmup 1.6s ease-in-out infinite}\n#pf-startup .pf-loading-badge{display:inline-block;margin:0 0 9px;padding:2px 11px;border:1px solid #b3c3ab;border-radius:999px;background:#e6efd6;font-size:12px;font-weight:700;letter-spacing:1px}\n#pf-startup #pf-startup-status{margin:0;font-size:21px;line-height:1.45;font-weight:800}\n#pf-startup .pf-loading-joke{margin:9px 0 18px;color:#526c5b;font-size:15px;line-height:1.7;overflow-wrap:anywhere}\n#pf-startup nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;border-top:1px dashed #bdc9b8;padding-top:12px;margin-top:16px}\n#pf-startup nav a{display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;min-height:44px;padding:5px 12px;color:#294c40;font-size:13px;text-underline-offset:4px;border-radius:10px}\n#pf-startup a:focus-visible{outline:3px solid #dc683e;outline-offset:2px}\n#pf-startup noscript p{margin:8px 0 0;font-size:14px}\nhtml[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-person{animation:none}\nhtml[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-joke,html[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-badge{display:none}\nhtml[data-pf-startup=\"waiting\"] #pf-startup #pf-startup-status{font-size:18px}\n@keyframes pf-loading-warmup{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}\n@media(prefers-reduced-motion:reduce){#pf-startup .pf-loading-person{animation:none}}\n@media(max-height:450px){#pf-startup{padding:12px 16px}#pf-startup .pf-loading-card{padding:14px 18px 10px}#pf-startup .pf-loading-art{width:110px;height:85px;margin:4px auto 0}#pf-startup .pf-loading-joke{margin-bottom:8px}#pf-startup nav{margin-top:8px;padding-top:6px}}\ndialog [data-pf-startup-recovery]{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}dialog [data-pf-startup-recovery] a{display:inline-flex;align-items:center;min-height:44px}\n</style><link rel=\"modulepreload\" href=\"game.mjs?v=1.4.0\"><link rel=\"modulepreload\" href=\"vendor/three.core.min.js\"><link rel=\"modulepreload\" href=\"vendor/three.module.min.js\"><link rel=\"modulepreload\" href=\"../shared/entry-shell.mjs\"><script id=\"pf-startup-script\">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */\n(()=>{\n const doc=document,root=doc.documentElement;\n if(root.dataset.pfStartup!=='pending')return;\n let done=false,timer;\n const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';\n function ready(){\n  // Main Jump opens its original error dialog if WebGL cannot initialize.\n  const legacyError=doc.querySelector('dialog#overlay[open]');\n  const entry=doc.querySelector(selector)||(legacyError?.querySelector('#start:disabled')?legacyError:null);\n  if(done||!entry||entry.hidden)return false;\n  if(entry===legacyError&&!entry.querySelector('[data-pf-startup-recovery]')){\n   const recovery=doc.getElementById('pf-startup')?.querySelector('nav')?.cloneNode(true);\n   if(recovery){recovery.dataset.pfStartupRecovery='';entry.append(recovery);}\n  }\n  done=true;clearTimeout(timer);observer.disconnect();\n  window.removeEventListener('error',failed,true);\n  window.removeEventListener('unhandledrejection',failed);\n  root.dataset.pfStartup='ready';\n  doc.getElementById('pf-startup')?.remove();\n  // Native/fallback modal focus may have been attempted while visually gated.\n  if(!entry.contains(doc.activeElement)){\n   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];\n   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);\n   (target||entry).focus({preventScroll:true});\n  }\n  return true;\n }\n function failed(){\n  if(ready()||done)return;\n  const status=doc.getElementById('pf-startup-status');\n  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';\n  root.dataset.pfStartup='waiting';\n  // Keep observing: a slow connection can still finish without a forced reload.\n }\n const observer=new MutationObserver(ready);\n observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});\n window.addEventListener('error',failed,true);\n window.addEventListener('unhandledrejection',failed);\n timer=setTimeout(failed,15000);\n ready();\n})();\n</script><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><meta name=\"theme-color\" content=\"#f5f1e7\"><meta name=\"description\" content=\"同款四肢選手，八道不同意的欄杆。PlayFormosa 110 公尺跨欄。\"><title>四肢各有想法｜110公尺跨欄｜PlayFormosa</title><link rel=\"stylesheet\" href=\"style.css?v=1.4.0\"><link rel=\"stylesheet\" href=\"../shared/game-ui.css\"><link rel=\"stylesheet\" href=\"../shared/entry-shell.css\"><link rel=\"stylesheet\" href=\"../shared/controls-shell.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"../../assets/app-icons/hurdles/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"../../assets/app-icons/hurdles/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"../../assets/app-icons/hurdles/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"四肢各有想法｜110公尺跨欄\"><meta name=\"apple-mobile-web-app-title\" content=\"110公尺跨欄\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body class=\"pf-game pf-hurdles\"><section id=\"pf-startup\" aria-label=\"遊戲載入\"><div class=\"pf-loading-card\"><p class=\"pf-loading-brand\">PLAYFORMOSA STUDIO</p><svg class=\"pf-loading-art\" viewBox=\"0 0 180 140\" aria-hidden=\"true\" focusable=\"false\"><ellipse cx=\"90\" cy=\"126\" rx=\"48\" ry=\"6\" fill=\"#dce5cf\"/><path d=\"M25 107l-7 4m137-26 8-5M34 44l-7-3\" stroke=\"#c1d1b5\" stroke-width=\"4\" stroke-linecap=\"round\"/><g class=\"pf-loading-person\" stroke=\"#294c40\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M75 98l-10 21-15-2M104 97l15 15 13-9\" fill=\"none\"/><path d=\"M71 82l4 19 31-1 3-19\" fill=\"#334c59\"/><path d=\"M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29\" fill=\"#f39453\"/><path d=\"M71 64 53 78 43 61M107 64l17 12 10-16\" fill=\"none\"/><path d=\"m40 60 3-6 5 5m83 0 4-6 4 5\" fill=\"none\"/><path d=\"M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z\" fill=\"#fff4d9\"/><path d=\"m82 20 2-10 8 9 5-9 5 12\" fill=\"#334c59\"/><path d=\"M80 39v2m21-2v2\"/><path d=\"m86 50 9 2 4-3\" fill=\"none\" stroke-width=\"3\"/><path d=\"m74 46 6 1m22 0 5-1\" stroke=\"#efa37f\" stroke-width=\"3\"/></g><path d=\"M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z\" fill=\"#87b5a1\"/></svg><p class=\"pf-loading-badge\" aria-hidden=\"true\">四肢暖身中</p><p id=\"pf-startup-status\" role=\"status\">正在準備遊戲…</p><p class=\"pf-loading-joke\">欄架已就位，膝蓋還在開會。</p><nav aria-label=\"載入協助\"><a href=\"\">重新載入</a><a href=\"/\">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>\n<header class=\"pf-header\"><a class=\"pf-home\" href=\"/\" aria-label=\"遊戲首頁\">← 遊戲首頁</a><h1>四肢各有想法｜110公尺跨欄</h1><nav aria-label=\"遊戲操作\"><button id=\"sound\" data-game-action=\"music\" aria-label=\"開啟音樂與音效\" aria-pressed=\"false\">♪</button><button id=\"reset\" data-game-action=\"restart\" aria-label=\"重新開始\" title=\"重新開始\">↻ 重來</button><button id=\"pause\" data-game-action=\"pause\" aria-label=\"暫停遊戲\" aria-pressed=\"false\" disabled>Ⅱ 暫停</button></nav></header>\n<main data-play-surface><section class=\"arena\" aria-label=\"110 公尺跨欄遊戲\"><div id=\"scene\"></div><div class=\"hud\"><div class=\"timer\"><span>完賽計時</span><strong id=\"time\">0.00</strong><small>秒</small></div><div class=\"race-info\"><span id=\"distance\">0 / 110 m</span><strong id=\"next\">前方第 1 道欄</strong><span id=\"speed\">0.0 km/h</span></div></div><div class=\"course-progress\" aria-label=\"八道欄杆進度\" id=\"progress\"></div><div id=\"countdown\" class=\"countdown\" role=\"status\" aria-live=\"assertive\" hidden><strong id=\"count-number\">3</strong><span id=\"count-caption\">四肢就位 · 倒數結束再按</span></div><div class=\"event-wrap\"><div id=\"cue\" role=\"status\" aria-live=\"polite\">四肢就位，準備出發。</div></div><div id=\"replay-panel\" class=\"replay-panel\" data-replay-controls hidden><span id=\"replay-status\" role=\"status\" aria-live=\"polite\">重播最後5秒 · 不影響成績</span><button id=\"replay-return\">返回成績</button></div><div class=\"arena-bottom\"><span id=\"state-label\">短按左右腳，開始邁步</span><span id=\"best-label\">最佳 —</span></div><span id=\"render-note\" hidden>相容繪圖模式</span></section>\n<section class=\"controls\" aria-label=\"四肢控制\"><div class=\"limbs body-left\"><button class=\"arm\" data-limb=\"0\" aria-label=\"J 左手 擺動平衡\" aria-pressed=\"false\"><kbd>J</kbd><span>左手</span><small>擺動平衡</small></button><button class=\"leg\" data-limb=\"2\" aria-label=\"A 左腳 短按跑步 長按放開起跳\" aria-pressed=\"false\"><kbd>A</kbd><span>左腳</span><small>短按跑步</small><em></em></button></div><div class=\"limbs body-right\"><button class=\"arm\" data-limb=\"1\" aria-label=\"K 右手 擺動平衡\" aria-pressed=\"false\"><kbd>K</kbd><span>右手</span><small>擺動平衡</small></button><button class=\"leg\" data-limb=\"3\" aria-label=\"S 右腳 短按跑步 長按放開起跳\" aria-pressed=\"false\"><kbd>S</kbd><span>右腳</span><small>短按跑步</small><em></em></button></div></section></main>\n<footer><span>四肢運動會 <b>02 / 跨欄</b></span><button id=\"credits-button\">音樂與音效授權</button><span class=\"private\">八道欄杆，四肢過招。</span></footer>\n<dialog id=\"overlay\" aria-labelledby=\"card-title\"><div class=\"card-label\" id=\"card-label\" aria-live=\"polite\">PLAYFORMOSA · 四肢運動會</div><div id=\"intro\"><span class=\"tag\">110 公尺 / 8 道欄杆</span><h2 id=\"card-title\">欄杆有八道，<br>想法有四個。</h2><p class=\"lead\" data-entry-goal>跨過八道欄杆，越快跑完 110 公尺越好。</p><div class=\"rules\"><p data-entry-operation><b>A / S</b><span>左右腳短按交替跑<br><strong>長按亮框，放開起跳</strong></span></p><p data-entry-operation><b>J / K</b><span>左右手擺動平衡<br><strong>跌跌撞撞時，揮手救回來</strong></span></p><details class=\"entry-help\"><summary>怎麼調整過欄高度？</summary><p>快放低跨，久按跳高；空中按腳收腿。跌跌撞撞時，揮手找回平衡。</p></details></div></div><div id=\"result-actions\" class=\"result-actions\" hidden><button id=\"replay-last\" class=\"secondary\" hidden>重播最後5秒</button></div><div id=\"result\" hidden><div class=\"result-top\"><div><span class=\"eyebrow\">110m · 8 欄 本場成績</span><div class=\"result-time\"><strong id=\"result-time\">—</strong><small id=\"result-unit\">秒</small></div></div><span class=\"badge\" id=\"result-badge\"></span></div><h2 id=\"verdict\" tabindex=\"-1\"></h2><p id=\"result-subtitle\"></p><figure id=\"finish-frame\"></figure><details class=\"pf-result-details\"><summary>查看這一場的細節</summary><p id=\"result-detail\"></p></details><div class=\"share-buttons pf-share-actions\"><button id=\"threads\" data-share=\"threads\">分享至Threads</button><button id=\"save-image\" data-share=\"image\">分享成績圖片</button><button id=\"copy\" data-share=\"copy\">複製成績與網址</button></div><p id=\"share-status\" role=\"status\" aria-live=\"polite\"></p><p class=\"share-note\">Threads 只帶文字與網址；圖片請另行附上。挑戰連結可與朋友分享。</p></div><div id=\"paused\" hidden><h2>四肢休息一下。</h2><p>時間已停下。繼續後，重新按住控制鍵即可。</p></div><button class=\"primary\" id=\"start\">四肢就位，出發 ↗</button><p class=\"bottom-note\" id=\"intro-note\">完賽時間越短越好 · 輕鬆胡鬧，不是嚴肅模擬</p></dialog>\n<dialog id=\"settings\" aria-labelledby=\"settings-title\"><button class=\"close\" id=\"close-settings\" aria-label=\"關閉音量設定\">×</button><h2 id=\"settings-title\">跑道的聲音</h2><p id=\"audio-status\" role=\"status\">按出發後啟用音樂與音效。</p><label>背景音樂 <input id=\"music-volume\" aria-label=\"背景音樂音量\" type=\"range\" min=\"0\" max=\"100\" value=\"65\"></label><label>動作音效 <input id=\"effect-volume\" aria-label=\"動作音效音量\" type=\"range\" min=\"0\" max=\"100\" value=\"80\"></label><button id=\"toggle-sound\">關閉音效</button><details id=\"credits\"><summary>音樂與音效授權</summary><p><a href=\"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700011\" target=\"_blank\" rel=\"noopener\">Funin and Sunin</a> — Kevin MacLeod（incompetech.com），<a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY 4.0</a>。完整曲目經 EQ、音量與淡入淡出處理後循環，非原作者背書。</p><p>腳步：<a href=\"https://kenney.nl/assets/rpg-audio\" target=\"_blank\" rel=\"noopener\">footstep04 — Kenney</a>。歡呼：<a href=\"https://freesound.org/people/FoolBoyMedia/sounds/397434/\" target=\"_blank\" rel=\"noopener\">Crowd Cheer — FoolBoyMedia</a>，公開 HQ MP3 前 3 秒（非原生 WAV）。兩者 CC0，經 EQ、音量與淡入淡出處理。</p><p>起跳／風聲：<a href=\"https://not-jam.itch.io/not-jam-music-pack-2\" target=\"_blank\" rel=\"noopener\">Not Jam Music Pack 2</a>。落地／碰欄：Kenney。均為 <a href=\"https://creativecommons.org/publicdomain/zero/1.0/\" target=\"_blank\" rel=\"noopener\">CC0</a>。</p><p>角色沿用 PlayFormosa 原始程序模型。Three.js：MIT。賽道為原創程序幾何。</p></details></dialog>\n<script type=\"module\" src=\"game.mjs?v=1.4.0\"></script></body></html>\n",
+      "beforeSha256": "4a271540380ee4be4ef6c54b948de6275965a6b67d516b5a5b4dd55bf782a601",
+      "beforeGitBlob": "f8c3180f669e5a0bcd919b3099f6adab4da550cd",
+      "sha256": "7e867a8c85ca1009c53f1c4d456be74bb0831f14a5aa9ce781df0be9b52bddc8",
+      "gitBlob": "8d63aca19bc512d002d19290239cb8d747e2d9e9"
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "beforeText": "<!doctype html><html data-pf-startup=\"pending\" lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><style id=\"pf-startup-style\">html[data-pf-startup]:not([data-pf-startup=\"ready\"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}\n#pf-startup{position:fixed;inset:0;z-index:2147483647;display:flex;overflow:auto;box-sizing:border-box;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));background:#f6f1df;color:#243e38;font:16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center}\n#pf-startup .pf-loading-card{box-sizing:border-box;width:min(100%,440px);flex:none;margin:auto;padding:22px 22px 16px;border:2px solid #294c40;border-radius:24px;background:#fff9e8;box-shadow:0 7px 0 #d7dfc8}\n#pf-startup .pf-loading-brand{margin:0;color:#667969;font-size:11px;font-weight:700;letter-spacing:2px}\n#pf-startup .pf-loading-art{display:block;width:170px;height:132px;margin:12px auto 4px;overflow:visible}\n#pf-startup .pf-loading-person{transform-origin:90px 112px;animation:pf-loading-warmup 1.6s ease-in-out infinite}\n#pf-startup .pf-loading-badge{display:inline-block;margin:0 0 9px;padding:2px 11px;border:1px solid #b3c3ab;border-radius:999px;background:#e6efd6;font-size:12px;font-weight:700;letter-spacing:1px}\n#pf-startup #pf-startup-status{margin:0;font-size:21px;line-height:1.45;font-weight:800}\n#pf-startup .pf-loading-joke{margin:9px 0 18px;color:#526c5b;font-size:15px;line-height:1.7;overflow-wrap:anywhere}\n#pf-startup nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;border-top:1px dashed #bdc9b8;padding-top:12px;margin-top:16px}\n#pf-startup nav a{display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;min-height:44px;padding:5px 12px;color:#294c40;font-size:13px;text-underline-offset:4px;border-radius:10px}\n#pf-startup a:focus-visible{outline:3px solid #dc683e;outline-offset:2px}\n#pf-startup noscript p{margin:8px 0 0;font-size:14px}\nhtml[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-person{animation:none}\nhtml[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-joke,html[data-pf-startup=\"waiting\"] #pf-startup .pf-loading-badge{display:none}\nhtml[data-pf-startup=\"waiting\"] #pf-startup #pf-startup-status{font-size:18px}\n@keyframes pf-loading-warmup{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}\n@media(prefers-reduced-motion:reduce){#pf-startup .pf-loading-person{animation:none}}\n@media(max-height:450px){#pf-startup{padding:12px 16px}#pf-startup .pf-loading-card{padding:14px 18px 10px}#pf-startup .pf-loading-art{width:110px;height:85px;margin:4px auto 0}#pf-startup .pf-loading-joke{margin-bottom:8px}#pf-startup nav{margin-top:8px;padding-top:6px}}\ndialog [data-pf-startup-recovery]{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}dialog [data-pf-startup-recovery] a{display:inline-flex;align-items:center;min-height:44px}\n</style><link rel=\"modulepreload\" href=\"./layout.mjs\"><link rel=\"modulepreload\" href=\"./game.mjs\"><link rel=\"modulepreload\" href=\"vendor/three.core.min.js\"><link rel=\"modulepreload\" href=\"vendor/three.module.min.js\"><link rel=\"modulepreload\" href=\"../shared/entry-shell.mjs\"><script id=\"pf-startup-script\">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */\n(()=>{\n const doc=document,root=doc.documentElement;\n if(root.dataset.pfStartup!=='pending')return;\n let done=false,timer;\n const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';\n function ready(){\n  // Main Jump opens its original error dialog if WebGL cannot initialize.\n  const legacyError=doc.querySelector('dialog#overlay[open]');\n  const entry=doc.querySelector(selector)||(legacyError?.querySelector('#start:disabled')?legacyError:null);\n  if(done||!entry||entry.hidden)return false;\n  if(entry===legacyError&&!entry.querySelector('[data-pf-startup-recovery]')){\n   const recovery=doc.getElementById('pf-startup')?.querySelector('nav')?.cloneNode(true);\n   if(recovery){recovery.dataset.pfStartupRecovery='';entry.append(recovery);}\n  }\n  done=true;clearTimeout(timer);observer.disconnect();\n  window.removeEventListener('error',failed,true);\n  window.removeEventListener('unhandledrejection',failed);\n  root.dataset.pfStartup='ready';\n  doc.getElementById('pf-startup')?.remove();\n  // Native/fallback modal focus may have been attempted while visually gated.\n  if(!entry.contains(doc.activeElement)){\n   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];\n   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);\n   (target||entry).focus({preventScroll:true});\n  }\n  return true;\n }\n function failed(){\n  if(ready()||done)return;\n  const status=doc.getElementById('pf-startup-status');\n  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';\n  root.dataset.pfStartup='waiting';\n  // Keep observing: a slow connection can still finish without a forced reload.\n }\n const observer=new MutationObserver(ready);\n observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});\n window.addEventListener('error',failed,true);\n window.addEventListener('unhandledrejection',failed);\n timer=setTimeout(failed,15000);\n ready();\n})();\n</script><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><meta name=\"theme-color\" content=\"#fff7e6\"><meta name=\"description\" content=\"PlayFormosa 小遊戲・接棒反應力：移動手掌，接住隨機掉落的十根棒子。\"><title>接棒啦！｜PlayFormosa 小遊戲</title><link rel=\"stylesheet\" href=\"./style.css\"><link rel=\"stylesheet\" href=\"../shared/game-ui.css\"><link rel=\"stylesheet\" href=\"../shared/entry-shell.css\"><link rel=\"stylesheet\" href=\"./viewport.css\"><link rel=\"stylesheet\" href=\"./result.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"../../assets/app-icons/reaction-rod/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"../../assets/app-icons/reaction-rod/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"../../assets/app-icons/reaction-rod/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"接棒啦！\"><meta name=\"apple-mobile-web-app-title\" content=\"接棒啦！\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head><body class=\"pf-game pf-reaction-rod\"><section id=\"pf-startup\" aria-label=\"遊戲載入\"><div class=\"pf-loading-card\"><p class=\"pf-loading-brand\">PLAYFORMOSA STUDIO</p><svg class=\"pf-loading-art\" viewBox=\"0 0 180 140\" aria-hidden=\"true\" focusable=\"false\"><ellipse cx=\"90\" cy=\"126\" rx=\"48\" ry=\"6\" fill=\"#dce5cf\"/><path d=\"M25 107l-7 4m137-26 8-5M34 44l-7-3\" stroke=\"#c1d1b5\" stroke-width=\"4\" stroke-linecap=\"round\"/><g class=\"pf-loading-person\" stroke=\"#294c40\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M75 98l-10 21-15-2M104 97l15 15 13-9\" fill=\"none\"/><path d=\"M71 82l4 19 31-1 3-19\" fill=\"#334c59\"/><path d=\"M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29\" fill=\"#f39453\"/><path d=\"M71 64 53 78 43 61M107 64l17 12 10-16\" fill=\"none\"/><path d=\"m40 60 3-6 5 5m83 0 4-6 4 5\" fill=\"none\"/><path d=\"M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z\" fill=\"#fff4d9\"/><path d=\"m82 20 2-10 8 9 5-9 5 12\" fill=\"#334c59\"/><path d=\"M80 39v2m21-2v2\"/><path d=\"m86 50 9 2 4-3\" fill=\"none\" stroke-width=\"3\"/><path d=\"m74 46 6 1m22 0 5-1\" stroke=\"#efa37f\" stroke-width=\"3\"/></g><path d=\"M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z\" fill=\"#87b5a1\"/></svg><p class=\"pf-loading-badge\" aria-hidden=\"true\">四肢暖身中</p><p id=\"pf-startup-status\" role=\"status\">正在準備遊戲…</p><p class=\"pf-loading-joke\">棍子準備落下，手指請先醒來。</p><nav aria-label=\"載入協助\"><a href=\"\">重新載入</a><a href=\"/\">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section><main class=\"shell\"><header class=\"pf-header\"><a class=\"pf-home\" href=\"/\" aria-label=\"遊戲首頁\">← 遊戲首頁</a><h1>接棒啦！</h1><nav aria-label=\"遊戲操作\"><button id=\"musicBtn\" data-game-action=\"music\" aria-label=\"開啟音樂與音效\" aria-pressed=\"false\">♪</button><button id=\"restartBtn\" data-game-action=\"restart\" aria-label=\"重新開始\" title=\"重新開始\">↻ 重來</button><button id=\"pauseBtn\" data-game-action=\"pause\" aria-label=\"暫停遊戲\" aria-pressed=\"false\" disabled>Ⅱ 暫停</button></nav></header><p class=\"pf-entry-loading\" data-pf-entry-loading role=\"status\">遊戲準備中… 若開始視窗未出現，請重新整理或<a href=\"/\">返回遊戲首頁</a>。</p><section class=\"game-card\" aria-label=\"接棒啦遊戲\"><div class=\"topline\"><div><p class=\"eyebrow\">REACTION CATCH</p><h2>接棒啦！</h2></div><button id=\"helpBtn\" hidden class=\"round-button\" aria-label=\"玩法說明\">?</button><div class=\"scoreboard\"><div><span>接住</span><strong id=\"caught\">0</strong><small>/ 10 根</small></div><div class=\"best\"><span>個人最佳</span><strong id=\"best\">—</strong></div></div></div><div class=\"stage\" id=\"stage\"><canvas id=\"game\" aria-label=\"接棒遊戲區，移動滑鼠或觸控拖曳移動手掌\" tabindex=\"0\"></canvas><div id=\"replayControls\" class=\"replay-controls\" role=\"group\" aria-label=\"全場重播控制\" hidden><span id=\"replayStatus\" role=\"timer\" aria-live=\"off\">全場重播</span><button id=\"replayPause\">Ⅱ 暫停</button><button id=\"replayClose\">返回成績</button></div><div class=\"live decoration\"><span id=\"roundText\">手掌就位，準備開接</span></div><div id=\"balance\" class=\"balance decoration\" hidden><span id=\"balanceText\">站得很穩</span><i><b id=\"balanceFill\"></b></i></div><div class=\"toast decoration\" id=\"toast\" aria-live=\"polite\">先把眼睛打開，手會自己跟上。大概吧。</div><div class=\"ready overlay\" id=\"ready\" hidden><div class=\"intro\"><span class=\"ticket\">能蹲能接 · 真重力 · 10 根</span><h2>手準備好了。<br>腦袋呢？</h2><p><b>移動手掌接住 10 根棒。<br>往下拖可蹲下，快歪時回中間。</b></p><button class=\"primary\" id=\"startBtn\">好，放馬過來 <span>↗</span></button><small>滑鼠移動 · 手機按住拖曳 · 方向鍵</small></div></div><div class=\"overlay\" id=\"paused\" hidden><div class=\"panel\"><span class=\"ticket\">TIME OUT</span><h2>先讓手喘口氣</h2><p>棒子也乖乖停在半空中。</p><button id=\"resumeBtn\" class=\"primary\">繼續接棒 →</button></div></div><div class=\"overlay\" id=\"unsupported\" hidden><div class=\"panel\"><h2>這個畫面需要 WebGL</h2><p>目前瀏覽器無法啟動 3D。請用支援 WebGL 的手機或桌面瀏覽器開啟；沒有開始計分。</p><button class=\"primary\" id=\"reloadBtn\">重新載入</button><a class=\"platform-return\" href=\"/\">← 遊戲首頁</a></div></div></div><div class=\"bottomline\"><span class=\"control\"><b>↔ 換手　↓ 下蹲</b><small>左右換手，掌心才算</small></span><div class=\"progress\" id=\"progress\" aria-label=\"十根棒子的結果\"></div><span class=\"control right\"><b id=\"streakLive\">接穩最重要</b><small>重心偏了，回中救回來</small></span></div></section><footer><p>一隻手，十根棒。接不接得到，看緣分與反應。</p><span>PLAYFORMOSA MINIGAMES</span></footer></main><dialog class=\"result pf-result-dialog\" id=\"result\" aria-labelledby=\"verdict\" hidden><div class=\"panel result-panel\"><div id=\"resultContent\" class=\"result-content\"><div class=\"result-summary\"><span class=\"ticket\">本日手掌成績單</span><h2 id=\"verdict\" tabindex=\"-1\">夜市快手傳說</h2><div class=\"result-count\"><strong id=\"resultCount\">0</strong><span>/ 10 根</span></div><p id=\"resultComment\"></p><span id=\"falls\" class=\"fall-count\">坐倒 0 次</span></div><div class=\"result-actions\"><div id=\"resultButtons\" class=\"result-buttons\"><button id=\"againBtn\" class=\"primary\">再來一局 <span>↻</span></button><button id=\"replayBtn\" disabled>全場重播</button><button id=\"detailsBtn\" aria-expanded=\"false\" aria-controls=\"resultDetails\">接棒細節</button></div><section id=\"resultDetails\" class=\"pf-result-details\" aria-label=\"接棒細節\" hidden><div class=\"result-stats\"><div><span>反應評分</span><b><span id=\"rating\">0.0</span><small> / 10.0</small></b></div><div><span>最長連接</span><b id=\"streak\">0 根</b></div><div><span>平均接棒</span><b id=\"elapsed\">—</b></div></div><small class=\"score-note\">遊戲評分，非醫學反應測驗。</small></section><p id=\"replayAvailability\" class=\"replay-availability\" hidden></p><div class=\"share-actions pf-share-actions\"><a id=\"threadsBtn\" data-share=\"threads\" target=\"_blank\" rel=\"noopener noreferrer\">分享至Threads</a><button id=\"shareBtn\" data-share=\"image\" disabled>製作成績圖…</button><button id=\"copyBtn\" data-share=\"copy\">複製成績與網址</button></div><p id=\"shareStatus\" role=\"status\" aria-live=\"polite\"></p></div><div id=\"resultUpload\" class=\"result-upload\"></div></div><figure id=\"resultScene\" class=\"result-scene\" hidden><canvas id=\"resultPhoto\" role=\"img\" aria-label=\"第 10 根接住或漏接瞬間的遊戲畫面\"></canvas></figure></div></dialog><dialog id=\"imageFallback\" class=\"pf-result-dialog\" aria-labelledby=\"imageFallbackTitle\"><h2 id=\"imageFallbackTitle\">長按圖片儲存／分享</h2><p class=\"help-note\">裝置不支援直接分享時，可長按圖片。成績文字仍可另外複製。</p><img id=\"sharePreview\" alt=\"本局接棒成績圖片\"><button id=\"closeImage\" class=\"primary\">回成績單</button></dialog><dialog id=\"copyFallback\" class=\"pf-result-dialog\" aria-labelledby=\"copyFallbackTitle\"><h2 id=\"copyFallbackTitle\">複製成績文字</h2><p class=\"help-note\">長按文字或按 Ctrl/Cmd+C 複製。連結會回到目前這個 PlayFormosa 遊戲頁。</p><textarea id=\"copyText\" readonly aria-label=\"成績分享文字\"></textarea><button id=\"closeCopy\" class=\"primary\">完成，回成績單</button></dialog><dialog id=\"help\"><button id=\"closeHelp\" class=\"round-button close\" aria-label=\"關閉玩法\">×</button><p class=\"eyebrow\">HOW TO CATCH</p><h2>別點棒子，移動手。</h2><ol><li>移動滑鼠／手機按住拖曳：左右換手，往下蹲。</li><li>掌心碰到下落棒子才算，共 10 根。</li><li>快歪時回中間；坐倒後會自動站起。</li></ol><p class=\"help-note\">方向鍵／WASD 也可操作，P 暫停／繼續。</p><p id=\"musicStatus\" role=\"status\">開始後啟用音樂。</p><p class=\"help-note\">背景音樂：Chill Menu — Not Jam（CC0）。沿用平台已授權音檔，<a href=\"./licenses/Not-Jam-License.txt\" target=\"_blank\" rel=\"noopener\">授權聲明</a>。音效與來源詳見 <a href=\"./audio/CREDITS.md\" target=\"_blank\" rel=\"noopener\">音訊授權</a>。</p></dialog><script type=\"module\" src=\"./layout.mjs\"></script><script type=\"module\" src=\"./game.mjs\"></script></body></html>\n",
+      "beforeSha256": "bbe46d237b19b003b3395b6b3320c1e9d412babd4aaff75eff5590f8403e0895",
+      "beforeGitBlob": "c10c4249547223f946b4180dd13a5e635fdfb403",
+      "sha256": "39dcf8bf87edab0015a6753513a692745c934390ac83415633a127bedbd41ff4",
+      "gitBlob": "3b90b7b67029ae4805dca091e4acd98a125aff44"
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "beforeText": "import{createHelpCoordinator}from'./help-coordinator.mjs';\nexport{helpIsOpen,suspendHelpPresentation,ensurePauseHelp}from'./help-coordinator.mjs';\nimport{createDialogController}from'../long-jump/dialogs.mjs';\nimport{entryContent}from'./entry-content.mjs';\nimport{createPauseContent}from'./menu-content.mjs';\nimport{createMenuAudio}from'./menu-audio.mjs';\n// Shared presentation only: original game callbacks own all clocks, input and audio.\nexport function createEntryShell({document,title,goal,operations,gameId=null,advanced=null,onStart,onEnter=()=>{},onHelpEnter=null,canStart=()=>true,forceFallback=false}){\n const win=document.defaultView,dialog=document.createElement('dialog');dialog.className='pf-entry';dialog.setAttribute('aria-label',title);dialog.setAttribute('data-pf-entry','');\n const brand=document.createElement('p');brand.className='pf-entry-brand';brand.textContent='PLAYFORMOSA';const heading=document.createElement('h2');heading.textContent=title;\n const aim=document.createElement('p');aim.className='pf-entry-goal';aim.textContent=goal;const core=document.createElement('div');core.className='pf-entry-operations';\n for(const text of operations){const p=document.createElement('p');p.className='pf-entry-operation';p.textContent=text;core.append(p);}\n const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='進階說明與素材授權';details.append(summary);if(advanced)details.append(advanced);\n const button=document.createElement('button');button.type='button';button.className='pf-entry-start';button.textContent='開始遊戲';button.autofocus=true;const recovery=document.createElement('p');recovery.className='pf-entry-error';recovery.hidden=true;recovery.append('遊戲畫面無法啟動，請返回首頁後重試。 ');const home=document.createElement('a');home.href='/';home.textContent='返回遊戲首頁';recovery.append(home);const ticket=document.createElement('div');ticket.className='pf-menu-ticket pf-entry-ticket';ticket.append(brand,heading);if(gameId){const icon=document.createElement('img');icon.src='/assets/app-icons/'+gameId+'/apple-touch-icon.png';icon.alt='';icon.width=80;icon.height=80;ticket.append(icon);}dialog.append(ticket,aim,core,details,button,recovery);document.body.append(dialog);\n const helpOwner=createHelpCoordinator(document,()=>onHelpEnter?onHelpEnter():onEnter('help'));let returnToEntry=false,pauseState=null,pauseHelp=false,pauseOptions={},rankingAction=null;\n const audioView=createMenuAudio(document);audioView.setAudio(null);\n const pauseContent=createPauseContent(document,{gameId,onContinue:event=>{if(pauseOptions.canContinue&&!pauseOptions.canContinue())return;close({restoreView:false});pauseOptions.onContinue?.(event);},onRestart:event=>{close({restoreView:false});pauseOptions.onRestart?.(event);},onRanking:()=>rankingAction?.()});pauseContent.audio.append(audioView.root);\n const modal=createDialogController(dialog,()=>{}, {forceFallback});let active=false,help=false,destroyed=false,backdrop=null,view=null;const heldKeys=new Set();\n const keyId=e=>e.code||e.key;\n function keyGate(e){const key=keyId(e);if(active){if(e.key==='Tab'&&e.target?.nodeType&&dialog.contains(e.target))return;if(e.type==='keydown')heldKeys.add(key);else heldKeys.delete(key);if(!e.target?.nodeType||!dialog.contains(e.target)||e.key==='Escape')e.preventDefault();e.stopImmediatePropagation();}else if(heldKeys.has(key)){if(e.type==='keyup')heldKeys.delete(key);e.preventDefault();e.stopImmediatePropagation();}}\n function stopBubble(e){e.stopPropagation();if(e.key==='Escape')e.preventDefault();}\n win.addEventListener('keydown',keyGate,true);win.addEventListener('keyup',keyGate,true);dialog.addEventListener('keydown',stopBubble);dialog.addEventListener('keyup',stopBubble);\n function restorePause(){if(!pauseState)return;dialog.replaceChildren(...pauseState.nodes);dialog.setAttribute('aria-label',pauseState.label);dialog.classList.remove('pf-pause-dialog');pauseState=null;pauseHelp=false;pauseContent.root.hidden=false;}\n function close({restoreView=true}={}){if(view)restoreAuxiliary();if(!active)return;const wasHelp=help,wasPause=Boolean(pauseState);active=false;help=false;returnToEntry=false;restorePause();modal.close();dialog.hidden=true;if(wasHelp)helpOwner.leave({restoreView:restoreView&&!wasPause});}\n function configurePause(options){pauseOptions=options||{};}\n function openPause(){if(destroyed)return;if(pauseState){pauseContent.resume.disabled=Boolean(pauseOptions.canContinue&&!pauseOptions.canContinue());return;}if(active)close({restoreView:false});open({help:true});pauseState={nodes:[...dialog.childNodes],label:dialog.getAttribute('aria-label')};const stash=document.createElement('div');stash.hidden=true;stash.setAttribute('inert','');stash.dataset.pfMenuStash='';pauseState.stash=stash;stash.append(...pauseState.nodes);dialog.append(stash,pauseContent.root);dialog.classList.add('pf-pause-dialog');dialog.setAttribute('aria-label','遊戲暫停');pauseContent.resume.disabled=Boolean(pauseOptions.canContinue&&!pauseOptions.canContinue());dialog.scrollTop=0;pauseContent.resume.focus({preventScroll:true});}\n function setAudio(adapter){audioView.setAudio(adapter);if(adapter){for(const legacy of dialog.querySelectorAll('.audio-settings'))legacy.hidden=true;const nav=document.querySelector('.pf-header nav');for(const old of nav?.querySelectorAll('[data-game-action=music],#music,#musicBtn,#sound')||[])old.hidden=true;if(!audioView.header.isConnected){const old=nav?.querySelector('[data-game-action=music],#music,#musicBtn,#sound');if(old)old.after(audioView.header);else if(nav)nav.insertBefore(audioView.header,nav.querySelector('.pf-entry-help'));else document.body.append(audioView.header);}}}\n function setRankingAction(action){rankingAction=typeof action==='function'?action:null;pauseContent.ranking.hidden=!rankingAction;}\n\n function open(options={}){if(destroyed)return;const nextHelp=Boolean(options.help);if(active&&pauseState&&!nextHelp)close({restoreView:false});if(active&&pauseState&&nextHelp){pauseHelp=true;pauseContent.root.hidden=true;pauseState.stash.hidden=false;pauseState.stash.removeAttribute('inert');dialog.setAttribute('aria-label','操作說明');button.textContent='返回暫停';button.disabled=false;button.focus({preventScroll:true});return;}if(active&&help===nextHelp){button.disabled=!help&&!canStart();recovery.hidden=!button.disabled;return;}if(active&&!help&&nextHelp){returnToEntry=true;help=true;button.textContent='返回遊戲';button.disabled=false;return;}help=nextHelp;button.textContent=help?'返回遊戲':'開始遊戲';button.disabled=!help&&!canStart();recovery.hidden=!button.disabled;details.open=false;if(help)helpOwner.enter();else onEnter('entry');active=true;dialog.hidden=false;const prior=new Set(document.querySelectorAll('.dialog-backdrop'));modal.open();backdrop??=[...document.querySelectorAll('.dialog-backdrop')].find(x=>!prior.has(x))||null;backdrop?.classList.add('pf-entry-backdrop');(button.disabled?home:button).focus({preventScroll:true});}\n\n function restoreAuxiliary(){if(!view)return null;const old=view;view=null;dialog.replaceChildren(...old.nodes);dialog.setAttribute('aria-label',old.label);dialog.classList.remove('pf-honor-dialog');dialog.scrollTop=old.scroll;old.onClose?.();return old;}\n function closeView(){const old=restoreAuxiliary();if(!old)return;if(old.wasActive){old.focus?.focus({preventScroll:true});}else close();}\n function openView(content,{label='排行榜',onClose=()=>{}}={}){\n  if(destroyed)return;if(view)closeView();const wasActive=active,focus=document.activeElement;if(!active)open({help:true});\n  view={wasActive,focus,scroll:dialog.scrollTop,nodes:[...dialog.childNodes],label:dialog.getAttribute('aria-label'),onClose};\n  const back=document.createElement('button');back.type='button';back.dataset.pfViewReturn='';back.className='pf-entry-start';back.textContent='返回';back.addEventListener('click',closeView);\n  const stash=document.createElement('div');stash.hidden=true;stash.setAttribute('inert','');stash.dataset.pfAuxStash='';stash.append(...view.nodes);dialog.append(stash,content,back);dialog.classList.add('pf-honor-dialog');dialog.setAttribute('aria-label',label);dialog.scrollTop=0;back.focus({preventScroll:true});\n }\n\n button.addEventListener('click',event=>{event.stopPropagation();if(!active||button.disabled)return;if(pauseHelp){pauseHelp=false;pauseState.stash.hidden=true;pauseState.stash.setAttribute('inert','');pauseContent.root.hidden=false;dialog.setAttribute('aria-label','遊戲暫停');pauseContent.resume.focus({preventScroll:true});return;}if(help){if(returnToEntry){help=false;returnToEntry=false;button.textContent='開始遊戲';button.disabled=!canStart();recovery.hidden=!button.disabled;}else close();return;}if(!canStart())return;close();onStart(event);});\n return{dialog,open,close,openView,closeView,configurePause,openPause,setAudio,setRankingAction,get active(){return active;},destroy(){close({restoreView:false});destroyed=true;audioView.destroy();win.removeEventListener('keydown',keyGate,true);win.removeEventListener('keyup',keyGate,true);dialog.remove();backdrop?.remove();heldKeys.clear();}};\n}\nexport function createGameEntry(options){const{document,gameId}=options,content=entryContent(document,gameId),win=document.defaultView;const forceFallback=options.forceFallback??Boolean(win.navigator?.standalone||win.matchMedia?.('(display-mode: standalone)').matches);const shell=createEntryShell({...content,...options,forceFallback});document.querySelector('[data-pf-entry-loading]')?.remove();\n // One header action for every game; retain old nodes for existing bindings, never as a second entry.\n if(content.existingHelp)content.existingHelp.hidden=true;\n const help=document.createElement('button');help.type='button';help.className='pf-entry-help';help.textContent='說明';help.setAttribute('aria-label','操作說明與素材授權');help.addEventListener('click',()=>shell.open({help:true}));document.addEventListener('pf-help-request',()=>shell.open({help:true}));(document.querySelector('.pf-header nav')||document.body).append(help);\n // Keep actual audio controls and their trusted-gesture listeners; clones would be inert.\n if(gameId==='hurdles'){const settings=document.querySelector('#settings'),audio=document.createElement('section');audio.className='audio-settings';audio.setAttribute('aria-label','聲音設定');for(const node of settings?.querySelectorAll(':scope > label, :scope > #audio-status, :scope > #toggle-sound')||[])audio.append(node);shell.dialog.querySelector('details').append(audio);}\n return shell;\n}\n",
+      "beforeSha256": "183598c62ae6422424d88189e7ffdb5ff3f8e46a10358660efa595e10a603695",
+      "beforeGitBlob": "17d6b8b7256f16509dc0c84d3026a29ad0013755",
+      "sha256": "b796badf15b40284a073b6b3b1c1315c9e238af3cef05273566f0acfd121501d",
+      "gitBlob": "d37f933dfc833778c8cc5fa5ca2635103be52292"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "beforeText": "import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';\nimport {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nconst root = new URL('../',import.meta.url);\nawait assertReleasedGames(new URL('public/',root));\nconst release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst rod=JSON.parse(await readFile(new URL('docs/reaction-rod-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths];\nawait assertProductionInventory(new URL('public/',root),allowedPublicPaths);\nconst html=renderPage(catalog);\nawait writeFile(new URL('public/index.html',root),html);\nawait rm(new URL('dist/',root),{recursive:true,force:true});\nawait mkdir(new URL('dist/',root),{recursive:true});\nawait cp(new URL('public/',root),new URL('dist/',root),{recursive:true});\nawait assertReleasedGames(new URL('dist/',root));\nawait assertProductionInventory(new URL('dist/',root),allowedPublicPaths);\nconsole.log('Built static Playformosa to dist/');\n",
+      "beforeSha256": "b9e1268ccfd0b5e2583d638d7a4f2e06ef1666f26f4418eb0a3883c1f8bc6548",
+      "beforeGitBlob": "deca205075b7688bc428438b11a19e28c9ced66d",
+      "sha256": "85b590e88e6e1751a09e30a56b43b44913eb8300ff41caf0b189723e3e7fd66e",
+      "gitBlob": "5bb4083b5aa7ce0462fd3d03c5ad645f3cfb8497"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "beforeText": "import {readFile,readdir,stat} from 'node:fs/promises';\nimport{assertReleasedGames,assertProductionInventory}from'./release-policy.mjs';\nimport path from 'node:path';\nimport {fileURLToPath} from 'node:url';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../dist/',import.meta.url));\nasync function files(dir){const entries=await readdir(dir,{withFileTypes:true});return (await Promise.all(entries.map(item=>item.isDirectory()?files(path.join(dir,item.name)):path.join(dir,item.name)))).flat();}\nawait assertReleasedGames(root);\nconst release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const rod=JSON.parse(await readFile(new URL('../docs/reaction-rod-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,[...release.allowedPublicPaths,...rod.addedPublicPaths]);\nconst paths=await files(root);\nlet checked=0;\nfor(const file of paths){\n  if(!/\\.(html|mjs|css)$/.test(file))continue;\n  const source=await readFile(file,'utf8');\n  const refs=file.endsWith('.html')?[...source.matchAll(/(?:src|href)=\"([^\"]+)\"/g)].map(m=>m[1]):file.endsWith('.mjs')?[...source.matchAll(/(?:from\\s*|import\\s*)['\"](\\.[^'\"]+)['\"]/g)].map(m=>m[1]):[...source.matchAll(/url\\(['\"]?([^)'\"\\s]+)['\"]?\\)/g)].map(m=>m[1]);\n  for(const ref of refs){\n    if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;\n    if(ref==='#'){checked++;continue;}\n    if(ref.startsWith('#')){assert.ok(new RegExp(`id=[\"']${ref.slice(1)}[\"']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}\n    let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);\n    target=target.split(/[?#]/)[0];\n    let info;try{info=await stat(target);}catch{throw new Error(`Missing local reference ${ref} from ${path.relative(root,file)}`);}\n    if(info.isDirectory())await stat(path.join(target,'index.html'));\n    checked++;\n  }\n}\nconsole.log(`Verified ${checked} local references across ${paths.length} output files. Browser visual/touch QA not performed.`);\n",
+      "beforeSha256": "945deb3fddc1cd6e5eb8e99a88e7a12c5341a2d6ae28331afbd4d3afe1489854",
+      "beforeGitBlob": "3d9f53010c7959bf72846f69a7d93906090e6a14",
+      "sha256": "9572a71c4cf8b587d36e03329e1da86cd1bb134811cb704130e84a5cb27dcda5",
+      "gitBlob": "93e336ed5885dc3572523d4337bf0859dc17f263"
+    },
+    {
+      "path": "tests/helpers/loading-main-provenance.mjs",
+      "beforeText": "import {readFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {fileURLToPath} from 'node:url';\nimport path from 'node:path';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../../',import.meta.url));\nexport const loadingManifest=()=>JSON.parse(readFileSync(new URL('../../docs/loading-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));\nconst hash=bytes=>createHash('sha256').update(bytes).digest('hex');\nconst blob=bytes=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+bytes.length+'\\0'),bytes])).digest('hex');\nexport function reverseLoading(path,bytes,manifest=loadingManifest()){\n const f=manifest.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);\n assert.equal(hash(bytes),f.sha256,path+' loading current bytes');assert.equal(blob(bytes),f.gitBlob,path+' loading current Git blob');\n const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,path+' loading prior bytes');assert.equal(blob(before),f.beforeGitBlob,path+' loading prior Git blob');return before;\n}\nexport function readBeforeLoading(file,encoding){\n const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');\n const bytes=reverseLoading(relative,readFileSync(file));return encoding?bytes.toString(encoding):bytes;\n}\n",
+      "beforeSha256": "ab14b531658f1bd97d8dac761cd2baa2db818235dbf58176f9c0679cc55dddd2",
+      "beforeGitBlob": "b995c2089bb7d249d6deafc133ce0f36695b4c3d",
+      "sha256": "b7808a15e8ee6fa57800b107a3259eae8810534676348415f99ff6fe9aee0e71",
+      "gitBlob": "ca8cef3fde3d202d7eba81bf212112306512d7ae"
+    },
+    {
+      "path": "tests/main-loading-provenance.test.mjs",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {JSDOM} from 'jsdom';\nimport {loadingManifest,reverseLoading,readBeforeLoading} from './helpers/loading-main-provenance.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst games=['long-jump','hurdles','reaction-rod'];\ntest('main loader changes only three released documents and historical read boundaries and result fixture',()=>{\n const m=loadingManifest();assert.equal(m.baseCommit,'90e6690ca248752917955839d8c1ee2903a903d2');\n assert.deepEqual(m.scope,games);assert.deepEqual(m.files.map(f=>f.path).sort(),[...games.map(g=>'public/games/'+g+'/index.html'),'tests/helpers/rod-main-provenance.mjs','tests/reaction-rod-main-integrity.test.mjs','tests/reaction-rod-upload-scroll.test.mjs'].sort());\n for(const f of m.files){const current=read(f.path),before=reverseLoading(f.path,current);assert.equal(blob(before),f.beforeGitBlob);assert.deepEqual(readBeforeLoading(new URL(f.path,root)),before);assert.throws(()=>reverseLoading(f.path,Buffer.concat([current,Buffer.from('unreviewed')])));const damaged=structuredClone(m);damaged.files.find(x=>x.path===f.path).beforeText+='unreviewed';assert.throws(()=>reverseLoading(f.path,current,damaged));}\n});\ntest('removing the exact loader insertions restores every original game document byte',()=>{\n for(const game of games){const path='public/games/'+game+'/index.html',current=read(path),before=reverseLoading(path,current).toString();const after=current.toString().replace(' data-pf-startup=\"pending\"','').replace(/<style id=\"pf-startup-style\">[\\s\\S]*?<\\/style>/,'').replace(/<link rel=\"modulepreload\"[^>]+>/g,'').replace(/<script id=\"pf-startup-script\">[\\s\\S]*?<\\/script>/,'').replace(/<section id=\"pf-startup\"[\\s\\S]*?<\\/section>/,'');assert.equal(after,before,game+' preserves all original HTML, script imports and metadata');}\n});\ntest('existing production tree stays byte-identical outside the declared overlay',()=>{\n const m=loadingManifest();for(const f of m.protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);\n assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);\n});\ntest('modulepreloads only use existing same-origin modules and match original entry imports',()=>{\n const scripts=[];for(const game of games){const doc=new JSDOM(read('public/games/'+game+'/index.html').toString()).window.document;const preload=[...doc.querySelectorAll('link[rel=modulepreload]')].map(el=>el.getAttribute('href'));assert.equal(new Set(preload).size,preload.length);for(const src of preload){assert.doesNotMatch(src,/^https?:/);assert.match(src,/\\.m?js(?:\\?|$)/);assert.ok(readFileSync(new URL(src.split('?')[0],new URL('public/games/'+game+'/',root))).length);}for(const el of doc.querySelectorAll('script[type=module][src]'))assert.ok(preload.includes(el.getAttribute('src')));const script=doc.getElementById('pf-startup-script').textContent;scripts.push(script);assert.doesNotMatch(script,/\\.click\\(|AudioContext|localStorage|sessionStorage|requestAnimationFrame|\\.play\\(|\\.showModal\\(/);const css=doc.getElementById('pf-startup-style').textContent;assert.match(css,/prefers-reduced-motion/);assert.match(css,/min-height:44px/);assert.match(css,/overflow:auto/);assert.match(css,/visibility:hidden!important/);assert.doesNotMatch(css.split('}')[0],/display:none/);}\n assert.equal(new Set(scripts).size,1,'all three inline bootstraps stay identical');\n});\n",
+      "beforeSha256": "bbfcd44a93802d0ec1392dceab59cf39c9f9c8c3326d69967bb40588bd9c074e",
+      "beforeGitBlob": "b4bb103d9720971a725c2e2eb1113270b15e2c3e",
+      "sha256": "882f80ce5a4e23488e6b9ec465a279b29753d308221b1de3e927570f6ae6ae82",
+      "gitBlob": "6c22ef7796ffd123dc56546097ba93dbf3480794"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": ".gitignore",
+      "gitBlob": "53b9700cb1b47705e31c017cb6098f01f1bd4865"
+    },
+    {
+      "path": "APPLY-CANDIDATE.md",
+      "gitBlob": "e2ea1141edf813a3adf3733f4b878fe70b251323"
+    },
+    {
+      "path": "README.md",
+      "gitBlob": "1acaa5bb9b802cec82952fba351702340e9cade1"
+    },
+    {
+      "path": "docs/audio/PROVENANCE.md",
+      "gitBlob": "4f8d2429257fb2bcb60f848a8b645e32ca01fb54"
+    },
+    {
+      "path": "docs/audio/QA-20261027.md",
+      "gitBlob": "924ded4bcf14877df76668bbcb4f38dd8c364ef2"
+    },
+    {
+      "path": "docs/audio/manifest.json",
+      "gitBlob": "da96712530b30e2e21d1388f3ee0824e1151b48e"
+    },
+    {
+      "path": "docs/audio/selected-manifest.json",
+      "gitBlob": "0cc18d088b5e273a231c05e851af24c62fa53fe6"
+    },
+    {
+      "path": "docs/cosmos/PROVENANCE.md",
+      "gitBlob": "172fb1586c8083c0b72db60c59b3456ed67a92a2"
+    },
+    {
+      "path": "docs/history/long-jump-v7.md",
+      "gitBlob": "5b6f11ff4ba2015468c242e2ac8386f91cfa72d2"
+    },
+    {
+      "path": "docs/history/long-jump-v8-route.md",
+      "gitBlob": "fd4ef8a269b2813f367647728fd95918bd5cbe20"
+    },
+    {
+      "path": "docs/history/long-jump-v8.md",
+      "gitBlob": "72c36a73dfb26f2ea733d7c357856d1c1599de3b"
+    },
+    {
+      "path": "docs/history/v7-tests/README.md",
+      "gitBlob": "3853b6f7697ee4af38a6f9fa3e21e4340d5fc425"
+    },
+    {
+      "path": "docs/history/v7-tests/air-stride.test.mjs",
+      "gitBlob": "d3f868a24ee8dbcf2b2b748c318432a5e39b25b9"
+    },
+    {
+      "path": "docs/history/v7-tests/anatomy-flips.test.mjs",
+      "gitBlob": "ffc5b5f0ace3c2d8a895a8a72406a20a961d4834"
+    },
+    {
+      "path": "docs/history/v7-tests/controls-v06.test.mjs",
+      "gitBlob": "de65362f516cb0b4e6fdada60b4167638e2a1b4f"
+    },
+    {
+      "path": "docs/history/v7-tests/glides.test.mjs",
+      "gitBlob": "b7460b5f2435b97d5692f0363e2f11b688d9780a"
+    },
+    {
+      "path": "docs/history/v7-tests/intents-v06.test.mjs",
+      "gitBlob": "90a4b35c7123f26b04ad2fd15f4d5bf867ab99ac"
+    },
+    {
+      "path": "docs/history/v7-tests/landing-v7.test.mjs",
+      "gitBlob": "01411f5583665a179c6914e33cdee593ff4182e0"
+    },
+    {
+      "path": "docs/history/v7-tests/physics.test.mjs",
+      "gitBlob": "3b572bfab79bd49d1dc03530bfe4724e653f0aa0"
+    },
+    {
+      "path": "docs/history/v7-tests/readiness.test.mjs",
+      "gitBlob": "193cf0211eaaad88a6d59a190883710805bb4553"
+    },
+    {
+      "path": "docs/hurdles-main/SOURCE-MANIFEST.json",
+      "gitBlob": "cf0cddffe5965f2ec8e439669135705f43baeac1"
+    },
+    {
+      "path": "docs/landmark-art.md",
+      "gitBlob": "a0587bfe7e5e7e7a6d0d1e2ca05e988f56e40ea8"
+    },
+    {
+      "path": "docs/loading-main/SOURCE-MANIFEST.json",
+      "gitBlob": "c24bd3173502210d6d05d7148bfa28904c403759"
+    },
+    {
+      "path": "docs/loading-main/VERIFICATION.md",
+      "gitBlob": "e60051c8d99d6a8dcb13ea673d1d8fa8d79427b2"
+    },
+    {
+      "path": "docs/long-jump-physics.md",
+      "gitBlob": "e7b47d50ef646baf94421c667b960d236e86d005"
+    },
+    {
+      "path": "docs/long-jump.md",
+      "gitBlob": "15d911a42d331e03404a501cc3873b6d907650f1"
+    },
+    {
+      "path": "docs/plans/2026-10-25-approved-design.md",
+      "gitBlob": "7bc35adefdd55c3b2e3d3fb874b0872a55750c77"
+    },
+    {
+      "path": "docs/plans/2026-10-27-v8-implementation.md",
+      "gitBlob": "7ead56374493ce23a65f4ab1bda66c958e6402cb"
+    },
+    {
+      "path": "docs/reaction-rod-main/PLAN.md",
+      "gitBlob": "bab45f09c977f5e641af3ffd7547ac1d46a4a702"
+    },
+    {
+      "path": "docs/reaction-rod-main/SOURCE-MANIFEST.json",
+      "gitBlob": "6953df34364182980906f59aedde2d475c72f712"
+    },
+    {
+      "path": "docs/reaction-rod-main/VERIFICATION.md",
+      "gitBlob": "ecc478f4eed4d1585e0d982b67c85201a08f4281"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-adventure-route.md",
+      "gitBlob": "a6feab0f85eb0dbdbdf20d53f2ace9fdc8b81417"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-jump-polish.md",
+      "gitBlob": "c6a2c2e2c0e717ac68add7bc02816e0a6e0c7499"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-landmark-polish.md",
+      "gitBlob": "20a4e9d22f83957405b94694983fc1c33efa23db"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-cosmic-journey.md",
+      "gitBlob": "d45fa7318dd35ee715a13c1892d46bf4ffe5b1fb"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-current-visual-sandpits.md",
+      "gitBlob": "8f79df8dd932035aa755a6c510d1452b94914ed4"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-hurdles-main.md",
+      "gitBlob": "cc988aa69d02383a617a1335751bfdc4591b0ad1"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-main-counts-fighter.md",
+      "gitBlob": "82852aeba9e459fb05debc8898440d2400dd7cf9"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-production-leaderboard.md",
+      "gitBlob": "6e4a291cb775db97bb65a6d5f9cd210ea3f5e82e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-adventure-route-design.md",
+      "gitBlob": "50101290e39ef6b783009e9e01cb64072bbf0ad4"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-landmark-polish.md",
+      "gitBlob": "9646c18ae8039f249bc74cdb3354741a89b7f55e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-cosmic-journey.md",
+      "gitBlob": "44fd4dfc3c03a53a919d52ee3e74d6747c035ed1"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-visual-sandpits-design.md",
+      "gitBlob": "bc44e0752e896475d3a5cd89052a96584c5fe636"
+    },
+    {
+      "path": "docs/verification.md",
+      "gitBlob": "a838cda265f5cad171cd59c97808bff93f2ddde4"
+    },
+    {
+      "path": "package-lock.json",
+      "gitBlob": "9527ac5e656df97105c30d5b01e71f7a282b5044"
+    },
+    {
+      "path": "package.json",
+      "gitBlob": "c78f6d63f50c834de77fea7981f8b737d509cc49"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/apple-touch-icon.png",
+      "gitBlob": "1925e531295289eeb930d89c08fda13eed1c81e0"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-32.png",
+      "gitBlob": "e5f5573e097a9b461482f1f78f5dc90ef2fc0f1e"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-48.png",
+      "gitBlob": "2d84fc504212446ab3c5df1f00593ec78142ea39"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-192.png",
+      "gitBlob": "a711bf06b5ddd05a5d4584b1da0c625e8130492d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-maskable-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/apple-touch-icon.png",
+      "gitBlob": "6fd4c6232959e7e29c11fa20134bde1b589cf440"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-32.png",
+      "gitBlob": "ef945c4a18164c7ca40d692a88d3942257b4d6a7"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-48.png",
+      "gitBlob": "a571ee42abffa13cb4d635b42d2dfa72b73e7c5c"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-192.png",
+      "gitBlob": "ca7cfb984d41af6cd446941ac8820c7931070772"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-maskable-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/apple-touch-icon.png",
+      "gitBlob": "8672db4ed34ccf1f27010362ea1e64897e6068bf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-32.png",
+      "gitBlob": "279b02dfac70a4c0ffa8049ee846169b4cbe93f0"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-48.png",
+      "gitBlob": "b6978b692ca8da9f23232808c530be5da188bf6e"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-192.png",
+      "gitBlob": "0fec80b83cb6b8c3093159ac25261fda8b06a4f8"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-512.png",
+      "gitBlob": "359c490ff9842e32d8bf59aba98e5a404c7ff808"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-maskable-512.png",
+      "gitBlob": "314aed68f60b72f7447d6bd35bde11cdbc06b7cd"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/apple-touch-icon.png",
+      "gitBlob": "0f754034fcee82e39586f54d8318fe4190450085"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-32.png",
+      "gitBlob": "182ea863240591cb74680057017112c74a431c86"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-48.png",
+      "gitBlob": "3e3a7de068275715476175adc375ef68782ba3d3"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-192.png",
+      "gitBlob": "a9e7cf9490debdbee239655a815366a1868bf142"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-maskable-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/favicon.svg",
+      "gitBlob": "0953ffa38027e37ebc75bef4a2f05ae4668e6e5a"
+    },
+    {
+      "path": "public/assets/home.css",
+      "gitBlob": "f5bfdfb7001aa0d8d9575802521ba65895e547b7"
+    },
+    {
+      "path": "public/assets/play-counts.mjs",
+      "gitBlob": "75fd926dffc5d294100ce28fc2e26a83c97927e1"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter-logo.webp",
+      "gitBlob": "a840112e019937ea49ae99f6a019d4425a0eded2"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter.webp",
+      "gitBlob": "c438378b7a7290552051608b1bdb78dd92c1c7a2"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/controls.mjs",
+      "gitBlob": "00975e353a7a0a91c6095141a9cb1b148bbe771d"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/game.mjs",
+      "gitBlob": "113c39ebb70ac7d1f264574029cf43f90bc64a2a"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/index.html",
+      "gitBlob": "7dac875884f8f01b318109124e7c888525e69faf"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/physics.mjs",
+      "gitBlob": "33cf9cda1715efa2caf0538851c5bdfe84f44949"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/style.css",
+      "gitBlob": "95816ca7ba03531212d7f6d21e822e8f1a04a4f4"
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "gitBlob": "c0ae4bd873a7b54e50b1df669615c4abc7307ae2"
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "gitBlob": "e9d283733f265ea9ad1af01b071dfbec6d01c0f9"
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "gitBlob": "ae2b279c109df77c8d731fb2e00abfa4ce17431a"
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "gitBlob": "0e62f221b929408fb90d3296979a3681ba00bb78"
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "gitBlob": "a27e3758767227254404a8575392231e3767e7d1"
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "gitBlob": "9df59d473fda2a5f905ca0f22f03d5ed1fb516c6"
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "gitBlob": "81a794a34f82b9e5129f17b62528598a7d98e77b"
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "gitBlob": "b64dbd9d42d3d402fa9424bb5400333065f57184"
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "gitBlob": "911b132a60bf3822586d86ac5b651d5819daf4eb"
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "gitBlob": "e9ee9e6842cddc56cf53539525071888b694fa7a"
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "gitBlob": "684bf04991b61dca268ede1e58d0ea4f14c530f4"
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "gitBlob": "a34b3e0f54bf195686c61d0b4b8437d59559fd35"
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "gitBlob": "6fa3dfc2df3178f9c9f09eb9ce17e8bf93e1e374"
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "gitBlob": "51ab350c27615fbfc2d7359883903890012300df"
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "gitBlob": "9eeffe3ac5526b6a75ecb7a7cffa6f525a3a811f"
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "gitBlob": "e1ce8aecd3282fcd0931d543fea33c328d02362d"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "gitBlob": "2db42d4fcb672607dc7e032f041548a53c11f5ed"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "gitBlob": "de6466b02d6aa4bbce88c44f691787c3fbdc0cd0"
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "gitBlob": "2168b78aea1ab10e72dd5838174f83d71df4d9a2"
+    },
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "gitBlob": "d3f4e1e313d5ea4cb02f6ea6f1f690a9dcefe59f"
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "gitBlob": "2e664db6598d9677b6c2b27367f6ad28cd571a97"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "gitBlob": "9ce489d084dbfe3d13ac9806a98548542541ca21"
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "gitBlob": "a4eab3ddfab6a5ba4b1a4fd52589549fea01778c"
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "gitBlob": "5241e6a5dfeb080284d178f3f0065b2b765189a4"
+    },
+    {
+      "path": "public/games/long-jump/manifest.webmanifest",
+      "gitBlob": "827f01127c589b231e1078fe60cb578ec7301276"
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "gitBlob": "bb96f4ac6b07ff999b624766ed7758c6c82576d0"
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "gitBlob": "75867a2188d0fd03490a8e94a87f9d6b042de245"
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "gitBlob": "542cca0630758e43d0a7dbcae4e9ba56a041c15f"
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "gitBlob": "498d697ddb991983f8e4280b6858c520115fc3c6"
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "gitBlob": "a1ccc244fa6d7a81be713f9bc9bd5ef2638e9103"
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "gitBlob": "eba71c4a1fdd05debd20d7c7715c09f6071d2033"
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "gitBlob": "48a0df2b81da5467594bf290cd602780b40992e9"
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "gitBlob": "39be1230c48f48236d305318afa5a6a9b9f99e26"
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "gitBlob": "b882b48321b34210aad3c6ae8a9d972fd82c2442"
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "gitBlob": "05cdef3bff7f682d60455e312fdb73f1c89f4686"
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "gitBlob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "gitBlob": "70c40977daa0f6e1e312c6b58e9bfe49cb5a87a4"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "gitBlob": "20d3c112761a519c7780a5ccc9f72a40937fa83b"
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "gitBlob": "0bec16c55341f752ba4ac665651cbd3d530f2093"
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "gitBlob": "dfe93e30eee9d8eff6577ab7d12d7a04f2316fae"
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "gitBlob": "b9b18327b10711a80dbe310283330c2a5ddec769"
+    },
+    {
+      "path": "public/games/reaction-rod/audio.mjs",
+      "gitBlob": "2ab5ade9b7cc5f834b2566aefdc630952bf5d045"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/CREDITS.md",
+      "gitBlob": "e044ffb34f9180f682bef1bbe83ccaf2e8d69067"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/glass-tap.wav",
+      "gitBlob": "479a2ff557800655a2bee89f08e1ef96c62d78c3"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/spill-drop.wav",
+      "gitBlob": "a5bd77ea257f6c582ba4763890cf579fb8d442f8"
+    },
+    {
+      "path": "public/games/reaction-rod/final-moment.mjs",
+      "gitBlob": "92c345b8cd4d7e46b0926b0a8be3bd6c5e273554"
+    },
+    {
+      "path": "public/games/reaction-rod/framing.mjs",
+      "gitBlob": "4f07858e8b96b9c38fa06c9f5d27c60d821c07d8"
+    },
+    {
+      "path": "public/games/reaction-rod/game-audio-events.mjs",
+      "gitBlob": "2467922a9bd57d17adf1c745acd6f5f9f22a0cbd"
+    },
+    {
+      "path": "public/games/reaction-rod/game.mjs",
+      "gitBlob": "033a633da939586f6cf57d3ec4e38fad36bd948f"
+    },
+    {
+      "path": "public/games/reaction-rod/layout.mjs",
+      "gitBlob": "597253d88dee6718a41e6961a7e62c59c9caa746"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-metrics.mjs",
+      "gitBlob": "b2d34df4f8c02885ce3f6333acbd8fa42c3e1350"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-scroll.mjs",
+      "gitBlob": "50cebd4910329c2f75d36758dc87576e441ae1c1"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard.mjs",
+      "gitBlob": "2200233b699ba4b191981b4f682ec11bfd847fd8"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+      "gitBlob": "0c805e98c2aff9b5d29b2a2aaa9cd7768678787a"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Kenney-Interface-License.txt",
+      "gitBlob": "1fc5acf8243a8ac899403e7297f8c5efdc4258f2"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Not-Jam-License.txt",
+      "gitBlob": "60e049509bdf6f0102fa4815ac1d031c7d77b428"
+    },
+    {
+      "path": "public/games/reaction-rod/manifest.webmanifest",
+      "gitBlob": "b0b6a524c20de78a1070dd56327b33272b91a27e"
+    },
+    {
+      "path": "public/games/reaction-rod/physics.mjs",
+      "gitBlob": "a88e8f4437c4b224f725b1a13b3af2b39db5cd6d"
+    },
+    {
+      "path": "public/games/reaction-rod/play-counts.mjs",
+      "gitBlob": "e1950ccf5909a117b35bd058eaad7ad4e53fe563"
+    },
+    {
+      "path": "public/games/reaction-rod/replay.mjs",
+      "gitBlob": "115b8a4b470e5889f362184b1d5bbc7df2b0c3d9"
+    },
+    {
+      "path": "public/games/reaction-rod/result.css",
+      "gitBlob": "5e14fb7fa770ecbcd0228b91c9cc627e5b0b17ac"
+    },
+    {
+      "path": "public/games/reaction-rod/scene.mjs",
+      "gitBlob": "4d7313ddaebb299733b428b2ae639991acf2e0d3"
+    },
+    {
+      "path": "public/games/reaction-rod/share.mjs",
+      "gitBlob": "3742b71d55e34a2adbccd42f90cd96dc64cdefdf"
+    },
+    {
+      "path": "public/games/reaction-rod/snapshot.mjs",
+      "gitBlob": "28b318dc026fb2cdb263c02250ada3b07b4606a9"
+    },
+    {
+      "path": "public/games/reaction-rod/style.css",
+      "gitBlob": "6163314c8995e4c2881f52640aae49f03de58a89"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/reaction-rod/viewport.css",
+      "gitBlob": "ce20b50e4e13faf28e1f3aa40c8fcb12d98a5a1c"
+    },
+    {
+      "path": "public/games/shared/audio-preferences.mjs",
+      "gitBlob": "ff71b706bb6eac4fa64d6a8b43275f864ee9e445"
+    },
+    {
+      "path": "public/games/shared/audio-runtime.mjs",
+      "gitBlob": "ceddec5ea717fe403dbb7b6a2114c9fcf515cb3c"
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "gitBlob": "987bba24c132b4c21928283f3e72e360cebabc2a"
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "gitBlob": "e1b1ecfc8784d5f1942c6c44b88c936b09b5863f"
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "gitBlob": "e4c4e65df7fa784d8f5a0cbab29043d04ab8f001"
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "gitBlob": "d3563ce03f0ef59ab875732927cadb8be4200fed"
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "gitBlob": "b23ca1ab928171cd245103e642f99ae5fb04f258"
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "gitBlob": "01fc2f38df10bb85461233d0f0e8e4e6e3a830fd"
+    },
+    {
+      "path": "public/games/shared/leaderboard-config.mjs",
+      "gitBlob": "6068a13900e9fa266be02ffae05a874517847661"
+    },
+    {
+      "path": "public/games/shared/leaderboard.css",
+      "gitBlob": "8429a7c664a684094533830c9c86d8b17134109c"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "gitBlob": "945c44604b42a2ae2449ef28d3543c703201690b"
+    },
+    {
+      "path": "public/games/shared/menu-audio.mjs",
+      "gitBlob": "35f161653dd3f036af9cff1c27fe8d545da69ae8"
+    },
+    {
+      "path": "public/games/shared/menu-content.mjs",
+      "gitBlob": "96477806a67ad663551c43451d1f41a302d6818b"
+    },
+    {
+      "path": "public/games/shared/play-counts.mjs",
+      "gitBlob": "f07d80094e665e7e01ca7e4248947a695aa32fa7"
+    },
+    {
+      "path": "public/games/shared/production-jump-chrome.css",
+      "gitBlob": "f8f485a62f92d4bb6f088128670401940f2605d1"
+    },
+    {
+      "path": "public/games/shared/production-jump-leaderboard.mjs",
+      "gitBlob": "e36580da2af43d048d01022e127ea7c5f8e9fd35"
+    },
+    {
+      "path": "public/games/shared/scene-audio.mjs",
+      "gitBlob": "a17e6ca66ca0541b617240bec099147b93c51458"
+    },
+    {
+      "path": "public/index.html",
+      "gitBlob": "31f40c36aa0a334794abf97fe2c90397d18224fe"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "gitBlob": "aa16a9071ee62f9b769b5cc67dbc922673e7241a"
+    },
+    {
+      "path": "scripts/check-cosmos-parity.mjs",
+      "gitBlob": "24cc18f8981e2278693fa610c4a506b339bf8938"
+    },
+    {
+      "path": "scripts/paint-cosmos-evidence.py",
+      "gitBlob": "a284226fe035bbff4c319530600f8cda9fbb475b"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "gitBlob": "e7f9fe5111f5195b2940ce8efc776e607ad18a39"
+    },
+    {
+      "path": "scripts/render-cosmos-evidence.mjs",
+      "gitBlob": "866d18c2e666c07323ae21d91d0ee43df6f046f3"
+    },
+    {
+      "path": "scripts/render-v10-blender.py",
+      "gitBlob": "d332b8f1ff8c8c692d2534ab83914f74e4b4733e"
+    },
+    {
+      "path": "scripts/render-v10-evidence.mjs",
+      "gitBlob": "b8aff7d317df89bfddb4f4fd0f50401eec5f1e9d"
+    },
+    {
+      "path": "scripts/render-v8-blender.py",
+      "gitBlob": "3759c198bf8e5d8ca2b4b847466a2d1276f9e9d1"
+    },
+    {
+      "path": "scripts/render-v8-evidence.mjs",
+      "gitBlob": "d99a461d26fcd6b7816cff181929864e7214d4e1"
+    },
+    {
+      "path": "scripts/render-v9-blender.py",
+      "gitBlob": "f01c2839e8ed0ae88ffca547bb97d17e7f1e3b87"
+    },
+    {
+      "path": "scripts/render-v9-evidence.mjs",
+      "gitBlob": "5327dd841a0adc20604d409a21ee38ed70561795"
+    },
+    {
+      "path": "src/catalog-entries/taiwanfighter.json",
+      "gitBlob": "42056a39017f28e2eb8f25229edfb0fde53c30ec"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "gitBlob": "816a26abf1e0731a55fadfd1f3e53eafd225df16"
+    },
+    {
+      "path": "src/external-catalog.mjs",
+      "gitBlob": "1b4a01e611bd2b2f036040f38f7f81e215d7cb26"
+    },
+    {
+      "path": "src/render.mjs",
+      "gitBlob": "65890961de119703ffdc23b153d15d9990cc2adb"
+    },
+    {
+      "path": "tests/build.test.mjs",
+      "gitBlob": "7b84811e643c1054fb879a91f3cf4e16b1c6261a"
+    },
+    {
+      "path": "tests/experiment-physics.test.mjs",
+      "gitBlob": "8ead78446d730d1945815a99182d8e50cd8d95dc"
+    },
+    {
+      "path": "tests/experiment-ui.test.mjs",
+      "gitBlob": "f4a57949c4d34432a0550ab097c389494edb7426"
+    },
+    {
+      "path": "tests/experiment-v2.test.mjs",
+      "gitBlob": "8a4b5d999cb5d6628d0dcb42c1a35a1c41bfe921"
+    },
+    {
+      "path": "tests/helpers/entry-boundary.mjs",
+      "gitBlob": "a47f5263142d5682e0c78be15a0c15e6b19a0be3"
+    },
+    {
+      "path": "tests/helpers/leaderboard-sqlite.mjs",
+      "gitBlob": "107c0a29801b7c98786c5ff1e26fa89b23e2e399"
+    },
+    {
+      "path": "tests/helpers/rod-entry-boundary.mjs",
+      "gitBlob": "2d50869c6c8b3a7288515e1d4f18abbf5c683a39"
+    },
+    {
+      "path": "tests/helpers/rod-main-provenance.mjs",
+      "gitBlob": "fb75a7f554ea59e76da396f3e0f59a0e765f312d"
+    },
+    {
+      "path": "tests/home-layout.browser.html",
+      "gitBlob": "b414090915f0324cef8e1b4e70ef285d960d4c77"
+    },
+    {
+      "path": "tests/home-layout.test.mjs",
+      "gitBlob": "574e1f6c4f9ef8741067c1e2d97b49e46f473832"
+    },
+    {
+      "path": "tests/home-views-api.test.mjs",
+      "gitBlob": "68ebdb1f437a01e2ff1f5b4181ec065fb7d9caff"
+    },
+    {
+      "path": "tests/home-views-client.test.mjs",
+      "gitBlob": "3a3386b3923ffe6ee3cf335779f73fceeddbd95f"
+    },
+    {
+      "path": "tests/honor-board-api.test.mjs",
+      "gitBlob": "29c7856fb594bea4b11bd52c5ed76e4a4fd410f4"
+    },
+    {
+      "path": "tests/honor-board-view.test.mjs",
+      "gitBlob": "8bbd72491296451c4e8b061e24d3f1c7f1575b30"
+    },
+    {
+      "path": "tests/hurdles-admission.test.mjs",
+      "gitBlob": "6bb36d75417feb37fcb1f49fce90379940ca2e5d"
+    },
+    {
+      "path": "tests/hurdles-platform.test.mjs",
+      "gitBlob": "f8b61e3c3de932f4395db90c450a4554bc6f391e"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "gitBlob": "fb8cbbfe4efdad55fa4f1663f991b91bcc88bac0"
+    },
+    {
+      "path": "tests/hurdles/accessibility.test.mjs",
+      "gitBlob": "05c671e6ce36e869f66505bbc460f2d027aff418"
+    },
+    {
+      "path": "tests/hurdles/helpers/matched-race.mjs",
+      "gitBlob": "5265b022c3c7042cadfcedc47be481dd55abea19"
+    },
+    {
+      "path": "tests/hurdles/input.test.mjs",
+      "gitBlob": "8dd21c3bb0dc7209b1d1124cd17f09a00680fe4d"
+    },
+    {
+      "path": "tests/hurdles/pacing.test.mjs",
+      "gitBlob": "4e229103bea03899b99dd8b075b64b3bf186115f"
+    },
+    {
+      "path": "tests/hurdles/physics.test.mjs",
+      "gitBlob": "6042c48f5d2c31a3ef8f1982e558072e5c773a72"
+    },
+    {
+      "path": "tests/hurdles/platform-ui.test.mjs",
+      "gitBlob": "a7bf683b9e7b186cffc73106ceff824ad160888f"
+    },
+    {
+      "path": "tests/hurdles/play-surface.test.mjs",
+      "gitBlob": "8e98e889cd0fa97074e6f9dc0b49658442af7745"
+    },
+    {
+      "path": "tests/hurdles/replay.test.mjs",
+      "gitBlob": "01e155bf3967e6f2dc08309fc29b93ab3348bb9c"
+    },
+    {
+      "path": "tests/hurdles/result-fit.test.mjs",
+      "gitBlob": "a85e2993c034c897aacbae272422a578cb773d85"
+    },
+    {
+      "path": "tests/hurdles/result-guard.test.mjs",
+      "gitBlob": "438ae845b11b8277b7f25f32d19b201af5a1a694"
+    },
+    {
+      "path": "tests/hurdles/revision.test.mjs",
+      "gitBlob": "a61444b4329ed21e57f2c272ba211c1a03c029e7"
+    },
+    {
+      "path": "tests/hurdles/share.test.mjs",
+      "gitBlob": "8d70050fe39a35d275b7750fa4a01a31c95e158a"
+    },
+    {
+      "path": "tests/leaderboard-api.test.mjs",
+      "gitBlob": "002bafb27de45136d4d32eb38e3b5c63ddc5d14b"
+    },
+    {
+      "path": "tests/leaderboard-client.test.mjs",
+      "gitBlob": "1cb12e89e70b2b44d9af9e1309e34ceee82bf78a"
+    },
+    {
+      "path": "tests/leaderboard-enabled-controller.test.mjs",
+      "gitBlob": "01c80a74a78de4ab701ce37ff70c3f2aca464c7e"
+    },
+    {
+      "path": "tests/leaderboard-repository.test.mjs",
+      "gitBlob": "f0265397ab6db788d314e78fa1a51abfcd3cf7ad"
+    },
+    {
+      "path": "tests/long-jump/audio.test.mjs",
+      "gitBlob": "a42fc0494bc6e832a0e4b7986900470c26d85d96"
+    },
+    {
+      "path": "tests/long-jump/browser-dom.html",
+      "gitBlob": "6e283af9c7bbe980083017b568b91b9c1f3c2b13"
+    },
+    {
+      "path": "tests/long-jump/browser-portrait-layout.html",
+      "gitBlob": "aa94b2cf80fc391358846d464c565a5ace261a8a"
+    },
+    {
+      "path": "tests/long-jump/browser-recovery.html",
+      "gitBlob": "4542ff3bd37531ae248940f72e8a7274339543d0"
+    },
+    {
+      "path": "tests/long-jump/browser-root-origin.html",
+      "gitBlob": "f4306d61b1a451291d69b568c45792e533a2d378"
+    },
+    {
+      "path": "tests/long-jump/capture.test.mjs",
+      "gitBlob": "a4fd660cd9c748045f499f91f2f9d565ff8d6592"
+    },
+    {
+      "path": "tests/long-jump/character.test.mjs",
+      "gitBlob": "e108e04a248043f6f7b03a1c5324c4dbfb8e1b3a"
+    },
+    {
+      "path": "tests/long-jump/controls.test.mjs",
+      "gitBlob": "3452ae4f10b1dae166aa946663954d4d25419715"
+    },
+    {
+      "path": "tests/long-jump/cosmic-route.test.mjs",
+      "gitBlob": "c33676cc6d0cd91400d400d551cf0c92ce3dad46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-scenery.test.mjs",
+      "gitBlob": "2795e7bacd99eb6a258b4bb567d6f86168431d46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-verdicts.test.mjs",
+      "gitBlob": "a5366cbea29003bc0f60f4095a6e64bbc1baead4"
+    },
+    {
+      "path": "tests/long-jump/dialogs.test.mjs",
+      "gitBlob": "b82f4aa78a63321b87bad3b10e894a5028ec1df6"
+    },
+    {
+      "path": "tests/long-jump/endless-multiverse.test.mjs",
+      "gitBlob": "a483e8d4cd4ef743481c2c7babda605fc668d54f"
+    },
+    {
+      "path": "tests/long-jump/fixtures/cosmic-legacy-route.json",
+      "gitBlob": "0af23c5eecd1590539bdd0c08125a0fc8a2ff450"
+    },
+    {
+      "path": "tests/long-jump/fixtures/v8-feel.json",
+      "gitBlob": "6a6b11e0534eeafee6363d72a295fdb7f7fe0eba"
+    },
+    {
+      "path": "tests/long-jump/flavour.test.mjs",
+      "gitBlob": "09eb5ade1e92b647819423dd6f37a59a508f656e"
+    },
+    {
+      "path": "tests/long-jump/game-lifecycle.test.mjs",
+      "gitBlob": "666bf540b4eb1049f328daf3a311b4fd1d85c58a"
+    },
+    {
+      "path": "tests/long-jump/landing-preview.test.mjs",
+      "gitBlob": "ee578aab6ab5799917031e43644295c41a130b02"
+    },
+    {
+      "path": "tests/long-jump/layout.test.mjs",
+      "gitBlob": "a99b83bb919f8bd4df70988625c252bbc1b119e2"
+    },
+    {
+      "path": "tests/long-jump/play-surface.test.mjs",
+      "gitBlob": "6f5908c67e483d70e762e1b511e69762fbad03a1"
+    },
+    {
+      "path": "tests/long-jump/polish.test.mjs",
+      "gitBlob": "5d41bb2b7cdb96519653adb88a121be4cb68fce2"
+    },
+    {
+      "path": "tests/long-jump/prepare-recovery-browser.mjs",
+      "gitBlob": "2516eebb90102719178205f6254ac79f11753cbe"
+    },
+    {
+      "path": "tests/long-jump/prepare-root-origin-browser.mjs",
+      "gitBlob": "bc22a75bba7bca0fa4a86769e15f07d1d5c850f1"
+    },
+    {
+      "path": "tests/long-jump/prepare-viewport-diagnostics-browser.mjs",
+      "gitBlob": "f97a00abc714de3af8286da410455fe95b17a5ae"
+    },
+    {
+      "path": "tests/long-jump/result-view.test.mjs",
+      "gitBlob": "905d03a6487871f17757cb6882b2d4237c41c2a9"
+    },
+    {
+      "path": "tests/long-jump/rotation-dialog.test.mjs",
+      "gitBlob": "24c3d0cef3c022cfc8b9dd2f7cb09b062b82350b"
+    },
+    {
+      "path": "tests/long-jump/rotation-input.test.mjs",
+      "gitBlob": "d106563ccdd507d667e7443c70305c0ba9641736"
+    },
+    {
+      "path": "tests/long-jump/sandpits.test.mjs",
+      "gitBlob": "7b2375ea33feb4ccb1473744b30d4101eae51aa8"
+    },
+    {
+      "path": "tests/long-jump/scenario-v06.mjs",
+      "gitBlob": "d13bd4cc8fd605c5275e8f192bd818f80c7696d0"
+    },
+    {
+      "path": "tests/long-jump/selected-audio.test.mjs",
+      "gitBlob": "822bee2d9c003392c5958cb39693e4574eb82848"
+    },
+    {
+      "path": "tests/long-jump/selected-dialog.test.mjs",
+      "gitBlob": "d077d6f069c2098b27901defbe45c72acb2923c8"
+    },
+    {
+      "path": "tests/long-jump/share-v04.test.mjs",
+      "gitBlob": "a14355d87793c5464d2c3b16a84edafe73f3a2f8"
+    },
+    {
+      "path": "tests/long-jump/share-v05.test.mjs",
+      "gitBlob": "6142d6e21839a6079be79ba310a4201070d59fe5"
+    },
+    {
+      "path": "tests/long-jump/share.test.mjs",
+      "gitBlob": "4dc7af44886be5822f5e751d34ed7029e2e76256"
+    },
+    {
+      "path": "tests/long-jump/standalone-dialog.test.mjs",
+      "gitBlob": "d02fb1125fc63dc5855f874e1da38b82c14f8172"
+    },
+    {
+      "path": "tests/long-jump/v10-landmark-structure.test.mjs",
+      "gitBlob": "1a523bab55d2bde48c023fcc8ead034447db3811"
+    },
+    {
+      "path": "tests/long-jump/v10-scenery.test.mjs",
+      "gitBlob": "36711cd7f2ba8cef9674bf65246b9af88991bb36"
+    },
+    {
+      "path": "tests/long-jump/v8-motion.test.mjs",
+      "gitBlob": "0bcbb1f0e49c016a756cb0fcfcfb34f71031d465"
+    },
+    {
+      "path": "tests/long-jump/v8-presentation.test.mjs",
+      "gitBlob": "68ec7c513fb3aad16e4088f89203fbd233f457da"
+    },
+    {
+      "path": "tests/long-jump/v8-scenarios.mjs",
+      "gitBlob": "48314cbf34befa4a0d5d73d13c644e99578f2149"
+    },
+    {
+      "path": "tests/long-jump/v8-scenery.test.mjs",
+      "gitBlob": "301f2ae57080bb0e9988310c20bc90ede5ccc74c"
+    },
+    {
+      "path": "tests/long-jump/v8-verdicts.test.mjs",
+      "gitBlob": "f6a8c1fd5f3b9349fe89abb204f9454220d8a812"
+    },
+    {
+      "path": "tests/long-jump/v8-world.test.mjs",
+      "gitBlob": "20d04391cbe3ef986c35b18bd0fed20ebc9a2fda"
+    },
+    {
+      "path": "tests/long-jump/v9-feel.test.mjs",
+      "gitBlob": "3b47512ebc4b5a3b43c3bfc0ce765d908c03596b"
+    },
+    {
+      "path": "tests/long-jump/v9-presentation.test.mjs",
+      "gitBlob": "e72869b410914e6e249f28808f983bf460ac190f"
+    },
+    {
+      "path": "tests/long-jump/v9-route.test.mjs",
+      "gitBlob": "08b8a75e96c00958870ef3976c81f55d3bf74b81"
+    },
+    {
+      "path": "tests/long-jump/v9-scenery.test.mjs",
+      "gitBlob": "7b9d27060fc506371c3944ea6c5ec06c0fb929ac"
+    },
+    {
+      "path": "tests/long-jump/verdicts.test.mjs",
+      "gitBlob": "71ab3e9126381626d3f4bfaf416442a164e9a612"
+    },
+    {
+      "path": "tests/long-jump/viewport-diagnostics.test.mjs",
+      "gitBlob": "aad7faf184d1a4836647a95b33cf5b9043918728"
+    },
+    {
+      "path": "tests/long-jump/viewport-root-origin.test.mjs",
+      "gitBlob": "e26344a726055c102a16d1ea28b51aeb6a584351"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "gitBlob": "97946132aeb186b272ad627ff40f8a97acf607b8"
+    },
+    {
+      "path": "tests/main-icons.test.mjs",
+      "gitBlob": "6a5845fe0192066c0d06a9976e90818f3e630e02"
+    },
+    {
+      "path": "tests/main-loading.test.mjs",
+      "gitBlob": "85e7fef31d3044cb8d9f95c7580b0f0cdda108c0"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "gitBlob": "952ab108c927bd888c965a4f2a7ec8c2e323ca36"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "gitBlob": "53bf2b06ab758d288c7e11e9ea08d67782e9d934"
+    },
+    {
+      "path": "tests/play-counts-api.test.mjs",
+      "gitBlob": "c42e005a85ffc7694c72c81c1f7b141f09fb3c72"
+    },
+    {
+      "path": "tests/play-counts-client.test.mjs",
+      "gitBlob": "c121420e3b68d088191ac076d3d8ecdbf1b07936"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "gitBlob": "0e02864f4a28cfbbaa3aa97d1c7b04fd380b0d9b"
+    },
+    {
+      "path": "tests/production-jump-controller.test.mjs",
+      "gitBlob": "25cfbf6f191ce41fc174443b18feb8826c249052"
+    },
+    {
+      "path": "tests/production-jump-leaderboard.test.mjs",
+      "gitBlob": "8ab7a82301129fcf9c616f3e22aceef94f44d1b6"
+    },
+    {
+      "path": "tests/production-leaderboard.test.mjs",
+      "gitBlob": "3a18cf2fd257e4bc3ab885889702f01aedb9ac9c"
+    },
+    {
+      "path": "tests/ranking-refinement.test.mjs",
+      "gitBlob": "2d0dbfe6ae919fc5452d284a540f556e856b305e"
+    },
+    {
+      "path": "tests/reaction-rod-database.test.mjs",
+      "gitBlob": "5fd578790e8565efa5797c208edbf16d65418db8"
+    },
+    {
+      "path": "tests/reaction-rod-main-integrity.test.mjs",
+      "gitBlob": "739996d2b6f0d5397f9720f31de66d9f7a655866"
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "gitBlob": "a942de833d30211d83dfc985a87046d4ae18e8a6"
+    },
+    {
+      "path": "tests/reaction-rod-upload-scroll.test.mjs",
+      "gitBlob": "38ce0ff3646723453832a2d581a4d6e0b5b15721"
+    },
+    {
+      "path": "tests/reaction-rod/art-v4-baseline.json",
+      "gitBlob": "639389d18929de809230e7b848865be4874d5fff"
+    },
+    {
+      "path": "tests/reaction-rod/art.test.mjs",
+      "gitBlob": "f35dea5e0f8fd691b3355bf4e968977cdeb974b6"
+    },
+    {
+      "path": "tests/reaction-rod/crouch.test.mjs",
+      "gitBlob": "c01e0bb434f58fbe67bc8220765bb26adc81f795"
+    },
+    {
+      "path": "tests/reaction-rod/difficulty.test.mjs",
+      "gitBlob": "ede7f009641de425bae7a012ac4e506135582ce8"
+    },
+    {
+      "path": "tests/reaction-rod/final-moment.test.mjs",
+      "gitBlob": "dc6db9abb3110187d2a79e8c0969dd3ca8f962b4"
+    },
+    {
+      "path": "tests/reaction-rod/final-photo.test.mjs",
+      "gitBlob": "c2fa8eae107796c5daf8985dc00d3dcf832fbfb5"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-result-base-physics.mjs",
+      "gitBlob": "087846f9432cfc622ac20f7f552b89f3011f9fae"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-v9-game.mjs",
+      "gitBlob": "a3ee98fbab23b9dce1fdc6b207f6640ebfc2c7f1"
+    },
+    {
+      "path": "tests/reaction-rod/framing-v7.test.mjs",
+      "gitBlob": "1f58cbe8cb24c7b2ee3982ecb246d8f0d02d0054"
+    },
+    {
+      "path": "tests/reaction-rod/model-crouch.test.mjs",
+      "gitBlob": "d00eafdc439c07b3c308bf2f3fb49b6778c5edfb"
+    },
+    {
+      "path": "tests/reaction-rod/physics.test.mjs",
+      "gitBlob": "9ceb250f770639df274ab1f3638f823727fc164c"
+    },
+    {
+      "path": "tests/reaction-rod/replay-integration.test.mjs",
+      "gitBlob": "c4d0712e89484f3ac5d77d66cc83ade9b1818a9a"
+    },
+    {
+      "path": "tests/reaction-rod/replay-layout.test.mjs",
+      "gitBlob": "2cec936b07dff5b8f4a0156c1fe8d841e679794e"
+    },
+    {
+      "path": "tests/reaction-rod/replay-scene.test.mjs",
+      "gitBlob": "38156f6d7fb50519003591d6f7c66661b0ae1259"
+    },
+    {
+      "path": "tests/reaction-rod/replay.test.mjs",
+      "gitBlob": "09bc89daafe8c3f32153fe3e3bff9e133703f70d"
+    },
+    {
+      "path": "tests/reaction-rod/result-layout.test.mjs",
+      "gitBlob": "fd19e0cf5779ad4f9c7f2cd315760de9af96ee31"
+    },
+    {
+      "path": "tests/reaction-rod/result-polish.test.mjs",
+      "gitBlob": "a552d6631c43f277ceb3111e0d2b7faf9218adc3"
+    },
+    {
+      "path": "tests/reaction-rod/share.test.mjs",
+      "gitBlob": "3f1f7d7f59aab500d8b8b1a1c6da672e34af69c7"
+    },
+    {
+      "path": "tests/reaction-rod/snapshot-v7.test.mjs",
+      "gitBlob": "25802c244dd546129d79e373843aa220c24d34e5"
+    },
+    {
+      "path": "tests/reaction-rod/standing.test.mjs",
+      "gitBlob": "d6de1b04d7caeb90b0f5789a1f794159c687e72d"
+    },
+    {
+      "path": "tests/reaction-rod/ui.test.mjs",
+      "gitBlob": "d1ed917f649e1d250a95a9f43fc9ee80a67a66ea"
+    },
+    {
+      "path": "tests/reaction-rod/viewport.test.mjs",
+      "gitBlob": "31d8bb8c69a04258bcbcb4215faa2a43fea3d94b"
+    },
+    {
+      "path": "tests/render.test.mjs",
+      "gitBlob": "5d8249d34e50ce0a84926ac0c3e191a923df4092"
+    },
+    {
+      "path": "tests/v2-menu-audio.test.mjs",
+      "gitBlob": "cf53cb89153542576a7f53b4369e4325ba180c66"
+    },
+    {
+      "path": "tests/v2-menu-style.test.mjs",
+      "gitBlob": "45d053c3178371fd319c9ef0e2e72791e5a4ee5d"
+    },
+    {
+      "path": "tests/v2-menu.test.mjs",
+      "gitBlob": "bb6d15d1b6fb634cdc72a4bad0631067b7b9857e"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "gitBlob": "7591f7c7c4957cfd923e835af91e9da421abedd7"
+    },
+    {
+      "path": "worker/leaderboard/003-reaction-rod-production.sql",
+      "gitBlob": "2d80f19145cf8ad0b15c735f5a79265daaa49fd8"
+    },
+    {
+      "path": "worker/leaderboard/DEPLOYMENT-NOTES.md",
+      "gitBlob": "6bfb50d2db990c0e9684d832776025c0acb95d77"
+    },
+    {
+      "path": "worker/leaderboard/README.md",
+      "gitBlob": "61e56935f1a09c167064a5a86c8ef616b3167dad"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "gitBlob": "34ec71578b76b110b4006438d256843a4992f639"
+    },
+    {
+      "path": "worker/leaderboard/reaction-rod-repository.mjs",
+      "gitBlob": "e43cc6222e861f3d599891037274029be641edf4"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "gitBlob": "0847709879c0d7f605eecf9285f6fe32c7da6dcc"
+    },
+    {
+      "path": "worker/play-counts/002.sql",
+      "gitBlob": "ceffcb74368ae33ab233899f506b88d361f0e875"
+    },
+    {
+      "path": "worker/play-counts/README.md",
+      "gitBlob": "9396e6dac0ee6d080947a92fc7a40cbdb01bdf91"
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "gitBlob": "0565bc127f2f3b4c78a9ebd3c3b211e2b62f879e"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "gitBlob": "d77ccc5743f7ddd9fe147872072824612a67d170"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "gitBlob": "e99bdaed9a7e1635cd58aeaa2dc45c952d6b519b"
+    }
+  ]
+}

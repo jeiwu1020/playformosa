@@ -1,5 +1,6 @@
+import {readBeforeLoading} from './helpers/loading-main-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex');
+const root=new URL('../',import.meta.url),read=p=>readBeforeLoading(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex');
 const m=JSON.parse(read('docs/reaction-rod-main/SOURCE-MANIFEST.json'));
 test('Rod promotion ledger protects every existing game, shared module, original schema and production binding byte',()=>{
  assert.equal(m.baseCommit,'af138c1631b553b65531016f24888266c3ef2bbe');assert.equal(m.previewSource,'52c60d195e494146f95bc702763cbe6d7bcc742a');

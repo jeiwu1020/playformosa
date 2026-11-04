@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 const root=fileURLToPath(new URL('../dist/',import.meta.url));
 async function files(dir){const entries=await readdir(dir,{withFileTypes:true});return (await Promise.all(entries.map(item=>item.isDirectory()?files(path.join(dir,item.name)):path.join(dir,item.name)))).flat();}
 await assertReleasedGames(root);
-const release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const rod=JSON.parse(await readFile(new URL('../docs/reaction-rod-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,[...release.allowedPublicPaths,...rod.addedPublicPaths]);
+const release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const rod=JSON.parse(await readFile(new URL('../docs/reaction-rod-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const studio=JSON.parse(await readFile(new URL('../docs/studio-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const jump=JSON.parse(await readFile(new URL('../docs/long-jump-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths]);
 const paths=await files(root);
 let checked=0;
 for(const file of paths){

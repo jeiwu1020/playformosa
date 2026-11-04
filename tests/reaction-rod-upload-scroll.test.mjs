@@ -1,3 +1,4 @@
+import {createGameEntry} from '../public/games/shared/entry-shell.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -19,7 +20,10 @@ function geometry(node,{top=20,height=200,scrollHeight=1000,overflow='auto',clie
 function fixture(t,{game='reaction-rod',realDOM=false,nested=false,reduced=false,actionContainer=false,uploadContainer=false,raf=true}={}){
  const html=realDOM?readFileSync(new URL(`../public/games/${game}/index.html`,import.meta.url),'utf8'):
   '<dialog open id="dialog"><section id="result"><button id="again">Again</button><div id="actions"></div></section></dialog>';
- const dom=new JSDOM(html,{url:'https://qa.example/'}),win=dom.window,doc=win.document;
+ const dom=new JSDOM(html,{url:'https://qa.example/',runScripts:'outside-only'}),win=dom.window,doc=win.document;
+ // This fixture begins at the result screen. Complete the real startup handoff first.
+ const bootstrap=doc.getElementById('pf-startup-script');
+ if(bootstrap){const entry=createGameEntry({document:doc,gameId:game,onStart(){},forceFallback:true});entry.open();win.eval(bootstrap.textContent);assert.equal(doc.documentElement.dataset.pfStartup,'ready');entry.destroy();}
  t.after(()=>win.close());
  const result=doc.getElementById(game==='long-jump'&&realDOM?'overlay':'result'),dialog=result.closest('dialog');
  for(let node=result;node&&node!==doc.body;node=node.parentElement){node.hidden=false;node.style.display='block';}

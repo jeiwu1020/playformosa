@@ -1,0 +1,10 @@
+/* Page attribution only. No score, canvas, input, or existing entry-brand styles. */
+.pf-game .pf-header>.pf-studio-heading{grid-column:2;grid-row:1;display:flex;flex-direction:column;justify-content:center;min-width:0;gap:1px;margin:0;padding:0}
+.pf-game .pf-header>.pf-studio-heading>h1{margin:0;padding:0;min-width:0}
+.pf-game .pf-header .pf-studio-live{display:block;font-family:Arial,'Noto Sans TC',system-ui,sans-serif;font-size:11px;font-weight:500;line-height:1.25;letter-spacing:0;color:#607461;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.pf-game dialog .pf-studio-result{display:block;grid-column:1/-1;order:99;flex:none;width:100%;margin:12px 0 0;padding:0;color:#607461;font:400 12px/1.5 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center;white-space:normal;overflow-wrap:anywhere}
+/* These three games reuse their original modal for pause/start/recovery. */
+.pf-game #overlay:not(.result)>.pf-studio-result{display:none}
+@media(max-width:640px){.pf-game .pf-header>.pf-studio-heading{grid-column:2;grid-row:1}.pf-game .pf-header .pf-studio-live{font-size:11px}}
+/* Ranked games already put their title below the mobile action buttons. */
+@media(max-width:640px){.pf-game.pf-has-ranking .pf-header>.pf-studio-heading{grid-column:1/-1;grid-row:2;padding:0 2px}}
