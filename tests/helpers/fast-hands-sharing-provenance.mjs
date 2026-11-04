@@ -28,5 +28,5 @@ export function readSharingBaseline(file,options){
 }
 export function sharingRuntimeAdditions(){
  const l=sharingLedger();assert.deepEqual(l.files.map(f=>f.path),[...SHARING_MODIFIED,...SHARING_ADDED]);assert.deepEqual(l.files.filter(f=>f.beforeSha256===null).map(f=>f.path),SHARING_ADDED);
- for(const path of SHARING_ADDED)reverseSharing(path,readActual(new URL(path,root)),l);return [...SHARING_ADDED];
+ for(const path of SHARING_ADDED)reverseSharing(path,readButtonLayoutBaseline(new URL(path,root)),l);return [...SHARING_ADDED];
 }

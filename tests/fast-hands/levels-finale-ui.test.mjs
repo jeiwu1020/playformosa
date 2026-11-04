@@ -1,10 +1,12 @@
 import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{JSDOM}from'jsdom';
 import {mountLevel} from '../../public/games/fast-hands/levels-app.mjs';
+import {mountLevelSharing} from '../../public/games/fast-hands/levels-sharing.mjs';
 function harness(mode='catch',options={}){
- const dom=new JSDOM(readFileSync(new URL(`../../public/games/fast-hands/${mode}.html`,import.meta.url),'utf8'),{url:`https://game.test/games/fast-hands/${mode}.html`,pretendToBeVisual:true});let now=0,frame;const calls={cue:0,unlock:0,capture:[],images:[],reset:0,force:0},urls=[];
+ const dom=new JSDOM(readFileSync(new URL(`../../public/games/fast-hands/${mode}.html`,import.meta.url),'utf8'),{url:`https://game.test/games/fast-hands/${mode}.html`,pretendToBeVisual:true});let now=0,frame;const calls={cue:0,unlock:0,capture:[],images:[],reset:0,force:0,cards:[]},urls=[];
  dom.window.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};dom.window.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new dom.window.Event('close'));};dom.window.URL.createObjectURL=()=>`blob:result-${urls.length+1}`;dom.window.URL.revokeObjectURL=url=>urls.push(url);
  const $=id=>dom.window.document.getElementById(id);let rankingOptions,muted=false;
  const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{},clubFactory:()=>({destroy(){},blocked:()=>false}),stageLoader:()=>null,
+ sharingFactory:opts=>mountLevelSharing({...opts,createImage:async args=>{calls.cards.push(args);return{blob:new dom.window.Blob(['score PNG'],{type:'image/png'}),filename:'test-card.png'};}}),
  soundFactory:()=>({unlock(){calls.unlock++;},cue(){calls.cue++;},setMuted(v){muted=v;},get muted(){return muted;},destroy(){}}),
  rankingFactory:opts=>(rankingOptions=opts,{captureResult:s=>calls.capture.push(s),reset(){calls.reset++;},showBoard(){const d=dom.window.document.createElement('dialog');dom.window.document.body.append(d);rankingOptions.onOpen(d,'result');calls.rankingDialog=d;},destroy(){}}),
  imageCapture:args=>{calls.images.push(args);return Promise.resolve({blob:new dom.window.Blob(['png'],{type:'image/png'})});},...options});
@@ -18,7 +20,7 @@ test('live cue fires once per actual onset and replay cannot score, cue or recap
  h.click('summaryReplay');assert.equal(h.$('replayReturn').hidden,false);assert.equal(h.$('roundButton').hidden,true);h.click('actionButton');h.tick(h.now+4000);assert.equal(h.app.state,state);assert.equal(h.calls.cue,cues);assert.equal(h.calls.capture.length,1);assert.equal(h.calls.images.length,1);h.click('replayReturn');assert.equal(h.$('summary').open,true);h.app.destroy();
 });
 test('finale image appears only after successful actual capture and is reused across ranking/replay',async()=>{
- const h=harness();h.finish();assert.equal(h.$('summary').open,false);h.tick(h.now+520);await flush();assert.equal(h.calls.images.length,1);assert.equal(h.$('summaryImage').hidden,false);assert.match(h.$('summaryImage').src,/blob:result/);assert.equal(h.$('summaryDownload').getAttribute('aria-disabled'),'false');
+ const h=harness();h.finish();assert.equal(h.$('summary').open,false);h.tick(h.now+520);await flush();assert.equal(h.calls.images.length,1);assert.equal(h.$('summaryImage').hidden,false);assert.match(h.$('summaryImage').src,/blob:result/);assert.equal(h.calls.cards.length,1);assert.equal(h.calls.cards[0].result.mode,'catch');assert.equal(h.$('summaryDownload').disabled,false);
  h.click('summaryRanking');assert.equal(h.$('summary').open,false);h.rankingReturn();assert.equal(h.$('summary').open,true);assert.equal(h.calls.images.length,1);h.click('summaryAgain');assert.equal(h.$('summaryImage').hidden,true);assert.equal(h.urls.length,1);assert.equal(h.app.state.phase,'waiting');h.app.destroy();
 });
 test('catch success cannot start again before its 1100ms hand lowering is complete',()=>{
@@ -47,3 +49,5 @@ test('catch replay preserves original stage label and backgrounding returns to r
 test('opening the club during replay stops playback without stacking the result dialog',async()=>{
  let menu=false;const h=harness('catch',{clubFactory:()=>({destroy(){},blocked:()=>menu})});h.finish();h.tick(h.now+520);await flush();h.click('summaryReplay');menu=true;h.tick(h.now+100);assert.equal(h.$('replayReturn').hidden,true);assert.equal(h.$('summary').open,false);menu=false;h.tick(h.now+100);assert.equal(h.$('summary').open,true);assert.equal(h.calls.images.length,1);h.app.destroy();
 });
+
+test('both completed levels hand the frozen result and original image promise to the sharing adapter exactly once',async()=>{for(const mode of ['catch','duel']){const calls=[];let resets=0,destroys=0;const h=harness(mode,{sharingFactory:()=>({prepare:(state,frame)=>calls.push({state,frame}),reset(){resets++},destroy(){destroys++}})});h.finish();h.tick(h.now+1700);await flush();assert.equal(calls.length,1);assert.equal(calls[0].state,h.app.state);assert.ok(calls[0].frame instanceof Promise);assert.equal((await calls[0].frame).blob.type,'image/png');h.click('summaryReplay');h.tick(h.now+10000);assert.equal(calls.length,1);assert.equal(h.$('summary').open,true);h.click('summaryAgain');assert.ok(resets>=2);h.app.destroy();assert.equal(destroys,1);}});

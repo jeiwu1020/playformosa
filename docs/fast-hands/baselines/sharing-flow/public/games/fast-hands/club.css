@@ -1,0 +1,443 @@
+/* Fast Hands club shell. Load last: game state, cameras and gesture geometry
+   stay owned by the original games; this sheet only arranges their surfaces. */
+html:has(body.fast-hands-club){height:auto;min-height:100%;overflow-x:visible;overflow-y:auto}
+body.fast-hands-club{
+  --club-top:max(8px,env(safe-area-inset-top));
+  --club-bottom:max(8px,env(safe-area-inset-bottom));
+  --club-gap:8px;
+  --club-hud:50px;
+  --club-feedback:72px;
+  --club-primary:64px;
+  --club-stage-min:150px;
+  --cream:#fff9e9;--green:#244e43;--deep:#173f39;--gold:#f4dda7;--mint:#dcebdd;--line:#c5d2bb;--muted:#66786a;
+  width:100%;height:auto;min-height:100dvh;margin:0;
+  padding:var(--club-top) max(20px,env(safe-area-inset-right)) var(--club-bottom) max(20px,env(safe-area-inset-left));
+  overflow-x:visible;overflow-y:auto;background:var(--cream);color:var(--green);
+}
+body.fast-hands-club main{
+  width:100%;max-width:1080px;height:calc(100dvh - var(--club-top) - var(--club-bottom));
+  min-height:0;max-height:none;margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,1fr);gap:var(--club-gap);
+  grid-template-areas:"header" "scene" "scores" "control" "actions";
+  grid-template-rows:auto minmax(var(--club-stage-min),1fr) var(--club-hud) auto 48px;
+  align-content:stretch;
+}
+body.fast-hands-club main>footer{display:none}
+body.fast-hands-club main>.game-header{grid-area:header}
+body.fast-hands-club main>.scene-card{grid-area:scene}
+body.fast-hands-club main>.score-row{grid-area:scores}
+body.fast-hands-club main>.control-section{grid-area:control}
+body.fast-hands-club main>.actions{grid-area:actions}
+
+/* One 44px toolbar, followed by the same three 44px destinations everywhere. */
+body.fast-hands-club .game-header{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:44px 44px;
+  align-items:center;gap:var(--club-gap) 10px;min-width:0;
+}
+body.fast-hands-club .game-header .pf-home{grid-column:1;grid-row:1;min-width:44px;min-height:44px;padding:7px 10px;font-size:12px}
+body.fast-hands-club .game-header>.pf-studio-heading{grid-column:2;grid-row:1;display:block;min-width:0;padding:0}
+body.fast-hands-club .game-header h1{margin:0;font-size:23px;line-height:1.2;letter-spacing:0}
+body.fast-hands-club .game-header h1 span,
+body.fast-hands-club .game-header .eyebrow,
+body.fast-hands-club .game-header .pf-studio-live,
+body.fast-hands-club .mode-status{display:none}
+body.fast-hands-club .game-header .header-tools{grid-column:3;grid-row:1;align-items:center;gap:6px;justify-self:end}
+body.fast-hands-club .header-tools>button{height:44px;min-height:44px;min-width:44px;padding:8px 12px;font-size:12px}
+body.fast-hands-club .header-tools .menu-button{width:44px;min-width:44px;padding:8px}
+body.fast-hands-club .menu-button>span:last-child{display:none}
+body.fast-hands-club .game-header>.level-switch{grid-column:1/-1;grid-row:2}
+body.fast-hands-club .level-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%;min-width:0;height:44px;margin:0;padding:0;border:0}
+body.fast-hands-club .level-switch a{height:44px;min-height:44px;padding:6px 5px;font-size:13px;line-height:1.25;gap:5px;white-space:nowrap;overflow-wrap:normal}
+
+/* The duck pad still fills its original 1080px-limited main. Never give the
+   track, percentage gates or its children an alternate horizontal scale. */
+body.fast-hands-club .scene-card{display:flex;min-height:0;border-radius:18px;grid-column:auto;grid-row:auto}
+body.fast-hands-club .scene-heading{height:29px;min-height:29px;padding:4px 12px 0;font-size:12px;gap:7px}
+body.fast-hands-club .scene-heading #badge{font-size:9px;padding:3px 6px}
+body.fast-hands-club .scene-tag{font-size:10px}
+body.fast-hands-club .canvas-wrap{min-height:0;flex:1}
+body.fast-hands-club .scene-caption{display:none}
+body.fast-hands-club .score-row{height:var(--club-hud);min-height:0;align-self:stretch;grid-template-columns:1.2fr 1fr 1fr;gap:10px;padding:4px 14px;border-radius:12px}
+body.fast-hands-club .score-row>div{grid-column:auto;min-width:0}
+body.fast-hands-club .score-row label{font-size:10px;line-height:1.2}
+body.fast-hands-club .score-row strong{font-size:21px;line-height:1.15;margin-top:1px}
+body.fast-hands-club .score-row .score-main strong{font-size:27px;line-height:1.1}
+body.fast-hands-club .score-row small{font-size:11px}
+body.fast-hands-club .score-best,
+body.fast-hands-club .score-drop{display:block;border-left:1px solid #e0e0cd;padding-left:14px}
+body.fast-hands-club .control-section{position:static;min-width:0}
+body.fast-hands-club .instruction{height:22px;min-height:22px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 5px}
+body.fast-hands-club .instruction strong{display:block;font-size:16px;line-height:22px;letter-spacing:-.4px}
+body.fast-hands-club .instruction>span{font-size:11px;line-height:18px;margin:0}
+body.fast-hands-club #pad{height:122px;border-radius:16px}
+body.fast-hands-club .actions{display:flex;align-self:stretch;align-items:stretch;gap:8px;padding:0;position:static}
+body.fast-hands-club .actions button{min-height:44px;height:100%;padding:8px 12px;font-size:13px;min-width:0}
+body.fast-hands-club .actions .primary{flex:1;grid-column:auto;font-size:15px}
+body.fast-hands-club .actions .secondary,
+body.fast-hands-club .actions .quiet-button{flex:0 1 auto}
+
+/* Catch and duel use the exact same row order. The primary-control and
+   secondary-control slots never change height when a different button shows. */
+body.fast-hands-club .level-main{
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"header" "nav" "scene" "scores" "feedback" "control";
+  grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
+  gap:var(--club-gap);
+}
+body.fast-hands-club .level-header{grid-area:header;display:flex;align-items:center;gap:8px;height:44px;min-width:0}
+body.fast-hands-club .level-header>div{flex:1;min-width:0}
+body.fast-hands-club .level-header .eyebrow{display:none}
+body.fast-hands-club .level-header h1{margin:0;font-size:22px;line-height:1.3;letter-spacing:-.5px;white-space:nowrap}
+body.fast-hands-club .level-header .home-link{flex:none;min-width:44px;height:44px;padding:6px 9px;font-size:12px}
+body.fast-hands-club .level-header>button{flex:none;min-width:44px;height:44px;min-height:44px;padding:8px;font-size:12px}
+body.fast-hands-club .level-main>.level-switch{grid-area:nav}
+body.fast-hands-club .level-stage{grid-area:scene;display:flex;flex-direction:column;min-height:0;border-radius:18px;box-shadow:0 3px 0 #e0e0cc}
+body.fast-hands-club .scene-viewport{flex:1;min-height:90px;height:auto;container-type:size;--scene-height:100cqh}
+body.fast-hands-club .fallback-layer{width:min(100cqw,145.16129cqh)}
+body.fast-hands-club .stage-top{padding:8px 11px;font-size:8px;pointer-events:none}
+body.fast-hands-club .stage-kicker{display:none}
+body.fast-hands-club .stage-tag{font-size:8px}
+body.fast-hands-club .signal{top:8px;min-height:29px;padding:5px 14px;font-size:13px;line-height:17px;max-width:calc(100% - 24px)}
+body.fast-hands-club[data-phase="live"][data-level="duel"] .signal{font-size:19px;padding:4px 24px;line-height:22px}
+body.fast-hands-club .character-labels{bottom:7px;left:10px;right:10px;font-size:8px;gap:6px}
+body.fast-hands-club .character-labels span{padding:3px 6px}
+body.fast-hands-club .prize-caption{flex:none;height:30px;min-height:30px;padding:4px 9px}
+body.fast-hands-club .prize-caption strong{display:block;height:21px;font-size:14px;line-height:21px}
+body.fast-hands-club .prize-caption .eyebrow,
+body.fast-hands-club .prize-caption p:last-child{display:none}
+body.fast-hands-club .level-hud{grid-area:scores;display:grid;grid-template-columns:1fr 1.65fr 1fr;height:var(--club-hud);min-height:0;padding:3px 0;align-self:stretch}
+body.fast-hands-club .level-hud span{font-size:10px;line-height:13px}
+body.fast-hands-club .level-hud strong{font-size:23px;line-height:25px}
+body.fast-hands-club .level-hud .round-label{height:auto;gap:1px;align-content:center}
+body.fast-hands-club .level-hud #roundLabel{font-size:13px;line-height:18px;min-height:18px}
+body.fast-hands-club .level-hud .arcade-badge{height:auto;min-height:13px;font-size:9px;line-height:13px}
+body.fast-hands-club .round-feedback{grid-area:feedback;display:grid;grid-template-rows:24px 19px 23px;row-gap:3px;align-content:center;align-self:stretch;height:var(--club-feedback);min-height:var(--club-feedback);max-height:var(--club-feedback)}
+body.fast-hands-club .round-feedback>.eyebrow{display:none}
+body.fast-hands-club .round-feedback h2{height:24px;min-height:24px;font-size:20px;line-height:24px;margin:0;letter-spacing:-.4px;align-items:center}
+body.fast-hands-club .round-feedback p:not(.eyebrow){height:19px;min-height:19px;font-size:11px;line-height:19px;margin:0;align-items:center}
+body.fast-hands-club .round-dots{height:23px;margin:0;gap:5px;align-items:center;align-content:center;flex-wrap:nowrap}
+body.fast-hands-club .round-dot{width:21px;height:21px;font-size:9px;flex:none}
+body.fast-hands-club .level-controls{grid-area:control;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:var(--club-primary) 15px 44px;gap:3px;align-self:stretch;width:100%;justify-self:stretch;position:static;padding:0;margin:0;background:none}
+body.fast-hands-club .primary-control{grid-column:1;grid-row:1;height:var(--club-primary);width:100%}
+body.fast-hands-club .primary-control>.action-button{height:100%;min-height:0;font-size:30px;border-radius:15px;letter-spacing:1px;padding:8px 14px}
+body.fast-hands-club #roundButton{height:100%;min-height:0;font-size:18px;grid-column:auto;grid-row:auto;letter-spacing:0}
+body.fast-hands-club .input-help{grid-column:1;grid-row:2;height:15px;min-height:15px;line-height:15px;margin:0;font-size:9px;background:none}
+body.fast-hands-club .secondary-control{grid-column:1;grid-row:3;height:44px;position:relative;display:flex;align-items:center;justify-content:center;gap:12px}
+body.fast-hands-club .secondary-control>.practice-button{height:44px;min-height:44px;min-width:100px;margin:0;padding:7px 14px;font-size:12px;background:none}
+body.fast-hands-club .level-help{grid-area:auto;position:static;flex:0 1 auto;border:0;padding:0;margin:0;font-size:11px}
+body.fast-hands-club .level-help summary{height:44px;min-height:44px;padding:5px 10px;line-height:1.35}
+body.fast-hands-club .level-help-content{position:absolute;z-index:12;right:0;left:0;bottom:48px;width:100%;max-height:min(390px,65dvh);overflow:auto;overscroll-behavior:contain;padding:12px 15px;background:#fffaf4;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px #18342833}
+body.fast-hands-club .art-status{grid-column:1;grid-row:auto;grid-area:auto;margin:0;font-size:11px}
+body.fast-hands-club #retryArtButton{grid-column:1;grid-row:auto;grid-area:auto;min-height:44px}
+
+/* Every result is a single ticket, including wide desktop screens. The main
+   score stays above its scroll area; retry remains visible while reading. */
+body.fast-hands-club dialog{box-sizing:border-box;border:1.5px solid #b9c9ae;border-radius:22px;width:calc(100% - 24px);max-width:460px;max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:0;background:var(--cream);color:var(--green);box-shadow:0 18px 80px #173f3940;overscroll-behavior:contain}
+body.fast-hands-club dialog::backdrop{background:#173f3966;backdrop-filter:blur(4px)}
+body.fast-hands-club dialog:not([open]){display:none}
+body.fast-hands-club .result-dialog[open]{display:flex;flex-direction:column;grid-template-columns:none;gap:0;padding:0;text-align:center;overflow:hidden}
+body.fast-hands-club .result-top,
+body.fast-hands-club .summary-overview{position:relative;display:block;flex-shrink:0;flex-grow:0;padding:18px 22px 14px;margin:0;background:var(--gold);border-bottom:1px dashed #c0ad7d;border-right:0;text-align:center}
+body.fast-hands-club .result-top>.ticket-kicker,
+body.fast-hands-club .summary-overview>.eyebrow{display:block;margin:0;padding-right:25px;font-size:9px;letter-spacing:1.2px;color:#516546}
+body.fast-hands-club .result-top h2,
+body.fast-hands-club .summary-overview h2{font-size:23px;line-height:1.3;margin:10px 25px 4px;letter-spacing:0}
+body.fast-hands-club .result-summary{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:12px;margin:8px 0 4px}
+body.fast-hands-club .result-portrait{width:78px;height:78px;border-radius:13px}
+body.fast-hands-club .result-time,
+body.fast-hands-club .summary-score{display:block;font-size:48px;line-height:1.15;letter-spacing:-1.5px;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--green)}
+body.fast-hands-club .result-time small{font-size:17px;letter-spacing:0}
+body.fast-hands-club .result-top p,
+body.fast-hands-club .summary-overview p:not(.eyebrow){font-size:12px;line-height:1.5;margin:5px 0 0;color:#46614b}
+body.fast-hands-club .result-dialog .ticket-body{display:flex;flex-direction:column;flex:1;min-height:0;overflow-x:visible;overflow-y:auto;padding:12px 18px 16px;overscroll-behavior:contain;scroll-padding-top:116px}
+body.fast-hands-club .result-buttons{order:-1;position:sticky;top:-12px;z-index:3;flex-shrink:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;background:var(--cream);padding:12px 0 10px;margin-top:-12px}
+body.fast-hands-club .result-buttons>button{height:44px;min-height:44px;padding:7px;font-size:12px}
+body.fast-hands-club .result-buttons>.primary{font-size:14px}
+body.fast-hands-club .result-records{padding:5px 0 10px;flex-shrink:0}
+body.fast-hands-club .result-records span{font-size:10px;margin-bottom:4px}
+body.fast-hands-club .result-records strong{font-size:19px}
+body.fast-hands-club .result-mode{padding:8px 0;font-size:11px;flex-shrink:0}
+body.fast-hands-club .result-share-actions{margin-top:6px;padding-top:10px;gap:6px;flex-shrink:0}
+body.fast-hands-club .result-share-actions>a,
+body.fast-hands-club .result-share-actions>button{font-size:12px;min-height:44px;padding:7px}
+body.fast-hands-club .result-dialog .ticket-body>.level-switch{margin:12px 0 0;padding:0;border:0;flex-shrink:0}
+body.fast-hands-club .result-dialog .ticket-note{font-size:10px;margin-top:10px;flex-shrink:0}
+body.fast-hands-club .result-dialog .pf-studio-result{font-size:10px;margin:9px 0 0;flex-shrink:0}
+body.fast-hands-club .close-button{position:absolute;top:8px;right:8px;width:44px;height:44px;min-height:44px;min-width:44px;padding:0;border:1px solid #17494115;border-radius:50%;background:#fff9e97a;color:var(--green);font-size:27px;line-height:1;font-weight:500;cursor:pointer}
+body.fast-hands-club .summary-scroll{min-height:0;flex:1 1 auto;overflow:auto;overscroll-behavior:contain;text-align:left;padding:0 16px}
+body.fast-hands-club .summary-scroll>summary{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px;font-size:12px;font-weight:750;cursor:pointer;list-style:none}
+body.fast-hands-club .summary-scroll>summary::after{content:'＋';margin-left:8px}
+body.fast-hands-club .summary-scroll[open]>summary::after{content:'−'}
+body.fast-hands-club .round-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none;overflow:visible;gap:6px;margin:0 0 10px;padding:0;list-style:none}
+body.fast-hands-club .round-results li{display:flex;flex-direction:row;align-items:center;min-width:0;gap:5px;padding:7px;font-size:10px;text-align:left}
+body.fast-hands-club .round-results li>span:nth-child(2){flex:1;display:block;min-height:0;line-height:1.4}
+body.fast-hands-club .round-results li>strong{font-size:9px}
+body.fast-hands-club .result-icon{width:30px;height:30px;font-size:11px;flex:none}
+body.fast-hands-club .result-pages{gap:8px;margin-bottom:10px;font-size:11px}
+body.fast-hands-club .result-pages button{min-width:74px;min-height:44px;padding:7px;font-size:11px}
+body.fast-hands-club .summary-actions{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px 16px;border-top:1px solid #dcdcc7;background:var(--cream)}
+body.fast-hands-club .summary-actions>button{min-height:44px;margin:0;padding:9px 12px;border-radius:12px;font:750 13px/1.3 system-ui,sans-serif;cursor:pointer}
+body.fast-hands-club .summary-actions>.primary,
+body.fast-hands-club .summary-actions>.action-button{grid-column:1/-1;grid-row:1;min-height:48px;background:#ef945a;color:var(--deep);border:1.5px solid #d78048;box-shadow:0 3px 0 #b76d3c}
+body.fast-hands-club .summary-actions .practice-button{grid-column:1/-1;grid-row:2;align-self:stretch}
+body.fast-hands-club .club-summary>.close-button{z-index:5}
+body.fast-hands-club .club-summary>.level-switch{flex:none;width:calc(100% - 32px);margin:0 16px 14px}
+body.fast-hands-club .club-summary>.local-note{flex:none;margin:0;padding:0 15px 12px;font-size:10px;line-height:1.4}
+
+/* One compact club introduction. Its three cards explain, rather than gate,
+   the three destinations. Later navigation never needs a second intro. */
+body.fast-hands-club .club-intro{max-width:620px;overflow:hidden}
+body.fast-hands-club .club-intro[open]{display:flex;flex-direction:column;grid-template-columns:none}
+body.fast-hands-club .club-intro .ticket-top{position:relative;flex:none;background:var(--gold);padding:18px 22px 14px;border-right:0;border-bottom:1px dashed #c0ad7d;text-align:center}
+body.fast-hands-club .club-intro .ticket-kicker{font-size:10px;font-weight:850;line-height:1.4;letter-spacing:1.2px;color:#516546}
+body.fast-hands-club .club-intro h2{font-size:29px;line-height:1.2;margin:8px 30px 6px}
+body.fast-hands-club .club-intro .ticket-top p{font-size:15px;line-height:1.4;margin:0}
+body.fast-hands-club .club-intro .ticket-body{display:flex;flex-direction:column;min-height:0;overflow:auto;padding:16px 20px;overscroll-behavior:contain}
+body.fast-hands-club .club-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 15px;padding:0}
+body.fast-hands-club .club-card{min-width:0;padding:14px 10px;border:1px solid #d1d8c1;border-radius:15px;background:#fffdf4;text-align:center}
+body.fast-hands-club .club-card img{display:block;width:100%;height:70px;object-fit:contain;margin:0 auto 9px}
+body.fast-hands-club .club-card h3{font-size:17px;line-height:1.4;margin:0 0 6px}
+body.fast-hands-club .club-card p{font-size:15px;line-height:21px;margin:0;color:var(--muted)}
+body.fast-hands-club .club-intro-actions,
+body.fast-hands-club .club-intro .entry-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+body.fast-hands-club .club-intro-actions>button,
+body.fast-hands-club .club-intro .entry-buttons>button{min-height:44px;padding:8px 10px;border-radius:12px;font:750 14px/1.4 system-ui,sans-serif;color:var(--green);border:1px solid #c5d2bb;background:#e4ecda}
+body.fast-hands-club .club-intro-aux{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+body.fast-hands-club .club-intro-aux>button{min-height:44px;padding:8px;font-size:14px}
+body.fast-hands-club .club-intro .entry-buttons>.intro-start{grid-column:1/-1;min-height:48px;font-size:17px;background:#ef945a;border-color:#d78048;box-shadow:0 3px 0 #b76d3c;color:var(--deep)}
+body.fast-hands-club .club-intro .ticket-note,
+body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;margin:10px 0 0;text-align:center;color:var(--muted)}
+
+@media(max-width:600px){
+  body.fast-hands-club{padding-right:max(12px,env(safe-area-inset-right));padding-left:max(12px,env(safe-area-inset-left));--club-gap:6px}
+  body.fast-hands-club .game-header{column-gap:8px}
+  body.fast-hands-club .game-header h1{font-size:22px}
+  body.fast-hands-club .header-tools #headerRanking,
+  body.fast-hands-club .header-tools #headerSettings{display:none}
+  body.fast-hands-club .level-switch{gap:4px}
+  body.fast-hands-club .level-switch a{font-size:11px;gap:3px;padding:6px 3px}
+  body.fast-hands-club .level-switch a>span{font-size:10px}
+  body.fast-hands-club .scene-tag{display:none}
+  body.fast-hands-club .score-row{gap:7px;padding:4px 10px}
+  body.fast-hands-club .score-best,
+  body.fast-hands-club .score-drop{padding-left:10px}
+  body.fast-hands-club .score-best label span{display:none}
+  body.fast-hands-club .instruction strong{font-size:14px;line-height:20px;letter-spacing:-.5px}
+  body.fast-hands-club .instruction>span{font-size:10px}
+  body.fast-hands-club .actions{gap:6px}
+  body.fast-hands-club .actions button{font-size:11px;padding:7px 9px}
+  body.fast-hands-club .actions .primary{font-size:14px}
+  body.fast-hands-club .level-header{gap:6px}
+  body.fast-hands-club .level-header h1{font-size:18px}
+  body.fast-hands-club .level-header .home-link{padding:6px 7px}
+  body.fast-hands-club .round-feedback h2{font-size:18px}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){font-size:10px}
+  body.fast-hands-club .club-cards{grid-template-columns:minmax(0,1fr);gap:6px;margin-bottom:8px}
+  body.fast-hands-club .club-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 8px;align-items:center;padding:6px 8px;text-align:left}
+  body.fast-hands-club .club-card img{grid-column:1;grid-row:1/3;width:40px;height:40px;margin:0}
+  body.fast-hands-club .club-card h3{grid-column:2;grid-row:1;margin:0;font-size:17px;line-height:23px}
+  body.fast-hands-club .club-card p{grid-column:2;grid-row:2;font-size:15px;line-height:21px}
+  body.fast-hands-club .club-intro .ticket-top{padding:10px 12px 8px}
+  body.fast-hands-club .club-intro h2{font-size:25px;margin-top:4px;margin-bottom:4px}
+  body.fast-hands-club .club-intro .ticket-body{padding:8px 10px}
+}
+
+/* Normal short screens still fit without changing the horizontal gesture.
+   A very short landscape screen may scroll naturally instead of hiding play. */
+@media(max-height:700px){
+  body.fast-hands-club{--club-gap:6px;--club-hud:44px;--club-feedback:58px;--club-primary:56px;--club-stage-min:110px}
+  body.fast-hands-club main{grid-template-rows:auto minmax(var(--club-stage-min),1fr) var(--club-hud) auto 44px}
+  body.fast-hands-club .level-main{grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto}
+  body.fast-hands-club #pad{height:100px}
+  body.fast-hands-club .instruction{height:20px;min-height:20px;margin-bottom:4px}
+  body.fast-hands-club .instruction strong{line-height:20px}
+  body.fast-hands-club .score-row .score-main strong{font-size:24px}
+  body.fast-hands-club .score-row strong{font-size:19px}
+  body.fast-hands-club .score-row label{font-size:9px}
+  body.fast-hands-club .round-feedback{grid-template-rows:20px 16px 20px;row-gap:1px}
+  body.fast-hands-club .round-feedback h2{height:20px;min-height:20px;font-size:17px;line-height:20px}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){height:16px;min-height:16px;line-height:16px;font-size:10px}
+  body.fast-hands-club .round-dots{height:20px}
+  body.fast-hands-club .round-dot{width:19px;height:19px;font-size:8px}
+  body.fast-hands-club .level-controls{grid-template-rows:var(--club-primary) 44px;gap:2px}
+  body.fast-hands-club .secondary-control{grid-row:2}
+  body.fast-hands-club .input-help{display:none}
+  body.fast-hands-club .primary-control>.action-button{font-size:27px}
+  body.fast-hands-club #roundButton{font-size:17px}
+  body.fast-hands-club .result-top,
+  body.fast-hands-club .summary-overview{padding:12px 17px 10px}
+  body.fast-hands-club .result-top h2,
+  body.fast-hands-club .summary-overview h2{font-size:20px;margin-top:8px}
+  body.fast-hands-club .result-portrait{width:62px;height:62px}
+  body.fast-hands-club .result-time,
+  body.fast-hands-club .summary-score{font-size:42px}
+}
+@media(max-width:350px){
+  body.fast-hands-club .level-header h1{font-size:16px}
+  body.fast-hands-club .instruction strong{font-size:13px}
+  body.fast-hands-club .instruction>span{font-size:9px}
+  body.fast-hands-club .level-hud span{font-size:9px}
+  body.fast-hands-club .level-hud #roundLabel{font-size:12px}
+  body.fast-hands-club .level-hud .arcade-badge{font-size:8px}
+  body.fast-hands-club .result-dialog .ticket-body{padding-left:13px;padding-right:13px}
+  body.fast-hands-club .result-time{font-size:40px}
+  body.fast-hands-club .round-results{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-height:450px){
+  body.fast-hands-club{--club-top:max(5px,env(safe-area-inset-top));--club-bottom:max(5px,env(safe-area-inset-bottom));--club-stage-min:130px}
+  body.fast-hands-club .result-top,
+  body.fast-hands-club .summary-overview{padding-top:10px;padding-bottom:9px}
+  body.fast-hands-club .result-top h2,
+  body.fast-hands-club .summary-overview h2{font-size:18px;margin-top:5px}
+  body.fast-hands-club .result-summary{margin-top:5px;margin-bottom:2px}
+  body.fast-hands-club .result-portrait{width:48px;height:48px}
+  body.fast-hands-club .result-time,
+  body.fast-hands-club .summary-score{font-size:36px}
+  body.fast-hands-club .result-top p,
+  body.fast-hands-club .summary-overview p:not(.eyebrow){font-size:11px;margin-top:3px}
+  body.fast-hands-club .club-intro .ticket-top{padding:10px 20px 8px}
+  body.fast-hands-club .club-intro h2{font-size:23px;margin-top:4px;margin-bottom:4px}
+  body.fast-hands-club .club-intro .ticket-body{padding:10px 16px}
+  body.fast-hands-club .club-card{padding:8px}
+  body.fast-hands-club .club-card img{height:45px;margin-bottom:5px}
+}
+
+@media(max-height:550px) and (orientation:landscape){
+  body.fast-hands-club{padding-right:max(12px,env(safe-area-inset-right));padding-left:max(12px,env(safe-area-inset-left))}
+}
+
+/* A recoverable image error adds reachable rows; it does not revive the old
+   desktop sidebar or hide the rest of the game. */
+body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{
+  grid-template-areas:"header" "nav" "scene" "scores" "feedback" "status" "retry" "control";
+  grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto auto auto;
+}
+body.fast-hands-club:has(#artStatus:not([hidden])) #artStatus{grid-area:status}
+body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:retry}
+
+/* A wide, very short screen can share its toolbar with the destinations.
+   Only that toolbar uses horizontal space: the stage, score and inputs stay
+   stacked, and the continuous duck track keeps its complete original width. */
+@media(min-width:700px) and (max-height:450px) and (orientation:landscape){
+  body.fast-hands-club{--club-stage-min:110px;--club-hud:34px;--club-feedback:54px}
+  body.fast-hands-club .game-header{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:44px;column-gap:10px}
+  body.fast-hands-club .game-header>.pf-studio-heading{display:none}
+  body.fast-hands-club .game-header>.level-switch{grid-column:2;grid-row:1}
+  body.fast-hands-club .score-row{padding:3px 10px}
+  body.fast-hands-club .score-row>div{display:flex;align-items:center;gap:7px}
+  body.fast-hands-club .score-row label{flex:none;font-size:9px;line-height:12px}
+  body.fast-hands-club .score-row strong{font-size:18px;line-height:22px;margin:0}
+  body.fast-hands-club .score-row .score-main strong{font-size:22px;line-height:24px}
+  body.fast-hands-club .score-row small{font-size:10px}
+  body.fast-hands-club .score-best,
+  body.fast-hands-club .score-drop{padding-left:10px}
+  body.fast-hands-club .level-main{
+    --club-stage-min:122px;position:relative;
+    grid-template-areas:"header" "scene" "scores" "feedback" "control";
+    grid-template-rows:44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
+  }
+  body.fast-hands-club .level-header>div{display:none}
+  body.fast-hands-club .level-header #openMenu{margin-left:auto}
+  body.fast-hands-club .level-main>.level-switch{grid-area:auto;position:absolute;top:0;left:66px;right:104px;width:auto;height:44px}
+  body.fast-hands-club .level-hud{padding:1px 0}
+  body.fast-hands-club .level-hud span{font-size:9px;line-height:11px}
+  body.fast-hands-club .level-hud strong{font-size:18px;line-height:20px}
+  body.fast-hands-club .level-hud #roundLabel{font-size:12px;line-height:15px;min-height:15px}
+  body.fast-hands-club .level-hud .arcade-badge{font-size:8px;line-height:10px;min-height:10px}
+  body.fast-hands-club .round-feedback{grid-template-rows:20px 14px 18px}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){height:14px;min-height:14px;line-height:14px}
+  body.fast-hands-club .round-dots{height:18px}
+  body.fast-hands-club .round-dot{width:18px;height:18px}
+}
+
+/* Wide short introductions keep all actions visible without reducing copy or
+   touch targets. Narrow landscape keeps the existing scrollable body. */
+@media(min-width:700px) and (max-height:450px) and (orientation:landscape){
+  body.fast-hands-club .club-intro .club-cards{margin-bottom:8px}
+  body.fast-hands-club .club-intro .entry-buttons:has(.club-intro-aux)>.intro-start{grid-column:1;grid-row:1}
+  body.fast-hands-club .club-intro .entry-buttons:has(.club-intro-aux)>.club-intro-aux{grid-column:2;grid-row:1}
+}
+
+/* Desktop presentation only. The duck gesture remains full-width below both
+   columns, so its travel distance and percentage gates do not change. */
+@media(min-width:1000px){
+  body.fast-hands-club{--club-gap:12px;--club-hud:80px;--club-feedback:124px;--club-primary:80px}
+  body.fast-hands-club main{
+    grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);
+    grid-template-areas:"header header" "scene scores" "scene instruction" "scene actions" "track track";
+    grid-template-rows:auto var(--club-hud) minmax(70px,1fr) 48px auto;
+  }
+  body.fast-hands-club main>.control-section{display:contents}
+  body.fast-hands-club .control-section>.instruction{grid-area:instruction;height:auto;min-height:0;margin:0;padding:16px 12px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px}
+  body.fast-hands-club .instruction strong{font-size:24px;line-height:1.5;letter-spacing:0}
+  body.fast-hands-club .instruction>span{font-size:16px;line-height:1.5}
+  body.fast-hands-club .control-section>#pad{grid-area:track;width:100%}
+  body.fast-hands-club .score-row{gap:8px;padding:8px 12px}
+  body.fast-hands-club .score-row label{font-size:12px;line-height:1.4}
+  body.fast-hands-club .score-row strong{font-size:23px;line-height:1.3}
+  body.fast-hands-club .score-row .score-main strong{font-size:29px;line-height:1.3}
+  body.fast-hands-club .score-best,body.fast-hands-club .score-drop{padding-left:10px}
+  body.fast-hands-club .actions{gap:6px}
+  body.fast-hands-club .actions button{font-size:14px;padding:8px 10px}
+  body.fast-hands-club .actions .primary{font-size:17px}
+  body.fast-hands-club .level-main{
+    grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);
+    grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene control";
+    grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto;
+  }
+  body.fast-hands-club .level-hud{padding:8px 0}
+  body.fast-hands-club .level-hud span{font-size:13px;line-height:18px}
+  body.fast-hands-club .level-hud strong{font-size:30px;line-height:34px}
+  body.fast-hands-club .level-hud #roundLabel{font-size:16px;line-height:22px}
+  body.fast-hands-club .level-hud .arcade-badge{font-size:11px;line-height:16px}
+  body.fast-hands-club .round-feedback{height:auto;min-height:var(--club-feedback);max-height:none;grid-template-rows:32px 40px 28px;row-gap:6px;padding:6px 0;align-content:center}
+  body.fast-hands-club .round-feedback h2{height:32px;min-height:32px;font-size:23px;line-height:32px;letter-spacing:0}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){height:40px;min-height:40px;font-size:15px;line-height:20px}
+  body.fast-hands-club .round-dots{height:28px;gap:6px}
+  body.fast-hands-club .round-dot{width:25px;height:25px;font-size:11px}
+  body.fast-hands-club .level-controls{grid-template-rows:var(--club-primary) 20px 44px;gap:4px}
+  body.fast-hands-club .primary-control>.action-button{font-size:34px}
+  body.fast-hands-club #roundButton{font-size:22px}
+  body.fast-hands-club .input-help{display:block;height:20px;min-height:20px;font-size:12px;line-height:20px}
+  body.fast-hands-club .secondary-control{grid-row:3;gap:8px}
+  body.fast-hands-club .secondary-control>.practice-button,body.fast-hands-club .level-help{font-size:14px}
+  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{
+    grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";
+    grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto;
+  }
+}
+@media(min-width:1000px) and (max-height:700px){
+  body.fast-hands-club{--club-gap:8px;--club-hud:64px;--club-feedback:100px;--club-primary:64px}
+  body.fast-hands-club .instruction strong{font-size:22px;line-height:1.4}
+  body.fast-hands-club .round-feedback{grid-template-rows:28px 36px 24px;row-gap:3px;padding:3px 0}
+  body.fast-hands-club .round-feedback h2{height:28px;min-height:28px;font-size:21px;line-height:28px}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){height:36px;min-height:36px;font-size:14px;line-height:18px}
+  body.fast-hands-club .round-dots{height:24px;gap:5px}
+  body.fast-hands-club .round-dot{width:22px;height:22px;font-size:10px}
+}
+@media(min-width:1000px) and (max-height:450px){
+  body.fast-hands-club{--club-gap:6px;--club-hud:44px;--club-feedback:86px;--club-primary:52px}
+  body.fast-hands-club main{grid-template-rows:44px var(--club-hud) minmax(56px,1fr) 44px auto}
+  body.fast-hands-club .control-section>.instruction{padding:4px 8px;gap:4px}
+  body.fast-hands-club .instruction strong{font-size:19px;line-height:1.3}
+  body.fast-hands-club .instruction>span{font-size:14px}
+  body.fast-hands-club .score-row{padding:3px 8px}
+  body.fast-hands-club .score-row>div{display:block}
+  body.fast-hands-club .score-row label{font-size:10px;line-height:12px}
+  body.fast-hands-club .score-row strong,body.fast-hands-club .score-row .score-main strong{font-size:20px;line-height:22px}
+  body.fast-hands-club .level-main{grid-template-areas:"header header" "scene scores" "scene feedback" "scene control";grid-template-rows:44px var(--club-hud) minmax(var(--club-feedback),1fr) auto}
+  body.fast-hands-club .level-hud{padding:1px 0}
+  body.fast-hands-club .level-hud span{font-size:11px;line-height:13px}
+  body.fast-hands-club .level-hud strong{font-size:23px;line-height:25px}
+  body.fast-hands-club .level-hud #roundLabel{font-size:14px;line-height:18px}
+  body.fast-hands-club .level-hud .arcade-badge{font-size:9px;line-height:12px}
+  body.fast-hands-club .round-feedback{grid-template-rows:26px 32px 20px;row-gap:2px;padding:2px 0}
+  body.fast-hands-club .round-feedback h2{height:26px;min-height:26px;font-size:20px;line-height:26px}
+  body.fast-hands-club .round-feedback p:not(.eyebrow){height:32px;min-height:32px;font-size:13px;line-height:16px}
+  body.fast-hands-club .round-dots{height:20px}
+  body.fast-hands-club .round-dot{width:20px;height:20px}
+  body.fast-hands-club .level-controls{grid-template-rows:var(--club-primary) 44px;gap:2px}
+  body.fast-hands-club .input-help{display:none}
+  body.fast-hands-club .secondary-control{grid-row:2}
+  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
+}

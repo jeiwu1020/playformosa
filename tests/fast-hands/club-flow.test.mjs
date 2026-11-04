@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
 
+const releaseInput=()=>new Promise(resolve=>setTimeout(resolve,5));
 const root=new URL('../../public/games/fast-hands/',import.meta.url);
 const {mountClub}=await import(new URL('club.mjs',root)).catch(()=>({}));
 const html=mode=>readFileSync(new URL(mode==='duck'?'index.html':`${mode}.html`,root),'utf8');
@@ -35,16 +36,16 @@ test('storage-denied sessions carry one-hop marker and consume it without perman
  const next=fixture({mode:'duck',blockedStorage:true,url:'https://qa.test/games/fast-hands/?club=1&view=front#demo'});try{assert.equal(next.$('entryDialog').open,false);assert.equal(next.w.location.search,'?view=front');assert.equal(next.w.location.hash,'#demo');assert.equal(next.w.localStorage.length,0);next.click('.level-switch a[href="duel.html"]');assert.equal(new URL(next.destinations[0]).searchParams.get('club'),'1');}finally{next.close()}
 });
 test('active navigation stops the round before confirmation and cancel never navigates',()=>{
- const f=fixture({seen:true,active:true,answer:false});try{f.click('.level-switch a[href="catch.html"]');assert.deepEqual(f.events,['navigation','confirm']);assert.deepEqual(f.destinations,[]);}finally{f.close()}
+ const f=fixture({seen:true,active:true,answer:false});try{f.click('.level-switch a[href="catch.html"]');assert.deepEqual(f.events,['navigation']);assert.equal(f.$('clubNavigationDialog').open,true);f.$('clubNavigationStay').click();assert.equal(f.$('clubNavigationDialog').open,false);assert.deepEqual(f.destinations,[]);}finally{f.close()}
 });
 test('confirmed and idle navigation clean up once and preserve the exact destination',()=>{
- for(const active of [false,true]){const f=fixture({seen:true,active});try{f.click('.level-switch a[href="catch.html"]');assert.deepEqual(f.events,active?['navigation','confirm']:['navigation']);assert.equal(f.destinations[0],'https://qa.test/games/fast-hands/catch.html');}finally{f.close()}}
+ for(const active of [false,true]){const f=fixture({seen:true,active});try{f.click('.level-switch a[href="catch.html"]');assert.deepEqual(f.events,['navigation']);if(active){assert.equal(f.destinations.length,0);f.$('clubNavigationLeave').click();}assert.equal(f.destinations[0],'https://qa.test/games/fast-hands/catch.html');}finally{f.close()}}
 });
 test('same-game tabs do not reload or interrupt, modifier/new-tab links remain native',()=>{
  const f=fixture({seen:true,active:true});try{assert.equal(f.click('.level-switch a[href="./"]').defaultPrevented,true);assert.equal(f.click('.level-switch a[href="catch.html"]',{ctrlKey:true}).defaultPrevented,false);const link=f.d.querySelector('.level-switch a[href="duel.html"]');link.target='_blank';assert.equal(f.click('.level-switch a[href="duel.html"]').defaultPrevented,false);assert.deepEqual(f.events,[]);assert.deepEqual(f.destinations,[]);}finally{f.close()}
 });
 test('home navigation is guarded but never receives the internal session marker',()=>{
- const f=fixture({seen:true,active:true,blockedStorage:false});try{f.click('a[href="/#minigames"]');assert.deepEqual(f.events,['navigation','confirm']);assert.equal(f.destinations[0],'https://qa.test/#minigames');}finally{f.close()}
+ const f=fixture({seen:true,active:true,blockedStorage:false});try{f.click('a[href="/#minigames"]');assert.deepEqual(f.events,['navigation']);f.$('clubNavigationLeave').click();assert.equal(f.destinations[0],'https://qa.test/#minigames');}finally{f.close()}
 });
 test('menu reopens one dismissible intro without repeating initial start behavior',()=>{
  const f=fixture({seen:true,mode:'duel'});try{f.$('openMenu').click();assert.equal(f.$('entryDialog').open,true);assert.equal(f.$('entryClose').hidden,false);f.$('entryClose').click();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.events[0],'intro');}finally{f.close()}
@@ -69,7 +70,7 @@ async function duckApp({seen=false,answer=false}={}){
  let now=0,raf,confirms=0;const destinations=[],captures=new Set();
  w.confirm=()=>{confirms++;return answer};
  $('pad').getBoundingClientRect=()=>({left:0,top:0,width:1000,height:200});$('pad').setPointerCapture=id=>captures.add(id);$('pad').hasPointerCapture=id=>captures.has(id);$('pad').releasePointerCapture=id=>captures.delete(id);
- const context=vm.createContext({...bindings,mountClub:options=>mountClub({...options,onNavigate:href=>destinations.push(href)}),document:d,window:w,localStorage:w.localStorage,navigator:w.navigator,URL,Blob,setTimeout,performance:{now:()=>now,timeOrigin:0},matchMedia:()=>({matches:false}),requestAnimationFrame:f=>(raf=f,1),cancelAnimationFrame:()=>raf=null,Image:class{set src(v){queueMicrotask(()=>this.onload?.())}},renderScene(){},squeak(){},AudioContext:class{resume(){return Promise.resolve()}},loadGameStage:async()=>{throw Error('use fallback')},createScoreImage:async()=>({blob:new Blob(['png']),filename:'score.png'})});
+ const context=vm.createContext({...bindings,mountClub:options=>mountClub({...options,onNavigate:href=>destinations.push(href)}),document:d,window:w,localStorage:w.localStorage,navigator:w.navigator,URL,Blob,setTimeout,performance:{now:()=>now,timeOrigin:0},matchMedia:()=>({matches:false}),requestAnimationFrame:f=>(raf=f,1),cancelAnimationFrame:()=>raf=null,Image:class{set src(v){queueMicrotask(()=>this.onload?.())}},renderScene(){},squeak(){},AudioContext:class{resume(){return Promise.resolve()}},loadGameStage:async()=>{throw Error('use fallback')},captureFinaleImage:async()=>{throw Error('Canvas capture is outside this navigation fixture')},createScoreImage:async()=>({blob:new Blob(['png']),filename:'score.png'})});
  vm.runInContext(raw.replace(/^import .*\n/gm,''),context);await new Promise(resolve=>setImmediate(resolve));
  function frame(ms=20){now+=ms;raf?.()}
  function send(type,x){now+=10;const e=new w.Event(type,{bubbles:true,cancelable:true});for(const [key,value]of Object.entries({pointerType:'mouse',pointerId:1,isPrimary:true,button:0,clientX:x*1000,timeStamp:now}))Object.defineProperty(e,key,{value});$('pad').dispatchEvent(e)}
@@ -80,7 +81,7 @@ test('duck app returning session begins demonstration with no flash of entry',as
  const h=await duckApp({seen:true});try{h.frame();assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.body.dataset.clubReady,'true');assert.equal(h.get('demo'),true);}finally{h.close()}
 });
 test('duck switch cancellation releases the pointer and suppresses a delayed cancelled-result modal',async()=>{
- const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.captures.size,1);h.switchGame();assert.equal(h.confirms,1);assert.equal(h.captures.size,0);assert.equal(h.get('s.phase'),'cancelled');h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.destinations.length,0);h.$('retry').click();assert.equal(h.get('s.phase'),'idle');}finally{h.close()}
+ const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.captures.size,1);h.switchGame();assert.equal(h.confirms,0);assert.equal(h.$('clubNavigationDialog').open,true);assert.equal(h.captures.size,0);assert.equal(h.get('s.phase'),'cancelled');h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.destinations.length,0);h.$('clubNavigationStay').click();h.send('pointerup',.9);await releaseInput();h.$('retry').click();assert.equal(h.get('s.phase'),'idle');}finally{h.close()}
 });
 test('finished duck navigation clears pending presentation without asking to abandon an active round',async()=>{
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);h.send('pointermove',.1);h.send('pointerup',.1);const score=h.get('s.elapsedMs');h.switchGame();assert.equal(h.confirms,0);h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.get('s.elapsedMs'),score);assert.equal(h.destinations.length,1);}finally{h.close()}
@@ -96,5 +97,15 @@ test('duck replay is stopped on navigation and cannot reappear after a bfcache r
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);h.send('pointermove',.1);h.send('pointerup',.1);h.frame(3000);h.$('resultDemo').click();assert.equal(h.get('replaying'),true);h.switchGame();assert.equal(h.get('replaying'),false);assert.equal(h.confirms,0);h.w.dispatchEvent(new h.w.PageTransitionEvent('pagehide',{persisted:true}));h.w.dispatchEvent(new h.w.PageTransitionEvent('pageshow',{persisted:true}));h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.$('entryDialog').open,false);}finally{h.close()}
 });
 test('reopened introduction cannot discard an in-progress match through its Start button',()=>{
- const f=fixture({mode:'duel',seen:true,active:true,answer:false});try{f.$('openMenu').click();f.$('entryStart').click();assert.deepEqual(f.events,['intro','navigation','confirm']);assert.equal(f.destinations.length,0);assert.equal(f.$('entryDialog').open,false);}finally{f.close()}
+ const f=fixture({mode:'duel',seen:true,active:true,answer:false});try{f.$('openMenu').click();f.$('entryStart').click();assert.deepEqual(f.events,['intro','navigation']);assert.equal(f.$('clubNavigationDialog').open,true);f.$('clubNavigationStay').click();assert.equal(f.destinations.length,0);assert.equal(f.$('entryDialog').open,false);}finally{f.close()}
+});
+test('duck pending confirmation blocks visible and programmatic background game controls',async()=>{
+ const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);h.switchGame();const run=h.get('s');assert.equal(h.$('clubNavigationDialog').open,true);for(const id of ['play','retry','showDemo']){h.$(id).click();h.$(id).onclick?.();assert.equal(h.get('s'),run,`${id} cannot reset a pending run`);assert.equal(h.get('demo'),false,`${id} cannot reopen demonstration`);}h.$('headerRanking').click();h.$('headerSettings').click();h.frame(4000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.$('rankingDialog').open,false);assert.equal(h.$('info').open,false);assert.equal(h.$('clubNavigationDialog').open,true);}finally{h.close()}
+});
+for(const seen of [false,true])test(`duck ${seen?'reopened menu':'first introduction'} opens its visible ranking control without stacking dialogs`,async()=>{
+ const h=await duckApp({seen});try{if(seen)h.$('openMenu').click();assert.equal(h.$('entryDialog').open,true);h.$('entryRanking').click();await new Promise(resolve=>setImmediate(resolve));assert.equal(h.$('rankingDialog').open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.d.body.dataset.overlay,'ranking');}finally{h.close()}
+});
+
+test('duck introduction keeps its visible settings control functional without allowing background navigation controls',async()=>{
+ const h=await duckApp({seen:false});try{assert.equal(h.$('entryDialog').open,true);h.$('about').click();assert.equal(h.$('info').open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('closeInfo').click();h.$('openMenu').click();assert.equal(h.$('entryDialog').open,true);h.$('about').click();assert.equal(h.$('info').open,true);}finally{h.close()}
 });

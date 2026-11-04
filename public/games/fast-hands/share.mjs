@@ -2,12 +2,14 @@ import {createScoreImage,normalizeScoreResult} from './score-image.mjs';
 
 const ENCODE_TIMEOUT_MS=12000;
 const mobileAgent=/Android|iPhone|iPad|iPod|IEMobile|Opera Mini|Mobile/i;
+const DEFAULT_IDS={dialog:'resultDialog',image:'resultDownload',status:'downloadStatus',threads:'resultThreads',copy:'resultCopy',fallback:'shareFallback',fallbackImage:'shareFallbackImage',fallbackText:'shareFallbackText',fallbackClose:'shareFallbackClose',portrait:'resultPortrait'};
 
 /** This controller only prepares local images and user-initiated share actions. */
-export function mountFastHandsSharing({document=globalThis.document,createImage=createScoreImage,navigator=document.defaultView?.navigator,location=document.defaultView?.location,mobile}={}) {
+export function mountFastHandsSharing({document=globalThis.document,createImage=createScoreImage,navigator=document.defaultView?.navigator,location=document.defaultView?.location,mobile,adapter}={}) {
   const win=document.defaultView??globalThis,$=id=>document.getElementById(id);
-  const dialog=$('resultDialog'),image=$('resultDownload'),status=$('downloadStatus'),threads=$('resultThreads'),copy=$('resultCopy');
-  const fallback=$('shareFallback'),fallbackImage=$('shareFallbackImage'),fallbackText=$('shareFallbackText'),fallbackClose=$('shareFallbackClose');
+  const ids={...DEFAULT_IDS,...adapter?.ids};
+  const dialog=$(ids.dialog),image=$(ids.image),status=$(ids.status),threads=$(ids.threads),copy=$(ids.copy);
+  const fallback=$(ids.fallback),fallbackImage=$(ids.fallbackImage),fallbackText=$(ids.fallbackText),fallbackClose=$(ids.fallbackClose);
   const urls=win.URL??globalThis.URL,setTimer=win.setTimeout.bind(win),clearTimer=win.clearTimeout.bind(win);
   let generation=0,surface=0,operation=0,destroyed=false,round=null,encoded=null,encoding=false,shareBusy=false,copyBusy=false,fallbackURL=null,returnFocus=null;
   let encodingTimer=null,sourceResult=null,preparation=null;
@@ -54,7 +56,7 @@ export function mountFastHandsSharing({document=globalThis.document,createImage=
     let timer;
     const pending=new Promise((resolve,reject)=>{
       timer=setTimer(()=>reject(Error('Image preparation timeout')),ENCODE_TIMEOUT_MS);encodingTimer=timer;
-      try{Promise.resolve(createImage({result:source.result,mode:source.mode,portrait:$('resultPortrait'),document})).then(resolve,reject);}
+      try{Promise.resolve(createImage({result:source.result,mode:source.mode,portrait:$(ids.portrait),document,...source.imageOptions})).then(resolve,reject);}
       catch(error){reject(error);}
     });
     preparation=pending.then(output=>{
@@ -75,13 +77,15 @@ export function mountFastHandsSharing({document=globalThis.document,createImage=
   }
   function prepare(result,mode) {
     if(destroyed)return Promise.resolve();
-    const frozenMode=mode==='touch'?'touch':'mouse';
+    const frozenMode=adapter?.normalizeMode?adapter.normalizeMode(mode):mode==='touch'?'touch':'mouse';
     if(round&&sourceResult===result&&round.mode===frozenMode){if(encoded)imageLabel();return preparation??Promise.resolve();}
     reset();sourceResult=result;
-    const frozen=Object.freeze({...result,...normalizeScoreResult(result,frozenMode)});
+    // Explicit adapters supply a frozen presentation, never live gameplay state.
+    const prepared=adapter?.snapshot?.(result,frozenMode,location);
+    const frozen=prepared?Object.freeze(prepared.result):Object.freeze({...result,...normalizeScoreResult(result,frozenMode)});
     const url=new URL('/games/fast-hands/',location.origin).href;
-    const text=['快手王｜PlayFormosa',frozen.title,frozen.success?`本輪完成時間：${frozen.timeText} 秒`:'本輪未完成',frozen.comment,`輸入方式：${frozen.modeText}`,url].join('\n');
-    round=Object.freeze({result:frozen,mode:frozenMode,text});copy.disabled=false;
+    const text=prepared?prepared.text:['快手王｜PlayFormosa',frozen.title,frozen.success?`本輪完成時間：${frozen.timeText} 秒`:'本輪未完成',frozen.comment,`輸入方式：${frozen.modeText}`,url].join('\n');
+    round=Object.freeze({result:frozen,mode:frozenMode,text,imageOptions:prepared?.imageOptions});copy.disabled=false;
     const intent=new URL('https://www.threads.com/intent/post');intent.searchParams.set('text',text);threads.href=intent.href;threads.removeAttribute('aria-disabled');
     return encode();
   }

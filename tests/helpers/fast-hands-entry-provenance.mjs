@@ -1,3 +1,4 @@
+import {sharingFlowLedger} from './fast-hands-sharing-flow-provenance.mjs';
 import {finaleLedger,finaleRuntimeAdditions} from './fast-hands-finale-provenance.mjs';
 import {reverseDesktop,desktopLedger} from './fast-hands-desktop-provenance.mjs';
 import {readFileSync} from 'node:fs';
@@ -13,8 +14,8 @@ export const ENTRY_CHANGED=Object.freeze(['app.mjs','index.html','club.css'].map
 export const ENTRY_ADDED=Object.freeze(['duck-startup.css'].map(path=>prefix+path));
 export const ENTRY_ALLOWED=Object.freeze([...ENTRY_CHANGED,...ENTRY_ADDED]);
 export const entryLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/ENTRY-MANIFEST.json',root),'utf8'));
-export function reverseEntry(path,bytes,ledger=entryLedger(),outerLedger=finaleLedger()){
- bytes=reverseDesktop(path,bytes,desktopLedger(),outerLedger);
+export function reverseEntry(path,bytes,ledger=entryLedger(),outerLedger=finaleLedger(),sharingFlow=sharingFlowLedger()){
+ bytes=reverseDesktop(path,bytes,desktopLedger(),outerLedger,sharingFlow);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(ENTRY_ALLOWED.includes(path),'Unapproved entry path '+path);

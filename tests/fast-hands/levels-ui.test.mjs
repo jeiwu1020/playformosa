@@ -30,7 +30,7 @@ test('new levels identify the virtual opponent and foam toy with explicit volunt
 });
 test('practice happens first, then a fresh survival match starts',()=>{
  const h=harness();assert.match(h.$('roundButton').textContent,/練習/);h.click('roundButton');assert.equal(h.app.state.practice,true);
- h.pointer();assert.equal(h.app.state.phase,'done');assert.match(h.$('roundButton').textContent,/逐關/);
+ h.pointer();assert.equal(h.app.state.phase,'done');assert.equal(h.$('roundButton').textContent,'正式開始');
  h.click('roundButton');assert.equal(h.app.state.practice,false);assert.equal(h.app.state.results.length,0);assert.equal(h.app.state.phase,'waiting');h.app.destroy();
 });
 test('repeated pointer, synthesized click and held keyboard cannot count twice or enter next round',()=>{

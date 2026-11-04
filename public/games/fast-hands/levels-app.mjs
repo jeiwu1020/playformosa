@@ -5,15 +5,16 @@ import {createLevelReplayRecorder,recordLevelReplay,finishLevelReplay,sampleLeve
 import {createLevelSound} from './levels-sound.mjs';
 import {mountLevelLeaderboard} from './levels-leaderboard.mjs';
 import {captureFinaleImage} from './finale-image.mjs';
+import {mountLevelSharing} from './levels-sharing.mjs';
 const loadStage=async(canvas,options)=>{const {createLevelStage}=await import('./levels-stage.mjs');return createLevelStage(canvas,options);};
 
-export function mountLevel({document,window,clock=()=>window.performance.now(),random=Math.random,requestFrame=fn=>window.requestAnimationFrame(fn),cancelFrame=id=>window.cancelAnimationFrame(id),stageLoader=loadStage,clubFactory=mountClub,soundFactory=createLevelSound,rankingFactory=mountLevelLeaderboard,imageCapture=captureFinaleImage}={}) {
+export function mountLevel({document,window,clock=()=>window.performance.now(),random=Math.random,requestFrame=fn=>window.requestAnimationFrame(fn),cancelFrame=id=>window.cancelAnimationFrame(id),stageLoader=loadStage,clubFactory=mountClub,soundFactory=createLevelSound,rankingFactory=mountLevelLeaderboard,imageCapture=captureFinaleImage,sharingFactory=mountLevelSharing}={}) {
  const $=id=>document.getElementById(id),mode=document.body.dataset.level;
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
  let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='',club=null,summaryPresented=false,summaryDismissed=false;
  let replay=null,replayRecorder=createLevelReplayRecorder({mode}),lastReveal=null,ranking=null,rankingOpen=false,capturedRun=null,imageToken=0,imagePromise=null,imageUrl=null;
- const sound=soundFactory({window,mode});
+ const sound=soundFactory({window,mode}),sharing=sharingFactory({document,mode});
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
  const poseImages=new Map();
  for(const name of FALLBACK_FRAME_NAMES.filter(n=>n.startsWith(`levels-${mode}`))){const img=new window.Image();img.src=`assets/${name}.png`;poseImages.set(name,img);}
@@ -59,7 +60,8 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   if(!replay&&feedback&&settledAt===null)settledAt=now;
   const visualState=replaySample?state:{...state,presentation:{pressedAt,settledAt}},motion=sampleLevelMotion({mode,state:visualState,now}),motionReady=motion.complete;
   const summaryReady=!replay&&state.phase==='done'&&!state.practice&&motionReady&&!club?.blocked?.()&&!rankingOpen;
-  document.body.dataset.replay=String(Boolean(replay));document.body.dataset.phase=state.phase;document.body.dataset.summary=String(summaryReady&&!summaryDismissed);
+  const practiceChoices=!replay&&state.practice&&state.phase==='done';
+  document.body.dataset.practiceChoices=String(practiceChoices);document.body.dataset.replay=String(Boolean(replay));document.body.dataset.phase=state.phase;document.body.dataset.summary=String(summaryReady&&!summaryDismissed);
   if(state!==lastRendered||motionReady!==lastMotionReady||motion.revealStage!==lastReveal){
    lastReveal=motion.revealStage;
    lastMotionReady=motionReady;
@@ -69,8 +71,8 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    $('opponentScore').textContent=state.practice?'—':catching?String(current):String(count('ai'));
    const timing=state.flightMs??catchStageSettings(1,{practice:state.practice}).flightMs;
    $('speedLabel').textContent=catching?`${Math.round(timing)} ms 飛行 · 每關加速`:'快手王反應 150–280 ms';
-   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(summaryReady&&!summaryDismissed);
-   $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?(catching?'開始逐關挑戰':'開始十回合對決'):state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
+   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle'||practiceChoices;$('practiceAgain').hidden=!practiceChoices;$('practiceAgain').disabled=!motionReady||artError||rendererState==='pending';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(summaryReady&&!summaryDismissed);
+   $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?'正式開始':state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
    $('actionButton').textContent=catching?'接！':'搶！';$('actionButton').setAttribute('aria-label',catching?'伸手接泡棉彈':'出手搶物品');
    let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到掌心前時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'看準掌心':'等訊號';
    if(state.phase==='waiting'){title=catching?'眼睛看彈，先別出手。':'準備好了？忍住…';hint='等待長短每次不同，長按不會自動出手。';signal=catching?'準備發射…':'等訊號';}
@@ -125,8 +127,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   replay=null;imageToken++;imagePromise=null;capturedRun=null;rankingOpen=false;ranking?.reset();
   if(imageUrl){window.URL.revokeObjectURL(imageUrl);imageUrl=null;}
   $('summaryImage').hidden=true;$('summaryImage').removeAttribute('src');$('summaryImageStatus').textContent='正在準備本次畫面…';
-  $('summaryDownload').removeAttribute('href');$('summaryDownload').removeAttribute('download');$('summaryDownload').setAttribute('aria-disabled','true');
-  $('summaryShareStatus').textContent='';$('summaryShareText').hidden=true;$('summaryShareText').value='';$('summaryReplay').disabled=true;
+  sharing.reset();$('summaryReplay').disabled=true;
   replayRecorder=createLevelReplayRecorder({mode});lastRendered=null;lastReveal=null;
  }
  function begin(){
@@ -143,7 +144,11 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   const previous=state,next=press(state,now);if(next!==state){pressedAt=now;settledAt=now;}state=next;observe(previous,now);render(now);
  }
  function pause(){if(replay){returnFromReplay();return;}const previous=state,next=pauseMatch(state);if(next!==state){pressedAt=null;settledAt=null;}state=next;observe(previous,clock());lastFrame=null;render();}
- function practice(){closeSummary();clearResult();summaryPresented=false;summaryDismissed=false;pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ function practice(){if(club?.blocked?.()||rankingOpen)return;closeSummary();clearResult();summaryPresented=false;summaryDismissed=false;pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ function repeatPractice(){
+  if(blocked()||artError||rendererState==='pending'||!state.practice||state.phase!=='done'||!visualReady(clock()))return;
+  practice();begin();
+ }
  function captureImage(visualState,motion,now){
   if(imagePromise)return imagePromise;
   const token=++imageToken,item=state.results.at(-1)?.item;
@@ -151,36 +156,30 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   const args=rendererState==='3d'?{canvas:$('levelCanvas'),renderFrame:()=>stageView?.render(visualState,now,{force:true})===true}:{fallback:{mode,motion,from:poseImages.get(motion.fallbackFrame.from),to:poseImages.get(motion.fallbackFrame.to),atlas:$('atlasProbe'),item,showDart:Number.isFinite(visualState.liveAt)}};
   // Invoke synchronously: captureFinaleImage copies WebGL pixels before awaiting encoding.
   try{imagePromise=Promise.resolve(imageCapture({document,...args}));}catch(error){imagePromise=Promise.reject(error);}
+  sharing.prepare(state,imagePromise);
   imagePromise=imagePromise.then(({blob})=>{
    if(disposed||token!==imageToken)return;
    imageUrl=window.URL.createObjectURL(blob);$('summaryImage').src=imageUrl;$('summaryImage').hidden=false;$('summaryImageStatus').textContent='本次挑戰的實際結束畫面';
-   $('summaryDownload').href=imageUrl;$('summaryDownload').download=`fast-hands-${mode}-result.png`;$('summaryDownload').setAttribute('aria-disabled','false');
   }).catch(()=>{if(!disposed&&token===imageToken)$('summaryImageStatus').textContent='本次畫面暫時無法產生，仍可重播與複製成績。';});
   return imagePromise;
  }
  function startReplay(){
-  const clip=finishLevelReplay(replayRecorder);if(!clip||state.phase!=='done'||state.practice)return;
+  const clip=finishLevelReplay(replayRecorder);if(club?.blocked?.()||rankingOpen||!clip||state.phase!=='done'||state.practice)return;
   closeSummary();replay={clip,startedAt:clock()};lastRendered=null;lastReveal=null;render();$('replayReturn').focus({preventScroll:true});
  }
  function returnFromReplay(){if(!replay)return;replay=null;lastRendered=null;lastReveal=null;const defer=club?.blocked?.();if(defer){summaryPresented=false;summaryDismissed=false;}render();if(!defer){openSummary();$('summaryReplay').focus({preventScroll:true});}}
- async function copyResult(){
-  const token=imageToken,text=`${catching?'玩具彈通關':'十回合對決'}｜${catching?count('player')+' 關通過':count('player')+' : '+count('ai')+'（你 : 快手王）'}\n${window.location.href.split('#')[0]}`;
-  try{await window.navigator.clipboard.writeText(text);if(!disposed&&token===imageToken)$('summaryShareStatus').textContent='已複製本次成績與網址。';}
-  catch{if(disposed||token!==imageToken)return;$('summaryShareStatus').textContent='無法自動複製，請選取下方文字手動複製。';$('summaryShareText').value=text;$('summaryShareText').hidden=false;$('summaryShareText').focus();$('summaryShareText').select();}
- }
  listen($('summaryReplay'),'click',startReplay);listen($('replayReturn'),'click',returnFromReplay);
- listen($('summaryRanking'),'click',()=>{if(state.phase==='done'&&!state.practice)ranking?.showBoard({origin:'result'});});
- listen($('summaryCopy'),'click',()=>void copyResult());listen($('summaryDownload'),'click',event=>{if(!imageUrl)event.preventDefault();});
+ listen($('summaryRanking'),'click',()=>{if(!club?.blocked?.()&&state.phase==='done'&&!state.practice)ranking?.showBoard({origin:'result'});});
  listen($('soundToggle'),'click',()=>{sound.unlock();sound.setMuted(!sound.muted);$('soundToggle').textContent=sound.muted?'音效：關':'音效：開';$('soundToggle').setAttribute('aria-pressed',String(sound.muted));});
- listen($('summaryClose'),'click',closeSummary);listen($('summary'),'close',()=>{if($('summary').open||state.phase!=='done'||state.practice)return;summaryDismissed=true;$('summary').hidden=true;document.body.dataset.summary='false';});listen($('summaryAgain'),'click',()=>{closeSummary();begin();});listen($('summaryPractice'),'click',practice);
+ listen($('summaryClose'),'click',()=>{if(!club?.blocked?.())closeSummary();});listen($('summary'),'close',()=>{if($('summary').open||state.phase!=='done'||state.practice)return;summaryDismissed=true;$('summary').hidden=true;document.body.dataset.summary='false';});listen($('summaryAgain'),'click',()=>{if(club?.blocked?.())return;closeSummary();begin();});listen($('summaryPractice'),'click',practice);
  listen($('resultPrev'),'click',()=>{if(resultPage>0){resultPage--;summary();}});listen($('resultNext'),'click',()=>{if((resultPage+1)*10<state.results.length){resultPage++;summary();}});
- listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
+ listen($('practiceAgain'),'click',repeatPractice);listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
  listen($('actionButton'),'pointerdown',event=>{if(event.isPrimary===false||(event.pointerType==='mouse'&&event.button!==0))return;event.preventDefault();act();});
  listen($('actionButton'),'click',event=>{if(event.detail===0)act();});
  listen(document,'keydown',event=>{if(!['Space','Enter'].includes(event.code))return;const target=event.target;if(target?.closest?.('a,input,select,textarea,summary')||target?.closest?.('button')!==$('actionButton')&&target?.closest?.('button'))return;if(!['waiting','live'].includes(state.phase))return;event.preventDefault();if(!event.repeat)act();});
  listen(window,'scroll',()=>{if(['waiting','live'].includes(state.phase)&&!sceneVisible())pause();},{passive:true});listen(window,'blur',pause);listen(document,'visibilitychange',()=>{if(document.hidden)pause();});listen(window,'resize',()=>{if(Math.abs(window.innerWidth-width)>8){width=window.innerWidth;pause();}});listen(window,'pagehide',event=>{pause();if(!event.persisted)destroy();});
  function frame(now){if(disposed)return;if(replay){if(document.hidden||club?.blocked?.()||sampleLevelReplay(replay.clip,now-replay.startedAt).done)returnFromReplay();else render(now);frameId=requestFrame(frame);return;}const previous=state;if(blocked()||document.hidden||(['waiting','live'].includes(state.phase)&&!sceneVisible()))pause();else if(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)pause();else state=advance(state,now);observe(previous,now);lastFrame=now;render(now);frameId=requestFrame(frame);}
- function destroy(){if(disposed)return;disposed=true;imageToken++;if(imageUrl)window.URL.revokeObjectURL(imageUrl);sound.destroy();ranking?.destroy();window.clearTimeout(startupTimer);cancelFrame(frameId);stageView?.dispose();club?.destroy();for(const remove of listeners)remove();}
+ function destroy(){if(disposed)return;disposed=true;imageToken++;if(imageUrl)window.URL.revokeObjectURL(imageUrl);sound.destroy();sharing.destroy();ranking?.destroy();window.clearTimeout(startupTimer);cancelFrame(frameId);stageView?.dispose();club?.destroy();for(const remove of listeners)remove();}
  function artFailed(){if(disposed||catching)return;artError=true;$('artStatus').hidden=false;$('artStatus').textContent='道具圖像載入失敗，請重試後再開始。';$('retryArtButton').hidden=false;lastRendered=null;pause();}
  function artLoaded(){if(disposed||catching)return;artError=false;$('artStatus').hidden=true;$('retryArtButton').hidden=true;atlasUrl=$('atlasProbe').getAttribute('src');lastRendered=null;render();}
  listen($('atlasProbe'),'error',artFailed);listen($('atlasProbe'),'load',artLoaded);
@@ -199,7 +198,8 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
  ranking=rankingFactory({document,mode,onOpen(dialog){closeSummary();rankingOpen=true;try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
- club=clubFactory({document,window,mode,isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:()=>pause(),onStart:()=>{}});
+ listen(document,'clubchange',()=>{lastRendered=null;render();});
+ club=clubFactory({document,window,mode,getNavigationContext:()=>({phase:state.phase,practice:state.practice}),getResumeTarget:()=>$('roundButton'),isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:()=>pause(),onStart:()=>{}});
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};
 }
 if(typeof document!=='undefined'&&document.body?.dataset.level)mountLevel({document,window});

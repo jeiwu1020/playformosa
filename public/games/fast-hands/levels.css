@@ -71,3 +71,9 @@ body[data-renderer="pending"] .fallback-layer,body[data-renderer="pending"] .lev
 .fallback-blend{opacity:0}.level-stage .scene-item,.level-stage[data-winner="player"] .scene-item,.level-stage[data-winner="ai"] .scene-item{transform:translate(-50%,-50%);transition:none}
 .level-stage[data-result="caught"] .foam-dart{visibility:visible}
 body:not([data-phase="live"]) .foam-dart:before{display:none}
+
+/* A completed practice keeps both choices inside the existing fixed control slot. */
+body.fast-hands-club .primary-control>.practice-repeat{font-size:18px;letter-spacing:0;background:var(--cream,#f7f2e6);border-color:var(--green,#233f34);box-shadow:0 5px 0 #a1af9c}
+body.fast-hands-club[data-practice-choices="true"] .primary-control>#practiceAgain{left:0;right:auto;width:calc(50% - 5px);font-size:18px}
+body.fast-hands-club[data-practice-choices="true"] .primary-control>#roundButton{left:auto;right:0;width:calc(50% - 5px);font-size:18px}
+@media(min-width:1000px) and (min-height:560px){body.fast-hands-club[data-practice-choices="true"] .primary-control>#practiceAgain,body.fast-hands-club[data-practice-choices="true"] .primary-control>#roundButton{font-size:22px}}

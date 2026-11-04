@@ -69,7 +69,7 @@ function captureResultImage(view){
 const offline=$('demo3d'),dialogs=[$('entryDialog'),$('info'),$('resultDialog'),$('rankingDialog')];
 const isTerminal=phase=>['success','failed','cancelled'].includes(phase);
 const blocked=()=>dialogs.some(dialog=>dialog.open)||Boolean(club?.blocked());
-function syncOverlay(){document.body.dataset.overlay=$('rankingDialog').open?'ranking':$('entryDialog').open?'entry':$('resultDialog').open?'result':$('info').open?'help':'';syncVideo();}
+function syncOverlay(){document.body.dataset.overlay=club?.navigationPending?.()?'navigation':$('rankingDialog').open?'ranking':$('entryDialog').open?'entry':$('resultDialog').open?'result':$('info').open?'help':'';syncVideo();}
 function closeDialogs(){if($('rankingDialog').open)leaderboard?.dismiss(false);for(const dialog of dialogs)if(dialog.open)dialog.close();syncOverlay();}
 function openDialog(dialog){dialog.hidden=false;if(!dialog.open)dialog.showModal();syncOverlay();}
 for(const dialog of dialogs)dialog.addEventListener('close',syncOverlay);
@@ -114,11 +114,11 @@ window.addEventListener('blur',()=>interrupt('blur'));document.addEventListener(
 window.addEventListener('pageshow',()=>{if(!disposed){imagePageAway=false;stage?.resize();syncVideo();displayResultImage();}});
 document.addEventListener('visibilitychange',syncVideo);
 window.addEventListener('storage',()=>{cachedBest=readBest(storage,mode);});
-function startGame(){if(rendererMode==='loading')return;closeDialogs();demo=false;reset();syncVideo();unlock();}
-function showDemo(){closeDialogs();reset();demo=true;demoStart=clock();offline.currentTime=0;syncVideo();}
+function startGame(){if(club?.blocked?.()||rendererMode==='loading')return;closeDialogs();demo=false;reset();syncVideo();unlock();}
+function showDemo(){if(club?.blocked?.())return;closeDialogs();reset();demo=true;demoStart=clock();offline.currentTime=0;syncVideo();}
 function interruptForClub({reason}){interrupt(reason);resultSuppressed=true;terminalSeenAt=null;syncVideo();}
 function showResult(){
- stopReplay();
+ if(club?.blocked?.())return;stopReplay();
  const view=snapshot(s,clock());
  if(demo||activePointer!==null||!isTerminal(view.phase))return;
  replayClip??=finishReplay(recorder);$('resultDemo').disabled=!replayClip;
@@ -128,18 +128,18 @@ function showResult(){
  $('resultDialog').dataset.record=String(result.newRecord);
  captureResultImage(view);resultShown=true;closeDialogs();openDialog($('resultDialog'));sharing.prepare(Object.freeze(result),mode);
 }
-function replayResult(){if(!replayClip||activePointer!==null||demo)return;closeDialogs();replaying=true;replayStart=clock();lastPhase='';document.body.dataset.playback='replay';syncVideo();}
+function replayResult(){if(club?.blocked?.()||!replayClip||activePointer!==null||demo)return;closeDialogs();replaying=true;replayStart=clock();lastPhase='';document.body.dataset.playback='replay';syncVideo();}
 $('resultDemo').onclick=replayResult;
-$('mode').onchange=()=>{interrupt('mode-change');preference=$('mode').value;if(preference!=='auto')mode=preference;cachedBest=readBest(storage,mode);reset();};
+$('mode').onchange=()=>{if(club?.blocked?.())return;interrupt('mode-change');preference=$('mode').value;if(preference!=='auto')mode=preference;cachedBest=readBest(storage,mode);reset();};
 $('play').onclick=startGame;$('retry').onclick=startGame;$('showDemo').onclick=showDemo;
-$('resultUpload').onclick=()=>leaderboard.showUpload();
-$('entryRanking').onclick=()=>leaderboard.showBoard({origin:'entry',mode});
-$('resultRanking').onclick=()=>leaderboard.showBoard({origin:'result',mode});
-$('headerRanking').onclick=()=>leaderboard.showBoard({origin:resultShown&&!demo?'result':'entry',mode});
+$('resultUpload').onclick=()=>{if(!club?.blocked?.())leaderboard.showUpload();};
+$('entryRanking').onclick=()=>{if(!club?.blocked?.()||$('entryDialog').open&&!club?.navigationPending?.())leaderboard.showBoard({origin:'entry',mode});};
+$('resultRanking').onclick=()=>{if(!club?.blocked?.())leaderboard.showBoard({origin:'result',mode});};
+$('headerRanking').onclick=()=>{if(!club?.blocked?.())leaderboard.showBoard({origin:resultShown&&!demo?'result':'entry',mode});};
 $('viewResult').onclick=showResult;$('resultAgain').onclick=startGame;
 $('resultClose').onclick=()=>{$('resultDialog').close();syncOverlay();};
 $('sound').onclick=()=>{muted=!muted;$('sound').textContent='鴨叫：'+(muted?'關':'開');$('sound').setAttribute('aria-pressed',String(muted));if(!muted)unlock();};
-$('about').onclick=$('headerSettings').onclick=()=>{interrupt('help');closeDialogs();openDialog($('info'));};
+$('about').onclick=$('headerSettings').onclick=()=>{if(club?.blocked?.()&&!($('entryDialog').open&&!club?.navigationPending?.()))return;interrupt('help');closeDialogs();openDialog($('info'));};
 $('closeInfo').onclick=()=>{$('info').close();syncOverlay();};
 function updateControls(view){
  const phase=demo?'demo':view.phase;
@@ -162,5 +162,5 @@ function draw(){if(disposed)return;const now=clock(),demoTime=rendererMode==='fa
  }
  if(playback?.done&&!blocked()&&!document.hidden)showResult();
  raf=requestAnimationFrame(draw);}
-club=mountClub({document,window,mode:'duck',isActive:()=>!demo&&activePointer!==null&&s.phase!=='success',onInterrupt:interruptForClub,onStart:showDemo});
+club=mountClub({document,window,mode:'duck',getNavigationContext:()=>({phase:s.phase,practice:demo}),getResumeTarget:()=>$('retry'),isActive:()=>!demo&&activePointer!==null&&s.phase!=='success',onInterrupt:interruptForClub,onStart:showDemo});
 raf=requestAnimationFrame(draw);
