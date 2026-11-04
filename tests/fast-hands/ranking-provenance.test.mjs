@@ -1,9 +1,10 @@
+import {readLoadingLookBaseline} from '../helpers/loading-look-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {rankingLedger,reverseRanking,rankingRuntimeAdditions,readRankingBaseline,RANKING_MODIFIED,RANKING_ADDED} from '../helpers/fast-hands-ranking-provenance.mjs';
-const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
+const root=new URL('../../',import.meta.url),read=p=>readLoadingLookBaseline(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 test('ranking byte reversal rejects changed bytes, invalid bounds and invented parent',()=>{
  const before=Buffer.from('手速\n'),after=Buffer.from('手速榜\n'),path=RANKING_MODIFIED[0];
  const f={path,sha256:hash(after),beforeSha256:hash(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:9,beforeBase64:''}]};

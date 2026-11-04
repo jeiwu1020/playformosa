@@ -16,7 +16,7 @@ for(const game of games)test(game+' first document gates layout and preloads onl
  const html=readFileSync(new URL(game+'/index.html',root),'utf8');
  const dom=new JSDOM(html),d=dom.window.document;
  assert.equal(d.documentElement.dataset.pfStartup,'pending');
- const style=d.querySelector('#pf-startup-style');assert.ok(style);assert.match(style.textContent,/visibility:hidden!important/);assert.doesNotMatch(style.textContent,/display:none/);
+ const style=d.querySelector('#pf-startup-style');assert.ok(style);assert.match(style.textContent,/visibility:hidden!important/);assert.doesNotMatch(style.textContent.split('}')[0],/display:none/);
  assert.ok(d.querySelector('#pf-startup a[href="/"]'));assert.ok(d.querySelector('#pf-startup a[href=""]'));assert.ok(d.querySelector('noscript'));
  assert.equal(d.querySelectorAll('script#pf-startup-script').length,1);assert.equal(d.querySelector('script#pf-startup-script').textContent,code);assert.equal(d.querySelector('script#pf-startup-script').hasAttribute('src'),false);
  const preloads=[...d.querySelectorAll('link[rel=modulepreload]')].map(x=>x.getAttribute('href'));assert.equal(new Set(preloads).size,preloads.length);

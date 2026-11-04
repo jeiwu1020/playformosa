@@ -1,3 +1,4 @@
+import {readLoadingLookBaseline} from './loading-look-provenance.mjs';
 import {readFileSync as readActual} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -22,7 +23,7 @@ export function reverseRanking(path,bytes,ledger=rankingLedger()){
 }
 export function readRankingBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readActual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
+ const bytes=readLoadingLookBaseline(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseRanking(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }
 export function rankingRuntimeAdditions(){
