@@ -5,9 +5,9 @@ import {newMatch,beginRound,advance,press,pauseMatch,ITEMS,CATCH_WINDOW_MS} from
 const mid=()=>.5;
 const ready=(mode='catch',options={})=>beginRound(newMatch(mode,{random:mid,...options}),1000,mid);
 const signal=state=>advance(state,state.readyAt);
-test('practice uses one unscored shot and normal matches contain exactly ten rounds',()=>{
+test('practice uses one unscored shot, catch is survival and duel is ten rounds',()=>{
  assert.equal(newMatch('catch',{practice:true}).total,1);
- assert.equal(newMatch('catch').total,10);
+ assert.equal(newMatch('catch').total,Infinity);
  assert.equal(newMatch('duel').total,10);
  assert.equal(newMatch('duel').practice,false);
 });

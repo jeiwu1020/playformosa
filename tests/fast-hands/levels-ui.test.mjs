@@ -4,7 +4,7 @@ const root=new URL('../../public/games/fast-hands/',import.meta.url);
 const html=mode=>readFileSync(new URL(mode==='duel'?'duel.html':'catch.html',root),'utf8');
 function harness(mode='catch'){
  const dom=new JSDOM(html(mode),{url:`https://game.test/games/fast-hands/${mode}.html`,pretendToBeVisual:true});let now=0,frame;
- const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;}});
+ const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;},stageLoader:async()=>null});
  const $=id=>dom.window.document.getElementById(id);
  return {dom,app,$,step(ms){now+=ms;frame?.(now);},elapse(ms){now+=ms;},at(value){now=value;frame?.(now);},click(id){$(id).click();},get now(){return now;},pointer(type='mouse',primary=true,button=0){const e=new dom.window.Event('pointerdown',{bubbles:true,cancelable:true});Object.assign(e,{pointerType:type,isPrimary:primary,button});$('actionButton').dispatchEvent(e);},key(key='Space',repeat=false){const e=new dom.window.KeyboardEvent('keydown',{code:key,key:key==='Space'?' ':key,bubbles:true,cancelable:true,repeat});$('actionButton').dispatchEvent(e);}};
 }
@@ -20,7 +20,7 @@ test('every level has three direct accessible links and the original entry and r
  }
 });
 test('new levels clearly name the AI, the foam toy and local-only scores without ranking API',()=>{
- assert.match(html('catch'),/泡棉/);assert.match(html('catch'),/遊戲慢動作/);assert.match(html('duel'),/AI 虛擬對手/);
+ assert.match(html('catch'),/泡棉/);assert.match(html('catch'),/虛構接彈遊戲/);assert.match(html('duel'),/AI 虛擬對手/);
  for(const mode of ['catch','duel']){const doc=new JSDOM(html(mode)).window.document;
   assert.equal(doc.querySelector('#actionButton').tagName,'BUTTON');assert.equal(doc.querySelector('#actionButton').type,'button');
   assert.equal(doc.querySelector('#roundStatus').getAttribute('aria-live'),'polite');
@@ -28,9 +28,9 @@ test('new levels clearly name the AI, the foam toy and local-only scores without
  }
  const source=readFileSync(new URL('levels-app.mjs',root),'utf8');assert.doesNotMatch(source,/fetch\(|localStorage|leaderboard\.mjs|saveBest/);
 });
-test('practice happens first, then a fresh ten-shot match starts',()=>{
+test('practice happens first, then a fresh survival match starts',()=>{
  const h=harness();assert.match(h.$('roundButton').textContent,/練習/);h.click('roundButton');assert.equal(h.app.state.practice,true);
- h.pointer();assert.equal(h.app.state.phase,'done');assert.match(h.$('roundButton').textContent,/十發/);
+ h.pointer();assert.equal(h.app.state.phase,'done');assert.match(h.$('roundButton').textContent,/逐關/);
  h.click('roundButton');assert.equal(h.app.state.practice,false);assert.equal(h.app.state.results.length,0);assert.equal(h.app.state.phase,'waiting');h.app.destroy();
 });
 test('repeated pointer, synthesized click and held keyboard cannot count twice or enter next round',()=>{
@@ -55,9 +55,9 @@ test('input received before a delayed frame pauses instead of scoring an unseen 
  assert.equal(h.app.state.phase,'paused');assert.equal(h.app.state.results.length,0);h.step(1);assert.equal(h.app.state.phase,'paused');h.app.destroy();
 });
 test('real live catch flow scores a timed touch and a later missed shot',()=>{
- const h=harness();h.click('roundButton');h.at(h.app.state.readyAt);for(let i=0;i<4;i++)h.step(200);h.step(40);h.pointer('touch');
+ const h=harness();h.click('roundButton');h.at(h.app.state.readyAt);for(let i=0;i<3;i++)h.step(200);h.step(50);h.pointer('touch');
  assert.equal(h.app.state.results[0].winner,'player');assert.match(h.$('roundStatus').textContent,/接住/);h.click('roundButton');h.at(h.app.state.readyAt);for(let i=0;i<5;i++)h.step(200);
- assert.equal(h.app.state.results[0].reason,'miss');assert.equal(h.$('opponentScore').textContent,'1');h.app.destroy();
+ assert.equal(h.app.state.results[0].reason,'miss');assert.equal(h.$('opponentScore').textContent,'1');assert.equal(h.app.state.phase,'done');h.app.destroy();
 });
 test('a live duel scores a keyboard win, AI timeout and late player action correctly',()=>{
  const h=harness('duel');h.click('roundButton');h.at(h.app.state.readyAt);h.step(100);h.key();assert.equal(h.app.state.results[0].winner,'player');

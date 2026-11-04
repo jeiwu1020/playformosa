@@ -1,27 +1,30 @@
 <!doctype html>
-<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff9e9"><title>快手王｜玩具彈接接樂</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"></head>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜玩具彈接接樂</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"></head>
 <body class="level-page" data-level="catch" data-phase="idle">
 <main class="level-main">
- <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · 快手王</p><h1>玩具彈接接樂</h1></div><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
- <nav class="level-switch" aria-label="切換快手王關卡"><a href="./"><span aria-hidden="true">🦆</span>小鴨往返</a><a href="catch.html" aria-current="page"><span aria-hidden="true">🟠</span>玩具彈接接樂</a><a href="duel.html"><span aria-hidden="true">⚡</span>十回合對決</a></nav>
- <section class="level-hud" aria-label="本場比分"><div><span>你接住</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span class="arcade-badge">抓準抵達時機</span></div><div><span>漏接</span><strong id="opponentScore">—</strong></div></section>
- <section id="stage" class="level-stage" aria-label="泡棉球飛行與接球區">
-  <div class="stage-top"><span class="stage-kicker">FOAM BALL CLUB</span><span class="stage-tag">遊戲慢動作 · 泡棉玩具</span></div>
-  <div id="signal" class="signal">接球區</div>
-  <div class="catch-scene"  aria-hidden="true">
-   <div class="toy-launcher"><span>POF!</span><i></i><b></b></div><div class="flight-path"></div><div class="catch-zone"><span>接球圈</span></div><div id="foamBall" class="foam-ball" style="--flight:0"></div><div class="catch-hand">✋</div><span class="launcher-label">泡棉發射器</span>
+ <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>玩具彈接接樂</h1></div><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
+ <nav class="level-switch" aria-label="切換快手王關卡"><a href="./"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+ <section class="level-hud" aria-label="本場比分"><div><span>已通過</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span id="speedLabel" class="arcade-badge">每關更快 · 一次失誤結束</span></div><div><span>挑戰關卡</span><strong id="opponentScore">—</strong></div></section>
+ <section id="stage" class="level-stage" aria-label="快手王伸手接住泡棉玩具彈">
+  <div class="stage-top"><span class="stage-kicker">CATCH / SURVIVAL</span><span id="renderMode" class="stage-tag">正在載入 3D 場景</span></div>
+  <div id="signal" class="signal">掌心接彈區</div>
+  <div class="scene-viewport">
+   <div class="fallback-layer">
+   <img id="fallbackScene" class="fallback-scene" src="assets/levels-catch-ready.png" alt="快手王在玩具發射器前準備接彈">
+   <div class="fallback-flight"   aria-hidden="true"><div class="catch-zone"></div><div id="foamBall" class="foam-dart" style="--flight:0"><i></i></div></div>
+   <div id="itemArt" class="item-art scene-item" hidden role="img" aria-label="本回合物品"></div>
+   </div><canvas id="levelCanvas" class="level-canvas" aria-hidden="true"></canvas>
+   <div class="character-labels" aria-hidden="true"><span>泡棉玩具發射器</span><span>快手王 · 接彈挑戰</span></div>
   </div>
-  <div class="duel-scene" hidden>
-   <div class="contestant player"><div class="avatar" aria-hidden="true">✋</div><span>你</span><div class="duel-hand" aria-hidden="true">🤏</div></div>
-   <div class="prize"><span class="prize-star" aria-hidden="true">✦</span><span id="itemEmoji" class="item-emoji" aria-hidden="true">🩴</span><strong id="itemName">阿嬤的飛天拖鞋</strong><p id="itemQuip">這次不用閃，搶到算你的。</p></div>
-   <div class="contestant rival"><div class="avatar"><img src="assets/result-pose.png" alt="虛擬快手王"></div><span>AI 快手王</span><div class="duel-hand" aria-hidden="true">🤏</div></div>
-  </div>
-  <p class="stage-bottom">看準時機，伸手接住！</p>
+  <div class="prize-caption"><p class="eyebrow">STAGE CHALLENGE</p><strong id="itemName">每過一關，手速再快一點</strong><p id="itemQuip">看準泡棉彈抵達掌心的瞬間。</p></div>
  </section>
- <section class="round-feedback" aria-label="當前回合"><h2 id="roundStatus" aria-live="polite">準備好了嗎？</h2><p id="roundHint">先練習一次，再開始正式挑戰。</p><div id="roundDots" class="round-dots" aria-label="回合進度"></div></section>
- <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><p class="eyebrow">本場成績</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p><ol id="roundResults" class="round-results"></ol><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
- <div class="level-controls"><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="roundButton" type="button" class="action-button">先練習一次</button><p class="input-help">點大按鈕 · 電腦也可按空白鍵或 Enter</p><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div>
- <details class="level-help"><summary>怎麼玩？</summary><ol><li>先練習一發，之後挑戰十發泡棉球。</li><li>發射時間與飛行速度每發不同，球飛進右側圈內時按「接！」。</li><li>每球只能出手一次，太早、太晚都算漏接。接住越多越好。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>這是泡棉玩具慢動作遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。</p></details>
+ <section class="round-feedback" aria-label="當前回合"><p class="eyebrow">HOW FAR CAN YOU GO?</p><h2 id="roundStatus" aria-live="polite">先熱身，再挑戰。</h2><p id="roundHint">先練習一次，不列入本局成績。</p><div id="roundDots" class="round-dots" aria-label="挑戰進度"></div></section>
+ <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><p class="eyebrow">YOUR RUN</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p><ol id="roundResults" class="round-results"></ol><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
+ <img id="atlasProbe" alt="" hidden>
+ <p id="artStatus" class="art-status" role="status" hidden></p>
+ <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
+ <div class="level-controls"><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="roundButton" type="button" class="action-button">先練習一次</button><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div>
+ <details class="level-help"><summary>玩法與公平計時</summary><ol><li>先練習一發，再開始逐關加速挑戰。</li><li>泡棉彈飛到手掌前的接彈區時按「接！」，每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li><li>第 1 關飛行 520 ms，此後每關加速，逐步接近 220 ms 的速度上限。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>這是泡棉玩具的虛構接彈遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></details>
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
  <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./">回到小鴨關卡</a></noscript>
 </main><script type="module" src="levels-app.mjs"></script></body></html>

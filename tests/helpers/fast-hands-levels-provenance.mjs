@@ -1,8 +1,10 @@
+import {reverseArt,artRuntimeAdditions} from './fast-hands-levels-art-provenance.mjs';
 import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';import {resolve,relative,sep,isAbsolute} from 'node:path';import assert from 'node:assert/strict';
 const root=new URL('../../',import.meta.url),rootPath=fileURLToPath(root),hash=b=>createHash('sha256').update(b).digest('hex');
 export const LEVEL_ADDED=Object.freeze(['public/games/fast-hands/level-nav.css','public/games/fast-hands/levels.css','public/games/fast-hands/levels-rules.mjs','public/games/fast-hands/levels-app.mjs','public/games/fast-hands/catch.html','public/games/fast-hands/duel.html']);
 export const levelLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/LEVELS-MANIFEST.json',root),'utf8'));
 export function reverseLevels(path,bytes,ledger=levelLedger()){
+ bytes=reverseArt(path,bytes);
  const entry=ledger.files.find(f=>f.path===path);if(!entry)return Buffer.from(bytes);
  assert.equal(hash(bytes),entry.sha256,'Levels current bytes '+path);
  if(entry.beforeSha256===null){assert.ok(LEVEL_ADDED.includes(path));assert.equal(entry.baseGitBlob,null);assert.deepEqual(entry.reverseEdits,[]);return Buffer.from(bytes);}
@@ -14,4 +16,4 @@ export function reverseLevels(path,bytes,ledger=levelLedger()){
 export function readLevelsBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);const result=within?reverseLevels(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }
-export function levelsRuntimeAdditions(){const ledger=levelLedger();assert.deepEqual(ledger.files.map(f=>f.path),['public/games/fast-hands/index.html',...LEVEL_ADDED]);for(const path of LEVEL_ADDED)reverseLevels(path,readFileSync(new URL(path,root)),ledger);return [...LEVEL_ADDED];}
+export function levelsRuntimeAdditions(){const ledger=levelLedger();assert.deepEqual(ledger.files.map(f=>f.path),['public/games/fast-hands/index.html',...LEVEL_ADDED]);for(const path of LEVEL_ADDED)reverseLevels(path,readFileSync(new URL(path,root)),ledger);return [...LEVEL_ADDED,...artRuntimeAdditions()];}
