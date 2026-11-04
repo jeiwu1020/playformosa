@@ -43,15 +43,20 @@ function page(name, width, height, phase = 'idle') {
 }
 
 for (const [width,height] of sizes) {
-  test(`all three games use a stage-first vertical layout at ${width}×${height}`, () => {
+  test(`all three games use the requested responsive layout at ${width}×${height}`, () => {
     for (const name of ['duck','catch','duel']) {
       const p = page(name,width,height);
       const main = p.style('main');
-      assert.equal(main.gridTemplateColumns,'minmax(0,1fr)',`${name}: no desktop/landscape sidebar`);
+      assert.equal(main.gridTemplateColumns,width >= 1000 ? 'minmax(0,1.55fr) minmax(320px,1fr)' : 'minmax(0,1fr)',`${name}: desktop split, unchanged mobile stack`);
       assert.equal(main.maxWidth,'1080px',`${name}: preserve the original playable width`);
       const areas = main.gridTemplateAreas.match(/"[^"]+"/g)?.map(s => s.slice(1,-1)) || [];
-      assert.ok(areas.indexOf('scene') < areas.indexOf('scores'),`${name}: stage before score`);
-      assert.ok(areas.indexOf('scores') < areas.indexOf('control'),`${name}: score before controls`);
+      if(width < 1000){
+        assert.ok(areas.indexOf('scene') < areas.indexOf('scores'),`${name}: stage before score`);
+        assert.ok(areas.indexOf('scores') < areas.indexOf('control'),`${name}: score before controls`);
+      }else{
+        assert.ok(areas.includes('scene scores'),`${name}: scene left, score right`);
+        assert.ok(areas.includes(name === 'duck' ? 'track track' : 'scene control'),`${name}: requested controls`);
+      }
       assert.notEqual(p.style('body').overflowY,'hidden',`${name}: content remains reachable`);
       assert.notEqual(p.style('html').overflowY,'hidden',`${name}: document must not crop content`);
       assert.equal(p.style('.level-switch a').minHeight,'44px',`${name}: switch targets remain 44px`);
@@ -112,14 +117,13 @@ test('result tickets use one column with a fixed hero, reachable actions and ind
   }
 });
 
-test('an art loading error keeps the same one-column game and exposes a recovery row', () => {
+test('an art loading error keeps the requested responsive game and exposes a recovery row', () => {
   for(const name of ['catch','duel']) {
     const p = page(name,1000,560);
     p.document.querySelector('#artStatus').hidden=false;
     p.document.querySelector('#retryArtButton').hidden=false;
     const areas=p.style('main').gridTemplateAreas.match(/"[^"]+"/g).map(s=>s.slice(1,-1));
-    assert.ok(areas.every(area=>!area.includes(' ')),'error layout cannot restore a two-column desktop grid');
-    assert.ok(areas.includes('status') && areas.includes('retry'));
+    assert.ok(areas.includes('scene status') && areas.includes('scene retry'),'error recovery stays in the desktop right column');
     assert.equal(p.style('#artStatus').gridArea,'status');
     assert.equal(p.style('#retryArtButton').gridArea,'retry');
     p.dom.window.close();
