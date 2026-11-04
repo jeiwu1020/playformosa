@@ -16,8 +16,8 @@
     },
     "source": {
       "mode": "catch",
-      "meshes": 142,
-      "triangles": 30064,
+      "meshes": 140,
+      "triangles": 30544,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"
@@ -103,17 +103,17 @@
       "round": 1
     },
     "stats": {
-      "meshes": 135,
-      "triangles": 14228,
-      "rasterizedTriangles": 14195,
+      "meshes": 133,
+      "triangles": 14452,
+      "rasterizedTriangles": 14419,
       "width": 900,
       "height": 620,
       "supersample": 2
     },
     "source": {
       "mode": "catch",
-      "meshes": 142,
-      "triangles": 30064,
+      "meshes": 140,
+      "triangles": 30544,
       "tableTop": 1.004,
       "characterSources": [
         "fast-hands/three3d/rig.mjs"

@@ -124,9 +124,11 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
   }
 
   const dart=node(scene,'foam-dart');dart.visible=catching;
-  const dartBody=mesh(dart,'foam-dart-body',new THREE.CylinderGeometry(.036,.036,.21,16),'orange',-.12,0,0);dartBody.rotation.z=-Math.PI/2;
-  const dartTip=sphere(dart,'foam-dart-soft-tip','teal',-.014,0,0,.049,.045,.045);
-  const dartBand=mesh(dart,'foam-dart-band',new THREE.CylinderGeometry(.037,.037,.018,16),'white',-.19,0,0);dartBand.rotation.z=-Math.PI/2;
+  // One foam-colored surface: a flat tail, straight barrel and a same-width
+  // rounded soft nose. Keep the original -.225…+.035 silhouette/contact range.
+  const dartProfile=[new THREE.Vector2(0,-.225),new THREE.Vector2(.033,-.225),new THREE.Vector2(.036,-.222),new THREE.Vector2(.036,-.001)];
+  for(let i=1;i<=12;i++){const angle=i/12*Math.PI/2;dartProfile.push(new THREE.Vector2(.036*Math.cos(angle),-.001+.036*Math.sin(angle)));}
+  const dartTip=mesh(dart,'foam-dart-body',new THREE.LatheGeometry(dartProfile,32),'orange');dartTip.rotation.z=-Math.PI/2;
   const dartContact=node(dart,'foam-dart-contact');
   const launcher=node(scene,'foam-launcher');launcher.visible=catching;launcher.position.set(-1.02,1.32,.35);
   const barrel=mesh(launcher,'launcher-barrel',new THREE.CylinderGeometry(.092,.105,.34,20),'blue',-.04,0,0);barrel.rotation.z=-Math.PI/2;

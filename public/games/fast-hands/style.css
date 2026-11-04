@@ -285,3 +285,21 @@ body[data-playback="replay"] #pad{cursor:default;border-style:dashed}body[data-p
 .share-fallback textarea{width:100%;min-height:130px;padding:10px;margin-bottom:10px;resize:vertical;border:1px solid #c5d2bb;border-radius:8px;font:14px/1.6 system-ui,sans-serif;color:var(--green);background:white;user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
 .share-fallback button{width:100%;min-height:44px}
 @media(max-height:550px),(max-width:350px){.result-share-actions{gap:6px;margin-top:8px;padding-top:8px}.result-share-actions>a,.result-share-actions>button{font-size:12px;padding:8px 6px}}
+
+/* A larger desktop stage with supporting controls beside it. The continuous
+   gesture track keeps the original main width, height and percentage gates. */
+@media(min-width:1000px) and (min-height:680px){
+  .pf-fast-hands main{grid-template-columns:minmax(0,1fr) 260px;grid-template-rows:auto minmax(0,1fr) auto auto auto;grid-template-areas:"header header" "scene scores" "scene actions" "control control" "footer footer"}
+  .pf-fast-hands .game-header{grid-area:header}
+  .pf-fast-hands .scene-card{grid-area:scene}
+  .pf-fast-hands .score-row{grid-area:scores;align-self:start;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;padding:20px}
+  .pf-fast-hands .score-main{grid-column:1/-1}
+  .pf-fast-hands .score-best{border-left:0;padding-left:0}
+  .pf-fast-hands .score-drop{padding-left:12px}
+  .pf-fast-hands .score-row .score-main strong{font-size:40px}
+  .pf-fast-hands .actions{grid-area:actions;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-self:end}
+  .pf-fast-hands .actions button{flex:none;min-height:48px;padding:10px 8px;font-size:13px}
+  .pf-fast-hands .actions .primary{grid-column:1/-1;font-size:15px}
+  .pf-fast-hands .control-section{grid-area:control}
+  .pf-fast-hands main>footer{grid-area:footer}
+}

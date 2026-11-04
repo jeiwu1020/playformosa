@@ -1,9 +1,11 @@
+import {reverseLayoutDart} from './fast-hands-layout-dart-provenance.mjs';
 import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';import assert from 'node:assert/strict';
 const root=new URL('../../',import.meta.url),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 export const ART_ADDED=Object.freeze(['public/games/fast-hands/levels-world.mjs','public/games/fast-hands/levels-stage.mjs','public/games/fast-hands/assets/duel-items-atlas.png','public/games/fast-hands/assets/levels-catch-ready.png','public/games/fast-hands/assets/levels-catch-grab.png','public/games/fast-hands/assets/levels-duel-ready.png','public/games/fast-hands/assets/levels-duel-player.png','public/games/fast-hands/assets/levels-duel-ai.png','public/games/fast-hands/assets/levels-pose-provenance.json']);
 export const ART_CHANGED=Object.freeze(['public/games/fast-hands/catch.html','public/games/fast-hands/duel.html','public/games/fast-hands/levels.css','public/games/fast-hands/levels-app.mjs','public/games/fast-hands/levels-rules.mjs']);
 export const artLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/LEVELS-ART-MANIFEST.json',root),'utf8'));
 export function reverseArt(path,bytes,ledger=artLedger()){
+ bytes=reverseLayoutDart(path,bytes);
  const row=ledger.files.find(f=>f.path===path);if(!row)return Buffer.from(bytes);assert.equal(hash(bytes),row.sha256,'Art current bytes '+path);
  if(row.beforeSha256===null){assert.ok(ART_ADDED.includes(path));assert.equal(row.baseGitBlob,null);assert.deepEqual(row.reverseEdits,[]);return Buffer.from(bytes);}
  assert.ok(ART_CHANGED.includes(path));assert.match(row.beforeSha256,/^[a-f0-9]{64}$/);assert.match(row.baseGitBlob,/^[a-f0-9]{40}$/);let end=0;
