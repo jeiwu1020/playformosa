@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {demoSample,poseForRun,armJoints,SCENE} from '../../public/games/fast-hands/scene.mjs';
+const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-6,`${a}, ${b}`);
+test('demo has preparing outward return caught phases and never a live score',()=>{assert.equal(demoSample(0).state.phase,'armed');assert.equal(demoSample(2000).state.phase,'outbound');assert.equal(demoSample(3500).state.phase,'returning');assert.equal(demoSample(5000).state.phase,'success');for(let t=0;t<7000;t+=25)assert.equal(demoSample(t).scoring,false);});
+test('demo resets after a complete cycle',()=>assert.deepEqual(demoSample(0),demoSample(7000)));
+test('demo and real views share the same pose calculation',()=>{const d=demoSample(3500);assert.deepEqual(d.pose,poseForRun(d.state,d.finishAge));});
+test('rigged arm remains attached and reaches every demo hand target',()=>{for(let t=0;t<7000;t+=17){const p=demoSample(t).pose;const r=armJoints(SCENE.activeShoulder,p.hand,150,145,-1);close(r.shoulder.x,SCENE.activeShoulder.x);close(r.shoulder.y,SCENE.activeShoulder.y);close(r.wrist.x,p.hand.x);close(r.wrist.y,p.hand.y);close(Math.hypot(r.elbow.x-r.shoulder.x,r.elbow.y-r.shoulder.y),150);close(Math.hypot(r.wrist.x-r.elbow.x,r.wrist.y-r.elbow.y),145);}});
+test('demo only has one moving arm target and one fixed resting arm',()=>{const a=demoSample(1500).pose,b=demoSample(3500).pose;assert.deepEqual(a.restHand,b.restHand);assert.notDeepEqual(a.hand,b.hand);});
+test('pickup position is continuous around turn gate',()=>{const a=demoSample(2819.99).pose,b=demoSample(2820.01).pose;assert.ok(Math.hypot(a.hand.x-b.hand.x,a.hand.y-b.hand.y)<.05);});
+test('failed banknote visibly touches the table',()=>{const p=poseForRun({phase:'failed',x:.4,controlX:.4,dropPx:283,pickupAt:null});close(p.bill.y+22,344);});

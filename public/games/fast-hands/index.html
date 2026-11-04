@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fff9e9">
+  <title>快手王｜一筆往返</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../shared/studio-brand.css">
+</head>
+<body class="pf-game pf-fast-hands" data-phase="demo" data-renderer="loading" data-view="front">
+  <main>
+    <header class="game-header pf-header">
+      <div class="brand pf-studio-heading">
+        <div class="eyebrow">PLAYFORMOSA · 反應挑戰</div>
+        <h1>快手王 <span>一筆往返</span></h1>
+        <span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span>
+      </div>
+      <div class="header-tools">
+        <span id="currentMode" class="mode-status">自動辨識操作</span>
+        <button id="openMenu" type="button" class="menu-button" aria-label="開啟遊戲選單"><span aria-hidden="true">☰</span><span>選單</span></button>
+      </div>
+    </header>
+
+    <section class="scene-card" aria-label="鈔票與小鴨示範舞台">
+      <div class="scene-heading">
+        <span id="badge">先看一次</span>
+        <strong id="status" aria-live="polite">3D動作示範</strong>
+        <span class="scene-tag">放鈔 · 抓鴨 · 回接</span>
+      </div>
+      <div class="canvas-wrap">
+        <span class="fallback-badge">3D未啟用 · 挑戰為2D</span>
+        <canvas id="scene3d" aria-label="正面3D快手王放鈔、抓鴨與回接示範"></canvas>
+        <video id="demo3d" controls muted playsinline loop preload="metadata" poster="assets/front-demo-poster.png" aria-label="正面3D七秒示範，離線渲染"><source id="demoSource" src="assets/front-demo.mp4" type="video/mp4"></video>
+        <canvas id="scene" aria-label="Q版人物放鈔、抓鴨與回接示範"></canvas>
+      </div>
+      <div class="scene-caption" id="sceneCaption">正面視角 · 手指留在下面，畫面看得清楚。</div>
+    </section>
+
+    <section class="score-row" aria-label="本次與最佳成績">
+      <div class="score-main"><label>這次往返</label><strong id="time" data-ms="0">0.000 <small>s</small></strong></div>
+      <div class="score-best"><label>本機最佳 <span id="bestMode">自動</span></label><strong id="best">—</strong></div>
+      <div class="score-drop"><label>模型落距</label><strong id="distance">0.0 <small>cm</small></strong></div>
+    </section>
+
+    <section class="control-section" aria-label="一筆往返操作">
+      <div class="instruction"><strong id="instruction">按住鈔票 → 滑到小鴨 → 滑回鈔票</strong><span id="gestureHint">全程不放開</span></div>
+      <div id="pad" role="application" aria-label="按住左側鈔票區，向右滑至小鴨區，再滑回鈔票區，全程不放開" tabindex="0">
+        <div class="pad-track" aria-hidden="true"></div>
+        <div class="gate home">
+          <img class="gate-prop bill-prop" src="assets/control-bill.svg" alt="" draggable="false">
+          <span id="homeLabel">按住鈔票</span><small id="homeHint">從這裡出發</small>
+        </div>
+        <div class="travel-label" aria-hidden="true"><span id="controlArrow">抓鴨 →</span><small>← 回來接鈔</small></div>
+        <div class="gate far">
+          <img class="gate-prop duck-prop" src="assets/control-duck.svg" alt="" draggable="false">
+          <span id="farLabel">滑到小鴨</span><small id="farHint">碰到就回來</small>
+        </div>
+        <div id="thumb" aria-hidden="true"><i></i></div>
+        <div id="demoVeil" aria-hidden="true">看上方示範，按「開始挑戰」就換你</div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="play" type="button" class="primary">開始挑戰 <span aria-hidden="true">→</span></button>
+      <button id="retry" type="button" class="primary" hidden>再試一次</button>
+      <button id="viewResult" type="button" class="secondary" hidden>看成績</button>
+      <button id="showDemo" type="button" class="quiet-button" hidden>重看示範</button>
+    </div>
+    <footer><span>一口氣往返，全程不放開。</span><span>本機紀錄 · 滑鼠與觸控分開</span></footer>
+  </main>
+
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+    <div class="ticket-top">
+      <span class="ticket-kicker">PLAYFORMOSA · 手速挑戰</span>
+      <button id="entryClose" type="button" class="close-button" aria-label="關閉選單，回到遊戲">×</button>
+      <h2 id="entryTitle">快手王<span>一筆往返</span></h2>
+      <p id="entryDescription">鈔票落地前，把小鴨一起帶回來。</p>
+    </div>
+    <div class="ticket-body">
+      <div class="entry-route" aria-hidden="true">
+        <img src="assets/control-bill.svg" alt=""><span><b>抓鴨 →</b><b>← 接鈔</b></span><img src="assets/control-duck.svg" alt="">
+      </div>
+      <ol class="entry-steps">
+        <li><span>1</span><div><strong>按住鈔票區</strong><small>按住左側，準備好再出發。</small></div></li>
+        <li><span>2</span><div><strong>滑到小鴨，再滑回來</strong><small>一路不放開，碰到小鴨就回頭。</small></div></li>
+        <li><span>3</span><div><strong>搶在鈔票落地前回家</strong><small>只計離開起點後的完整往返時間。</small></div></li>
+      </ol>
+      <div class="entry-buttons">
+        <button id="entryStart" type="button" class="primary">開始挑戰 <span aria-hidden="true">→</span></button>
+        <button id="about" type="button" class="quiet-button">玩法與設定</button>
+        <a class="platform-return quiet-button" href="/#minigames">← 返回小遊戲首頁</a>
+      </div>
+      <p class="ticket-note">滑鼠、觸控自動辨識 · 同一筆完成</p>
+      <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    </div>
+  </dialog>
+
+  <dialog id="resultDialog" class="ticket-dialog result-dialog" aria-labelledby="resultTitle" aria-describedby="resultComment">
+    <div class="ticket-top result-top">
+      <span class="ticket-kicker">FAST HANDS · 本次挑戰</span>
+      <button id="resultClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button>
+      <h2 id="resultTitle">挑戰完成！</h2>
+      <div class="result-summary">
+        <img id="resultPortrait" class="result-portrait" src="assets/result-pose.png" alt="快手王角色雙手比手槍的最後姿勢" width="104" height="104" draggable="false">
+        <div class="result-time"><strong id="resultTime">0.000</strong> <small id="resultUnit">秒</small></div>
+      </div>
+      <p id="resultComment">這一手，快得很有說服力。</p>
+    </div>
+    <div class="ticket-body">
+      <div class="result-records">
+        <div><span>本機最佳</span><strong id="resultBest">—</strong></div>
+        <div><span>與最佳比較</span><strong id="resultDelta">—</strong></div>
+      </div>
+      <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
+      <div class="result-buttons">
+        <button id="resultAgain" type="button" class="primary">再挑戰一次 <span aria-hidden="true">→</span></button>
+        <button id="resultDemo" type="button" class="quiet-button">重看示範</button>
+        <button id="resultDownload" type="button" class="secondary">下載成績圖</button>
+        <button id="resultUpload" type="button" class="secondary" aria-describedby="leaderboardStatus" disabled>上傳排行榜</button>
+      </div>
+      <p id="downloadStatus" class="result-status" aria-live="polite"></p>
+      <p id="leaderboardStatus" class="ticket-note">此測試版尚未連接排行榜，暫不開放上傳。</p>
+      <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    </div>
+  </dialog>
+
+  <dialog id="info" class="info-dialog" aria-labelledby="infoTitle">
+    <div class="info-header"><span class="ticket-kicker">HOW TO PLAY</span><h2 id="infoTitle">一口氣，去抓鴨再回來</h2></div>
+    <ol class="help-steps">
+      <li>按住操作帶左側鈔票區，準備時間不算。</li>
+      <li>滑出起點時放鈔並開始計時，碰到右邊就自動抓鴨。</li>
+      <li>不用放開，直接滑回左邊。鈔票落地前回來就成功。</li>
+    </ol>
+    <div class="settings-panel">
+      <label class="mode-label" for="mode"><span>操作方式</span><select id="mode" aria-label="操作方式"><option value="auto" selected>自動辨識（推薦）</option><option value="mouse">滑鼠</option><option value="touch">單指觸控</option></select></label>
+      <div class="sound-setting"><span>遊戲音效</span><button id="sound" type="button" class="secondary" aria-pressed="false" data-play-count="0">鴨叫：開</button></div>
+    </div>
+    <details class="fine-print"><summary>紀錄、判定與畫面說明</summary>
+      <p>只計一個連續觸點；中途放開、切換視窗或旋轉畫面會中止。</p>
+      <p>時間與下落距離來自遊戲模型，不是人體反應測量。裝置尺寸與輸入延遲仍會影響成績。僅儲存這個瀏覽器的最佳紀錄，不是經驗證的線上排行榜；新版不會覆蓋舊版紀錄。</p>
+      <p>人物為已確認的程序 3D 造型，非真人實拍或代言。預設正面視角；裝置無法啟用 3D 時會標示並保留 2D 玩法。示範影片是同場景離線渲染，並非即時遊戲畫面。</p>
+    </details>
+    <button id="closeInfo" type="button" class="primary">知道了</button>
+  </dialog>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

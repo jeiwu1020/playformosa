@@ -1,0 +1,326 @@
+{
+  "baseCommit": "cf79891c69863c1b598da3c364493e79076aca96",
+  "modified": [
+    "src/catalog.mjs",
+    "public/index.html",
+    "package.json",
+    "tests/batch2-integration.test.mjs"
+  ],
+  "added": [
+    "public/assets/fast-hands-card.png",
+    "public/games/fast-hands/app.mjs",
+    "public/games/fast-hands/assets/control-bill.svg",
+    "public/games/fast-hands/assets/control-duck.svg",
+    "public/games/fast-hands/assets/front-demo-poster.png",
+    "public/games/fast-hands/assets/front-demo.mp4",
+    "public/games/fast-hands/assets/king-torso-v3.png",
+    "public/games/fast-hands/assets/result-pose.png",
+    "public/games/fast-hands/auto-input.mjs",
+    "public/games/fast-hands/challenge.mjs",
+    "public/games/fast-hands/finish-timing.mjs",
+    "public/games/fast-hands/index.html",
+    "public/games/fast-hands/input-clock.mjs",
+    "public/games/fast-hands/input.mjs",
+    "public/games/fast-hands/physics.mjs",
+    "public/games/fast-hands/records.mjs",
+    "public/games/fast-hands/result-copy.mjs",
+    "public/games/fast-hands/scene.mjs",
+    "public/games/fast-hands/score-image.mjs",
+    "public/games/fast-hands/shuttle.mjs",
+    "public/games/fast-hands/sound.mjs",
+    "public/games/fast-hands/style.css",
+    "public/games/fast-hands/three3d/game-motion.mjs",
+    "public/games/fast-hands/three3d/presentation.mjs",
+    "public/games/fast-hands/three3d/rig.mjs",
+    "public/games/fast-hands/three3d/stage.mjs",
+    "public/games/fast-hands/three3d/timeline.mjs",
+    "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+    "public/games/fast-hands/three3d/vendor/three.core.min.js",
+    "public/games/fast-hands/three3d/vendor/three.module.min.js",
+    "public/games/fast-hands/three3d/view.mjs",
+    "public/games/fast-hands/three3d/world.mjs"
+  ],
+  "files": [
+    {
+      "path": "src/catalog.mjs",
+      "sha256": "ca55dc3f5d47c78044649421e732a58dbd8f6a15a1edbc7532d3c5af5850ea00",
+      "beforeSha256": "be694dfa4c02dfcffba2ad455207039817d7137f4484e079cd617bbaa576376c",
+      "baseGitBlob": "48a80cb66b8a53840b62393841180d67a6365893",
+      "reverseEdits": [
+        {
+          "start": 2670,
+          "end": 2916,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "70088534aaa8b69e05f21cdfad46ab50dacb3e7ab6fd11ff5445d91905b8620d",
+      "beforeSha256": "b3b57b4e4fefb451980cd6b1309cece0206ecbbd9aaaa988f1c1efdd1849b4a9",
+      "baseGitBlob": "fe7d3979f449fcc5e719ca03a6065697efc5d99e",
+      "reverseEdits": [
+        {
+          "start": 9978,
+          "end": 9979,
+          "beforeBase64": "Mw=="
+        },
+        {
+          "start": 12487,
+          "end": 13208,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "package.json",
+      "sha256": "5972f8e0f14ec38a051ca99735a1a6038357884724bba61d8b6acdda024ad61e",
+      "beforeSha256": "a9c2ddc951aa659112c6b308a0c7f67bb015a935b5658077807401615ded4501",
+      "baseGitBlob": "c98f5f03b2cbf8423dd38db702dd4c7fab408a2e",
+      "reverseEdits": [
+        {
+          "start": 481,
+          "end": 509,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "tests/batch2-integration.test.mjs",
+      "sha256": "62488c27a07ba8db407d8c1a896b9529dd25f472edc341da746a3dc54dca7be1",
+      "beforeSha256": "eef29158088d7cdb1cd87306b0e3db19d7a4510c9585dc784bb2bc58e4191d92",
+      "baseGitBlob": "500d8aabc2a9a3034c45e19ba6bc0a3fccc02040",
+      "reverseEdits": [
+        {
+          "start": 523,
+          "end": 536,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "public/assets/fast-hands-card.png",
+      "sha256": "4f1a67559ba5348a5fe3dec42ada67ce360341684a1eccaeaec5b59c30123f94",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "sha256": "52b276f8181bb4ef8cc3870eb973a4e443d077f417b9880690b2896a37d79d69",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "sha256": "adb5e563d0d14a43e5c5140cac328df608efd2452c3d321561116d90cab41cff",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "sha256": "2795e6ad6d2f0309760430ec4b6ddc896c0131cc4642544e57b3d840cb144ed7",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "sha256": "4f1a67559ba5348a5fe3dec42ada67ce360341684a1eccaeaec5b59c30123f94",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "sha256": "183e736ba536866d574403142ef44034dd9f8ab19702068444233690c344b204",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "sha256": "b2bbb0f2bf220d45f41b74b008925b6d56f034492022b64d8f8f75cd8b0fa5e5",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "sha256": "ae9642834b24d2f6c625fa45ea47b6fb716c59d5ca60df7b2c1b58ee4aa9fd81",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "sha256": "0f9c501f0be140bab830ffba679317345a3e39052cfa0d79b94847ed0c40e42e",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "sha256": "5e994219a4ed816d143af9a6ae8c6ea3a296d00b883ac68d7a1714e1d89c298b",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "sha256": "5805b8f407b86bac17cbfcd1621ed4880ab315ea5135c5916e86c05045900a2c",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "sha256": "595d50aa9233d42665cb871ac32695935a56b4d6a137fb76a5e953e0646039fe",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "sha256": "a8c3f3a7c4f6836f5970b59135fb90536fbd0620494cdd6e01bce865bb2e1dd5",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "sha256": "96ea2650708593b7a4b11116ef1f3ac5a4840c940f67095f5686b09e98e47c5c",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "sha256": "e464eed3c5988e9d160b828ace77ca2377cb7954b6e21da5247c10823fbf22c2",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "sha256": "fe84dc812dd7ffdc0ee3f1653fffd2b2768d6ed0a6bf77dce1be169d1adda02c",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "sha256": "0f1ad8abc55a008a559692de4a989cf43f716ae0ad1c457f68936dd9aaf347f3",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "sha256": "655a8c27ce24bd3456a059270f9b441a935a999165d0726fe8e87eb884fd2465",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "sha256": "9214fd6f11bf7b65c9c06d90c251bddc6c6e9c118992d04294ee64698f6c0839",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "sha256": "35907ce78143c176138280fbedeca9f60ac11bfa49a49afee2db9af58379a459",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "sha256": "a54a89581c954ed894ebe6a19cf184d74d693b8101c378486961791ee832e88e",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "sha256": "14bf3a3231f58781e6019e78ce9a239ffdf4913e0031e09ad5b19d3939067f37",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "sha256": "e2077519d5df23be46cb7628de8613efd4bdbe6d6195fde8aa17ae6dbcdd8ee6",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "sha256": "4a529f56e1137621caa4859c61491e1c4192044f29b46c4999909bd3acb4c420",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "sha256": "288fdaefe2adce006f677273656de3de022401cc8ba360526034d3b178b13836",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "sha256": "b2cb46147ec95be419567d271e18a33207cef92dbed811540258a8df7f9daaeb",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "sha256": "b9d336ccdf85971483234aabb12ceeab6e369eeacf58ad5b9930a7f01c384d20",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "sha256": "eb3e36efec58f73c1f6188ad52a131663ae9091809499bf055c8929ef11eeaf8",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "sha256": "e0e1377a97788c6d653231a45a42b1c2bd0b93f47ce84b1128e307f2b4b45145",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    }
+  ]
+}

@@ -6,7 +6,7 @@ import {renderPage} from '../src/render.mjs';
 test('beer joins rod as a separate playable minigame without changing the eight decathlon games',()=>{
  const game=catalog.minigames?.find(x=>x.id==='beer-slide');assert.ok(game,'beer minigame is registered');
  assert.equal(game.href,'/games/beer-slide/');assert.equal(catalog.games.length,8);assert.equal(catalog.events.length,10);
- const html=renderPage(catalog),shelf=html.match(/<section[^>]*id="minigames"[\s\S]*?<\/section>/)?.[0];assert.match(shelf,/別灑啊！/);assert.match(shelf,/接棒啦！/);assert.match(shelf,/3<\/strong> 款/);
+ const html=renderPage(catalog),shelf=html.match(/<section[^>]*id="minigames"[\s\S]*?<\/section>/)?.[0];assert.match(shelf,/別灑啊！/);assert.match(shelf,/接棒啦！/);assert.match(shelf,/4<\/strong> 款/);
  assert.match(shelf,/href="\/games\/beer-slide\/"/);assert.ok(existsSync(new URL('../public'+game.href+'index.html',import.meta.url)));
 });
 test('beer offers home and result sharing without stale private-only claims',()=>{

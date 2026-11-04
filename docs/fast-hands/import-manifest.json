@@ -1,0 +1,174 @@
+{
+  "sourceVersion": "V6",
+  "sourceCommit": "ad249ca4c373e6ad59432d867b446f68567e3085",
+  "route": "/games/fast-hands/",
+  "added": [
+    "three3d/vendor/THREE-LICENSE.txt"
+  ],
+  "excludedUnused": [
+    "vendor/phaser.min.js",
+    "assets/fast-king.png"
+  ],
+  "presentationChanges": [
+    "index.html",
+    "style.css",
+    "score-image.mjs"
+  ],
+  "files": [
+    {
+      "path": "app.mjs",
+      "sourceSha256": "52b276f8181bb4ef8cc3870eb973a4e443d077f417b9880690b2896a37d79d69",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/control-bill.svg",
+      "sourceSha256": "adb5e563d0d14a43e5c5140cac328df608efd2452c3d321561116d90cab41cff",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/control-duck.svg",
+      "sourceSha256": "2795e6ad6d2f0309760430ec4b6ddc896c0131cc4642544e57b3d840cb144ed7",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/front-demo-poster.png",
+      "sourceSha256": "4f1a67559ba5348a5fe3dec42ada67ce360341684a1eccaeaec5b59c30123f94",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/front-demo.mp4",
+      "sourceSha256": "183e736ba536866d574403142ef44034dd9f8ab19702068444233690c344b204",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/king-torso-v3.png",
+      "sourceSha256": "b2bbb0f2bf220d45f41b74b008925b6d56f034492022b64d8f8f75cd8b0fa5e5",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "assets/result-pose.png",
+      "sourceSha256": "ae9642834b24d2f6c625fa45ea47b6fb716c59d5ca60df7b2c1b58ee4aa9fd81",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "auto-input.mjs",
+      "sourceSha256": "0f9c501f0be140bab830ffba679317345a3e39052cfa0d79b94847ed0c40e42e",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "challenge.mjs",
+      "sourceSha256": "5e994219a4ed816d143af9a6ae8c6ea3a296d00b883ac68d7a1714e1d89c298b",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "finish-timing.mjs",
+      "sourceSha256": "5805b8f407b86bac17cbfcd1621ed4880ab315ea5135c5916e86c05045900a2c",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "index.html",
+      "sourceSha256": "b561fa1491db8102da3a4c6b6e154befc60d85836a7df53b62526e3d714f179c",
+      "allowedPresentationChange": true
+    },
+    {
+      "path": "input-clock.mjs",
+      "sourceSha256": "a8c3f3a7c4f6836f5970b59135fb90536fbd0620494cdd6e01bce865bb2e1dd5",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "input.mjs",
+      "sourceSha256": "96ea2650708593b7a4b11116ef1f3ac5a4840c940f67095f5686b09e98e47c5c",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "physics.mjs",
+      "sourceSha256": "e464eed3c5988e9d160b828ace77ca2377cb7954b6e21da5247c10823fbf22c2",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "records.mjs",
+      "sourceSha256": "fe84dc812dd7ffdc0ee3f1653fffd2b2768d6ed0a6bf77dce1be169d1adda02c",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "result-copy.mjs",
+      "sourceSha256": "0f1ad8abc55a008a559692de4a989cf43f716ae0ad1c457f68936dd9aaf347f3",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "scene.mjs",
+      "sourceSha256": "655a8c27ce24bd3456a059270f9b441a935a999165d0726fe8e87eb884fd2465",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "score-image.mjs",
+      "sourceSha256": "190e878c412d6a116e394501c3eb80433e168b62e777e491acd6f6f5a34aefcc",
+      "allowedPresentationChange": true
+    },
+    {
+      "path": "shuttle.mjs",
+      "sourceSha256": "35907ce78143c176138280fbedeca9f60ac11bfa49a49afee2db9af58379a459",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "sound.mjs",
+      "sourceSha256": "a54a89581c954ed894ebe6a19cf184d74d693b8101c378486961791ee832e88e",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "style.css",
+      "sourceSha256": "a39b80348b1da5c22b719bc20cd35acd02741ca929df08befe01879c46c339a3",
+      "allowedPresentationChange": true
+    },
+    {
+      "path": "three3d/game-motion.mjs",
+      "sourceSha256": "e2077519d5df23be46cb7628de8613efd4bdbe6d6195fde8aa17ae6dbcdd8ee6",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/presentation.mjs",
+      "sourceSha256": "4a529f56e1137621caa4859c61491e1c4192044f29b46c4999909bd3acb4c420",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/rig.mjs",
+      "sourceSha256": "288fdaefe2adce006f677273656de3de022401cc8ba360526034d3b178b13836",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/stage.mjs",
+      "sourceSha256": "b2cb46147ec95be419567d271e18a33207cef92dbed811540258a8df7f9daaeb",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/timeline.mjs",
+      "sourceSha256": "b9d336ccdf85971483234aabb12ceeab6e369eeacf58ad5b9930a7f01c384d20",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/vendor/THREE-LICENSE.txt",
+      "sourceSha256": null,
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/vendor/three.core.min.js",
+      "sourceSha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/vendor/three.module.min.js",
+      "sourceSha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/view.mjs",
+      "sourceSha256": "eb3e36efec58f73c1f6188ad52a131663ae9091809499bf055c8929ef11eeaf8",
+      "allowedPresentationChange": false
+    },
+    {
+      "path": "three3d/world.mjs",
+      "sourceSha256": "e0e1377a97788c6d653231a45a42b1c2bd0b93f47ce84b1128e307f2b4b45145",
+      "allowedPresentationChange": false
+    }
+  ]
+}

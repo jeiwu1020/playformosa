@@ -15,7 +15,8 @@ export const catalog = {
   minigames: [
     {id:'reaction-rod', title:'接棒啦！', event:'夜市反應力', href:'/games/reaction-rod/', status:'available', image:'/assets/reaction-rod-card.png', imageStyle:'illustration', kicker:'十根棒子，手腦各憑本事。', input:'滑鼠／觸控／鍵盤'},
     {id:'beer-slide', title:'別灑啊！', event:'啤酒精準推杯', href:'/games/beer-slide/', status:'available', image:'/assets/beer-slide-card.svg', kicker:'杯子要到站，啤酒別下班。', input:'滑鼠／觸控／空白鍵'},
-    {id:'tower-climb',title:'上樓不容易',event:'室內登高',href:'/games/tower-climb/',status:'available',image:'/assets/tower-climb-card.png',imageStyle:'illustration',kicker:'60 秒，挑戰十層樓。',input:'鍵盤／觸控'}
+    {id:'tower-climb',title:'上樓不容易',event:'室內登高',href:'/games/tower-climb/',status:'available',image:'/assets/tower-climb-card.png',imageStyle:'illustration',kicker:'60 秒，挑戰十層樓。',input:'鍵盤／觸控'},
+    {id:'fast-hands',title:'快手王｜一筆往返',event:'一筆往返手速挑戰',href:'/games/fast-hands/',status:'available',image:'/assets/fast-hands-card.png',kicker:'放鈔、抓鴨、回接，一筆完成。',input:'滑鼠／觸控'}
   ],
   events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']
 };
