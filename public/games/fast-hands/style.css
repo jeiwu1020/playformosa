@@ -252,7 +252,6 @@ body[data-overlay="ranking"] .actions{visibility:hidden}
 #rankingSubmit,#rankingRefresh{width:100%;min-height:44px;white-space:normal}
 .ranking-footer{display:block;flex:none;padding:10px 22px;border-top:1px solid #dedfcb;background:var(--cream)}
 .ranking-footer button{width:100%;min-height:44px}
-.result-buttons>#resultRanking{grid-column:1/-1}
 @media(max-height:400px){.ranking-header{padding:10px 16px}.ranking-header h2{font-size:20px;margin-top:4px;margin-bottom:4px}.ranking-header p{font-size:11px}.ranking-scroll{padding:12px 16px}.ranking-footer{padding:8px 16px}}
 @media(max-width:350px){.ranking-header,.ranking-scroll{padding-left:16px;padding-right:16px}.ranking-frozen{font-size:15px}.ranking-entries li{gap:5px;font-size:12px}.ranking-entries strong{font-size:12px}}
 

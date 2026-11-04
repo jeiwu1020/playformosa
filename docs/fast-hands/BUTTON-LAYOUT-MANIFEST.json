@@ -1,0 +1,33 @@
+{
+  "baseCommit": "ff5a5859aad9572cd0a7bd48b33d4f070f684421",
+  "baseTree": "07d61dc36aa65941c18c1929f828a7c9ebcf3730",
+  "scope": "Only the Fast Hands result leaderboard button label and equal-column placement. No behavior, scoring, other games or backend changes.",
+  "files": [
+    {
+      "path": "public/games/fast-hands/index.html",
+      "sha256": "5e6e5856d37a246fb26dda998810a1b96d82cd7be21284fa6f7ec92ed26de8de",
+      "beforeSha256": "39691062ef1f3521ab45145b62b7d476917df3929a78b03f02bf8acdb601d3d0",
+      "baseGitBlob": "8cc71e9fae98168bdd45860d3444b43a26ea36af",
+      "reverseEdits": [
+        {
+          "start": 13908,
+          "end": 14038,
+          "beforeBase64": "ICAgICAgICA8YnV0dG9uIGlkPSJyZXN1bHRSYW5raW5nIiB0eXBlPSJidXR0b24iIGNsYXNzPSJxdWlldC1idXR0b24iPuafpeeci+a4rOippuaOkuihjOamnDwvYnV0dG9uPgo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "sha256": "cfca1f289b6d37d9400189a203d0cb59f43fb16e25d0172bdbaec840ad127369",
+      "beforeSha256": "300061a289a91f397f67e0bdb5ed19d7e5ea9deb4ca700cab48f49f1283577b6",
+      "baseGitBlob": "1c7e1d90b9e79b5e3323f09b0b8c498bfbd933c1",
+      "reverseEdits": [
+        {
+          "start": 27731,
+          "end": 27731,
+          "beforeBase64": "LnJlc3VsdC1idXR0b25zPiNyZXN1bHRSYW5raW5ne2dyaWQtY29sdW1uOjEvLTF9Cg=="
+        }
+      ]
+    }
+  ]
+}
