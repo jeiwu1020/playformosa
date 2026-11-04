@@ -1,3 +1,4 @@
+import {reverseResultUpload,RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
@@ -14,14 +15,15 @@ function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).fl
 
 test('sharing flow reversal rejects changed bytes, invalid edits, illegal paths and invented old content',()=>{
  assert.ok(api,'outer sharing flow provenance reader exists');
+ const reverseSharingFlow=(p,b,l)=>api.reverseSharingFlow(p,b,l,{files:[]});
  const path=prefix+'app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]};
  const ledger={files:[row]};
- assert.deepEqual(api.reverseSharingFlow(path,bytes,ledger),before);
- assert.throws(()=>api.reverseSharingFlow(path,Buffer.concat([bytes,Buffer.from('!')]),ledger),/current bytes/);
- for(const patch of [{baseGitBlob:'0'.repeat(40)},{beforeSha256:null},{beforeAsset:'../../escape'},{reverseEdits:[{start:-1,end:12,beforeBase64:''}]},{reverseEdits:[{start:6,end:12,beforeBase64:'%%%'}]},{reverseEdits:[{start:6,end:12,beforeBase64:'YmFk'}]},{reverseEdits:[{start:6,end:12,beforeBase64:''},{start:5,end:6,beforeBase64:''}]}])assert.throws(()=>api.reverseSharingFlow(path,bytes,{files:[{...row,...patch}]}));
- for(const illegal of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>api.reverseSharingFlow(illegal,bytes,{files:[{...row,path:illegal}]}),/Unapproved/);
- assert.deepEqual(api.reverseSharingFlow('unrelated/file',bytes,ledger),bytes);
+ assert.deepEqual(reverseSharingFlow(path,bytes,ledger),before);
+ assert.throws(()=>reverseSharingFlow(path,Buffer.concat([bytes,Buffer.from('!')]),ledger),/current bytes/);
+ for(const patch of [{baseGitBlob:'0'.repeat(40)},{beforeSha256:null},{beforeAsset:'../../escape'},{reverseEdits:[{start:-1,end:12,beforeBase64:''}]},{reverseEdits:[{start:6,end:12,beforeBase64:'%%%'}]},{reverseEdits:[{start:6,end:12,beforeBase64:'YmFk'}]},{reverseEdits:[{start:6,end:12,beforeBase64:''},{start:5,end:6,beforeBase64:''}]}])assert.throws(()=>reverseSharingFlow(path,bytes,{files:[{...row,...patch}]}));
+ for(const illegal of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>reverseSharingFlow(illegal,bytes,{files:[{...row,path:illegal}]}),/Unapproved/);
+ assert.deepEqual(reverseSharingFlow('unrelated/file',bytes,ledger),bytes);
 });
 
 test('sharing flow pins exact published baseline, frozen preimages and unchanged historical ledgers',()=>{
@@ -29,22 +31,22 @@ test('sharing flow pins exact published baseline, frozen preimages and unchanged
  assert.equal(l.baseCommit,SHARING_FLOW_BASE_COMMIT);assert.equal(l.baseCommit,'ad65ebe9eefebfc36590d075a838a24550160ec3');
  assert.equal(l.baseTree,SHARING_FLOW_BASE_TREE);assert.equal(l.baseTree,'0fd36a2738375d762ced690db363065d490068e6');
  assert.deepEqual(l.files.map(r=>r.path).sort(),[...api.SHARING_FLOW_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved,...RESULT_UPLOAD_ADDED.map(path=>({path}))].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(SHARING_FLOW_BASE_BLOBS).sort());
  for(const r of l.files){
-  const bytes=read(r.path),restored=api.reverseSharingFlow(r.path,bytes,l);
-  assert.equal(sha(bytes),r.sha256);assert.throws(()=>api.reverseSharingFlow(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l));
+  const current=read(r.path),bytes=reverseResultUpload(r.path,current),restored=api.reverseSharingFlow(r.path,current,l);
+  assert.equal(sha(bytes),r.sha256);assert.throws(()=>api.reverseSharingFlow(r.path,Buffer.concat([current,Buffer.from('drift')]),l));
   if(r.beforeSha256!==null){
    assert.equal(sha(restored),r.beforeSha256);assert.equal(blob(restored),r.baseGitBlob);assert.equal(r.baseGitBlob,SHARING_FLOW_BASE_BLOBS[r.path],r.path);
    assert.equal(r.beforeAsset,'docs/fast-hands/baselines/sharing-flow/'+r.path);assert.deepEqual(restored,read(r.beforeAsset));
-   const bad=structuredClone(l);bad.files.find(x=>x.path===r.path).beforeAsset='docs/fast-hands/baselines/sharing-flow/../escape';assert.throws(()=>api.reverseSharingFlow(r.path,bytes,bad));
+   const bad=structuredClone(l);bad.files.find(x=>x.path===r.path).beforeAsset='docs/fast-hands/baselines/sharing-flow/../escape';assert.throws(()=>api.reverseSharingFlow(r.path,current,bad));
   }
  }
- for(const r of l.preserved){assert.equal(blob(read(r.path)),r.gitBlob,r.path);assert.equal(r.gitBlob,SHARING_FLOW_BASE_BLOBS[r.path],r.path)}
+ for(const r of l.preserved){assert.equal(blob(reverseResultUpload(r.path,read(r.path))),r.gitBlob,r.path);assert.equal(r.gitBlob,SHARING_FLOW_BASE_BLOBS[r.path],r.path)}
  assert.deepEqual(walk('docs/fast-hands/baselines/sharing-flow').sort(),l.files.filter(r=>r.beforeAsset).map(r=>r.beforeAsset).sort());
  assert.deepEqual(l.historicalLedgers.map(r=>r.path).sort(),Object.keys(SHARING_FLOW_HISTORY_SHA).sort());
  for(const r of l.historicalLedgers){assert.equal(r.sha256,SHARING_FLOW_HISTORY_SHA[r.path],r.path);assert.equal(r.gitBlob,SHARING_FLOW_HISTORY_BLOBS[r.path],r.path);assert.equal(sha(read(r.path)),r.sha256,r.path);assert.equal(blob(read(r.path)),r.gitBlob,r.path)}
- assert.deepEqual(api.sharingFlowRuntimeAdditions(),api.SHARING_FLOW_ADDED);
+ assert.deepEqual(api.sharingFlowRuntimeAdditions(),[...api.SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
 });
 
 test('sharing flow protects timing, scores, boards, character geometry and every existing image',()=>{
@@ -96,5 +98,5 @@ test('sharing flow ledger validation rejects missing, duplicate, unapproved and 
 
 test('sharing flow default reversal also rejects protected-runtime drift',()=>{
  const ledger=api.sharingFlowLedger();
- for(const r of ledger.preserved){const bytes=read(r.path);assert.deepEqual(api.reverseSharingFlow(r.path,bytes,ledger),bytes);assert.throws(()=>api.reverseSharingFlow(r.path,Buffer.concat([bytes,Buffer.from('drift')]),ledger),/preserved bytes/)}
+ for(const r of ledger.preserved){const bytes=read(r.path);assert.deepEqual(api.reverseSharingFlow(r.path,bytes,ledger),reverseResultUpload(r.path,bytes));assert.throws(()=>api.reverseSharingFlow(r.path,Buffer.concat([bytes,Buffer.from('drift')]),ledger),/preserved bytes|current bytes/)}
 });

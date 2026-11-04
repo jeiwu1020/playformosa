@@ -1,3 +1,4 @@
+import {mountResultUploadHost} from './result-upload-host.mjs';
 const DEVICE_KEY='pf-leaderboard-device-v1',NICKNAME_KEY='pf-leaderboard-nickname-v1';
 const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export const LEVEL_RULES=Object.freeze({catch:Object.freeze({game:'fast-hands-catch',rules:'cleared-levels-v1',unit:'levels',max:Number.MAX_SAFE_INTEGER,label:'玩具彈通關'}),duel:Object.freeze({game:'fast-hands-duel',rules:'ten-round-wins-v1',unit:'wins',max:10,label:'十回合對決'})});
@@ -16,7 +17,7 @@ export function freezeLevelLeaderboardResult(state,{replay=false}={}){
  * captureResult is called exactly at the real successful run transition. Closing
  * a view preserves the round's immutable payload, attempt count and final status.
  */
-export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{}}){
+export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{},inlineUpload}={}){
  if(!['catch','duel'].includes(mode))throw new TypeError('Unknown leaderboard mode');
  const win=document.defaultView,$=id=>document.getElementById('level'+id[0].toUpperCase()+id.slice(1));
  const dialog=document.createElement('dialog');dialog.id='levelRankingDialog';dialog.className='level-ranking-dialog';dialog.setAttribute('aria-labelledby','levelRankingTitle');
@@ -28,6 +29,8 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
  const make=(tag,text)=>{const el=document.createElement(tag);el.textContent=text;return el};
  let device=null,round=null,sourceRun=null,payload=null,attempts=0,completed=false,rejected=false,pending=false;
  let origin='result',view=null,returnOnClose=true,destroyed=false,uploadToken=0,boardToken=0,uploadRequest=null,boardRequest=null;
+ let unavailable=false,ineligibleReason='完整挑戰且至少取得1關／1勝後才能上傳。';
+ const inline=mountResultUploadHost({section:$('rankingUpload'),inlineUpload,onClose(){if(view==='result-upload'){stopUpload();view=null;inline.restore()}}});
  $('rankingNickname').value=read(NICKNAME_KEY)||'';
  function deviceId(){
   if(device)return device;
@@ -49,6 +52,8 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
   $('rankingConsent').disabled=!!payload;
   $('rankingSubmit').disabled=!round||pending||completed||rejected||attempts>=3;
   $('rankingSubmit').textContent=completed?'已提交':pending?'提交中…':payload?'重試同一筆':'提交本次成績';
+  if(unavailable)$('rankingSubmit').disabled=true;
+  inline?.sync({eligible:!!round,pending,completed,rejected,payload,attempts,reason:ineligibleReason,unavailable});
  }
  function stopBoard(){boardToken++;boardRequest?.cancel();boardRequest=null;}
  function stopUpload(uncertain=true){
@@ -57,19 +62,19 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
   pending=false;syncUpload();
  }
  function finishClose(){
-  if(dialog.open)return; // Ignore a queued close event after a newer view opens.
+  if(dialog.open||view==='result-upload')return; // Ignore a queued close event after a newer view opens.
   stopBoard();stopUpload();view=null;
   if(returnOnClose&&!destroyed)onClose(origin);
  }
  dialog.addEventListener('close',finishClose);
  function dismiss(returnToParent=true){
-  returnOnClose=returnToParent;stopBoard();stopUpload();view=null;
+  returnOnClose=returnToParent;stopBoard();stopUpload();view=null;inline?.restore();
   if(dialog.open)dialog.close();
  }
  function open(nextView,nextOrigin){
   if(destroyed)return false;
   if(view!==nextView){stopBoard();stopUpload();}
-  origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
+  inline?.restore();origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
   $('rankingBoard').hidden=nextView!=='board';$('rankingUpload').hidden=nextView!=='upload';
   $('rankingTitle').textContent=nextView==='board'?'測試排行榜':'上傳本次成績';
   $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲選單';
@@ -103,19 +108,32 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
   finally{if(token===boardToken)boardRequest=null;}
  }
  function showBoard({origin:from='result'}={}){if(open('board',from))void refreshBoard();}
+ function prepareUpload(){
+  $('rankingFrozenScore').textContent='本次固定類別：'+board.label+'榜 · '+format(round.score);
+  if(!deviceId()){unavailable=true;$('rankingUploadStatus').textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩與下載成績圖。';}
+  syncUpload();
+ }
  function showUpload(){
   if(!round||destroyed)return;
-  $('rankingFrozenScore').textContent='本次固定類別：'+board.label+'榜 · '+format(round.score);
-  open('upload','result');syncUpload();
-  if(!deviceId()){$('rankingSubmit').disabled=true;$('rankingUploadStatus').textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩與下載成績圖。';}
+  open('upload','result');prepareUpload();
  }
+ function showResultUpload(){
+  if(!inline){showUpload();return}
+  if(!round||destroyed||!inline.show())return;
+  if(view!=='result-upload'){stopBoard();stopUpload();}
+  origin='result';view='result-upload';prepareUpload();
+  const nickname=$('rankingNickname'),consent=$('rankingConsent'),button=$('rankingSubmit');
+  const invalidName=!nickname.value.trim()||[...nickname.value.trim()].length>20||/[<>\p{Cc}\p{Cf}]/u.test(nickname.value.trim());
+  inline.reveal(!payload&&invalidName?nickname:!payload&&!consent.checked?consent:!button.disabled?button:$('rankingUploadStatus'));
+ }
+ function focusUploadTarget(element){if(view==='result-upload')inline?.reveal(element);else element.focus({preventScroll:true})}
  async function submit(){
-  if(!round||view!=='upload'||!dialog.open||pending||completed||rejected||attempts>=3)return;
+  if(!round||!((view==='upload'&&dialog.open)||(view==='result-upload'&&inline?.isOpen()))||pending||completed||rejected||attempts>=3)return;
   const id=deviceId();if(!id)return;
   if(!payload){
    const nickname=$('rankingNickname').value.trim();
-   if(!nickname||[...nickname].length>20||/[<>\p{Cc}\p{Cf}]/u.test(nickname)){$('rankingUploadStatus').textContent='請輸入1–20字純文字暱稱，不可含控制字元或角括號。';return}
-   if(!$('rankingConsent').checked){$('rankingUploadStatus').textContent='請先確認同意公開暱稱與本次成績，再提交。';return}
+   if(!nickname||[...nickname].length>20||/[<>\p{Cc}\p{Cf}]/u.test(nickname)){$('rankingUploadStatus').textContent='請輸入1–20字純文字暱稱，不可含控制字元或角括號。';focusUploadTarget($('rankingNickname'));return}
+   if(!$('rankingConsent').checked){$('rankingUploadStatus').textContent='請先確認同意公開暱稱與本次成績，再提交。';focusUploadTarget($('rankingConsent'));return}
    let submissionId;try{submissionId=win.crypto.randomUUID()}catch{}
    if(!UUID.test(submissionId||'')){$('rankingUploadStatus').textContent='此瀏覽器無法建立提交編號，仍可正常遊玩。';return}
    payload=Object.freeze({game:board.game,rules:round.rules,unit:board.unit,status:'done',score:round.score,nickname,deviceId:id,submissionId});
@@ -133,19 +151,20 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
   finally{if(token===uploadToken){pending=false;uploadRequest=null;if(!completed&&!rejected&&attempts>=3)$('rankingUploadStatus').textContent+=' 本回合已達3次提交上限，請稍後再挑戰。';syncUpload();}}
  }
  function reset(){
-  dismiss(false);stopUpload(false);round=null;sourceRun=null;payload=null;attempts=0;completed=false;rejected=false;
+  dismiss(false);stopUpload(false);round=null;sourceRun=null;payload=null;attempts=0;completed=false;rejected=false;unavailable=false;
   $('rankingConsent').checked=false;$('rankingFrozenScore').textContent='';$('rankingUploadStatus').textContent='';syncUpload();
  }
  function captureResult(run,options={}){
   if(options.replay)return false;
   if(sourceRun===run&&round)return true;
-  reset();const captured=freezeLevelLeaderboardResult(run,options);if(!captured||captured.mode!==mode)return false;
+  reset();ineligibleReason=run?.practice?'練習成績不會上傳。':run?.phase==='done'?'本次未取得關數／勝場，請再挑戰一次。':'完成完整挑戰後才能上傳本次成績。';const captured=freezeLevelLeaderboardResult(run,options);if(!captured||captured.mode!==mode){syncUpload();return false;}
   sourceRun=run;round=captured;syncUpload();return true;
  }
  const listeners=[];
  function listen(el,type,handler){el.addEventListener(type,handler);listeners.push(()=>el.removeEventListener(type,handler))}
  for(const [id,fn] of [['rankingClose',()=>dismiss()],['rankingReturn',()=>dismiss()],['rankingUploadButton',()=>showUpload()],['rankingBack',()=>showBoard()],['rankingRefresh',()=>void refreshBoard()],['rankingSubmit',()=>void submit()]])listen($(id),'click',fn);
  for(const type of ['keydown','keyup','keypress'])listen(dialog,type,event=>{if(event.key!=='Tab')event.stopPropagation();if(event.key==='Enter'&&event.target.tagName==='INPUT')event.preventDefault()});
+ listen(win,'pagehide',()=>dismiss(false));
  syncUpload();
- return {captureResult,reset,showBoard,showUpload,dismiss,destroy(){destroyed=true;reset();dialog.removeEventListener('close',finishClose);for(const remove of listeners)remove();dialog.remove()}};
+ return {captureResult,reset,showBoard,showUpload,showResultUpload,dismiss,destroy(){destroyed=true;reset();inline?.destroy();dialog.removeEventListener('close',finishClose);for(const remove of listeners)remove();dialog.remove()}};
 }

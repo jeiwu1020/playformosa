@@ -1,3 +1,4 @@
+import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
 import {sharingFlowLedger} from './fast-hands-sharing-flow-provenance.mjs';
 import {reverseFinale,finaleLedger} from './fast-hands-finale-provenance.mjs';
 import {readFileSync} from 'node:fs';
@@ -10,8 +11,8 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 export const DESKTOP_ALLOWED=Object.freeze(['public/games/fast-hands/club.css']);
 export const desktopLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/DESKTOP-MANIFEST.json',root),'utf8'));
-export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=finaleLedger(),sharingFlow=sharingFlowLedger()){
- bytes=reverseFinale(path,bytes,outerLedger,sharingFlow);
+export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=finaleLedger(),sharingFlow=sharingFlowLedger(),resultUpload=resultUploadLedger()){
+ bytes=reverseFinale(path,bytes,outerLedger,sharingFlow,resultUpload);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(DESKTOP_ALLOWED.includes(path),'Unapproved desktop path '+path);

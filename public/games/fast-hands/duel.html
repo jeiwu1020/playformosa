@@ -29,9 +29,12 @@
   <div class="summary-actions finale-main-actions">
    <button id="summaryAgain" data-finale-action="again" type="button" class="action-button">再挑戰一次</button>
    <button id="summaryReplay" data-finale-action="replay" type="button" class="quiet-button" disabled>重播最後一回合</button>
-   <button id="summaryRanking" data-finale-action="ranking" type="button" class="quiet-button">排行榜</button>
+   <button id="summaryUpload" data-finale-action="upload" type="button" class="quiet-button" aria-controls="summaryUploadHost" aria-expanded="false" aria-describedby="summaryUploadHint" disabled>上傳本次成績</button>
+   <button id="summaryRanking" data-finale-action="ranking" type="button" class="quiet-button">查看排行榜</button>
   </div>
   <div class="finale-scroll">
+   <p id="summaryUploadHint" class="finale-upload-hint" role="status">完成有效挑戰後，可自願上傳。</p>
+   <section id="summaryUploadHost" class="finale-upload-host" aria-label="上傳本次成績" hidden></section>
    <details class="summary-scroll finale-details"><summary>詳細紀錄與選項</summary>
     <ol id="roundResults" class="round-results"></ol><nav id="resultPages" class="result-pages" aria-label="關卡紀錄分頁" hidden><button id="resultPrev" type="button" class="quiet-button">上一頁</button><span id="resultPageLabel" aria-live="polite"></span><button id="resultNext" type="button" class="quiet-button">下一頁</button></nav>
     <p class="local-note">本局紀錄 · 測試榜由玩家自願回報</p><button id="summaryPractice" type="button" class="practice-button">回到練習</button><nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel" aria-current="page"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
@@ -61,9 +64,9 @@
     </div>
     <div class="ticket-body">
       <div class="club-cards">
-        <article class="club-card"><img src="assets/control-duck.svg" alt="小鴨" width="100" height="80"><h3>小鴨往返</h3><p>按住紙鈔，滑去抓小鴨，再一口氣滑回來。</p></article>
-        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王準備接住泡棉玩具彈" width="160" height="100"><h3>玩具彈接接樂</h3><p>看準玩具彈到掌心時按「接！」，接住就晉級。</p></article>
-        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品" width="160" height="100"><h3>十回合對決</h3><p>等「出手！」再按「搶！」，和快手王比十回合。</p></article>
+        <article class="club-card"><img src="/assets/fast-hands-card-v2.webp" alt="快手王抓住小鴨與紙鈔的關卡代表圖" width="768" height="512"><h3>小鴨往返</h3><p>按住紙鈔，抓到小鴨再滑回來。</p></article>
+        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王在發射器前準備接住玩具彈" width="900" height="620"><h3>玩具彈接接樂</h3><p>玩具彈到掌心時，按「接！」。</p></article>
+        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品對決" width="900" height="620"><h3>十回合對決</h3><p>看到「出手！」按「搶！」，比十回合。</p></article>
       </div>
       <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button></div>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>

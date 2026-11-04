@@ -6,7 +6,7 @@ import postcss from 'postcss';
 
 const root = new URL('../../public/games/fast-hands/', import.meta.url);
 const clubPath = new URL('club.css', root);
-const sizes = [[320,568],[360,640],[390,844],[844,390],[568,260],[1366,768],[1920,1080]];
+const sizes = [[320,568],[360,640],[390,844],[844,390],[568,260],[1024,600],[1366,768],[1920,1080]];
 
 // JSDOM does not evaluate viewport queries. Select the real applicable rules
 // first, then let its CSS engine resolve the cascade against the page markup.
@@ -69,10 +69,13 @@ for (const [width,height] of sizes) {
   });
 }
 
-test('small-screen typography uses less decorative space, not hidden instructions',()=>{
+test('small-screen introduction uses large scene thumbnails without hiding instructions',()=>{
   for(const name of ['duck','catch','duel']) {
     const p=page(name,320,568);
-    assert.ok(parseFloat(p.style('.club-card img').width)<=40);
+    assert.ok(parseFloat(p.style('.club-card').gridTemplateColumns)>=96,'scene thumbnail column is at least 96px wide');
+    assert.equal(p.style('.club-card img').aspectRatio,'3 / 2');
+    assert.equal(p.style('.club-card img').objectFit,'cover');
+    assert.equal(p.style('.club-card img').height,'auto');
     assert.ok(parseFloat(p.style('.club-card').paddingTop)<=6);
     assert.ok(parseFloat(p.style('.club-cards').gap)<=6);
     assert.equal(p.style('.club-card p').maxHeight,'');
@@ -110,3 +113,30 @@ test('wide short intro shares one action row without shrinking text or touch tar
   assert.equal(small.style('#entryDialog .ticket-body').overflow,'auto');
   small.dom.window.close();
 });
+
+// Removing the shared ratio, restoring icon-size cards, or stretching one scene
+// must fail these contracts. Browser geometry is verified separately.
+for (const [width,height] of [[320,568],[360,640],[390,844],[844,390],[1024,600],[1366,768]]) {
+  test(`intro scene images keep a consistent unstretched ratio at ${width}×${height}`,()=>{
+    for(const name of ['duck','catch','duel']) {
+      const p=page(name,width,height);
+      for(const image of p.document.querySelectorAll('.club-card img')) {
+        const css=p.dom.window.getComputedStyle(image);
+        assert.equal(css.aspectRatio,'3 / 2');
+        assert.equal(css.objectFit,'cover');
+        assert.equal(css.height,'auto');
+        assert.ok(parseFloat(css.borderRadius)>=8,'artwork has a finished rounded frame');
+      }
+      if(width<=600) {
+        assert.ok(parseFloat(p.style('.club-card').gridTemplateColumns)>=96);
+      } else if(height<=450) {
+        assert.ok(parseFloat(p.style('.club-card img').width)>=144);
+        assert.equal(p.style('.club-intro .pf-entry-brand').display,'none','only decorative footer is omitted on short landscape');
+      } else {
+        assert.ok(parseFloat(p.style('.club-intro').maxWidth)>=780,'three image cards have enough desktop room');
+        assert.equal(p.style('.club-card img').width,'100%');
+      }
+      p.dom.window.close();
+    }
+  });
+}

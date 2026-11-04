@@ -1,0 +1,1591 @@
+{
+  "count": 126,
+  "passed": 126,
+  "errors": [],
+  "measurements": [
+    {
+      "mode": "duck",
+      "w": 320,
+      "h": 568,
+      "modal": {
+        "x": 12,
+        "y": 29.5,
+        "width": 296,
+        "height": 509,
+        "bottom": 538.5,
+        "right": 308
+      },
+      "body": {
+        "height": 407,
+        "scroll": 407,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 401.5,
+        "width": 274,
+        "height": 48,
+        "bottom": 449.5,
+        "right": 297
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 147,
+          "width": 96,
+          "height": 64,
+          "bottom": 211,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 234,
+          "width": 96,
+          "height": 64,
+          "bottom": 298,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 321,
+          "width": 96,
+          "height": 64,
+          "bottom": 385,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 138.5,
+          "width": 274,
+          "height": 81,
+          "bottom": 219.5,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 225.5,
+          "width": 274,
+          "height": 81,
+          "bottom": 306.5,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 312.5,
+          "width": 274,
+          "height": 81,
+          "bottom": 393.5,
+          "right": 297
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 320,
+      "h": 568,
+      "modal": {
+        "x": 12,
+        "y": 57,
+        "width": 296,
+        "height": 454,
+        "bottom": 511,
+        "right": 308
+      },
+      "body": {
+        "height": 352,
+        "scroll": 352,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 429,
+        "width": 274,
+        "height": 48,
+        "bottom": 477,
+        "right": 297
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 174.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 238.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 261.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 325.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 348.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 412.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 166,
+          "width": 274,
+          "height": 81,
+          "bottom": 247,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 253,
+          "width": 274,
+          "height": 81,
+          "bottom": 334,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 340,
+          "width": 274,
+          "height": 81,
+          "bottom": 421,
+          "right": 297
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 320,
+      "h": 568,
+      "modal": {
+        "x": 12,
+        "y": 57,
+        "width": 296,
+        "height": 454,
+        "bottom": 511,
+        "right": 308
+      },
+      "body": {
+        "height": 352,
+        "scroll": 352,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 429,
+        "width": 274,
+        "height": 48,
+        "bottom": 477,
+        "right": 297
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 174.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 238.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 261.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 325.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 348.5,
+          "width": 96,
+          "height": 64,
+          "bottom": 412.5,
+          "right": 126,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 166,
+          "width": 274,
+          "height": 81,
+          "bottom": 247,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 253,
+          "width": 274,
+          "height": 81,
+          "bottom": 334,
+          "right": 297
+        },
+        {
+          "x": 23,
+          "y": 340,
+          "width": 274,
+          "height": 81,
+          "bottom": 421,
+          "right": 297
+        }
+      ]
+    },
+    {
+      "mode": "duck",
+      "w": 360,
+      "h": 640,
+      "modal": {
+        "x": 12,
+        "y": 54.015625,
+        "width": 336,
+        "height": 531.96875,
+        "bottom": 585.984375,
+        "right": 348
+      },
+      "body": {
+        "height": 430,
+        "scroll": 430,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 448.984375,
+        "width": 314,
+        "height": 48,
+        "bottom": 496.984375,
+        "right": 337
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 170.015625,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 244.671875,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 264.671875,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 339.328125,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 359.328125,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 433.984375,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 163.015625,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 251.671875,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 257.671875,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 346.328125,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 352.328125,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 440.984375,
+          "right": 337
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 360,
+      "h": 640,
+      "modal": {
+        "x": 12,
+        "y": 81.515625,
+        "width": 336,
+        "height": 476.96875,
+        "bottom": 558.484375,
+        "right": 348
+      },
+      "body": {
+        "height": 375,
+        "scroll": 375,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 476.484375,
+        "width": 314,
+        "height": 48,
+        "bottom": 524.484375,
+        "right": 337
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 197.515625,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 272.171875,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 292.171875,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 366.828125,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 386.828125,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 461.484375,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 190.515625,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 279.171875,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 285.171875,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 373.828125,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 379.828125,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 468.484375,
+          "right": 337
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 360,
+      "h": 640,
+      "modal": {
+        "x": 12,
+        "y": 81.515625,
+        "width": 336,
+        "height": 476.96875,
+        "bottom": 558.484375,
+        "right": 348
+      },
+      "body": {
+        "height": 375,
+        "scroll": 375,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 476.484375,
+        "width": 314,
+        "height": 48,
+        "bottom": 524.484375,
+        "right": 337
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 197.515625,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 272.171875,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 292.171875,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 366.828125,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 386.828125,
+          "width": 112,
+          "height": 74.65625,
+          "bottom": 461.484375,
+          "right": 142,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 190.515625,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 279.171875,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 285.171875,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 373.828125,
+          "right": 337
+        },
+        {
+          "x": 23,
+          "y": 379.828125,
+          "width": 314,
+          "height": 88.65625,
+          "bottom": 468.484375,
+          "right": 337
+        }
+      ]
+    },
+    {
+      "mode": "duck",
+      "w": 390,
+      "h": 844,
+      "modal": {
+        "x": 12,
+        "y": 148,
+        "width": 366,
+        "height": 548,
+        "bottom": 696,
+        "right": 378
+      },
+      "body": {
+        "height": 446,
+        "scroll": 446,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 559,
+        "width": 344,
+        "height": 48,
+        "bottom": 607,
+        "right": 367
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 264,
+          "width": 120,
+          "height": 80,
+          "bottom": 344,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 364,
+          "width": 120,
+          "height": 80,
+          "bottom": 444,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 464,
+          "width": 120,
+          "height": 80,
+          "bottom": 544,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 257,
+          "width": 344,
+          "height": 94,
+          "bottom": 351,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 357,
+          "width": 344,
+          "height": 94,
+          "bottom": 451,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 457,
+          "width": 344,
+          "height": 94,
+          "bottom": 551,
+          "right": 367
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 390,
+      "h": 844,
+      "modal": {
+        "x": 12,
+        "y": 175.5,
+        "width": 366,
+        "height": 493,
+        "bottom": 668.5,
+        "right": 378
+      },
+      "body": {
+        "height": 391,
+        "scroll": 391,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 586.5,
+        "width": 344,
+        "height": 48,
+        "bottom": 634.5,
+        "right": 367
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 291.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 371.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 391.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 471.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 491.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 571.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 284.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 378.5,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 384.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 478.5,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 484.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 578.5,
+          "right": 367
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 390,
+      "h": 844,
+      "modal": {
+        "x": 12,
+        "y": 175.5,
+        "width": 366,
+        "height": 493,
+        "bottom": 668.5,
+        "right": 378
+      },
+      "body": {
+        "height": 391,
+        "scroll": 391,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 23,
+        "y": 586.5,
+        "width": 344,
+        "height": 48,
+        "bottom": 634.5,
+        "right": 367
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 30,
+          "y": 291.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 371.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 30,
+          "y": 391.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 471.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 30,
+          "y": 491.5,
+          "width": 120,
+          "height": 80,
+          "bottom": 571.5,
+          "right": 150,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 23,
+          "y": 284.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 378.5,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 384.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 478.5,
+          "right": 367
+        },
+        {
+          "x": 23,
+          "y": 484.5,
+          "width": 344,
+          "height": 94,
+          "bottom": 578.5,
+          "right": 367
+        }
+      ]
+    },
+    {
+      "mode": "duck",
+      "w": 844,
+      "h": 390,
+      "modal": {
+        "x": 12,
+        "y": 12.703125,
+        "width": 820,
+        "height": 364.59375,
+        "bottom": 377.296875,
+        "right": 832
+      },
+      "body": {
+        "height": 265,
+        "scroll": 265,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 29,
+        "y": 315.296875,
+        "width": 389,
+        "height": 48,
+        "bottom": 363.296875,
+        "right": 418
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 84.65625,
+          "y": 130.296875,
+          "width": 144,
+          "height": 96,
+          "bottom": 226.296875,
+          "right": 228.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 349.984375,
+          "y": 130.296875,
+          "width": 144,
+          "height": 96,
+          "bottom": 226.296875,
+          "right": 493.984375,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 615.3125,
+          "y": 130.296875,
+          "width": 144,
+          "height": 96,
+          "bottom": 226.296875,
+          "right": 759.3125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 29,
+          "y": 121.296875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 307.296875,
+          "right": 284.328125
+        },
+        {
+          "x": 294.328125,
+          "y": 121.296875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 307.296875,
+          "right": 549.65625
+        },
+        {
+          "x": 559.65625,
+          "y": 121.296875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 307.296875,
+          "right": 814.984375
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 844,
+      "h": 390,
+      "modal": {
+        "x": 12,
+        "y": 14.203125,
+        "width": 820,
+        "height": 361.59375,
+        "bottom": 375.796875,
+        "right": 832
+      },
+      "body": {
+        "height": 262,
+        "scroll": 262,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 29,
+        "y": 316.796875,
+        "width": 786,
+        "height": 48,
+        "bottom": 364.796875,
+        "right": 815
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 84.65625,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 228.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 349.984375,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 493.984375,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 615.3125,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 759.3125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 29,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 284.328125
+        },
+        {
+          "x": 294.328125,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 549.65625
+        },
+        {
+          "x": 559.65625,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 814.984375
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 844,
+      "h": 390,
+      "modal": {
+        "x": 12,
+        "y": 14.203125,
+        "width": 820,
+        "height": 361.59375,
+        "bottom": 375.796875,
+        "right": 832
+      },
+      "body": {
+        "height": 262,
+        "scroll": 262,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 29,
+        "y": 316.796875,
+        "width": 786,
+        "height": 48,
+        "bottom": 364.796875,
+        "right": 815
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 84.65625,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 228.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 349.984375,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 493.984375,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 615.3125,
+          "y": 131.796875,
+          "width": 144,
+          "height": 96,
+          "bottom": 227.796875,
+          "right": 759.3125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 29,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 284.328125
+        },
+        {
+          "x": 294.328125,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 549.65625
+        },
+        {
+          "x": 559.65625,
+          "y": 122.796875,
+          "width": 255.328125,
+          "height": 186,
+          "bottom": 308.796875,
+          "right": 814.984375
+        }
+      ]
+    },
+    {
+      "mode": "duck",
+      "w": 1024,
+      "h": 600,
+      "modal": {
+        "x": 102,
+        "y": 20.3125,
+        "width": 820,
+        "height": 559.375,
+        "bottom": 579.6875,
+        "right": 922
+      },
+      "body": {
+        "height": 433,
+        "scroll": 433,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 123,
+        "y": 434.6875,
+        "width": 778,
+        "height": 48,
+        "bottom": 482.6875,
+        "right": 901
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 134,
+          "y": 173.109375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 326.875,
+          "right": 364.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 396.65625,
+          "y": 173.109375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 326.890625,
+          "right": 627.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 659.328125,
+          "y": 173.109375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 326.890625,
+          "right": 890,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 123,
+          "y": 162.109375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 419.6875,
+          "right": 375.65625
+        },
+        {
+          "x": 385.65625,
+          "y": 162.109375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 419.6875,
+          "right": 638.328125
+        },
+        {
+          "x": 648.328125,
+          "y": 162.109375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 419.6875,
+          "right": 901
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 1024,
+      "h": 600,
+      "modal": {
+        "x": 102,
+        "y": 47.8125,
+        "width": 820,
+        "height": 504.375,
+        "bottom": 552.1875,
+        "right": 922
+      },
+      "body": {
+        "height": 378,
+        "scroll": 378,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 123,
+        "y": 462.1875,
+        "width": 778,
+        "height": 48,
+        "bottom": 510.1875,
+        "right": 901
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 134,
+          "y": 200.609375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 354.375,
+          "right": 364.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 396.65625,
+          "y": 200.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 354.390625,
+          "right": 627.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 659.328125,
+          "y": 200.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 354.390625,
+          "right": 890,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 123,
+          "y": 189.609375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 375.65625
+        },
+        {
+          "x": 385.65625,
+          "y": 189.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 638.328125
+        },
+        {
+          "x": 648.328125,
+          "y": 189.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 901
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 1024,
+      "h": 600,
+      "modal": {
+        "x": 102,
+        "y": 47.8125,
+        "width": 820,
+        "height": 504.375,
+        "bottom": 552.1875,
+        "right": 922
+      },
+      "body": {
+        "height": 378,
+        "scroll": 378,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 123,
+        "y": 462.1875,
+        "width": 778,
+        "height": 48,
+        "bottom": 510.1875,
+        "right": 901
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 134,
+          "y": 200.609375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 354.375,
+          "right": 364.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 396.65625,
+          "y": 200.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 354.390625,
+          "right": 627.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 659.328125,
+          "y": 200.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 354.390625,
+          "right": 890,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 123,
+          "y": 189.609375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 375.65625
+        },
+        {
+          "x": 385.65625,
+          "y": 189.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 638.328125
+        },
+        {
+          "x": 648.328125,
+          "y": 189.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 447.1875,
+          "right": 901
+        }
+      ]
+    },
+    {
+      "mode": "duck",
+      "w": 1366,
+      "h": 768,
+      "modal": {
+        "x": 273,
+        "y": 104.3125,
+        "width": 820,
+        "height": 559.375,
+        "bottom": 663.6875,
+        "right": 1093
+      },
+      "body": {
+        "height": 433,
+        "scroll": 433,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 294,
+        "y": 518.6875,
+        "width": 778,
+        "height": 48,
+        "bottom": 566.6875,
+        "right": 1072
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 305,
+          "y": 257.109375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 410.875,
+          "right": 535.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 567.65625,
+          "y": 257.109375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 410.890625,
+          "right": 798.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 830.328125,
+          "y": 257.109375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 410.890625,
+          "right": 1061,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 294,
+          "y": 246.109375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 503.6875,
+          "right": 546.65625
+        },
+        {
+          "x": 556.65625,
+          "y": 246.109375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 503.6875,
+          "right": 809.328125
+        },
+        {
+          "x": 819.328125,
+          "y": 246.109375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 503.6875,
+          "right": 1072
+        }
+      ]
+    },
+    {
+      "mode": "catch",
+      "w": 1366,
+      "h": 768,
+      "modal": {
+        "x": 273,
+        "y": 131.8125,
+        "width": 820,
+        "height": 504.375,
+        "bottom": 636.1875,
+        "right": 1093
+      },
+      "body": {
+        "height": 378,
+        "scroll": 378,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 294,
+        "y": 546.1875,
+        "width": 778,
+        "height": 48,
+        "bottom": 594.1875,
+        "right": 1072
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 305,
+          "y": 284.609375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 438.375,
+          "right": 535.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 567.65625,
+          "y": 284.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 438.390625,
+          "right": 798.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 830.328125,
+          "y": 284.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 438.390625,
+          "right": 1061,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 294,
+          "y": 273.609375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 546.65625
+        },
+        {
+          "x": 556.65625,
+          "y": 273.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 809.328125
+        },
+        {
+          "x": 819.328125,
+          "y": 273.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 1072
+        }
+      ]
+    },
+    {
+      "mode": "duel",
+      "w": 1366,
+      "h": 768,
+      "modal": {
+        "x": 273,
+        "y": 131.8125,
+        "width": 820,
+        "height": 504.375,
+        "bottom": 636.1875,
+        "right": 1093
+      },
+      "body": {
+        "height": 378,
+        "scroll": 378,
+        "scrollTop": 0
+      },
+      "start": {
+        "x": 294,
+        "y": 546.1875,
+        "width": 778,
+        "height": 48,
+        "bottom": 594.1875,
+        "right": 1072
+      },
+      "copy": "15px",
+      "images": [
+        {
+          "x": 305,
+          "y": 284.609375,
+          "width": 230.65625,
+          "height": 153.765625,
+          "bottom": 438.375,
+          "right": 535.65625,
+          "loaded": true,
+          "fit": "cover",
+          "src": "/assets/fast-hands-card-v2.webp"
+        },
+        {
+          "x": 567.65625,
+          "y": 284.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 438.390625,
+          "right": 798.328125,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-catch-ready.png"
+        },
+        {
+          "x": 830.328125,
+          "y": 284.609375,
+          "width": 230.671875,
+          "height": 153.78125,
+          "bottom": 438.390625,
+          "right": 1061,
+          "loaded": true,
+          "fit": "cover",
+          "src": "assets/levels-duel-ready.png"
+        }
+      ],
+      "cards": [
+        {
+          "x": 294,
+          "y": 273.609375,
+          "width": 252.65625,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 546.65625
+        },
+        {
+          "x": 556.65625,
+          "y": 273.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 809.328125
+        },
+        {
+          "x": 819.328125,
+          "y": 273.609375,
+          "width": 252.671875,
+          "height": 257.578125,
+          "bottom": 531.1875,
+          "right": 1072
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
 import {FINALE_ADDED} from '../helpers/fast-hands-finale-provenance.mjs';
 import {ENTRY_ADDED} from '../helpers/fast-hands-entry-provenance.mjs';
@@ -14,7 +15,7 @@ test('new levels admit one navigation-only original edit and six isolated runtim
  for(const f of ledger.files){const bytes=readFileSync(new URL(f.path,root));reverseLevels(f.path,bytes);assert.throws(()=>reverseLevels(f.path,Buffer.concat([bytes,Buffer.from('unreviewed drift')])));}
  const file=new URL('public/games/fast-hands/index.html',root),old=readLevelsBaseline(file,'utf8'),current=readClubBaseline(file,'utf8');
  assert.equal(current.replace(/^.*<nav class="level-switch"[^>]*>.*<\/nav>\n/gm,'').replace(/^.*<link rel="stylesheet" href="level-nav.css">\n/gm,''),old);
- assert.deepEqual(levelsRuntimeAdditions(),[...LEVEL_ADDED,...ART_ADDED,...STABILITY_ADDED,...CLUB_ADDED,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED]);
+ assert.deepEqual(levelsRuntimeAdditions(),[...LEVEL_ADDED,...ART_ADDED,...STABILITY_ADDED,...CLUB_ADDED,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
 });
 test('original duck runtime, presentation CSS, records and board contracts remain byte-exact',()=>{
  const ledger=levelLedger();for(const row of ledger.preserved){const actual=readLayoutDartBaseline(new URL(row.path,root));assert.equal(createHash('sha1').update(`blob ${actual.length}\0`).update(actual).digest('hex'),row.gitBlob,row.path);}

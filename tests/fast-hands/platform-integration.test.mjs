@@ -72,7 +72,7 @@ test('all game entry media and imported modules resolve locally with no developm
       const value = node.getAttribute(attribute);
       if (!value) continue;
       assert.ok(!/^https?:/.test(value), `resource ${value} must be self-contained`);
-      assert.ok(existsSync(new URL(value, gameRoot)), `${value} must exist`);
+      assert.ok(existsSync(value.startsWith('/') ? new URL('public'+value, root) : new URL(value, gameRoot)), `${value} must exist`);
     }
   }
   const walk = dir => readdirSync(dir, {withFileTypes:true}).flatMap(entry => {

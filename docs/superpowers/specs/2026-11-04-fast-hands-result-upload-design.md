@@ -1,0 +1,7 @@
+# Fast Hands direct result upload and clear introduction
+
+The user approved the discussed two-row result design and asked to implement it: retry/replay on the first row, upload/view rankings on the second. Upload expands the existing nickname and public-consent form inside the result ticket; focus and the ticket's internal scroll reveal the form. Ineligible results keep the same button slot and show a reason. Share and details stay folded below. The user additionally requested larger, clearer representative images in the opening three-game introduction.
+
+Use the existing upload controller, frozen score and submission IDs. Moving its form between the board and result host avoids competing copies and keeps retries idempotent. An independent duplicate form/controller or automatic submit would risk duplicate requests and is excluded. The board remains a separate readable view and all existing scores, eligibility, top-20 display, remote schema, AI and timing rules stay unchanged. No real score is submitted in verification.
+
+Keep one-page primary result controls and readable text at 320x568 through desktop sizes; expanded form/share/details can scroll inside the ticket. Opening cards use existing actual-scene assets, a consistent image ratio and shorter copy without changing game entry behavior. Browser verification must disclose the cloud browser's unavailable WebGL and lack of physical iOS share-sheet testing.

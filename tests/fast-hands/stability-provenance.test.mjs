@@ -1,3 +1,4 @@
+import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
 import {FINALE_ADDED} from '../helpers/fast-hands-finale-provenance.mjs';
 import {ENTRY_ADDED} from '../helpers/fast-hands-entry-provenance.mjs';
@@ -19,7 +20,7 @@ test('stability admits exactly its approved level files and restores the publish
  const l=ledger();assert.equal(l.baseCommit,'d4a63fe65358d15b5c232e67767a57bcfce292b7');assert.equal(l.baseTree,'b6c4841caa4bf1dd223281352bfe50433345b9f0');
  assert.deepEqual(l.files.map(f=>f.path).sort(),[...helpers.STABILITY_CHANGED,...helpers.STABILITY_ADDED].sort());
  assert.equal(helpers.STABILITY_CHANGED.length,12);assert.equal(helpers.STABILITY_ADDED.length,11);
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(f=>f.path).concat(CLUB_ADDED,ENTRY_ADDED,FINALE_ADDED,SHARING_FLOW_ADDED).sort(),'unknown runtime files must not enter the admission list');
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(f=>f.path).concat(CLUB_ADDED,ENTRY_ADDED,FINALE_ADDED,SHARING_FLOW_ADDED,RESULT_UPLOAD_ADDED).sort(),'unknown runtime files must not enter the admission list');
  for(const row of l.files){
   const bytes=read(row.path),restored=helpers.reverseStability(row.path,bytes,l);
   assert.throws(()=>helpers.reverseStability(row.path,Buffer.concat([bytes,Buffer.from('unreviewed drift')]),l));
@@ -65,6 +66,6 @@ test('rules changes are only the requested initial speed and equivalent inclusiv
 test('new shared motion and every fallback keyframe join the runtime admission chain',async()=>{
  ledger();const {artRuntimeAdditions}=await import('../helpers/fast-hands-levels-art-provenance.mjs');
  const {levelsRuntimeAdditions}=await import('../helpers/fast-hands-levels-provenance.mjs');
- assert.deepEqual(helpers.stabilityRuntimeAdditions(),[...helpers.STABILITY_ADDED,...CLUB_ADDED,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED]);
+ assert.deepEqual(helpers.stabilityRuntimeAdditions(),[...helpers.STABILITY_ADDED,...CLUB_ADDED,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
  for(const path of helpers.STABILITY_ADDED){assert.ok(artRuntimeAdditions().includes(path));assert.ok(levelsRuntimeAdditions().includes(path));}
 });

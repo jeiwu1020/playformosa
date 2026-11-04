@@ -141,9 +141,9 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     </div>
     <div class="ticket-body">
       <div class="club-cards">
-        <article class="club-card"><img src="assets/control-duck.svg" alt="小鴨" width="100" height="80"><h3>小鴨往返</h3><p>按住紙鈔，滑去抓小鴨，再一口氣滑回來。</p></article>
-        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王準備接住泡棉玩具彈" width="160" height="100"><h3>玩具彈接接樂</h3><p>看準玩具彈到掌心時按「接！」，接住就晉級。</p></article>
-        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品" width="160" height="100"><h3>十回合對決</h3><p>等「出手！」再按「搶！」，和快手王比十回合。</p></article>
+        <article class="club-card"><img src="/assets/fast-hands-card-v2.webp" alt="快手王抓住小鴨與紙鈔的關卡代表圖" width="768" height="512"><h3>小鴨往返</h3><p>按住紙鈔，抓到小鴨再滑回來。</p></article>
+        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王在發射器前準備接住玩具彈" width="900" height="620"><h3>玩具彈接接樂</h3><p>玩具彈到掌心時，按「接！」。</p></article>
+        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品對決" width="900" height="620"><h3>十回合對決</h3><p>看到「出手！」按「搶！」，比十回合。</p></article>
       </div>
       <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="about" type="button" class="quiet-button">操作設定</button></div></div>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
@@ -161,9 +161,12 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     <div class="result-buttons finale-main-actions">
       <button id="resultAgain" data-finale-action="again" type="button" class="primary">再挑戰一次</button>
       <button id="resultDemo" data-finale-action="replay" type="button" class="quiet-button" disabled>重播本次</button>
-      <button id="resultRanking" data-finale-action="ranking" type="button" class="quiet-button" aria-label="查看測試排行榜">排行榜</button>
+      <button id="resultUploadDirect" data-finale-action="upload" type="button" class="quiet-button" aria-controls="resultUploadHost" aria-expanded="false" aria-describedby="resultUploadHint" disabled>上傳本次成績</button>
+   <button id="resultRanking" data-finale-action="ranking" type="button" class="quiet-button" aria-label="查看排行榜">查看排行榜</button>
     </div>
     <div class="ticket-body finale-scroll">
+   <p id="resultUploadHint" class="finale-upload-hint" role="status">完成有效挑戰後，可自願上傳。</p>
+   <section id="resultUploadHost" class="finale-upload-host" aria-label="上傳本次成績" hidden></section>
       <details class="finale-details"><summary>詳細紀錄與選項</summary>
         <div class="result-records"><div><span>本機最佳</span><strong id="resultBest">—</strong></div><div><span>與最佳比較</span><strong id="resultDelta">—</strong></div></div>
         <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>

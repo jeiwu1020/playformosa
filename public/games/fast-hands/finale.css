@@ -26,8 +26,8 @@ body.fast-hands-club .finale-ticket .finale-overview p {margin:5px 0 0;font-size
 /* Undo legacy sticky/order:-1 rules. Actions are a fixed sibling of the
    scroll area, so opening details cannot push retry/replay/rank out of view. */
 body.fast-hands-club .finale-ticket .finale-main-actions {position:static;top:auto;order:0;flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;padding:10px 16px;background:var(--cream);border:0;border-bottom:1px solid #dcdcc7}
-body.fast-hands-club .finale-ticket .finale-main-actions>button {grid-column:auto;grid-row:2;height:auto;min-height:44px;min-width:0;margin:0;padding:9px 8px;border-radius:12px;font:750 16px/1.35 system-ui,sans-serif;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
-body.fast-hands-club .finale-ticket .finale-main-actions>[data-finale-action="again"] {grid-column:1/-1;grid-row:1;min-height:48px;font-size:18px;background:#ef945a;color:var(--deep);border:1.5px solid #d78048;box-shadow:0 3px 0 #b76d3c}
+body.fast-hands-club .finale-ticket .finale-main-actions>button {grid-column:auto;grid-row:auto;height:auto;min-height:44px;min-width:0;margin:0;padding:9px 8px;border-radius:12px;font:750 16px/1.35 system-ui,sans-serif;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
+body.fast-hands-club .finale-ticket .finale-main-actions>[data-finale-action="again"] {grid-column:1;grid-row:1;min-height:48px;font-size:18px;background:#ef945a;color:var(--deep);border:1.5px solid #d78048;box-shadow:0 3px 0 #b76d3c}
 body.fast-hands-club .finale-ticket .finale-scroll {display:block;flex:1 1 88px;min-height:88px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scroll-padding:8px;padding:0 16px 8px;text-align:left}
 body.fast-hands-club .finale-ticket .finale-scroll>details {display:block;position:static;min-height:44px;margin:0;padding:0;border-bottom:1px solid #dcdcc7;overflow:visible;font-size:16px;line-height:1.5;overflow-wrap:anywhere}
 body.fast-hands-club .finale-ticket .finale-scroll>details>summary {display:flex;align-items:center;justify-content:space-between;min-height:44px;margin:0;padding:8px 2px;font-size:16px;line-height:1.5;font-weight:750;cursor:pointer;list-style:none}
@@ -87,3 +87,18 @@ body.fast-hands-club .finale-ticket .level-share-fallback {margin:12px 0;padding
 body.fast-hands-club .finale-ticket .level-share-fallback img {display:block;width:100%;height:auto;max-width:360px;margin:0 auto 12px;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
 body.fast-hands-club .finale-ticket .level-share-fallback textarea {min-height:150px;padding:10px;margin-bottom:10px;resize:vertical;border:1px solid #c5d2bb;border-radius:8px;color:var(--green);background:white;user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
 body.fast-hands-club .finale-ticket .level-share-fallback button {width:100%;min-height:44px}
+
+/* Four fixed result choices. Expanded content scrolls below, never moves them. */
+body.fast-hands-club .finale-ticket .finale-main-actions>[data-finale-action="replay"] {grid-column:2;grid-row:1;min-height:48px}
+body.fast-hands-club .finale-ticket .finale-main-actions>[data-finale-action="upload"] {grid-column:1;grid-row:2}
+body.fast-hands-club .finale-ticket .finale-main-actions>[data-finale-action="ranking"] {grid-column:2;grid-row:2}
+body.fast-hands-club .finale-ticket .finale-upload-hint {margin:6px 0;font-size:14px;line-height:1.4;color:#46614b}
+body.fast-hands-club .finale-ticket .finale-upload-host {margin:8px 0 12px;padding:12px;border:1px solid #b9c9ae;border-radius:12px;background:#fffdf6;scroll-margin-top:8px;font-size:16px;line-height:1.5}
+body.fast-hands-club .finale-ticket .finale-upload-host p {margin:8px 0;font-size:15px;line-height:1.5}
+body.fast-hands-club .finale-ticket .finale-upload-host input[type="text"] {display:block;box-sizing:border-box;width:100%;min-height:46px;padding:10px;margin:8px 0 12px;border:1px solid #8ca18a;border-radius:8px;background:#fff;color:var(--green);font:16px/1.5 system-ui,sans-serif;user-select:text}
+body.fast-hands-club .finale-ticket .finale-upload-host label {font-size:16px;line-height:1.5}
+body.fast-hands-club .finale-ticket .finale-upload-host .ranking-consent,
+body.fast-hands-club .finale-ticket .finale-upload-host .level-ranking-consent {display:flex;align-items:flex-start;gap:10px;margin:12px 0;min-height:44px;text-align:left}
+body.fast-hands-club .finale-ticket .finale-upload-host input[type="checkbox"] {flex:none;width:22px;height:22px;margin:2px 0;accent-color:var(--green)}
+body.fast-hands-club .finale-ticket .finale-upload-host button {display:block;width:100%;margin:8px 0;min-height:44px;padding:10px;border:1px solid #8ca18a;border-radius:10px;background:#dcebdd;color:var(--green);font:750 16px/1.4 system-ui,sans-serif}
+body.fast-hands-club .finale-ticket .finale-upload-host button:disabled {opacity:.5;cursor:default}

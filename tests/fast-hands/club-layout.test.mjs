@@ -191,10 +191,10 @@ test('completed catch and duel tickets keep retry fixed and practice inside coll
       assert.equal(p.style('#summaryPractice').gridRow,'auto');
       assert.ok(p.document.querySelector('details.finale-details #summaryPractice'));
       assert.equal(p.document.querySelector('details.finale-details').open,false);
-      assert.equal(p.document.querySelectorAll('.finale-main-actions>button').length,3);
+      assert.equal(p.document.querySelectorAll('.finale-main-actions>button').length,4);
       assert.equal(p.style('#summaryAgain').gridRow,'1',`${name} ${width}×${height}: retry is always first`);
       assert.equal(p.style('#summaryPractice').gridColumn,'auto');
-      assert.equal(p.style('#summaryAgain').gridColumn,'1/-1');
+      assert.equal(p.style('#summaryAgain').gridColumn,'1');
       p.dom.window.close();
     }
   }

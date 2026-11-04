@@ -1,3 +1,4 @@
+import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
 import {reverseSharingFlow,sharingFlowLedger,sharingFlowRuntimeAdditions} from './fast-hands-sharing-flow-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -11,8 +12,8 @@ export const FINALE_CHANGED=Object.freeze(["public/games/fast-hands/app.mjs", "p
 export const FINALE_ADDED=Object.freeze(["public/games/fast-hands/levels-leaderboard.mjs", "public/games/fast-hands/levels-ranking.css", "public/games/fast-hands/levels-replay.mjs", "public/games/fast-hands/finale-image.mjs", "public/games/fast-hands/finale.css", "public/games/fast-hands/levels-sound.mjs", "public/games/fast-hands/assets/levels-duel-player-place.png", "public/games/fast-hands/assets/levels-catch-place.png", "public/games/fast-hands/assets/levels-catch-guns.png", "public/games/fast-hands/assets/levels-duel-player-guns.png", "public/games/fast-hands/assets/levels-duel-ai-guns.png", "public/games/fast-hands/assets/levels-duel-neutral.png", "public/games/fast-hands/assets/levels-duel-ai-place.png"]);
 export const FINALE_ALLOWED=Object.freeze([...FINALE_CHANGED,...FINALE_ADDED]);
 export const finaleLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/FINALE-MANIFEST.json',root),'utf8'));
-export function reverseFinale(path,bytes,ledger=finaleLedger(),outerLedger=sharingFlowLedger()){
- bytes=reverseSharingFlow(path,bytes,outerLedger);
+export function reverseFinale(path,bytes,ledger=finaleLedger(),outerLedger=sharingFlowLedger(),resultUpload=resultUploadLedger()){
+ bytes=reverseSharingFlow(path,bytes,outerLedger,resultUpload);
  const row=ledger.files.find(r=>r.path===path);if(!row)return Buffer.from(bytes);
  assert.ok(FINALE_ALLOWED.includes(path),'Unapproved finale path '+path);
  assert.equal(hash(bytes),row.sha256,'Finale current bytes '+path);

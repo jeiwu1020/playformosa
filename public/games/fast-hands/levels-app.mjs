@@ -169,6 +169,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  }
  function returnFromReplay(){if(!replay)return;replay=null;lastRendered=null;lastReveal=null;const defer=club?.blocked?.();if(defer){summaryPresented=false;summaryDismissed=false;}render();if(!defer){openSummary();$('summaryReplay').focus({preventScroll:true});}}
  listen($('summaryReplay'),'click',startReplay);listen($('replayReturn'),'click',returnFromReplay);
+ listen($('summaryUpload'),'click',()=>{if(!club?.blocked?.()&&state.phase==='done'&&!state.practice)ranking?.showResultUpload();});
  listen($('summaryRanking'),'click',()=>{if(!club?.blocked?.()&&state.phase==='done'&&!state.practice)ranking?.showBoard({origin:'result'});});
  listen($('soundToggle'),'click',()=>{sound.unlock();sound.setMuted(!sound.muted);$('soundToggle').textContent=sound.muted?'音效：關':'音效：開';$('soundToggle').setAttribute('aria-pressed',String(sound.muted));});
  listen($('summaryClose'),'click',()=>{if(!club?.blocked?.())closeSummary();});listen($('summary'),'close',()=>{if($('summary').open||state.phase!=='done'||state.practice)return;summaryDismissed=true;$('summary').hidden=true;document.body.dataset.summary='false';});listen($('summaryAgain'),'click',()=>{if(club?.blocked?.())return;closeSummary();begin();});listen($('summaryPractice'),'click',practice);
@@ -197,7 +198,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  try{const stage=stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d});if(stage?.then)stage.then(stageResolved).catch(unavailable);else stageResolved(stage);}catch{unavailable();}
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
- ranking=rankingFactory({document,mode,onOpen(dialog){closeSummary();rankingOpen=true;try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
+ ranking=rankingFactory({document,mode,inlineUpload:{host:$('summaryUploadHost'),trigger:$('summaryUpload'),hint:$('summaryUploadHint'),resultDialog:$('summary')},onOpen(dialog){closeSummary();rankingOpen=true;try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
  listen(document,'clubchange',()=>{lastRendered=null;render();});
  club=clubFactory({document,window,mode,getNavigationContext:()=>({phase:state.phase,practice:state.practice}),getResumeTarget:()=>$('roundButton'),isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:()=>pause(),onStart:()=>{}});
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};

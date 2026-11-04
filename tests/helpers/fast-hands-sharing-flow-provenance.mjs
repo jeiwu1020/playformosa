@@ -1,3 +1,4 @@
+import {reverseResultUpload,resultUploadLedger,resultUploadRuntimeAdditions} from './fast-hands-result-upload-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -48,7 +49,8 @@ export function validateSharingFlowLedger(ledger){
 
 export const sharingFlowLedger=()=>validateSharingFlowLedger(JSON.parse(readFileSync(new URL('docs/fast-hands/SHARING-FLOW-MANIFEST.json',root),'utf8')));
 
-export function reverseSharingFlow(path,bytes,ledger=sharingFlowLedger()){
+export function reverseSharingFlow(path,bytes,ledger=sharingFlowLedger(),outerLedger=resultUploadLedger()){
+ bytes=reverseResultUpload(path,bytes,outerLedger);
  const row=ledger.files.find(r=>r.path===path);
  if(!row){
   const preserved=ledger.preserved?.find(r=>r.path===path);
@@ -91,5 +93,5 @@ export function readSharingFlowBaseline(file,options){
 export function sharingFlowRuntimeAdditions(){
  const ledger=sharingFlowLedger();
  for(const path of SHARING_FLOW_ADDED)reverseSharingFlow(path,readFileSync(new URL(path,root)),ledger);
- return [...SHARING_FLOW_ADDED];
+ return [...SHARING_FLOW_ADDED,...resultUploadRuntimeAdditions()];
 }

@@ -192,9 +192,9 @@ body.fast-hands-club .club-summary>.close-button{z-index:5}
 body.fast-hands-club .club-summary>.level-switch{flex:none;width:calc(100% - 32px);margin:0 16px 14px}
 body.fast-hands-club .club-summary>.local-note{flex:none;margin:0;padding:0 15px 12px;font-size:10px;line-height:1.4}
 
-/* One compact club introduction. Its three cards explain, rather than gate,
-   the three destinations. Later navigation never needs a second intro. */
-body.fast-hands-club .club-intro{max-width:620px;overflow:hidden}
+/* Representative scene artwork introduces all three destinations. Desktop
+   gets image-first cards; phones keep readable copy beside large thumbnails. */
+body.fast-hands-club .club-intro{max-width:820px;overflow:hidden}
 body.fast-hands-club .club-intro[open]{display:flex;flex-direction:column;grid-template-columns:none}
 body.fast-hands-club .club-intro .ticket-top{position:relative;flex:none;background:var(--gold);padding:18px 22px 14px;border-right:0;border-bottom:1px dashed #c0ad7d;text-align:center}
 body.fast-hands-club .club-intro .ticket-kicker{font-size:10px;font-weight:850;line-height:1.4;letter-spacing:1.2px;color:#516546}
@@ -202,8 +202,8 @@ body.fast-hands-club .club-intro h2{font-size:29px;line-height:1.2;margin:8px 30
 body.fast-hands-club .club-intro .ticket-top p{font-size:15px;line-height:1.4;margin:0}
 body.fast-hands-club .club-intro .ticket-body{display:flex;flex-direction:column;min-height:0;overflow:auto;padding:16px 20px;overscroll-behavior:contain}
 body.fast-hands-club .club-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 15px;padding:0}
-body.fast-hands-club .club-card{min-width:0;padding:14px 10px;border:1px solid #d1d8c1;border-radius:15px;background:#fffdf4;text-align:center}
-body.fast-hands-club .club-card img{display:block;width:100%;height:70px;object-fit:contain;margin:0 auto 9px}
+body.fast-hands-club .club-card{min-width:0;padding:10px;border:1px solid #d1d8c1;border-radius:15px;background:#fffdf4;text-align:center}
+body.fast-hands-club .club-card img{display:block;width:100%;height:auto;aspect-ratio:3 / 2;object-fit:cover;object-position:center;border-radius:10px;background:#e5e9dc;margin:0 auto 10px}
 body.fast-hands-club .club-card h3{font-size:17px;line-height:1.4;margin:0 0 6px}
 body.fast-hands-club .club-card p{font-size:15px;line-height:21px;margin:0;color:var(--muted)}
 body.fast-hands-club .club-intro-actions,
@@ -241,13 +241,17 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
   body.fast-hands-club .round-feedback h2{font-size:18px}
   body.fast-hands-club .round-feedback p:not(.eyebrow){font-size:10px}
   body.fast-hands-club .club-cards{grid-template-columns:minmax(0,1fr);gap:6px;margin-bottom:8px}
-  body.fast-hands-club .club-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 8px;align-items:center;padding:6px 8px;text-align:left}
-  body.fast-hands-club .club-card img{grid-column:1;grid-row:1/3;width:40px;height:40px;margin:0}
+  body.fast-hands-club .club-card{display:grid;grid-template-columns:112px minmax(0,1fr);gap:2px 10px;align-items:center;padding:6px;text-align:left}
+  body.fast-hands-club .club-card img{grid-column:1;grid-row:1/3;width:100%;height:auto;margin:0}
   body.fast-hands-club .club-card h3{grid-column:2;grid-row:1;margin:0;font-size:17px;line-height:23px}
   body.fast-hands-club .club-card p{grid-column:2;grid-row:2;font-size:15px;line-height:21px}
   body.fast-hands-club .club-intro .ticket-top{padding:10px 12px 8px}
   body.fast-hands-club .club-intro h2{font-size:25px;margin-top:4px;margin-bottom:4px}
   body.fast-hands-club .club-intro .ticket-body{padding:8px 10px}
+}
+
+@media(min-width:390px) and (max-width:600px){
+  body.fast-hands-club .club-card{grid-template-columns:120px minmax(0,1fr)}
 }
 
 /* Normal short screens still fit without changing the horizontal gesture.
@@ -281,6 +285,7 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
   body.fast-hands-club .summary-score{font-size:42px}
 }
 @media(max-width:350px){
+  body.fast-hands-club .club-card{grid-template-columns:96px minmax(0,1fr);column-gap:8px}
   body.fast-hands-club .level-header h1{font-size:16px}
   body.fast-hands-club .instruction strong{font-size:13px}
   body.fast-hands-club .instruction>span{font-size:9px}
@@ -306,8 +311,7 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
   body.fast-hands-club .club-intro .ticket-top{padding:10px 20px 8px}
   body.fast-hands-club .club-intro h2{font-size:23px;margin-top:4px;margin-bottom:4px}
   body.fast-hands-club .club-intro .ticket-body{padding:10px 16px}
-  body.fast-hands-club .club-card{padding:8px}
-  body.fast-hands-club .club-card img{height:45px;margin-bottom:5px}
+
 }
 
 @media(max-height:550px) and (orientation:landscape){
@@ -358,10 +362,14 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .round-dot{width:18px;height:18px}
 }
 
-/* Wide short introductions keep all actions visible without reducing copy or
-   touch targets. Narrow landscape keeps the existing scrollable body. */
+/* Wide short introductions retain complete 3:2 scenes, readable instructions
+   and full touch targets. Only the decorative studio footer is omitted. */
 @media(min-width:700px) and (max-height:450px) and (orientation:landscape){
   body.fast-hands-club .club-intro .club-cards{margin-bottom:8px}
+  body.fast-hands-club .club-card{padding:8px}
+  body.fast-hands-club .club-card img{width:144px;height:auto;max-width:100%;margin-bottom:5px}
+  body.fast-hands-club .club-card h3{margin-bottom:2px;line-height:23px}
+  body.fast-hands-club .club-intro .pf-entry-brand{display:none}
   body.fast-hands-club .club-intro .entry-buttons:has(.club-intro-aux)>.intro-start{grid-column:1;grid-row:1}
   body.fast-hands-club .club-intro .entry-buttons:has(.club-intro-aux)>.club-intro-aux{grid-column:2;grid-row:1}
 }

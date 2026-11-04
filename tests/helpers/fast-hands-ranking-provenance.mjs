@@ -28,5 +28,5 @@ export function readRankingBaseline(file,options){
 }
 export function rankingRuntimeAdditions(){
  const l=rankingLedger();assert.deepEqual(l.files.map(f=>f.path),[...RANKING_MODIFIED,...RANKING_ADDED]);assert.deepEqual(l.files.filter(f=>f.beforeSha256===null).map(f=>f.path),RANKING_ADDED);
- for(const path of RANKING_ADDED)reverseRanking(path,readActual(new URL(path,root)),l);return [...RANKING_ADDED];
+ for(const path of RANKING_ADDED)reverseRanking(path,readLoadingLookBaseline(new URL(path,root)),l);return [...RANKING_ADDED];
 }

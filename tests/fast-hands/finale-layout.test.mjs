@@ -6,8 +6,8 @@ for(const mode of ['duck','catch','duel'])test(`${mode} has an actual-round imag
  assert.ok(result.classList.contains('finale-ticket'));
  assert.equal(result.querySelectorAll('.finale-picture img').length,1);
  const image=result.querySelector('.finale-picture img');assert.ok(image.hidden);assert.equal(image.getAttribute('src'),null,'never pretend a stock portrait is this round');
- assert.equal(result.querySelectorAll('.finale-main-actions>button').length,3);
- assert.deepEqual([...result.querySelectorAll('.finale-main-actions>button')].map(x=>x.dataset.finaleAction),['again','replay','ranking']);
+ assert.equal(result.querySelectorAll('.finale-main-actions>button').length,4);
+ assert.deepEqual([...result.querySelectorAll('.finale-main-actions>button')].map(x=>x.dataset.finaleAction),['again','replay','upload','ranking']);
  assert.ok(result.querySelector('details.finale-details'));
  assert.ok(result.querySelector('details.finale-share'));
  assert.ok(d.querySelector('link[href="finale.css"]'));

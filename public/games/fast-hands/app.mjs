@@ -74,7 +74,7 @@ function closeDialogs(){if($('rankingDialog').open)leaderboard?.dismiss(false);f
 function openDialog(dialog){dialog.hidden=false;if(!dialog.open)dialog.showModal();syncOverlay();}
 for(const dialog of dialogs)dialog.addEventListener('close',syncOverlay);
 document.addEventListener('clubchange',syncOverlay);
-leaderboard=mountFastHandsLeaderboard({document,onOpen(dialog){interrupt('ranking');closeDialogs();openDialog(dialog);},onClose(origin){if(disposed)return;openDialog(origin==='result'&&resultShown?$('resultDialog'):$('entryDialog'));}});
+leaderboard=mountFastHandsLeaderboard({document,inlineUpload:{host:$('resultUploadHost'),trigger:$('resultUploadDirect'),hint:$('resultUploadHint'),resultDialog:$('resultDialog')},onOpen(dialog){interrupt('ranking');closeDialogs();openDialog(dialog);},onClose(origin){if(disposed)return;openDialog(origin==='result'&&resultShown?$('resultDialog'):$('entryDialog'));}});
 function syncVideo(){
  if(rendererMode==='fallback'&&demo&&!blocked()&&!document.hidden&&document.body.dataset.video!=='failed'){if(offline.paused)void offline.play().catch(()=>{});}
  else offline.pause();
@@ -132,6 +132,7 @@ function replayResult(){if(club?.blocked?.()||!replayClip||activePointer!==null|
 $('resultDemo').onclick=replayResult;
 $('mode').onchange=()=>{if(club?.blocked?.())return;interrupt('mode-change');preference=$('mode').value;if(preference!=='auto')mode=preference;cachedBest=readBest(storage,mode);reset();};
 $('play').onclick=startGame;$('retry').onclick=startGame;$('showDemo').onclick=showDemo;
+$('resultUploadDirect').onclick=()=>{if(!club?.blocked?.())leaderboard.showResultUpload();};
 $('resultUpload').onclick=()=>{if(!club?.blocked?.())leaderboard.showUpload();};
 $('entryRanking').onclick=()=>{if(!club?.blocked?.()||$('entryDialog').open&&!club?.navigationPending?.())leaderboard.showBoard({origin:'entry',mode});};
 $('resultRanking').onclick=()=>{if(!club?.blocked?.())leaderboard.showBoard({origin:'result',mode});};
