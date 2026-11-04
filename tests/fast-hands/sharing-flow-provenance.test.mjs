@@ -60,7 +60,7 @@ test('sharing flow protects timing, scores, boards, character geometry and every
 test('sharing flow additions reject fabricated baseline fields and altered current bytes',()=>{
  for(const path of api.SHARING_FLOW_ADDED){
   const bytes=read(path),row=api.sharingFlowLedger().files.find(r=>r.path===path);
-  assert.deepEqual(api.reverseSharingFlow(path,bytes,{files:[row]}),bytes);
+  assert.deepEqual(api.reverseSharingFlow(path,bytes,{files:[row]}),reverseResultUpload(path,bytes));
   for(const change of [{baseGitBlob:'0'.repeat(40)},{beforeSha256:'0'.repeat(64)},{beforeAsset:'docs/fast-hands/baselines/sharing-flow/'+path},{reverseEdits:[{start:0,end:0,beforeBase64:''}]}])assert.throws(()=>api.reverseSharingFlow(path,bytes,{files:[{...row,...change}]}));
  }
 });
