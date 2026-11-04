@@ -1,3 +1,4 @@
+import {ART_POLISH_ADDED,readArtPolishBaseline} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdtempSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
@@ -10,6 +11,7 @@ const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const read=p=>readFileSync(new URL(p,root));
+const historical=p=>readArtPolishBaseline(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('result upload has an explicit reversible outer provenance layer',()=>{
@@ -27,15 +29,15 @@ test('result upload pins the published baseline and exact approved runtime inven
  assert.deepEqual(api.RESULT_UPLOAD_ADDED,[prefix+'result-upload-host.mjs']);
  assert.deepEqual(api.RESULT_UPLOAD_CHANGED.map(p=>p.slice(prefix.length)).sort(),['app.mjs','catch.html','club.css','duel.html','finale.css','index.html','leaderboard.mjs','levels-app.mjs','levels-leaderboard.mjs']);
  assert.deepEqual(l.files.map(r=>r.path).sort(),[...api.RESULT_UPLOAD_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved,...ART_POLISH_ADDED.map(path=>({path}))].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(pins.RESULT_UPLOAD_BASE_BLOBS).sort());
  for(const r of l.files){
   const bytes=read(r.path),restored=api.reverseResultUpload(r.path,bytes,l);
-  assert.equal(sha(bytes),r.sha256);assert.throws(()=>api.reverseResultUpload(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/current bytes/);
+  assert.equal(sha(historical(r.path)),r.sha256);assert.throws(()=>api.reverseResultUpload(r.path,Buffer.concat([historical(r.path),Buffer.from('drift')]),l,{files:[]}),/current bytes/);
   if(r.beforeSha256!==null){assert.equal(sha(restored),r.beforeSha256);assert.equal(blob(restored),r.baseGitBlob);assert.equal(r.baseGitBlob,pins.RESULT_UPLOAD_BASE_BLOBS[r.path]);assert.deepEqual(restored,read(r.beforeAsset))}
  }
  assert.deepEqual(walk('docs/fast-hands/baselines/result-upload').sort(),l.files.filter(r=>r.beforeAsset).map(r=>r.beforeAsset).sort());
- assert.deepEqual(api.resultUploadRuntimeAdditions(),api.RESULT_UPLOAD_ADDED);
+ assert.deepEqual(api.resultUploadRuntimeAdditions(),[...api.RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
 });
 
 test('result upload rejects missing, duplicate, unapproved and repinned entries',()=>{
@@ -54,7 +56,7 @@ test('result upload protects rules, AI, timing, 3D, workers and every existing i
  for(const name of ['levels-rules.mjs','levels-motion.mjs','levels-world.mjs','levels-stage.mjs','physics.mjs','finish-timing.mjs','levels-replay.mjs','score-image.mjs','finale-image.mjs','levels-sound.mjs','club.mjs','share.mjs','levels-sharing.mjs'])assert.ok(preserved.has(prefix+name),name);
  assert.ok(preserved.has('public/assets/fast-hands-card-v2.webp'));
  for(const path of Object.keys(pins.RESULT_UPLOAD_BASE_BLOBS).filter(p=>p.startsWith(prefix+'assets/')||p.startsWith(prefix+'three3d/')||p.startsWith('worker/')))assert.ok(preserved.has(path),path);
- for(const r of l.preserved){const bytes=read(r.path);assert.equal(blob(bytes),r.gitBlob,r.path);assert.deepEqual(api.reverseResultUpload(r.path,bytes,l),bytes);assert.throws(()=>api.reverseResultUpload(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/preserved bytes/)}
+ for(const r of l.preserved){const bytes=read(r.path);assert.equal(blob(historical(r.path)),r.gitBlob,r.path);assert.deepEqual(api.reverseResultUpload(r.path,bytes,l),historical(r.path));assert.throws(()=>api.reverseResultUpload(r.path,Buffer.concat([historical(r.path),Buffer.from('drift')]),l,{files:[]}),/preserved bytes/)}
 });
 
 test('result upload retains every old ledger byte for byte including sharing flow',()=>{
@@ -67,18 +69,18 @@ test('result upload retains every old ledger byte for byte including sharing flo
 test('result upload rejects a corrupted frozen preimage even when its manifest hash is repinned',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'result-upload-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-result-upload-provenance.mjs','tests/helpers/fast-hands-result-upload-pins.mjs','docs/fast-hands/RESULT-UPLOAD-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/fast-hands-result-upload-provenance.mjs','tests/helpers/fast-hands-result-upload-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/RESULT-UPLOAD-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.resultUploadLedger(),row=l.files.find(r=>r.beforeSha256!==null),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-result-upload-provenance.mjs')).href);
-  assert.throws(()=>isolated.reverseResultUpload(row.path,read(row.path)),/Restored result upload/);
-  row.beforeSha256=sha(bad);row.baseGitBlob=blob(bad);assert.throws(()=>isolated.reverseResultUpload(row.path,read(row.path),l));
+  assert.throws(()=>isolated.reverseResultUpload(row.path,historical(row.path),l,{files:[]}),/Restored result upload/);
+  row.beforeSha256=sha(bad);row.baseGitBlob=blob(bad);assert.throws(()=>isolated.reverseResultUpload(row.path,historical(row.path),l,{files:[]}));
  }finally{rmSync(dir,{recursive:true,force:true})}
 });
 
 test('result upload rejects paths outside its allowlist and preserves outside reader semantics',()=>{
  assert.ok(api);const l=api.resultUploadLedger(),row=l.files.find(r=>r.beforeSha256!==null),bytes=read(row.path);
- for(const path of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>api.reverseResultUpload(path,bytes,{files:[{...row,path}]}),/Unapproved/);
+ for(const path of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>api.reverseResultUpload(path,bytes,{files:[{...row,path}]},{files:[]}),/Unapproved/);
  const url=new URL(row.path,root),expected=api.reverseResultUpload(row.path,bytes);
  assert.deepEqual(api.readResultUploadBaseline(url),expected);
  for(const options of ['utf8',{encoding:'utf8'}])assert.equal(api.readResultUploadBaseline(url,options),expected.toString());

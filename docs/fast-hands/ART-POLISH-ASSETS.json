@@ -1,0 +1,25 @@
+{
+  "assets": [
+    {
+      "path": "public/games/fast-hands/assets/intro-catch-generated.webp",
+      "sha256": "d1b20420be0a38c87494a15c9d431fc5b57b5b9db88c1c28de89752ec6db7494",
+      "bytes": 208316,
+      "width": 1536,
+      "height": 1024,
+      "originalPngSha256": "4333662e4d8eca40ffd4dc1ad95490daf50f718f311539fe3e339597555a5e23",
+      "source": "New illustration generated with imagegen from the existing duck cover and matching game character references.",
+      "productionConversion": "WebP quality90 method6, unchanged1536x1024, no crop or resize"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "sha256": "1eaec2ebf72e31cf610ecd80ba60c8303ec87adbe13a867fa732992d4e75a463",
+      "bytes": 255540,
+      "width": 1536,
+      "height": 1024,
+      "originalPngSha256": "92e41736b5225090b8894f270c9e56042fcaecbd96aa621bc31648266755f986",
+      "source": "New illustration generated with imagegen from the existing duck cover and matching game character references.",
+      "productionConversion": "WebP quality90 method6, unchanged1536x1024, no crop or resize"
+    }
+  ],
+  "scope": "Intro covers only; gameplay scene assets and captured result imagery are not replaced."
+}

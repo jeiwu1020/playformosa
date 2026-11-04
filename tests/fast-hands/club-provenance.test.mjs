@@ -1,3 +1,4 @@
+import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
 import {readEntryBaseline} from '../helpers/fast-hands-entry-provenance.mjs';
@@ -27,7 +28,7 @@ function api(){assert.equal(typeof helpers.reverseClub,'function','the outer clu
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('club synthetic reversal rejects drift, malformed edits, unapproved paths and invented parents',()=>{
- const reverseClub=(path,bytes,ledger)=>api().reverseClub(path,bytes,ledger,{files:[]},{files:[]},{files:[]},{files:[]}),path=prefix+'app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
+ const reverseClub=(path,bytes,ledger)=>api().reverseClub(path,bytes,ledger,{files:[]},{files:[]},{files:[]},{files:[]},{files:[]}),path=prefix+'app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]};
  const ledger={files:[row]};assert.deepEqual(reverseClub(path,bytes,ledger),before);
  assert.throws(()=>reverseClub(path,Buffer.concat([bytes,Buffer.from('!')]),ledger),/current bytes/);
@@ -49,7 +50,7 @@ test('club restores the exact a35cea8 baseline and admits only five presentation
  assert.equal(ledger.baseCommit,'a35cea8f150a3bab67ecd0ada34b437455906aaa');assert.equal(ledger.baseTree,'871fe04899d029d1ea46e66c975c5c90109bf3fc');
  assert.deepEqual(CLUB_CHANGED,changed);assert.deepEqual(CLUB_ADDED,added);
  assert.deepEqual(ledger.files.map(row=>row.path).sort(),[...changed,...added].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files.map(row=>row.path),...ledger.preserved.map(row=>row.path),...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED].sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files.map(row=>row.path),...ledger.preserved.map(row=>row.path),...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED].sort());
  for(const row of ledger.files){const bytes=read(row.path),restored=reverseClub(row.path,bytes,ledger);
   assert.throws(()=>reverseClub(row.path,Buffer.concat([bytes,Buffer.from('unreviewed drift')]),ledger));
   if(row.beforeSha256===null){assert.ok(added.includes(row.path));assert.equal(row.baseGitBlob,null);assert.deepEqual(row.reverseEdits,[]);}
@@ -88,9 +89,9 @@ test('club reverses its additional readiness condition to the exact old inline b
 });
 
 test('club additions are checked before admission through every older runtime inventory',async()=>{
- const {clubRuntimeAdditions}=api();assert.deepEqual(clubRuntimeAdditions(),[...added,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
+ const {clubRuntimeAdditions}=api();assert.deepEqual(clubRuntimeAdditions(),[...added,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
  const {stabilityRuntimeAdditions,STABILITY_ADDED}=await import('../helpers/fast-hands-stability-provenance.mjs');
- assert.deepEqual(stabilityRuntimeAdditions(),[...STABILITY_ADDED,...added,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
+ assert.deepEqual(stabilityRuntimeAdditions(),[...STABILITY_ADDED,...added,...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
  for(const [file,name] of [['fast-hands-levels-art-provenance.mjs','artRuntimeAdditions'],['fast-hands-levels-provenance.mjs','levelsRuntimeAdditions']]){
   const mod=await import('../helpers/'+file),paths=mod[name]();for(const path of added)assert.ok(paths.includes(path),name+' admits '+path);
  }

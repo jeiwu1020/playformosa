@@ -39,7 +39,9 @@ function encode(canvas){
 export async function captureFinaleImage({document=globalThis.document,canvas,renderFrame,fallback,width=900,height=620}={}){
  if(!document?.createElement||!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1||width>8192||height>8192)throw failure();
  const output=document.createElement('canvas');output.width=width;output.height=height;
- const ctx=output.getContext('2d');if(!ctx)throw failure();ctx.fillStyle='#eee9d9';ctx.fillRect(0,0,width,height);
+ const ctx=output.getContext('2d');if(!ctx)throw failure();
+ // Leave unused contain-fit pixels transparent so the real scene blends into
+ // result/share layouts without baking a contrasting frame into the capture.
  if(canvas){
   const rendered=renderFrame?.();
   if(rendered===false)throw failure();

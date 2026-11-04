@@ -1,3 +1,4 @@
+import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
 import {FINALE_ADDED} from '../helpers/fast-hands-finale-provenance.mjs';
@@ -18,7 +19,7 @@ const read=path=>readFileSync(new URL(path,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('entry reversal rejects altered current bytes, bad edits, wrong parent and unapproved paths',()=>{
- const reverseEntry=(p,b,l)=>reverseEntryLayer(p,b,l,{files:[]},{files:[]},{files:[]});
+ const reverseEntry=(p,b,l)=>reverseEntryLayer(p,b,l,{files:[]},{files:[]},{files:[]},{files:[]});
  const path=prefix+'app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]},ledger={files:[row]};
  assert.deepEqual(reverseEntry(path,bytes,ledger),before);
@@ -38,14 +39,14 @@ test('entry ledger covers exact runtime and pins the published preview/hurdles p
  assert.equal(ledger.baseTree,'5dbe97f03babec8ffba2e245a9cc5c348aedacfb');
  assert.deepEqual(ENTRY_CHANGED,['app.mjs','index.html','club.css'].map(p=>prefix+p));
  assert.deepEqual(ledger.files.map(r=>r.path).sort(),[...ENTRY_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).concat(FINALE_ADDED,SHARING_FLOW_ADDED,RESULT_UPLOAD_ADDED).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).concat(FINALE_ADDED,SHARING_FLOW_ADDED,RESULT_UPLOAD_ADDED,ART_POLISH_ADDED).sort());
  for(const row of ledger.files){
   const bytes=read(row.path),restored=reverseEntry(row.path,bytes,ledger);
   assert.throws(()=>reverseEntry(row.path,Buffer.concat([bytes,Buffer.from('drift')]),ledger));
   if(row.beforeSha256!==null){assert.equal(sha(restored),row.beforeSha256);assert.equal(blob(restored),row.baseGitBlob);assert.equal(row.baseGitBlob,pinned[row.path.slice(prefix.length)]);}
   if(row.beforeAsset){const bad=structuredClone(ledger);bad.files.find(r=>r.path===row.path).beforeAsset='../../escape';assert.throws(()=>reverseEntry(row.path,bytes,bad));}
  }
- assert.deepEqual(entryRuntimeAdditions(),[...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED]);
+ assert.deepEqual(entryRuntimeAdditions(),[...ENTRY_ADDED,...FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
 });
 
 test('entry preserves unrelated art, timing, rules, ranking and every historical ledger byte',()=>{

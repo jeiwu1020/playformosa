@@ -457,3 +457,8 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .secondary-control{grid-row:2}
   body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
 }
+
+/* The duel scene is artwork, not a renderer diagnostic. Keep preparation status
+   and the separate actionable art error; fallback details remain in help. */
+body.fast-hands-club[data-club-mode="duel"][data-renderer="3d"] #renderMode,
+body.fast-hands-club[data-club-mode="duel"][data-renderer="fallback"] #renderMode {display:none}

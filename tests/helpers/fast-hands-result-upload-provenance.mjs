@@ -1,3 +1,4 @@
+import {reverseArtPolish,artPolishLedger,artPolishRuntimeAdditions} from './fast-hands-art-polish-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -46,7 +47,8 @@ export function validateResultUploadLedger(ledger){
 }
 export const resultUploadLedger=()=>validateResultUploadLedger(JSON.parse(readFileSync(new URL('docs/fast-hands/RESULT-UPLOAD-MANIFEST.json',root),'utf8')));
 
-export function reverseResultUpload(path,bytes,ledger=resultUploadLedger()){
+export function reverseResultUpload(path,bytes,ledger=resultUploadLedger(),outerLedger=artPolishLedger()){
+ bytes=reverseArtPolish(path,bytes,outerLedger);
  const rows=ledger.files.filter(r=>r.path===path);assert.ok(rows.length<=1,'Duplicate result upload entry '+path);
  if(!rows.length){
   const preserved=ledger.preserved?.filter(r=>r.path===path)??[];assert.ok(preserved.length<=1,'Duplicate result upload preserved entry '+path);
@@ -71,5 +73,5 @@ export function readResultUploadBaseline(file,options){
 }
 export function resultUploadRuntimeAdditions(){
  const ledger=resultUploadLedger();for(const path of RESULT_UPLOAD_ADDED)reverseResultUpload(path,readFileSync(new URL(path,root)),ledger);
- return [...RESULT_UPLOAD_ADDED];
+ return [...RESULT_UPLOAD_ADDED,...artPolishRuntimeAdditions()];
 }

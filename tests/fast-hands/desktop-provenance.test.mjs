@@ -1,3 +1,4 @@
+import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
 import {FINALE_ADDED,readFinaleBaseline} from '../helpers/fast-hands-finale-provenance.mjs';
@@ -15,7 +16,7 @@ const reverseDesktop=reverseDesktopLayer;
 const read=path=>readFileSync(new URL(path,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 test('desktop reversal rejects drift, malformed edits, wrong parent and unapproved paths',()=>{
- const reverseDesktop=(p,b,l)=>reverseDesktopLayer(p,b,l,{files:[]},{files:[]},{files:[]});
+ const reverseDesktop=(p,b,l)=>reverseDesktopLayer(p,b,l,{files:[]},{files:[]},{files:[]},{files:[]});
  const path=prefix+'club.css',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]},ledger={files:[row]};
  assert.deepEqual(reverseDesktop(path,bytes,ledger),before);
@@ -31,7 +32,7 @@ test('desktop ledger pins published parent and allows only club CSS runtime chan
  assert.deepEqual(DESKTOP_ALLOWED,[prefix+'club.css']);
  assert.deepEqual(ledger.files.map(r=>r.path),DESKTOP_ALLOWED);
  assert.equal(ledger.files[0].baseGitBlob,'8d5d87fe337f8200025c6dab380990beb579b121');
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).concat(FINALE_ADDED,SHARING_FLOW_ADDED,RESULT_UPLOAD_ADDED).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).concat(FINALE_ADDED,SHARING_FLOW_ADDED,RESULT_UPLOAD_ADDED,ART_POLISH_ADDED).sort());
  for(const row of ledger.files){const bytes=read(row.path),restored=reverseDesktop(row.path,bytes,ledger);assert.equal(sha(restored),row.beforeSha256);assert.equal(blob(restored),row.baseGitBlob);assert.throws(()=>reverseDesktop(row.path,Buffer.concat([bytes,Buffer.from('drift')]),ledger));}
  for(const row of ledger.preserved)assert.equal(blob(readFinaleBaseline(new URL(row.path,root))),row.gitBlob,row.path);
  assert.equal(ledger.historicalLedgers.length,12);
@@ -48,7 +49,7 @@ test('desktop baseline reader preserves encodings, URL/path handling and outside
 
 test('historical desktop CSS is append-only and every appended rule is gated above mobile widths',async()=>{
  const {default:postcss}=await import('postcss');
- const path=prefix+'club.css',current=readFinaleBaseline(new URL(path,root)),baseline=reverseDesktopLayer(path,current,desktopLedger(),{files:[]},{files:[]},{files:[]});
+ const path=prefix+'club.css',current=readFinaleBaseline(new URL(path,root)),baseline=reverseDesktopLayer(path,current,desktopLedger(),{files:[]},{files:[]},{files:[]},{files:[]});
  assert.deepEqual(current.subarray(0,baseline.length),baseline);
  const appended=postcss.parse(current.subarray(baseline.length).toString('utf8'));
  assert.ok(appended.nodes.some(n=>n.type==='atrule'));

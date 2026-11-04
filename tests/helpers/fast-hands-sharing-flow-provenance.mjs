@@ -1,3 +1,4 @@
+import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {reverseResultUpload,resultUploadLedger,resultUploadRuntimeAdditions} from './fast-hands-result-upload-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -49,8 +50,8 @@ export function validateSharingFlowLedger(ledger){
 
 export const sharingFlowLedger=()=>validateSharingFlowLedger(JSON.parse(readFileSync(new URL('docs/fast-hands/SHARING-FLOW-MANIFEST.json',root),'utf8')));
 
-export function reverseSharingFlow(path,bytes,ledger=sharingFlowLedger(),outerLedger=resultUploadLedger()){
- bytes=reverseResultUpload(path,bytes,outerLedger);
+export function reverseSharingFlow(path,bytes,ledger=sharingFlowLedger(),outerLedger=resultUploadLedger(),artPolish=artPolishLedger()){
+ bytes=reverseResultUpload(path,bytes,outerLedger,artPolish);
  const row=ledger.files.find(r=>r.path===path);
  if(!row){
   const preserved=ledger.preserved?.find(r=>r.path===path);
