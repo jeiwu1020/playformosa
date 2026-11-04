@@ -13,12 +13,13 @@ Base: a35cea8f150a3bab67ecd0ada34b437455906aaa, preview/hurdles. Main is outside
 ## Verified
 
 - Browser fixture: 680/680 assertions, across duck/catch/duel at 1000x560, 1024x600, 1366x768, 1920x1080, 320x568, 360x640, 390x844, 430x932, 768x1024 and 844x390. It checks body and document height, horizontal overflow, stage order, action bounds and stable position, result bounds, and repeated results after native asynchronous dialog close events.
+- A final two-declaration CSS correction explicitly orders result retry above practice at every breakpoint. Its computed-cascade regression passed at nine sizes in both new modes; club-layout17/17. The680-assertion browser run preceded this narrow ordering correction, and deployed ordering is a separate final smoke check.
 - All ten tested dimensions fit the play surface into one viewport. At 844x390 the stage is deliberately compact: duck110px and catch/duel122px. Touch controls remain at least44px tall.
 - Real browser interaction: initial introduction/start/duck demo, direct mode switch without another intro, cancel and accept a busy switch, paused Back restoration, duck terminal result and retained result actions. Visual inspection covered narrow portrait introduction/play/results, desktop duck result and short landscape play.
 - New/regression cases include queued dialog close events after retry in both modes and deferring results while the introduction is open. These failures were reproduced before the fix.
-- Focused provenance/startup/result checks: 69/69. Manifest-generator negative cases:6/6.
-- Fast Hands suite:424/425 passed. The remaining failure is the pre-existing missing javelin apple-touch icon in this minimal source reconstruction.
-- Full repository suite:1856/1878 passed. All22 failures are the same baseline failures, involving missing historical binary assets and unavailable database-test dependencies. No new failure was introduced; this is not a claim of a clean aggregate run.
+- Focused provenance/startup/result/layout checks: 86/86. Manifest-generator negative cases:6/6.
+- Fast Hands suite:425/426 passed. The remaining failure is the pre-existing missing javelin apple-touch icon in this minimal source reconstruction.
+- Full repository suite:1857/1879 passed. All22 failures are the same baseline failures, involving missing historical binary assets and unavailable database-test dependencies. No new failure was introduced; this is not a claim of a clean aggregate run.
 - Static build and preview release preflight both passed after the final runtime changes.
 
 ## Preservation and limits

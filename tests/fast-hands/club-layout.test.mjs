@@ -175,3 +175,20 @@ test('wide short landscape shares the navigation row without moving controls alo
     p.dom.window.close();
   }
 });
+
+test('completed catch and duel tickets keep retry above practice despite desktop summary rules', () => {
+  for (const name of ['catch','duel']) {
+    for (const [width,height] of [...sizes].reverse()) {
+      const p=page(name,width,height,'done');
+      p.document.body.dataset.summary='true';
+      const summary=p.document.querySelector('#summary');
+      summary.hidden=false;
+      summary.setAttribute('open','');
+      assert.equal(p.style('#summaryPractice').gridRow,'2',`${name} ${width}×${height}: practice is the second action`);
+      assert.equal(p.style('#summaryAgain').gridRow,'1',`${name} ${width}×${height}: retry is always first`);
+      assert.equal(p.style('#summaryPractice').gridColumn,'1/-1');
+      assert.equal(p.style('#summaryAgain').gridColumn,'1/-1');
+      p.dom.window.close();
+    }
+  }
+});
