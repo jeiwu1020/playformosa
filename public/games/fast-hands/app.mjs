@@ -1,3 +1,4 @@
+import {mountClub} from './club.mjs';
 import {mountFastHandsSharing} from './share.mjs';
 import {createReplayRecorder,recordReplay,finishReplay,sampleReplay} from './replay.mjs';
 import {mountFastHandsLeaderboard} from './leaderboard.mjs';
@@ -15,16 +16,17 @@ const $=id=>document.getElementById(id),pad=$('pad'),canvas=$('scene'),clock=()=
 let s=newRun(),mode=matchMedia('(pointer:coarse)').matches?'touch':'mouse',demo=true,demoStart=clock(),activePointer=null,activeType=null,preference='auto',gestureRect=null,muted=false,ac=null,soundCount=0,storage=null,lastPhase='',finishStartedAt=null;
 try{storage=localStorage;}catch{}
 let cachedBest=readBest(storage,mode),stage=null,sampleForRun=null,raf=null,disposed=false,rendererMode='loading',previousBest=null,resultShown=false,terminalSeenAt=null,recordSaveFailed=false;
-let resultForSharing=null;
+let resultForSharing=null,club=null,resultSuppressed=false;
 let leaderboard=null,recorder=null,replayClip=null,replaying=false,replayStart=0;
 const sharing=mountFastHandsSharing({document,createImage:createScoreImage});
 const offline=$('demo3d'),dialogs=[$('entryDialog'),$('info'),$('resultDialog'),$('rankingDialog')];
 const isTerminal=phase=>['success','failed','cancelled'].includes(phase);
-const blocked=()=>dialogs.some(dialog=>dialog.open);
+const blocked=()=>dialogs.some(dialog=>dialog.open)||Boolean(club?.blocked());
 function syncOverlay(){document.body.dataset.overlay=$('rankingDialog').open?'ranking':$('entryDialog').open?'entry':$('resultDialog').open?'result':$('info').open?'help':'';syncVideo();}
 function closeDialogs(){if($('rankingDialog').open)leaderboard?.dismiss(false);for(const dialog of dialogs)if(dialog.open)dialog.close();syncOverlay();}
 function openDialog(dialog){dialog.hidden=false;if(!dialog.open)dialog.showModal();syncOverlay();}
 for(const dialog of dialogs)dialog.addEventListener('close',syncOverlay);
+document.addEventListener('clubchange',syncOverlay);
 leaderboard=mountFastHandsLeaderboard({document,onOpen(dialog){interrupt('ranking');closeDialogs();openDialog(dialog);},onClose(origin){if(disposed)return;openDialog(origin==='result'&&resultShown?$('resultDialog'):$('entryDialog'));}});
 function syncVideo(){
  if(rendererMode==='fallback'&&demo&&!blocked()&&!document.hidden&&document.body.dataset.video!=='failed'){if(offline.paused)void offline.play().catch(()=>{});}
@@ -46,7 +48,7 @@ function unlock(){try{ac??=new AudioContext();void ac.resume().catch(()=>{});}ca
 function quack(){if(muted)return;try{unlock();if(ac){squeak(ac);soundCount++;$('sound').dataset.playCount=String(soundCount);}}catch{$('sound').textContent='音效暫不可用';}}
 function clearPointer(){const id=activePointer;activePointer=null;activeType=null;gestureRect=null;if(id!==null&&pad.hasPointerCapture(id))pad.releasePointerCapture(id);}
 function stopReplay(){replaying=false;document.body.dataset.playback='';lastPhase='';}
-function reset(){stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
+function reset(){resultSuppressed=false;stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
 function interrupt(reason){stopReplay();if(activePointer!==null){s=cancel(s,clock(),reason);recordReplay(recorder,s,clock());}clearPointer();}
 function apply(next,at=next.lastAt){const prev=s;s=next;if(next!==prev)recordReplay(recorder,next,at);if(prev.pickupAt===null&&s.pickupAt!==null)quack();if(prev.phase!=='success'&&s.phase==='success'){leaderboard.captureResult(s,mode,{demo});finishStartedAt=clock();previousBest=readBest(storage,mode);const saved=saveBest(storage,mode,s.elapsedMs);recordSaveFailed=saved===null;cachedBest=saved??previousBest;}}
 function sampleTime(e){return eventTime(e,performance.timeOrigin,clock());}
@@ -63,7 +65,7 @@ document.addEventListener('visibilitychange',syncVideo);
 window.addEventListener('storage',()=>{cachedBest=readBest(storage,mode);});
 function startGame(){closeDialogs();demo=false;reset();syncVideo();unlock();}
 function showDemo(){closeDialogs();reset();demo=true;demoStart=clock();offline.currentTime=0;syncVideo();}
-function showMenu(){interrupt('menu');closeDialogs();openDialog($('entryDialog'));}
+function interruptForClub({reason}){interrupt(reason);resultSuppressed=true;terminalSeenAt=null;syncVideo();}
 function showResult(){
  stopReplay();
  const view=snapshot(s,clock());
@@ -79,8 +81,6 @@ function replayResult(){if(!replayClip||activePointer!==null||demo)return;closeD
 $('resultDemo').onclick=replayResult;
 $('mode').onchange=()=>{interrupt('mode-change');preference=$('mode').value;if(preference!=='auto')mode=preference;cachedBest=readBest(storage,mode);reset();};
 $('play').onclick=startGame;$('retry').onclick=startGame;$('showDemo').onclick=showDemo;
-$('entryStart').onclick=showDemo;$('openMenu').onclick=showMenu;
-$('entryClose').onclick=()=>{$('entryDialog').close();syncOverlay();};
 $('resultUpload').onclick=()=>leaderboard.showUpload();
 $('entryRanking').onclick=()=>leaderboard.showBoard({origin:'entry',mode});
 $('resultRanking').onclick=()=>leaderboard.showBoard({origin:'result',mode});
@@ -104,12 +104,12 @@ function updateControls(view){
 const labels={idle:'從紙鈔開始，按住準備出手',armed:'準備好了，就往右滑',outbound:'一路往右，抓小鴨！',returning:'抓到了，快滑回左邊！',success:'兩樣都接住了！',failed:'鈔票落地了，再試一次',cancelled:'這輪中止，不留成績'};
 const prompts={idle:'從紙鈔開始 → 抓小鴨 → 回紙鈔',armed:'滑出左邊起點，才開始計時',outbound:'全程按住，碰到右邊就抓起',returning:'不要放開！一口氣滑回左邊',success:'漂亮！再比一次自己的紀錄',failed:'在左邊重新按住，就能再挑戰',cancelled:'在左邊重新按住，就能再挑戰'};
 function draw(){if(disposed)return;const now=clock(),demoTime=rendererMode==='fallback'&&offline.readyState>=1&&document.body.dataset.video!=='failed'?offline.currentTime*1000:now-demoStart,d=demo?(rendererMode==='loading'||(rendererMode==='fallback'&&document.body.dataset.video==='failed')?demoSample(now-demoStart):demo3D(demoTime)):null,playback=replaying?sampleReplay(replayClip,now-replayStart):null,view=playback?.state??(d?d.state:snapshot(s,now)),phase=demo?'demo':view.phase;if(lastPhase!==phase){document.body.dataset.phase=phase;$('status').textContent=demo?'動作示範':labels[view.phase];lastPhase=phase;}if(d)$('status').textContent=d.label;if(playback)$('status').textContent='本次操作重播 · 原速';$('badge').textContent=replaying?'本次重播':demo?'先看一次':view.phase==='success'?'完成！':view.phase==='armed'?'準備中':'一筆挑戰';$('play').hidden=!demo;$('retry').hidden=demo;$('showDemo').hidden=demo;$('mode').disabled=activePointer!==null||replaying;$('instruction').textContent=replaying?'正在重播你這一輪的操作':demo?'從紙鈔開始 → 抓小鴨 → 回紙鈔':prompts[view.phase];$('gestureHint').textContent=replaying?'原速重播 · 不計分，不會再上傳':demo?'按住紙鈔區，全程不放開':preference==='auto'&&view.phase==='idle'?'滑鼠或單指，全程按住':mode==='touch'?'同一根手指，不放開':'按住左鍵，不放開';updateControls(view);const ms=demo?0:view.elapsedMs;$('time').innerHTML=(ms/1000).toFixed(3)+' <small>s</small>';$('time').dataset.ms=String(ms);const best=cachedBest;$('best').textContent=best===null?'—':(best/1000).toFixed(3)+' s';$('bestMode').textContent=mode==='touch'?'觸控':'滑鼠';$('distance').innerHTML=((demo?0:view.dropPx)/150*100).toFixed(1)+' <small>cm</small>';$('thumb').style.left=((view.controlX??.1)*100)+'%';const finishAge=playback?.finishAge??(finishStartedAt===null?0:Math.max(0,now-finishStartedAt));
- if(!demo&&!replaying&&isTerminal(view.phase)){terminalSeenAt??=now;if(activePointer===null&&!resultShown&&!blocked()&&!document.hidden&&now-(view.phase==='success'?finishStartedAt:terminalSeenAt)>=(view.phase==='success'?FINISH_RESULT_DELAY_MS:350))showResult();}else terminalSeenAt=null;
+ if(!demo&&!replaying&&isTerminal(view.phase)){terminalSeenAt??=now;if(activePointer===null&&!resultShown&&!resultSuppressed&&!blocked()&&!document.hidden&&now-(view.phase==='success'?finishStartedAt:terminalSeenAt)>=(view.phase==='success'?FINISH_RESULT_DELAY_MS:350))showResult();}else terminalSeenAt=null;
  if(!document.hidden){
   if(stage){stage.render(d?.sample??sampleForRun(view,finishAge),{now,maxFps:demo?30:60});document.body.dataset.renderFrames=String(stage?.metrics.frames??0);document.body.dataset.triangles=String(stage?.metrics.triangles??0);document.body.dataset.renderMs=String(stage?.metrics.renderMs??0);}
   else if(!demo||rendererMode==='loading'||document.body.dataset.video==='failed')renderScene(canvas,{state:view,pose:d?.pose??poseForRun(view,finishAge),demo},torso);
  }
  if(playback?.done&&!blocked()&&!document.hidden)showResult();
  raf=requestAnimationFrame(draw);}
-openDialog($('entryDialog'));
+club=mountClub({document,window,mode:'duck',isActive:()=>!demo&&activePointer!==null&&s.phase!=='success',onInterrupt:interruptForClub,onStart:showDemo});
 raf=requestAnimationFrame(draw);

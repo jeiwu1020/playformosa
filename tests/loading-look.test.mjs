@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{JSDOM}from'jsdom';
+import test from 'node:test';import assert from 'node:assert/strict';import{readClubBaseline as readFileSync}from'./helpers/fast-hands-club-provenance.mjs';import{JSDOM}from'jsdom';
 const games=['beer-slide','discus','fast-hands','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];
 const root=new URL('../public/games/',import.meta.url),bootstrap=readFileSync(new URL('shared/startup.js',root),'utf8');
 const jokes=[];

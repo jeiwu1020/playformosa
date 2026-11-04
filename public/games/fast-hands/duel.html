@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜十回合對決</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"></head>
-<body class="level-page" data-level="duel" data-phase="idle" data-renderer="pending">
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜十回合對決</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"></head>
+<body class="level-page fast-hands-club" data-club-mode="duel" data-level="duel" data-phase="idle" data-renderer="pending">
 <main class="level-main">
- <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>十回合對決</h1></div><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
- <nav class="level-switch" aria-label="切換快手王關卡"><a href="./"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" aria-current="page"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+ <header class="level-header"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>十回合對決</h1></div><button id="openMenu" type="button" class="quiet-button" aria-label="重看三種玩法介紹">玩法</button><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button></header>
+ <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel" aria-current="page"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
  <section class="level-hud" aria-label="本場比分"><div><span>你 · 運動員</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span id="speedLabel" class="arcade-badge">AI 虛擬對手 · 十種驚喜</span></div><div><span>AI 快手王</span><strong id="opponentScore">—</strong></div></section>
  <section id="stage" class="level-stage" aria-label="運動員與快手王伸手搶同一件物品">
   <div class="stage-top"><span class="stage-kicker">GRAB / SHOWDOWN</span><span id="renderMode" class="stage-tag">正在載入 3D 場景</span></div>
@@ -20,12 +20,30 @@
   <div class="prize-caption"><p class="eyebrow">THIS ROUND’S COLLECTIBLE</p><strong id="itemName">阿嬤的飛天拖鞋</strong><p id="itemQuip">這次不用閃，搶到算你的。</p></div>
  </section>
  <section class="round-feedback" aria-label="當前回合"><p class="eyebrow">TEN ROUNDS. ONE WINNER.</p><h2 id="roundStatus" aria-live="polite">先熱身，再挑戰。</h2><p id="roundHint">先練習一次，不列入本局成績。</p><div id="roundDots" class="round-dots" aria-label="挑戰進度"></div></section>
- <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><div class="summary-overview"><p class="eyebrow">YOUR RUN</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p></div><ol id="roundResults" class="round-results"></ol><nav id="resultPages" class="result-pages" aria-label="關卡紀錄分頁" hidden><button id="resultPrev" type="button" class="quiet-button">上一頁</button><span id="resultPageLabel" aria-live="polite"></span><button id="resultNext" type="button" class="quiet-button">下一頁</button></nav><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
+ <dialog id="summary" class="ticket-dialog result-dialog club-summary" aria-labelledby="summaryTitle" hidden><button id="summaryClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button><div class="summary-overview"><p class="eyebrow">YOUR RUN</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p></div><details class="summary-scroll"><summary>查看本局明細</summary><ol id="roundResults" class="round-results"></ol><nav id="resultPages" class="result-pages" aria-label="關卡紀錄分頁" hidden><button id="resultPrev" type="button" class="quiet-button">上一頁</button><span id="resultPageLabel" aria-live="polite"></span><button id="resultNext" type="button" class="quiet-button">下一頁</button></nav><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></details><div class="summary-actions club-result-actions"><button id="summaryAgain" type="button" class="action-button">再挑戰一次</button><button id="summaryPractice" type="button" class="practice-button">回到練習</button></div><nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel" aria-current="page"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav></dialog>
  <img id="atlasProbe" src="assets/duel-items-atlas.png" alt="" hidden>
  <p id="artStatus" class="art-status" role="status" hidden></p>
  <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
- <div class="level-controls"><div class="primary-control"><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div></div>
- <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details>
+ <div class="level-controls"><div class="primary-control"><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button> <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details></div></div>
+
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
- <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./">回到小鴨關卡</a></noscript>
-</main><script type="module" src="levels-app.mjs"></script></body></html>
+ <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./" data-club-mode="duck">回到小鴨關卡</a></noscript>
+</main>
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+    <div class="ticket-top">
+      <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
+      <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
+      <h2 id="entryTitle">快手王</h2>
+      <p id="entryDescription">三種手速挑戰，先從小鴨示範開始。</p>
+    </div>
+    <div class="ticket-body">
+      <div class="club-cards">
+        <article class="club-card"><img src="assets/control-duck.svg" alt="小鴨" width="100" height="80"><h3>小鴨往返</h3><p>按住紙鈔，滑去抓小鴨，再一口氣滑回來。</p></article>
+        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王準備接住泡棉玩具彈" width="160" height="100"><h3>玩具彈接接樂</h3><p>看準玩具彈到掌心時按「接！」，接住就晉級。</p></article>
+        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品" width="160" height="100"><h3>十回合對決</h3><p>等「出手！」再按「搶！」，和快手王比十回合。</p></article>
+      </div>
+      <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button></div>
+      <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    </div>
+  </dialog>
+<script type="module" src="levels-app.mjs"></script></body></html>

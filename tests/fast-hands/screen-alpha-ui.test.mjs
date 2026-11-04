@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import{read
 const root=new URL('../../public/games/fast-hands/',import.meta.url);
 test('catch long runs retain all results through ten-entry pages without changing game state',()=>{
  const dom=new JSDOM(readFileSync(new URL('catch.html',root),'utf8'),{pretendToBeVisual:true});let now=0,frame;
- const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{},stageLoader:()=>null});const $=id=>dom.window.document.getElementById(id);
+ const app=mountLevel({clubFactory:()=>({destroy(){},blocked:()=>false}),document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{},stageLoader:()=>null});const $=id=>dom.window.document.getElementById(id);
  const tick=target=>{while(now+100<target){now+=100;frame(now);}now=target;frame(now);};
  const nextRound=()=>{if(['feedback','done'].includes(app.state.phase))tick(now+520);$('roundButton').click();};
  nextRound();$('actionButton').click();for(let i=0;i<25;i++){nextRound();tick(app.state.readyAt);tick(app.state.targetAt);$('actionButton').click();} nextRound();$('actionButton').click();tick(now+520);

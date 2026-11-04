@@ -1,3 +1,4 @@
+import {readClubBaseline,CLUB_ADDED} from '../helpers/fast-hands-club-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -15,7 +16,7 @@ test('stability admits exactly its approved level files and restores the publish
  const l=ledger();assert.equal(l.baseCommit,'d4a63fe65358d15b5c232e67767a57bcfce292b7');assert.equal(l.baseTree,'b6c4841caa4bf1dd223281352bfe50433345b9f0');
  assert.deepEqual(l.files.map(f=>f.path).sort(),[...helpers.STABILITY_CHANGED,...helpers.STABILITY_ADDED].sort());
  assert.equal(helpers.STABILITY_CHANGED.length,12);assert.equal(helpers.STABILITY_ADDED.length,11);
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(f=>f.path).sort(),'unknown runtime files must not enter the admission list');
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(f=>f.path).concat(CLUB_ADDED).sort(),'unknown runtime files must not enter the admission list');
  for(const row of l.files){
   const bytes=read(row.path),restored=helpers.reverseStability(row.path,bytes,l);
   assert.throws(()=>helpers.reverseStability(row.path,Buffer.concat([bytes,Buffer.from('unreviewed drift')]),l));
@@ -27,7 +28,7 @@ test('stability admits exactly its approved level files and restores the publish
 test('stability leaves the original duck, models, atlas, stage, ranking and every other runtime byte-exact',()=>{
  const l=ledger();
  for(const path of ['app.mjs','style.css','physics.mjs','three3d/rig.mjs','three3d/world.mjs','levels-stage.mjs','assets/duel-items-atlas.png','leaderboard.mjs','score-image.mjs'])assert.ok(l.preserved.some(f=>f.path==='public/games/fast-hands/'+path),path);
- for(const row of l.preserved)assert.equal(blob(read(row.path)),row.gitBlob,row.path);
+ for(const row of l.preserved)assert.equal(blob(readClubBaseline(new URL(row.path,root))),row.gitBlob,row.path);
 });
 
 test('stability stores binary and large reversals as bounded local baseline assets',()=>{
@@ -61,6 +62,6 @@ test('rules changes are only the requested initial speed and equivalent inclusiv
 test('new shared motion and every fallback keyframe join the runtime admission chain',async()=>{
  ledger();const {artRuntimeAdditions}=await import('../helpers/fast-hands-levels-art-provenance.mjs');
  const {levelsRuntimeAdditions}=await import('../helpers/fast-hands-levels-provenance.mjs');
- assert.deepEqual(helpers.stabilityRuntimeAdditions(),helpers.STABILITY_ADDED);
+ assert.deepEqual(helpers.stabilityRuntimeAdditions(),[...helpers.STABILITY_ADDED,...CLUB_ADDED]);
  for(const path of helpers.STABILITY_ADDED){assert.ok(artRuntimeAdditions().includes(path));assert.ok(levelsRuntimeAdditions().includes(path));}
 });

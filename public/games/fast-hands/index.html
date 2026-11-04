@@ -28,14 +28,14 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
  const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
  function ready(){
   const entry=doc.querySelector(selector);
-  if(done||!entry||entry.hidden)return false;
+  if(done||((!entry||entry.hidden)&&doc.body?.dataset.clubReady!=='true'))return false;
   done=true;clearTimeout(timer);observer.disconnect();
   window.removeEventListener('error',failed,true);
   window.removeEventListener('unhandledrejection',failed);
   root.dataset.pfStartup='ready';
   doc.getElementById('pf-startup')?.remove();
   // Native/fallback modal focus may have been attempted while visually gated.
-  if(!entry.contains(doc.activeElement)){
+  if(entry&&!entry.contains(doc.activeElement)){
    const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
    const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
    (target||entry).focus({preventScroll:true});
@@ -50,7 +50,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
   // Keep observing: a slow connection can still finish without a forced reload.
  }
  const observer=new MutationObserver(ready);
- observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden','data-club-ready']});
  window.addEventListener('error',failed,true);
  window.addEventListener('unhandledrejection',failed);
  timer=setTimeout(failed,15000);
@@ -61,10 +61,10 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
   <meta name="theme-color" content="#fff9e9">
   <title>快手王｜一筆往返</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="level-nav.css">
+  <link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css">
   <link rel="stylesheet" href="../shared/studio-brand.css">
 </head>
-<body class="pf-game pf-fast-hands" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">小鴨準備好了，鈔票正在做心理準備。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
+<body class="pf-game pf-fast-hands fast-hands-club" data-club-mode="duck" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">小鴨準備好了，鈔票正在做心理準備。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
   <main>
     <header class="game-header pf-header">
       <a class="pf-home" href="/#minigames" aria-label="返回小遊戲首頁">← 首頁</a>
@@ -79,7 +79,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
         <button id="headerSettings" type="button" class="quiet-button">設定</button>
         <button id="openMenu" type="button" class="menu-button" aria-label="開啟遊戲選單"><span aria-hidden="true">☰</span><span>選單</span></button>
       </nav>
-      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" aria-current="page"><span aria-hidden="true">🦆</span>小鴨往返</a><a href="catch.html"><span aria-hidden="true">🟠</span>玩具彈接接樂</a><a href="duel.html"><span aria-hidden="true">⚡</span>十回合對決</a></nav>
+      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
     </header>
 
     <section class="scene-card" aria-label="鈔票與小鴨示範舞台">
@@ -130,29 +130,20 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     <footer><span>一口氣往返，全程不放開。</span><span>本機紀錄 · 滑鼠與觸控分開</span></footer>
   </main>
 
-  <dialog id="entryDialog" class="ticket-dialog entry-dialog" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
     <div class="ticket-top">
-      <span class="ticket-kicker">PLAYFORMOSA · 手速挑戰</span>
-      <button id="entryClose" type="button" class="close-button" aria-label="關閉選單，回到遊戲">×</button>
-      <h2 id="entryTitle">快手王<span>一筆往返</span></h2>
-      <p id="entryDescription">鈔票落地前，把小鴨一起帶回來。</p>
+      <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
+      <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
+      <h2 id="entryTitle">快手王</h2>
+      <p id="entryDescription">三種手速挑戰，先從小鴨示範開始。</p>
     </div>
     <div class="ticket-body">
-      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" aria-current="page"><span aria-hidden="true">🦆</span>小鴨往返</a><a href="catch.html"><span aria-hidden="true">🟠</span>玩具彈接接樂</a><a href="duel.html"><span aria-hidden="true">⚡</span>十回合對決</a></nav>
-      <div class="entry-route" aria-hidden="true">
-        <img src="assets/control-bill.svg" alt=""><span><b>抓鴨 →</b><b>← 接鈔</b></span><img src="assets/control-duck.svg" alt="">
+      <div class="club-cards">
+        <article class="club-card"><img src="assets/control-duck.svg" alt="小鴨" width="100" height="80"><h3>小鴨往返</h3><p>按住紙鈔，滑去抓小鴨，再一口氣滑回來。</p></article>
+        <article class="club-card"><img src="assets/levels-catch-ready.png" alt="快手王準備接住泡棉玩具彈" width="160" height="100"><h3>玩具彈接接樂</h3><p>看準玩具彈到掌心時按「接！」，接住就晉級。</p></article>
+        <article class="club-card"><img src="assets/levels-duel-ready.png" alt="運動員與快手王準備搶物品" width="160" height="100"><h3>十回合對決</h3><p>等「出手！」再按「搶！」，和快手王比十回合。</p></article>
       </div>
-      <ol class="entry-steps">
-        <li><span>1</span><div><strong>從紙鈔開始</strong><small>按住左側紙鈔區，準備好再出發。</small></div></li>
-        <li><span>2</span><div><strong>滑到小鴨，再滑回來</strong><small>一路不放開，碰到小鴨就回頭。</small></div></li>
-        <li><span>3</span><div><strong>搶在鈔票落地前回家</strong><small>只計離開起點後的完整往返時間。</small></div></li>
-      </ol>
-      <div class="entry-buttons">
-        <button id="entryStart" type="button" class="primary">開始挑戰 <span aria-hidden="true">→</span></button>
-        <button id="entryRanking" type="button" class="secondary">查看測試排行榜</button>
-        <button id="about" type="button" class="quiet-button">玩法與設定</button>
-      </div>
-      <p class="ticket-note">滑鼠、觸控自動辨識 · 同一筆完成</p>
+      <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="about" type="button" class="quiet-button">操作設定</button></div></div>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
   </dialog>
@@ -192,7 +183,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
       </section>
       <p id="downloadStatus" class="result-status" aria-live="polite"></p>
       <p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
-      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" aria-current="page"><span aria-hidden="true">🦆</span>小鴨往返</a><a href="catch.html"><span aria-hidden="true">🟠</span>玩具彈接接樂</a><a href="duel.html"><span aria-hidden="true">⚡</span>十回合對決</a></nav>
+      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
       <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
   </dialog>

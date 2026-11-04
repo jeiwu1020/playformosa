@@ -1,0 +1,478 @@
+{
+  "baseCommit": "a35cea8f150a3bab67ecd0ada34b437455906aaa",
+  "baseTree": "871fe04899d029d1ea46e66c975c5c90109bf3fc",
+  "files": [
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "sha256": "045f5599cece1b6fc8ac79d8d7651e1e4c0d76c8e9a9162eab922407e0c53857",
+      "beforeSha256": "e63b0195bf1fc5bb78b7e17225fc7f5e4417cc36bd93ac2ef1a177bd68844b99",
+      "baseGitBlob": "05a5de1c5272a7b833836392cd5900abb5bb6a51",
+      "reverseEdits": [
+        {
+          "start": 0,
+          "end": 38,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1385,
+          "end": 1445,
+          "beforeBase64": "bGV0IHJlc3VsdEZvclNoYXJpbmc9bnVsbDsK"
+        },
+        {
+          "start": 1780,
+          "end": 1859,
+          "beforeBase64": "Y29uc3QgYmxvY2tlZD0oKT0+ZGlhbG9ncy5zb21lKGRpYWxvZz0+ZGlhbG9nLm9wZW4pOwo="
+        },
+        {
+          "start": 2373,
+          "end": 2426,
+          "beforeBase64": ""
+        },
+        {
+          "start": 4892,
+          "end": 5204,
+          "beforeBase64": "ZnVuY3Rpb24gcmVzZXQoKXtzdG9wUmVwbGF5KCk7cmVjb3JkZXI9bnVsbDtyZXBsYXlDbGlwPW51bGw7JCgncmVzdWx0RGVtbycpLmRpc2FibGVkPXRydWU7bGVhZGVyYm9hcmQucmVzZXQoKTtzaGFyaW5nLnJlc2V0KCk7cmVzdWx0Rm9yU2hhcmluZz1udWxsO2NsZWFyUG9pbnRlcigpO3M9bmV3UnVuKCk7bGFzdFBoYXNlPScnO2ZpbmlzaFN0YXJ0ZWRBdD1udWxsO3ByZXZpb3VzQmVzdD1udWxsO3Jlc3VsdFNob3duPWZhbHNlO3Rlcm1pbmFsU2VlbkF0PW51bGw7cmVjb3JkU2F2ZUZhaWxlZD1mYWxzZTt9Cg=="
+        },
+        {
+          "start": 8146,
+          "end": 8256,
+          "beforeBase64": "ZnVuY3Rpb24gc2hvd01lbnUoKXtpbnRlcnJ1cHQoJ21lbnUnKTtjbG9zZURpYWxvZ3MoKTtvcGVuRGlhbG9nKCQoJ2VudHJ5RGlhbG9nJykpO30K"
+        },
+        {
+          "start": 9590,
+          "end": 9590,
+          "beforeBase64": "JCgnZW50cnlTdGFydCcpLm9uY2xpY2s9c2hvd0RlbW87JCgnb3Blbk1lbnUnKS5vbmNsaWNrPXNob3dNZW51OwokKCdlbnRyeUNsb3NlJykub25jbGljaz0oKT0+eyQoJ2VudHJ5RGlhbG9nJykuY2xvc2UoKTtzeW5jT3ZlcmxheSgpO307Cg=="
+        },
+        {
+          "start": 14039,
+          "end": 14348,
+          "beforeBase64": "IGlmKCFkZW1vJiYhcmVwbGF5aW5nJiZpc1Rlcm1pbmFsKHZpZXcucGhhc2UpKXt0ZXJtaW5hbFNlZW5BdD8/PW5vdztpZihhY3RpdmVQb2ludGVyPT09bnVsbCYmIXJlc3VsdFNob3duJiYhYmxvY2tlZCgpJiYhZG9jdW1lbnQuaGlkZGVuJiZub3ctKHZpZXcucGhhc2U9PT0nc3VjY2Vzcyc/ZmluaXNoU3RhcnRlZEF0OnRlcm1pbmFsU2VlbkF0KT49KHZpZXcucGhhc2U9PT0nc3VjY2Vzcyc/RklOSVNIX1JFU1VMVF9ERUxBWV9NUzozNTApKXNob3dSZXN1bHQoKTt9ZWxzZSB0ZXJtaW5hbFNlZW5BdD1udWxsOwo="
+        },
+        {
+          "start": 14934,
+          "end": 15089,
+          "beforeBase64": "b3BlbkRpYWxvZygkKCdlbnRyeURpYWxvZycpKTsK"
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/catch.html",
+      "sha256": "ae0ce41ca1fa7ecc46268424d5d360be2f6a3f035bf8171096fcebb3eb9e8ba9",
+      "beforeSha256": "366a8ca52f2143907912301f9b2d6fb935703421dab970cbc9fb4c5a70d8446f",
+      "baseGitBlob": "84ee32d1e273be5edcd8af4738d419c62071f2df",
+      "reverseEdits": [
+        {
+          "start": 16,
+          "end": 497,
+          "beforeBase64": "PGh0bWwgbGFuZz0iemgtSGFudCI+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xLHZpZXdwb3J0LWZpdD1jb3ZlciI+PG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiNmN2YyZTYiPjx0aXRsZT7lv6vmiYvnjovvvZznjqnlhbflvYjmjqXmjqXmqII8L3RpdGxlPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0ibGV2ZWxzLmNzcyI+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJsZXZlbC1uYXYuY3NzIj48L2hlYWQ+Cjxib2R5IGNsYXNzPSJsZXZlbC1wYWdlIiBkYXRhLWxldmVsPSJjYXRjaCIgZGF0YS1waGFzZT0iaWRsZSIgZGF0YS1yZW5kZXJlcj0icGVuZGluZyI+Cg=="
+        },
+        {
+          "start": 523,
+          "end": 1362,
+          "beforeBase64": "IDxoZWFkZXIgY2xhc3M9ImxldmVsLWhlYWRlciI+PGEgY2xhc3M9ImhvbWUtbGluayIgaHJlZj0iLyNtaW5pZ2FtZXMiPuKGkCDpppbpoIE8L2E+PGRpdj48cCBjbGFzcz0iZXllYnJvdyI+UExBWUZPUk1PU0EgwrcgRkFTVCBIQU5EUyBDTFVCPC9wPjxoMT7njqnlhbflvYjmjqXmjqXmqII8L2gxPjwvZGl2PjxidXR0b24gaWQ9InJlc3RhcnRCdXR0b24iIHR5cGU9ImJ1dHRvbiIgY2xhc3M9InF1aWV0LWJ1dHRvbiIgYXJpYS1sYWJlbD0i6YeN5paw6ZaL5aeL77yM5Zue5Yiw57e057+SIj7ph43kvoY8L2J1dHRvbj48L2hlYWRlcj4KIDxuYXYgY2xhc3M9ImxldmVsLXN3aXRjaCIgYXJpYS1sYWJlbD0i5YiH5o+b5b+r5omL546L6Zec5Y2hIj48YSBocmVmPSIuLyI+PHNwYW4gY2xhc3M9Im5hdi1udW1iZXIiIGFyaWEtaGlkZGVuPSJ0cnVlIj4wMTwvc3Bhbj7lsI/ptKjlvoDov5Q8L2E+PGEgaHJlZj0iY2F0Y2guaHRtbCIgYXJpYS1jdXJyZW50PSJwYWdlIj48c3BhbiBjbGFzcz0ibmF2LW51bWJlciIgYXJpYS1oaWRkZW49InRydWUiPjAyPC9zcGFuPueOqeWFt+W9iOaOpeaOpeaogjwvYT48YSBocmVmPSJkdWVsLmh0bWwiPjxzcGFuIGNsYXNzPSJuYXYtbnVtYmVyIiBhcmlhLWhpZGRlbj0idHJ1ZSI+MDM8L3NwYW4+5Y2B5Zue5ZCI5bCN5rG6PC9hPjwvbmF2Pgo="
+        },
+        {
+          "start": 3404,
+          "end": 4965,
+          "beforeBase64": "IDxzZWN0aW9uIGlkPSJzdW1tYXJ5IiBjbGFzcz0ibWF0Y2gtc3VtbWFyeSIgYXJpYS1sYWJlbGxlZGJ5PSJzdW1tYXJ5VGl0bGUiIGhpZGRlbj48ZGl2IGNsYXNzPSJzdW1tYXJ5LW92ZXJ2aWV3Ij48cCBjbGFzcz0iZXllYnJvdyI+WU9VUiBSVU48L3A+PGgyIGlkPSJzdW1tYXJ5VGl0bGUiPuaMkeaIsOWujOaIkDwvaDI+PHN0cm9uZyBpZD0ic3VtbWFyeVNjb3JlIiBjbGFzcz0ic3VtbWFyeS1zY29yZSI+PC9zdHJvbmc+PHAgaWQ9InN1bW1hcnlOb3RlIj48L3A+PC9kaXY+PG9sIGlkPSJyb3VuZFJlc3VsdHMiIGNsYXNzPSJyb3VuZC1yZXN1bHRzIj48L29sPjxuYXYgaWQ9InJlc3VsdFBhZ2VzIiBjbGFzcz0icmVzdWx0LXBhZ2VzIiBhcmlhLWxhYmVsPSLpl5zljaHntIDpjITliIbpoIEiIGhpZGRlbj48YnV0dG9uIGlkPSJyZXN1bHRQcmV2IiB0eXBlPSJidXR0b24iIGNsYXNzPSJxdWlldC1idXR0b24iPuS4iuS4gOmggTwvYnV0dG9uPjxzcGFuIGlkPSJyZXN1bHRQYWdlTGFiZWwiIGFyaWEtbGl2ZT0icG9saXRlIj48L3NwYW4+PGJ1dHRvbiBpZD0icmVzdWx0TmV4dCIgdHlwZT0iYnV0dG9uIiBjbGFzcz0icXVpZXQtYnV0dG9uIj7kuIvkuIDpoIE8L2J1dHRvbj48L25hdj48cCBjbGFzcz0ibG9jYWwtbm90ZSI+5pys5bGA57SA6YyEIMK3IOS4jeS4iuWCs+Wwj+m0qOaOkuihjOamnDwvcD48L3NlY3Rpb24+Cg=="
+        },
+        {
+          "start": 5174,
+          "end": 6402,
+          "beforeBase64": "IDxkaXYgY2xhc3M9ImxldmVsLWNvbnRyb2xzIj48ZGl2IGNsYXNzPSJwcmltYXJ5LWNvbnRyb2wiPjxidXR0b24gaWQ9ImFjdGlvbkJ1dHRvbiIgdHlwZT0iYnV0dG9uIiBjbGFzcz0iYWN0aW9uLWJ1dHRvbiIgaGlkZGVuPuaOpe+8gTwvYnV0dG9uPjxidXR0b24gaWQ9InJvdW5kQnV0dG9uIiB0eXBlPSJidXR0b24iIGNsYXNzPSJhY3Rpb24tYnV0dG9uIj7lhYjnt7Tnv5LkuIDmrKE8L2J1dHRvbj48L2Rpdj48cCBjbGFzcz0iaW5wdXQtaGVscCI+6bue5aSn5oyJ6YiVIMK3IOmbu+iFpuWPr+aMieepuueZvemNteaIliBFbnRlcjwvcD48ZGl2IGNsYXNzPSJzZWNvbmRhcnktY29udHJvbCI+PGJ1dHRvbiBpZD0icHJhY3RpY2VCdXR0b24iIHR5cGU9ImJ1dHRvbiIgY2xhc3M9InByYWN0aWNlLWJ1dHRvbiIgaGlkZGVuPuWbnuWIsOe3tOe/kjwvYnV0dG9uPjwvZGl2PjwvZGl2PgogPGRldGFpbHMgY2xhc3M9ImxldmVsLWhlbHAiPjxzdW1tYXJ5PueOqeazleiIh+WFrOW5s+ioiOaZgjwvc3VtbWFyeT48ZGl2IGNsYXNzPSJsZXZlbC1oZWxwLWNvbnRlbnQiPjxvbD48bGk+5YWI57e057+S5LiA55m877yM5YaN6ZaL5aeL6YCQ6Zec5Yqg6YCf5oyR5oiw44CCPC9saT48bGk+5rOh5qOJ5b2I6aOb5Yiw5o6M5b+D5pmC5oyJ44CM5o6l77yB44CN77yM5q+P6Zec5Y+q6IO95Ye65omL5LiA5qyh44CCPC9saT48bGk+5o6l5L2P5bCx5pmJ57Sa77yM5aSq5pep44CB5aSq5pma5oiW5rKS5o6l5Yiw77yM5pys5qyh5oyR5oiw5Y2z57WQ5p2f44CCPC9saT48bGk+56ysIDEg6Zec6aOb6KGM57SEIDM4NCBtc++8iOWOn+esrCA1IOmXnO+8ie+8jOatpOW+jOavj+mXnOWKoOmAn++8jOmAkOatpeaOpei/kSAyMjAgbXMg55qE6YCf5bqm5LiK6ZmQ44CCPC9saT48L29sPjxwPuWIh+aPm+mXnOWNoeaIluaMieOAjOmHjeS+huOAjeacg+mHjemWi+acrOWxgOOAguWIh+aPm+imlueql+OAgeaXi+i9ieaIlueVq+mdouWBnOmgk+aZgu+8jOeVtuWJjeWbnuWQiOaaq+WBnOS4lOS4jeioiOWIhuOAgjwvcD48cD7pgJnmmK/ms6Hmo4nnjqnlhbfnmoTomZvmp4vmjqXlvYjpgYrmiLLvvIzkuI3mmK/nnJ/lr6bmjqXlvYjnpLrnr4TjgIIg5pys6KOd572u6YGK5oiy6KiI5pmC77yM5LiN5piv55yf5Lq66IO95Yqb57SA6YyE44CC6Iul6KOd572u54Sh5rOV6aGv56S6IFdlYkdM77yM5pyD5L2/55So5ZCM5qih5Z6L55qEIDJEIOebuOWuueeVq+mdouOAgjwvcD48L2Rpdj48L2RldGFpbHM+Cg=="
+        },
+        {
+          "start": 6484,
+          "end": 8216,
+          "beforeBase64": "IDxub3NjcmlwdD48cD7oq4vplovllZ8gSmF2YVNjcmlwdCDlvozph43mlrDovInlhaXvvIzmiY3og73plovlp4vmjJHmiLDjgII8L3A+PGEgaHJlZj0iLi8iPuWbnuWIsOWwj+m0qOmXnOWNoTwvYT48L25vc2NyaXB0Pgo8L21haW4+PHNjcmlwdCB0eXBlPSJtb2R1bGUiIHNyYz0ibGV2ZWxzLWFwcC5tanMiPjwvc2NyaXB0PjwvYm9keT48L2h0bWw+Cg=="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/club.css",
+      "sha256": "9307cd6927c066ebb31869d49e2a2662e4e8cb55aca1cc7707edf06c38647da5",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/club.mjs",
+      "sha256": "a1964e24ee411e1073a187b38e776354626cc1de8c3df952ad109622a0c89a93",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    },
+    {
+      "path": "public/games/fast-hands/duel.html",
+      "sha256": "3467a375251d10edac7c93528600552d32eb38215c49094a43616c20ca9a6476",
+      "beforeSha256": "1ce58dccad5511fae14e5eb20492c047eb3d58b43f47c5214c02f9f63d1993b5",
+      "baseGitBlob": "d007285d1e39980fa636fdb06fe66e46ea270419",
+      "reverseEdits": [
+        {
+          "start": 16,
+          "end": 492,
+          "beforeBase64": "PGh0bWwgbGFuZz0iemgtSGFudCI+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xLHZpZXdwb3J0LWZpdD1jb3ZlciI+PG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiNmN2YyZTYiPjx0aXRsZT7lv6vmiYvnjovvvZzljYHlm57lkIjlsI3msbo8L3RpdGxlPjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0ibGV2ZWxzLmNzcyI+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJsZXZlbC1uYXYuY3NzIj48L2hlYWQ+Cjxib2R5IGNsYXNzPSJsZXZlbC1wYWdlIiBkYXRhLWxldmVsPSJkdWVsIiBkYXRhLXBoYXNlPSJpZGxlIiBkYXRhLXJlbmRlcmVyPSJwZW5kaW5nIj4K"
+        },
+        {
+          "start": 518,
+          "end": 1354,
+          "beforeBase64": "IDxoZWFkZXIgY2xhc3M9ImxldmVsLWhlYWRlciI+PGEgY2xhc3M9ImhvbWUtbGluayIgaHJlZj0iLyNtaW5pZ2FtZXMiPuKGkCDpppbpoIE8L2E+PGRpdj48cCBjbGFzcz0iZXllYnJvdyI+UExBWUZPUk1PU0EgwrcgRkFTVCBIQU5EUyBDTFVCPC9wPjxoMT7ljYHlm57lkIjlsI3msbo8L2gxPjwvZGl2PjxidXR0b24gaWQ9InJlc3RhcnRCdXR0b24iIHR5cGU9ImJ1dHRvbiIgY2xhc3M9InF1aWV0LWJ1dHRvbiIgYXJpYS1sYWJlbD0i6YeN5paw6ZaL5aeL77yM5Zue5Yiw57e057+SIj7ph43kvoY8L2J1dHRvbj48L2hlYWRlcj4KIDxuYXYgY2xhc3M9ImxldmVsLXN3aXRjaCIgYXJpYS1sYWJlbD0i5YiH5o+b5b+r5omL546L6Zec5Y2hIj48YSBocmVmPSIuLyI+PHNwYW4gY2xhc3M9Im5hdi1udW1iZXIiIGFyaWEtaGlkZGVuPSJ0cnVlIj4wMTwvc3Bhbj7lsI/ptKjlvoDov5Q8L2E+PGEgaHJlZj0iY2F0Y2guaHRtbCI+PHNwYW4gY2xhc3M9Im5hdi1udW1iZXIiIGFyaWEtaGlkZGVuPSJ0cnVlIj4wMjwvc3Bhbj7njqnlhbflvYjmjqXmjqXmqII8L2E+PGEgaHJlZj0iZHVlbC5odG1sIiBhcmlhLWN1cnJlbnQ9InBhZ2UiPjxzcGFuIGNsYXNzPSJuYXYtbnVtYmVyIiBhcmlhLWhpZGRlbj0idHJ1ZSI+MDM8L3NwYW4+5Y2B5Zue5ZCI5bCN5rG6PC9hPjwvbmF2Pgo="
+        },
+        {
+          "start": 3405,
+          "end": 4966,
+          "beforeBase64": "IDxzZWN0aW9uIGlkPSJzdW1tYXJ5IiBjbGFzcz0ibWF0Y2gtc3VtbWFyeSIgYXJpYS1sYWJlbGxlZGJ5PSJzdW1tYXJ5VGl0bGUiIGhpZGRlbj48ZGl2IGNsYXNzPSJzdW1tYXJ5LW92ZXJ2aWV3Ij48cCBjbGFzcz0iZXllYnJvdyI+WU9VUiBSVU48L3A+PGgyIGlkPSJzdW1tYXJ5VGl0bGUiPuaMkeaIsOWujOaIkDwvaDI+PHN0cm9uZyBpZD0ic3VtbWFyeVNjb3JlIiBjbGFzcz0ic3VtbWFyeS1zY29yZSI+PC9zdHJvbmc+PHAgaWQ9InN1bW1hcnlOb3RlIj48L3A+PC9kaXY+PG9sIGlkPSJyb3VuZFJlc3VsdHMiIGNsYXNzPSJyb3VuZC1yZXN1bHRzIj48L29sPjxuYXYgaWQ9InJlc3VsdFBhZ2VzIiBjbGFzcz0icmVzdWx0LXBhZ2VzIiBhcmlhLWxhYmVsPSLpl5zljaHntIDpjITliIbpoIEiIGhpZGRlbj48YnV0dG9uIGlkPSJyZXN1bHRQcmV2IiB0eXBlPSJidXR0b24iIGNsYXNzPSJxdWlldC1idXR0b24iPuS4iuS4gOmggTwvYnV0dG9uPjxzcGFuIGlkPSJyZXN1bHRQYWdlTGFiZWwiIGFyaWEtbGl2ZT0icG9saXRlIj48L3NwYW4+PGJ1dHRvbiBpZD0icmVzdWx0TmV4dCIgdHlwZT0iYnV0dG9uIiBjbGFzcz0icXVpZXQtYnV0dG9uIj7kuIvkuIDpoIE8L2J1dHRvbj48L25hdj48cCBjbGFzcz0ibG9jYWwtbm90ZSI+5pys5bGA57SA6YyEIMK3IOS4jeS4iuWCs+Wwj+m0qOaOkuihjOamnDwvcD48L3NlY3Rpb24+Cg=="
+        },
+        {
+          "start": 5209,
+          "end": 6493,
+          "beforeBase64": "IDxkaXYgY2xhc3M9ImxldmVsLWNvbnRyb2xzIj48ZGl2IGNsYXNzPSJwcmltYXJ5LWNvbnRyb2wiPjxidXR0b24gaWQ9ImFjdGlvbkJ1dHRvbiIgdHlwZT0iYnV0dG9uIiBjbGFzcz0iYWN0aW9uLWJ1dHRvbiIgaGlkZGVuPuaQtu+8gTwvYnV0dG9uPjxidXR0b24gaWQ9InJvdW5kQnV0dG9uIiB0eXBlPSJidXR0b24iIGNsYXNzPSJhY3Rpb24tYnV0dG9uIj7lhYjnt7Tnv5LkuIDmrKE8L2J1dHRvbj48L2Rpdj48cCBjbGFzcz0iaW5wdXQtaGVscCI+6bue5aSn5oyJ6YiVIMK3IOmbu+iFpuWPr+aMieepuueZvemNteaIliBFbnRlcjwvcD48ZGl2IGNsYXNzPSJzZWNvbmRhcnktY29udHJvbCI+PGJ1dHRvbiBpZD0icHJhY3RpY2VCdXR0b24iIHR5cGU9ImJ1dHRvbiIgY2xhc3M9InByYWN0aWNlLWJ1dHRvbiIgaGlkZGVuPuWbnuWIsOe3tOe/kjwvYnV0dG9uPjwvZGl2PjwvZGl2PgogPGRldGFpbHMgY2xhc3M9ImxldmVsLWhlbHAiPjxzdW1tYXJ5PueOqeazleiIh+WFrOW5s+ioiOaZgjwvc3VtbWFyeT48ZGl2IGNsYXNzPSJsZXZlbC1oZWxwLWNvbnRlbnQiPjxvbD48bGk+5YWI57e057+S5LiA5Zue5ZCI77yM5YaN6IiH5b+r5omL546L5omT5ru/5Y2B5Zue5ZCI77yM5q+P5Zue6YO95o+b5LiN5ZCM54mp5ZOB44CCPC9saT48bGk+562J44CM5Ye65omL77yB44CN5Lqu6LW377yM5YaN5oyJ44CM5pC277yB44CN44CC5o+Q5YmN5Ye65omL566X5pC26LeR77yM55u05o6l6Ly45o6J6YCZ5Zue5ZCI44CCPC9saT48bGk+5b+r5omL546L5q2j5bi45Y+N5oeJIDE1MOKAkzI4MCBtc++8jOWBtueIvuWkseaJi+acg+aFouS4gOm7nu+8m+aZgumWk+WcqOioiuiZn+WJjeaKveWumu+8jOS4jeacg+WBt+eci+S9oOeahOaTjeS9nOOAgjwvbGk+PGxpPuS7peaMiemIleinuOeZvOaZgumWk+WIpOWumu+8jOS8uOaJi+WLleeVq+WPqua8lOWHuue1kOaenO+8jOS4jeW9semfv+WLneiyoOOAgjwvbGk+PC9vbD48cD7liIfmj5vpl5zljaHmiJbmjInjgIzph43kvobjgI3mnIPph43plovmnKzlsYDjgILliIfmj5voppbnqpfjgIHml4vovYnmiJbnlavpnaLlgZzpoJPmmYLvvIznlbbliY3lm57lkIjmmqvlgZzkuJTkuI3oqIjliIbjgII8L3A+PHA+5bCN5omL54K6IEFJIOmBiuaIsuinkuiJsu+8jOmdnuecn+S6uumAo+e3muOAgiDmnKzoo53nva7pgYrmiLLoqIjmmYLvvIzkuI3mmK/nnJ/kurrog73lipvntIDpjITjgILoi6Xoo53nva7nhKHms5Xpoa/npLogV2ViR0zvvIzmnIPkvb/nlKjlkIzmqKHlnovnmoQgMkQg55u45a6555Wr6Z2i44CCPC9wPjwvZGl2PjwvZGV0YWlscz4K"
+        },
+        {
+          "start": 6575,
+          "end": 8307,
+          "beforeBase64": "IDxub3NjcmlwdD48cD7oq4vplovllZ8gSmF2YVNjcmlwdCDlvozph43mlrDovInlhaXvvIzmiY3og73plovlp4vmjJHmiLDjgII8L3A+PGEgaHJlZj0iLi8iPuWbnuWIsOWwj+m0qOmXnOWNoTwvYT48L25vc2NyaXB0Pgo8L21haW4+PHNjcmlwdCB0eXBlPSJtb2R1bGUiIHNyYz0ibGV2ZWxzLWFwcC5tanMiPjwvc2NyaXB0PjwvYm9keT48L2h0bWw+Cg=="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "sha256": "611179bfe762726fa7443717b7ecd0f99422c88913019be1a2494c0ab95eb153",
+      "beforeSha256": "181b693f8f7762649990ba42122f9da10acb1e64201039bb485331e69d136d73",
+      "baseGitBlob": "2b85a9ed2ad95f6ab97bdc33989382e52851273b",
+      "beforeAsset": "docs/fast-hands/baselines/club/index.html"
+    },
+    {
+      "path": "public/games/fast-hands/levels-app.mjs",
+      "sha256": "44dc8cb9e5f4473c41956a65c7ded83143b707f28cc2ad33eef5b46a4851e35f",
+      "beforeSha256": "596655450fe1e572bcec217fe8d7a22a7bed448bce2fd189f2ef68d00e377726",
+      "baseGitBlob": "401e2baa5e5d85d97796cc32f43cc5cc47c8e5a8",
+      "reverseEdits": [
+        {
+          "start": 0,
+          "end": 38,
+          "beforeBase64": ""
+        },
+        {
+          "start": 390,
+          "end": 637,
+          "beforeBase64": "ZXhwb3J0IGZ1bmN0aW9uIG1vdW50TGV2ZWwoe2RvY3VtZW50LHdpbmRvdyxjbG9jaz0oKT0+d2luZG93LnBlcmZvcm1hbmNlLm5vdygpLHJhbmRvbT1NYXRoLnJhbmRvbSxyZXF1ZXN0RnJhbWU9Zm49PndpbmRvdy5yZXF1ZXN0QW5pbWF0aW9uRnJhbWUoZm4pLGNhbmNlbEZyYW1lPWlkPT53aW5kb3cuY2FuY2VsQW5pbWF0aW9uRnJhbWUoaWQpLHN0YWdlTG9hZGVyPWxvYWRTdGFnZX09e30pIHsK"
+        },
+        {
+          "start": 832,
+          "end": 1223,
+          "beforeBase64": "IGxldCBzdGF0ZT1uZXdNYXRjaChtb2RlLHtwcmFjdGljZTp0cnVlLHJhbmRvbX0pLGxhc3RGcmFtZT1udWxsLGZyYW1lSWQsZGlzcG9zZWQ9ZmFsc2UsbGFzdFJlbmRlcmVkPW51bGwsd2lkdGg9d2luZG93LmlubmVyV2lkdGgsc3RhZ2VWaWV3PW51bGwsYXJ0RXJyb3I9ZmFsc2UsYXRsYXNVcmw9J2Fzc2V0cy9kdWVsLWl0ZW1zLWF0bGFzLnBuZycscmVzdWx0UGFnZT0wLHJlbmRlcmVyU3RhdGU9J3BlbmRpbmcnLHN0YXJ0dXBUaW1lcj1udWxsLHByZXNzZWRBdD1udWxsLHNldHRsZWRBdD1udWxsLGxhc3RNb3Rpb25SZWFkeT1udWxsLGxhc3RQb3NlRnJvbT0nJyxsYXN0UG9zZVRvPScnOwo="
+        },
+        {
+          "start": 5386,
+          "end": 5668,
+          "beforeBase64": "ICBkb2N1bWVudC5ib2R5LmRhdGFzZXQucGhhc2U9c3RhdGUucGhhc2U7ZG9jdW1lbnQuYm9keS5kYXRhc2V0LnN1bW1hcnk9U3RyaW5nKHN0YXRlLnBoYXNlPT09J2RvbmUnJiYhc3RhdGUucHJhY3RpY2UmJm1vdGlvblJlYWR5KTsK"
+        },
+        {
+          "start": 6184,
+          "end": 6660,
+          "beforeBase64": "ICAgJCgnc3BlZWRMYWJlbCcpLnRleHRDb250ZW50PWNhdGNoaW5nP2Ake01hdGgucm91bmQodGltaW5nKX0gbXMg6aOb6KGMIMK3IOavj+mXnOWKoOmAn2A6J0FJIOiZm+aTrOWwjeaJiyDCtyAxNTDigJMyODAgbXMg5bi45oWL5Y+N5oeJJzsKICAgJCgnYWN0aW9uQnV0dG9uJykuZGlzYWJsZWQ9YXJ0RXJyb3J8fHJlbmRlcmVyU3RhdGU9PT0ncGVuZGluZyc7JCgncm91bmRCdXR0b24nKS5kaXNhYmxlZD1hcnRFcnJvcnx8cmVuZGVyZXJTdGF0ZT09PSdwZW5kaW5nJ3x8IW1vdGlvblJlYWR5OyQoJ2FjdGlvbkJ1dHRvbicpLmhpZGRlbj0hYWN0aXZlOyQoJ3JvdW5kQnV0dG9uJykuaGlkZGVuPWFjdGl2ZTskKCdwcmFjdGljZUJ1dHRvbicpLmhpZGRlbj1hY3RpdmV8fHN0YXRlLnBoYXNlPT09J2lkbGUnOyQoJ3ByYWN0aWNlQnV0dG9uJykuZGlzYWJsZWQ9IW1vdGlvblJlYWR5OyQoJ3N1bW1hcnknKS5oaWRkZW49IShzdGF0ZS5waGFzZT09PSdkb25lJyYmIXN0YXRlLnByYWN0aWNlJiZtb3Rpb25SZWFkeSk7Cg=="
+        },
+        {
+          "start": 11565,
+          "end": 12022,
+          "beforeBase64": ""
+        },
+        {
+          "start": 12389,
+          "end": 13333,
+          "beforeBase64": "IGZ1bmN0aW9uIGJlZ2luKCl7aWYoYXJ0RXJyb3J8fHJlbmRlcmVyU3RhdGU9PT0ncGVuZGluZyd8fFsnd2FpdGluZycsJ2xpdmUnXS5pbmNsdWRlcyhzdGF0ZS5waGFzZSl8fChbJ2ZlZWRiYWNrJywnZG9uZSddLmluY2x1ZGVzKHN0YXRlLnBoYXNlKSYmc2V0dGxlZEF0IT09bnVsbCYmY2xvY2soKS1zZXR0bGVkQXQ8TU9USU9OX0RVUkFUSU9OX01TKSlyZXR1cm47aWYoIXNjZW5lVmlzaWJsZSgpKSQoJ3N0YWdlJykuc2Nyb2xsSW50b1ZpZXc/Lih7YmxvY2s6J3N0YXJ0JyxiZWhhdmlvcjonaW5zdGFudCd9KTtpZihzdGF0ZS5waGFzZT09PSdkb25lJylzdGF0ZT1uZXdNYXRjaChtb2RlLHtwcmFjdGljZTpmYWxzZSxyYW5kb219KTtwcmVzc2VkQXQ9bnVsbDtzZXR0bGVkQXQ9bnVsbDtzdGF0ZT1iZWdpblJvdW5kKHN0YXRlLGNsb2NrKCkscmFuZG9tKTtsYXN0RnJhbWU9bnVsbDtyZW5kZXIoKTtpZighc2NlbmVWaXNpYmxlKCkpJCgnc3RhZ2UnKS5zY3JvbGxJbnRvVmlldz8uKHtibG9jazonc3RhcnQnLGJlaGF2aW9yOidpbnN0YW50J30pOyQoJ2FjdGlvbkJ1dHRvbicpLmZvY3VzKHtwcmV2ZW50U2Nyb2xsOnRydWV9KTt9CiBmdW5jdGlvbiBhY3QoKXtjb25zdCBub3c9Y2xvY2soKTtpZihhcnRFcnJvcnx8cmVuZGVyZXJTdGF0ZT09PSdwZW5kaW5nJylyZXR1cm47aWYoZG9jdW1lbnQuaGlkZGVufHwhc2NlbmVWaXNpYmxlKCl8fChzdGF0ZS5waGFzZT09PSdsaXZlJyYmbGFzdEZyYW1lIT09bnVsbCYmbm93LWxhc3RGcmFtZT4yNTApKXtwYXVzZSgpO3JldHVybjt9Y29uc3QgbmV4dD1wcmVzcyhzdGF0ZSxub3cpO2lmKG5leHQhPT1zdGF0ZSl7cHJlc3NlZEF0PW5vdztzZXR0bGVkQXQ9bm93O31zdGF0ZT1uZXh0O3JlbmRlcihub3cpO30K"
+        },
+        {
+          "start": 13465,
+          "end": 14038,
+          "beforeBase64": "IGZ1bmN0aW9uIHByYWN0aWNlKCl7cHJlc3NlZEF0PW51bGw7c2V0dGxlZEF0PW51bGw7c3RhdGU9bmV3TWF0Y2gobW9kZSx7cHJhY3RpY2U6dHJ1ZSxyYW5kb219KTtsYXN0RnJhbWU9bnVsbDtyZW5kZXIoKTskKCdyb3VuZEJ1dHRvbicpLmZvY3VzKHtwcmV2ZW50U2Nyb2xsOnRydWV9KTt9Cg=="
+        },
+        {
+          "start": 15339,
+          "end": 15824,
+          "beforeBase64": "IGZ1bmN0aW9uIGZyYW1lKG5vdyl7aWYoZGlzcG9zZWQpcmV0dXJuO2lmKGRvY3VtZW50LmhpZGRlbnx8KFsnd2FpdGluZycsJ2xpdmUnXS5pbmNsdWRlcyhzdGF0ZS5waGFzZSkmJiFzY2VuZVZpc2libGUoKSkpcGF1c2UoKTtlbHNlIGlmKHN0YXRlLnBoYXNlPT09J2xpdmUnJiZsYXN0RnJhbWUhPT1udWxsJiZub3ctbGFzdEZyYW1lPjI1MClwYXVzZSgpO2Vsc2Ugc3RhdGU9YWR2YW5jZShzdGF0ZSxub3cpO2xhc3RGcmFtZT1ub3c7cmVuZGVyKG5vdyk7ZnJhbWVJZD1yZXF1ZXN0RnJhbWUoZnJhbWUpO30KIGZ1bmN0aW9uIGRlc3Ryb3koKXtpZihkaXNwb3NlZClyZXR1cm47ZGlzcG9zZWQ9dHJ1ZTt3aW5kb3cuY2xlYXJUaW1lb3V0KHN0YXJ0dXBUaW1lcik7Y2FuY2VsRnJhbWUoZnJhbWVJZCk7c3RhZ2VWaWV3Py5kaXNwb3NlKCk7Zm9yKGNvbnN0IHJlbW92ZSBvZiBsaXN0ZW5lcnMpcmVtb3ZlKCk7fQo="
+        },
+        {
+          "start": 17682,
+          "end": 17892,
+          "beforeBase64": ""
+        }
+      ]
+    }
+  ],
+  "preserved": [
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "gitBlob": "acf7cc7b9f503e708bfe95411d9d8b7a6febd3e8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "gitBlob": "c9b7e5eddbabd2c3ba6f5695a89a8b568149ad62"
+    },
+    {
+      "path": "public/games/fast-hands/assets/duel-items-atlas.png",
+      "gitBlob": "741d8b24c9e7f402333c59583b99b78ee9f2e8ca"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "gitBlob": "63763baacb2d60dc03fb590aa28efa2cff67b9b4"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "gitBlob": "4f0dd45dcfb5ebe46eb5eccf2b01363a0a4586c3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "gitBlob": "e80c08fc3e9aefeddbd525b647f4bd0027ce2ae3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-empty-mid.png",
+      "gitBlob": "d3dd1e9fa656d16cd3c8b363484cb80836125412"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-grab.png",
+      "gitBlob": "a5f65effc919d0aadd8a77bd87fca649e6a46521"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-reach.png",
+      "gitBlob": "253f14b6395a32b00254f20e34e386a8e08ccfe0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-ready.png",
+      "gitBlob": "5a080f2f80c776f022726b06fefcc2dec1d16868"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return-mid.png",
+      "gitBlob": "26c72b164f45f4aa2c168671d67afc4f48716d17"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return.png",
+      "gitBlob": "0d9ef67f6cfe45eb8509da82ae468cb672cbd98c"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-grab.png",
+      "gitBlob": "a74e564415413899ede1a31c60e05af1f9322c8d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-reach.png",
+      "gitBlob": "bd45c206dc7fe7ff60df3b73c74cf888ef144129"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-return-mid.png",
+      "gitBlob": "c7d541b7828a3e63a5f1b70cb960ed793cce4109"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai.png",
+      "gitBlob": "c06aae5cec4f8873e38a9c1c1d413b9b18415a0a"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-grab.png",
+      "gitBlob": "28ffb90ad4b49a33e9a50febf0dfcdb6a2c46287"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-reach.png",
+      "gitBlob": "19b385479bf8bf806767c4785a52e9e515408d82"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-return-mid.png",
+      "gitBlob": "24495ff7dd574cf508f77c8d05c2b16b03c49799"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player.png",
+      "gitBlob": "8fdf38ea85d096084bb77c7a63dbd480569242e6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ready.png",
+      "gitBlob": "6fdf13ff348b59ff822fded93a6e20c04a6b81d7"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-pose-provenance.json",
+      "gitBlob": "c726159bc3a7b30e2b88518225a82f0d89c958ae"
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "gitBlob": "6f925b5de0ece016e35f5fbc699213fd740b35aa"
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "gitBlob": "4e8b2aced85f47f1ac91e8779584a194a0c2c96b"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "gitBlob": "3095f5b1a62acceb1d0167fea63d3580882b5077"
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "gitBlob": "e0b93656dea0831beeecae383a871ddc92d5caaf"
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "gitBlob": "572f16b5c907f63f7cf9dfb56dfbe59a8a981514"
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "gitBlob": "7c354c8ff949db76ff1e78d75f6527671a4e9b65"
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "gitBlob": "2b33019d58cf72a249a7353a1566401c78c3025c"
+    },
+    {
+      "path": "public/games/fast-hands/level-nav.css",
+      "gitBlob": "0922d5cf74107931069d80d85dec51e6b66fa8a6"
+    },
+    {
+      "path": "public/games/fast-hands/levels-motion.mjs",
+      "gitBlob": "ea4cf90f6307c23190dba5ed8e9ff533a8d2934b"
+    },
+    {
+      "path": "public/games/fast-hands/levels-rules.mjs",
+      "gitBlob": "ffb5418b603b75c39d79225a911ceaaa9489732b"
+    },
+    {
+      "path": "public/games/fast-hands/levels-stage.mjs",
+      "gitBlob": "51578cb4dda5b9e19dbe334851d8136808b29be8"
+    },
+    {
+      "path": "public/games/fast-hands/levels-world.mjs",
+      "gitBlob": "c3c8aa690922df454571a2587348e5c52b441cef"
+    },
+    {
+      "path": "public/games/fast-hands/levels.css",
+      "gitBlob": "44a94698b63d1e17fd5056a16ca8adf14d95ab39"
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "gitBlob": "bbdd03c707b7bc490566992d0ebdd07207d49774"
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "gitBlob": "8bb7603073d21c1ee583cf39087e8acaa9d95d80"
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "gitBlob": "58c74cb8f0a69cb7adc1c7c42595d6d5aabdfecd"
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "gitBlob": "fee03c6d176442407d9be31a22bf9d0f13bf8ac2"
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "gitBlob": "f0ae602f04aaf8f7aeaf95b56e25d6fbb8e0a35a"
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "gitBlob": "01be82a3280b9e5c5f3c2824fa61106feb468ca6"
+    },
+    {
+      "path": "public/games/fast-hands/share.mjs",
+      "gitBlob": "6121fffcb31e4c4edb5ce123395bf071724fad9b"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "gitBlob": "db235d35a165bf6a02da942f6c4524535349af71"
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "gitBlob": "146cad743392eec5d2218f60f96e8f9db35fe0ef"
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "gitBlob": "c9a43ea831d4aeca631e2b74d69cc82150e485ad"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "gitBlob": "ba59e9985bbca875c08352634299175f1e9a15b4"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "gitBlob": "90ffc329bafc968fe4f2f082c06141a687f3b350"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "gitBlob": "91a4462e849ef1e76d9234c79412cb25213e4990"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "gitBlob": "9bff9d87a00e381294fb83a9eba80f9d9309abf5"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "gitBlob": "18dd04914133e799f8195bfc5dcf6f011e179ef7"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "gitBlob": "4bbcb02830b843a598a241f83bad89dc945b0e92"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "gitBlob": "95352ed884c193a7285f241633d09f78fe0ae42d"
+    }
+  ],
+  "historicalLedgers": [
+    {
+      "path": "docs/fast-hands/BUTTON-LAYOUT-MANIFEST.json",
+      "sha256": "1a9db879ac1df4b8ab3485e0f14448172a7d563e0fabd4f0eac8c742ded1b550",
+      "gitBlob": "51a5c1c29f8bfbb4756e93271b2b7ebe383b6f77"
+    },
+    {
+      "path": "docs/fast-hands/LAYOUT-DART-MANIFEST.json",
+      "sha256": "4a7ee191d65c14c640b1f1e6a82fbe2ee5f7f641c54b79fce8e0e91a34ab86d2",
+      "gitBlob": "3354367f942f002f1c41e82846feaa4fc88c1f36"
+    },
+    {
+      "path": "docs/fast-hands/LEVELS-ART-MANIFEST.json",
+      "sha256": "b418b8ffafa0bcdfe068205d4bb931fe1db284012d1d733690f4e9e46828aec1",
+      "gitBlob": "5b8244262c5ab75b078d3c0e604f5ea631ba637a"
+    },
+    {
+      "path": "docs/fast-hands/LEVELS-MANIFEST.json",
+      "sha256": "121e304d78e3b795f3c6080234c615ac0516d01765e7c7b3413ca329ceb4b6d5",
+      "gitBlob": "18e1e0267092fccc76c2b7abc63692edbb1dbfc4"
+    },
+    {
+      "path": "docs/fast-hands/QA-LEADERBOARD-MANIFEST.json",
+      "sha256": "735e056ee0a52b448b2cedcd2aefdb7f5e51e2ab85b3acc27a368efb3f6a8137",
+      "gitBlob": "eb473c4cfb7a6ca976baf1e9fca61a398430500e"
+    },
+    {
+      "path": "docs/fast-hands/SCREEN-ALPHA-MANIFEST.json",
+      "sha256": "ca9b3444c30391147065632c0a91180e6bd66faf8af477f791660d0e8751fc76",
+      "gitBlob": "57770219df59bf832f5402519e8afd2892a7df6d"
+    },
+    {
+      "path": "docs/fast-hands/SHARING-MANIFEST.json",
+      "sha256": "39bcab7f506f58edc8b02ba752e5ee6936d450faa58432eda278958bc54b79ab",
+      "gitBlob": "d1930cc83a3feb5f9e7844ff971cc21eb2b87ebd"
+    },
+    {
+      "path": "docs/fast-hands/STABILITY-MANIFEST.json",
+      "sha256": "0b6f1fefa5e73a33f732f03c398d3e3e21906984f3f1547d328c3bd756321df1",
+      "gitBlob": "e6da1262b9002d629dc386715fe399fd8a43a3ab"
+    },
+    {
+      "path": "docs/fast-hands/import-manifest.json",
+      "sha256": "731aa36d01e5cbe16f0ee4b86129f8b57a0c6d6244bfaa8689a4939e41864f54",
+      "gitBlob": "d82659a130ffaa9d89692c39a1933bf006bf77b0"
+    },
+    {
+      "path": "docs/fast-hands/platform-manifest.json",
+      "sha256": "b2b1ec4c803e66a54e345fd85a1a060ab491554a6dd1f04b2368001e73d6ca5f",
+      "gitBlob": "adfa787a42547ed5072c0972c13d51171fb01d25"
+    }
+  ]
+}

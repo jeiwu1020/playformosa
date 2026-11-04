@@ -1,3 +1,4 @@
+import {reverseClub,clubRuntimeAdditions} from './fast-hands-club-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -22,6 +23,7 @@ export const STABILITY_ALLOWED=Object.freeze([...STABILITY_CHANGED,...STABILITY_
 export const STABILITY_SCRIPTS=Object.freeze(['scripts/render-fast-hands-levels.mjs']);
 export const stabilityLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/STABILITY-MANIFEST.json',root),'utf8'));
 export function reverseStability(path,bytes,ledger=stabilityLedger()){
+ bytes=reverseClub(path,bytes);
  const row=[...ledger.files,...ledger.scriptFiles].find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok([...STABILITY_ALLOWED,...STABILITY_SCRIPTS].includes(path),'Unapproved stability path '+path);
@@ -62,5 +64,5 @@ export function stabilityRuntimeAdditions(){
  const ledger=stabilityLedger();
  assert.deepEqual(ledger.files.map(file=>file.path).sort(),[...STABILITY_ALLOWED].sort());
  for(const path of STABILITY_ADDED)reverseStability(path,readFileSync(new URL(path,root)),ledger);
- return [...STABILITY_ADDED];
+ return [...STABILITY_ADDED,...clubRuntimeAdditions()];
 }

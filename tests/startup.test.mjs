@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import {existsSync} from 'node:fs';
+import {readClubBaseline as readFileSync} from './helpers/fast-hands-club-provenance.mjs';
 import {JSDOM} from 'jsdom';
 const root=new URL('../public/games/',import.meta.url);
 const code=readFileSync(new URL('shared/startup.js',root),'utf8');

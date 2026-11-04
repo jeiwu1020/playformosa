@@ -4,7 +4,7 @@ const root=new URL('../../public/games/fast-hands/',import.meta.url);
 const html=mode=>readFileSync(new URL(mode==='duel'?'duel.html':'catch.html',root),'utf8');
 function harness(mode='catch'){
  const dom=new JSDOM(html(mode),{url:`https://game.test/games/fast-hands/${mode}.html`,pretendToBeVisual:true});let now=0,frame;
- const app=mountLevel({document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;},stageLoader:()=>null});
+ const app=mountLevel({clubFactory:()=>({destroy(){},blocked:()=>false}),document:dom.window.document,window:dom.window,clock:()=>now,random:()=>.5,requestFrame:fn=>(frame=fn,1),cancelFrame:()=>{frame=null;},stageLoader:()=>null});
  const $=id=>dom.window.document.getElementById(id);
  return {dom,app,$,step(ms){now+=ms;frame?.(now);},elapse(ms){now+=ms;},at(value){now=value;frame?.(now);},click(id){if(id==='roundButton'&&['feedback','done'].includes(app.state.phase)){now+=520;frame?.(now);}$(id).click();},get now(){return now;},pointer(type='mouse',primary=true,button=0){const e=new dom.window.Event('pointerdown',{bubbles:true,cancelable:true});Object.assign(e,{pointerType:type,isPrimary:primary,button});$('actionButton').dispatchEvent(e);},key(key='Space',repeat=false){const e=new dom.window.KeyboardEvent('keydown',{code:key,key:key==='Space'?' ':key,bubbles:true,cancelable:true,repeat});$('actionButton').dispatchEvent(e);}};
 }
@@ -16,7 +16,7 @@ test('every level has three direct accessible links and the original entry and r
    assert.deepEqual([...nav.querySelectorAll('a')].map(a=>a.getAttribute('href')),['./','catch.html','duel.html']);
   }
   assert.ok(doc.querySelector('.level-switch'));
-  if(file==='index.html')for(const id of ['entryDialog','resultDialog'])assert.ok(doc.querySelector(`#${id} .level-switch`));
+  assert.equal(doc.querySelectorAll('#entryDialog .club-card').length,3);if(file==='index.html')assert.ok(doc.querySelector('#resultDialog .level-switch'));
  }
 });
 test('new levels clearly name the AI, the foam toy and local-only scores without ranking API',()=>{

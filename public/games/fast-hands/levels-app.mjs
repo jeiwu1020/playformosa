@@ -1,12 +1,13 @@
+import {mountClub} from './club.mjs';
 import {sampleLevelMotion,MOTION_DURATION_MS,FALLBACK_FRAME_NAMES} from './levels-motion.mjs';
 import {newMatch,beginRound,advance,press,pauseMatch,catchStageSettings,itemArtFrame} from './levels-rules.mjs';
 const loadStage=async(canvas,options)=>{const {createLevelStage}=await import('./levels-stage.mjs');return createLevelStage(canvas,options);};
 
-export function mountLevel({document,window,clock=()=>window.performance.now(),random=Math.random,requestFrame=fn=>window.requestAnimationFrame(fn),cancelFrame=id=>window.cancelAnimationFrame(id),stageLoader=loadStage}={}) {
+export function mountLevel({document,window,clock=()=>window.performance.now(),random=Math.random,requestFrame=fn=>window.requestAnimationFrame(fn),cancelFrame=id=>window.cancelAnimationFrame(id),stageLoader=loadStage,clubFactory=mountClub}={}) {
  const $=id=>document.getElementById(id),mode=document.body.dataset.level;
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
- let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='';
+ let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='',club=null,summaryPresented=false,summaryDismissed=false;
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
  const poseImages=new Map();
  for(const name of FALLBACK_FRAME_NAMES.filter(n=>n.startsWith(`levels-${mode}`))){const img=new window.Image();img.src=`assets/${name}.png`;poseImages.set(name,img);}
@@ -48,7 +49,9 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   const active=['waiting','live'].includes(state.phase),feedback=['feedback','done'].includes(state.phase),result=state.results.at(-1),current=state.results.length+(feedback?0:1);
   if(feedback&&settledAt===null)settledAt=now;
   const visualState={...state,presentation:{pressedAt,settledAt}},motion=sampleLevelMotion({mode,state:visualState,now}),motionReady=motion.complete;
-  document.body.dataset.phase=state.phase;document.body.dataset.summary=String(state.phase==='done'&&!state.practice&&motionReady);
+  const summaryReady=state.phase==='done'&&!state.practice&&motionReady&&!club?.blocked?.();
+  if(summaryReady&&!summaryPresented){summaryPresented=true;openSummary();}
+  document.body.dataset.phase=state.phase;document.body.dataset.summary=String(summaryReady&&!summaryDismissed);
   if(state!==lastRendered||motionReady!==lastMotionReady){
    lastMotionReady=motionReady;
    lastRendered=state;
@@ -56,8 +59,8 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    $('playerScore').textContent=state.practice?'—':String(count('player'));
    $('opponentScore').textContent=state.practice?'—':catching?String(current):String(count('ai'));
    const timing=state.flightMs??catchStageSettings(1,{practice:state.practice}).flightMs;
-   $('speedLabel').textContent=catching?`${Math.round(timing)} ms 飛行 · 每關加速`:'AI 虛擬對手 · 150–280 ms 常態反應';
-   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(state.phase==='done'&&!state.practice&&motionReady);
+   $('speedLabel').textContent=catching?`${Math.round(timing)} ms 飛行 · 每關加速`:'AI 反應 150–280 ms';
+   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(summaryReady&&!summaryDismissed);
    $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?(catching?'開始逐關挑戰':'開始十回合對決'):state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
    $('actionButton').textContent=catching?'接！':'搶！';$('actionButton').setAttribute('aria-label',catching?'伸手接泡棉彈':'出手搶物品');
    let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到掌心前時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'看準掌心':'等訊號';
@@ -87,23 +90,27 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   if(catching){const show=state.phase==='live'||motion.feedback&&Number.isFinite(state.liveAt);$('foamBall').style.visibility=show?'visible':'hidden';$('foamBall').style.left=`${o.dartTip.x*100}%`;$('foamBall').style.top=`${o.dartTip.y*100}%`;}
   else{const xs=o.prizeArtCorners.map(p=>p.x),ys=o.prizeArtCorners.map(p=>p.y);$('itemArt').style.left=`${o.prizeArtCenter.x*100}%`;$('itemArt').style.top=`${o.prizeArtCenter.y*100}%`;$('itemArt').style.width=`${(Math.max(...xs)-Math.min(...xs))*100}%`;$('itemArt').style.height=`${(Math.max(...ys)-Math.min(...ys))*100}%`;}
  }
+ function blocked(){return Boolean(club?.blocked?.()||$('summary').open);}
+ function openSummary(){const dialog=$('summary');summaryDismissed=false;dialog.hidden=false;if(!dialog.open){try{dialog.showModal();}catch{dialog.setAttribute('open','');}}}
+ function closeSummary(){const dialog=$('summary');summaryDismissed=true;if(dialog.open){try{dialog.close();}catch{dialog.removeAttribute('open');}}dialog.hidden=true;document.body.dataset.summary='false';}
  function sceneVisible(){
   const r=$('stage').getBoundingClientRect();if(!r.width&&!r.height)return true;
   const cue=$('signal').getBoundingClientRect(),scene=$('levelCanvas').getBoundingClientRect(),height=window.visualViewport?.height||window.innerHeight;
   return cue.top>=0&&cue.bottom<=height&&scene.top+scene.height*.5>0&&scene.top+scene.height*.5<height;
  }
- function begin(){if(artError||rendererState==='pending'||['waiting','live'].includes(state.phase)||(['feedback','done'].includes(state.phase)&&settledAt!==null&&clock()-settledAt<MOTION_DURATION_MS))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});pressedAt=null;settledAt=null;state=beginRound(state,clock(),random);lastFrame=null;render();if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});}
- function act(){const now=clock();if(artError||rendererState==='pending')return;if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}const next=press(state,now);if(next!==state){pressedAt=now;settledAt=now;}state=next;render(now);}
+ function begin(){if(blocked()||artError||rendererState==='pending'||['waiting','live'].includes(state.phase)||(['feedback','done'].includes(state.phase)&&settledAt!==null&&clock()-settledAt<MOTION_DURATION_MS))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});pressedAt=null;settledAt=null;summaryPresented=false;summaryDismissed=false;state=beginRound(state,clock(),random);lastFrame=null;render();if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});}
+ function act(){const now=clock();if(blocked()||artError||rendererState==='pending')return;if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}const next=press(state,now);if(next!==state){pressedAt=now;settledAt=now;}state=next;render(now);}
  function pause(){const next=pauseMatch(state);if(next!==state){pressedAt=null;settledAt=null;}state=next;lastFrame=null;render();}
- function practice(){pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ function practice(){closeSummary();summaryPresented=false;summaryDismissed=false;pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ listen($('summaryClose'),'click',closeSummary);listen($('summary'),'close',()=>{if($('summary').open||state.phase!=='done'||state.practice)return;summaryDismissed=true;$('summary').hidden=true;document.body.dataset.summary='false';});listen($('summaryAgain'),'click',()=>{closeSummary();begin();});listen($('summaryPractice'),'click',practice);
  listen($('resultPrev'),'click',()=>{if(resultPage>0){resultPage--;summary();}});listen($('resultNext'),'click',()=>{if((resultPage+1)*10<state.results.length){resultPage++;summary();}});
  listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
  listen($('actionButton'),'pointerdown',event=>{if(event.isPrimary===false||(event.pointerType==='mouse'&&event.button!==0))return;event.preventDefault();act();});
  listen($('actionButton'),'click',event=>{if(event.detail===0)act();});
  listen(document,'keydown',event=>{if(!['Space','Enter'].includes(event.code))return;const target=event.target;if(target?.closest?.('a,input,select,textarea,summary')||target?.closest?.('button')!==$('actionButton')&&target?.closest?.('button'))return;if(!['waiting','live'].includes(state.phase))return;event.preventDefault();if(!event.repeat)act();});
  listen(window,'scroll',()=>{if(['waiting','live'].includes(state.phase)&&!sceneVisible())pause();},{passive:true});listen(window,'blur',pause);listen(document,'visibilitychange',()=>{if(document.hidden)pause();});listen(window,'resize',()=>{if(Math.abs(window.innerWidth-width)>8){width=window.innerWidth;pause();}});listen(window,'pagehide',event=>{pause();if(!event.persisted)destroy();});
- function frame(now){if(disposed)return;if(document.hidden||(['waiting','live'].includes(state.phase)&&!sceneVisible()))pause();else if(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)pause();else state=advance(state,now);lastFrame=now;render(now);frameId=requestFrame(frame);}
- function destroy(){if(disposed)return;disposed=true;window.clearTimeout(startupTimer);cancelFrame(frameId);stageView?.dispose();for(const remove of listeners)remove();}
+ function frame(now){if(disposed)return;if(blocked()||document.hidden||(['waiting','live'].includes(state.phase)&&!sceneVisible()))pause();else if(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)pause();else state=advance(state,now);lastFrame=now;render(now);frameId=requestFrame(frame);}
+ function destroy(){if(disposed)return;disposed=true;window.clearTimeout(startupTimer);cancelFrame(frameId);stageView?.dispose();club?.destroy();for(const remove of listeners)remove();}
  function artFailed(){if(disposed||catching)return;artError=true;$('artStatus').hidden=false;$('artStatus').textContent='道具圖像載入失敗，請重試後再開始。';$('retryArtButton').hidden=false;lastRendered=null;pause();}
  function artLoaded(){if(disposed||catching)return;artError=false;$('artStatus').hidden=true;$('retryArtButton').hidden=true;atlasUrl=$('atlasProbe').getAttribute('src');lastRendered=null;render();}
  listen($('atlasProbe'),'error',artFailed);listen($('atlasProbe'),'load',artLoaded);
@@ -121,6 +128,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  try{const stage=stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d});if(stage?.then)stage.then(stageResolved).catch(unavailable);else stageResolved(stage);}catch{unavailable();}
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
+ club=clubFactory({document,window,mode,isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:()=>pause(),onStart:()=>{}});
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};
 }
 if(typeof document!=='undefined'&&document.body?.dataset.level)mountLevel({document,window});
