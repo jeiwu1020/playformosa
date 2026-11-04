@@ -1,8 +1,15 @@
 // Shared presentation only. Input windows, reaction times, scores and winners
 // remain exclusively in levels-rules.mjs. This module does not import Three.
 export const MOTION_DURATION_MS = 520;
+export function levelMotionDuration(state={}) {
+ if(!['feedback','done'].includes(state.phase))return MOTION_DURATION_MS;
+ if(state.mode==='catch'&&state.results?.at(-1)?.winner==='player')return 1100;
+ if(state.mode!=='catch'&&state.phase==='done'&&!state.practice&&!state.presentation?.suppressCelebration)return 1600;
+ return MOTION_DURATION_MS;
+}
 export const FALLBACK_FRAME_NAMES = Object.freeze([
  'levels-catch-ready','levels-catch-reach','levels-catch-grab','levels-catch-return-mid','levels-catch-return','levels-catch-empty-mid',
+ 'levels-catch-place','levels-catch-guns','levels-duel-player-place','levels-duel-ai-place','levels-duel-neutral','levels-duel-player-guns','levels-duel-ai-guns',
  'levels-duel-ready','levels-duel-player-reach','levels-duel-player-grab','levels-duel-player-return-mid','levels-duel-player',
  'levels-duel-ai-reach','levels-duel-ai-grab','levels-duel-ai-return-mid','levels-duel-ai',
 ]);
@@ -31,8 +38,6 @@ function actionTime(mode,state,result,now){
 }
 export function dartPoint(progress){
  const p=Math.max(0,Math.min(2.5,progress)),point=mixPoint(LEVEL_CONTACTS.dartStart,LEVEL_CONTACTS.catchTarget,p);
- point[1]+=Math.sin(Math.min(1,p)*Math.PI)*.055;
- if(p>1)point[1]-=(p-1)*.24;
  return point;
 }
 export function sampleLevelMotion({mode='duel',state={},now=0}={}){
@@ -77,8 +82,35 @@ export function sampleLevelMotion({mode='duel',state={},now=0}={}){
   // Retain the established final filename while making it the actual return pose.
   for(const key of ['from','to'])fallbackFrame[key]=fallbackFrame[key].replace(/^levels-duel-(player|ai)-return$/,'levels-duel-$1');
  }
- const item=itemAttachedTo==='king'?kingPalm:itemAttachedTo==='athlete'?athletePalm:LEVEL_CONTACTS.prize;
- const motion={phase,feedback,pressedAt,settledAt,after,winner,kingReach,athleteReach,kingReturn,athleteReturn,grip,athleteGrip,itemAttachedTo,dartAttached,kingPalm,athletePalm,item:[...item],dartPosition,fallbackFrame,durationMs:MOTION_DURATION_MS,complete:!feedback||after>=MOTION_DURATION_MS};
+ let kingGun=0,athleteGun=0,dartPlaced=false,itemPlaced=false,celebrationWinner=null;
+ const overallScore=(state.results||[]).reduce((n,r)=>n+(r.winner==='player'?1:r.winner==='ai'?-1:0),0);
+ const overallWinner=overallScore>0?'player':overallScore<0?'ai':'draw';
+ const durationMs=levelMotionDuration({...state,mode});
+ let placedItem=null;
+ if(catching&&feedback&&winner==='player'&&after>520){
+  const deposit=ease((after-520)/180),lower=ease((after-700)/250),place=[.5,1.05,.28];
+  kingPalm=mixPoint(mixPoint(LEVEL_CONTACTS.kingHome,place,deposit),[.4,1.15,.18],lower);
+  kingGun=lower;grip=1-lower;dartPlaced=after>=700;dartAttached=!dartPlaced;
+  dartPosition=dartPlaced?place:[...kingPalm];
+  fallbackFrame=after<700?between('levels-catch-return','levels-catch-place',deposit):between('levels-catch-place','levels-catch-guns',lower);
+ }
+ if(!catching&&feedback&&durationMs===1600&&after>520){
+  const deposit=ease((after-520)/200),lower=ease((after-720)/130),celebrate=ease((after-850)/400);
+  const place=[winner==='ai'?.5:-.5,1.14,.48];
+  if(winner==='ai')kingPalm=mixPoint(kingPalm,place,deposit);
+  if(winner==='player')athletePalm=mixPoint(athletePalm,place,deposit);
+  if(after>=720&&itemAttachedTo){itemPlaced=true;placedItem=place;itemAttachedTo=null;}
+  kingPalm=mixPoint(kingPalm,LEVEL_CONTACTS.kingRest,lower);athletePalm=mixPoint(athletePalm,LEVEL_CONTACTS.athleteRest,lower);
+  grip*=1-lower;athleteGrip*=1-lower;
+  if(after>850&&overallWinner!=='draw')celebrationWinner=overallWinner;
+  kingGun=overallWinner==='ai'?celebrate:0;athleteGun=overallWinner==='player'?celebrate:0;
+  kingPalm=mixPoint(kingPalm,[.4,1.15,.18],kingGun);athletePalm=mixPoint(athletePalm,[-.43,1.16,.20],athleteGun);
+  const prior=winner==='ai'?'levels-duel-ai':winner==='player'?'levels-duel-player':'levels-duel-ready';
+  const placeFrame=winner==='draw'?'levels-duel-ready':prior+'-place';
+  fallbackFrame=after<720?between(prior,placeFrame,deposit):after<850?between(placeFrame,'levels-duel-neutral',lower):between('levels-duel-neutral',overallWinner==='draw'?'levels-duel-neutral':'levels-duel-'+overallWinner+'-guns',celebrate);
+ }
+ const item=placedItem|| (itemAttachedTo==='king'?kingPalm:itemAttachedTo==='athlete'?athletePalm:LEVEL_CONTACTS.prize);
+ const motion={phase,feedback,pressedAt,settledAt,after,winner,kingReach,athleteReach,kingReturn,athleteReturn,grip,athleteGrip,itemAttachedTo,dartAttached,kingPalm,athletePalm,item:[...item],dartPosition,fallbackFrame,kingGun,athleteGun,dartPlaced,itemPlaced,overallWinner,celebrationWinner,revealStage:after>=durationMs?'complete':celebrationWinner?'celebration':'round',durationMs,complete:!feedback||after>=durationMs};
  motion.overlay=projectOverlay(motion,{catching,now});return motion;
 }
 // Fixed orthographic fallback camera: 900 × 620, at (0, 2.35, 6),

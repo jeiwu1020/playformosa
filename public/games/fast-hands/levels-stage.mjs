@@ -30,13 +30,13 @@ export function createLevelStage(canvas,{mode='duel',onUnavailable=()=>{},onRead
     resize();
     if(loadTextures&&mode==='duel'&&typeof document!=='undefined')textureLoader.load(new URL('./assets/duel-items-atlas.png',import.meta.url).href,texture=>{if(disposed){texture.dispose();return;}world.setItemTexture(texture);dirty=true;artReady=true;onReady();},undefined,()=>unavailable(new Error('Generated atlas image failed to load')));
   }catch(error){unavailable(error);}
-  function render(state,now=globalThis.performance?.now?.()||0){
+  function render(state,now=globalThis.performance?.now?.()||0,{force=false}={}){
     if(disposed)return false;
     resize();
     const changed=state.phase!==lastPhase||(state.results?.length||0)!==lastResults;
     if(now<lastRender)lastRender=-Infinity;
     const fps=['idle','paused','waiting'].includes(state.phase)?30:60;
-    if(!dirty&&!changed&&now-lastRender<1000/fps-.2)return false;
+    if(!force&&!dirty&&!changed&&now-lastRender<1000/fps-.2)return false;
     try{
       const start=globalThis.performance?.now?.()||0;world.update({state,now});renderer.render(world.scene,camera);
       metrics.frames++;metrics.calls=renderer.info?.render?.calls||0;metrics.triangles=renderer.info?.render?.triangles||0;metrics.renderMs=(globalThis.performance?.now?.()||0)-start;

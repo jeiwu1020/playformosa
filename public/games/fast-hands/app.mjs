@@ -3,6 +3,7 @@ import {mountFastHandsSharing} from './share.mjs';
 import {createReplayRecorder,recordReplay,finishReplay,sampleReplay} from './replay.mjs';
 import {mountFastHandsLeaderboard} from './leaderboard.mjs';
 import {createScoreImage} from './score-image.mjs';
+import {captureFinaleImage} from './finale-image.mjs';
 import {FINISH_RESULT_DELAY_MS} from './finish-timing.mjs';
 import {TRACK,newRun,arm,move,release,cancel,snapshot} from './shuttle.mjs';
 import {readBest,saveBest} from './records.mjs';
@@ -18,7 +19,53 @@ try{storage=localStorage;}catch{}
 let cachedBest=readBest(storage,mode),stage=null,sampleForRun=null,raf=null,disposed=false,rendererMode='loading',previousBest=null,resultShown=false,terminalSeenAt=null,recordSaveFailed=false;
 let resultForSharing=null,club=null,resultSuppressed=false,startupTimer=null;
 let leaderboard=null,recorder=null,replayClip=null,replaying=false,replayStart=0;
-const sharing=mountFastHandsSharing({document,createImage:createScoreImage});
+let resultImagePromise=null,resultImageURL=null,resultImage=null,resultImageGeneration=0,resultImageSurface=0,imagePageAway=false;
+const sharing=mountFastHandsSharing({document,createImage:async options=>{
+ const token=resultImageGeneration,pending=resultImagePromise;
+ const captured=await pending;
+ if(!captured||token!==resultImageGeneration||imagePageAway||disposed)throw Error('本次畫面圖片無法產生');
+ const portrait=installResultImage(captured,token);
+ if(!portrait)throw Error('本次畫面圖片無法產生');
+ return createScoreImage({...options,portrait});
+}});
+function imageStatus(message){const status=$('resultImageStatus');if(status)status.textContent=message;}
+function releaseResultImage({reset=false}={}){
+ resultImageSurface++;
+ if(resultImageURL)URL.revokeObjectURL(resultImageURL);
+ resultImageURL=null;resultImage=null;
+ const image=$('resultPortrait');image.hidden=true;image.removeAttribute?.('src');
+ if(reset){resultImageGeneration++;resultImagePromise=null;imageStatus('正在準備本次畫面…');}
+}
+function installResultImage(captured,token){
+ if(token!==resultImageGeneration||imagePageAway||disposed)return null;
+ if(!resultImageURL){
+  resultImageURL=URL.createObjectURL(captured.blob);
+  resultImage=new Image();resultImage.src=resultImageURL;
+  const hero=$('resultPortrait');hero.src=resultImageURL;hero.hidden=false;
+  imageStatus('本次挑戰的結束畫面');
+ }
+ return resultImage;
+}
+function displayResultImage(){
+ if(!resultImagePromise)return;
+ const token=resultImageGeneration,surface=resultImageSurface;
+ void resultImagePromise.then(captured=>{
+  if(token!==resultImageGeneration||surface!==resultImageSurface||imagePageAway||disposed)return;
+  if(captured)installResultImage(captured,token);
+  else imageStatus('本次畫面圖片暫時無法產生；成績與重播仍可使用。');
+ }).catch(()=>{if(token===resultImageGeneration&&surface===resultImageSurface)imageStatus('本次畫面圖片暫時無法產生；成績與重播仍可使用。');});
+}
+function captureResultImage(view){
+ if(resultImagePromise)return;
+ const now=clock(),finishAge=finishStartedAt===null?0:Math.max(0,now-finishStartedAt),currentStage=stage;
+ // Invoke synchronously: preserveDrawingBuffer:false loses pixels after yielding.
+ resultImagePromise=(async()=>captureFinaleImage({document,canvas:currentStage?$('scene3d'):canvas,renderFrame:()=>{
+  if(currentStage)return currentStage.render(sampleForRun(view,finishAge),{now,maxFps:60,force:true});
+  if(rendererMode==='loading')return false;
+  renderScene(canvas,{state:view,pose:poseForRun(view,finishAge),demo:false},torso);return true;
+ }}))().catch(()=>null);
+ displayResultImage();
+}
 const offline=$('demo3d'),dialogs=[$('entryDialog'),$('info'),$('resultDialog'),$('rankingDialog')];
 const isTerminal=phase=>['success','failed','cancelled'].includes(phase);
 const blocked=()=>dialogs.some(dialog=>dialog.open)||Boolean(club?.blocked());
@@ -52,7 +99,7 @@ function unlock(){try{ac??=new AudioContext();void ac.resume().catch(()=>{});}ca
 function quack(){if(muted)return;try{unlock();if(ac){squeak(ac);soundCount++;$('sound').dataset.playCount=String(soundCount);}}catch{$('sound').textContent='音效暫不可用';}}
 function clearPointer(){const id=activePointer;activePointer=null;activeType=null;gestureRect=null;if(id!==null&&pad.hasPointerCapture(id))pad.releasePointerCapture(id);}
 function stopReplay(){replaying=false;document.body.dataset.playback='';lastPhase='';}
-function reset(){resultSuppressed=false;stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
+function reset(){releaseResultImage({reset:true});resultSuppressed=false;stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
 function interrupt(reason){stopReplay();if(activePointer!==null){s=cancel(s,clock(),reason);recordReplay(recorder,s,clock());}clearPointer();}
 function apply(next,at=next.lastAt){const prev=s;s=next;if(next!==prev)recordReplay(recorder,next,at);if(prev.pickupAt===null&&s.pickupAt!==null)quack();if(prev.phase!=='success'&&s.phase==='success'){leaderboard.captureResult(s,mode,{demo});finishStartedAt=clock();previousBest=readBest(storage,mode);const saved=saveBest(storage,mode,s.elapsedMs);recordSaveFailed=saved===null;cachedBest=saved??previousBest;}}
 function sampleTime(e){return eventTime(e,performance.timeOrigin,clock());}
@@ -63,8 +110,8 @@ pad.addEventListener('pointermove',e=>{if(activePointer!==e.pointerId||activeTyp
 pad.addEventListener('pointerup',e=>{if(activePointer!==e.pointerId||activeType!==e.pointerType)return;e.preventDefault();const at=sampleTime(e);apply(release(s,{at,id:e.pointerId}),at);clearPointer();});
 pad.addEventListener('pointercancel',e=>{if(activePointer===e.pointerId)interrupt('pointercancel');});
 pad.addEventListener('lostpointercapture',e=>{if(activePointer===e.pointerId)interrupt('lost-capture');});
-window.addEventListener('blur',()=>interrupt('blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupt('hidden');});window.addEventListener('resize',()=>interrupt('resize'));window.addEventListener('pagehide',event=>{interrupt('hidden');leaderboard.dismiss(false);offline.pause();if(!event.persisted){disposed=true;window.clearTimeout(startupTimer);leaderboard.destroy();sharing.destroy();cancelAnimationFrame(raf);stage?.dispose();}});
-window.addEventListener('pageshow',()=>{if(!disposed){stage?.resize();syncVideo();}});
+window.addEventListener('blur',()=>interrupt('blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupt('hidden');});window.addEventListener('resize',()=>interrupt('resize'));window.addEventListener('pagehide',event=>{imagePageAway=true;releaseResultImage();interrupt('hidden');leaderboard.dismiss(false);offline.pause();if(!event.persisted){disposed=true;window.clearTimeout(startupTimer);leaderboard.destroy();sharing.destroy();cancelAnimationFrame(raf);stage?.dispose();}});
+window.addEventListener('pageshow',()=>{if(!disposed){imagePageAway=false;stage?.resize();syncVideo();displayResultImage();}});
 document.addEventListener('visibilitychange',syncVideo);
 window.addEventListener('storage',()=>{cachedBest=readBest(storage,mode);});
 function startGame(){if(rendererMode==='loading')return;closeDialogs();demo=false;reset();syncVideo();unlock();}
@@ -79,7 +126,7 @@ function showResult(){
  for(const [id,value] of Object.entries({resultTitle:result.title,resultTime:result.timeText,resultUnit:result.success?'秒':'',resultComment:result.comment,resultBest:result.bestText,resultDelta:result.deltaText,resultMode:result.modeText}))$(id).textContent=value;
   $('resultDialog').dataset.outcome=result.success?'success':'unfinished';
  $('resultDialog').dataset.record=String(result.newRecord);
- resultShown=true;closeDialogs();openDialog($('resultDialog'));sharing.prepare(Object.freeze(result),mode);
+ captureResultImage(view);resultShown=true;closeDialogs();openDialog($('resultDialog'));sharing.prepare(Object.freeze(result),mode);
 }
 function replayResult(){if(!replayClip||activePointer!==null||demo)return;closeDialogs();replaying=true;replayStart=clock();lastPhase='';document.body.dataset.playback='replay';syncVideo();}
 $('resultDemo').onclick=replayResult;

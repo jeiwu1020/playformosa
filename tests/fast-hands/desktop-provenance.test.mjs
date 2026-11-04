@@ -1,16 +1,19 @@
+import {FINALE_ADDED,readFinaleBaseline} from '../helpers/fast-hands-finale-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
-import {desktopLedger,reverseDesktop,readDesktopBaseline,DESKTOP_ALLOWED} from '../helpers/fast-hands-desktop-provenance.mjs';
+import {desktopLedger,reverseDesktop as reverseDesktopLayer,readDesktopBaseline,DESKTOP_ALLOWED} from '../helpers/fast-hands-desktop-provenance.mjs';
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
+const reverseDesktop=reverseDesktopLayer;
 const read=path=>readFileSync(new URL(path,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 test('desktop reversal rejects drift, malformed edits, wrong parent and unapproved paths',()=>{
+ const reverseDesktop=(p,b,l)=>reverseDesktopLayer(p,b,l,{files:[]});
  const path=prefix+'club.css',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]},ledger={files:[row]};
  assert.deepEqual(reverseDesktop(path,bytes,ledger),before);
@@ -26,11 +29,11 @@ test('desktop ledger pins published parent and allows only club CSS runtime chan
  assert.deepEqual(DESKTOP_ALLOWED,[prefix+'club.css']);
  assert.deepEqual(ledger.files.map(r=>r.path),DESKTOP_ALLOWED);
  assert.equal(ledger.files[0].baseGitBlob,'8d5d87fe337f8200025c6dab380990beb579b121');
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...ledger.files,...ledger.preserved].map(r=>r.path).concat(FINALE_ADDED).sort());
  for(const row of ledger.files){const bytes=read(row.path),restored=reverseDesktop(row.path,bytes,ledger);assert.equal(sha(restored),row.beforeSha256);assert.equal(blob(restored),row.baseGitBlob);assert.throws(()=>reverseDesktop(row.path,Buffer.concat([bytes,Buffer.from('drift')]),ledger));}
- for(const row of ledger.preserved)assert.equal(blob(read(row.path)),row.gitBlob,row.path);
+ for(const row of ledger.preserved)assert.equal(blob(readFinaleBaseline(new URL(row.path,root))),row.gitBlob,row.path);
  assert.equal(ledger.historicalLedgers.length,12);
- for(const row of ledger.historicalLedgers){assert.equal(sha(read(row.path)),row.sha256,row.path);assert.equal(blob(read(row.path)),row.gitBlob,row.path);}
+ for(const row of ledger.historicalLedgers){assert.equal(sha(read(row.path)),row.sha256,row.path);assert.equal(blob(readFinaleBaseline(new URL(row.path,root))),row.gitBlob,row.path);}
 });
 test('desktop baseline reader preserves encodings, URL/path handling and outside files',()=>{
  const path=prefix+'club.css',url=new URL(path,root),expected=reverseDesktop(path,read(path));

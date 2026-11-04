@@ -35,7 +35,7 @@ function page(name, width, height, phase = 'idle') {
   document.body.classList.add('fast-hands-club');
   document.body.dataset.phase = phase;
   const base = name === 'duck' ? ['style.css','level-nav.css','../shared/studio-brand.css'] : ['levels.css','level-nav.css'];
-  const css = base.map(file => readFileSync(new URL(file, root), 'utf8')).join('\n') + '\n' + (existsSync(clubPath) ? readFileSync(clubPath, 'utf8') : '');
+  const css = base.map(file => readFileSync(new URL(file, root), 'utf8')).join('\n') + '\n' + (existsSync(clubPath) ? readFileSync(clubPath, 'utf8') : '') + '\n' + readFileSync(new URL('finale.css', root), 'utf8');
   const style = document.createElement('style');
   style.textContent = atViewport(css, width, height);
   document.head.append(style);
@@ -107,10 +107,10 @@ test('result tickets use one column with a fixed hero, reachable actions and ind
       dialog.setAttribute('open','');
       assert.equal(p.style(name === 'duck' ? '#resultDialog' : '#summary').display,'flex');
       assert.equal(p.style(name === 'duck' ? '#resultDialog' : '#summary').flexDirection,'column');
-      assert.equal(p.style(name === 'duck' ? '.result-top' : '.summary-overview').flexShrink,'0');
+      assert.equal(p.style(name === 'duck' ? '.result-top' : '.summary-overview').flexShrink,'1');
       if(name === 'duck') {
         assert.equal(p.style('#resultDialog .ticket-body').overflowY,'auto');
-        assert.equal(p.style('.result-buttons').position,'sticky');
+        assert.equal(p.style('.result-buttons').position,'static');
       }
       p.dom.window.close();
     }
@@ -180,7 +180,7 @@ test('wide short landscape shares the navigation row without moving controls alo
   }
 });
 
-test('completed catch and duel tickets keep retry above practice despite desktop summary rules', () => {
+test('completed catch and duel tickets keep retry fixed and practice inside collapsed details', () => {
   for (const name of ['catch','duel']) {
     for (const [width,height] of [...sizes].reverse()) {
       const p=page(name,width,height,'done');
@@ -188,9 +188,12 @@ test('completed catch and duel tickets keep retry above practice despite desktop
       const summary=p.document.querySelector('#summary');
       summary.hidden=false;
       summary.setAttribute('open','');
-      assert.equal(p.style('#summaryPractice').gridRow,'2',`${name} ${width}×${height}: practice is the second action`);
+      assert.equal(p.style('#summaryPractice').gridRow,'auto');
+      assert.ok(p.document.querySelector('details.finale-details #summaryPractice'));
+      assert.equal(p.document.querySelector('details.finale-details').open,false);
+      assert.equal(p.document.querySelectorAll('.finale-main-actions>button').length,3);
       assert.equal(p.style('#summaryAgain').gridRow,'1',`${name} ${width}×${height}: retry is always first`);
-      assert.equal(p.style('#summaryPractice').gridColumn,'1/-1');
+      assert.equal(p.style('#summaryPractice').gridColumn,'auto');
       assert.equal(p.style('#summaryAgain').gridColumn,'1/-1');
       p.dom.window.close();
     }

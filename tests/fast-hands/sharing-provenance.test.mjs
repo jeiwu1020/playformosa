@@ -1,6 +1,7 @@
+import {readFinaleBaseline} from '../helpers/fast-hands-finale-provenance.mjs';
 import {readButtonLayoutBaseline} from '../helpers/fast-hands-button-layout-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';
 import{sharingLedger,SHARING_MODIFIED,SHARING_ADDED,reverseSharing,sharingRuntimeAdditions,readSharingBaseline}from'../helpers/fast-hands-sharing-provenance.mjs';
 const root=new URL('../../',import.meta.url),hash=b=>createHash('sha256').update(b).digest('hex');
 test('sharing is exactly three result presentation edits and one independently pinned controller',()=>{const l=sharingLedger();assert.equal(l.baseCommit,'90dd5ec4466a4065bc2d5e8a14d75b3cf8ec3a8b');assert.deepEqual(l.files.map(f=>f.path),[...SHARING_MODIFIED,...SHARING_ADDED]);for(const f of l.files){const file=new URL(f.path,root),b=readButtonLayoutBaseline(file);assert.equal(hash(b),f.sha256);assert.deepEqual(reverseSharing(f.path,b),readSharingBaseline(file));assert.throws(()=>reverseSharing(f.path,Buffer.concat([b,Buffer.from('drift')])));}assert.deepEqual(sharingRuntimeAdditions(),SHARING_ADDED)});
-test('sharing preserves other games, loading art, previous manifests, backend, rules, character and score image',()=>{const l=sharingLedger();assert.ok(l.protected.length>450);for(const f of l.protected)assert.equal(hash(readFileSync(new URL(f.path,root))),f.sha256,f.path)});
+test('sharing preserves other games, loading art, previous manifests, backend, rules, character and score image',()=>{const l=sharingLedger();assert.ok(l.protected.length>450);for(const f of l.protected)assert.equal(hash(readFinaleBaseline(new URL(f.path,root))),f.sha256,f.path)});

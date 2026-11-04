@@ -1,3 +1,4 @@
+import {reverseFinale,finaleLedger} from './fast-hands-finale-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -8,7 +9,8 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 export const DESKTOP_ALLOWED=Object.freeze(['public/games/fast-hands/club.css']);
 export const desktopLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/DESKTOP-MANIFEST.json',root),'utf8'));
-export function reverseDesktop(path,bytes,ledger=desktopLedger()){
+export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=finaleLedger()){
+ bytes=reverseFinale(path,bytes,outerLedger);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(DESKTOP_ALLOWED.includes(path),'Unapproved desktop path '+path);

@@ -27,9 +27,9 @@ test('toy dart is a short continuous bright-blue mesh without a swollen or contr
   world.dispose();
 });
 
-test('dart rest, flight and caught contact coordinates stay on the existing trajectory', () => {
+test('dart rest, flight and caught contact coordinates stay on the straight trajectory', () => {
   const world=createLevelWorld(THREE,{mode:'catch'});
-  for(const [now, expected] of [[1000,[-.85,1.33,.35]],[1200,[-.4,1.385,.35]],[1400,[.05,1.33,.35]]]){
+  for(const [now, expected] of [[1000,[-.85,1.33,.35]],[1200,[-.4,1.33,.35]],[1400,[.05,1.33,.35]]]){
     const sample=world.update({state:state(),now});
     sample.contacts.dartTip.forEach((value,i)=>close(value,expected[i]));
   }

@@ -55,10 +55,11 @@ test('the UI retains original WebGL, offline-video and playable 2D renderer boun
 });
 
 
-test('results expose the actual character portrait and a live download status', () => {
+test('results reserve a current-round image without a stock portrait and announce download status', () => {
   const portrait = byId('resultPortrait');
   assert.equal(portrait?.name, 'img', 'the result card needs a real image element');
-  assert.equal(portrait.src, 'assets/result-pose.png', 'use the supplied final-pose image');
+  assert.equal(portrait.src, undefined, 'do not show a stock image before the actual-round capture');
+  assert.ok('hidden' in portrait, 'the placeholder is hidden until capture succeeds');
   assert.ok(portrait.alt?.trim(), 'the portrait must describe the character pose accessibly');
   assert.equal(byId('downloadStatus')?.['aria-live'], 'polite', 'download failures must be announced without a modal');
 });

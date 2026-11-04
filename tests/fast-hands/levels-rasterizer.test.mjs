@@ -30,5 +30,5 @@ test('fallback rendering supplies same-model reach, grasp, return, and empty-han
  assert.ok(Array.isArray(shots),'the render script must export the exact fallback keyframe list');
  const names=new Set(shots.map(shot=>shot.name));
  for(const name of ['levels-catch-ready','levels-catch-reach','levels-catch-grab','levels-catch-return-mid','levels-catch-return','levels-catch-empty-mid','levels-duel-ready','levels-duel-player-reach','levels-duel-player-grab','levels-duel-player-return-mid','levels-duel-player','levels-duel-ai-reach','levels-duel-ai-grab','levels-duel-ai-return-mid','levels-duel-ai'])assert.ok(names.has(name),name);
- assert.equal(shots.length,15,'keep the complete pose set under two dozen images');
+ assert.equal(shots.length,22,'keep the complete pose set under two dozen images');
 });

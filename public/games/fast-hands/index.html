@@ -62,6 +62,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
   <title>快手王｜一筆往返</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="duck-startup.css">
+  <link rel="stylesheet" href="finale.css">
   <link rel="stylesheet" href="../shared/studio-brand.css">
 </head>
 <body class="pf-game pf-fast-hands fast-hands-club" data-club-mode="duck" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">小鴨準備好了，鈔票正在做心理準備。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
@@ -149,43 +150,35 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     </div>
   </dialog>
 
-  <dialog id="resultDialog" class="ticket-dialog result-dialog" aria-labelledby="resultTitle" aria-describedby="resultComment">
-    <div class="ticket-top result-top">
-      <span class="ticket-kicker">FAST HANDS · 本次挑戰</span>
-      <button id="resultClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button>
+  <dialog id="resultDialog" class="ticket-dialog result-dialog finale-ticket" aria-labelledby="resultTitle" aria-describedby="resultComment">
+    <button id="resultClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button>
+    <div class="ticket-top result-top finale-overview">
+      <figure class="finale-picture"><img id="resultPortrait" alt="本次小鴨挑戰的結束畫面" width="900" height="620" hidden><figcaption id="resultImageStatus" role="status">正在準備本次畫面…</figcaption></figure>
       <h2 id="resultTitle">挑戰完成！</h2>
-      <div class="result-summary">
-        <img id="resultPortrait" class="result-portrait" src="assets/result-pose.png" alt="快手王角色雙手比手槍的最後姿勢" width="104" height="104" draggable="false">
-        <div class="result-time"><strong id="resultTime">0.000</strong> <small id="resultUnit">秒</small></div>
-      </div>
+      <div class="result-time"><strong id="resultTime">0.000</strong> <small id="resultUnit">秒</small></div>
       <p id="resultComment">這一手，快得很有說服力。</p>
     </div>
-    <div class="ticket-body">
-      <div class="result-records">
-        <div><span>本機最佳</span><strong id="resultBest">—</strong></div>
-        <div><span>與最佳比較</span><strong id="resultDelta">—</strong></div>
-      </div>
-      <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
-      <div class="result-buttons">
-        <button id="resultAgain" type="button" class="primary">再挑戰一次 <span aria-hidden="true">→</span></button>
-        <button id="resultDemo" type="button" class="quiet-button" disabled>重播本次</button>
-        <button id="resultUpload" type="button" class="secondary" aria-describedby="leaderboardStatus" disabled>上傳排行榜</button>
-        <button id="resultRanking" type="button" class="quiet-button" aria-label="查看測試排行榜">查看排行榜</button>
-      </div>
-      <div class="result-share-actions pf-share-actions" role="group" aria-label="分享本次成績">
-        <a id="resultThreads" data-share="threads" class="secondary" target="_blank" rel="noopener noreferrer" aria-describedby="downloadStatus">分享到 Threads</a>
-        <button id="resultDownload" data-share="image" type="button" class="secondary" disabled>製作成績圖…</button>
-        <button id="resultCopy" data-share="copy" type="button" class="quiet-button">複製成績與網址</button>
-      </div>
-      <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden>
-        <img id="shareFallbackImage" alt="本次快手王成績圖片，可長按儲存" hidden>
-        <textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea>
-        <button id="shareFallbackClose" type="button" class="quiet-button">收起</button>
-      </section>
-      <p id="downloadStatus" class="result-status" aria-live="polite"></p>
-      <p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
-      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
-      <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    <div class="result-buttons finale-main-actions">
+      <button id="resultAgain" data-finale-action="again" type="button" class="primary">再挑戰一次</button>
+      <button id="resultDemo" data-finale-action="replay" type="button" class="quiet-button" disabled>重播本次</button>
+      <button id="resultRanking" data-finale-action="ranking" type="button" class="quiet-button" aria-label="查看測試排行榜">排行榜</button>
+    </div>
+    <div class="ticket-body finale-scroll">
+      <details class="finale-details"><summary>詳細紀錄與選項</summary>
+        <div class="result-records"><div><span>本機最佳</span><strong id="resultBest">—</strong></div><div><span>與最佳比較</span><strong id="resultDelta">—</strong></div></div>
+        <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
+        <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+      </details>
+      <details class="finale-share"><summary>分享本次成績</summary>
+        <div class="result-share-actions pf-share-actions" role="group" aria-label="分享本次成績">
+          <a id="resultThreads" data-share="threads" class="secondary" target="_blank" rel="noopener noreferrer" aria-describedby="downloadStatus">分享到 Threads</a>
+          <button id="resultDownload" data-share="image" type="button" class="secondary" disabled>製作成績圖…</button>
+          <button id="resultCopy" data-share="copy" type="button" class="quiet-button">複製成績與網址</button>
+        </div>
+        <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden><img id="shareFallbackImage" alt="本次快手王成績圖片，可長按儲存" hidden><textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea><button id="shareFallbackClose" type="button" class="quiet-button">收起</button></section>
+        <p id="downloadStatus" class="result-status" aria-live="polite"></p>
+      </details>
+    <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
   </dialog>
 
@@ -197,7 +190,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
       <p id="rankingDisclaimer">休閒比一比。成績由玩家回報，非經驗證的正式競賽。</p>
     </header>
     <div class="ranking-scroll" role="region" aria-label="排行榜與提交內容，可捲動" tabindex="0">
-      <section id="rankingBoard" aria-label="查看測試排行榜">
+      <section id="rankingBoard" aria-label="查看測試排行榜"><button id="resultUpload" type="button" class="primary" aria-describedby="leaderboardStatus" disabled>上傳本次成績</button><p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
         <div class="ranking-modes" role="group" aria-label="排行榜操作類別">
           <button id="rankingMouse" type="button" class="secondary" aria-pressed="true">滑鼠榜</button>
           <button id="rankingTouch" type="button" class="secondary" aria-pressed="false">觸控榜</button>

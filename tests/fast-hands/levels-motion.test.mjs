@@ -122,8 +122,8 @@ test('fallback prize bounds project the full .56 source plane without shrinking 
 
 test('fallback frame preload list covers every animation result and remains bounded',()=>{
  assert.ok(Array.isArray(motionModule.FALLBACK_FRAME_NAMES));
- assert.equal(motionModule.FALLBACK_FRAME_NAMES.length,15);
- assert.equal(new Set(motionModule.FALLBACK_FRAME_NAMES).size,15);
+ assert.equal(motionModule.FALLBACK_FRAME_NAMES.length,22);
+ assert.equal(new Set(motionModule.FALLBACK_FRAME_NAMES).size,22);
  for(const mode of ['catch','duel'])for(const winner of ['player','ai','none','draw'])for(let t=0;t<=550;t+=10){
   const s=feedback(result(winner,winner==='none'?'early':mode==='catch'?'caught':'player-first',{offsetMs:0,playerMs:110}),mode==='catch'?1400:1110);
   const m=motionModule.sampleLevelMotion({mode,state:s,now:s.presentation.pressedAt+t});

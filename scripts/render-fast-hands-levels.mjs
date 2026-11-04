@@ -117,6 +117,13 @@ const ai={winner:'ai',reason:'ai-first',playerMs:null,round:1};
 // These times are the exact shared-motion contact and halfway poses, not
 // independently authored approximations. DOM overlays supply both props.
 export const LEVEL_FALLBACK_SHOTS = Object.freeze([
+  {name:'levels-catch-place',mode:'catch',phase:'feedback',now:2100,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-catch-guns',mode:'catch',phase:'feedback',now:2350,result:caught,pressedAt:1400,settledAt:1400},
+  {name:'levels-duel-player-place',mode:'duel',phase:'done',now:1830,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-ai-place',mode:'duel',phase:'done',now:1900,result:ai,settledAt:1180},
+  {name:'levels-duel-neutral',mode:'duel',phase:'done',now:1960,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-player-guns',mode:'duel',phase:'done',now:2360,result:player,pressedAt:1110,settledAt:1110},
+  {name:'levels-duel-ai-guns',mode:'duel',phase:'done',now:2430,result:ai,settledAt:1180},
   {name:'levels-catch-ready',mode:'catch',phase:'waiting',now:500},
   {name:'levels-catch-reach',mode:'catch',phase:'feedback',now:1460,result:caught,pressedAt:1400,settledAt:1400},
   {name:'levels-catch-grab',mode:'catch',phase:'feedback',now:1520,result:caught,pressedAt:1400,settledAt:1400},
@@ -146,7 +153,7 @@ async function main() {
   const manifest = [];
   for (const shot of shots) {
     const world = createLevelWorld(THREE, {mode:shot.mode});
-    const state = {...base, phase:shot.phase, results:shot.result ? [shot.result] : [], presentation:{pressedAt:shot.pressedAt??null,settledAt:shot.settledAt??null}};
+    const state = {...base, mode:shot.mode, phase:shot.phase, results:shot.result ? [shot.result] : [], presentation:{pressedAt:shot.pressedAt??null,settledAt:shot.settledAt??null}};
     const startSample = world.update({state:{...base, phase:'live'}, now:base.liveAt});
     const sample = world.update({state, now:shot.now});
     camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);

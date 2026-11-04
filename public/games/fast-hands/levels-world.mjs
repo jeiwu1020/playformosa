@@ -53,11 +53,14 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
   const kingHandRotation=new THREE.Quaternion().setFromEuler(new THREE.Euler(0,catching?-.95:0,catching?0:Math.PI/2));
   const kingRestRotation=new THREE.Quaternion().setFromEuler(new THREE.Euler(.12,-.45,Math.PI-.12));
   const kingOuterRotation=new THREE.Quaternion().setFromEuler(new THREE.Euler(.9,0,-.55));
-  function kingPose(target,grip,breath,rotation=kingHandRotation){
+  function kingPose(target,grip,breath,rotation=kingHandRotation,gun=0){
+    rotation=rotation.clone().slerp(new THREE.Quaternion().setFromEuler(new THREE.Euler(0,0,Math.PI/2)),gun);
+    const outerWrist=v(.43,1.12,.19).lerp(v(.43,1.14,.19),gun),outerRotation=kingOuterRotation.clone().slerp(new THREE.Quaternion().setFromEuler(new THREE.Euler(0,0,-Math.PI/2)),gun);
     king.root.position.set(0,0,0);king.root.quaternion.identity();king.root.updateMatrixWorld(true);
     const wrist=target.clone().sub(kingGripOffset.clone().applyQuaternion(rotation)).sub(kingPosition).applyQuaternion(inverseKing);
-    const anatomy=king.update({torso:{lean:0,yaw:0},hand:{wrist:[.43,1.12,.19],quaternion:kingOuterRotation.toArray(),pinch:0,duckGrip:0},restHand:{wrist:wrist.toArray(),quaternion:inverseKing.clone().multiply(rotation).toArray(),gun:0},bill:{rotation:[0,0,0]},regrip:0});
-    kingInner.pose(grip*.98,grip,false,0);
+    const anatomy=king.update({torso:{lean:0,yaw:0},hand:{wrist:outerWrist.toArray(),quaternion:outerRotation.toArray(),pinch:0,duckGrip:0},restHand:{wrist:wrist.toArray(),quaternion:inverseKing.clone().multiply(rotation).toArray(),gun:0},bill:{rotation:[0,0,0]},regrip:0});
+    kingInner.pose(grip*.98,grip,true,gun);
+    king.hands[0].pose(0,0,true,gun);
     king.root.position.copy(kingPosition);king.root.quaternion.copy(kingRotation);
     king.head.rotation.x+=breath;
     king.root.updateMatrixWorld(true);
@@ -78,12 +81,13 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
     return a.clone().addScaledVector(direction,along).addScaledVector(normal,height);
   }
   const asPoint=(p,baseZ=0)=>({x:p.x,y:p.y,z:p.z-baseZ});
-  function athletePose(target,grip,breath){
+  function athletePose(target,grip,breath,gun=0){
     if(!athlete)return null;
-    const handTarget=target.clone().sub(athleteGripOffset.clone().applyQuaternion(athleteHandRotation)).sub(athletePosition).applyQuaternion(inverseAthlete);
+    const handRotation=athleteHandRotation.clone().slerp(new THREE.Quaternion().setFromAxisAngle(v(0,0,1),Math.PI/2),gun);
+    const handTarget=target.clone().sub(athleteGripOffset.clone().applyQuaternion(handRotation)).sub(athletePosition).applyQuaternion(inverseAthlete);
     const points={hip:{x:0,y:.95,z:0},shoulder:{x:0,y:1.50,z:0},head:{x:0,y:1.89,z:0}},anatomy={arms:[],legs:[]};
     for(let i=0;i<2;i++){
-      const z=i===0?.205:-.205,shoulder=v(0,1.50,z),wrist=i===1?handTarget:v(.22,1.13,.27);
+      const z=i===0?.205:-.205,shoulder=v(0,1.50,z),wrist=i===1?handTarget:v(.22,1.13,.27).lerp(v(.15,1.16,.27),gun);
       const elbow=solve(shoulder,wrist,.34,.32,v(-.4,-1,i===0?1:-1));
       points['elbow'+i]=asPoint(elbow,z);points['hand'+i]=asPoint(wrist,z);
       const hip=v(0,.95,z),ankle=v(.01,.12,z+(i===0?.045:-.045)),knee=solve(hip,ankle,.55,.55,v(.8,0,0));
@@ -96,9 +100,14 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
     // body/head are turned toward this camera without touching its geometry.
     athlete.group.getObjectByName('body').rotation.set(0,Math.PI/2+.12,0);
     athlete.group.getObjectByName('head').rotation.set(breath,Math.PI/2+.08,0);
-    const hand=athlete.group.getObjectByName('hand-1');hand.quaternion.copy(inverseAthlete).multiply(athleteHandRotation);
+    const hand=athlete.group.getObjectByName('hand-1');hand.quaternion.copy(inverseAthlete).multiply(handRotation);
     for(let i=0;i<4;i++)athlete.group.getObjectByName('finger-1-'+i).rotation.x=-grip*1.35;
     athlete.group.getObjectByName('thumb-1').rotation.x=-grip*.9;
+    const outer=athlete.group.getObjectByName('hand-0');outer.quaternion.copy(inverseAthlete).multiply(new THREE.Quaternion().setFromAxisAngle(v(0,0,1),-gun*Math.PI/2));
+    for(let side=0;side<2;side++){
+      for(let i=0;i<4;i++){const finger=athlete.group.getObjectByName('finger-'+side+'-'+i);const base=side===1?-grip*1.35:0;finger.rotation.x=base*(1-gun)+(i===0?0:-1.55)*gun;finger.position.y=(-.068+Math.abs(i-1.5)*.004)*(1-gun)+(i===0?-.10:-.06)*gun;finger.position.x=(i-1.5)*.027*(1-gun)+(i===0?(side===1?.04:-.04):(i-1.5)*.027)*gun;}
+      const thumb=athlete.group.getObjectByName('thumb-'+side);thumb.rotation.x=(side===1?-grip*.9:0)*(1-gun);thumb.rotation.z=-.8*(1-gun)+(side===1?1.45:-1.45)*gun;thumb.position.x=-.065*(1-gun)+(side===1?.065:-.065)*gun;
+    }
     athlete.group.position.copy(athletePosition);athlete.group.quaternion.copy(athleteRotation);athlete.group.updateMatrixWorld(true);
     return anatomy;
   }
@@ -145,25 +154,26 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
     const live=phase==='live',won=winner==='player',kingWon=winner==='ai';
     const breath=['idle','waiting'].includes(phase)?Math.sin(now*.002)*.014:0;
     const rotation=catching?kingRestRotation.clone().slerp(kingHandRotation,kingReach*(won?1:1-motion.kingReturn)):kingHandRotation;
-    const kingAnatomy=kingPose(v(...motion.kingPalm),grip,breath,rotation);
-    const athleteAnatomy=athletePose(v(...(motion.athletePalm||[0,0,0])),motion.athleteGrip,breath);
+    const kingAnatomy=kingPose(v(...motion.kingPalm),grip,breath,rotation,motion.kingGun);
+    const athleteAnatomy=athletePose(v(...(motion.athletePalm||[0,0,0])),motion.athleteGrip,breath,motion.athleteGun);
     const palm=worldPosition(kingInner.gripAnchor),playerPalm=athletePalm?worldPosition(athletePalm):null;
     item.position.fromArray(motion.item);item.rotation.set(0,0,0);
     itemArt.position.y=.045;
     if(!feedback)itemArt.position.y=.045+Math.sin(now*.0025)*.012;
     const currentItem=state.items?.[Math.max(0,Math.min((state.items?.length||1)-1,(state.results?.length||0)-(feedback?1:0)))];selectArt(currentItem?.artIndex);
-    targetRing.material=won&&feedback?materials.teal:kingWon&&feedback?materials.orange:materials.gold;
+    const ringWinner=motion.durationMs===1600&&motion.after>=720?motion.celebrationWinner:winner;
+    targetRing.material=feedback&&ringWinner==='player'?materials.teal:feedback&&ringWinner==='ai'?materials.orange:materials.gold;
     catchRing.material=won&&feedback?materials.gold:materials.teal;
     if(catching){
       const duration=Math.max(1,finite(state.flightMs,400)),progress=Number.isFinite(state.liveAt)?(now-state.liveAt)/duration:0;
       dart.position.fromArray(motion.dartPosition);
       dart.visible=live||feedback&&Number.isFinite(state.liveAt);
-      dart.rotation.z=dartAttached?0:progress>1&&winner!=='player'?-(progress-1)*.25:0;
+      dart.rotation.z=0;
       trail.visible=live&&progress>.07&&progress<1.1;trail.position.copy(dart.position);
       catchRing.scale.setScalar(live?1+Math.sin(now*.013)*.04:1);
     }
     scene.updateMatrixWorld(true);
-    lastSample={...motion,phase,grip,kingReach,athleteReach,itemAttachedTo,dartAttached,anatomy:{king:kingAnatomy,athlete:athleteAnatomy},contacts:{kingPalm:palm.toArray(),athletePalm:playerPalm?.toArray()||null,kingHead:worldPosition(king.head).toArray(),athleteHead:athlete?worldPosition(athlete.group.getObjectByName('head')).toArray():null,item:item.position.toArray(),dartTip:worldPosition(dartContact).toArray()}};
+    lastSample={...motion,phase,grip,kingReach,athleteReach,itemAttachedTo,dartAttached,anatomy:{king:kingAnatomy,athlete:athleteAnatomy},contacts:{kingPalm:palm.toArray(),kingOuterPalm:worldPosition(king.hands[0].gripAnchor).toArray(),athletePalm:playerPalm?.toArray()||null,kingHead:worldPosition(king.head).toArray(),athleteHead:athlete?worldPosition(athlete.group.getObjectByName('head')).toArray():null,item:item.position.toArray(),dartTip:worldPosition(dartContact).toArray()}};
     return lastSample;
   }
   function diagnostics(){let meshes=0,triangles=0;scene.traverse(o=>{if(o.isMesh){meshes++;triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;}});return{mode,meshes,triangles,tableTop:1.004,characterSources:['fast-hands/three3d/rig.mjs',...(!catching?['javelin/character3d.mjs']:[])]};}

@@ -8,7 +8,9 @@ test('result keeps gameplay and ranking actions while offering three separate sh
  const d=doc(),share=d.querySelector('.result-share-actions');assert.ok(share);
  assert.deepEqual([...share.children].map(e=>e.id),['resultThreads','resultDownload','resultCopy']);
  const link=d.getElementById('resultThreads');assert.equal(link.target,'_blank');assert.match(link.rel,/noopener/);assert.match(link.rel,/noreferrer/);assert.equal(link.hasAttribute('href'),false,'no stale result URL before prepare');
- for(const id of ['resultAgain','resultDemo','resultUpload','resultRanking'])assert.ok(d.querySelector('#resultDialog #'+id));
+ for(const id of ['resultAgain','resultDemo','resultRanking'])assert.ok(d.querySelector('#resultDialog #'+id));
+ assert.ok(d.querySelector('#rankingBoard #resultUpload'),'voluntary upload moved to the ranking view');
+ assert.ok(share.closest('details.finale-share'),'share controls remain together in the collapsed section');
  assert.equal(d.getElementById('shareFallback').hidden,true);assert.equal(d.getElementById('shareFallbackText').readOnly,true);
  assert.equal(d.querySelectorAll('#resultDialog dialog').length,0,'fallback stays in the existing modal');
 });

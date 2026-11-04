@@ -1,4 +1,5 @@
-import {reverseDesktop} from './fast-hands-desktop-provenance.mjs';
+import {finaleLedger,finaleRuntimeAdditions} from './fast-hands-finale-provenance.mjs';
+import {reverseDesktop,desktopLedger} from './fast-hands-desktop-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -12,8 +13,8 @@ export const ENTRY_CHANGED=Object.freeze(['app.mjs','index.html','club.css'].map
 export const ENTRY_ADDED=Object.freeze(['duck-startup.css'].map(path=>prefix+path));
 export const ENTRY_ALLOWED=Object.freeze([...ENTRY_CHANGED,...ENTRY_ADDED]);
 export const entryLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/ENTRY-MANIFEST.json',root),'utf8'));
-export function reverseEntry(path,bytes,ledger=entryLedger()){
- bytes=reverseDesktop(path,bytes);
+export function reverseEntry(path,bytes,ledger=entryLedger(),outerLedger=finaleLedger()){
+ bytes=reverseDesktop(path,bytes,desktopLedger(),outerLedger);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(ENTRY_ALLOWED.includes(path),'Unapproved entry path '+path);
@@ -51,5 +52,5 @@ export function readEntryBaseline(file,options){
 export function entryRuntimeAdditions(){
  const ledger=entryLedger();assert.deepEqual(ledger.files.map(file=>file.path).sort(),[...ENTRY_ALLOWED].sort());
  for(const path of ENTRY_ADDED)reverseEntry(path,readFileSync(new URL(path,root)),ledger);
- return [...ENTRY_ADDED];
+ return [...ENTRY_ADDED,...finaleRuntimeAdditions()];
 }
