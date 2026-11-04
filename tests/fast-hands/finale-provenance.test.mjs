@@ -1,3 +1,4 @@
+import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import {SHARING_FLOW_ADDED,readSharingFlowBaseline} from '../helpers/fast-hands-sharing-flow-provenance.mjs';
@@ -15,7 +16,7 @@ function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).fl
 test('finale reversal rejects drift, illegal paths, broken edits and invented baseline',()=>{
  assert.ok(api,'outer finale provenance reader exists');
  // This fixture tests finale itself, without any newer outer layer.
- const reverse=(p,b,l)=>api.reverseFinale(p,b,l,{files:[]},{files:[]},{files:[]});
+ const reverse=(p,b,l)=>api.reverseFinale(p,b,l,{files:[]},{files:[]},{files:[]},{files:[]});
  const path='public/games/fast-hands/app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]},ledger={files:[row]};
  assert.deepEqual(reverse(path,bytes,ledger),before);
@@ -29,7 +30,7 @@ test('finale pins published baseline, exact inventory and unchanged historical l
  assert.ok(api);const l=api.finaleLedger();
  assert.equal(l.baseCommit,'b444877917ac9cdf473309b976ed0d62178457b4');assert.equal(l.baseTree,'1ba7dba2674d0e96b09b1a50b264b34d0ca99e58');
  assert.deepEqual(l.files.map(r=>r.path).sort(),[...api.FINALE_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...[...l.files,...l.preserved].map(r=>r.path).filter(p=>p.startsWith('public/games/fast-hands/')),...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED].sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...[...l.files,...l.preserved].map(r=>r.path).filter(p=>p.startsWith('public/games/fast-hands/')),...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED,...SPLIT_ENTRIES_ADDED].sort());
  for(const r of l.files){
   const bytes=read(r.path),restored=api.reverseFinale(r.path,bytes,l);
   assert.equal(sha(historical(r.path)),r.sha256);
@@ -41,7 +42,7 @@ test('finale pins published baseline, exact inventory and unchanged historical l
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(FINALE_BASE_BLOBS).sort());
  assert.deepEqual(l.historicalLedgers.map(r=>r.path).sort(),Object.keys(FINALE_HISTORY_SHA).sort());
  for(const r of l.historicalLedgers){assert.equal(r.sha256,FINALE_HISTORY_SHA[r.path],r.path);assert.equal(sha(read(r.path)),r.sha256,r.path);assert.equal(blob(read(r.path)),r.gitBlob,r.path)}
- assert.deepEqual(api.finaleRuntimeAdditions(),[...api.FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
+ assert.deepEqual(api.finaleRuntimeAdditions(),[...api.FINALE_ADDED,...SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED,...SPLIT_ENTRIES_ADDED]);
 });
 
 test('finale baseline reader handles URL, path and encoding without modifying unrelated data',()=>{

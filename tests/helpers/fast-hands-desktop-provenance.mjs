@@ -1,3 +1,4 @@
+import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
 import {sharingFlowLedger} from './fast-hands-sharing-flow-provenance.mjs';
@@ -12,8 +13,8 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 export const DESKTOP_ALLOWED=Object.freeze(['public/games/fast-hands/club.css']);
 export const desktopLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/DESKTOP-MANIFEST.json',root),'utf8'));
-export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=finaleLedger(),sharingFlow=sharingFlowLedger(),resultUpload=resultUploadLedger(),artPolish=artPolishLedger()){
- bytes=reverseFinale(path,bytes,outerLedger,sharingFlow,resultUpload,artPolish);
+export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=finaleLedger(),sharingFlow=sharingFlowLedger(),resultUpload=resultUploadLedger(),artPolish=artPolishLedger(),splitEntries=splitEntriesLedger()){
+ bytes=reverseFinale(path,bytes,outerLedger,sharingFlow,resultUpload,artPolish,splitEntries);
  const row=ledger.files.find(file=>file.path===path);
  if(!row)return Buffer.from(bytes);
  assert.ok(DESKTOP_ALLOWED.includes(path),'Unapproved desktop path '+path);

@@ -1,3 +1,4 @@
+import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {reverseArtPolish,artPolishLedger,artPolishRuntimeAdditions} from './fast-hands-art-polish-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -47,8 +48,8 @@ export function validateResultUploadLedger(ledger){
 }
 export const resultUploadLedger=()=>validateResultUploadLedger(JSON.parse(readFileSync(new URL('docs/fast-hands/RESULT-UPLOAD-MANIFEST.json',root),'utf8')));
 
-export function reverseResultUpload(path,bytes,ledger=resultUploadLedger(),outerLedger=artPolishLedger()){
- bytes=reverseArtPolish(path,bytes,outerLedger);
+export function reverseResultUpload(path,bytes,ledger=resultUploadLedger(),outerLedger=artPolishLedger(),splitEntries=splitEntriesLedger()){
+ bytes=reverseArtPolish(path,bytes,outerLedger,splitEntries);
  const rows=ledger.files.filter(r=>r.path===path);assert.ok(rows.length<=1,'Duplicate result upload entry '+path);
  if(!rows.length){
   const preserved=ledger.preserved?.filter(r=>r.path===path)??[];assert.ok(preserved.length<=1,'Duplicate result upload preserved entry '+path);

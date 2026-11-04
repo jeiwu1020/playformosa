@@ -16,7 +16,9 @@ export const catalog = {
     {id:'reaction-rod', title:'接棒啦！', event:'夜市反應力', href:'/games/reaction-rod/', status:'available', image:'/assets/reaction-rod-card.png', imageStyle:'illustration', kicker:'十根棒子，手腦各憑本事。', input:'滑鼠／觸控／鍵盤'},
     {id:'beer-slide', title:'別灑啊！', event:'啤酒精準推杯', href:'/games/beer-slide/', status:'available', image:'/assets/beer-slide-card-v2.webp', imageStyle:'illustration', kicker:'杯子要到站，啤酒別下班。', input:'滑鼠／觸控／空白鍵'},
     {id:'tower-climb',title:'上樓不容易',event:'室內登高',href:'/games/tower-climb/',status:'available',image:'/assets/tower-climb-card.png',imageStyle:'illustration',kicker:'60 秒，挑戰十層樓。',input:'鍵盤／觸控'},
-    {id:'fast-hands',title:'快手王｜一筆往返',event:'一筆往返手速挑戰',href:'/games/fast-hands/',status:'available',image:'/assets/fast-hands-card-v2.webp',imageStyle:'illustration',kicker:'放鈔、抓鴨、回接，一筆完成。',input:'滑鼠／觸控'}
+    {id:'fast-hands',title:'快手王｜鴨沒漏補',event:'一筆往返手速挑戰',href:'/games/fast-hands/?intro=1',status:'available',image:'/assets/fast-hands-card-v2.webp',imageStyle:'illustration',kicker:'放鈔、抓鴨、回接，一筆完成。',input:'滑鼠／觸控'},
+    {id:'fast-hands-catch',title:'快手王｜玩具彈接接樂',event:'逐關加速接彈挑戰',href:'/games/fast-hands/catch.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-catch-generated.webp',imageStyle:'illustration',kicker:'看準掌心，看看能接到第幾關。',input:'滑鼠／觸控／空白鍵'},
+    {id:'fast-hands-duel',title:'快手王｜十回合對決',event:'十回合反應對決',href:'/games/fast-hands/duel.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-duel-generated.webp',imageStyle:'illustration',kicker:'等訊號、搶驚喜，十回合分勝負。',input:'滑鼠／觸控／空白鍵'}
   ],
   events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']
 };

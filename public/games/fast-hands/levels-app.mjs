@@ -1,4 +1,5 @@
 import {mountClub} from './club.mjs';
+import {recordFastHandsStart} from './play-counts.mjs';
 import {sampleLevelMotion,FALLBACK_FRAME_NAMES} from './levels-motion.mjs';
 import {newMatch,beginRound,advance,press,pauseMatch,catchStageSettings,itemArtFrame} from './levels-rules.mjs';
 import {createLevelReplayRecorder,recordLevelReplay,finishLevelReplay,sampleLevelReplay} from './levels-replay.mjs';
@@ -135,7 +136,10 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});
   if(state.phase==='done'){clearResult();state=newMatch(mode,{practice:false,random});}
   pressedAt=null;settledAt=null;summaryPresented=false;summaryDismissed=false;
-  const previous=state;state=beginRound(state,now,random);observe(previous,now);lastFrame=null;render(now);
+  const previous=state;state=beginRound(state,now,random);
+  // Only a new official match begins at idle; later rounds and paused retries do not.
+  if(state!==previous&&!state.practice&&previous.phase==='idle'&&state.phase==='waiting')void recordFastHandsStart(window,`fast-hands-${mode}`);
+  observe(previous,now);lastFrame=null;render(now);
   if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});
  }
  function act(){

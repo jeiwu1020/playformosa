@@ -1,3 +1,4 @@
+import {SPLIT_ENTRIES_ADDED,readSplitEntriesBaseline} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdtempSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
@@ -10,6 +11,7 @@ const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const read=p=>readFileSync(new URL(p,root));
+const historical=p=>readSplitEntriesBaseline(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('art polish has an explicit reversible outer provenance layer',()=>{
@@ -27,15 +29,15 @@ test('art polish pins the published baseline and exact approved runtime inventor
  assert.deepEqual(api.ART_POLISH_ADDED,[prefix+'assets/intro-catch-generated.webp',prefix+'assets/intro-duel-generated.webp']);
  assert.deepEqual(api.ART_POLISH_CHANGED.map(p=>p.slice(prefix.length)).sort(),['catch.html','club.css','duel.html','finale-image.mjs','finale.css','index.html']);
  assert.deepEqual(l.files.map(r=>r.path).sort(),[...api.ART_POLISH_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved,...SPLIT_ENTRIES_ADDED.map(path=>({path}))].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(pins.ART_POLISH_BASE_BLOBS).sort());
  for(const r of l.files){
   const bytes=read(r.path),restored=api.reverseArtPolish(r.path,bytes,l);
-  assert.equal(sha(bytes),r.sha256);assert.throws(()=>api.reverseArtPolish(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/current bytes/);
+  assert.equal(sha(historical(r.path)),r.sha256);assert.throws(()=>api.reverseArtPolish(r.path,Buffer.concat([historical(r.path),Buffer.from('drift')]),l,{files:[]}),/current bytes/);
   if(r.beforeSha256!==null){assert.equal(sha(restored),r.beforeSha256);assert.equal(blob(restored),r.baseGitBlob);assert.equal(r.baseGitBlob,pins.ART_POLISH_BASE_BLOBS[r.path]);assert.deepEqual(restored,read(r.beforeAsset))}
  }
  assert.deepEqual(walk('docs/fast-hands/baselines/art-polish').sort(),l.files.filter(r=>r.beforeAsset).map(r=>r.beforeAsset).sort());
- assert.deepEqual(api.artPolishRuntimeAdditions(),api.ART_POLISH_ADDED);
+ assert.deepEqual(api.artPolishRuntimeAdditions(),[...api.ART_POLISH_ADDED,...SPLIT_ENTRIES_ADDED]);
 });
 
 test('art polish rejects missing, duplicate, unapproved and repinned entries',()=>{
@@ -54,7 +56,7 @@ test('art polish protects rules, AI, timing, 3D, workers and every existing imag
  for(const name of ['levels-rules.mjs','levels-motion.mjs','levels-world.mjs','levels-stage.mjs','physics.mjs','finish-timing.mjs','levels-replay.mjs','score-image.mjs','levels-sound.mjs','club.mjs','share.mjs','levels-sharing.mjs'])assert.ok(preserved.has(prefix+name),name);
  assert.ok(preserved.has('public/assets/fast-hands-card-v2.webp'));
  for(const path of Object.keys(pins.ART_POLISH_BASE_BLOBS).filter(p=>p.startsWith(prefix+'assets/')||p.startsWith(prefix+'three3d/')||p.startsWith('worker/')))assert.ok(preserved.has(path),path);
- for(const r of l.preserved){const bytes=read(r.path);assert.equal(blob(bytes),r.gitBlob,r.path);assert.deepEqual(api.reverseArtPolish(r.path,bytes,l),bytes);assert.throws(()=>api.reverseArtPolish(r.path,Buffer.concat([bytes,Buffer.from('drift')]),l),/preserved bytes/)}
+ for(const r of l.preserved){const bytes=read(r.path);assert.equal(blob(historical(r.path)),r.gitBlob,r.path);assert.deepEqual(api.reverseArtPolish(r.path,bytes,l),historical(r.path));assert.throws(()=>api.reverseArtPolish(r.path,Buffer.concat([historical(r.path),Buffer.from('drift')]),l,{files:[]}),/preserved bytes/)}
 });
 
 test('art polish retains every old ledger byte for byte including result upload',()=>{
@@ -68,18 +70,18 @@ test('art polish retains every old ledger byte for byte including result upload'
 test('art polish rejects a corrupted frozen preimage even when its manifest hash is repinned',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'art-polish-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/ART-POLISH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/ART-POLISH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.artPolishLedger(),row=l.files.find(r=>r.beforeSha256!==null),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-art-polish-provenance.mjs')).href);
-  assert.throws(()=>isolated.reverseArtPolish(row.path,read(row.path)),/Restored art polish/);
-  row.beforeSha256=sha(bad);row.baseGitBlob=blob(bad);assert.throws(()=>isolated.reverseArtPolish(row.path,read(row.path),l));
+  assert.throws(()=>isolated.reverseArtPolish(row.path,historical(row.path),l,{files:[]}),/Restored art polish/);
+  row.beforeSha256=sha(bad);row.baseGitBlob=blob(bad);assert.throws(()=>isolated.reverseArtPolish(row.path,historical(row.path),l,{files:[]}));
  }finally{rmSync(dir,{recursive:true,force:true})}
 });
 
 test('art polish rejects paths outside its allowlist and preserves outside reader semantics',()=>{
  assert.ok(api);const l=api.artPolishLedger(),row=l.files.find(r=>r.beforeSha256!==null),bytes=read(row.path);
- for(const path of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>api.reverseArtPolish(path,bytes,{files:[{...row,path}]}),/Unapproved/);
+ for(const path of ['../app.mjs',prefix+'../other',prefix+'levels-rules.mjs','worker/leaderboard/index.mjs'])assert.throws(()=>api.reverseArtPolish(path,bytes,{files:[{...row,path}]},{files:[]}),/Unapproved/);
  const url=new URL(row.path,root),expected=api.reverseArtPolish(row.path,bytes);
  assert.deepEqual(api.readArtPolishBaseline(url),expected);
  for(const options of ['utf8',{encoding:'utf8'}])assert.equal(api.readArtPolishBaseline(url,options),expected.toString());

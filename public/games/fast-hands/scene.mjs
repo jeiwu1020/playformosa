@@ -33,14 +33,40 @@ function drawArm(ctx,shoulder,hand,upper,lower,bend){const r=armJoints(shoulder,
 function drawHand(ctx,p,grip){ctx.save();ctx.translate(p.x,p.y);ellipse(ctx,0,3,18,13,COLORS.edge);ellipse(ctx,0,1,17,12,COLORS.skin);const open=grip==='open';for(let i=0;i<3;i++){rounded(ctx,-13+i*9,open?-18:-9,8,open?24:17,4,COLORS.skin,COLORS.edge);}ellipse(ctx,14,8,7,5,COLORS.skin);ctx.restore();}
 function drawNote(ctx,p){ctx.save();ctx.translate(p.x,p.y);rounded(ctx,-48,-22,96,44,5,'#92ad7a','#4f775f');rounded(ctx,-42,-16,84,32,3,'#d5e1b7');ctx.strokeStyle='#87a173';ctx.lineWidth=1;ctx.strokeRect(-36,-10,72,20);ellipse(ctx,0,0,13,13,'#adc58d');ctx.fillStyle='#527753';ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillText('100',0,4);ctx.fillRect(-32,-3,13,2);ctx.fillRect(20,4,13,2);ctx.restore();}
 function drawDuck(ctx,p){ellipse(ctx,p.x,p.y+18,30,5,'#a9793320');ellipse(ctx,p.x,p.y,29,20,COLORS.duck);ellipse(ctx,p.x+14,p.y-19,17,17,'#f9cf5e');rounded(ctx,p.x+25,p.y-21,18,8,4,'#dd8053');ellipse(ctx,p.x+18,p.y-23,2.5,2.5,'#284c44');ctx.beginPath();ctx.ellipse(p.x-6,p.y+1,12,8,-.2,0,Math.PI*2);ctx.strokeStyle='#d5a030';ctx.lineWidth=2;ctx.stroke();}
-export function renderScene(canvas,model,torso){
- const ctx=canvas.getContext('2d');const r=canvas.getBoundingClientRect(),dpr=Math.min(2,globalThis.devicePixelRatio||1),w=Math.max(1,Math.round(r.width*dpr)),h=Math.max(1,Math.round(r.height*dpr));
+function drawRoom(ctx){
+ ctx.save();ctx.beginPath();ctx.roundRect(14,13,692,369,30);ctx.clip();
+ const wall=ctx.createLinearGradient(0,13,0,300);wall.addColorStop(0,'#eee8dc');wall.addColorStop(1,'#c9c0b1');ctx.fillStyle=wall;ctx.fillRect(14,13,692,369);
+ // Quiet masonry and cream cabinets echo the depth of the real tabletop
+ // setting, drawn locally rather than embedding any reference-video pixels.
+ const tones=['#d6cfc2','#dcd4c7','#d1c8ba'];
+ for(let row=0;row<8;row++)for(let col=0;col<13;col++){ctx.fillStyle=tones[(row*3+col)%tones.length];ctx.fillRect(-20+col*62+(row%2)*31,24+row*27,59,24);}
+ const depth=ctx.createLinearGradient(0,24,0,237);depth.addColorStop(0,'#fffaf31a');depth.addColorStop(1,'#65574414');ctx.fillStyle=depth;ctx.fillRect(14,13,692,224);
+ rounded(ctx,219,44,282,151,3,'#c2b8a6');
+ rounded(ctx,222,46,136,144,2,'#e8e0cf');rounded(ctx,361,46,137,144,2,'#e8e0cf');
+ rounded(ctx,346,155,3,24,1,'#9a917f');rounded(ctx,370,155,3,24,1,'#9a917f');
+ rounded(ctx,214,40,292,7,2,'#e9e1d2');
+ ctx.fillStyle='#a99c87';ctx.fillRect(40,237,640,7);ctx.fillStyle='#d0c5b2';ctx.fillRect(40,244,640,53);
+ ctx.fillStyle='#b5a995';ctx.fillRect(138,253,30,3);ctx.fillRect(553,253,30,3);
+ // Small rear-counter objects stay well away from the arm/prop action.
+ rounded(ctx,112,210,20,27,5,'#b4b9a9');rounded(ctx,110,207,24,5,2,'#a49780');
+ rounded(ctx,141,218,15,19,4,'#e7dfce');
+ rounded(ctx,603,216,24,22,5,'#af987b');
+ for(const [x,y,rx,ry] of[[607,202,5,15],[620,200,5,16],[614,196,5,15]])ellipse(ctx,x,y,rx,ry,'#98a38a');
+ // Preserve the established front-edge y=344 contact plane and all poses.
+ ellipse(ctx,359,364,282,12,'#776c5730');
+ const top=ctx.createLinearGradient(0,288,0,345);top.addColorStop(0,'#d5cbb9');top.addColorStop(1,'#e4dac8');
+ ctx.beginPath();ctx.moveTo(112,290);ctx.lineTo(606,290);ctx.lineTo(656,344);ctx.lineTo(62,344);ctx.closePath();ctx.fillStyle=top;ctx.fill();
+ ctx.save();ctx.clip();ctx.fillStyle='#a79a8026';for(let i=0;i<110;i++)ctx.fillRect(65+(i*71)%590,292+(i*19)%50,1+(i%2),1);ctx.restore();
+ rounded(ctx,62,344,594,14,5,'#a19178');rounded(ctx,62,344,594,4,2,'#c2b39a');
+ ctx.restore();
+}
+export function renderScene(canvas,model,torso,surface=null){
+ const ctx=canvas.getContext('2d');const r=surface??canvas.getBoundingClientRect(),dpr=surface?1:Math.min(2,globalThis.devicePixelRatio||1),w=Math.max(1,Math.round(r.width*dpr)),h=Math.max(1,Math.round(r.height*dpr));
  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,w,h);const scale=Math.min(w/720,h/400);ctx.setTransform(scale,0,0,scale,(w-720*scale)/2,(h-400*scale)/2);
- const p=model.pose;rounded(ctx,14,13,692,369,30,'#deeadb');ellipse(ctx,357,370,273,13,'#c0d2b8');
+ const p=model.pose;drawRoom(ctx);
  // The curve is a teaching hint only. It never participates in hit testing.
  if(model.demo){ctx.setLineDash([8,10]);ctx.lineWidth=3;ctx.strokeStyle='#b6c9ae';ctx.beginPath();ctx.moveTo(170,112);ctx.bezierCurveTo(90,280,380,363,558,320);ctx.stroke();ctx.setLineDash([]);}
- rounded(ctx,62,344,594,14,5,'#c19770');rounded(ctx,62,344,594,5,2,'#ddb88e');
  drawArm(ctx,SCENE.restShoulder,p.restHand,65,70,1);drawHand(ctx,p.restHand,'rest');
  if(torso?.complete&&torso.naturalWidth)ctx.drawImage(torso,210,-3,320,320);
  drawArm(ctx,SCENE.activeShoulder,p.hand,150,145,-1);

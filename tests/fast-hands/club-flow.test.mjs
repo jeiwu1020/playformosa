@@ -21,18 +21,18 @@ function fixture({mode='duck',seen=false,blockedStorage=false,url,active=false,a
  return {dom,w,d,$,club,events,destinations,options,click,get starts(){return starts},close(){club.destroy();dom.window.close()}};
 }
 
-test('every entrance shows the same three illustrated games and one start action',()=>{
- for(const mode of ['duck','catch','duel']){const d=new JSDOM(html(mode)).window.document,intro=d.querySelector('#entryDialog');assert.ok(intro,`${mode} has the shared intro`);assert.equal(intro.querySelectorAll('.club-card').length,3);assert.equal(intro.querySelectorAll('.club-card img').length,3);assert.equal(intro.querySelectorAll('.intro-start').length,1);assert.equal(intro.querySelector('#entryStart').textContent.trim(),'開始遊戲');assert.ok(d.body.classList.contains('fast-hands-club'));assert.equal(d.querySelectorAll('[id]').length,new Set([...d.querySelectorAll('[id]')].map(el=>el.id)).size);}
+test('every entrance shows its own illustrated game and one start action',()=>{
+ for(const mode of ['duck','catch','duel']){const d=new JSDOM(html(mode)).window.document,intro=d.querySelector('#entryDialog');assert.ok(intro,`${mode} has the shared intro`);assert.equal(intro.querySelectorAll('.club-card').length,1);assert.equal(intro.querySelectorAll('.club-card img').length,1);assert.equal(intro.querySelectorAll('.intro-start').length,1);assert.equal(intro.querySelector('#entryStart').textContent.trim(),'開始遊戲');assert.ok(d.body.classList.contains('fast-hands-club'));assert.equal(d.querySelectorAll('[id]').length,new Set([...d.querySelectorAll('[id]')].map(el=>el.id)).size);}
 });
 test('first duck entry waits for Start then opens a score-free demo',()=>{
  const f=fixture();try{assert.equal(f.$('entryDialog').open,true);assert.equal(f.starts,0);assert.equal(f.$('entryClose').hidden,true);f.$('entryStart').click();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.w.sessionStorage.getItem('fast-hands:club-intro:v1'),'seen');assert.deepEqual(f.destinations,[]);}finally{f.close()}
 });
-test('first deep link starts at duck demo, and returning session enters directly',()=>{
- const f=fixture({mode:'catch'});try{f.$('entryStart').click();assert.equal(new URL(f.destinations[0]).pathname,'/games/fast-hands/');assert.equal(f.starts,0);}finally{f.close()}
+test('first deep link starts its own practice, and returning session enters directly',()=>{
+ const f=fixture({mode:'catch'});try{f.$('entryStart').click();assert.deepEqual(f.destinations,[]);assert.equal(f.starts,1);}finally{f.close()}
  const returning=fixture({mode:'duel',seen:true});try{assert.equal(returning.$('entryDialog').open,false);assert.equal(returning.starts,1);assert.equal(returning.d.body.dataset.clubReady,'true');}finally{returning.close()}
 });
 test('storage-denied sessions carry one-hop marker and consume it without permanent storage',()=>{
- const f=fixture({mode:'catch',blockedStorage:true});try{f.$('entryStart').click();assert.equal(new URL(f.destinations[0]).searchParams.get('club'),'1');}finally{f.close()}
+ const f=fixture({mode:'catch',blockedStorage:true});try{f.$('entryStart').click();assert.deepEqual(f.destinations,[]);f.click('.level-switch a[href="duel.html"]');assert.equal(new URL(f.destinations[0]).searchParams.get('club'),'1');}finally{f.close()}
  const next=fixture({mode:'duck',blockedStorage:true,url:'https://qa.test/games/fast-hands/?club=1&view=front#demo'});try{assert.equal(next.$('entryDialog').open,false);assert.equal(next.w.location.search,'?view=front');assert.equal(next.w.location.hash,'#demo');assert.equal(next.w.localStorage.length,0);next.click('.level-switch a[href="duel.html"]');assert.equal(new URL(next.destinations[0]).searchParams.get('club'),'1');}finally{next.close()}
 });
 test('active navigation stops the round before confirmation and cancel never navigates',()=>{
@@ -97,7 +97,7 @@ test('duck replay is stopped on navigation and cannot reappear after a bfcache r
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);h.send('pointermove',.1);h.send('pointerup',.1);h.frame(3000);h.$('resultDemo').click();assert.equal(h.get('replaying'),true);h.switchGame();assert.equal(h.get('replaying'),false);assert.equal(h.confirms,0);h.w.dispatchEvent(new h.w.PageTransitionEvent('pagehide',{persisted:true}));h.w.dispatchEvent(new h.w.PageTransitionEvent('pageshow',{persisted:true}));h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.$('entryDialog').open,false);}finally{h.close()}
 });
 test('reopened introduction cannot discard an in-progress match through its Start button',()=>{
- const f=fixture({mode:'duel',seen:true,active:true,answer:false});try{f.$('openMenu').click();f.$('entryStart').click();assert.deepEqual(f.events,['intro','navigation']);assert.equal(f.$('clubNavigationDialog').open,true);f.$('clubNavigationStay').click();assert.equal(f.destinations.length,0);assert.equal(f.$('entryDialog').open,false);}finally{f.close()}
+ const f=fixture({mode:'duel',seen:true,active:true,answer:false});try{f.$('openMenu').click();f.$('entryStart').click();assert.deepEqual(f.events,['intro']);assert.equal(f.$('clubNavigationDialog').open,false);assert.equal(f.starts,1);assert.equal(f.destinations.length,0);assert.equal(f.$('entryDialog').open,false);}finally{f.close()}
 });
 test('duck pending confirmation blocks visible and programmatic background game controls',async()=>{
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);h.switchGame();const run=h.get('s');assert.equal(h.$('clubNavigationDialog').open,true);for(const id of ['play','retry','showDemo']){h.$(id).click();h.$(id).onclick?.();assert.equal(h.get('s'),run,`${id} cannot reset a pending run`);assert.equal(h.get('demo'),false,`${id} cannot reopen demonstration`);}h.$('headerRanking').click();h.$('headerSettings').click();h.frame(4000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.$('rankingDialog').open,false);assert.equal(h.$('info').open,false);assert.equal(h.$('clubNavigationDialog').open,true);}finally{h.close()}
@@ -108,4 +108,23 @@ for(const seen of [false,true])test(`duck ${seen?'reopened menu':'first introduc
 
 test('duck introduction keeps its visible settings control functional without allowing background navigation controls',async()=>{
  const h=await duckApp({seen:false});try{assert.equal(h.$('entryDialog').open,true);h.$('about').click();assert.equal(h.$('info').open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('closeInfo').click();h.$('openMenu').click();assert.equal(h.$('entryDialog').open,true);h.$('about').click();assert.equal(h.$('info').open,true);}finally{h.close()}
+});
+
+test('first-entry settings close returns to intro and later help preserves an interrupted counted run',async()=>{
+ for(const closeWithButton of [true,false]){
+  const h=await duckApp({seen:false}),starts=[];h.w.fetch=async(url,options)=>{starts.push({url,body:JSON.parse(options.body)});return {ok:true,status:200}};
+  try{
+   h.$('about').click();assert.equal(h.$('info').open,true);
+   if(closeWithButton)h.$('closeInfo').click();else h.$('info').close();
+   h.$('play').click();assert.equal(h.get('demo'),true,'unacknowledged intro blocks the auxiliary-close gap');
+   await new Promise(resolve=>setImmediate(resolve));
+   assert.equal(h.$('entryDialog').open,true,'first settings returns to introductory Start');
+   assert.equal(h.get('club.seen'),false);assert.equal(h.get('demo'),true);assert.equal(starts.length,0);
+   h.$('entryStart').click();h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);
+   assert.equal(starts.length,1);assert.equal(h.get('runCounted'),true);
+   h.$('openMenu').click();const interrupted=h.get('s');h.$('entryStart').click();
+   assert.equal(h.get('demo'),false);assert.equal(h.get('s'),interrupted);assert.equal(h.get('runCounted'),true);
+   h.$('retry').click();h.send('pointerdown',.1);assert.equal(starts.length,1,'retry retains same official count');
+  }finally{h.close()}
+ }
 });

@@ -1,0 +1,240 @@
+<!doctype html>
+<html data-pf-startup="pending" lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}
+#pf-startup{position:fixed;inset:0;z-index:2147483647;display:flex;overflow:auto;box-sizing:border-box;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));background:#f6f1df;color:#243e38;font:16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center}
+#pf-startup .pf-loading-card{box-sizing:border-box;width:min(100%,440px);flex:none;margin:auto;padding:22px 22px 16px;border:2px solid #294c40;border-radius:24px;background:#fff9e8;box-shadow:0 7px 0 #d7dfc8}
+#pf-startup .pf-loading-brand{margin:0;color:#667969;font-size:11px;font-weight:700;letter-spacing:2px}
+#pf-startup .pf-loading-art{display:block;width:170px;height:132px;margin:12px auto 4px;overflow:visible}
+#pf-startup .pf-loading-person{transform-origin:90px 112px;animation:pf-loading-warmup 1.6s ease-in-out infinite}
+#pf-startup .pf-loading-badge{display:inline-block;margin:0 0 9px;padding:2px 11px;border:1px solid #b3c3ab;border-radius:999px;background:#e6efd6;font-size:12px;font-weight:700;letter-spacing:1px}
+#pf-startup #pf-startup-status{margin:0;font-size:21px;line-height:1.45;font-weight:800}
+#pf-startup .pf-loading-joke{margin:9px 0 18px;color:#526c5b;font-size:15px;line-height:1.7;overflow-wrap:anywhere}
+#pf-startup nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;border-top:1px dashed #bdc9b8;padding-top:12px;margin-top:16px}
+#pf-startup nav a{display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;min-height:44px;padding:5px 12px;color:#294c40;font-size:13px;text-underline-offset:4px;border-radius:10px}
+#pf-startup a:focus-visible{outline:3px solid #dc683e;outline-offset:2px}
+#pf-startup noscript p{margin:8px 0 0;font-size:14px}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-person{animation:none}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-joke,html[data-pf-startup="waiting"] #pf-startup .pf-loading-badge{display:none}
+html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
+@keyframes pf-loading-warmup{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){#pf-startup .pf-loading-person{animation:none}}
+@media(max-height:450px){#pf-startup{padding:12px 16px}#pf-startup .pf-loading-card{padding:14px 18px 10px}#pf-startup .pf-loading-art{width:110px;height:85px;margin:4px auto 0}#pf-startup .pf-loading-joke{margin-bottom:8px}#pf-startup nav{margin-top:8px;padding-top:6px}}
+</style><link rel="modulepreload" href="app.mjs"><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||((!entry||entry.hidden)&&doc.body?.dataset.clubReady!=='true'))return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(entry&&!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden','data-club-ready']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fff9e9">
+  <title>快手王｜一筆往返</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="duck-startup.css">
+  <link rel="stylesheet" href="finale.css">
+  <link rel="stylesheet" href="../shared/studio-brand.css">
+</head>
+<body class="pf-game pf-fast-hands fast-hands-club" data-club-mode="duck" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">小鴨準備好了，鈔票正在做心理準備。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
+  <main>
+    <header class="game-header pf-header">
+      <a class="pf-home" href="/#minigames" aria-label="返回小遊戲首頁">← 首頁</a>
+      <div class="brand pf-studio-heading">
+        <div class="eyebrow">PLAYFORMOSA · 反應挑戰</div>
+        <h1>快手王 <span>一筆往返</span></h1>
+        <span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span>
+      </div>
+      <nav class="header-tools" aria-label="遊戲操作">
+        <span id="currentMode" class="mode-status">自動辨識操作</span>
+        <button id="headerRanking" type="button" class="quiet-button">排行</button>
+        <button id="headerSettings" type="button" class="quiet-button">設定</button>
+        <button id="openMenu" type="button" class="menu-button" aria-label="開啟遊戲選單"><span aria-hidden="true">☰</span><span>選單</span></button>
+      </nav>
+      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+    </header>
+
+    <section class="scene-card" aria-label="鈔票與小鴨示範舞台">
+      <div class="scene-heading">
+        <span id="badge">先看一次</span>
+        <strong id="status" aria-live="polite">動作示範</strong>
+        <span class="scene-tag">放鈔 · 抓鴨 · 回接</span>
+      </div>
+      <div class="canvas-wrap">
+        <div id="scenePreparing" class="scene-preparing" role="status">正在準備角色…</div>
+        <span class="fallback-badge">3D未啟用 · 挑戰為2D</span>
+        <canvas id="scene3d" aria-label="正面3D快手王放鈔、抓鴨與回接示範"></canvas>
+        <video id="demo3d" controls muted playsinline loop preload="metadata" poster="assets/front-demo-poster.png" aria-label="正面3D七秒示範，離線渲染"><source id="demoSource" src="assets/front-demo.mp4" type="video/mp4"></video>
+        <canvas id="scene" aria-label="Q版人物放鈔、抓鴨與回接示範"></canvas>
+      </div>
+      <div class="scene-caption" id="sceneCaption">從紙鈔開始，按住後滑去抓小鴨。</div>
+    </section>
+
+    <section class="score-row" aria-label="本次與最佳成績">
+      <div class="score-main"><label>這次往返</label><strong id="time" data-ms="0">0.000 <small>s</small></strong></div>
+      <div class="score-best"><label>本機最佳 <span id="bestMode">自動</span></label><strong id="best">—</strong></div>
+      <div class="score-drop"><label>模型落距</label><strong id="distance">0.0 <small>cm</small></strong></div>
+    </section>
+
+    <section class="control-section" aria-label="一筆往返操作">
+      <div class="instruction"><strong id="instruction">從紙鈔開始 → 抓小鴨 → 回紙鈔</strong><span id="gestureHint">全程不放開</span></div>
+      <div id="pad" role="application" aria-label="按住左側鈔票區，向右滑至小鴨區，再滑回鈔票區，全程不放開" tabindex="0">
+        <div class="pad-track" aria-hidden="true"></div>
+        <div class="gate home">
+          <img class="gate-prop bill-prop" src="assets/control-bill.svg" alt="" draggable="false">
+          <span id="homeLabel">按住鈔票</span><small id="homeHint">從這裡出發</small>
+        </div>
+        <div class="travel-label" aria-hidden="true"><span id="controlArrow">抓鴨 →</span><small>← 回來接鈔</small></div>
+        <div class="gate far">
+          <img class="gate-prop duck-prop" src="assets/control-duck.svg" alt="" draggable="false">
+          <span id="farLabel">滑到小鴨</span><small id="farHint">碰到就回來</small>
+        </div>
+        <div id="thumb" aria-hidden="true"><i></i></div>
+        <div id="demoVeil" aria-hidden="true">看上方示範，按「開始挑戰」就換你</div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="play" type="button" class="primary">開始挑戰 <span aria-hidden="true">→</span></button>
+      <button id="retry" type="button" class="primary" hidden>再試一次</button>
+      <button id="viewResult" type="button" class="secondary" hidden>看成績</button>
+      <button id="showDemo" type="button" class="quiet-button" hidden>重看示範</button>
+    </div>
+    <footer><span>一口氣往返，全程不放開。</span><span>本機紀錄 · 滑鼠與觸控分開</span></footer>
+  </main>
+
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+    <div class="ticket-top">
+      <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
+      <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
+      <h2 id="entryTitle">快手王</h2>
+      <p id="entryDescription">三種手速挑戰，先從小鴨示範開始。</p>
+    </div>
+    <div class="ticket-body">
+      <div class="club-cards">
+        <article class="club-card"><img src="/assets/fast-hands-card-v2.webp" alt="快手王抓住小鴨與紙鈔的關卡代表圖" width="768" height="512"><h3>小鴨往返</h3><p>按住紙鈔，抓到小鴨再滑回來。</p></article>
+        <article class="club-card"><img src="assets/intro-catch-generated.webp" alt="快手王伸手接住玩具發射器射出的短藍色泡棉彈" width="1536" height="1024"><h3>玩具彈接接樂</h3><p>玩具彈到掌心時，按「接！」。</p></article>
+        <article class="club-card"><img src="assets/intro-duel-generated.webp" alt="快手王與橘衣運動選手伸手搶同一隻小鴨" width="1536" height="1024"><h3>十回合對決</h3><p>看到「出手！」按「搶！」，比十回合。</p></article>
+      </div>
+      <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="about" type="button" class="quiet-button">操作設定</button></div></div>
+      <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    </div>
+  </dialog>
+
+  <dialog id="resultDialog" class="ticket-dialog result-dialog finale-ticket" aria-labelledby="resultTitle" aria-describedby="resultComment">
+    <button id="resultClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button>
+    <div class="ticket-top result-top finale-overview">
+      <figure class="finale-picture"><img id="resultPortrait" alt="本次小鴨挑戰的結束畫面" width="900" height="620" hidden><figcaption id="resultImageStatus" role="status">正在準備本次畫面…</figcaption></figure>
+      <h2 id="resultTitle">挑戰完成！</h2>
+      <div class="result-time"><strong id="resultTime">0.000</strong> <small id="resultUnit">秒</small></div>
+      <p id="resultComment">這一手，快得很有說服力。</p>
+    </div>
+    <div class="result-buttons finale-main-actions">
+      <button id="resultAgain" data-finale-action="again" type="button" class="primary">再挑戰一次</button>
+      <button id="resultDemo" data-finale-action="replay" type="button" class="quiet-button" disabled>重播本次</button>
+      <button id="resultUploadDirect" data-finale-action="upload" type="button" class="quiet-button" aria-controls="resultUploadHost" aria-expanded="false" aria-describedby="resultUploadHint" disabled>上傳本次成績</button>
+   <button id="resultRanking" data-finale-action="ranking" type="button" class="quiet-button" aria-label="查看排行榜">查看排行榜</button>
+    </div>
+    <div class="ticket-body finale-scroll">
+   <p id="resultUploadHint" class="finale-upload-hint" role="status">完成有效挑戰後，可自願上傳。</p>
+   <section id="resultUploadHost" class="finale-upload-host" aria-label="上傳本次成績" hidden></section>
+      <details class="finale-details"><summary>詳細紀錄與選項</summary>
+        <div class="result-records"><div><span>本機最佳</span><strong id="resultBest">—</strong></div><div><span>與最佳比較</span><strong id="resultDelta">—</strong></div></div>
+        <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
+        <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+      </details>
+      <details class="finale-share"><summary>分享本次成績</summary>
+        <div class="result-share-actions pf-share-actions" role="group" aria-label="分享本次成績">
+          <a id="resultThreads" data-share="threads" class="secondary" target="_blank" rel="noopener noreferrer" aria-describedby="downloadStatus">分享到 Threads</a>
+          <button id="resultDownload" data-share="image" type="button" class="secondary" disabled>製作成績圖…</button>
+          <button id="resultCopy" data-share="copy" type="button" class="quiet-button">複製成績與網址</button>
+        </div>
+        <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden><img id="shareFallbackImage" alt="本次快手王成績圖片，可長按儲存" hidden><textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea><button id="shareFallbackClose" type="button" class="quiet-button">收起</button></section>
+        <p id="downloadStatus" class="result-status" aria-live="polite"></p>
+      </details>
+    <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
+    </div>
+  </dialog>
+
+  <dialog id="rankingDialog" class="ranking-dialog" aria-labelledby="rankingTitle" aria-describedby="rankingDisclaimer">
+    <header class="ranking-header">
+      <span class="ticket-kicker">FAST HANDS · QA</span>
+      <button id="rankingClose" type="button" class="close-button" aria-label="關閉排行榜，返回上一畫面">×</button>
+      <h2 id="rankingTitle">測試排行榜</h2>
+      <p id="rankingDisclaimer">休閒比一比。成績由玩家回報，非經驗證的正式競賽。</p>
+    </header>
+    <div class="ranking-scroll" role="region" aria-label="排行榜與提交內容，可捲動" tabindex="0">
+      <section id="rankingBoard" aria-label="查看測試排行榜"><button id="resultUpload" type="button" class="primary" aria-describedby="leaderboardStatus" disabled>上傳本次成績</button><p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
+        <div class="ranking-modes" role="group" aria-label="排行榜操作類別">
+          <button id="rankingMouse" type="button" class="secondary" aria-pressed="true">滑鼠榜</button>
+          <button id="rankingTouch" type="button" class="secondary" aria-pressed="false">觸控榜</button>
+        </div>
+        <p class="ranking-rule">滑鼠與觸控分開排名，完整往返時間越短越前面。同分同名次。</p>
+        <section id="rankingOwn" class="ranking-own" aria-label="本瀏覽器線上最佳"></section>
+        <p id="rankingBoardStatus" class="ranking-status" role="status" aria-live="polite"></p>
+        <ol id="rankingEntries" class="ranking-entries" aria-label="前二十名成績"></ol>
+        <button id="rankingRefresh" type="button" class="quiet-button">重新讀取排行榜</button>
+      </section>
+      <section id="rankingUpload" aria-label="自願提交本次成績" hidden>
+        <p id="rankingFrozenScore" class="ranking-frozen"></p>
+        <p id="rankingPrivacy">提交後，暱稱與本次成績會公開顯示在測試榜。以匿名瀏覽器識別記錄最佳，這不是登入帳號；同名不會合併，換裝置或清除資料也不會自動連回。</p>
+        <label class="ranking-nickname" for="rankingNickname">暱稱（1–20字純文字）</label>
+        <input id="rankingNickname" type="text" autocomplete="nickname" inputmode="text" maxlength="40" aria-describedby="rankingPrivacy rankingUploadStatus">
+        <label class="ranking-consent"><input id="rankingConsent" type="checkbox"><span>我同意公開以上暱稱與本次成績至測試榜。</span></label>
+        <button id="rankingSubmit" type="button" class="primary">提交本次成績</button>
+        <p id="rankingUploadStatus" class="ranking-status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <footer class="ranking-footer"><button id="rankingReturn" type="button" class="quiet-button">返回上一畫面</button></footer>
+  </dialog>
+
+  <dialog id="info" class="info-dialog" aria-labelledby="infoTitle">
+    <div class="info-header"><span class="ticket-kicker">HOW TO PLAY</span><h2 id="infoTitle">一口氣，去抓鴨再回來</h2></div>
+    <ol class="help-steps">
+      <li>按住操作帶左側鈔票區，準備時間不算。</li>
+      <li>滑出起點時放鈔並開始計時，碰到右邊就自動抓鴨。</li>
+      <li>不用放開，直接滑回左邊。鈔票落地前回來就成功。</li>
+    </ol>
+    <div class="settings-panel">
+      <label class="mode-label" for="mode"><span>操作方式</span><select id="mode" aria-label="操作方式"><option value="auto" selected>自動辨識（推薦）</option><option value="mouse">滑鼠</option><option value="touch">單指觸控</option></select></label>
+      <div class="sound-setting"><span>遊戲音效</span><button id="sound" type="button" class="secondary" aria-pressed="false" data-play-count="0">鴨叫：開</button></div>
+    </div>
+    <details class="fine-print"><summary>紀錄、判定與畫面說明</summary>
+      <p>只計一個連續觸點；中途放開、切換視窗或旋轉畫面會中止。</p>
+      <p>時間與下落距離來自遊戲模型，不是人體反應測量。裝置尺寸與輸入延遲仍會影響成績。本機最佳留在這個瀏覽器；成功後可自願上傳測試排行榜。線上成績由玩家回報，並非經驗證的正式競賽；新版不會覆蓋舊版紀錄。</p>
+      <p>人物為已確認的程序 3D 造型，非真人實拍或代言。預設正面視角；裝置無法啟用 3D 時會標示並保留 2D 玩法。示範影片是同場景離線渲染，並非即時遊戲畫面。</p>
+    </details>
+    <button id="closeInfo" type="button" class="primary">知道了</button>
+  </dialog>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

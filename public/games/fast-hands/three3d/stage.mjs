@@ -1,6 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import {createDemoWorld} from './world.mjs';
 import {viewPlan} from './view.mjs';
+import {decorateDuckRoom} from './duck-room.mjs';
 
 // Presentation only. Input timing and scoring never depend on render frames.
 export function createGameStage(canvas,{onUnavailable=()=>{},rendererFactory=options=>new THREE.WebGLRenderer(options),devicePixelRatio=globalThis.devicePixelRatio||1}={}){
@@ -21,7 +22,7 @@ export function createGameStage(canvas,{onUnavailable=()=>{},rendererFactory=opt
  try{
   renderer=rendererFactory({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
   renderer.setPixelRatio(metrics.pixelRatio);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=false;
-  world=createDemoWorld(THREE);camera=new THREE.OrthographicCamera(-2,2,1,-1,.1,30);
+  world=createDemoWorld(THREE);decorateDuckRoom(THREE,world);camera=new THREE.OrthographicCamera(-2,2,1,-1,.1,30);
   canvas.addEventListener('webglcontextlost',lost);
   if(typeof ResizeObserver!=='undefined'){observer=new ResizeObserver(resize);observer.observe(canvas);}
   resize();

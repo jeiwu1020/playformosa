@@ -1,3 +1,4 @@
+import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {reverseResultUpload,RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
 import test from 'node:test';
@@ -16,7 +17,7 @@ function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).fl
 
 test('sharing flow reversal rejects changed bytes, invalid edits, illegal paths and invented old content',()=>{
  assert.ok(api,'outer sharing flow provenance reader exists');
- const reverseSharingFlow=(p,b,l)=>api.reverseSharingFlow(p,b,l,{files:[]},{files:[]});
+ const reverseSharingFlow=(p,b,l)=>api.reverseSharingFlow(p,b,l,{files:[]},{files:[]},{files:[]});
  const path=prefix+'app.mjs',before=Buffer.from('島遊\n'),bytes=Buffer.from('島遊無界\n');
  const row={path,sha256:sha(bytes),beforeSha256:sha(before),baseGitBlob:blob(before),reverseEdits:[{start:6,end:12,beforeBase64:''}]};
  const ledger={files:[row]};
@@ -32,7 +33,7 @@ test('sharing flow pins exact published baseline, frozen preimages and unchanged
  assert.equal(l.baseCommit,SHARING_FLOW_BASE_COMMIT);assert.equal(l.baseCommit,'ad65ebe9eefebfc36590d075a838a24550160ec3');
  assert.equal(l.baseTree,SHARING_FLOW_BASE_TREE);assert.equal(l.baseTree,'0fd36a2738375d762ced690db363065d490068e6');
  assert.deepEqual(l.files.map(r=>r.path).sort(),[...api.SHARING_FLOW_ALLOWED].sort());
- assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved,...[...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED].map(path=>({path}))].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
+ assert.deepEqual(walk('public/games/fast-hands').sort(),[...l.files,...l.preserved,...[...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED,...SPLIT_ENTRIES_ADDED].map(path=>({path}))].map(r=>r.path).filter(p=>p.startsWith(prefix)).sort());
  assert.deepEqual([...l.files.filter(r=>r.beforeSha256!==null),...l.preserved].map(r=>r.path).sort(),Object.keys(SHARING_FLOW_BASE_BLOBS).sort());
  for(const r of l.files){
   const current=read(r.path),bytes=reverseResultUpload(r.path,current),restored=api.reverseSharingFlow(r.path,current,l);
@@ -47,7 +48,7 @@ test('sharing flow pins exact published baseline, frozen preimages and unchanged
  assert.deepEqual(walk('docs/fast-hands/baselines/sharing-flow').sort(),l.files.filter(r=>r.beforeAsset).map(r=>r.beforeAsset).sort());
  assert.deepEqual(l.historicalLedgers.map(r=>r.path).sort(),Object.keys(SHARING_FLOW_HISTORY_SHA).sort());
  for(const r of l.historicalLedgers){assert.equal(r.sha256,SHARING_FLOW_HISTORY_SHA[r.path],r.path);assert.equal(r.gitBlob,SHARING_FLOW_HISTORY_BLOBS[r.path],r.path);assert.equal(sha(read(r.path)),r.sha256,r.path);assert.equal(blob(read(r.path)),r.gitBlob,r.path)}
- assert.deepEqual(api.sharingFlowRuntimeAdditions(),[...api.SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED]);
+ assert.deepEqual(api.sharingFlowRuntimeAdditions(),[...api.SHARING_FLOW_ADDED,...RESULT_UPLOAD_ADDED,...ART_POLISH_ADDED,...SPLIT_ENTRIES_ADDED]);
 });
 
 test('sharing flow protects timing, scores, boards, character geometry and every existing image',()=>{

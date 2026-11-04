@@ -32,7 +32,7 @@ export function normalizeScoreResult(result = {}, mode) {
 
 export function scoreImageFilename(result, mode) {
   const safe = normalizeScoreResult(result, mode);
-  return `fast-hands-${modeName(mode,safe)}-${safe.success ? safe.timeText.replace('.','p').slice(0,24)+'s' : 'incomplete'}.png`;
+  return `鴨沒漏補-${modeName(mode,safe)}-${safe.success ? safe.timeText.replace('.','p').slice(0,24)+'s' : 'incomplete'}.png`;
 }
 
 /** Character-level wrapping supports Chinese without requiring word spaces. */
@@ -116,32 +116,31 @@ export async function createScoreImage({result,mode,portrait,document:doc=global
   if (!ctx) throw new Error('目前無法建立成績圖片。');
   ctx.fillStyle=COLORS.cream;ctx.fillRect(0,0,WIDTH,HEIGHT);ctx.lineWidth=3;
   roundedRect(ctx,28,28,1024,1294,36,COLORS.paper,COLORS.green);
-  write(ctx,'FAST HANDS  /  快手王',80,79,26,800,COLORS.muted);
-  paragraph(ctx,presentation.title,80,150,545,{size:58,lineHeight:78,maxLines:2,weight:900});
-  roundedRect(ctx,80,335,250,57,16,presentation.success?COLORS.mint:COLORS.gold);
-  write(ctx,presentation.success?'鈔鴨到手，挑戰完成':'這輪未完成，再來！',100,351,23,750);
-  // This is a direct render of the game's final pose, not a replacement illustration.
-  const box={x:646,y:112,width:340,height:322};
+  write(ctx,'鴨沒漏補  /  PLAYFORMOSA',80,65,31,800,COLORS.muted);
+  paragraph(ctx,presentation.title,80,114,920,{size:48,lineHeight:62,maxLines:1,weight:900});
+  // The exact frozen scene gets the full card width, never a small portrait
+  // thumbnail. Contain-fit preserves every edge and the original proportions.
+  const box={x:90,y:190,width:900,height:620};
   const scale=Math.min(box.width/image.naturalWidth,box.height/image.naturalHeight);
   const iw=image.naturalWidth*scale,ih=image.naturalHeight*scale;
-  try {ctx.drawImage(image,box.x+(box.width-iw)/2,box.y+box.height-ih,iw,ih);}
+  try {ctx.drawImage(image,box.x+(box.width-iw)/2,box.y+(box.height-ih)/2,iw,ih);}
   catch(cause){throw new Error('人物圖片無法繪製，請稍後再試。',{cause});}
 
-  roundedRect(ctx,76,444,928,247,26,COLORS.mint);
-  write(ctx,presentation.success?'本輪完成時間':'本輪結果',114,482,26,750,COLORS.muted);
-  const timeSize=fitSize(ctx,presentation.timeText,758,126,56);
-  write(ctx,presentation.timeText,110,532,timeSize,900,COLORS.green,758);
-  if(presentation.success) write(ctx,'秒',908,601,37,750);
-  paragraph(ctx,presentation.comment,88,740,904,{size:35,lineHeight:52,maxLines:3,weight:750});
-  ctx.beginPath();ctx.moveTo(80,930);ctx.lineTo(1000,930);ctx.strokeStyle=COLORS.line;ctx.lineWidth=2;ctx.stroke();
-  write(ctx,'本機最佳',88,964,25,650,COLORS.muted);
-  write(ctx,presentation.bestText,88,1007,45,850,COLORS.green,650);
-  roundedRect(ctx,804,964,188,94,18,COLORS.gold);
-  write(ctx,'輸入方式',826,980,20,650,COLORS.muted);
-  write(ctx,presentation.modeText,826,1014,28,850);
-  paragraph(ctx,presentation.deltaText,88,1103,904,{size:27,lineHeight:40,maxLines:3,weight:650});
-  write(ctx,'同一輸入方式比較 · 紀錄保存在本機',88,1247,21,550,COLORS.muted);
-  write(ctx,'島遊無界工作室 | PLAYFORMOSA STUDIO',88,1284,19,500,COLORS.muted,904);
+  roundedRect(ctx,76,827,928,158,26,COLORS.mint);
+  write(ctx,presentation.success?'本輪完成時間':'本輪結果',114,848,24,750,COLORS.muted);
+  const timeSize=fitSize(ctx,presentation.timeText,758,88,56);
+  write(ctx,presentation.timeText,110,889,timeSize,900,COLORS.green,758);
+  if(presentation.success) write(ctx,'秒',908,937,30,750);
+  paragraph(ctx,presentation.comment,88,1010,904,{size:32,lineHeight:43,maxLines:2,weight:750});
+  ctx.beginPath();ctx.moveTo(80,1110);ctx.lineTo(1000,1110);ctx.strokeStyle=COLORS.line;ctx.lineWidth=2;ctx.stroke();
+  write(ctx,'本機最佳',88,1130,22,650,COLORS.muted);
+  paragraph(ctx,presentation.bestText,88,1164,650,{size:36,lineHeight:46,maxLines:1,weight:850});
+  roundedRect(ctx,804,1130,188,82,18,COLORS.gold);
+  write(ctx,'輸入方式',826,1143,18,650,COLORS.muted);
+  write(ctx,presentation.modeText,826,1173,26,850);
+  paragraph(ctx,presentation.deltaText,88,1216,904,{size:25,lineHeight:34,maxLines:1,weight:650});
+  write(ctx,'同一輸入方式比較 · 紀錄保存在本機',88,1255,18,550,COLORS.muted);
+  write(ctx,'島遊無界工作室 | PLAYFORMOSA STUDIO',88,1285,22,500,COLORS.muted,904);
   return new Promise((resolve,reject)=>{
     try {
       canvas.toBlob(blob=>{

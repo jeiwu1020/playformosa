@@ -63,21 +63,20 @@ for (const [width,height] of sizes) {
       assert.equal(p.style('#entryDialog .ticket-body').overflow,'auto','short screens retain internal scrolling');
       assert.equal(p.style('#entryDialog .ticket-body').minHeight,'0');
       assert.equal(p.style('#entryDialog .ticket-top').flexShrink,'0');
-      assert.equal(p.document.querySelectorAll('.club-card').length,3);
+      assert.equal(p.document.querySelectorAll('.club-card').length,1);
       p.dom.window.close();
     }
   });
 }
 
-test('small-screen introduction uses large scene thumbnails without hiding instructions',()=>{
+test('single-mode introduction gives its artwork a large dedicated area',()=>{
   for(const name of ['duck','catch','duel']) {
     const p=page(name,320,568);
-    assert.ok(parseFloat(p.style('.club-card').gridTemplateColumns)>=96,'scene thumbnail column is at least 96px wide');
-    assert.equal(p.style('.club-card img').aspectRatio,'3 / 2');
-    assert.equal(p.style('.club-card img').objectFit,'cover');
+    assert.equal(p.style('.club-cards').display,'block');
+    assert.equal(p.style('.club-card').display,'block');
+    assert.equal(p.style('.club-card img').objectFit,'contain');
     assert.equal(p.style('.club-card img').height,'auto');
-    assert.ok(parseFloat(p.style('.club-card').paddingTop)<=6);
-    assert.ok(parseFloat(p.style('.club-cards').gap)<=6);
+    assert.equal(p.style('.club-card h3').display,'none','title already appears in the header');
     assert.equal(p.style('.club-card p').maxHeight,'');
     p.dom.window.close();
   }
@@ -95,21 +94,17 @@ test('start treatment beats the generic entry button selector in browser specifi
   assert.equal(value('background'),'#ef945a');
 });
 
-test('wide short intro shares one action row without shrinking text or touch targets',()=>{
-  const p=page('duck',844,390);
-  assert.equal(p.style('#entryStart').gridColumn,'1');
-  assert.equal(p.style('#entryStart').gridRow,'1');
-  assert.equal(p.style('.club-intro-aux').gridColumn,'2');
-  assert.equal(p.style('.club-intro-aux').gridRow,'1');
-  assert.ok(parseFloat(p.style('.club-cards').marginBottom)<=8);
-  p.dom.window.close();
-  for(const name of ['catch','duel']) {
-    const level=page(name,844,390);
-    assert.equal(level.style('#entryStart').gridColumn,'1/-1','single action remains full width');
-    level.dom.window.close();
+test('wide short intro keeps art and controls beside each other with readable copy',()=>{
+  for(const name of ['duck','catch','duel']) {
+    const p=page(name,844,390);
+    assert.equal(p.style('#entryDialog .ticket-body').display,'grid');
+    assert.match(p.style('#entryDialog .ticket-body').gridTemplateColumns,/minmax/);
+    assert.equal(p.style('.entry-buttons').gridColumn,'2');
+    assert.ok(parseFloat(p.style('#entryStart').minHeight)>=48);
+    assert.equal(p.style('.club-intro .pf-entry-brand').display,'none');
+    p.dom.window.close();
   }
   const small=page('duck',568,260);
-  assert.equal(small.style('#entryStart').gridColumn,'1/-1','very short narrow screen keeps scrollable stack');
   assert.equal(small.style('#entryDialog .ticket-body').overflow,'auto');
   small.dom.window.close();
 });
@@ -123,19 +118,13 @@ for (const [width,height] of [[320,568],[360,640],[390,844],[844,390],[1024,600]
       for(const image of p.document.querySelectorAll('.club-card img')) {
         const css=p.dom.window.getComputedStyle(image);
         assert.equal(css.aspectRatio,'3 / 2');
-        assert.equal(css.objectFit,'cover');
+        assert.equal(css.objectFit,'contain');
         assert.equal(css.height,'auto');
         assert.ok(parseFloat(css.borderRadius)>=8,'artwork has a finished rounded frame');
       }
-      if(width<=600) {
-        assert.ok(parseFloat(p.style('.club-card').gridTemplateColumns)>=96);
-      } else if(height<=450) {
-        assert.ok(parseFloat(p.style('.club-card img').width)>=144);
-        assert.equal(p.style('.club-intro .pf-entry-brand').display,'none','only decorative footer is omitted on short landscape');
-      } else {
-        assert.ok(parseFloat(p.style('.club-intro').maxWidth)>=780,'three image cards have enough desktop room');
-        assert.equal(p.style('.club-card img').width,'100%');
-      }
+      assert.equal(p.style('.club-cards').display,'block');
+      assert.equal(p.style('.club-card img').maxWidth,'360px');
+      assert.ok(parseFloat(p.style('.club-intro').maxWidth)>=520);
       p.dom.window.close();
     }
   });

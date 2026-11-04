@@ -84,7 +84,7 @@ export function mountFastHandsSharing({document=globalThis.document,createImage=
     const prepared=adapter?.snapshot?.(result,frozenMode,location);
     const frozen=prepared?Object.freeze(prepared.result):Object.freeze({...result,...normalizeScoreResult(result,frozenMode)});
     const url=new URL('/games/fast-hands/',location.origin).href;
-    const text=prepared?prepared.text:['快手王｜PlayFormosa',frozen.title,frozen.success?`本輪完成時間：${frozen.timeText} 秒`:'本輪未完成',frozen.comment,`輸入方式：${frozen.modeText}`,url].join('\n');
+    const text=prepared?prepared.text:['鴨沒漏補｜PlayFormosa',frozen.title,frozen.success?`本輪完成時間：${frozen.timeText} 秒`:'本輪未完成',frozen.comment,`輸入方式：${frozen.modeText}`,url].join('\n');
     round=Object.freeze({result:frozen,mode:frozenMode,text,imageOptions:prepared?.imageOptions});copy.disabled=false;
     const intent=new URL('https://www.threads.com/intent/post');intent.searchParams.set('text',text);threads.href=intent.href;threads.removeAttribute('aria-disabled');
     return encode();

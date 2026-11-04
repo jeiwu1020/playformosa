@@ -24,7 +24,9 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  const leave=document.createElement('button');leave.id='clubNavigationLeave';leave.type='button';leave.textContent='離開並切換';
  actions.append(stay,leave);dialog.append(heading,description,actions);document.body.append(dialog);
  try{storage=window.sessionStorage;seen=storage.getItem(INTRO_KEY)==='seen';}catch{storage=null;}
- const continuation=current.searchParams.get(CONTINUE_PARAM)==='1';
+ const forcedIntro=current.searchParams.get('intro')==='1';
+ const continuation=!forcedIntro&&current.searchParams.get(CONTINUE_PARAM)==='1';
+ if(forcedIntro){current.searchParams.delete('intro');current.searchParams.delete(CONTINUE_PARAM);try{window.history.replaceState(window.history.state,'',current.href);}catch{}}
  seen=seen||continuation||window.history.state?.[HISTORY_KEY]===true;
  function remember(){
   seen=true;
@@ -51,7 +53,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   navigating=true;
   if(onNavigate)onNavigate(url.href);else window.location.assign(url.href);
  }
- function blocked(){return !destroyed&&(entry.open||Boolean(pending)||navigating||interrupting||draining);}
+ function blocked(){return !destroyed&&(!seen||entry.open||Boolean(pending)||navigating||interrupting||draining);}
  function navigationCopy(context){
   if(mode==='duck')return '這次操作已中止，不留成績。留在這關可從起點重試。';
   if(context.phase==='feedback')return '已完成回合的成績會保留。留在這關可繼續下一回合；離開會結束這場挑戰。';
@@ -138,9 +140,11 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  }
  function begin(){
   if(destroyed||navigating||pending||draining)return;
+  const firstStart=!seen;
   remember();closeIntro();
-  if(mode==='duck'){onStart();ready();}
-  else requestNavigation(new URL('./',base));
+  // Help never routes to another game or restarts the current run.
+  if(firstStart)onStart();
+  ready();
  }
  function onClick(event){
   if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
@@ -155,6 +159,11 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  listen(document,'keydown',keydown,true);listen(document,'keyup',keyup,true);
  listen(document,'pointerdown',pointerdown,true);listen(document,'pointerup',pointerup,true);listen(document,'pointercancel',pointerup,true);
  listen(document,'click',guardClick,true);
+ listen(document,'contextmenu',event=>{
+  // Suppress gameplay long-press menus, but preserve native editing, copying
+  // and the image-save fallback used when system file sharing is unavailable.
+  if(!event.target.closest?.('input,textarea,[contenteditable]:not([contenteditable="false"]),[data-allow-selection],#shareFallbackImage,#summaryShareFallbackImage'))event.preventDefault();
+ });
  listen(document,'focusin',event=>{if(pending&&dialog.open&&!dialog.contains(event.target))stay.focus({preventScroll:true});});
  listen(window,'blur',clearHeldInput);listen(document,'visibilitychange',()=>{if(document.hidden)clearHeldInput();});
  listen(stay,'click',()=>chooseNavigation(false));listen(leave,'click',()=>chooseNavigation(true));
@@ -179,6 +188,6 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();mounted.delete(document);}
  const api={showIntro,requestNavigation,destroy,blocked,navigationPending:()=>Boolean(pending),get seen(){return seen}};
  mounted.set(document,api);
- if(seen){closeIntro();onStart();ready();}else{openIntro();ready();}
+ if(seen&&!forcedIntro){closeIntro();onStart();ready();}else{if(seen)onStart();openIntro();ready();}
  return api;
 }

@@ -1,4 +1,5 @@
 import {mountClub} from './club.mjs';
+import {recordFastHandsStart} from './play-counts.mjs';
 import {mountFastHandsSharing} from './share.mjs';
 import {createReplayRecorder,recordReplay,finishReplay,sampleReplay} from './replay.mjs';
 import {mountFastHandsLeaderboard} from './leaderboard.mjs';
@@ -19,6 +20,8 @@ try{storage=localStorage;}catch{}
 let cachedBest=readBest(storage,mode),stage=null,sampleForRun=null,raf=null,disposed=false,rendererMode='loading',previousBest=null,resultShown=false,terminalSeenAt=null,recordSaveFailed=false;
 let resultForSharing=null,club=null,resultSuppressed=false,startupTimer=null;
 let leaderboard=null,recorder=null,replayClip=null,replaying=false,replayStart=0;
+// An interrupted gesture retries the same official run; completed runs start anew.
+let runCounted=false;
 let resultImagePromise=null,resultImageURL=null,resultImage=null,resultImageGeneration=0,resultImageSurface=0,imagePageAway=false;
 const sharing=mountFastHandsSharing({document,createImage:async options=>{
  const token=resultImageGeneration,pending=resultImagePromise;
@@ -57,12 +60,14 @@ function displayResultImage(){
 }
 function captureResultImage(view){
  if(resultImagePromise)return;
- const now=clock(),finishAge=finishStartedAt===null?0:Math.max(0,now-finishStartedAt),currentStage=stage;
+ const now=clock(),finishAge=finishStartedAt===null?0:Math.max(0,now-finishStartedAt),currentStage=stage,captureCanvas=currentStage?$('scene3d'):document.createElement('canvas');
+ // The same frozen 2D scene uses its canonical aspect ratio for export, not
+ // the phone viewport's transparent letterbox; live canvas and input stay intact.
  // Invoke synchronously: preserveDrawingBuffer:false loses pixels after yielding.
- resultImagePromise=(async()=>captureFinaleImage({document,canvas:currentStage?$('scene3d'):canvas,renderFrame:()=>{
+ resultImagePromise=(async()=>captureFinaleImage({document,canvas:captureCanvas,renderFrame:()=>{
   if(currentStage)return currentStage.render(sampleForRun(view,finishAge),{now,maxFps:60,force:true});
   if(rendererMode==='loading')return false;
-  renderScene(canvas,{state:view,pose:poseForRun(view,finishAge),demo:false},torso);return true;
+  renderScene(captureCanvas,{state:view,pose:poseForRun(view,finishAge),demo:false},torso,{width:900,height:500});return true;
  }}))().catch(()=>null);
  displayResultImage();
 }
@@ -99,13 +104,13 @@ function unlock(){try{ac??=new AudioContext();void ac.resume().catch(()=>{});}ca
 function quack(){if(muted)return;try{unlock();if(ac){squeak(ac);soundCount++;$('sound').dataset.playCount=String(soundCount);}}catch{$('sound').textContent='音效暫不可用';}}
 function clearPointer(){const id=activePointer;activePointer=null;activeType=null;gestureRect=null;if(id!==null&&pad.hasPointerCapture(id))pad.releasePointerCapture(id);}
 function stopReplay(){replaying=false;document.body.dataset.playback='';lastPhase='';}
-function reset(){releaseResultImage({reset:true});resultSuppressed=false;stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
+function reset(){if(['success','failed'].includes(snapshot(s,clock()).phase))runCounted=false;releaseResultImage({reset:true});resultSuppressed=false;stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
 function interrupt(reason){stopReplay();if(activePointer!==null){s=cancel(s,clock(),reason);recordReplay(recorder,s,clock());}clearPointer();}
 function apply(next,at=next.lastAt){const prev=s;s=next;if(next!==prev)recordReplay(recorder,next,at);if(prev.pickupAt===null&&s.pickupAt!==null)quack();if(prev.phase!=='success'&&s.phase==='success'){leaderboard.captureResult(s,mode,{demo});finishStartedAt=clock();previousBest=readBest(storage,mode);const saved=saveBest(storage,mode,s.elapsedMs);recordSaveFailed=saved===null;cachedBest=saved??previousBest;}}
 function sampleTime(e){return eventTime(e,performance.timeOrigin,clock());}
 function sampleX(e){return (e.clientX-gestureRect.left)/gestureRect.width;}
 pad.addEventListener('contextmenu',e=>e.preventDefault());
-pad.addEventListener('pointerdown',e=>{e.preventDefault();if(demo||replaying||blocked()||activePointer!==null)return;const inputMode=resolveInputMode(e,preference);if(!inputMode)return;const rect=pad.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width;if(x<0||x>TRACK.home)return;if(isTerminal(snapshot(s,clock()).phase))reset();const next=arm(s,{x,at:sampleTime(e),id:e.pointerId});if(next===s)return;s=next;mode=inputMode;recorder=createReplayRecorder({mode});recordReplay(recorder,next,sampleTime(e));cachedBest=readBest(storage,mode);activePointer=e.pointerId;activeType=e.pointerType;gestureRect=rect;pad.setPointerCapture(e.pointerId);unlock();});
+pad.addEventListener('pointerdown',e=>{e.preventDefault();if(demo||replaying||blocked()||activePointer!==null)return;const inputMode=resolveInputMode(e,preference);if(!inputMode)return;const rect=pad.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width;if(x<0||x>TRACK.home)return;if(isTerminal(snapshot(s,clock()).phase))reset();const next=arm(s,{x,at:sampleTime(e),id:e.pointerId});if(next===s)return;s=next;if(!runCounted){runCounted=true;void recordFastHandsStart(window,'fast-hands');}mode=inputMode;recorder=createReplayRecorder({mode});recordReplay(recorder,next,sampleTime(e));cachedBest=readBest(storage,mode);activePointer=e.pointerId;activeType=e.pointerType;gestureRect=rect;pad.setPointerCapture(e.pointerId);unlock();});
 pad.addEventListener('pointermove',e=>{if(activePointer!==e.pointerId||activeType!==e.pointerType||!gestureRect)return;e.preventDefault();for(const item of orderedSamples(e)){const at=sampleTime(item);apply(move(s,{x:sampleX(item),at,id:e.pointerId}),at);}});
 pad.addEventListener('pointerup',e=>{if(activePointer!==e.pointerId||activeType!==e.pointerType)return;e.preventDefault();const at=sampleTime(e);apply(release(s,{at,id:e.pointerId}),at);clearPointer();});
 pad.addEventListener('pointercancel',e=>{if(activePointer===e.pointerId)interrupt('pointercancel');});
@@ -115,7 +120,7 @@ window.addEventListener('pageshow',()=>{if(!disposed){imagePageAway=false;stage?
 document.addEventListener('visibilitychange',syncVideo);
 window.addEventListener('storage',()=>{cachedBest=readBest(storage,mode);});
 function startGame(){if(club?.blocked?.()||rendererMode==='loading')return;closeDialogs();demo=false;reset();syncVideo();unlock();}
-function showDemo(){if(club?.blocked?.())return;closeDialogs();reset();demo=true;demoStart=clock();offline.currentTime=0;syncVideo();}
+function showDemo(){if(club?.blocked?.())return;closeDialogs();reset();runCounted=false;demo=true;demoStart=clock();offline.currentTime=0;syncVideo();}
 function interruptForClub({reason}){interrupt(reason);resultSuppressed=true;terminalSeenAt=null;syncVideo();}
 function showResult(){
  if(club?.blocked?.())return;stopReplay();
@@ -141,6 +146,9 @@ $('viewResult').onclick=showResult;$('resultAgain').onclick=startGame;
 $('resultClose').onclick=()=>{$('resultDialog').close();syncOverlay();};
 $('sound').onclick=()=>{muted=!muted;$('sound').textContent='鴨叫：'+(muted?'關':'開');$('sound').setAttribute('aria-pressed',String(muted));if(!muted)unlock();};
 $('about').onclick=$('headerSettings').onclick=()=>{if(club?.blocked?.()&&!($('entryDialog').open&&!club?.navigationPending?.()))return;interrupt('help');closeDialogs();openDialog($('info'));};
+$('info').addEventListener('close',()=>window.queueMicrotask(()=>{
+ if(club&&!club.seen&&!disposed&&!imagePageAway&&!dialogs.some(dialog=>dialog.open))club.showIntro();
+}));
 $('closeInfo').onclick=()=>{$('info').close();syncOverlay();};
 function updateControls(view){
  const phase=demo?'demo':view.phase;

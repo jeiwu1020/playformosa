@@ -70,7 +70,7 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
   if(view!==nextView){stopBoard();stopUpload();}
   inline?.restore();origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
   $('rankingBoard').hidden=nextView!=='board';$('rankingUpload').hidden=nextView!=='upload';
-  $('rankingTitle').textContent=nextView==='board'?'測試排行榜':'上傳本次成績';
+  $('rankingTitle').textContent=nextView==='board'?'鴨沒漏補｜測試排行榜':'鴨沒漏補｜上傳成績';
   $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲選單';
   if(!dialog.open)onOpen(dialog,origin);
   dialog.querySelector('.ranking-scroll').scrollTop=0;

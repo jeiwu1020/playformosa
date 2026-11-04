@@ -462,3 +462,31 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
    and the separate actionable art error; fallback details remain in help. */
 body.fast-hands-club[data-club-mode="duel"][data-renderer="3d"] #renderMode,
 body.fast-hands-club[data-club-mode="duel"][data-renderer="fallback"] #renderMode {display:none}
+
+/* Each homepage entrance introduces only its own game with one large cover. */
+body.fast-hands-club .club-intro.mode-intro{max-width:580px}
+body.fast-hands-club .mode-intro .club-cards{display:block;margin:0 0 12px}
+body.fast-hands-club .mode-intro .club-card{display:block;padding:0;border:0;background:transparent;text-align:center}
+body.fast-hands-club .mode-intro .club-card img{width:min(100%,48dvh,360px);max-width:360px;max-height:none;height:auto;aspect-ratio:3 / 2;object-fit:contain;margin:0 auto 10px}
+body.fast-hands-club .mode-intro .club-card h3{display:none}
+body.fast-hands-club .mode-intro .club-card p{font-size:17px;line-height:24px;color:var(--green)}
+body.fast-hands-club,body.fast-hands-club *{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+body.fast-hands-club input,body.fast-hands-club textarea,body.fast-hands-club [contenteditable]:not([contenteditable="false"]),body.fast-hands-club [data-allow-selection]{user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
+body.fast-hands-club #shareFallbackImage,body.fast-hands-club #summaryShareFallbackImage{user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
+body.fast-hands-club .finale-game-title{font-size:14px;font-weight:800;line-height:20px;letter-spacing:1px;margin:0 0 4px;color:var(--green)}
+@media(max-width:600px){
+ body.fast-hands-club .mode-intro .ticket-top{padding:12px 12px 10px}
+ body.fast-hands-club .mode-intro .ticket-body{padding:10px 14px}
+ body.fast-hands-club .mode-intro .club-card img{width:min(100%,46.5dvh,360px);max-height:none;margin-bottom:10px}
+ body.fast-hands-club .mode-intro .club-card p{font-size:16px;line-height:23px}
+}
+@media(min-width:601px) and (max-height:500px){
+ body.fast-hands-club .club-intro.mode-intro{max-width:740px}
+ body.fast-hands-club .mode-intro .ticket-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,1fr);gap:16px;align-items:center}
+ body.fast-hands-club .mode-intro .club-cards{grid-column:1;margin:0}
+ body.fast-hands-club .mode-intro .club-card img{width:min(100%,58.5dvh,360px);max-height:none;margin-bottom:6px}
+ body.fast-hands-club .mode-intro .entry-buttons{grid-column:2;display:grid;grid-template-columns:1fr}
+ body.fast-hands-club .mode-intro .entry-buttons>.intro-start{grid-column:1/-1;grid-row:auto}
+ body.fast-hands-club .mode-intro .entry-buttons>.club-intro-aux{grid-column:1/-1;grid-row:auto}
+ body.fast-hands-club .mode-intro .pf-entry-brand{display:none}
+}

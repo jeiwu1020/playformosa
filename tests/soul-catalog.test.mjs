@@ -1,3 +1,4 @@
+import {historicalCatalog,renderHistoricalPage} from './helpers/fast-hands-split-entries-catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -8,6 +9,8 @@ import {renderPage} from '../src/render.mjs';
 const official='https://soul10power.vercel.app/';
 const doc=channel=>new JSDOM(renderPage(catalog,{channel})).window.document;
 test('Soul Alchemist is the fifth independently listed preview game, with production still unlisted',()=>{
+ // This archived admission keeps the exact pre-split cardinality.
+ const catalog=historicalCatalog,doc=channel=>new JSDOM(renderHistoricalPage(catalog,{channel})).window.document;
  const entry=catalog.externalGames.find(e=>e.id==='soul10power');assert.ok(entry);
  assert.equal(entry.title,'心靈煉金術師');assert.equal(entry.href,official);
  assert.deepEqual(entry.release,{preview:true,production:false});

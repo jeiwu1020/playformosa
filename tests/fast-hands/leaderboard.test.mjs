@@ -52,6 +52,16 @@ test('manual upload freezes original touch raw milliseconds despite changing vie
  const h=fixture({fetcher:(url)=>url.includes('submissions')?ok({accepted:true,bestUpdated:true}):ok({entries:[]})});try{h.capture(valid,'touch');h.controller.showBoard({origin:'result',mode:'mouse'});await flush();h.$('rankingMouse').click();h.$('rankingClose').click();h.$('resultTime').textContent='0.001';h.upload();await h.click();const posts=h.requests.filter(x=>x.options.method==='POST');assert.equal(posts.length,1);const body=JSON.parse(posts[0].options.body);assert.deepEqual(Object.keys(body).sort(),['deviceId','game','nickname','rules','score','status','submissionId','unit'].sort());assert.equal(body.game,'fast-hands');assert.equal(body.rules,'shuttle-v3-touch');assert.equal(body.unit,'ms');assert.equal(body.status,'success');assert.equal(body.score,532.123456);assert.match(body.deviceId,/^[a-f\d-]{36}$/i);assert.notEqual(body.deviceId,body.submissionId);assert.match(h.$('rankingFrozenScore').textContent,/觸控/);assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.$('rankingUploadStatus').textContent,/已收錄|最佳/);}finally{h.cleanup()}
 });
 
+test('duck board and upload show the renamed game while retaining the same board identity',async()=>{
+ const h=fixture();try{
+  h.controller.showBoard({origin:'entry',mode:'mouse'});await flush();
+  assert.equal(h.$('rankingTitle').textContent,'鴨沒漏補｜測試排行榜');
+  assert.equal(h.requests[0].url,'/api/leaderboard?game=fast-hands&mode=mouse');
+  h.$('rankingClose').click();h.capture();h.upload();
+  assert.equal(h.$('rankingTitle').textContent,'鴨沒漏補｜上傳成績');
+ }finally{h.cleanup()}
+});
+
 test('invalid nickname or absent consent never posts; Unicode length counts code points',async()=>{
  const h=fixture({fetcher:()=>ok({accepted:true})});try{h.capture();h.upload();for(const name of ['', ' ', 'x'.repeat(21),'<b>', 'hello\u0001', 'a\u200db']){h.$('rankingNickname').value=name;await h.click();assert.equal(h.requests.length,0,name)}h.$('rankingNickname').value='😀'.repeat(20);h.$('rankingConsent').checked=false;await h.click();assert.equal(h.requests.length,0);h.$('rankingConsent').checked=true;await h.click();assert.equal(h.requests.length,1);assert.equal(JSON.parse(h.requests[0].options.body).nickname,'😀'.repeat(20));}finally{h.cleanup()}
 });

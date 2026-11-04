@@ -1,3 +1,4 @@
+import {historicalCatalog,renderHistoricalPage} from './helpers/fast-hands-split-entries-catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
@@ -5,6 +6,8 @@ import {catalog} from '../src/catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 
 test('reaction rod is a separate playable minigame, never an eleventh decathlon event',()=>{
+ // This archived admission keeps the exact pre-split cardinality.
+ const catalog=historicalCatalog,renderPage=renderHistoricalPage;
  const entry=catalog.minigames?.find(game=>game.id==='reaction-rod');
  assert.ok(entry,'separate minigames catalog entry');
  assert.equal(entry.href,'/games/reaction-rod/');

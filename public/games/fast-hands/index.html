@@ -59,7 +59,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
 </script>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fff9e9">
-  <title>快手王｜一筆往返</title>
+  <title>快手王｜鴨沒漏補</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="duck-startup.css">
   <link rel="stylesheet" href="finale.css">
@@ -71,7 +71,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
       <a class="pf-home" href="/#minigames" aria-label="返回小遊戲首頁">← 首頁</a>
       <div class="brand pf-studio-heading">
         <div class="eyebrow">PLAYFORMOSA · 反應挑戰</div>
-        <h1>快手王 <span>一筆往返</span></h1>
+        <h1>鴨沒漏補 <span>快手王系列</span></h1>
         <span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span>
       </div>
       <nav class="header-tools" aria-label="遊戲操作">
@@ -80,7 +80,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
         <button id="headerSettings" type="button" class="quiet-button">設定</button>
         <button id="openMenu" type="button" class="menu-button" aria-label="開啟遊戲選單"><span aria-hidden="true">☰</span><span>選單</span></button>
       </nav>
-      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+      <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
     </header>
 
     <section class="scene-card" aria-label="鈔票與小鴨示範舞台">
@@ -132,18 +132,16 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     <footer><span>一口氣往返，全程不放開。</span><span>本機紀錄 · 滑鼠與觸控分開</span></footer>
   </main>
 
-  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro mode-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
     <div class="ticket-top">
       <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
       <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
-      <h2 id="entryTitle">快手王</h2>
-      <p id="entryDescription">三種手速挑戰，先從小鴨示範開始。</p>
+      <h2 id="entryTitle">鴨沒漏補</h2>
+      <p id="entryDescription">先看示範，再挑戰一筆往返。</p>
     </div>
     <div class="ticket-body">
       <div class="club-cards">
-        <article class="club-card"><img src="/assets/fast-hands-card-v2.webp" alt="快手王抓住小鴨與紙鈔的關卡代表圖" width="768" height="512"><h3>小鴨往返</h3><p>按住紙鈔，抓到小鴨再滑回來。</p></article>
-        <article class="club-card"><img src="assets/intro-catch-generated.webp" alt="快手王伸手接住玩具發射器射出的短藍色泡棉彈" width="1536" height="1024"><h3>玩具彈接接樂</h3><p>玩具彈到掌心時，按「接！」。</p></article>
-        <article class="club-card"><img src="assets/intro-duel-generated.webp" alt="快手王與橘衣運動選手伸手搶同一隻小鴨" width="1536" height="1024"><h3>十回合對決</h3><p>看到「出手！」按「搶！」，比十回合。</p></article>
+        <article class="club-card"><img src="/assets/fast-hands-card-v2.webp" alt="鴨沒漏補：快手王抓住小鴨與紙鈔的關卡代表圖" width="768" height="512"><h3>鴨沒漏補</h3><p>按住紙鈔，抓到小鴨再滑回來。</p></article>
       </div>
       <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="about" type="button" class="quiet-button">操作設定</button></div></div>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
@@ -153,7 +151,8 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
   <dialog id="resultDialog" class="ticket-dialog result-dialog finale-ticket" aria-labelledby="resultTitle" aria-describedby="resultComment">
     <button id="resultClose" type="button" class="close-button" aria-label="關閉成績，回到遊戲">×</button>
     <div class="ticket-top result-top finale-overview">
-      <figure class="finale-picture"><img id="resultPortrait" alt="本次小鴨挑戰的結束畫面" width="900" height="620" hidden><figcaption id="resultImageStatus" role="status">正在準備本次畫面…</figcaption></figure>
+      <figure class="finale-picture"><img id="resultPortrait" alt="本次鴨沒漏補挑戰的結束畫面" width="900" height="620" hidden><figcaption id="resultImageStatus" role="status">正在準備本次畫面…</figcaption></figure>
+      <p class="finale-game-title">鴨沒漏補</p>
       <h2 id="resultTitle">挑戰完成！</h2>
       <div class="result-time"><strong id="resultTime">0.000</strong> <small id="resultUnit">秒</small></div>
       <p id="resultComment">這一手，快得很有說服力。</p>
@@ -170,7 +169,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
       <details class="finale-details"><summary>詳細紀錄與選項</summary>
         <div class="result-records"><div><span>本機最佳</span><strong id="resultBest">—</strong></div><div><span>與最佳比較</span><strong id="resultDelta">—</strong></div></div>
         <div class="result-mode"><span>本次操作</span><strong id="resultMode">滑鼠</strong></div>
-        <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>小鴨往返</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
+        <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck" aria-current="page"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>玩具彈接接樂</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>十回合對決</a></nav>
       </details>
       <details class="finale-share"><summary>分享本次成績</summary>
         <div class="result-share-actions pf-share-actions" role="group" aria-label="分享本次成績">
@@ -178,7 +177,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
           <button id="resultDownload" data-share="image" type="button" class="secondary" disabled>製作成績圖…</button>
           <button id="resultCopy" data-share="copy" type="button" class="quiet-button">複製成績與網址</button>
         </div>
-        <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden><img id="shareFallbackImage" alt="本次快手王成績圖片，可長按儲存" hidden><textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea><button id="shareFallbackClose" type="button" class="quiet-button">收起</button></section>
+        <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden><img id="shareFallbackImage" alt="本次鴨沒漏補成績圖片，可長按儲存" hidden><textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea><button id="shareFallbackClose" type="button" class="quiet-button">收起</button></section>
         <p id="downloadStatus" class="result-status" aria-live="polite"></p>
       </details>
     <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
@@ -189,7 +188,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
     <header class="ranking-header">
       <span class="ticket-kicker">FAST HANDS · QA</span>
       <button id="rankingClose" type="button" class="close-button" aria-label="關閉排行榜，返回上一畫面">×</button>
-      <h2 id="rankingTitle">測試排行榜</h2>
+      <h2 id="rankingTitle">鴨沒漏補｜測試排行榜</h2>
       <p id="rankingDisclaimer">休閒比一比。成績由玩家回報，非經驗證的正式競賽。</p>
     </header>
     <div class="ranking-scroll" role="region" aria-label="排行榜與提交內容，可捲動" tabindex="0">
@@ -218,7 +217,7 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
   </dialog>
 
   <dialog id="info" class="info-dialog" aria-labelledby="infoTitle">
-    <div class="info-header"><span class="ticket-kicker">HOW TO PLAY</span><h2 id="infoTitle">一口氣，去抓鴨再回來</h2></div>
+    <div class="info-header"><span class="ticket-kicker">HOW TO PLAY</span><h2 id="infoTitle">鴨沒漏補，怎麼玩？</h2></div>
     <ol class="help-steps">
       <li>按住操作帶左側鈔票區，準備時間不算。</li>
       <li>滑出起點時放鈔並開始計時，碰到右邊就自動抓鴨。</li>

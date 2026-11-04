@@ -1,0 +1,24 @@
+{
+  "assets": [
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "sha256": "8b5c6b7d62d35d4f4b7f9bc9e9c14299a53ff32885c011b0f0a0ff1da4581979",
+      "bytes": 299630,
+      "width": 1536,
+      "height": 1024,
+      "originalPngSha256": "c635a5f8045aa105da7263f1cbda4cad3a085c022551eb2ce75aea9c23a8752a",
+      "generation": "Built-in imagegen with actual homepage hero image, existing king cover and prior composition references.",
+      "identityReference": {
+        "path": "public/assets/hero-long-jump.png",
+        "sha256": "67e7684103457a98a6bd3d30ce15964d6cc367ba6d673996e5d5d0472ecc1c49"
+      },
+      "styleReference": {
+        "path": "public/assets/fast-hands-card-v2.webp",
+        "sha256": "00309b43cdcf7711a4e51cd25e89a16611fcd11f89831e3e454c69210a027b94"
+      },
+      "conversion": "PNG to WebP quality 92 method 6, unchanged dimensions, no crop/resampling.",
+      "review": "Full-size and 384\u00d7256 visual inspection; hair, broad face, orange singlet and navy shorts match homepage identity."
+    }
+  ],
+  "scope": "Duel intro/home artwork only; character runtime models unchanged. Existing ART-POLISH-ASSETS.json preserved as historical evidence."
+}

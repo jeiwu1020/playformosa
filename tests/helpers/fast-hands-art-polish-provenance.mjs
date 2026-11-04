@@ -1,3 +1,4 @@
+import {reverseSplitEntries,splitEntriesLedger,splitEntriesRuntimeAdditions} from './fast-hands-split-entries-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -48,7 +49,8 @@ export function validateArtPolishLedger(ledger){
 }
 export const artPolishLedger=()=>validateArtPolishLedger(JSON.parse(readFileSync(new URL('docs/fast-hands/ART-POLISH-MANIFEST.json',root),'utf8')));
 
-export function reverseArtPolish(path,bytes,ledger=artPolishLedger()){
+export function reverseArtPolish(path,bytes,ledger=artPolishLedger(),outerLedger=splitEntriesLedger()){
+ bytes=reverseSplitEntries(path,bytes,outerLedger);
  const rows=ledger.files.filter(r=>r.path===path);assert.ok(rows.length<=1,'Duplicate art polish entry '+path);
  if(!rows.length){
   const preserved=ledger.preserved?.filter(r=>r.path===path)??[];assert.ok(preserved.length<=1,'Duplicate art polish preserved entry '+path);
@@ -73,5 +75,5 @@ export function readArtPolishBaseline(file,options){
 }
 export function artPolishRuntimeAdditions(){
  const ledger=artPolishLedger();for(const path of ART_POLISH_ADDED)reverseArtPolish(path,readFileSync(new URL(path,root)),ledger);
- return [...ART_POLISH_ADDED];
+ return [...ART_POLISH_ADDED,...splitEntriesRuntimeAdditions()];
 }

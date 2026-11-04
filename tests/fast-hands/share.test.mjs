@@ -69,12 +69,14 @@ test('unsupported, throwing capability probes and rejected mobile shares expose 
 
 test('Threads has an eager safe intent containing result and current-origin canonical route',async()=>{
   const f=fixture();await f.control.prepare(result,'touch');const anchor=f.$('resultThreads'),intent=new URL(anchor.href),text=intent.searchParams.get('text');
+  assert.equal(text.split('\n')[0],'鴨沒漏補｜PlayFormosa');
   assert.equal(intent.origin,'https://www.threads.com');assert.equal(intent.pathname,'/intent/post');assert.match(text,/0\.532/);assert.match(text,/觸控/);assert.ok(text.endsWith('https://preview.example/games/fast-hands/'));assert.doesNotMatch(text,/debug|#private|chatgpt\.site/);
   assert.equal(anchor.target,'_blank');assert.match(anchor.rel,/noopener/);assert.match(anchor.rel,/noreferrer/);f.click('resultThreads');assert.match(f.$('downloadStatus').textContent,/圖片.*自行附上/);f.control.destroy();
 });
 
 test('copy waits for clipboard success and suppresses duplicate writes',async()=>{
   const pending=deferred(),f=fixture({clipboard:()=>pending.promise});await f.control.prepare(result,'mouse');f.click('resultCopy');f.click('resultCopy');
+  assert.equal(f.writes[0].split('\n')[0],'鴨沒漏補｜PlayFormosa');
   assert.equal(f.writes.length,1);assert.match(f.writes[0],/0\.532/);assert.ok(f.writes[0].endsWith('https://preview.example/games/fast-hands/'));assert.doesNotMatch(f.$('downloadStatus').textContent,/已複製/);
   pending.resolve();await flush();assert.match(f.$('downloadStatus').textContent,/已複製/);f.control.destroy();
 });

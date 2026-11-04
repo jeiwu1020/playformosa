@@ -1,3 +1,4 @@
+import {historicalCatalog,renderHistoricalPage} from '../helpers/fast-hands-split-entries-catalog.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync, readFileSync, readdirSync} from 'node:fs';
@@ -16,6 +17,8 @@ const readGame = path => {
 const gameDocument = () => new JSDOM(readGame('index.html'), {url:'https://playformosa.test/games/fast-hands/'}).window.document;
 
 test('homepage presents Fast Hands as the fourth playable minigame without a play counter', () => {
+  // Preserve this archived introduction against the exact pre-split parent.
+  const catalog=historicalCatalog,renderPage=renderHistoricalPage;
   const doc = new JSDOM(renderPage(catalog, {channel:'preview'})).window.document;
   const cards = [...doc.querySelectorAll('#minigames .game-card')];
   assert.equal(cards.length, 4);

@@ -31,9 +31,9 @@ test('normalization preserves describeResult fields without deriving a faster sc
 });
 
 test('filenames are deterministic and ignore path-like and untrusted labels',()=>{
-  assert.equal(scoreImageFilename(success,'mouse'),'fast-hands-mouse-0p532s.png');
-  assert.equal(scoreImageFilename({...success,title:'../../oops'},'touch'),'fast-hands-touch-0p532s.png');
-  assert.equal(scoreImageFilename({...success,success:false},'../../'), 'fast-hands-mouse-incomplete.png');
+  assert.equal(scoreImageFilename(success,'mouse'),'鴨沒漏補-mouse-0p532s.png');
+  assert.equal(scoreImageFilename({...success,title:'../../oops'},'touch'),'鴨沒漏補-touch-0p532s.png');
+  assert.equal(scoreImageFilename({...success,success:false},'../../'), '鴨沒漏補-mouse-incomplete.png');
 });
 
 test('Chinese and long Latin words wrap within measured line width and respect explicit newlines',()=>{
@@ -67,7 +67,7 @@ test('Canvas output waits for toBlob, draws actual portrait, and includes score,
   const drawn=fixture.calls.filter(c=>c[0]==='fillText').map(c=>c[1]).join('\n');
   for(const text of ['0.532','0.500 秒','觸控','一手包辦，鈔鴨雙收。','比本機最佳慢 0.032 秒'])assert.ok(drawn.includes(text),text);
   fixture.flush();const output=await promise;
-  assert.equal(output.blob.type,'image/png');assert.equal(output.filename,'fast-hands-touch-0p532s.png');
+  assert.equal(output.blob.type,'image/png');assert.equal(output.filename,'鴨沒漏補-touch-0p532s.png');
 });
 
 test('font failure uses fallback and incomplete rounds do not print a completion time',async()=>{
@@ -110,7 +110,7 @@ test('a valid positive elapsed time rounded to 0.000 keeps the real result prese
   assert.equal(result.timeText,'0.000');
   assert.equal(normalizeScoreResult(result).success,true);
   assert.equal(normalizeScoreResult(result).timeText,'0.000');
-  assert.equal(scoreImageFilename(result,'mouse'),'fast-hands-mouse-0p000s.png');
+  assert.equal(scoreImageFilename(result,'mouse'),'鴨沒漏補-mouse-0p000s.png');
   const zeroRaw=describeResult({phase:'success',elapsedMs:0},{best:null});
   assert.equal(zeroRaw.success,false);
   assert.equal(normalizeScoreResult(zeroRaw).timeText,'未完成');
