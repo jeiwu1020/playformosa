@@ -1,4 +1,5 @@
 import {reverseRodReplay} from './rod-replay-provenance.mjs';
+import {readStudioBaseline} from './studio-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -21,7 +22,7 @@ export function reverseRodResult(path,bytes){
 }
 export function readResultBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
- const bytes=reverseRodResult(path,readFileSync(file));
+ const bytes=reverseRodResult(path,readStudioBaseline(file));
  const encoding=typeof options==='string'?options:options?.encoding;
  return encoding?bytes.toString(encoding):bytes;
 }

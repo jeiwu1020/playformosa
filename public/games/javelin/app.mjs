@@ -52,4 +52,3 @@ entry.setAudio(audio);entry.configurePause({onContinue:resumeGame,onRestart:()=>
 ensurePauseHelp(document,entry.dialog.querySelector('[data-pf-pause]'));
 document.querySelector('[data-pf-entry-loading]')?.remove();$('help').hidden=false;$('help').classList.add('pf-entry-help');$('help').setAttribute('aria-label','操作說明與素材授權');document.addEventListener('pf-help-request',()=>entry.open({help:true}));$('help').onclick=()=>entry.open({help:true});$('startHelp').onclick=()=>entry.open({help:true});
 entry.open();
-

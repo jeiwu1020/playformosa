@@ -50,4 +50,3 @@ export function createGameEntry(options){const{document,gameId}=options,content=
  if(gameId==='hurdles'||gameId==='pole-vault'){const settings=document.querySelector('#settings'),audio=document.createElement('section');audio.className='audio-settings';audio.setAttribute('aria-label','聲音設定');for(const node of settings?.querySelectorAll(':scope > label, :scope > #audio-status, :scope > #toggle-sound')||[])audio.append(node);shell.dialog.querySelector('details').append(audio);}
  return shell;
 }
-

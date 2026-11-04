@@ -1,0 +1,389 @@
+{
+  "baseCommit": "52c60d195e494146f95bc702763cbe6d7bcc742a",
+  "baseTree": "463372b5a2fa865f6416dd900c6270a9776b1106",
+  "purpose": "Approved studio attribution overlay; exact byte reversals preserve all historical protection checks.",
+  "files": [
+    {
+      "path": "javelin/app.mjs",
+      "sha256": "fa679297b0114c85f44a2db2e1a98eb030bbe80be61ecebdb1607eff2aa56ebe",
+      "beforeSha256": "051b4513b54381254fe5ef5404938d4d7abb6c1d9fcd669c155b282eee0f40a2",
+      "baseGitBlob": "0f0eb5acf1ecd9742bdccfb8309edf5a10213132",
+      "reverseEdits": [
+        {
+          "start": 8082,
+          "end": 8156,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "javelin/index.html",
+      "sha256": "f9f08a2ad045b88a74ab971c552e6da7139d26ed7f450a0aac925add58a907a8",
+      "beforeSha256": "a3d56efc441867e850312543e51533c9eb1a9ea95620254a0caa6216bc670b35",
+      "baseGitBlob": "c0349df21e7202bcbfe32c743146cd8a7a7cc065",
+      "reverseEdits": [
+        {
+          "start": 486,
+          "end": 543,
+          "beforeBase64": ""
+        },
+        {
+          "start": 683,
+          "end": 714,
+          "beforeBase64": ""
+        },
+        {
+          "start": 748,
+          "end": 832,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "javelin/presentation.mjs",
+      "sha256": "e1b7c6cef022bf923c0ea37752aceca05637a14273c26d355277da9c612d7993",
+      "beforeSha256": "e6bd599c2e111e97e9769de08bdfd1b07b612a1c908d1b647985ecedf87e4a26",
+      "baseGitBlob": "3321a842e396e8bbbe0f8304405649cbfc2359ef",
+      "reverseEdits": [
+        {
+          "start": 874,
+          "end": 876,
+          "beforeBase64": "NTQ="
+        },
+        {
+          "start": 1190,
+          "end": 1192,
+          "beforeBase64": "Mjk="
+        },
+        {
+          "start": 1308,
+          "end": 1330,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1331,
+          "end": 1371,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1372,
+          "end": 1455,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "reaction-rod/index.html",
+      "sha256": "f2f8a3490843b66ff557ae98c06db32836e7db616828807fa68ae4fd924a0b1d",
+      "beforeSha256": "b12728255c318e0c3e872331272287a1e182dac1172e1061b67c40aa7b21a00b",
+      "baseGitBlob": "f05c2813e0a5bbf885844cea3ed246d4cc59aa96",
+      "reverseEdits": [
+        {
+          "start": 1206,
+          "end": 1263,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1428,
+          "end": 1459,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1478,
+          "end": 1562,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6627,
+          "end": 6701,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "high-jump/index.html",
+      "sha256": "c39b64cd6b76b27b4e41c9615e158ba049d87f2136ed29dcb08263df99c3c39d",
+      "beforeSha256": "aa18309609f7ba2cb3376e99038045c85d6fec0fcac29413dea0d23738d72885",
+      "baseGitBlob": "2061bc492330b7514d4bdcc973a153c0e50b9300",
+      "reverseEdits": [
+        {
+          "start": 1053,
+          "end": 1110,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1271,
+          "end": 1302,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1336,
+          "end": 1420,
+          "beforeBase64": ""
+        },
+        {
+          "start": 5663,
+          "end": 5737,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "long-jump/index.html",
+      "sha256": "5a4ca6f975f763160790f1661990dd11a8f380fe9aed7d79c9cc9ee711ba87ea",
+      "beforeSha256": "d28c2e1b1025787a2ab01365b78b023e654d05c400583e95f961195961b3ec41",
+      "baseGitBlob": "dd677c5eeb0c72eef6069ced24c5a51ffcf0af4c",
+      "reverseEdits": [
+        {
+          "start": 1096,
+          "end": 1153,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1296,
+          "end": 1327,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1361,
+          "end": 1445,
+          "beforeBase64": ""
+        },
+        {
+          "start": 8297,
+          "end": 8371,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "pole-vault/index.html",
+      "sha256": "774ea80466a1570af1c9ceb52174a72b6a381e899aa2f7d9ea397a319ea87164",
+      "beforeSha256": "b8aef13ff6bc3d98c4b0906242e1c12eb803e62c0c0c952f9df49ec427d5c309",
+      "baseGitBlob": "e1f45d40bd7ff3c4596109c1e1bf7f605aaac51d",
+      "reverseEdits": [
+        {
+          "start": 1264,
+          "end": 1321,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1466,
+          "end": 1497,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1534,
+          "end": 1618,
+          "beforeBase64": ""
+        },
+        {
+          "start": 7042,
+          "end": 7116,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "discus/index.html",
+      "sha256": "788cd4d8b238c70c73bada1f9f66135a8ecbadfa9ff7cf07d3f01f5d35c2bfe6",
+      "beforeSha256": "31b8b5afcde973aa09bf41d240da8ca3eaf2f5b2c83f96edb494188a4971194a",
+      "baseGitBlob": "3d7c65eceff61a80177e604b609cad40bc9a4d81",
+      "reverseEdits": [
+        {
+          "start": 1044,
+          "end": 1101,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1251,
+          "end": 1282,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1335,
+          "end": 1419,
+          "beforeBase64": ""
+        },
+        {
+          "start": 5919,
+          "end": 5993,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "beer-slide/index.html",
+      "sha256": "6043392f6609dd2a9f3acfa82881062d7bd416250a459395fed7a992b5bedf21",
+      "beforeSha256": "591bf530d545138c23bbbbb1a12712c0a8ca0680f70822d75f0d84c9cc014680",
+      "baseGitBlob": "954458a9980ccf37c891ecff116550889710d48a",
+      "reverseEdits": [
+        {
+          "start": 1106,
+          "end": 1163,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1325,
+          "end": 1356,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1375,
+          "end": 1459,
+          "beforeBase64": ""
+        },
+        {
+          "start": 10241,
+          "end": 10315,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "shared/entry-shell.mjs",
+      "sha256": "e03f8b9256d560c42f10878f0a685046bbe78175836cdb65a22d08df8446c1f3",
+      "beforeSha256": "56dcbc33d1320ba492c2e5788f6a8c70e82d566a4a1d6a50e3c84f336cde1f3c",
+      "baseGitBlob": "96223caeccc52ebe9d189ac9fb6aa75a0d4b901b",
+      "reverseEdits": [
+        {
+          "start": 887,
+          "end": 911,
+          "beforeBase64": ""
+        },
+        {
+          "start": 922,
+          "end": 929,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "hurdles/index.html",
+      "sha256": "8ef1a86fa4a501e296d9d7b96bfb227013291d8f921e1c52e2b256d6159b25df",
+      "beforeSha256": "85025bb8c2fdc49a05501ab155548ef50b5e4c445e45d6e4ee28d9db1b2b30b3",
+      "baseGitBlob": "4ded21a15bbeb14a4dd6f0a9d5209e2e22af2c34",
+      "reverseEdits": [
+        {
+          "start": 1217,
+          "end": 1274,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1416,
+          "end": 1447,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1490,
+          "end": 1574,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6326,
+          "end": 6400,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "shot-put/index.html",
+      "sha256": "e072edc93e8fa27b59d4ed233124c4e2b9bc6b2a4dba323c61fba7657aeff461",
+      "beforeSha256": "ade1ada3fc7dbcc3cce387e85bda9aa0e7dd955804cabccae6ce789adbb1449f",
+      "baseGitBlob": "02c3d94fe25e3ecfd7469c67718e9feae78ab718",
+      "reverseEdits": [
+        {
+          "start": 1167,
+          "end": 1224,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1366,
+          "end": 1397,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1431,
+          "end": 1515,
+          "beforeBase64": ""
+        },
+        {
+          "start": 5804,
+          "end": 5878,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "sprint-100m/app.mjs",
+      "sha256": "ae3e73a18fca800f5ed4298f6bdd26a0dfb8ffe9dd828b7ca744a44ccdf42aa8",
+      "beforeSha256": "e36e58e225526f1d91789d9588d1a14b595e5abac1c53870e8bdd1ec8e54e705",
+      "baseGitBlob": "54a6e2f8b2cac164de7b458d6fb26b27ab2a3a88",
+      "reverseEdits": [
+        {
+          "start": 7384,
+          "end": 7458,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "sprint-100m/index.html",
+      "sha256": "519032c1a7554b1d87a605b26cf08430f4376bd61b494c7befcf46961123d3b3",
+      "beforeSha256": "315e6b3612e83f5c18f1bc2740647d097c06c90941324b7c285cee8ae975247b",
+      "baseGitBlob": "7f144ef91ab9036f50d16a427f9388fb9948b484",
+      "reverseEdits": [
+        {
+          "start": 496,
+          "end": 553,
+          "beforeBase64": ""
+        },
+        {
+          "start": 692,
+          "end": 723,
+          "beforeBase64": ""
+        },
+        {
+          "start": 767,
+          "end": 851,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "tower-climb/index.html",
+      "sha256": "18f11348fa97db8e5f01e86d0daf684d4fe297cb1218a998f42f523eaf95d8d3",
+      "beforeSha256": "22591609a752b8c159700bc00c214de3785afd06605898126112e22191ab18d4",
+      "baseGitBlob": "f9ef238cf112a7c481add4d7243bb2b752fc98ed",
+      "reverseEdits": [
+        {
+          "start": 1213,
+          "end": 1270,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1422,
+          "end": 1453,
+          "beforeBase64": ""
+        },
+        {
+          "start": 1475,
+          "end": 1559,
+          "beforeBase64": ""
+        },
+        {
+          "start": 6014,
+          "end": 6088,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "shared/studio-brand.css",
+      "sha256": "9b20939944d6b0d6a0368c9840ad9ef3be1a0e7c95ada1adfe795a8a0970bcce",
+      "beforeSha256": null,
+      "baseGitBlob": null,
+      "reverseEdits": []
+    }
+  ]
+}

@@ -54,4 +54,3 @@ const entry=createEntryShell({document,gameId:'sprint-100m',title:'四肢各有�
 entry.setAudio(menuAudio);entry.configurePause({onContinue:resume,onRestart:reset,canContinue:()=>active});entry.setRankingAction(()=>{entry.close({restoreView:false});records(true);});
 saveAudio();entry.open();requestAnimationFrame(frame);
 
-

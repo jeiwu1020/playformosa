@@ -1,9 +1,10 @@
 import {reverseRodResult} from '../helpers/rod-result-provenance.mjs';
+import {readStudioBaseline} from '../helpers/studio-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {viewportLedger,hashViewport,reverseRodViewport} from '../helpers/rod-viewport-provenance.mjs';
-const read=p=>fs.readFileSync(new URL('../../public/games/'+p,import.meta.url));
+const read=p=>readStudioBaseline(new URL('../../public/games/'+p,import.meta.url));
 
 test('viewport repair has only two exact runtime files and restores the pinned original HTML',()=>{
  const ledger=viewportLedger();

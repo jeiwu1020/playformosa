@@ -1,3 +1,4 @@
+import {readStudioBaseline} from './helpers/studio-provenance.mjs';
 import {reverseRodViewport} from './helpers/rod-viewport-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -23,7 +24,7 @@ const apps=[
 const origins=['https://preview-hurdles-playformosa.playformosa.workers.dev','https://playformosa.example'];
 const read=p=>readFileSync(new URL(p,root),'utf8');
 const bytes=p=>readFileSync(new URL(p,root));
-const beforeViewport=p=>reverseRodViewport(p.replace(/^public\/games\//,''),bytes(p));
+const beforeViewport=p=>reverseRodViewport(p.replace(/^public\/games\//,''),readStudioBaseline(new URL(p,root)));
 const beforeViewportText=p=>beforeViewport(p).toString();
 const digest=b=>createHash('sha256').update(b).digest('hex');
 const assertHomepageIconHead=(html,expected)=>assert.equal(digest(html.split('</head>')[0]),expected,'published platform installation head must remain unchanged');
