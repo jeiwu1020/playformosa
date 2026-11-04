@@ -29,8 +29,15 @@ function geometry(node,{top=20,height=200,scrollHeight=1000,overflow='auto',clie
 function fixture(t,{game='hurdles',realDOM=false,nested=false,reduced=false,actionContainer=false,uploadContainer=false,raf=true}={}){
  const html=realDOM?readFileSync(new URL(`../public/games/${game}/index.html`,import.meta.url),'utf8'):
   '<dialog open id="dialog"><section id="result"><button id="again">Again</button><div id="actions"></div></section></dialog>';
- const dom=new JSDOM(html,{url:'https://qa.example/'}),win=dom.window,doc=win.document;
+ const dom=new JSDOM(html,{url:'https://qa.example/',runScripts:'outside-only'}),win=dom.window,doc=win.document;
  t.after(()=>win.close());
+ // This fixture starts at a completed round. Exercise the real startup handoff
+ // before entering that phase; JSDOM does not fetch external deferred scripts.
+ if(realDOM){
+  const entry=doc.createElement('dialog');entry.dataset.pfEntry='';entry.open=true;doc.body.append(entry);
+  win.eval(readFileSync(new URL('../public/games/shared/startup.js',import.meta.url),'utf8'));
+  assert.equal(doc.documentElement.dataset.pfStartup,'ready');entry.remove();
+ }
  const result=doc.getElementById(game==='long-jump'&&realDOM?'overlay':'result'),dialog=result.closest('dialog');
  for(let node=result;node&&node!==doc.body;node=node.parentElement){node.hidden=false;node.style.display='block';}
  dialog.open=true;

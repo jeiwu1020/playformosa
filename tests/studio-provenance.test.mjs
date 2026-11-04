@@ -1,6 +1,7 @@
+import {readStartupBaseline} from './helpers/startup-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';
 import{studioLedger,studioHash,reverseStudio,studioRuntimeAdditions}from'./helpers/studio-provenance.mjs';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readStartupBaseline(new URL(p,root));
 const games=['beer-slide','discus','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];
 const expected=[...games.map(g=>g+'/index.html'),'shared/entry-shell.mjs','javelin/app.mjs','sprint-100m/app.mjs','javelin/presentation.mjs','shared/studio-brand.css'].sort();
 test('studio overlay is exactly the approved 15 existing runtime files and one stylesheet',()=>{const l=studioLedger();assert.equal(l.baseCommit,'52c60d195e494146f95bc702763cbe6d7bcc742a');assert.equal(l.baseTree,'463372b5a2fa865f6416dd900c6270a9776b1106');assert.deepEqual(l.files.map(f=>f.path).sort(),expected);assert.deepEqual(studioRuntimeAdditions(),['public/games/shared/studio-brand.css']);for(const f of l.files){const bytes=read('public/games/'+f.path);assert.equal(studioHash(bytes),f.sha256);if(f.beforeSha256){const old=reverseStudio(f.path,bytes);assert.equal(studioHash(old),f.beforeSha256);assert.equal(createHash('sha1').update(`blob ${old.length}\0`).update(old).digest('hex'),f.baseGitBlob)}else{assert.equal(f.baseGitBlob,null);assert.deepEqual(f.reverseEdits,[])}}});

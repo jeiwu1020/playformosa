@@ -1,6 +1,42 @@
 <!doctype html>
-<html lang="zh-Hant" data-layout="bottom"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f1e7"><meta name="description" content="你能跳得比什麼還高？四肢各有想法，這次一路撐上宇宙。PlayFormosa。"><title>四肢各有想法｜撐竿跳｜PlayFormosa</title><link rel="stylesheet" href="style.css?v=1.2.0"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="platform.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/app-icons/pole-vault/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="../../assets/app-icons/pole-vault/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="../../assets/app-icons/pole-vault/apple-touch-icon.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="application-name" content="四肢各有想法｜撐竿跳"><meta name="apple-mobile-web-app-title" content="撐竿跳"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="../shared/studio-brand.css"></head>
-<body class="pf-game pf-pole-vault">
+<html data-pf-startup="pending" lang="zh-Hant" data-layout="bottom"><head><meta charset="utf-8"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}#pf-startup{position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;gap:1rem;padding:24px;background:#f6f1df;color:#304438;font:16px/1.6 system-ui,sans-serif;text-align:center}#pf-startup p{margin:0;max-width:30em}#pf-startup nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}#pf-startup a{color:inherit;text-underline-offset:4px}</style><link rel="modulepreload" href="game.mjs?v=1.2.0"><link rel="modulepreload" href="vendor/three.core.min.js"><link rel="modulepreload" href="vendor/three.module.min.js"><link rel="modulepreload" href="../shared/entry-shell.mjs"><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||!entry||entry.hidden)return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f1e7"><meta name="description" content="你能跳得比什麼還高？四肢各有想法，這次一路撐上宇宙。PlayFormosa。"><title>四肢各有想法｜撐竿跳｜PlayFormosa</title><link rel="stylesheet" href="style.css?v=1.2.0"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="platform.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/app-icons/pole-vault/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="../../assets/app-icons/pole-vault/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="../../assets/app-icons/pole-vault/apple-touch-icon.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="application-name" content="四肢各有想法｜撐竿跳"><meta name="apple-mobile-web-app-title" content="撐竿跳"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="../shared/studio-brand.css"></head>
+<body class="pf-game pf-pole-vault"><section id="pf-startup" aria-label="遊戲載入"><p id="pf-startup-status" role="status">正在準備遊戲…</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></section>
 <header class="pf-header"><a class="pf-home" href="/" aria-label="遊戲首頁">← 遊戲首頁</a><div class="pf-studio-heading"><h1>四肢各有想法｜撐竿跳</h1><span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span></div><nav aria-label="遊戲操作"><button id="sound" data-game-action="music" aria-pressed="false" aria-label="開啟音樂">♫</button><button id="reset" data-game-action="restart">↻ 重來</button><button id="pause" data-game-action="pause" disabled>Ⅱ 暫停</button></nav><p id="platform-audio-status" class="pf-audio-status" role="status" hidden></p></header>
 <main><section class="arena" aria-label="無上限想像力撐竿跳遊戲"><div id="scene"></div><div class="hud"><div class="timer"><span id="height-label">目前高度</span><strong id="height">0.00</strong><small id="height-unit">m</small><em id="peak">最高 0.00 m</em></div><div class="race-info"><span id="world-label">從地板開始偉大</span><strong id="next">下一站 · 椅背</strong><span id="next-height">約 0.9 m</span></div></div><div class="height-rail" id="height-rail" aria-label="本次高度進度"></div><div class="technique"><div class="tech-top"><span id="tech-label">助跑節奏</span><b id="tech-value">0 km/h</b></div><div id="flight-display" hidden><div class="foot-cue"><strong id="next-foot-key">姿態穩定</strong><b id="beat-countdown">手腳動起來</b></div><div id="beat-feedback" aria-live="polite">觀察姿態與體力</div><small id="finish-hint">身體穩，踩踏更有力</small><div class="finish-track" aria-label="旋轉程度"><i id="finish-progress"></i></div></div><div class="meter" id="action-meter"><i id="action-fill"></i><span class="green-window"></span></div><div class="balance" id="balance-meter" hidden><span>左傾</span><div><i id="balance-pin"></i></div><span>右傾</span></div><div class="energy-row"><span class="mobile-energy-label">體力</span><span id="energy-label">彈簧能量</span><div><i id="energy-fill"></i></div><strong id="mobile-energy" aria-label="體力">100%</strong><strong id="combo">握緊竿子</strong></div></div><div class="event-wrap"><div id="cue" role="status" aria-live="polite">四肢就位，準備出發。</div></div><div class="arena-bottom"><span id="state-label">A / S 交替跑 · J + K 握穩竿子</span><span id="mobile-hint" role="status" aria-live="polite">A / S 交替跑，J + K 握竿。</span><span id="best-label">最佳 —</span></div><span id="render-note" hidden>相容繪圖模式</span></section>
 <section class="controls" aria-label="四肢控制"><div class="limbs body-left"><button class="leg" data-limb="2" aria-label="A 左腳 交替跑步 空中擺腿" aria-pressed="false"><kbd>A</kbd><span>左腳</span><small>腿部</small><em></em></button><button class="leg" data-limb="3" aria-label="S 右腳 交替跑步 空中擺腿" aria-pressed="false"><kbd>S</kbd><span>右腳</span><small>腿部</small><em></em></button></div><div class="limbs body-right"><button class="arm" data-limb="0" aria-label="J 左手 握竿與擺動" aria-pressed="false"><kbd>J</kbd><span>左手</span><small>手臂</small></button><button class="arm" data-limb="1" aria-label="K 右手 握竿與擺動" aria-pressed="false"><kbd>K</kbd><span>右手</span><small>手臂</small></button></div></section></main>

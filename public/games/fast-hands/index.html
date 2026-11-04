@@ -1,14 +1,50 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html data-pf-startup="pending" lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}#pf-startup{position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;gap:1rem;padding:24px;background:#f6f1df;color:#304438;font:16px/1.6 system-ui,sans-serif;text-align:center}#pf-startup p{margin:0;max-width:30em}#pf-startup nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}#pf-startup a{color:inherit;text-underline-offset:4px}</style><link rel="modulepreload" href="app.mjs"><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||!entry||entry.hidden)return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fff9e9">
   <title>快手王｜一筆往返</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="../shared/studio-brand.css">
 </head>
-<body class="pf-game pf-fast-hands" data-phase="demo" data-renderer="loading" data-view="front">
+<body class="pf-game pf-fast-hands" data-phase="demo" data-renderer="loading" data-view="front"><section id="pf-startup" aria-label="遊戲載入"><p id="pf-startup-status" role="status">正在準備遊戲…</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></section>
   <main>
     <header class="game-header pf-header">
       <div class="brand pf-studio-heading">

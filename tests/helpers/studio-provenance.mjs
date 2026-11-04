@@ -1,4 +1,5 @@
 import {readFileSync as readActual} from 'node:fs';
+import {readStartupBaseline} from './startup-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -37,7 +38,7 @@ export function reverseStudio(path,bytes,ledger=studioLedger()){
 export function readStudioBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file));
  const path=relative(gamesRoot,absolute).split(sep).join('/');
- const bytes=readActual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readStartupBaseline(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const withinGames=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=withinGames?reverseStudio(path,bytes):bytes;
  const encoding=typeof options==='string'?options:options?.encoding;

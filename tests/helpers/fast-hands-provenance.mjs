@@ -1,4 +1,5 @@
 import {readFileSync as readActual}from'node:fs';
+import {readStartupBaseline}from'./startup-provenance.mjs';
 import {createHash}from'node:crypto';
 import {fileURLToPath}from'node:url';
 import {resolve,relative,sep}from'node:path';
@@ -22,8 +23,8 @@ export function reverseFastHands(path,bytes,ledger=fastHandsLedger()){
 // independently verified studio overlay. Historical checks still see exact bytes.
 export function readFastHandsBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file));const path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readActual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readStartupBaseline(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  let result=reverseFastHands(path,bytes);if(path.startsWith('public/games/'))result=reverseStudio(path.slice('public/games/'.length),result);
  const encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }
-export function fastHandsRuntimeAdditions(){const l=fastHandsLedger();assert.equal(l.baseCommit,'cf79891c69863c1b598da3c364493e79076aca96');assert.deepEqual(l.added,fastHandsAddedPaths);assert.deepEqual(l.modified,fastHandsModifiedPaths);assert.deepEqual(l.files.map(f=>f.path),[...fastHandsModifiedPaths,...fastHandsAddedPaths]);for(const path of fastHandsAddedPaths)reverseFastHands(path,readActual(new URL(path,root)),l);return [...fastHandsAddedPaths];}
+export function fastHandsRuntimeAdditions(){const l=fastHandsLedger();assert.equal(l.baseCommit,'cf79891c69863c1b598da3c364493e79076aca96');assert.deepEqual(l.added,fastHandsAddedPaths);assert.deepEqual(l.modified,fastHandsModifiedPaths);assert.deepEqual(l.files.map(f=>f.path),[...fastHandsModifiedPaths,...fastHandsAddedPaths]);for(const path of fastHandsAddedPaths)reverseFastHands(path,readStartupBaseline(new URL(path,root)),l);return [...fastHandsAddedPaths];}

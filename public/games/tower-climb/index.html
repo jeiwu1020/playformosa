@@ -1,4 +1,40 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#172c3b"><title>上樓不容易｜PlayFormosa</title><meta name="description" content="四肢各有想法。60 秒，挑戰十層樓。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="layout-v3.css"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="platform.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/app-icons/tower-climb/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="../../assets/app-icons/tower-climb/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="../../assets/app-icons/tower-climb/apple-touch-icon.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="application-name" content="上樓不容易"><meta name="apple-mobile-web-app-title" content="上樓不容易"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="../shared/studio-brand.css"></head><body class="pf-game indoor pf-tower-climb">
+<!doctype html><html data-pf-startup="pending" lang="zh-Hant"><head><meta charset="utf-8"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}#pf-startup{position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;gap:1rem;padding:24px;background:#f6f1df;color:#304438;font:16px/1.6 system-ui,sans-serif;text-align:center}#pf-startup p{margin:0;max-width:30em}#pf-startup nav{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}#pf-startup a{color:inherit;text-underline-offset:4px}</style><link rel="modulepreload" href="game.mjs"><link rel="modulepreload" href="../shared/entry-shell.mjs"><link rel="modulepreload" href="vendor/three.core.min.js"><link rel="modulepreload" href="vendor/three.module.min.js"><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||!entry||entry.hidden)return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#172c3b"><title>上樓不容易｜PlayFormosa</title><meta name="description" content="四肢各有想法。60 秒，挑戰十層樓。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="layout-v3.css"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="platform.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/app-icons/tower-climb/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="../../assets/app-icons/tower-climb/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="../../assets/app-icons/tower-climb/apple-touch-icon.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="application-name" content="上樓不容易"><meta name="apple-mobile-web-app-title" content="上樓不容易"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="../shared/studio-brand.css"></head><body class="pf-game indoor pf-tower-climb"><section id="pf-startup" aria-label="遊戲載入"><p id="pf-startup-status" role="status">正在準備遊戲…</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></section>
 <header class="pf-header"><a class="pf-home" aria-label="遊戲首頁" href="/">← 遊戲首頁</a><div class="pf-studio-heading"><h1>上樓不容易</h1><span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span></div><nav aria-label="遊戲操作"><button id="music" data-game-action="music" aria-label="開啟音樂" aria-pressed="false">♫ 音樂</button><button id="restart" data-game-action="restart" aria-label="重新開始">↻ 重來</button><button id="pause" data-game-action="pause" aria-label="暫停" disabled>Ⅱ 暫停</button></nav></header>
 <main><section class="stage" id="stage" aria-label="登高遊戲"><canvas id="scene" tabindex="0" aria-label="A S 控左右腳，J K 控左右手，60 秒挑戰十層"></canvas><div class="hud"><strong id="floor">0 / 10 層</strong><strong id="time" aria-label="剩餘時間">60.0s</strong></div><div class="stamina"><label for="energy">體力</label><meter id="energy" min="0" max="100" low="25" value="100"></meter></div><p id="message" class="scene-cue" role="status"></p><div id="countdown" class="countdown" hidden>3</div><div id="launch" class="launch"><h2>上樓不容易</h2><p>60 秒，衝上十層。</p><p class="basic-rule"><b>A／S</b> 提膝、放開踩穩<br><b>J／K</b> 擺臂、靠近扶手抓穩</p><small>最佳 <span id="record">—</span></small><button id="start">開始 ↗</button></div><div id="error" role="alert" hidden></div></section>
 <section class="play-panel" aria-label="四肢控制"><div class="feet"><button id="left-foot" data-input="a" aria-pressed="false"><kbd>A</kbd><b>左腳</b><small>提膝／踩穩</small></button><button id="right-foot" data-input="s" aria-pressed="false"><kbd>S</kbd><b>右腳</b><small>提膝／踩穩</small></button><button id="left-arm" data-input="j" aria-pressed="false"><kbd>J</kbd><b>左手</b><small>擺臂／平衡</small></button><button id="right-arm" data-input="k" aria-pressed="false"><kbd>K</kbd><b>右手</b><small>擺臂／扶手</small></button></div></section></main>
