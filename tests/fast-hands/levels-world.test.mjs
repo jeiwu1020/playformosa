@@ -51,7 +51,7 @@ test('catch uses the original king with an open receiving hand and closes around
   const open=w.update({state:state('catch',{phase:'live'}),now:1250});
   assert.equal(w.actors.athlete,null);
   assert.equal(w.objects.targetRing.visible,false,'catch has only its hand target, not a second tabletop target');
-  assert.equal(w.objects.catchRing.visible,true);
+  assert.equal(w.objects.catchRing.visible,false,'the receiving hand has no target ring');
   assert.equal(open.grip,0);
   const palmNormal=w.actors.king.hands[1].group.getWorldDirection(new THREE.Vector3());
   assert.ok(palmNormal.x<-.6&&palmNormal.z>.3,'open receiving palm must face the dart and remain visible to the camera');

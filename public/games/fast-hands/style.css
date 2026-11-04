@@ -303,3 +303,16 @@ body[data-playback="replay"] #pad{cursor:default;border-style:dashed}body[data-p
   .pf-fast-hands .control-section{grid-area:control}
   .pf-fast-hands main>footer{grid-area:footer}
 }
+
+/* Keep the complete standard result ticket on one desktop screen. */
+@media(min-width:1000px) and (min-height:560px){
+ .result-dialog{width:calc(100% - 48px);max-width:900px;max-height:calc(100dvh - 32px)}
+ .result-dialog[open]{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.25fr)}
+ .result-dialog .result-top{display:flex;flex-direction:column;justify-content:center;padding:24px 22px;border-bottom:0;border-right:1.5px dashed #c0ad7d}
+ .result-dialog .ticket-kicker{font-size:10px}.result-dialog .result-top h2{font-size:23px;margin-top:16px}
+ .result-dialog .result-summary{flex-direction:column;gap:8px;margin:12px 0 8px}.result-dialog .result-portrait{width:118px;height:118px}.result-dialog .result-time{font-size:52px}.result-dialog .result-time small{font-size:19px}.result-dialog .result-top p{font-size:12px}
+ .result-dialog .ticket-body{padding:20px 22px}.result-dialog .result-records{padding-bottom:10px}.result-dialog .result-records span{margin-bottom:5px}.result-dialog .result-mode{padding:8px 0}.result-dialog .result-buttons{gap:7px}.result-dialog .result-buttons>button{min-height:44px;font-size:12px;padding:8px}
+ .result-dialog .result-share-actions{margin-top:9px;gap:6px}.result-dialog .result-share-actions>a,.result-dialog .result-share-actions>button{min-height:44px;padding:8px 5px;font-size:11px}
+ .result-dialog .ticket-body>.level-switch{margin-top:9px;padding-top:9px}.result-dialog .ticket-note{margin-top:8px;font-size:10px}.result-dialog .pf-studio-result{margin-top:8px;font-size:9px}
+ .result-dialog .share-fallback:not([hidden]){max-height:170px;overflow:auto}
+}

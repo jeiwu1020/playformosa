@@ -1,0 +1,380 @@
+{
+  "baseCommit": "b732a20962613de3fb286fb2a8dc798d615d408d",
+  "baseTree": "25d0527336d0f4f0b93447e2527ed266ca9a8ce5",
+  "files": [
+    {
+      "path": "public/games/fast-hands/assets/duel-items-atlas.png",
+      "sha256": "9a948fd4589c14848d6328734fa43b6c034cb44629f44c6fb9313ac160a9fb69",
+      "beforeSha256": "f737a6702d8120ffdcaeaf904268533bcabd68a67474c79a901b5ed0201a2749",
+      "baseGitBlob": "5491d5280c2a2faeac41e9a19028698e9af015f8",
+      "beforeAsset": "docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-grab.png",
+      "sha256": "bcefe19a96b51c2a4e8fc6f678d906f2a3221dd02a2e7c1eeec36314465d7331",
+      "beforeSha256": "dd665ce64600acff8aee6b696c80aec10492edee9fd40f30573404df8331d960",
+      "baseGitBlob": "74dce670c03a8e0be6295c8b4b9bfdc023a1e4be",
+      "beforeAsset": "docs/fast-hands/baselines/screen-alpha/assets/levels-catch-grab.png"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-ready.png",
+      "sha256": "a969f599b4cbb7e126736a295e86093d504950054ec1f35e128162fb10610546",
+      "beforeSha256": "3bc92e4b0bc0eb00ce91d60b2d046a92d2689619b9c46ddac5cdcbdff5b5c2b1",
+      "baseGitBlob": "66b2d977dca5c12fefeee7e340354e098b163f2e",
+      "beforeAsset": "docs/fast-hands/baselines/screen-alpha/assets/levels-catch-ready.png"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-pose-provenance.json",
+      "sha256": "c4a1176accdf25b332fece007d4d9bc4a0fc7e58cc643bc342725dd420b39ed8",
+      "beforeSha256": "bc5b864c85a20be27f057a73a383565da72976fde9c3a1acce8b52d8204bd6fb",
+      "baseGitBlob": "a641145a70ed2c7a8100bcdec34016b81bf822ee",
+      "reverseEdits": [
+        {
+          "start": 233,
+          "end": 316,
+          "beforeBase64": "ICAgICAgIm1lc2hlcyI6IDEzMiwKICAgICAgInRyaWFuZ2xlcyI6IDE0MDI0LAogICAgICAicmFzdGVyaXplZFRyaWFuZ2xlcyI6IDEzOTkxLAo="
+        },
+        {
+          "start": 2232,
+          "end": 2315,
+          "beforeBase64": "ICAgICAgIm1lc2hlcyI6IDEzMywKICAgICAgInRyaWFuZ2xlcyI6IDE0NDUyLAogICAgICAicmFzdGVyaXplZFRyaWFuZ2xlcyI6IDE0NDE5LAo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/catch.html",
+      "sha256": "b4fc7907bcc373067062c0540384843fd110adc8c070770d673e84e46d4be7ed",
+      "beforeSha256": "cbe520b5abf73df91eda42beee7bf34d7515c5b83ea253233e00e791081544ce",
+      "baseGitBlob": "399a5a4231d90b7b99e18d7c275ee21da102cad3",
+      "reverseEdits": [
+        {
+          "start": 1695,
+          "end": 1748,
+          "beforeBase64": "ICA8ZGl2IGlkPSJzaWduYWwiIGNsYXNzPSJzaWduYWwiPuaOjOW/g+aOpeW9iOWNgDwvZGl2Pgo="
+        },
+        {
+          "start": 1947,
+          "end": 2076,
+          "beforeBase64": "ICAgPGRpdiBjbGFzcz0iZmFsbGJhY2stZmxpZ2h0IiAgIGFyaWEtaGlkZGVuPSJ0cnVlIj48ZGl2IGNsYXNzPSJjYXRjaC16b25lIj48L2Rpdj48ZGl2IGlkPSJmb2FtQmFsbCIgY2xhc3M9ImZvYW0tZGFydCIgc3R5bGU9Ii0tZmxpZ2h0OjAiPjxpPjwvaT48L2Rpdj48L2Rpdj4K"
+        },
+        {
+          "start": 2929,
+          "end": 3620,
+          "beforeBase64": "IDxzZWN0aW9uIGlkPSJzdW1tYXJ5IiBjbGFzcz0ibWF0Y2gtc3VtbWFyeSIgYXJpYS1sYWJlbGxlZGJ5PSJzdW1tYXJ5VGl0bGUiIGhpZGRlbj48cCBjbGFzcz0iZXllYnJvdyI+WU9VUiBSVU48L3A+PGgyIGlkPSJzdW1tYXJ5VGl0bGUiPuaMkeaIsOWujOaIkDwvaDI+PHN0cm9uZyBpZD0ic3VtbWFyeVNjb3JlIiBjbGFzcz0ic3VtbWFyeS1zY29yZSI+PC9zdHJvbmc+PHAgaWQ9InN1bW1hcnlOb3RlIj48L3A+PG9sIGlkPSJyb3VuZFJlc3VsdHMiIGNsYXNzPSJyb3VuZC1yZXN1bHRzIj48L29sPjxwIGNsYXNzPSJsb2NhbC1ub3RlIj7mnKzlsYDntIDpjIQgwrcg5LiN5LiK5YKz5bCP6bSo5o6S6KGM5qacPC9wPjwvc2VjdGlvbj4K"
+        },
+        {
+          "start": 4200,
+          "end": 4964,
+          "beforeBase64": "IDxkZXRhaWxzIGNsYXNzPSJsZXZlbC1oZWxwIj48c3VtbWFyeT7njqnms5XoiIflhazlubPoqIjmmYI8L3N1bW1hcnk+PG9sPjxsaT7lhYjnt7Tnv5LkuIDnmbzvvIzlho3plovlp4vpgJDpl5zliqDpgJ/mjJHmiLDjgII8L2xpPjxsaT7ms6Hmo4nlvYjpo5vliLDmiYvmjozliY3nmoTmjqXlvYjljYDmmYLmjInjgIzmjqXvvIHjgI3vvIzmr4/pl5zlj6rog73lh7rmiYvkuIDmrKHjgII8L2xpPjxsaT7mjqXkvY/lsLHmmYnntJrvvIzlpKrml6njgIHlpKrmmZrmiJbmspLmjqXliLDvvIzmnKzmrKHmjJHmiLDljbPntZDmnZ/jgII8L2xpPjxsaT7nrKwgMSDpl5zpo5vooYwgNTIwIG1z77yM5q2k5b6M5q+P6Zec5Yqg6YCf77yM6YCQ5q2l5o6l6L+RIDIyMCBtcyDnmoTpgJ/luqbkuIrpmZDjgII8L2xpPjwvb2w+PHA+5YiH5o+b6Zec5Y2h5oiW5oyJ44CM6YeN5L6G44CN5pyD6YeN6ZaL5pys5bGA44CC5YiH5o+b6KaW56qX44CB5peL6L2J5oiW55Wr6Z2i5YGc6aCT5pmC77yM55W25YmN5Zue5ZCI5pqr5YGc5LiU5LiN6KiI5YiG44CCPC9wPjxwPumAmeaYr+azoeajieeOqeWFt+eahOiZm+ani+aOpeW9iOmBiuaIsu+8jOS4jeaYr+ecn+WvpuaOpeW9iOekuuevhOOAgiDmnKzoo53nva7pgYrmiLLoqIjmmYLvvIzkuI3mmK/nnJ/kurrog73lipvntIDpjITjgILoi6Xoo53nva7nhKHms5Xpoa/npLogV2ViR0zvvIzmnIPkvb/nlKjlkIzmqKHlnovnmoQgMkQg55u45a6555Wr6Z2i44CCPC9wPjwvZGV0YWlscz4K"
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/duel.html",
+      "sha256": "70afc0a44267f036618d6ab91840880ae01114f9b0831dc73afa05e7fab47be8",
+      "beforeSha256": "f810ba62240d2ffe8cce0fe97eabc629ff9a944a16536f64630873261650cd2a",
+      "baseGitBlob": "8387b1795f85261f5b25a81cc88688c8da89488f",
+      "reverseEdits": [
+        {
+          "start": 1966,
+          "end": 2100,
+          "beforeBase64": "ICAgPGRpdiBjbGFzcz0iZmFsbGJhY2stZmxpZ2h0IiBoaWRkZW4gYXJpYS1oaWRkZW49InRydWUiPjxkaXYgY2xhc3M9ImNhdGNoLXpvbmUiPjwvZGl2PjxkaXYgaWQ9ImZvYW1CYWxsIiBjbGFzcz0iZm9hbS1kYXJ0IiBzdHlsZT0iLS1mbGlnaHQ6MCI+PGk+PC9pPjwvZGl2PjwvZGl2Pgo="
+        },
+        {
+          "start": 2932,
+          "end": 3623,
+          "beforeBase64": "IDxzZWN0aW9uIGlkPSJzdW1tYXJ5IiBjbGFzcz0ibWF0Y2gtc3VtbWFyeSIgYXJpYS1sYWJlbGxlZGJ5PSJzdW1tYXJ5VGl0bGUiIGhpZGRlbj48cCBjbGFzcz0iZXllYnJvdyI+WU9VUiBSVU48L3A+PGgyIGlkPSJzdW1tYXJ5VGl0bGUiPuaMkeaIsOWujOaIkDwvaDI+PHN0cm9uZyBpZD0ic3VtbWFyeVNjb3JlIiBjbGFzcz0ic3VtbWFyeS1zY29yZSI+PC9zdHJvbmc+PHAgaWQ9InN1bW1hcnlOb3RlIj48L3A+PG9sIGlkPSJyb3VuZFJlc3VsdHMiIGNsYXNzPSJyb3VuZC1yZXN1bHRzIj48L29sPjxwIGNsYXNzPSJsb2NhbC1ub3RlIj7mnKzlsYDntIDpjIQgwrcg5LiN5LiK5YKz5bCP6bSo5o6S6KGM5qacPC9wPjwvc2VjdGlvbj4K"
+        },
+        {
+          "start": 4237,
+          "end": 5078,
+          "beforeBase64": "IDxkZXRhaWxzIGNsYXNzPSJsZXZlbC1oZWxwIj48c3VtbWFyeT7njqnms5XoiIflhazlubPoqIjmmYI8L3N1bW1hcnk+PG9sPjxsaT7lhYjnt7Tnv5LkuIDlm57lkIjvvIzlho3oiIflv6vmiYvnjovmiZPmu7/ljYHlm57lkIjvvIzmr4/lm57pg73mj5vkuI3lkIznianlk4HjgII8L2xpPjxsaT7nrYnjgIzlh7rmiYvvvIHjgI3kuq7otbfvvIzlho3mjInjgIzmkLbvvIHjgI3jgILmj5DliY3lh7rmiYvnrpfmkLbot5HvvIznm7TmjqXovLjmjonpgJnlm57lkIjjgII8L2xpPjxsaT7lv6vmiYvnjovmraPluLjlj43mh4kgMTUw4oCTMjgwIG1z77yM5YG254i+5aSx5omL5pyD5oWi5LiA6bue77yb5pmC6ZaT5Zyo6KiK6Jmf5YmN5oq95a6a77yM5LiN5pyD5YG355yL5L2g55qE5pON5L2c44CCPC9saT48bGk+5Lul5oyJ6YiV6Ke455m85pmC6ZaT5Yik5a6a77yM5Ly45omL5YuV55Wr5Y+q5ryU5Ye657WQ5p6c77yM5LiN5b2x6Z+/5Yud6LKg44CCPC9saT48L29sPjxwPuWIh+aPm+mXnOWNoeaIluaMieOAjOmHjeS+huOAjeacg+mHjemWi+acrOWxgOOAguWIh+aPm+imlueql+OAgeaXi+i9ieaIlueVq+mdouWBnOmgk+aZgu+8jOeVtuWJjeWbnuWQiOaaq+WBnOS4lOS4jeioiOWIhuOAgjwvcD48cD7lsI3miYvngrogQUkg6YGK5oiy6KeS6Imy77yM6Z2e55yf5Lq66YCj57ea44CCIOacrOijnee9rumBiuaIsuioiOaZgu+8jOS4jeaYr+ecn+S6uuiDveWKm+e0gOmMhOOAguiLpeijnee9rueEoeazlemhr+ekuiBXZWJHTO+8jOacg+S9v+eUqOWQjOaooeWei+eahCAyRCDnm7jlrrnnlavpnaLjgII8L3A+PC9kZXRhaWxzPgo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/levels-app.mjs",
+      "sha256": "2b2aba794c03f27310b1e3edf47d9227abf8d595f4013de226a3993db937c09e",
+      "beforeSha256": "26cc59b6c3aab36c36d32ddd2403e3149b16c9e05c9e7e713e1e884ce48b8c9c",
+      "baseGitBlob": "0a3cfe67e9fa797fd5587c2466a0e79097c40143",
+      "reverseEdits": [
+        {
+          "start": 677,
+          "end": 889,
+          "beforeBase64": "IGxldCBzdGF0ZT1uZXdNYXRjaChtb2RlLHtwcmFjdGljZTp0cnVlLHJhbmRvbX0pLGxhc3RGcmFtZT1udWxsLGZyYW1lSWQsZGlzcG9zZWQ9ZmFsc2UsbGFzdFJlbmRlcmVkPW51bGwsd2lkdGg9d2luZG93LmlubmVyV2lkdGgsc3RhZ2VWaWV3PW51bGwsYXJ0RXJyb3I9ZmFsc2UsYXRsYXNVcmw9J2Fzc2V0cy9kdWVsLWl0ZW1zLWF0bGFzLnBuZyc7Cg=="
+        },
+        {
+          "start": 3315,
+          "end": 3420,
+          "beforeBase64": "ICAkKCdyb3VuZFJlc3VsdHMnKS5yZXBsYWNlQ2hpbGRyZW4oLi4uc3RhdGUucmVzdWx0cy5tYXAocmVzdWx0PT57Cg=="
+        },
+        {
+          "start": 4131,
+          "end": 4422,
+          "beforeBase64": ""
+        },
+        {
+          "start": 4658,
+          "end": 4777,
+          "beforeBase64": "ICBkb2N1bWVudC5ib2R5LmRhdGFzZXQucGhhc2U9c3RhdGUucGhhc2U7Cg=="
+        },
+        {
+          "start": 6113,
+          "end": 6384,
+          "beforeBase64": "ICAgbGV0IHRpdGxlPWNhdGNoaW5nPyfnnIvmupbmjozlv4PvvIzmupblgpnmjqXlvYjjgIInOifmiYvlhYjlv43kvY/vvIznnIvliLDoqIromZ/lho3mkLbjgIInO2xldCBoaW50PWNhdGNoaW5nPyfms6Hmo4nlvYjliLDmiYvmjozliY3nmoTmjqXlvYjljYDmmYLvvIzmjInkuIvlpKfmjInpiJXjgIInOifnrYnjgIzlh7rmiYvvvIHjgI3kuq7otbflho3mjInvvIzlpKrml6nmjInlsLHovLjpgJnlm57lkIjjgIInO2xldCBzaWduYWw9Y2F0Y2hpbmc/J+aOjOW/g+aOpeW9iOWNgCc6J+etieioiuiZnyc7Cg=="
+        },
+        {
+          "start": 6600,
+          "end": 6828,
+          "beforeBase64": "ICAgaWYoc3RhdGUucGhhc2U9PT0nbGl2ZScpe3RpdGxlPWNhdGNoaW5nPyfliLDmjozlv4PlsLHmjqXvvIEnOiflh7rmiYvvvIEnO2hpbnQ9Y2F0Y2hpbmc/J+WIsOaOpeW9iOWNgOWGjeaMie+8jOWPquacieS4gOasoeapn+acg+OAgic6J+aQtuWQjOS4gOS7tueJqeWTge+8jOavlOW/q+aJi+eOi+abtOW/q++8gSc7c2lnbmFsPWNhdGNoaW5nPyfliLDmjozlv4PlsLHmjqXvvIEnOiflh7rmiYvvvIEnO30K"
+        },
+        {
+          "start": 9035,
+          "end": 9105,
+          "beforeBase64": "ICAgaWYoc3RhdGUucGhhc2U9PT0nZG9uZScmJiFzdGF0ZS5wcmFjdGljZSlzdW1tYXJ5KCk7Cg=="
+        },
+        {
+          "start": 9843,
+          "end": 10268,
+          "beforeBase64": "IGZ1bmN0aW9uIGJlZ2luKCl7aWYoYXJ0RXJyb3J8fFsnd2FpdGluZycsJ2xpdmUnXS5pbmNsdWRlcyhzdGF0ZS5waGFzZSkpcmV0dXJuO2lmKCFzY2VuZVZpc2libGUoKSkkKCdzdGFnZScpLnNjcm9sbEludG9WaWV3Py4oe2Jsb2NrOidzdGFydCcsYmVoYXZpb3I6J2luc3RhbnQnfSk7aWYoc3RhdGUucGhhc2U9PT0nZG9uZScpc3RhdGU9bmV3TWF0Y2gobW9kZSx7cHJhY3RpY2U6ZmFsc2UscmFuZG9tfSk7c3RhdGU9YmVnaW5Sb3VuZChzdGF0ZSxjbG9jaygpLHJhbmRvbSk7bGFzdEZyYW1lPW51bGw7cmVuZGVyKCk7JCgnYWN0aW9uQnV0dG9uJykuZm9jdXMoe3ByZXZlbnRTY3JvbGw6dHJ1ZX0pO30K"
+        },
+        {
+          "start": 10676,
+          "end": 10864,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/levels-rules.mjs",
+      "sha256": "d38fb5e743cea8c08eb478e85aaab08bb367a4a99ecd66a802fb09f8ad0b1fb9",
+      "beforeSha256": "d0bb4cda28b938b75bd837db2c4f5e3531272ab92e23c632809ce8ded495c035",
+      "baseGitBlob": "391982af28ab5cf1dc39a8b4483161412aef1bb1",
+      "reverseEdits": [
+        {
+          "start": 864,
+          "end": 1018,
+          "beforeBase64": "Ly8gTWVhc3VyZWQgYXRsYXMgcm93cyBrZWVwIHRoZSBiZWFyJ3MgaGF0IG91dCBvZiB0aGUgZHVtcGxpbmcgdGlsZS4KLy8gQWxsIHJlbmRlcmluZyBwYXRocyB1c2UgdGhlc2Ugc2FtZSBpbnNldCwgbm9uLW92ZXJsYXBwaW5nIHNvdXJjZSByZWN0YW5nbGVzLgo="
+        },
+        {
+          "start": 1055,
+          "end": 1344,
+          "beforeBase64": "IGNvbnN0IGk9TWF0aC5tYXgoMCxNYXRoLm1pbigxNSxOdW1iZXIuaXNJbnRlZ2VyKGluZGV4KT9pbmRleDowKSkscm93PU1hdGguZmxvb3IoaS80KSxib3VuZHM9WzAsMzEzLjUsNjI3LDkyMCwxMjU0XSxwYWQ9MS41OwogcmV0dXJuIE9iamVjdC5mcmVlemUoe2xlZnQ6KGklNCozMTMuNStwYWQpLzEyNTQsdG9wOihib3VuZHNbcm93XStwYWQpLzEyNTQsd2lkdGg6KDMxMy41LXBhZCoyKS8xMjU0LGhlaWdodDooYm91bmRzW3JvdysxXS1ib3VuZHNbcm93XS1wYWQqMikvMTI1NH0pOwo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/levels-world.mjs",
+      "sha256": "e2712b7700228d9fa06634c1a2481f65551abfab9e8fcd96f2656276cb6ed220",
+      "beforeSha256": "e5fc3248fb370bf79e80afdb16c967cf402d330e9b44f168a3c5d41e98476627",
+      "baseGitBlob": "1dad522295a4a3ce4572531e9b2f42e918ff2053",
+      "reverseEdits": [
+        {
+          "start": 9861,
+          "end": 10096,
+          "beforeBase64": "ICAvLyByb3VuZGVkIHNvZnQgbm9zZS4gS2VlcCB0aGUgb3JpZ2luYWwgLS4yMjXigKYrLjAzNSBzaWxob3VldHRlL2NvbnRhY3QgcmFuZ2UuCiAgY29uc3QgZGFydFByb2ZpbGU9W25ldyBUSFJFRS5WZWN0b3IyKDAsLS4yMjUpLG5ldyBUSFJFRS5WZWN0b3IyKC4wMzMsLS4yMjUpLG5ldyBUSFJFRS5WZWN0b3IyKC4wMzYsLS4yMjIpLG5ldyBUSFJFRS5WZWN0b3IyKC4wMzYsLS4wMDEpXTsK"
+        },
+        {
+          "start": 10235,
+          "end": 10448,
+          "beforeBase64": "ICBjb25zdCBkYXJ0VGlwPW1lc2goZGFydCwnZm9hbS1kYXJ0LWJvZHknLG5ldyBUSFJFRS5MYXRoZUdlb21ldHJ5KGRhcnRQcm9maWxlLDMyKSwnb3JhbmdlJyk7ZGFydFRpcC5yb3RhdGlvbi56PS1NYXRoLlBJLzI7Cg=="
+        },
+        {
+          "start": 10947,
+          "end": 11108,
+          "beforeBase64": "ICBjb25zdCBjYXRjaFJpbmc9bWVzaChzY2VuZSwnY2F0Y2gtdGFyZ2V0LXJpbmcnLG5ldyBUSFJFRS5Ub3J1c0dlb21ldHJ5KC4xNywuMDExLDgsNDApLCd0ZWFsJywuMDM1LDEuMzMsLjM1KTtjYXRjaFJpbmcucm90YXRpb24ueT0tLjk1O2NhdGNoUmluZy52aXNpYmxlPWNhdGNoaW5nOwo="
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/levels.css",
+      "sha256": "bf5f10a116fe27ff66a051a84946ceff646187ebddb20fb7570dbabc9c80bdf3",
+      "beforeSha256": "361bbdf3de471e96da9a837699b3d76fd8fe5fc667f5bd504c65db1101ccdf96",
+      "baseGitBlob": "a044e6b4afb9394af36744df73b337169fb2c2b6",
+      "reverseEdits": [
+        {
+          "start": 4248,
+          "end": 4909,
+          "beforeBase64": "LmZhbGxiYWNrLWZsaWdodHtwb3NpdGlvbjphYnNvbHV0ZTtpbnNldDowO3BvaW50ZXItZXZlbnRzOm5vbmV9LmNhdGNoLXpvbmV7cG9zaXRpb246YWJzb2x1dGU7bGVmdDo2OCU7dG9wOjU1JTt3aWR0aDo1MXB4O2hlaWdodDo1MXB4O2JvcmRlcjoycHggZGFzaGVkICNiOWM2OWM7Ym9yZGVyLXJhZGl1czo1MCU7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtNTAlLC01MCUpO2JveC1zaGFkb3c6MCAwIDAgNXB4ICNkOWU1YjU0NH0uZm9hbS1kYXJ0e3Bvc2l0aW9uOmFic29sdXRlO2xlZnQ6Y2FsYygxMiUgKyA1NiUgKiB2YXIoLS1mbGlnaHQpKTt0b3A6NTUlO3dpZHRoOjQycHg7aGVpZ2h0OjE1cHg7Ym9yZGVyLXJhZGl1czoycHggOTk5cHggOTk5cHggMnB4O2JhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KCNmZmFkNTQsI2U4NzgyYik7Ym94LXNoYWRvdzowIDRweCA2cHggIzY2NTIzOTI2O3RyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwtNTAlKTtib3JkZXI6MXB4IHNvbGlkICNiNjZhMzZ9LmZvYW0tZGFydCBpe2Rpc3BsYXk6bm9uZX0uZm9hbS1kYXJ0OmJlZm9yZXtjb250ZW50OicnO3Bvc2l0aW9uOmFic29sdXRlO3JpZ2h0OjEwMCU7dG9wOjRweDt3aWR0aDozMHB4O2hlaWdodDo0cHg7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoOTBkZWcsdHJhbnNwYXJlbnQsI2VmYWM2NWFhKX1ib2R5W2RhdGEtcGhhc2U9IndhaXRpbmciXSAuZm9hbS1kYXJ0LGJvZHlbZGF0YS1waGFzZT0iaWRsZSJdIC5mb2FtLWRhcnQsYm9keVtkYXRhLXBoYXNlPSJwYXVzZWQiXSAuZm9hbS1kYXJ0e3Zpc2liaWxpdHk6aGlkZGVufS5sZXZlbC1zdGFnZVtkYXRhLWluLXdpbmRvdz0idHJ1ZSJdIC5jYXRjaC16b25le2JvcmRlci1zdHlsZTpzb2xpZDtib3JkZXItY29sb3I6IzY1OGM0OTtiYWNrZ3JvdW5kOiNkNGU5YTc1NX0K"
+        },
+        {
+          "start": 12367,
+          "end": 13255,
+          "beforeBase64": "LnNjZW5lLXZpZXdwb3J0ey0tc2NlbmUtaGVpZ2h0OjMzNXB4O2hlaWdodDp2YXIoLS1zY2VuZS1oZWlnaHQpO2JhY2tncm91bmQ6IzE0MjUzN30uZmFsbGJhY2stbGF5ZXJ7cG9zaXRpb246YWJzb2x1dGU7bGVmdDo1MCU7dG9wOjUwJTt3aWR0aDptaW4oMTAwJSxjYWxjKHZhcigtLXNjZW5lLWhlaWdodCkgKiAxLjQ1MTYxMjkpKTthc3BlY3QtcmF0aW86NDUvMzE7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtNTAlLC01MCUpfS5mYWxsYmFjay1zY2VuZXtvYmplY3QtZml0OmNvbnRhaW59LnNjZW5lLWl0ZW17d2lkdGg6MTYlO2xlZnQ6NTAlO3RvcDo1MC4yJTt0cmFuc2Zvcm06dHJhbnNsYXRlKC01MCUsLTUwJSk7Ym9yZGVyLXJhZGl1czoxMCU7Ym94LXNoYWRvdzowIDVweCAxMHB4ICMwMDA0fS5sZXZlbC1zdGFnZVtkYXRhLXdpbm5lcj0icGxheWVyIl0gLnNjZW5lLWl0ZW17bGVmdDo0OS41NzMlO3RvcDo1MC4zNTIlO3RyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwtNTAlKX0ubGV2ZWwtc3RhZ2VbZGF0YS13aW5uZXI9ImFpIl0gLnNjZW5lLWl0ZW17bGVmdDo1MC40MjclO3RvcDo1MC4zNTIlO3RyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSwtNTAlKX0uc3RhZ2UtdG9we2NvbG9yOiNjMGQxYzd9LmZvYW0tZGFydHtsZWZ0OmNhbGMoMjUuODAzJSArIDI1LjYyJSAqIHZhcigtLWZsaWdodCkpO3RvcDo0NC4zNzQlO3dpZHRoOjklO2hlaWdodDozLjUlO3RyYW5zZm9ybTp0cmFuc2xhdGUoLTEwMCUsLTUwJSl9LmZvYW0tZGFydDpiZWZvcmV7d2lkdGg6NjAlfS5jYXRjaC16b25le2xlZnQ6NTEuNDIzJTt0b3A6NDQuMzc0JTt3aWR0aDo3JTtoZWlnaHQ6MTIlO2JvcmRlcjowO2JveC1zaGFkb3c6bm9uZX0ubGV2ZWwtc3RhZ2VbZGF0YS1pbi13aW5kb3c9InRydWUiXSAuY2F0Y2gtem9uZXtib3gtc2hhZG93OjAgMCAxMHB4IDZweCAjOWNlOWFjODg7YmFja2dyb3VuZDojZDRlOWE3MzN9LmxldmVsLXN0YWdlW2RhdGEtcmVzdWx0PSJjYXVnaHQiXSAuZm9hbS1kYXJ0e3Zpc2liaWxpdHk6aGlkZGVufS5sZXZlbC1zdGFnZS5oYXMtM2QgLmZhbGxiYWNrLWxheWVye3Zpc2liaWxpdHk6aGlkZGVufQo="
+        },
+        {
+          "start": 13798,
+          "end": 18674,
+          "beforeBase64": ""
+        }
+      ]
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "sha256": "0c76ddc351d8c49683db555a7251e3fe76ed143d8b1b23c6debc5ec87387924c",
+      "beforeSha256": "07d3b112042aaa0a09584ac92db77b9958a1f76f77e80957ae932d39dac88785",
+      "baseGitBlob": "251a8df4f6ef7392c26294aed9d4b309837f950b",
+      "reverseEdits": [
+        {
+          "start": 33264,
+          "end": 34882,
+          "beforeBase64": ""
+        }
+      ]
+    }
+  ],
+  "preserved": [
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "gitBlob": "05a5de1c5272a7b833836392cd5900abb5bb6a51"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "gitBlob": "acf7cc7b9f503e708bfe95411d9d8b7a6febd3e8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "gitBlob": "c9b7e5eddbabd2c3ba6f5695a89a8b568149ad62"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "gitBlob": "63763baacb2d60dc03fb590aa28efa2cff67b9b4"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "gitBlob": "4f0dd45dcfb5ebe46eb5eccf2b01363a0a4586c3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "gitBlob": "e80c08fc3e9aefeddbd525b647f4bd0027ce2ae3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai.png",
+      "gitBlob": "12422984bef5eaecb5862006907f7078e5853a71"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player.png",
+      "gitBlob": "5ab212814dff5b002c9bb8d292830485490c11d7"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ready.png",
+      "gitBlob": "6fdf13ff348b59ff822fded93a6e20c04a6b81d7"
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "gitBlob": "6f925b5de0ece016e35f5fbc699213fd740b35aa"
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "gitBlob": "4e8b2aced85f47f1ac91e8779584a194a0c2c96b"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "gitBlob": "3095f5b1a62acceb1d0167fea63d3580882b5077"
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "gitBlob": "e0b93656dea0831beeecae383a871ddc92d5caaf"
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "gitBlob": "2b85a9ed2ad95f6ab97bdc33989382e52851273b"
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "gitBlob": "572f16b5c907f63f7cf9dfb56dfbe59a8a981514"
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "gitBlob": "7c354c8ff949db76ff1e78d75f6527671a4e9b65"
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "gitBlob": "2b33019d58cf72a249a7353a1566401c78c3025c"
+    },
+    {
+      "path": "public/games/fast-hands/level-nav.css",
+      "gitBlob": "0922d5cf74107931069d80d85dec51e6b66fa8a6"
+    },
+    {
+      "path": "public/games/fast-hands/levels-stage.mjs",
+      "gitBlob": "51578cb4dda5b9e19dbe334851d8136808b29be8"
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "gitBlob": "bbdd03c707b7bc490566992d0ebdd07207d49774"
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "gitBlob": "8bb7603073d21c1ee583cf39087e8acaa9d95d80"
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "gitBlob": "58c74cb8f0a69cb7adc1c7c42595d6d5aabdfecd"
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "gitBlob": "fee03c6d176442407d9be31a22bf9d0f13bf8ac2"
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "gitBlob": "f0ae602f04aaf8f7aeaf95b56e25d6fbb8e0a35a"
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "gitBlob": "01be82a3280b9e5c5f3c2824fa61106feb468ca6"
+    },
+    {
+      "path": "public/games/fast-hands/share.mjs",
+      "gitBlob": "6121fffcb31e4c4edb5ce123395bf071724fad9b"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "gitBlob": "db235d35a165bf6a02da942f6c4524535349af71"
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "gitBlob": "146cad743392eec5d2218f60f96e8f9db35fe0ef"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "gitBlob": "ba59e9985bbca875c08352634299175f1e9a15b4"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "gitBlob": "90ffc329bafc968fe4f2f082c06141a687f3b350"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "gitBlob": "91a4462e849ef1e76d9234c79412cb25213e4990"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "gitBlob": "9bff9d87a00e381294fb83a9eba80f9d9309abf5"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "gitBlob": "18dd04914133e799f8195bfc5dcf6f011e179ef7"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "gitBlob": "4bbcb02830b843a598a241f83bad89dc945b0e92"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "gitBlob": "95352ed884c193a7285f241633d09f78fe0ae42d"
+    }
+  ]
+}

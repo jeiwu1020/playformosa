@@ -5,7 +5,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  const $=id=>document.getElementById(id),mode=document.body.dataset.level;
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
- let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png';
+ let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0;
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
  const count=who=>state.results.filter(r=>r.winner===who).length;
  function art(element,item){element.style.backgroundImage=`url("${atlasUrl}")`;const f=itemArtFrame(item.artIndex);element.style.backgroundSize=`${100/f.width}% ${100/f.height}%`;element.style.backgroundPosition=`${100*f.left/(1-f.width)}% ${100*f.top/(1-f.height)}%`;element.setAttribute('aria-label',item.name);}
@@ -32,17 +32,18 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   $('summaryTitle').textContent=catching?`闖到第 ${state.results.length} 關` :wins>opponent?'你贏了快手王！':wins<opponent?'這次快手王贏了！':'十回合，不分高下！';
   $('summaryScore').textContent=catching?`${wins} 關通過`:`${wins} : ${opponent}`;
   $('summaryNote').textContent=catching?`第 ${state.results.length} 關失誤 · 最快挑戰 ${Math.round(state.results.at(-1).flightMs)} ms 飛行速度。每次從第 1 關重新出發。`:`你的勝場 : AI 勝場 · 搶跑 ${state.results.filter(r=>r.reason==='early').length} 次 · 平手 ${count('draw')} 次`;
-  $('roundResults').replaceChildren(...state.results.map(result=>{
+  $('roundResults').replaceChildren(...state.results.slice(resultPage*10,resultPage*10+10).map(result=>{
    const li=document.createElement('li'),icon=document.createElement('span');icon.className='result-icon'+(catching?'':' item-art');icon.setAttribute('aria-hidden','true');
    if(catching)icon.textContent=String(result.round).padStart(2,'0');else art(icon,result.item);
    const name=document.createElement('span');name.textContent=catching?`第 ${result.round} 關 · ${Math.round(result.flightMs)} ms`:result.item.name;
    const badge=document.createElement('strong');badge.textContent=result.winner==='player'?(catching?'通過':'你贏'):result.winner==='draw'?'平手':result.reason==='early'?'太早':catching?'失誤':'AI 贏';li.dataset.winner=result.winner;li.append(icon,name,badge);return li;
   }));
+  $('resultPages').hidden=state.results.length<=10;$('resultPrev').disabled=resultPage===0;$('resultNext').disabled=(resultPage+1)*10>=state.results.length;$('resultPageLabel').textContent=`${resultPage*10+1}–${Math.min(state.results.length,(resultPage+1)*10)} / ${state.results.length}`;
  }
  function render(now=clock()){
   if(disposed)return;
   const active=['waiting','live'].includes(state.phase),feedback=['feedback','done'].includes(state.phase),result=state.results.at(-1),current=state.results.length+(feedback?0:1);
-  document.body.dataset.phase=state.phase;
+  document.body.dataset.phase=state.phase;document.body.dataset.summary=String(state.phase==='done'&&!state.practice);
   if(state!==lastRendered){
    lastRendered=state;
    $('roundLabel').textContent=state.practice?'不計分練習':catching?`第 ${current} 關`:`回合 ${Math.min(current,10)} / 10`;
@@ -53,9 +54,9 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    $('actionButton').disabled=artError;$('roundButton').disabled=artError;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle';$('summary').hidden=!(state.phase==='done'&&!state.practice);
    $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?(catching?'開始逐關挑戰':'開始十回合對決'):state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
    $('actionButton').textContent=catching?'接！':'搶！';$('actionButton').setAttribute('aria-label',catching?'伸手接泡棉彈':'出手搶物品');
-   let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到手掌前的接彈區時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'掌心接彈區':'等訊號';
+   let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到掌心前時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'看準掌心':'等訊號';
    if(state.phase==='waiting'){title=catching?'眼睛看彈，先別出手。':'準備好了？忍住…';hint='等待長短每次不同，長按不會自動出手。';signal=catching?'準備發射…':'等訊號';}
-   if(state.phase==='live'){title=catching?'到掌心就接！':'出手！';hint=catching?'到接彈區再按，只有一次機會。':'搶同一件物品，比快手王更快！';signal=catching?'到掌心就接！':'出手！';}
+   if(state.phase==='live'){title=catching?'到掌心就接！':'出手！';hint=catching?'到掌心再按，只有一次機會。':'搶同一件物品，比快手王更快！';signal=catching?'到掌心就接！':'出手！';}
    if(state.phase==='paused'){title='已暫停，這回合不計分。';hint='切換視窗、旋轉或畫面停頓時，準備好再重來。';signal='暫停';}
    if(feedback){title=resultText(result);hint=details(result);signal=result.winner==='player'?(catching?'接住！':'你搶到了！'):result.winner==='draw'?'平手':result.reason==='early'?'太早出手':catching?'挑戰結束':'AI 搶到了';if(state.practice&&result.winner!=='player'&&catching){title='練習不計分，再抓一下時機。';signal='暖身完成';}}
    $('roundStatus').textContent=title;$('roundHint').textContent=hint;$('signal').textContent=signal;
@@ -66,7 +67,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    $('fallbackScene').src=`assets/levels-${mode}-${pose}.png`;
    const start=catching?Math.max(0,state.results.length-7):0,end=state.practice?1:catching?state.results.length+(state.phase==='done'?0:1):10;
    $('roundDots').replaceChildren(...Array.from({length:end-start},(_,j)=>{const i=start+j,dot=document.createElement('span'),r=state.results[i];dot.className='round-dot';dot.dataset.outcome=r?r.winner:i===state.results.length?'current':'pending';dot.textContent=r?(r.winner==='player'?'✓':r.winner==='draw'?'=':'×'):String(i+1);dot.setAttribute('aria-label',`第 ${i+1} ${catching?'關':'回合'}${r?'：'+(r.winner==='player'?'成功':r.winner==='draw'?'平手':'未成功'):''}`);return dot;}));
-   if(state.phase==='done'&&!state.practice)summary();
+   if(state.phase==='done'&&!state.practice){resultPage=0;summary();}
   }
   if(catching){const progress=state.phase==='live'?Math.max(0,(now-state.liveAt)/state.flightMs):feedback&&result?.winner==='player'?1:feedback?1.22:0;$('foamBall').style.setProperty('--flight',String(Math.min(1.23,progress)));$('stage').dataset.inWindow=String(state.phase==='live'&&Math.abs(now-state.targetAt)<=state.windowMs);}
   stageView?.render(state,now);
@@ -76,10 +77,11 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   const cue=$('signal').getBoundingClientRect(),scene=$('levelCanvas').getBoundingClientRect(),height=window.visualViewport?.height||window.innerHeight;
   return cue.top>=0&&cue.bottom<=height&&scene.top+scene.height*.5>0&&scene.top+scene.height*.5<height;
  }
- function begin(){if(artError||['waiting','live'].includes(state.phase))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});state=beginRound(state,clock(),random);lastFrame=null;render();$('actionButton').focus({preventScroll:true});}
+ function begin(){if(artError||['waiting','live'].includes(state.phase))return;if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});if(state.phase==='done')state=newMatch(mode,{practice:false,random});state=beginRound(state,clock(),random);lastFrame=null;render();if(!sceneVisible())$('stage').scrollIntoView?.({block:'start',behavior:'instant'});$('actionButton').focus({preventScroll:true});}
  function act(){const now=clock();if(artError)return;if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}state=press(state,now);render(now);}
  function pause(){state=pauseMatch(state);lastFrame=null;render();}
  function practice(){state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
+ listen($('resultPrev'),'click',()=>{if(resultPage>0){resultPage--;summary();}});listen($('resultNext'),'click',()=>{if((resultPage+1)*10<state.results.length){resultPage++;summary();}});
  listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
  listen($('actionButton'),'pointerdown',event=>{if(event.isPrimary===false||(event.pointerType==='mouse'&&event.button!==0))return;event.preventDefault();act();});
  listen($('actionButton'),'click',event=>{if(event.detail===0)act();});

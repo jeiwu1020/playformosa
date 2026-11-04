@@ -125,16 +125,17 @@ export function createLevelWorld(THREE,{mode='duel'}={}) {
 
   const dart=node(scene,'foam-dart');dart.visible=catching;
   // One foam-colored surface: a flat tail, straight barrel and a same-width
-  // rounded soft nose. Keep the original -.225…+.035 silhouette/contact range.
-  const dartProfile=[new THREE.Vector2(0,-.225),new THREE.Vector2(.033,-.225),new THREE.Vector2(.036,-.222),new THREE.Vector2(.036,-.001)];
+  // rounded soft nose. Shorten the tail to 65% length; keep the +.035 nose/contact alignment.
+  const dartProfile=[new THREE.Vector2(0,-.134),new THREE.Vector2(.033,-.134),new THREE.Vector2(.036,-.131),new THREE.Vector2(.036,-.001)];
   for(let i=1;i<=12;i++){const angle=i/12*Math.PI/2;dartProfile.push(new THREE.Vector2(.036*Math.cos(angle),-.001+.036*Math.sin(angle)));}
-  const dartTip=mesh(dart,'foam-dart-body',new THREE.LatheGeometry(dartProfile,32),'orange');dartTip.rotation.z=-Math.PI/2;
+  const dartMaterial=new THREE.MeshStandardMaterial({color:'#29a9ff',roughness:.7});
+  const dartTip=mesh(dart,'foam-dart-body',new THREE.LatheGeometry(dartProfile,32),dartMaterial);dartTip.rotation.z=-Math.PI/2;
   const dartContact=node(dart,'foam-dart-contact');
   const launcher=node(scene,'foam-launcher');launcher.visible=catching;launcher.position.set(-1.02,1.32,.35);
   const barrel=mesh(launcher,'launcher-barrel',new THREE.CylinderGeometry(.092,.105,.34,20),'blue',-.04,0,0);barrel.rotation.z=-Math.PI/2;
   const muzzle=mesh(launcher,'launcher-soft-rim',new THREE.TorusGeometry(.09,.018,8,24),'teal',.135,0,0);muzzle.rotation.y=Math.PI/2;
   box(launcher,'launcher-base','edge',-.11,-.21,0,.16,.31,.15);
-  const catchRing=mesh(scene,'catch-target-ring',new THREE.TorusGeometry(.17,.011,8,40),'teal',.035,1.33,.35);catchRing.rotation.y=-.95;catchRing.visible=catching;
+  const catchRing=mesh(scene,'catch-target-ring',new THREE.TorusGeometry(.17,.011,8,40),'teal',.035,1.33,.35);catchRing.rotation.y=-.95;catchRing.visible=false;
   const trail=node(scene,'dart-trail');trail.visible=false;
   const trailMaterial=new THREE.MeshBasicMaterial({color:'#9ae9da',transparent:true,opacity:.55,depthWrite:false});
   for(let i=0;i<3;i++)box(trail,'dart-speed-line-'+i,trailMaterial,-.34-i*.09,(i-1)*.07,-.02,.12-i*.025,.008,.008);

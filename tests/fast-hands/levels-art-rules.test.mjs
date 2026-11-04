@@ -29,6 +29,6 @@ test('sixteen art items each map to an exclusive generated image tile, no emoji 
 });
 test('atlas crop excludes the next-row bear from dumpling and preserves the bear hat',()=>{
  assert.equal(typeof rules.itemArtFrame,'function');const dumpling=rules.itemArtFrame(11),bear=rules.itemArtFrame(15);
- assert.ok((dumpling.top+dumpling.height)*1254<920);assert.ok(bear.top*1254<927);assert.ok(bear.top*1254>915);
+ assert.ok((dumpling.top+dumpling.height)*1254<920);assert.ok(bear.top*1254<927);assert.ok(bear.top*1254>895);
  for(let i=0;i<16;i++){const f=rules.itemArtFrame(i);assert.ok(f.left>=0&&f.top>=0&&f.left+f.width<=1&&f.top+f.height<=1);}
 });

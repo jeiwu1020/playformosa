@@ -11,7 +11,7 @@
   <div class="scene-viewport">
    <div class="fallback-layer">
    <img id="fallbackScene" class="fallback-scene" src="assets/levels-duel-ready.png" alt="橘衣運動員與卡其衣快手王準備爭奪桌上物品">
-   <div class="fallback-flight" hidden aria-hidden="true"><div class="catch-zone"></div><div id="foamBall" class="foam-dart" style="--flight:0"><i></i></div></div>
+   <div class="fallback-flight" hidden aria-hidden="true"><div id="foamBall" class="foam-dart" style="--flight:0"><i></i></div></div>
    <div id="itemArt" class="item-art scene-item"  role="img" aria-label="本回合物品"></div>
    </div><canvas id="levelCanvas" class="level-canvas" aria-hidden="true"></canvas>
    <div class="character-labels" aria-hidden="true"><span>你 · 運動員</span><span>AI · 快手王</span></div>
@@ -19,12 +19,12 @@
   <div class="prize-caption"><p class="eyebrow">THIS ROUND’S COLLECTIBLE</p><strong id="itemName">阿嬤的飛天拖鞋</strong><p id="itemQuip">這次不用閃，搶到算你的。</p></div>
  </section>
  <section class="round-feedback" aria-label="當前回合"><p class="eyebrow">TEN ROUNDS. ONE WINNER.</p><h2 id="roundStatus" aria-live="polite">先熱身，再挑戰。</h2><p id="roundHint">先練習一次，不列入本局成績。</p><div id="roundDots" class="round-dots" aria-label="挑戰進度"></div></section>
- <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><p class="eyebrow">YOUR RUN</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p><ol id="roundResults" class="round-results"></ol><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
+ <section id="summary" class="match-summary" aria-labelledby="summaryTitle" hidden><div class="summary-overview"><p class="eyebrow">YOUR RUN</p><h2 id="summaryTitle">挑戰完成</h2><strong id="summaryScore" class="summary-score"></strong><p id="summaryNote"></p></div><ol id="roundResults" class="round-results"></ol><nav id="resultPages" class="result-pages" aria-label="關卡紀錄分頁" hidden><button id="resultPrev" type="button" class="quiet-button">上一頁</button><span id="resultPageLabel" aria-live="polite"></span><button id="resultNext" type="button" class="quiet-button">下一頁</button></nav><p class="local-note">本局紀錄 · 不上傳小鴨排行榜</p></section>
  <img id="atlasProbe" src="assets/duel-items-atlas.png" alt="" hidden>
  <p id="artStatus" class="art-status" role="status" hidden></p>
  <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
  <div class="level-controls"><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="roundButton" type="button" class="action-button">先練習一次</button><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button></div>
- <details class="level-help"><summary>玩法與公平計時</summary><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></details>
+ <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details>
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
  <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./">回到小鴨關卡</a></noscript>
 </main><script type="module" src="levels-app.mjs"></script></body></html>

@@ -7,9 +7,9 @@
     "phase": "waiting",
     "now": 500,
     "stats": {
-      "meshes": 132,
-      "triangles": 14024,
-      "rasterizedTriangles": 13991,
+      "meshes": 131,
+      "triangles": 13704,
+      "rasterizedTriangles": 13671,
       "width": 900,
       "height": 620,
       "supersample": 2
@@ -103,9 +103,9 @@
       "round": 1
     },
     "stats": {
-      "meshes": 133,
-      "triangles": 14452,
-      "rasterizedTriangles": 14419,
+      "meshes": 132,
+      "triangles": 14132,
+      "rasterizedTriangles": 14099,
       "width": 900,
       "height": 620,
       "supersample": 2

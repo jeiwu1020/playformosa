@@ -1,3 +1,4 @@
+import {reverseScreenAlpha} from './fast-hands-screen-alpha-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -8,6 +9,7 @@ const hash=b=>createHash('sha256').update(b).digest('hex');
 export const LAYOUT_DART_ALLOWED=Object.freeze(['public/games/fast-hands/style.css','public/games/fast-hands/levels-world.mjs','public/games/fast-hands/levels.css','public/games/fast-hands/assets/levels-catch-ready.png','public/games/fast-hands/assets/levels-catch-grab.png','public/games/fast-hands/assets/levels-pose-provenance.json']);
 export const layoutDartLedger=()=>JSON.parse(readFileSync(new URL('docs/fast-hands/LAYOUT-DART-MANIFEST.json',root),'utf8'));
 export function reverseLayoutDart(path,bytes,ledger=layoutDartLedger()){
+ bytes=reverseScreenAlpha(path,bytes);
  const row=ledger.files.find(f=>f.path===path);if(!row)return Buffer.from(bytes);
  assert.ok(LAYOUT_DART_ALLOWED.includes(path));assert.equal(hash(bytes),row.sha256,'Layout/dart current bytes '+path);assert.match(row.beforeSha256,/^[a-f0-9]{64}$/);assert.match(row.baseGitBlob,/^[a-f0-9]{40}$/);let end=0;
  for(const e of row.reverseEdits){assert.ok(Number.isInteger(e.start)&&Number.isInteger(e.end)&&e.start>=end&&e.end>=e.start&&e.end<=bytes.length);assert.equal(typeof e.beforeBase64,'string');end=e.end;}

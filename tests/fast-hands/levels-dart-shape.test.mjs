@@ -8,17 +8,18 @@ import {createLevelWorld} from '../../public/games/fast-hands/levels-world.mjs';
 const state = extra => ({phase:'live', liveAt:1000, targetAt:1400, flightMs:400, results:[], ...extra});
 const close = (a,b) => assert.ok(Math.abs(a-b)<1e-6, `${a} != ${b}`);
 
-test('toy dart is one continuous orange mesh without a swollen or contrasting head', () => {
+test('toy dart is a short continuous bright-blue mesh without a swollen or contrasting head', () => {
   const world = createLevelWorld(THREE, {mode:'catch'}), meshes=[];
   world.objects.dart.traverse(o => {if(o.isMesh)meshes.push(o);});
   assert.equal(meshes.length, 1, 'the dart must be one continuous surface, not a body plus oversized head/ring');
   const dart=meshes[0];
   assert.equal(dart.geometry.type, 'LatheGeometry');
   assert.equal(Array.isArray(dart.material), false);
-  assert.equal(dart.material.color.getHexString(), 'f47625');
+  assert.equal(dart.material.color.getHexString(), '29a9ff');
   const profile=dart.geometry.parameters.points;
   assert.ok(profile.every(p=>p.x>=0&&p.x<=.036+1e-8), 'the rounded nose must never exceed the body radius');
-  close(profile[0].y,-.225);close(profile.at(-1).y,.035);
+  close(profile[0].y,-.134);close(profile.at(-1).y,.035);
+  close(profile.at(-1).y-profile[0].y,.26*.65);
   close(profile[0].x,0);close(profile.at(-1).x,0);
   const nose=profile.filter(p=>p.y>=-.001-1e-8);
   assert.ok(nose.length>=9, 'use a smooth arc, not a pointed or stepped tip');
@@ -39,13 +40,31 @@ test('dart rest, flight and caught contact coordinates stay on the existing traj
   world.dispose();
 });
 
-test('fallback dart has one orange rounded silhouette and no separately colored tip', () => {
+test('fallback dart has one short blue rounded silhouette and no separately colored tip', () => {
   const css=postcss.parse(fs.readFileSync(new URL('../../public/games/fast-hands/levels.css',import.meta.url),'utf8'));
   const props=selector=>{const values={};css.walkRules(rule=>{if(rule.selector===selector)rule.walkDecls(d=>values[d.prop]=d.value);});return values;};
   const dart=props('.foam-dart'),tip=props('.foam-dart i');
   assert.equal(tip.display,'none','hide the old contrasting tip element');
   assert.equal(dart['border-radius'],'2px 999px 999px 2px');
-  assert.equal(dart.background,'linear-gradient(#ffad54,#e8782b)');
+  assert.equal(dart.background,'linear-gradient(#67ceff,#168ddd)');
   assert.equal(dart.left,'calc(25.803% + 25.62% * var(--flight))');
   assert.equal(dart.top,'44.374%');
+  assert.equal(dart.width,'5.85%');
+});
+
+
+test('catch target rings stay hidden in 3D, fallback markup and every phase', () => {
+  const world=createLevelWorld(THREE,{mode:'catch'});
+  for(const phase of ['idle','waiting','live','feedback','done','paused']){
+    world.update({state:state({phase,results:['feedback','done'].includes(phase)?[{winner:'player',reason:'caught',offsetMs:0,round:1}]:[]}),now:1700});
+    assert.equal(world.objects.catchRing.visible,false,`no hand target ring during ${phase}`);
+    assert.equal(world.objects.targetRing.visible,false,`no tabletop ring during ${phase}`);
+  }
+  world.dispose();
+  const css=postcss.parse(fs.readFileSync(new URL('../../public/games/fast-hands/levels.css',import.meta.url),'utf8'));
+  let hidden=false;
+  css.walkRules(rule=>{if(rule.selector==='.catch-zone')rule.walkDecls('display',d=>{if(d.value==='none'&&d.important)hidden=true;});});
+  assert.equal(hidden,true,'the legacy fallback target must never draw');
+  const html=fs.readFileSync(new URL('../../public/games/fast-hands/catch.html',import.meta.url),'utf8');
+  assert.doesNotMatch(html,/class="catch-zone"|提示圈|接彈區/);
 });

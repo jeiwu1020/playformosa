@@ -7,11 +7,11 @@ export function catchStageSettings(level,{practice=false}={}){
  return Object.freeze({flightMs,windowMs:practice?c.practiceWindowMs:Math.max(c.catchWindowFloorMs,flightMs*c.catchWindowRatio)});
 }
 export const CATCH_WINDOW_MS = LEVEL_TUNING.catchStartMs*LEVEL_TUNING.catchWindowRatio;
-// Measured atlas rows keep the bear's hat out of the dumpling tile.
-// All rendering paths use these same inset, non-overlapping source rectangles.
+// Actual alpha-safe cell boundaries, measured from the generated atlas.
+// Inset each edge to exclude adjacent sprite traces; all paths share this crop.
 export function itemArtFrame(index){
- const i=Math.max(0,Math.min(15,Number.isInteger(index)?index:0)),row=Math.floor(i/4),bounds=[0,313.5,627,920,1254],pad=1.5;
- return Object.freeze({left:(i%4*313.5+pad)/1254,top:(bounds[row]+pad)/1254,width:(313.5-pad*2)/1254,height:(bounds[row+1]-bounds[row]-pad*2)/1254});
+ const i=Math.max(0,Math.min(15,Number.isInteger(index)?index:0)),col=i%4,row=Math.floor(i/4),x=[0,313,627,940,1254],y=[0,313,627,900,1254],pad=2;
+ return Object.freeze({left:(x[col]+pad)/1254,top:(y[row]+pad)/1254,width:(x[col+1]-x[col]-pad*2)/1254,height:(y[row+1]-y[row]-pad*2)/1254});
 }
 export const ITEMS = Object.freeze([
   {id:'slipper',name:'阿嬤的飛天拖鞋',quip:'這次不用閃，搶到算你的。'},
