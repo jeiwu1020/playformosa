@@ -1,3 +1,4 @@
+import {readSharingBaseline} from './fast-hands-sharing-provenance.mjs';
 import {readFileSync as readActual} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -37,7 +38,7 @@ export function reverseLoadingLook(path,bytes,ledger=loadingLookLedger()){
 export function readLoadingLookBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file));
  const path=relative(gamesRoot,absolute).split(sep).join('/');
- const bytes=readActual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readSharingBaseline(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const withinGames=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=withinGames?reverseLoadingLook(path,bytes):bytes;
  const encoding=typeof options==='string'?options:options?.encoding;

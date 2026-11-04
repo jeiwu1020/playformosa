@@ -1,3 +1,4 @@
+import {mountFastHandsSharing} from './share.mjs';
 import {createReplayRecorder,recordReplay,finishReplay,sampleReplay} from './replay.mjs';
 import {mountFastHandsLeaderboard} from './leaderboard.mjs';
 import {createScoreImage} from './score-image.mjs';
@@ -13,8 +14,10 @@ import {demo3D,loadGameStage} from './three3d/presentation.mjs';
 const $=id=>document.getElementById(id),pad=$('pad'),canvas=$('scene'),clock=()=>performance.now();
 let s=newRun(),mode=matchMedia('(pointer:coarse)').matches?'touch':'mouse',demo=true,demoStart=clock(),activePointer=null,activeType=null,preference='auto',gestureRect=null,muted=false,ac=null,soundCount=0,storage=null,lastPhase='',finishStartedAt=null;
 try{storage=localStorage;}catch{}
-let cachedBest=readBest(storage,mode),stage=null,sampleForRun=null,raf=null,disposed=false,rendererMode='loading',previousBest=null,resultShown=false,terminalSeenAt=null,recordSaveFailed=false,resultForDownload=null,downloadBusy=false;
+let cachedBest=readBest(storage,mode),stage=null,sampleForRun=null,raf=null,disposed=false,rendererMode='loading',previousBest=null,resultShown=false,terminalSeenAt=null,recordSaveFailed=false;
+let resultForSharing=null;
 let leaderboard=null,recorder=null,replayClip=null,replaying=false,replayStart=0;
+const sharing=mountFastHandsSharing({document,createImage:createScoreImage});
 const offline=$('demo3d'),dialogs=[$('entryDialog'),$('info'),$('resultDialog'),$('rankingDialog')];
 const isTerminal=phase=>['success','failed','cancelled'].includes(phase);
 const blocked=()=>dialogs.some(dialog=>dialog.open);
@@ -42,9 +45,8 @@ torso.onerror=()=>{document.body.dataset.art='failed';document.body.dataset.read
 function unlock(){try{ac??=new AudioContext();void ac.resume().catch(()=>{});}catch{}}
 function quack(){if(muted)return;try{unlock();if(ac){squeak(ac);soundCount++;$('sound').dataset.playCount=String(soundCount);}}catch{$('sound').textContent='音效暫不可用';}}
 function clearPointer(){const id=activePointer;activePointer=null;activeType=null;gestureRect=null;if(id!==null&&pad.hasPointerCapture(id))pad.releasePointerCapture(id);}
-function resetDownload(){resultForDownload=null;downloadBusy=false;$('resultDownload').disabled=false;$('downloadStatus').textContent='';}
 function stopReplay(){replaying=false;document.body.dataset.playback='';lastPhase='';}
-function reset(){stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();resetDownload();clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
+function reset(){stopReplay();recorder=null;replayClip=null;$('resultDemo').disabled=true;leaderboard.reset();sharing.reset();resultForSharing=null;clearPointer();s=newRun();lastPhase='';finishStartedAt=null;previousBest=null;resultShown=false;terminalSeenAt=null;recordSaveFailed=false;}
 function interrupt(reason){stopReplay();if(activePointer!==null){s=cancel(s,clock(),reason);recordReplay(recorder,s,clock());}clearPointer();}
 function apply(next,at=next.lastAt){const prev=s;s=next;if(next!==prev)recordReplay(recorder,next,at);if(prev.pickupAt===null&&s.pickupAt!==null)quack();if(prev.phase!=='success'&&s.phase==='success'){leaderboard.captureResult(s,mode,{demo});finishStartedAt=clock();previousBest=readBest(storage,mode);const saved=saveBest(storage,mode,s.elapsedMs);recordSaveFailed=saved===null;cachedBest=saved??previousBest;}}
 function sampleTime(e){return eventTime(e,performance.timeOrigin,clock());}
@@ -55,7 +57,7 @@ pad.addEventListener('pointermove',e=>{if(activePointer!==e.pointerId||activeTyp
 pad.addEventListener('pointerup',e=>{if(activePointer!==e.pointerId||activeType!==e.pointerType)return;e.preventDefault();const at=sampleTime(e);apply(release(s,{at,id:e.pointerId}),at);clearPointer();});
 pad.addEventListener('pointercancel',e=>{if(activePointer===e.pointerId)interrupt('pointercancel');});
 pad.addEventListener('lostpointercapture',e=>{if(activePointer===e.pointerId)interrupt('lost-capture');});
-window.addEventListener('blur',()=>interrupt('blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupt('hidden');});window.addEventListener('resize',()=>interrupt('resize'));window.addEventListener('pagehide',event=>{interrupt('hidden');leaderboard.dismiss(false);offline.pause();if(!event.persisted){disposed=true;leaderboard.destroy();cancelAnimationFrame(raf);stage?.dispose();}});
+window.addEventListener('blur',()=>interrupt('blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupt('hidden');});window.addEventListener('resize',()=>interrupt('resize'));window.addEventListener('pagehide',event=>{interrupt('hidden');leaderboard.dismiss(false);offline.pause();if(!event.persisted){disposed=true;leaderboard.destroy();sharing.destroy();cancelAnimationFrame(raf);stage?.dispose();}});
 window.addEventListener('pageshow',()=>{if(!disposed){stage?.resize();syncVideo();}});
 document.addEventListener('visibilitychange',syncVideo);
 window.addEventListener('storage',()=>{cachedBest=readBest(storage,mode);});
@@ -67,12 +69,11 @@ function showResult(){
  const view=snapshot(s,clock());
  if(demo||activePointer!==null||!isTerminal(view.phase))return;
  replayClip??=finishReplay(recorder);$('resultDemo').disabled=!replayClip;
- const result=describeResult(view,{previousBest,best:cachedBest,mode,saveFailed:recordSaveFailed});
+ const result=resultForSharing??=Object.freeze(describeResult(view,{previousBest,best:cachedBest,mode,saveFailed:recordSaveFailed}));
  for(const [id,value] of Object.entries({resultTitle:result.title,resultTime:result.timeText,resultUnit:result.success?'秒':'',resultComment:result.comment,resultBest:result.bestText,resultDelta:result.deltaText,resultMode:result.modeText}))$(id).textContent=value;
- resetDownload();resultForDownload=Object.freeze(result);
- $('resultDialog').dataset.outcome=result.success?'success':'unfinished';
+  $('resultDialog').dataset.outcome=result.success?'success':'unfinished';
  $('resultDialog').dataset.record=String(result.newRecord);
- resultShown=true;closeDialogs();openDialog($('resultDialog'));
+ resultShown=true;closeDialogs();openDialog($('resultDialog'));sharing.prepare(Object.freeze(result),mode);
 }
 function replayResult(){if(!replayClip||activePointer!==null||demo)return;closeDialogs();replaying=true;replayStart=clock();lastPhase='';document.body.dataset.playback='replay';syncVideo();}
 $('resultDemo').onclick=replayResult;
@@ -80,21 +81,6 @@ $('mode').onchange=()=>{interrupt('mode-change');preference=$('mode').value;if(p
 $('play').onclick=startGame;$('retry').onclick=startGame;$('showDemo').onclick=showDemo;
 $('entryStart').onclick=showDemo;$('openMenu').onclick=showMenu;
 $('entryClose').onclick=()=>{$('entryDialog').close();syncOverlay();};
-async function downloadResult(){
- if(downloadBusy||!resultForDownload||!$('resultDialog').open)return;
- const result=resultForDownload;
- downloadBusy=true;$('resultDownload').disabled=true;$('downloadStatus').textContent='成績圖製作中…';
- try{
-  const {blob,filename}=await createScoreImage({result,mode,portrait:$('resultPortrait')});
-  if(result!==resultForDownload||disposed)return;
-  const url=URL.createObjectURL(blob),link=document.createElement('a');
-  try{link.href=url;link.download=filename;document.body.appendChild(link);link.click();}
-  finally{link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
-  $('downloadStatus').textContent='成績圖已產生，請查看瀏覽器下載項目。';
- }catch{if(result===resultForDownload&&!disposed)$('downloadStatus').textContent='成績圖暫時無法產生，請再試一次。';}
- finally{if(result===resultForDownload){downloadBusy=false;$('resultDownload').disabled=false;}}
-}
-$('resultDownload').onclick=downloadResult;
 $('resultUpload').onclick=()=>leaderboard.showUpload();
 $('entryRanking').onclick=()=>leaderboard.showBoard({origin:'entry',mode});
 $('resultRanking').onclick=()=>leaderboard.showBoard({origin:'result',mode});

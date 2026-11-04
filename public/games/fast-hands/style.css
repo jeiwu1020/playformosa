@@ -272,3 +272,17 @@ body[data-renderer="webgl"] .scene-caption{display:none}
 }
 
 body[data-playback="replay"] #pad{cursor:default;border-style:dashed}body[data-playback="replay"] #thumb{opacity:1}
+
+/* Sharing stays in the result ticket; desktop retains its PNG download. */
+.result-share-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #dcdcc7}
+.result-share-actions>a,.result-share-actions>button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 8px;font-size:14px;font-weight:750;text-align:center;text-decoration:none;white-space:normal;line-height:1.4}
+.result-share-actions>a{border:1.5px solid #c5d2bb;border-radius:10px;background:var(--mint);color:var(--green)}
+.result-share-actions>a:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.result-share-actions>a:not([href]){opacity:.5;pointer-events:none}
+.result-share-actions>#resultCopy{grid-column:1/-1}
+.share-fallback{margin-top:12px;padding:12px;border:1px solid #c5d2bb;border-radius:12px;background:#fffdf6}
+.share-fallback[hidden],.share-fallback>[hidden]{display:none}
+.share-fallback img{display:block;width:100%;height:auto;max-width:360px;margin:0 auto 12px;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
+.share-fallback textarea{width:100%;min-height:130px;padding:10px;margin-bottom:10px;resize:vertical;border:1px solid #c5d2bb;border-radius:8px;font:14px/1.6 system-ui,sans-serif;color:var(--green);background:white;user-select:text;-webkit-user-select:text;-webkit-touch-callout:default}
+.share-fallback button{width:100%;min-height:44px}
+@media(max-height:550px),(max-width:350px){.result-share-actions{gap:6px;margin-top:8px;padding-top:8px}.result-share-actions>a,.result-share-actions>button{font-size:12px;padding:8px 6px}}

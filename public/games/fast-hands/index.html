@@ -174,10 +174,19 @@ html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
       <div class="result-buttons">
         <button id="resultAgain" type="button" class="primary">再挑戰一次 <span aria-hidden="true">→</span></button>
         <button id="resultDemo" type="button" class="quiet-button" disabled>重播本次</button>
-        <button id="resultDownload" type="button" class="secondary">下載成績圖</button>
         <button id="resultUpload" type="button" class="secondary" aria-describedby="leaderboardStatus" disabled>上傳排行榜</button>
         <button id="resultRanking" type="button" class="quiet-button">查看測試排行榜</button>
       </div>
+      <div class="result-share-actions pf-share-actions" role="group" aria-label="分享本次成績">
+        <a id="resultThreads" data-share="threads" class="secondary" target="_blank" rel="noopener noreferrer" aria-describedby="downloadStatus">分享到 Threads</a>
+        <button id="resultDownload" data-share="image" type="button" class="secondary" disabled>製作成績圖…</button>
+        <button id="resultCopy" data-share="copy" type="button" class="quiet-button">複製成績與網址</button>
+      </div>
+      <section id="shareFallback" class="share-fallback" aria-label="手動儲存與複製" hidden>
+        <img id="shareFallbackImage" alt="本次快手王成績圖片，可長按儲存" hidden>
+        <textarea id="shareFallbackText" aria-label="本次成績與遊戲網址，可手動複製" readonly hidden></textarea>
+        <button id="shareFallbackClose" type="button" class="quiet-button">收起</button>
+      </section>
       <p id="downloadStatus" class="result-status" aria-live="polite"></p>
       <p id="leaderboardStatus" class="ticket-note">完成有效挑戰後，可自願上傳本次成績至測試排行榜。</p>
       <p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
