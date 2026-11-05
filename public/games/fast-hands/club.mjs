@@ -220,6 +220,6 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();mounted.delete(document);}
  const api={showIntro,beginOverlay,transferOverlay,endOverlay,requestNavigation,destroy,blocked,navigationPending:()=>Boolean(pending),get seen(){return seen}};
  mounted.set(document,api);
- if(seen&&!forcedIntro){closeIntro();onStart();ready();}else{if(seen)onStart();openIntro();ready();}
+ if(seen&&!forcedIntro){closeIntro();onStart();ready();}else{if(seen)onStart();showIntro();ready();}
  return api;
 }

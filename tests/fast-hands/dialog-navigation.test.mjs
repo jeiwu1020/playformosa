@@ -5,8 +5,8 @@ import {JSDOM} from 'jsdom';
 import {mountLevel} from '../../public/games/fast-hands/levels-app.mjs';
 import {mountClub} from '../../public/games/fast-hands/club.mjs';
 const drain=()=>new Promise(resolve=>setTimeout(resolve,10));
-function fixture(mode,{seen=true,queued=false}={}){
- const dom=new JSDOM(readFileSync(new URL(`../../public/games/fast-hands/${mode}.html`,import.meta.url),'utf8'),{url:`https://qa.test/games/fast-hands/${mode}`,pretendToBeVisual:true});const w=dom.window,d=w.document,$=id=>d.getElementById(id),closes=[],requests=[];let now=0,frame,club;
+function fixture(mode,{seen=true,queued=false,forcedIntro=false}={}){
+ const dom=new JSDOM(readFileSync(new URL(`../../public/games/fast-hands/${mode}.html`,import.meta.url),'utf8'),{url:`https://qa.test/games/fast-hands/${mode}${forcedIntro?'?intro=1':''}`,pretendToBeVisual:true});const w=dom.window,d=w.document,$=id=>d.getElementById(id),closes=[],requests=[];let now=0,frame,club;
  if(seen)w.sessionStorage.setItem('fast-hands:club-intro:v1','seen');
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){if(!this.open)return;this.open=false;const fire=()=>this.dispatchEvent(new w.Event('close'));if(queued)closes.push(fire);else fire()};
  w.fetch=async(url,options={})=>{requests.push({url,options});return{ok:true,status:200,json:async()=>url.includes('submissions')?{accepted:true,bestUpdated:true}:{game:`fast-hands-${mode}`,rules:mode==='catch'?'cleared-levels-v1':'ten-round-wins-v1',unit:mode==='catch'?'levels':'wins',entries:[],own:null}}};
@@ -15,6 +15,18 @@ function fixture(mode,{seen=true,queued=false}={}){
  const h={w,d,$,app,club,requests,tick,get now(){return now},click(id){assert.ok($(id),`${mode}: ${id} exists`);$(id).click()},flushClose(){for(const fire of closes.splice(0))fire()},formal(){this.click('roundButton');this.click('actionButton');tick(now+1700);this.click('roundButton')},win(){tick(app.state.readyAt);tick(mode==='catch'?app.state.targetAt:now+100);this.click('actionButton')},finish(){this.formal();if(mode==='catch'){this.win();tick(now+1700);this.click('roundButton');this.click('actionButton');tick(now+1700)}else for(let i=0;i<10;i++){this.win();tick(now+1700);if(i<9)this.click('roundButton')}},close(){app.destroy();w.close()}};return h;
 }
 const children=[['entryRanking','levelRankingDialog','levelRankingReturn'],['entrySettings','settingsDialog','settingsClose']];
+for(const mode of ['catch','duel'])for(const [trigger,id,back] of children)for(const queued of [false,true])test(`${mode} seen forced intro opens ${trigger} and returns without restarting (${queued?'queued':'immediate'} close)`,async()=>{
+ const h=fixture(mode,{seen:true,forcedIntro:true,queued});try{
+  const state=h.app.state;assert.equal(h.$('entryDialog').open,true);assert.equal(h.club.seen,true);assert.equal(h.$('entryClose').hidden,false);assert.equal(h.w.location.search,'');
+  for(let i=0;i<2;i++){
+   h.click(trigger);h.flushClose();assert.equal(h.$(id).open,true,'the forced Help child must open');assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);
+   h.click('roundButton');h.click('restartButton');h.tick(h.now+2000);assert.equal(h.app.state,state,'a child dialog must not restart the existing practice');
+   assert.equal(h.$(back).textContent,'返回玩法');h.click(back);h.flushClose();await drain();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(trigger));assert.equal(h.app.state,state);
+  }
+  h.click('entryStart');h.flushClose();await drain();assert.equal(h.club.blocked(),false);assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.app.state,state,'dismissing an already-seen Help must not initialize practice again');assert.equal(h.requests.filter(r=>r.options.method==='POST').length,0);
+  h.click('roundButton');assert.equal(h.app.state.phase,'waiting');
+ }finally{h.close()}
+});
 for(const mode of ['catch','duel'])for(const [trigger,id,back] of children)for(const queued of [false,true])test(`${mode} first-entry ${trigger} returns to its unchanged Help before explicit Start (${queued?'native queued':'immediate'} close)`,async()=>{
  const h=fixture(mode,{seen:false,queued});try{
   const state=h.app.state;assert.equal(h.$('entryDialog').open,true);

@@ -7,9 +7,10 @@ import {JSDOM} from 'jsdom';
 const appUrl=new URL('../../public/games/fast-hands/app.mjs',import.meta.url);
 const raw=readFileSync(appUrl,'utf8');
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
-async function harness({fetcher,queued=false}={}){
+async function harness({fetcher,queued=false,seen=false,forcedIntro=false}={}){
  const bindings={};for(const m of raw.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g)){const mod=await import(new URL(m[2],appUrl));for(const part of m[1].split(',')){const [key,alias]=part.trim().split(/\s+as\s+/);bindings[alias||key]=mod[key]}}
- const dom=new JSDOM(readFileSync(new URL('index.html',appUrl),'utf8'),{url:'https://qa.test/games/fast-hands/',pretendToBeVisual:true}),w=dom.window,d=w.document,$=id=>d.getElementById(id);
+ const dom=new JSDOM(readFileSync(new URL('index.html',appUrl),'utf8'),{url:`https://qa.test/games/fast-hands/${forcedIntro?'?intro=1':''}`,pretendToBeVisual:true}),w=dom.window,d=w.document,$=id=>d.getElementById(id);
+ if(seen)w.sessionStorage.setItem('fast-hands:club-intro:v1','seen');
  const closes=[];w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){if(this.open){this.open=false;const fire=()=>this.dispatchEvent(new w.Event('close'));if(queued)closes.push(fire);else fire()}};
  let now=0,raf,videoPlaying=false;const requests=[];
  w.HTMLMediaElement.prototype.play=function(){videoPlaying=true;return Promise.resolve()};w.HTMLMediaElement.prototype.pause=function(){videoPlaying=false};Object.defineProperty($('demo3d'),'paused',{get:()=>!videoPlaying});
@@ -23,6 +24,17 @@ async function harness({fetcher,queued=false}={}){
  return {dom,w,d,$,requests,flushClose(){for(const fire of closes.splice(0))fire()},get leaderboardRequests(){return requests.filter(r=>['/api/leaderboard','/api/leaderboard/submissions'].includes(new URL(r.url,'https://qa.test').pathname));},get countRequests(){return requests.filter(r=>r.url==='/api/play-counts/starts');},frame,send,win,get:expr=>vm.runInContext(expr,context),cleanup(){assert.ok(requests.every(r=>['/api/leaderboard','/api/leaderboard/submissions','/api/play-counts/starts'].includes(new URL(r.url,'https://qa.test').pathname)),'unexpected network endpoint');w.dispatchEvent(new w.Event('pagehide'));dom.window.close()},get videoPlaying(){return videoPlaying}};
 }
 
+for(const [trigger,id,back] of [['entryRanking','rankingDialog','rankingReturn'],['about','info','closeInfo']])for(const queued of [false,true])test(`duck seen forced intro returns ${trigger} to Help without restarting (${queued?'queued':'immediate'} close)`,async()=>{
+ const h=await harness({seen:true,forcedIntro:true,queued});try{
+  const state=h.get('s');assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('entryClose').hidden,false);assert.equal(h.w.location.search,'');
+  for(let i=0;i<2;i++){
+   h.$(trigger).click();h.flushClose();assert.equal(h.$(id).open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.$(back).textContent,'返回玩法');
+   h.$('retry').click();h.send('pointerdown',.1);h.send('pointerup',.1);h.frame();assert.equal(h.get('s'),state);assert.equal(h.get('demo'),true);assert.equal(h.videoPlaying,false);
+   h.$(back).click();h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(trigger));assert.equal(h.get('s'),state);
+  }
+  h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.get('club.blocked()'),false);assert.equal(h.get('s'),state,'seen Help dismissal must not initialize a new demo');assert.equal(h.get('demo'),true);assert.equal(h.videoPlaying,true);assert.equal(h.countRequests.length,0);assert.equal(h.leaderboardRequests.filter(r=>r.options.method==='POST').length,0);
+ }finally{h.cleanup()}
+});
 test('real app opens a single accessible board from entry, pauses demo, blocks gestures and returns to entry',async()=>{
  const h=await harness();try{assert.equal(h.requests.length,0);h.$('entryRanking').click();await flush();assert.equal(h.$('rankingDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.videoPlaying,false);assert.equal(h.d.body.dataset.overlay,'ranking');h.send('pointerdown',.1);assert.equal(h.get('activePointer'),null);h.$('rankingReturn').click();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('entryStart').click();h.frame();assert.equal(h.videoPlaying,true);assert.equal(h.get('demo'),true);}finally{h.cleanup()}
 });
