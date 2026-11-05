@@ -24,8 +24,35 @@ function fixture({mode='duck',seen=false,blockedStorage=false,url,active=false,a
 test('every entrance shows its own illustrated game and one start action',()=>{
  for(const mode of ['duck','catch','duel']){const d=new JSDOM(html(mode)).window.document,intro=d.querySelector('#entryDialog');assert.ok(intro,`${mode} has the shared intro`);assert.equal(intro.querySelectorAll('.club-card').length,1);assert.equal(intro.querySelectorAll('.club-card img').length,1);assert.equal(intro.querySelectorAll('.intro-start').length,1);assert.equal(intro.querySelector('#entryStart').textContent.trim(),'開始遊戲');assert.ok(d.body.classList.contains('fast-hands-club'));assert.equal(d.querySelectorAll('[id]').length,new Set([...d.querySelectorAll('[id]')].map(el=>el.id)).size);}
 });
+// Automatic dialog focus must remain usable without being presented as keyboard
+// input. A real key switches the shared panel treatment back immediately.
+for(const mode of ['duck','catch','duel'])test(`${mode} panel focus follows keyboard and pointer input without blurring`,async()=>{
+ const f=fixture({mode});try{
+  f.d.documentElement.dataset.pfStartup='ready';
+  const summary=f.d.querySelector('#entryDialog summary');summary.focus();
+  assert.equal(f.d.activeElement,summary);
+  assert.equal(f.d.body.dataset.clubFocus,'pointer','automatic entry focus has no keyboard ring');
+  const key=(key,extra={})=>summary.dispatchEvent(new f.w.KeyboardEvent('keydown',{key,bubbles:true,cancelable:true,...extra}));
+  key('Shift');assert.equal(f.d.body.dataset.clubFocus,'pointer','modifier alone does not change the input mode');
+  key('Tab');assert.equal(f.d.body.dataset.clubFocus,'keyboard');assert.equal(f.d.activeElement,summary,'changing modality must not blur');
+  key('Escape');summary.dispatchEvent(new f.w.KeyboardEvent('keyup',{key:'Escape',bubbles:true}));
+  for(const pointerType of ['mouse','touch','pen']){
+   const pointer=new f.w.Event('pointerdown',{bubbles:true,cancelable:true});Object.defineProperties(pointer,{pointerId:{value:7},pointerType:{value:pointerType}});summary.dispatchEvent(pointer);
+   assert.equal(pointer.defaultPrevented,false);assert.equal(f.d.body.dataset.clubFocus,'pointer');assert.equal(f.d.activeElement,summary);
+   const release=new f.w.Event('pointerup',{bubbles:true});Object.defineProperty(release,'pointerId',{value:7});summary.dispatchEvent(release);
+   key('Tab');assert.equal(f.d.body.dataset.clubFocus,'keyboard');
+  }
+  f.$('entryStart').click();f.$('openMenu').focus();f.$('openMenu').click();f.$('entryClose').focus();
+  assert.equal(f.d.body.dataset.clubFocus,'keyboard','keyboard activation keeps the reopened close action visible');
+  f.$('entryClose').click();await releaseInput();
+  assert.equal(f.d.activeElement,f.$(mode==='duck'?'openMenu':'roundButton'),'dialog return keeps its existing usable target (duck retry is disabled before gameplay)');
+  assert.equal(f.d.body.dataset.clubFocus,'keyboard');
+  f.club.destroy();key('Tab');assert.equal(f.d.body.dataset.clubFocus,undefined,'destroy releases the modality marker');
+ }finally{f.close()}
+});
+
 test('first duck entry waits for Start then opens a score-free demo',()=>{
- const f=fixture();try{assert.equal(f.$('entryDialog').open,true);assert.equal(f.starts,0);assert.equal(f.$('entryClose').hidden,true);f.$('entryStart').click();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.w.sessionStorage.getItem('fast-hands:club-intro:v1'),'seen');assert.deepEqual(f.destinations,[]);}finally{f.close()}
+ const f=fixture();try{assert.equal(f.$('entryDialog').open,true);assert.equal(f.starts,0);assert.equal(f.$('entryClose').hidden,false);f.$('entryStart').click();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.w.sessionStorage.getItem('fast-hands:club-intro:v1'),'seen');assert.deepEqual(f.destinations,[]);}finally{f.close()}
 });
 test('first deep link starts its own practice, and returning session enters directly',()=>{
  const f=fixture({mode:'catch'});try{f.$('entryStart').click();assert.deepEqual(f.destinations,[]);assert.equal(f.starts,1);}finally{f.close()}
@@ -80,6 +107,26 @@ async function duckApp({seen=false,answer=false}={}){
 test('duck app returning session begins demonstration with no flash of entry',async()=>{
  const h=await duckApp({seen:true});try{h.frame();assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.body.dataset.clubReady,'true');assert.equal(h.get('demo'),true);}finally{h.close()}
 });
+test('duck upper Restart stays visible through demo and resets the held gesture without changing its existing outcome',async()=>{
+ const h=await duckApp({seen:true});try{
+  const restart=h.d.querySelector('.club-toolbar .header-tools #retry');assert.ok(restart,'Restart belongs above gameplay');
+  h.frame();assert.equal(restart.hidden,false);assert.equal(restart.disabled,true);assert.ok(h.d.querySelector('.actions #play'));
+  h.$('play').click();h.frame();assert.equal(restart.hidden,false);assert.equal(restart.disabled,false);
+  h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.get('s.phase'),'returning');assert.equal(h.captures.size,1);
+  restart.click();h.frame();assert.equal(h.get('s.phase'),'idle');assert.equal(h.get('demo'),false);assert.equal(h.captures.size,0);assert.equal(h.$('time').dataset.ms,'0');
+  h.send('pointermove',.1);h.send('pointerup',.1);h.frame(3000);assert.equal(h.get('s.phase'),'idle');assert.equal(h.$('resultDialog').open,false);
+  assert.ok(h.d.querySelector('#resultDialog #resultAgain'),'completed retry is not moved');
+ }finally{h.close()}
+});
+test('duck lower demonstration reset is hidden throughout an unfinished gesture and kept after its completed result',async()=>{
+ const h=await duckApp({seen:true});try{
+  h.frame();assert.equal(h.$('showDemo').hidden,true);h.$('play').click();h.frame();assert.equal(h.$('showDemo').hidden,true,'idle challenge has only the upper restart');
+  h.send('pointerdown',.1);h.frame();assert.equal(h.$('showDemo').hidden,true);h.send('pointermove',.9);h.frame();assert.equal(h.$('showDemo').hidden,true);
+  h.frame(1900);assert.equal(h.get('s.phase'),'returning');assert.equal(h.$('showDemo').hidden,true,'visual timeout with a held gesture is not a completed result');
+  h.send('pointerup',.9);h.frame(1500);assert.equal(h.$('showDemo').hidden,false);assert.equal(h.captures.size,0);
+  assert.ok(h.$('resultAgain').closest('#resultDialog'));h.$('resultClose').click();h.$('showDemo').click();h.frame();assert.equal(h.get('demo'),true);assert.equal(h.$('showDemo').hidden,true);
+ }finally{h.close()}
+});
 test('duck switch cancellation releases the pointer and suppresses a delayed cancelled-result modal',async()=>{
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.captures.size,1);h.switchGame();assert.equal(h.confirms,0);assert.equal(h.$('clubNavigationDialog').open,true);assert.equal(h.captures.size,0);assert.equal(h.get('s.phase'),'cancelled');h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.destinations.length,0);h.$('clubNavigationStay').click();h.send('pointerup',.9);await releaseInput();h.$('retry').click();assert.equal(h.get('s.phase'),'idle');}finally{h.close()}
 });
@@ -127,4 +174,59 @@ test('first-entry settings close returns to intro and later help preserves an in
    h.$('retry').click();h.send('pointerdown',.1);assert.equal(starts.length,1,'retry retains same official count');
   }finally{h.close()}
  }
+});
+
+for(const tool of ['headerRanking','headerSettings','openMenu'])test(`duck ${tool} interrupts held gesture and returns to the game with an explicit new gesture`,async()=>{
+ const h=await duckApp({seen:true});h.d.documentElement.dataset.pfStartup='ready';try{
+  h.$('play').click();h.frame();h.send('pointerdown',.1);h.send('pointermove',.9);h.$(tool).click();
+  const state=h.get('s');assert.equal(h.get('activePointer'),null);assert.equal(state.phase,'cancelled');
+  h.send('pointermove',.1);h.send('pointerup',.1);assert.equal(h.get('s'),state);
+  h.d.querySelector('dialog[open]').close();await new Promise(r=>setTimeout(r,5));
+  assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.d.activeElement,h.$('retry'));
+  assert.equal(h.get('s'),state);h.$('retry').click();assert.equal(h.get('s.phase'),'idle');
+ }finally{h.close()}
+});
+for(const tool of ['headerRanking','headerSettings','openMenu'])test(`duck ${tool} returns the completed result without resetting it`,async()=>{
+ const h=await duckApp({seen:true});h.d.documentElement.dataset.pfStartup='ready';try{
+  h.$('play').click();h.frame();h.send('pointerdown',.1);h.send('pointermove',.9);h.send('pointermove',.1);h.send('pointerup',.1);h.frame(1000);
+  assert.equal(h.$('resultDialog').open,true);const state=h.get('s');h.$(tool).click();
+  assert.equal(h.$('resultDialog').open,false);h.d.querySelector('dialog[open]').close();await new Promise(r=>setTimeout(r,5));
+  assert.equal(h.$('resultDialog').open,true);assert.equal(h.get('s'),state);
+ }finally{h.close()}
+});
+
+test('duck toolbar settings retains the existing input-mode and duck-sound controls',async()=>{
+ const h=await duckApp({seen:true});try{
+  h.$('headerSettings').click();assert.equal(h.$('info').open,true);
+  h.$('mode').value='touch';h.$('mode').dispatchEvent(new h.w.Event('change',{bubbles:true}));assert.equal(h.get('preference'),'touch');assert.equal(h.get('mode'),'touch');
+  h.$('sound').click();assert.equal(h.get('muted'),true);assert.match(h.$('sound').textContent,/關/);
+  h.$('info').close();await new Promise(r=>setTimeout(r,5));assert.equal(h.get('club.blocked()'),false);
+ }finally{h.close()}
+});
+
+// The first dismissal initializes only the ready/practice surface. Reopening
+// Help, repeated activation and a forced intro never run onStart a second time.
+for(const mode of ['duck','catch','duel'])for(const seen of [false,true])for(const forced of [false,true])for(const action of ['close','escape','start'])test(`${mode} ${seen?'returning':'first'} ${forced?'forced':'normal'} entry ${action} initializes once`,async()=>{
+ const f=fixture({mode,seen,url:`https://qa.test/games/fast-hands/${mode==='duck'?'':mode+'.html'}${forced?'?intro=1':''}`});try{
+  f.d.documentElement.dataset.pfStartup='ready';
+  if(seen&&!forced)f.$('openMenu').click();
+  assert.equal(f.$('entryClose').hidden,false);assert.equal(f.$('entryDialog').open,true);assert.equal(f.starts,seen?1:0);
+  if(action==='escape'){const cancel=new f.w.Event('cancel',{cancelable:true});f.$('entryDialog').dispatchEvent(cancel);if(!cancel.defaultPrevented)f.$('entryDialog').close();}
+  else f.$(action==='close'?'entryClose':'entryStart').click();
+  await releaseInput();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.club.seen,true);assert.equal(f.club.blocked(),false);
+  f.$('entryClose').click();f.$('entryStart').click();assert.equal(f.starts,1,'obsolete hidden controls cannot initialize again');
+  f.$('openMenu').click();f.$('entryStart').click();await releaseInput();assert.equal(f.starts,1);assert.deepEqual(f.destinations,[]);
+ }finally{f.close()}
+});
+for(const action of ['close','escape','start'])for(const input of ['keyboard','space','pointer'])test(`duck first ${action} drains ${input} release without starting a counted run`,async()=>{
+ const h=await duckApp();let posts=0;h.w.fetch=async()=>{posts++;return{ok:true,status:200}};try{
+  h.d.documentElement.dataset.pfStartup='ready';h.frame();const trigger=h.$(action==='start'?'entryStart':'entryClose'),key=action==='escape'?'Escape':input==='space'?'Space':'Enter';
+  function send(type){const e=input!=='pointer'?new h.w.KeyboardEvent(type,{key,code:key,bubbles:true,cancelable:true}):new h.w.Event(type,{bubbles:true,cancelable:true});if(input==='pointer')Object.defineProperty(e,'pointerId',{value:9});trigger.dispatchEvent(e);}
+  send(input!=='pointer'?'keydown':'pointerdown');
+  if(action==='escape'){const cancel=new h.w.Event('cancel',{cancelable:true});h.$('entryDialog').dispatchEvent(cancel);if(!cancel.defaultPrevented)h.$('entryDialog').close();}else trigger.click();
+  assert.equal(h.$('entryDialog').open,false);assert.equal(h.get('club.blocked()'),true);const repeat=new h.w.KeyboardEvent('keydown',{key:'Enter',code:'Enter',repeat:true,bubbles:true,cancelable:true});if(input!=='pointer'){trigger.dispatchEvent(repeat);assert.equal(repeat.defaultPrevented,true);}h.$('play').click();h.send('pointerdown',.1);h.frame();assert.equal(h.get('demo'),true);assert.equal(posts,0);
+  send(input!=='pointer'?'keyup':'pointerup');trigger.dispatchEvent(new h.w.KeyboardEvent('keyup',{key:'Enter',code:'Enter',bubbles:true}));h.send('pointerup',.1);h.$('play').dispatchEvent(new h.w.MouseEvent('click',{bubbles:true,cancelable:true,detail:1}));await releaseInput();h.frame();
+  assert.equal(h.get('demo'),true);assert.equal(h.get('s.phase'),'idle');assert.equal(posts,0);assert.equal(h.d.activeElement,h.$('play'));assert.equal(h.$('retry').hidden,false);assert.equal(h.$('retry').disabled,true);
+  h.$('play').click();h.frame();assert.equal(h.get('demo'),false);assert.equal(h.$('retry').disabled,false);assert.equal(posts,0,'pressing challenge only arms the ready surface');
+ }finally{h.close()}
 });

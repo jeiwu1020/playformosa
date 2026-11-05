@@ -1,3 +1,4 @@
+import {createUploadCooldown} from '../shared/upload-cooldown.mjs';
 import {LEADERBOARD_ENABLED} from '../shared/leaderboard-config.mjs';
 import {bindManualUploadScroll} from './leaderboard-scroll.mjs';
 export const formatLeaderboardScore=n=>n>0&&n<.001?'<0.001':n.toLocaleString(undefined,{maximumFractionDigits:3});
@@ -33,23 +34,31 @@ export function mountLeaderboard({document,game,entry,result,resultActionContain
  const uploadScroll=bindManualUploadScroll({panel,result});
  // Do not let nickname typing/IME bubble to game shortcuts. No form/implicit Enter submit.
  for(const event of ['keydown','keyup','keypress'])panel.addEventListener(event,e=>{if(e.key!=='Tab')e.stopPropagation();});
- let snapshot=null,payload=null,generation=0,pending=false,attempts=0,abort=null,timer=null;
- function stop(){uploadScroll.cancel();generation++;abort?.abort();abort=null;win.clearTimeout(timer);pending=false;submit.disabled=!snapshot||!device||attempts>=3;}
- function reset(){if(boardOpen&&shell)shell.closeView();stop();stopRanking();snapshot=null;payload=null;attempts=0;panel.open=false;panel.hidden=true;status.textContent='';input.disabled=false;submit.textContent='提交本次成績';}
- function setResult(r){reset();snapshot=eligibleResult(game,r);if(!snapshot)return;panel.hidden=false;scoreText.textContent='本次：'+scoreLabel(snapshot);submit.disabled=!device;if(!device)status.textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩。';}
+ let snapshot=null,payload=null,generation=0,pending=false,attempts=0,abort=null,timer=null,destroyed=false,showingCooldown=false;
+ const cooldown=createUploadCooldown(win,()=>{if(!destroyed)syncUpload()});
+ function syncUpload(){
+  const seconds=cooldown.remaining();submit.disabled=!snapshot||!device||pending||attempts>=3||seconds>0;
+  if(snapshot&&!pending&&attempts<3){
+   if(seconds>0){showingCooldown=true;submit.textContent='等待 '+seconds+' 秒';status.textContent=cooldown.message()}
+   else {submit.textContent=payload?'重試同一筆':'提交本次成績';if(showingCooldown){status.textContent=payload?'等待已結束，可手動重試同一筆；不會自動上傳。':'等待已結束，可手動提交本次成績；不會自動上傳。';showingCooldown=false}}
+  }
+ }
+ function stop(){uploadScroll.cancel();generation++;abort?.abort();abort=null;win.clearTimeout(timer);pending=false;syncUpload();}
+ function reset(){if(boardOpen&&shell)shell.closeView();stop();stopRanking();snapshot=null;payload=null;attempts=0;showingCooldown=false;panel.open=false;panel.hidden=true;status.textContent='';input.disabled=false;submit.textContent='提交本次成績';syncUpload();}
+ function setResult(r){reset();snapshot=eligibleResult(game,r);if(!snapshot)return;panel.hidden=false;scoreText.textContent='本次：'+scoreLabel(snapshot);syncUpload();if(!device)status.textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩。';}
  cancel.addEventListener('click',()=>{const wasPending=pending;stop();panel.open=false;if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';});
  panel.addEventListener('toggle',()=>{if(!panel.open&&pending){stop();status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';}});
  submit.addEventListener('click',async()=>{
-  if(!snapshot||!device||pending||attempts>=3)return;
+  if(destroyed||!snapshot||!device||pending||attempts>=3||cooldown.remaining()>0)return;
   if(!payload){const nickname=input.value.trim();if(!nickname||[...nickname].length>20||/[<>\p{Cc}\p{Cf}]/u.test(nickname)){status.textContent='請輸入1–20字純文字暱稱。';return;}let submissionId;try{submissionId=win.crypto.randomUUID();}catch{status.textContent='此瀏覽器無法建立提交編號。';return;}
    payload=Object.freeze({game,rules:b.rules,unit:b.unit,...snapshot,nickname,deviceId:device,submissionId});write('pf-leaderboard-nickname-v1',nickname);input.disabled=true;
   }
   const token=generation;pending=true;attempts++;submit.disabled=true;status.textContent='提交中…';abort=new win.AbortController();timer=win.setTimeout(()=>abort?.abort(),10000);
-  try{const response=await fetcher('/api/leaderboard/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:abort.signal});const data=await response.json();if(token!==generation)return;if(!response.ok||!data.accepted)throw Error(response.status===429?'limited':'network');status.textContent=(data.bestUpdated?'刷新線上最佳！':'已收錄；保留線上最佳。')+(data.own?' 第 '+data.own.rank+' 名，最佳 '+scoreLabel(data.own)+(data.own.gap===null?'，目前領先。':'，距上一個較佳成績 '+gapLabel(data.own)+'。'):'');submit.textContent='已提交';attempts=3;rankTime=0;stopRanking();refreshRanking(true);
-  }catch(error){if(token===generation){status.textContent=error.message==='limited'?'提交暫時達限，請稍後再試；仍可繼續遊玩。':'未確認提交完成，可手動重試；不會重複入榜。';submit.textContent='重試同一筆';}}
-  finally{if(token===generation){win.clearTimeout(timer);pending=false;submit.disabled=attempts>=3;if(attempts>=3&&submit.textContent!=='已提交')status.textContent+=' 本回合已達重試次數，請稍後再玩一局。';}}
+  try{const response=await fetcher('/api/leaderboard/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:abort.signal});const data=await response.json().catch(error=>{if(response.status===429)return null;throw error});if(token!==generation)return;if(response.status===429){attempts--;status.textContent=cooldown.limited(response,data);return;}if(!response.ok||!data?.accepted)throw Error('network');status.textContent=(data.bestUpdated?'刷新線上最佳！':'已收錄；保留線上最佳。')+(data.own?' 第 '+data.own.rank+' 名，最佳 '+scoreLabel(data.own)+(data.own.gap===null?'，目前領先。':'，距上一個較佳成績 '+gapLabel(data.own)+'。'):'');submit.textContent='已提交';attempts=3;cooldown.accepted(data);rankTime=0;stopRanking();refreshRanking(true);
+  }catch(error){if(token===generation){status.textContent='未確認提交完成，可手動重試；不會重複入榜。';submit.textContent='重試同一筆';}}
+  finally{if(token===generation){win.clearTimeout(timer);pending=false;syncUpload();if(attempts>=3&&submit.textContent!=='已提交')status.textContent+=' 本回合已達重試次數，請稍後再玩一局。';}}
  });
  function suspend(){const wasPending=pending;stop();if(!boardOpen)stopRanking();if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';}
  const resultDialog=result?.closest('dialog');resultDialog?.addEventListener('close',suspend);
- return {setResult,reset,suspend,showRanking,destroy(){uploadScroll.destroy();shell?.setRankingAction?.(null);reset();resultDialog?.removeEventListener('close',suspend);stopRanking();ranking.remove();panel.remove();headerAction.remove();resultAction.remove();document.body.classList.remove('pf-has-ranking');}};
+ return {setResult,reset,suspend,showRanking,destroy(){destroyed=true;cooldown.destroy();uploadScroll.destroy();shell?.setRankingAction?.(null);reset();resultDialog?.removeEventListener('close',suspend);stopRanking();ranking.remove();panel.remove();headerAction.remove();resultAction.remove();document.body.classList.remove('pf-has-ranking');}};
 }

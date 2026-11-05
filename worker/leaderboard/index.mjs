@@ -80,7 +80,8 @@ export async function handleRequest(request,env,now=Date.now()){
   let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{return json({error:'invalid_submission'},400);}
   if(isFast(data.game)&&url.search)return json({error:'invalid_submission'},400);
   const result=await repository(data.game).submit(data,resolveBoard(data.game,data.rules),now);
-  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'60'}:{});
+  const retryHeaders=result.error==='limited'&&result.reason==='cooldown'?{'Retry-After':String(result.retryAfterSeconds)}:{};
+  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);
  }catch{return json({error:'temporarily_unavailable'},503);}
 }
 export default {fetch(request,env){return handleRequest(request,env);}};

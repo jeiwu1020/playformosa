@@ -1,9 +1,10 @@
+import {readBeforePolish} from './helpers/fast-hands-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fastHandsManifest,reverseFastHands,readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforePolish(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 const baselineBytes=read('tests/fixtures/fast-hands-main-baseline.json');
