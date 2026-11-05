@@ -72,9 +72,33 @@ export function assertCharacterAppearanceCurrent(path,bytes,ledger=characterAppe
 /** Historical gate: accept exact reviewed current bytes or exact published parent bytes. */
 export function reverseCharacterAppearance(path,bytes,ledger=characterAppearanceLedger()){
  validateCharacterAppearanceLedger(ledger);
- const row=rowFor(path,ledger),current=Buffer.from(bytes);
+ const row=rowFor(path,ledger),current=reverseDuelCoverFingers(path,bytes);
  if(!row)return current;
  if(sha(current)===row.beforeSha256)return validateParent(row,current);
  assertCharacterAppearanceCurrent(path,current,ledger);
  return validateParent(row,readFileSync(new URL(row.beforeAsset,root)));
+}
+
+// The later cover-only repair is reversed before historical character gates.
+// Existing character pins and manifests remain immutable published history.
+const DUEL_COVER_PATH='public/games/fast-hands/assets/intro-duel-generated.webp';
+const DUEL_COVER_BEFORE='8b5c6b7d62d35d4f4b7f9bc9e9c14299a53ff32885c011b0f0a0ff1da4581979';
+const DUEL_COVER_CURRENT='c3d7a570dbecf10b6d99a40f4d98a823a1a86f32727c5c39a98cbe938c15765d';
+function duelCoverPreimage(){
+ const before=readFileSync(new URL('docs/fast-hands/baselines/duel-cover-fingers/'+DUEL_COVER_PATH,root));
+ assert.equal(sha(before),DUEL_COVER_BEFORE,'Restored duel cover fingers bytes');
+ assert.equal(blob(before),'2e84ea583b5e758264fece8729d461bdcf4cda0c','Restored duel cover fingers Git blob');
+ return Buffer.from(before);
+}
+export function assertDuelCoverFingersCurrent(path,bytes){
+ assert.equal(path,DUEL_COVER_PATH,'Unapproved duel cover path');
+ const current=Buffer.from(bytes);
+ assert.equal(sha(current),DUEL_COVER_CURRENT,'Duel cover fingers current bytes '+path);
+ duelCoverPreimage();return current;
+}
+export function reverseDuelCoverFingers(path,bytes){
+ const current=Buffer.from(bytes);
+ if(path!==DUEL_COVER_PATH)return current;
+ if(sha(current)===DUEL_COVER_BEFORE)return duelCoverPreimage();
+ assertDuelCoverFingersCurrent(path,current);return duelCoverPreimage();
 }

@@ -1,3 +1,4 @@
+import {reverseDuelCoverFingers} from '../helpers/fast-hands-character-appearance-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,mkdtempSync,mkdirSync,cpSync,writeFileSync,rmSync} from 'node:fs';
@@ -93,7 +94,7 @@ test('all unchanged game files, rules, URLs, counters and historical provenance 
  assert.ok(api);const ledger=api.characterAppearanceLedger();
  for(const name of ['levels-rules.mjs','levels-motion.mjs','levels-stage.mjs','levels-leaderboard.mjs','levels-app.mjs','club.css','catch.html','duel.html','index.html','play-counts.mjs','three3d/timeline.mjs'])assert.ok(ledger.preserved.some(r=>r.path===prefix+name),name);
  for(const p of ['public/index.html','src/catalog.mjs','worker/play-counts/index.mjs','worker/leaderboard/index.mjs','wrangler.jsonc'])assert.ok(ledger.preserved.some(r=>r.path===p),p);
- for(const row of [...ledger.preserved,...ledger.history])assert.equal(blob(read(row.path)),row.gitBlob,row.path);
+ for(const row of [...ledger.preserved,...ledger.history])assert.equal(blob(reverseDuelCoverFingers(row.path,read(row.path))),row.gitBlob,row.path);
 });
 
 test('unknown paths are copied without claiming current appearance approval',()=>{

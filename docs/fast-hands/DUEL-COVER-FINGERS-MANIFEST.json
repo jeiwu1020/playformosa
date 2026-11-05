@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "93007e01de672f5f62b60074a0fce2dd9d454be5",
+  "baseTree": "922dbd016c26f871fc20b02221f739bd01aaf625",
+  "scope": "Repair only the reaching hand in the duel thumbnail to five digits. No gameplay or routing changes.",
+  "generator": "Built-in imagegen, precise-object-edit; 1536x1024 source, WebP quality 88",
+  "visualReview": "Full frame and 2x hand crop reviewed: thumb, index, middle, ring and little finger are distinct and naturally connected. Same character identities, pose and scene composition. Imagegen may resample fine texture outside the edited hand.",
+  "files": [
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "beforeAsset": "docs/fast-hands/baselines/duel-cover-fingers/public/games/fast-hands/assets/intro-duel-generated.webp",
+      "beforeSha256": "8b5c6b7d62d35d4f4b7f9bc9e9c14299a53ff32885c011b0f0a0ff1da4581979",
+      "sha256": "c3d7a570dbecf10b6d99a40f4d98a823a1a86f32727c5c39a98cbe938c15765d"
+    },
+    {
+      "path": "tests/helpers/fast-hands-character-appearance-provenance.mjs",
+      "beforeAsset": "docs/fast-hands/baselines/duel-cover-fingers/tests/helpers/fast-hands-character-appearance-provenance.mjs",
+      "beforeSha256": "8bed2ad1513bed14936d709a0e98a67ab10e7f23907b177264cff78a329dcfbf",
+      "sha256": "5987c1290e760bd89d5ce6b1df572d252cc9587c91ff637f440e268abc92e0dc"
+    },
+    {
+      "path": "tests/fast-hands/character-appearance-provenance.test.mjs",
+      "beforeAsset": "docs/fast-hands/baselines/duel-cover-fingers/tests/fast-hands/character-appearance-provenance.test.mjs",
+      "beforeSha256": "002255170cdd88b241c364cc360f4a431cc576b28844b629a77236ea8e42e3f2",
+      "sha256": "96b4ff03952263c82d08391fa024332c842e6b9d80e123ee7a27cbbf2dbe070d"
+    }
+  ]
+}
