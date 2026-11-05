@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><meta name="robots" content="noindex"><title>快手王｜手感測試</title><link rel="stylesheet" href="../fast-hands/levels.css"><link rel="stylesheet" href="style.css"></head>
+<body class="feel-test" data-phase="idle" data-renderer="pending" data-level="catch">
+<main class="test-main">
+ <header class="test-header"><div><p class="eyebrow">PLAYFORMOSA · TIMING LAB</p><h1>快手王 <span>手感測試</span></h1></div><a id="returnGame" class="quiet-button" href="../fast-hands/catch.html">回到原遊戲 ↗</a></header>
+ <p class="test-notice"><strong>獨立測試</strong> 不計遊玩次數 · 不上傳排行 · 不改正式設定</p>
+ <div class="test-layout">
+ <details id="configPanel" class="config-panel" open><summary>測試設定 <span>調整速度與等待時間</span></summary>
+ <form id="testForm" novalidate><fieldset id="testConfig">
+  <label class="field">測試關卡<select id="testMode"><option value="catch">02 彈無虛接</option><option value="duel">03 快手對決</option></select></label>
+  <section id="catchSettings" aria-label="接彈參數"><label class="field">接彈速度<select id="catchMode"><option value="stage">指定正式關卡</option><option value="flight">自訂飛行時間</option></select></label><label id="stageField" class="field">關卡數<input id="stageNumber" type="number" inputmode="numeric" min="1" max="9999" step="1" value="1"><small>1–9999 關，沿用正式關卡速度</small></label><label id="flightField" class="field" hidden>飛行時間（ms）<input id="flightMs" type="number" inputmode="numeric" min="100" max="3000" step="1" value="400"><small>100–3000 ms；1000 ms = 1 秒</small></label></section>
+  <section id="duelSettings" aria-label="對決參數" hidden><label class="field">快手王反應<select id="aiMode"><option value="random">維持原本隨機</option><option value="fixed">指定反應時間</option></select></label><label id="aiField" class="field" hidden>AI 反應（ms）<input id="aiMs" type="number" inputmode="numeric" min="80" max="3000" step="1" value="250"><small>80–3000 ms</small></label><p class="field-note">原本隨機為 150–280 ms，另有 14% 機率多花 80–160 ms。測試會等你出手，再比較時間。</p></section>
+  <label class="field">準備等待<select id="waitMode"><option value="random">原本隨機（900–2300 ms）</option><option value="fixed">指定等待時間</option></select></label><label id="waitField" class="field" hidden>等待時間（ms）<input id="waitMs" type="number" inputmode="numeric" min="300" max="5000" step="1" value="1200"><small>300–5000 ms；固定等待較容易預判</small></label>
+ </fieldset><p id="settingsPreview" class="settings-preview" aria-live="polite"></p><p id="configError" class="config-error" role="alert"></p><p class="field-note">設定只作用於此測試頁。每次只測一回；隨機項目每回重新抽取。</p></form></details>
+ <section class="test-play" aria-label="手感測試場">
+  <section id="stage" class="level-stage" aria-label="原遊戲模型測試場">
+   <div class="stage-top"><span>TEST ONLY · 不計分</span><span id="renderMode">正在準備角色…</span></div><div id="signal" class="signal">看準掌心</div>
+   <div class="scene-viewport"><div class="scene-loading" role="status">正在準備角色…</div><div class="fallback-layer"><img id="fallbackScene" class="fallback-scene" src="../fast-hands/assets/levels-catch-ready.png" alt="快手王測試場角色"><img id="fallbackBlend" class="fallback-scene fallback-blend" src="../fast-hands/assets/levels-catch-ready.png" alt="" aria-hidden="true"><div class="fallback-flight" aria-hidden="true"><div id="foamBall" class="foam-dart"><i></i></div></div><div id="itemArt" class="item-art scene-item" hidden aria-hidden="true"></div></div><canvas id="levelCanvas" class="level-canvas" aria-hidden="true"></canvas></div>
+  </section>
+  <button id="retryArt" class="quiet-button" type="button" hidden>重新載入測試圖像</button>
+  <div class="test-feedback"><h2 id="testStatus" aria-live="polite">選好設定，測一回手感。</h2><p id="runSettings">測試只用來比較本裝置的操作手感。</p></div>
+  <div class="test-controls"><button id="testAction" class="action-button" type="button" hidden>接！</button><button id="startTest" class="action-button" type="button" disabled>開始測試</button><div class="control-note"><span>觸控／滑鼠 · 空白鍵或 Enter</span><button id="cancelTest" type="button" class="quiet-button" hidden>取消本回</button></div></div>
+  <section id="testResult" class="test-result" aria-label="本回測試結果" aria-live="polite" hidden></section>
+ </section>
+ </div>
+ <p class="timing-note">單位均為毫秒（ms）。計時從本裝置實際顯示訊號的畫格起算；螢幕更新率、觸控與瀏覽器仍會影響結果，不代表真人能力紀錄。切換視窗、旋轉或畫面停頓時會暫停，重新測量。</p>
+ <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
+ <noscript>請開啟 JavaScript 才能使用手感測試。</noscript>
+</main><script type="module" src="app.mjs"></script></body></html>
