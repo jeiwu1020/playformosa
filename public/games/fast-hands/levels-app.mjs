@@ -62,6 +62,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   const visualState=replaySample?state:{...state,presentation:{pressedAt,settledAt}},motion=sampleLevelMotion({mode,state:visualState,now}),motionReady=motion.complete;
   const summaryReady=!replay&&state.phase==='done'&&!state.practice&&motionReady&&!club?.blocked?.()&&!rankingOpen;
   const practiceChoices=!replay&&state.practice&&state.phase==='done';
+  $('restartButton').disabled=actualState.phase==='idle'||artError||rendererState==='pending';
   document.body.dataset.practiceChoices=String(practiceChoices);document.body.dataset.replay=String(Boolean(replay));document.body.dataset.phase=state.phase;document.body.dataset.summary=String(summaryReady&&!summaryDismissed);
   if(state!==lastRendered||motionReady!==lastMotionReady||motion.revealStage!==lastReveal){
    lastReveal=motion.revealStage;
@@ -188,7 +189,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  listen($('soundToggle'),'click',()=>{sound.unlock();sound.setMuted(!sound.muted);$('soundToggle').textContent=sound.muted?'音效：關':'音效：開';$('soundToggle').setAttribute('aria-pressed',String(sound.muted));});
  listen($('summaryClose'),'click',()=>{if(!club?.blocked?.())closeSummary();});listen($('summary'),'close',()=>{if($('summary').open||state.phase!=='done'||state.practice)return;summaryDismissed=true;$('summary').hidden=true;document.body.dataset.summary='false';});listen($('summaryAgain'),'click',()=>{if(club?.blocked?.())return;closeSummary();begin();});listen($('summaryPractice'),'click',practice);
  listen($('resultPrev'),'click',()=>{if(resultPage>0){resultPage--;summary();}});listen($('resultNext'),'click',()=>{if((resultPage+1)*10<state.results.length){resultPage++;summary();}});
- listen($('practiceAgain'),'click',repeatPractice);listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',practice);
+ listen($('practiceAgain'),'click',repeatPractice);listen($('roundButton'),'click',begin);listen($('practiceButton'),'click',practice);listen($('restartButton'),'click',()=>{if(!$('restartButton').disabled)practice();});
  listen($('actionButton'),'pointerdown',event=>{if(event.isPrimary===false||(event.pointerType==='mouse'&&event.button!==0))return;event.preventDefault();act();});
  listen($('actionButton'),'click',event=>{if(event.detail===0)act();});
  listen(document,'keydown',event=>{if(!['Space','Enter'].includes(event.code))return;const target=event.target;if(target?.closest?.('a,input,select,textarea,summary')||target?.closest?.('button')!==$('actionButton')&&target?.closest?.('button'))return;if(!['waiting','live'].includes(state.phase))return;event.preventDefault();if(!event.repeat)act();});

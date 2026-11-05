@@ -44,7 +44,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  function notify(){document.dispatchEvent(new window.Event('clubchange'));}
  function ready(){document.body.dataset.clubReady='true';notify();}
  function openIntro(){
-  close&&(close.hidden=!seen);
+  close&&(close.hidden=false);
   entry.hidden=false;
   if(!entry.open)entry.showModal();
   notify();
@@ -160,12 +160,19 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   for(const dialog of document.querySelectorAll('dialog[open]'))if(dialog!==entry)dialog.close();
   openIntro();interrupting=false;notify();
  }
- function begin(){
-  if(destroyed||navigating||pending||draining)return;
-  const firstStart=!seen;
+ function begin({dismissed=false}={}){
+  if(destroyed||navigating||pending||draining||!entry.open)return;
+  const firstStart=!seen,origin=document.activeElement;
   remember();closeIntro();
-  // Help never routes to another game or restarts the current run.
-  if(firstStart)onStart();
+  // Start, X and Escape all enter the same score-free ready surface once.
+  // Initialize before the release lock: game startup checks blocked() too.
+  // Reopened Help never restarts a run or resumes a paused round.
+  if(firstStart){
+   onStart();
+   if(dismissed||heldKeys.size||heldPointers.size){
+    draining=true;suppressReleaseClick=true;returningOverlay={reason:'intro',origin};finishDrain();
+   }
+  }
   ready();
  }
  function onClick(event){
@@ -192,9 +199,9 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  listen(dialog,'cancel',event=>{event.preventDefault();chooseNavigation(false);});listen(dialog,'close',()=>{if(pending&&!dialog.open)chooseNavigation(false);});
  listen(document,'click',onClick);
  listen(start,'click',begin);
- listen(close,'click',()=>{if(seen)closeIntro();});
+ listen(close,'click',()=>begin({dismissed:true}));
  listen(menu,'click',showIntro);
- listen(entry,'cancel',event=>{if(!seen)event.preventDefault();});
+ listen(entry,'cancel',event=>{event.preventDefault();begin({dismissed:true});});
  listen(entry,'close',()=>{if(!entry.open&&overlay?.reason==='intro')endOverlay();notify();});
  listen(window,'pagehide',event=>{
   onInterrupt({reason:'pagehide'});abandonNavigation();

@@ -36,7 +36,7 @@ for(const [trigger,id,back] of [['entryRanking','rankingDialog','rankingReturn']
  }finally{h.cleanup()}
 });
 test('real app opens a single accessible board from entry, pauses demo, blocks gestures and returns to entry',async()=>{
- const h=await harness();try{assert.equal(h.requests.length,0);h.$('entryRanking').click();await flush();assert.equal(h.$('rankingDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.videoPlaying,false);assert.equal(h.d.body.dataset.overlay,'ranking');h.send('pointerdown',.1);assert.equal(h.get('activePointer'),null);h.$('rankingReturn').click();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('entryStart').click();h.frame();assert.equal(h.videoPlaying,true);assert.equal(h.get('demo'),true);}finally{h.cleanup()}
+ const h=await harness();try{assert.equal(h.requests.length,0);h.$('entryRanking').click();await flush();assert.equal(h.$('rankingDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.videoPlaying,false);assert.equal(h.d.body.dataset.overlay,'ranking');h.send('pointerdown',.1);assert.equal(h.get('activePointer'),null);h.$('rankingReturn').click();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('entryStart').click();h.frame();assert.equal(h.videoPlaying,false,'the earlier held pointer still blocks dismissal release');h.send('pointerup',.1);await drainToolbar();h.frame();assert.equal(h.videoPlaying,true);assert.equal(h.get('demo'),true);}finally{h.cleanup()}
 });
 
 test('actual successful touch input freezes raw milliseconds and preserves upload after result reopen',async()=>{
@@ -102,18 +102,30 @@ for(const [child,dialog,back] of [['entryRanking','rankingDialog','rankingReturn
  const h=await harness({queued:true});try{
   for(let i=0;i<2;i++){
    h.$(child).click();h.flushClose();assert.equal(h.$(dialog).open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.$(back).textContent,'返回玩法');
-   h.$(back).click();h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(child));assert.equal(h.$('entryClose').hidden,true);
+   h.$(back).click();h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(child));assert.equal(h.$('entryClose').hidden,false);
    h.$(dialog).dispatchEvent(new h.w.Event('close'));assert.equal(h.$('entryDialog').open,true);assert.equal(h.leaderboardRequests.filter(r=>r.options.method==='POST').length,0);
   }
   h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.get('demo'),true);assert.equal(h.videoPlaying,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,0);
  }finally{h.cleanup()}
 });
 for(const child of ['entryRanking','about'])test(`duck unstarted ${child} BFCache returns to initial Help instead of stranding the player`,async()=>{
- const h=await harness({queued:true});try{h.$(child).click();h.flushClose();for(const type of ['pagehide','pageshow'])h.w.dispatchEvent(new h.w.PageTransitionEvent(type,{persisted:true}));h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('entryClose').hidden,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.get('demo'),true);assert.equal(h.countRequests.length,0);h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.videoPlaying,true)}finally{h.cleanup()}
+ const h=await harness({queued:true});try{h.$(child).click();h.flushClose();for(const type of ['pagehide','pageshow'])h.w.dispatchEvent(new h.w.PageTransitionEvent(type,{persisted:true}));h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('entryClose').hidden,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.get('demo'),true);assert.equal(h.countRequests.length,0);h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.videoPlaying,true)}finally{h.cleanup()}
 });
 test('duck a stale Settings close after a new toolbar opening cannot unlock gameplay or dismiss Help',async()=>{
  const h=await harness();try{h.win();const state=h.get('s');h.$('openMenu').click();h.$('about').click();h.$('closeInfo').click();h.$('about').click();h.$('info').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('info').open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('retry').click();assert.equal(h.get('s'),state);h.$('closeInfo').click();h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true);assert.equal(h.get('s'),state)}finally{h.cleanup()}
 });
 test('duck duplicate child ranking close after switching to upload never stacks its result over Help',async()=>{
  const h=await harness();try{h.win();h.$('openMenu').click();h.$('entryRanking').click();h.$('resultUpload').click();assert.equal(h.$('rankingReturn').textContent,'返回玩法');h.$('rankingReturn').click();h.$('rankingDialog').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true)}finally{h.cleanup()}
+});
+
+for(const action of ['entryClose','entryStart','escape'])test(`duck first ${action} initializes before BFCache can clear a held-input drain`,async()=>{
+ const h=await harness({queued:true});try{
+  h.d.documentElement.dataset.pfStartup='ready';h.frame();const initial=h.get('s'),trigger=h.$(action==='entryStart'?'entryStart':'entryClose');
+  trigger.dispatchEvent(new h.w.KeyboardEvent('keydown',{key:'Enter',code:'Enter',bubbles:true,cancelable:true}));
+  if(action==='escape')h.$('entryDialog').dispatchEvent(new h.w.Event('cancel',{cancelable:true}));else trigger.click();
+  const ready=h.get('s');assert.notEqual(ready,initial,'onStart initialized the demo before waiting for release');assert.equal(h.get('club.blocked()'),true);assert.equal(h.get('club.seen'),true);
+  for(const type of ['pagehide','pageshow'])h.w.dispatchEvent(new h.w.PageTransitionEvent(type,{persisted:true}));h.flushClose();await drainToolbar();h.frame();
+  assert.equal(h.get('club.blocked()'),false);assert.equal(h.$('entryDialog').open,false);assert.equal(h.get('s'),ready);assert.equal(h.get('demo'),true);assert.equal(h.get('s.phase'),'idle');assert.equal(h.countRequests.length,0);assert.equal(h.d.activeElement,h.$('play'));
+  h.$('openMenu').click();h.flushClose();h.$('entryClose').click();h.flushClose();await drainToolbar();assert.equal(h.get('s'),ready,'reopening Help cannot repeat initialization');
+ }finally{h.cleanup()}
 });

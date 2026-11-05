@@ -12,10 +12,10 @@ function fixture(mode){
 test('all three pages place the only in-progress restart in the same upper toolbar slot',()=>{
  for(const file of ['index','catch','duel']){
   const d=new JSDOM(readFileSync(new URL(`../../public/games/fast-hands/${file}.html`,import.meta.url),'utf8')).window.document;
-  assert.deepEqual([...d.querySelectorAll('header .header-tools button')].map(b=>b.textContent.trim()),['重來','排行','設定','玩法']);
+  assert.deepEqual([...d.querySelectorAll('header.club-toolbar > a, header .header-tools button')].map(b=>b.textContent.trim()),['首頁','重來','排行','設定','玩法']);
   const id=file==='index'?'retry':'restartButton',restart=d.getElementById(id);
   assert.equal(restart.closest('.club-toolbar .header-tools'),d.querySelector('.club-toolbar .header-tools'));
-  assert.match(restart.getAttribute('aria-label'),/重新開始/);
+  assert.match(restart.getAttribute('aria-label'),/重新開始/);assert.equal(restart.hidden,false);assert.equal(restart.disabled,true,'all initial restart controls are visibly disabled');
   assert.equal(d.querySelector(`.actions #${id}, .level-controls #${id}`),null);
   assert.ok(d.querySelector(file==='index'?'.actions #play':'.primary-control #roundButton'),'real primary action remains below gameplay');
   assert.ok(d.querySelector(file==='index'?'#resultDialog #resultAgain':'#summary #summaryAgain'),'result retry stays inside its completed ticket');

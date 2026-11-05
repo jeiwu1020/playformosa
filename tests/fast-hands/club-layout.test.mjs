@@ -162,10 +162,10 @@ test('a direct entry to any game presents the same introduction heading and star
   assert.deepEqual(styles[2],styles[0]);
 });
 
-test('wide short landscape keeps two toolbar rows without moving controls alongside the stage', () => {
+test('wide short landscape keeps controls and identity above navigation without moving controls alongside the stage', () => {
   const duck=page('duck',844,390);
-  assert.equal(duck.style('.game-header').gridTemplateRows,'44px 44px');
-  assert.equal(duck.style('.game-header > .level-switch').gridRow,'2');
+  assert.equal(duck.style('.game-header').gridTemplateRows,'44px 44px 44px');
+  assert.equal(duck.style('.game-header > .level-switch').gridRow,'3');
   assert.equal(cascadeWinner(duck,'.game-header > .pf-studio-heading','display').value,'flex');
   assert.equal(duck.style('#pad').height,'100px');
   duck.dom.window.close();
@@ -215,7 +215,7 @@ test('shared toolbars keep all four named actions visible and matching at phone 
  }
 });
 
-test('all three home links keep identical full-size targets with a compact accessible phone icon',()=>{
+test('all three home links keep equal-grid full-size targets with visible Home text',()=>{
  for(const [width,height] of [...sizes.filter(([w])=>w!==1920),[1180,820]]){
   const pages=['duck','catch','duel'].map(name=>page(name,width,height));
   try{
@@ -223,8 +223,8 @@ test('all three home links keep identical full-size targets with a compact acces
     const s=p.style('.club-toolbar>a');
     assert.equal(s.padding,'6px',`${width}×${height}: home padding is shared`);
     assert.equal(s.whiteSpace,'nowrap',`${width}×${height}: home label never wraps`);
-    assert.equal(s.width,width<=600?'44px':'56px');assert.equal(s.height,'44px');assert.equal(s.minHeight,'44px');
-    assert.match(p.style('.club-toolbar').gridTemplateColumns,width<=600?/^44px /:/^56px /,'home keeps its touch-target grid width');
+    assert.equal(s.width,'100%');assert.equal(p.document.querySelector('.club-toolbar>a').textContent.trim(),'首頁');assert.equal(s.height,'44px');assert.equal(s.minHeight,'44px');
+    assert.equal(p.style('.club-toolbar').gridTemplateColumns,'repeat(5,minmax(0,1fr))','Home shares the five equal-width columns');
     return [s.padding,s.whiteSpace,s.width,s.height,s.minHeight];
    });
    assert.deepEqual(signatures[0],signatures[1]);assert.deepEqual(signatures[1],signatures[2]);
@@ -284,11 +284,11 @@ test('real toolbar cascades keep actions first and unclipped titles separate on 
   const p=page(mode,width,height);try{
    if(mode==='duck'){assert.ok(p.document.body.matches('.pf-game.pf-fast-hands.fast-hands-club'));assert.ok(p.document.querySelector('.club-toolbar>div.brand.pf-studio-heading'));}
    const winner=(selector,property,expected)=>{const found=cascadeWinner(p,selector,property);assert.equal(found?.value,expected,`${mode} ${width}×${height} ${selector} ${property}: winning selector ${found?.selector}`);};
-   winner('.club-toolbar>div','grid-column',width<=600?'1/-1':'2');winner('.club-toolbar>div','grid-row',width<=600?'2':'1');winner('.club-toolbar>div','display','flex');winner('.club-toolbar>div','min-width','0');
+   winner('.club-toolbar>div','grid-column','1/-1');winner('.club-toolbar>div','grid-row','2');winner('.club-toolbar>div','display','flex');winner('.club-toolbar>div','min-width','0');
    winner('.club-toolbar>a','grid-column','1');winner('.club-toolbar>a','grid-row','1');winner('.club-toolbar>a','white-space','nowrap');winner('.club-toolbar>a','padding','6px');
-   winner('.club-toolbar .header-tools','grid-column',width<=600?'2':'3');winner('.club-toolbar .header-tools','grid-row','1');
+   winner('.club-toolbar .header-tools','grid-column','2/-1');winner('.club-toolbar .header-tools','grid-row','1');
    winner('.club-toolbar h1','font-size',width<=600?'18px':'22px');winner('.club-toolbar h1','line-height','1.2');winner('.club-toolbar h1','white-space','nowrap');winner('.club-toolbar h1','overflow','visible');winner('.club-toolbar h1','text-overflow','clip');
-   if(mode==='duck'){winner('.game-header>.level-switch','grid-row',width<=600?'3':'2');winner('.game-header>.level-switch','grid-column','1/-1');}
+   if(mode==='duck'){winner('.game-header>.level-switch','grid-row','3');winner('.game-header>.level-switch','grid-column','1/-1');}
    else winner('.level-main>.level-switch','grid-area','nav');
    // JSDOM incorrectly lets the later, less-specific studio sheet win these grid properties.
    // The browser-specific cascade is asserted above instead of accepting that shortcut.
@@ -330,32 +330,33 @@ assert.equal(p.document.querySelector('.result-dialog').classList.contains('club
  }
 });
 
-// Four tools and Home stay on the first row. A narrow title-and-studio row
-// avoids truncation and frees vertical space versus the old two 44px tool rows.
-// Resolve actual authored specificity as well as checking the available width.
-test('four first-row actions fit with full touch targets, a visible studio name and no title clipping',()=>{
- for(const [width,height] of [[320,568],[333,505],[375,667],[390,844],[568,260],[600,360],[601,360],[683,384],[844,390],[1000,560],[1181,820],[1366,768]])for(const mode of ['duck','catch','duel']){
+// Home occupies one of five equal tracks. The four-tool subgrid spans the
+// remaining tracks with the same gap, so every target is equal at all widths.
+// Inspect real CSS specificity, not just last declarations or JSDOM layout.
+test('five equal toolbar buttons stay readable in one row with full identity below',()=>{
+ for(const [width,height] of [[320,568],[333,505],[375,667],[390,844],[568,260],[600,360],[601,360],[683,384],[844,390],[1000,560],[1181,820],[1366,768],[1920,1080]])for(const mode of ['duck','catch','duel']){
   const p=page(mode,width,height);try{
-   const narrow=width<=600,win=(selector,property)=>cascadeWinner(p,selector,property)?.value;
-   const actions=p.document.querySelectorAll('.club-toolbar .header-tools>button');assert.equal(actions.length,4);
-   for(const action of actions){action.hidden=false;assert.equal(win(`#${action.id}`,'min-width'),'44px');assert.equal(win(`#${action.id}`,'min-height'),'44px');assert.equal(win(`#${action.id}`,'height'),'44px');assert.equal(win(`#${action.id}`,'width'),narrow?'44px':'48px');}
-   const columns=win('.club-toolbar','grid-template-columns');assert.equal(columns,narrow?'44px minmax(0,1fr)':'56px minmax(0,1fr) auto');
-   assert.equal(win('.club-toolbar .header-tools','grid-row'),'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),narrow?'2':'3');
-   assert.equal(win('.club-toolbar>div','grid-row'),narrow?'2':'1');assert.equal(win('.club-toolbar>div','display'),'flex');
-   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.equal(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,'島遊無界工作室 | PLAYFORMOSA STUDIO');assert.equal(win('.club-toolbar .club-studio-en','display'),'inline','English studio name stays visible on phones too');
-   assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('aria-label'),'返回小遊戲首頁');
-   const usable=width-(height<=550&&width>height?24:40),gap=Number.parseFloat(win('.club-toolbar','column-gap')),actionGap=Number.parseFloat(win('.club-toolbar .header-tools','gap')),actionWidth=(narrow?44:48)*4+actionGap*3;
-   const titleRoom=narrow?usable:usable-56-gap*2-actionWidth;
-   if(narrow){assert.equal(win('.club-toolbar>div','flex-direction'),'column','title and full studio name use separate lines');assert.equal(win('.club-toolbar>div','align-items'),'flex-start');assert.equal(win('.club-toolbar>div','gap'),'2px');}
-   assert.ok(titleRoom>=220,`${mode} ${width}: full 11px studio name has an unclipped line`);
-   assert.ok(titleRoom>=(narrow?72:88),`${mode} ${width}: all four title characters fit`);assert.ok(actionWidth+(narrow?44:56)+gap<=usable,`${mode} ${width}: Home and all four actions fit without shrinking`);
-   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),narrow?'44px 40px 44px':'44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),narrow?'3':'2');}
-   else{
-    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),narrow?'calc(84px + var(--club-gap))':'44px');
-    assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'header growth reserves space before game navigation');
-    p.document.getElementById('artStatus').hidden=false;assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'art recovery does not collapse the extra header row');
-    assert.equal(win('.level-main>.level-switch','grid-area'),'nav');
+   const win=(selector,property)=>cascadeWinner(p,selector,property)?.value,actions=[...p.document.querySelectorAll('.club-toolbar>a, .club-toolbar .header-tools>button')];
+   assert.deepEqual(actions.map(action=>action.textContent.trim()),['首頁','重來','排行','設定','玩法']);
+   for(const action of actions){
+    const selector=action.tagName==='A'?'.club-toolbar>a':`#${action.id}`;
+    assert.equal(action.hidden,false);assert.equal(win(selector,'min-width'),'44px');assert.equal(win(selector,'min-height'),'44px');assert.equal(win(selector,'height'),'44px');assert.equal(win(selector,'width'),'100%');assert.equal(win(selector,'white-space'),'nowrap');assert.equal(win(selector,'font'),'750 14px/1.2 system-ui,sans-serif');
    }
+   assert.equal(win('.club-toolbar','grid-template-columns'),'repeat(5,minmax(0,1fr))');assert.equal(win('.club-toolbar','column-gap'),'6px');
+   assert.equal(win('.club-toolbar>a','grid-column'),'1');assert.equal(win('.club-toolbar>a','grid-row'),'1');
+   assert.equal(win('.club-toolbar .header-tools','grid-row'),'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),'2/-1');assert.equal(win('.club-toolbar .header-tools','display'),'grid');assert.equal(win('.club-toolbar .header-tools','grid-template-columns'),'repeat(4,minmax(0,1fr))');assert.equal(win('.club-toolbar .header-tools','gap'),'6px');
+   assert.equal(win('.club-toolbar>div','grid-row'),'2');assert.equal(win('.club-toolbar>div','grid-column'),'1/-1');assert.equal(win('.club-toolbar>div','display'),'flex');assert.equal(win('.club-toolbar>div','flex-direction'),'column');assert.equal(win('.club-toolbar>div','align-items'),'flex-start');
+   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.equal(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,'島遊無界工作室 | PLAYFORMOSA STUDIO');assert.equal(win('.club-toolbar .club-studio-en','display'),'inline');
+   assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('aria-label'),'返回小遊戲首頁');assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('href'),'/#minigames');
+   const usable=Math.min(1080,width-40),target=(usable-4*6)/5;
+   assert.ok(target>=44,`${mode} ${width}: five columns fit with full touch targets`);assert.ok(usable>=220,'the full studio name has its own unclipped line');
+   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),'44px 44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),'3');}
+   else{
+    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),'calc(88px + var(--club-gap))');
+    assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /);p.document.getElementById('artStatus').hidden=false;assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /);assert.equal(win('.level-main>.level-switch','grid-area'),'nav');
+   }
+   const restart=mode==='duck'?'#retry':'#restartButton',element=p.document.querySelector(restart),before=['width','height','min-width','min-height','padding'].map(prop=>win(restart,prop));
+   assert.equal(element.disabled,true);assert.equal(win(restart,'opacity'),'.48');element.disabled=false;assert.deepEqual(['width','height','min-width','min-height','padding'].map(prop=>win(restart,prop)),before,'enabling Restart never changes its footprint');
   }finally{p.dom.window.close()}
  }
 });

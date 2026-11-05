@@ -33,7 +33,7 @@ for(const mode of ['catch','duel'])for(const [trigger,id,back] of children)for(c
   for(let i=0;i<2;i++){
    h.click(trigger);h.flushClose();assert.equal(h.$(id).open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.$('entryDialog').open,false);
    h.click('roundButton');h.click('actionButton');h.tick(h.now+5000);assert.equal(h.app.state,state);
-   assert.equal(h.$(back).textContent,'返回玩法');h.click(back);h.flushClose();await drain();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(trigger));assert.equal(h.$('entryClose').hidden,true);assert.equal(h.club.seen,false);assert.equal(h.app.state,state);
+   assert.equal(h.$(back).textContent,'返回玩法');h.click(back);h.flushClose();await drain();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(trigger));assert.equal(h.$('entryClose').hidden,false);assert.equal(h.club.seen,false);assert.equal(h.app.state,state);
   }
   h.click('entryStart');h.flushClose();await drain();assert.equal(h.$('entryDialog').open,false);assert.equal(h.app.state,state);assert.equal(h.club.blocked(),false);h.click('roundButton');assert.equal(h.app.state.phase,'waiting');assert.equal(h.requests.filter(r=>r.options.method==='POST').length,0);
  }finally{h.close()}
@@ -83,5 +83,20 @@ for(const mode of ['catch','duel'])test(`${mode} BFCache's actual queued Setting
  const h=fixture(mode,{seen:false,queued:true});try{
   h.click('entrySettings');h.flushClose();for(const type of ['pagehide','pageshow'])h.w.dispatchEvent(new h.w.PageTransitionEvent(type,{persisted:true}));
   assert.equal(h.$('entryDialog').open,true);h.click('entryRanking');h.flushClose();await drain();assert.equal(h.$('entryDialog').open,false);assert.equal(h.$('levelRankingDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.club.seen,false);assert.equal(h.app.state.phase,'idle');h.click('levelRankingReturn');h.flushClose();assert.equal(h.$('entryDialog').open,true);h.click('entryStart');h.flushClose();await drain();assert.equal(h.club.blocked(),false);
+ }finally{h.close()}
+});
+
+for(const mode of ['catch','duel'])for(const queued of [false,true])for(const action of ['close','escape','start'])for(const input of ['keyboard','space','pointer'])test(`${mode} first ${action} drains ${input} before manual practice (${queued?'queued':'immediate'})`,async()=>{
+ const h=fixture(mode,{seen:false,queued});try{
+  const trigger=h.$(action==='start'?'entryStart':'entryClose'),key=action==='escape'?'Escape':input==='space'?'Space':'Enter',state=h.app.state;
+  function send(type){const event=input!=='pointer'?new h.w.KeyboardEvent(type,{key,code:key,bubbles:true,cancelable:true}):new h.w.Event(type,{bubbles:true,cancelable:true});if(input==='pointer')Object.defineProperty(event,'pointerId',{value:4});trigger.dispatchEvent(event);}
+  assert.equal(h.$('entryClose').hidden,false);assert.equal(h.$('restartButton').hidden,false);assert.equal(h.$('restartButton').disabled,true);
+  send(input!=='pointer'?'keydown':'pointerdown');
+  if(action==='escape'){const cancel=new h.w.Event('cancel',{cancelable:true});h.$('entryDialog').dispatchEvent(cancel);if(!cancel.defaultPrevented)h.$('entryDialog').close();}else trigger.click();
+  h.flushClose();assert.equal(h.$('entryDialog').open,false);assert.equal(h.club.blocked(),true);h.click('roundButton');h.click('restartButton');h.click('actionButton');h.tick(h.now+2000);assert.equal(h.app.state,state);
+  send(input!=='pointer'?'keyup':'pointerup');h.$('roundButton').dispatchEvent(new h.w.MouseEvent('click',{bubbles:true,cancelable:true,detail:1}));await drain();
+  assert.equal(h.app.state,state);assert.equal(h.app.state.practice,true);assert.equal(h.app.state.phase,'idle');assert.equal(h.club.blocked(),false);assert.equal(h.d.activeElement,h.$('roundButton'));assert.equal(h.requests.filter(r=>r.options.method==='POST').length,0);
+  h.click('roundButton');assert.equal(h.app.state.phase,'waiting');assert.equal(h.$('restartButton').disabled,false);assert.equal(h.requests.filter(r=>r.options.method==='POST').length,0);
+  h.click('restartButton');assert.equal(h.app.state.phase,'idle');assert.equal(h.$('restartButton').disabled,true);assert.equal(h.$('restartButton').hidden,false);
  }finally{h.close()}
 });
