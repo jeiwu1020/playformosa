@@ -1,0 +1,7 @@
+/* Keep the final stage dimensions while preparing the first real 3D frame.
+   A pending renderer must never expose the old compatibility drawing. */
+body.pf-fast-hands .scene-preparing{display:none;position:absolute;inset:0;z-index:4;place-items:center;padding:16px;background:#e4eddf;color:#46614b;font:700 16px/1.5 system-ui,sans-serif;text-align:center}
+body.pf-fast-hands[data-renderer="loading"] .scene-preparing{display:grid}
+body.pf-fast-hands[data-renderer="loading"] #scene3d{display:block;position:absolute;inset:0;visibility:hidden}
+body.pf-fast-hands[data-renderer="loading"] #scene,
+body.pf-fast-hands[data-renderer="loading"] #demo3d{visibility:hidden}

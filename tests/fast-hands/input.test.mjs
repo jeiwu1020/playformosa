@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import{acceptPointer,hitDuck,acceptKey}from'../../public/games/fast-hands/input.mjs';
+const event=(pointerType,button=0,isPrimary=true)=>({pointerType,button,isPrimary});
+test('mouse accepts only primary left mouse pointer',()=>{assert.equal(acceptPointer('mouse',event('mouse')),true);assert.equal(acceptPointer('mouse',event('mouse',2)),false);assert.equal(acceptPointer('mouse',event('mouse',0,false)),false)});
+test('touch accepts only primary touch pointer',()=>{assert.equal(acceptPointer('touch',event('touch')),true);assert.equal(acceptPointer('touch',event('touch',0,false)),false)});
+test('mixed mode and pen inputs rejected',()=>{for(const m of['mouse','touch','keyboard'])for(const p of['mouse','touch','pen'])assert.equal(acceptPointer(m,event(p)),m===p)});
+test('malformed pointer cannot bypass mode',()=>{for(const e of[null,{},event(undefined),event('mouse',undefined)])assert.equal(acceptPointer('bad',e),false);assert.equal(acceptPointer('mouse',null),false)});
+test('duck hitbox follows physics distance in logical canvas coords',()=>{assert.equal(hitDuck(365,230,1),true);assert.equal(hitDuck(365,80,1),false)});
+test('duck head and beak are inside padded target',()=>{assert.equal(hitDuck(417,206,1),true);assert.equal(hitDuck(381,188,1),true)});
+test('inclusive exact hitbox boundaries',()=>{assert.equal(hitDuck(310,185,1),true);assert.equal(hitDuck(420,275,1),true);assert.equal(hitDuck(309.99,230,1),false);assert.equal(hitDuck(365,275.01,1),false)});
+test('invalid coordinates or distance rejected',()=>{for(const args of[[NaN,230,1],[365,Infinity,1],[365,230,-1],[365,230,2.1],[365,230,NaN]])assert.equal(hitDuck(...args),false)});
+test('keyboard allows only Enter Space',()=>{assert.equal(acceptKey('Enter',false,new Set()),true);assert.equal(acceptKey('Space',false,new Set()),true);assert.equal(acceptKey('KeyA',false,new Set()),false)});
+test('repeat and held keys are ignored without changing held set',()=>{const held=new Set(['Space']);assert.equal(acceptKey('Space',false,held),false);assert.equal(acceptKey('Enter',true,held),false);assert.equal(acceptKey('Enter',false,held),true);assert.deepEqual([...held],['Space'])});
+test('release makes key actionable again',()=>{const held=new Set(['Enter']);assert.equal(acceptKey('Enter',false,held),false);held.delete('Enter');assert.equal(acceptKey('Enter',false,held),true)});

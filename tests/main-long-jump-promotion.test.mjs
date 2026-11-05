@@ -1,8 +1,9 @@
+import {readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforeFastHands(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 function manifest(){assert.ok(existsSync(new URL('docs/long-jump-main/SOURCE-MANIFEST.json',root)),'new promotion needs its own ledger');return JSON.parse(read('docs/long-jump-main/SOURCE-MANIFEST.json'));}
@@ -14,7 +15,7 @@ test('Long Jump promotion has a precise independent source ledger and no extra p
 test('Long Jump promotion keeps production services, scoring and all unrelated baseline files intact',()=>{
  const m=manifest();for(const f of m.protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);
  for(const path of ['wrangler.jsonc','public/games/shared/leaderboard.mjs','public/games/shared/production-jump-leaderboard.mjs','public/games/shared/play-counts.mjs','public/games/long-jump/physics.mjs','public/games/long-jump/controls.mjs','public/games/long-jump/world.mjs','worker/leaderboard/repository.mjs'])assert.ok(m.protectedFiles.some(f=>f.path===path),path);
- assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);
+ assert.deepEqual(readGamesBeforeFastHands(),['hurdles','long-jump','reaction-rod','shared']);
 });
 test('current and previous Jump bytes are verified before yielding historical source',async()=>{
  const m=manifest(),{reverseLongJump,readBeforeLongJump}=await import('./helpers/long-jump-main-provenance.mjs');

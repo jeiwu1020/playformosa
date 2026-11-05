@@ -1,3 +1,4 @@
+import {readBeforeFastHands} from './fast-hands-main-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -14,5 +15,5 @@ export function reverseLongJump(path,bytes,manifest=longJumpManifest()){
 }
 export function readBeforeLongJump(file,encoding){
  const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');
- const bytes=reverseLongJump(relative,readFileSync(file));return encoding?bytes.toString(encoding):bytes;
+ const bytes=reverseLongJump(relative,readBeforeFastHands(file));return encoding?bytes.toString(encoding):bytes;
 }

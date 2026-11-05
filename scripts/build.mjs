@@ -8,7 +8,8 @@ const release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFE
 const rod=JSON.parse(await readFile(new URL('docs/reaction-rod-main/SOURCE-MANIFEST.json',root),'utf8'));
 const studio=JSON.parse(await readFile(new URL('docs/studio-main/SOURCE-MANIFEST.json',root),'utf8'));
 const jump=JSON.parse(await readFile(new URL('docs/long-jump-main/SOURCE-MANIFEST.json',root),'utf8'));
-const allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths];
+const fastHands=JSON.parse(await readFile(new URL('docs/fast-hands-main/SOURCE-MANIFEST.json',root),'utf8'));
+const allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);

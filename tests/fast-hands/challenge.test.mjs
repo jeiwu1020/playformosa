@@ -1,0 +1,27 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {CONFIG,NOTE_FLOOR_MS,newChallenge,down,move,up,tick,cancel,noteRect,duckHit,overlap} from '../../public/games/fast-hands/challenge.mjs';
+const released=()=>up(down(newChallenge(),320,100,0,1),320,100,0,1);
+const prepared=()=>up(move(down(released(),555,380,100,2),345,150,400,2),345,150,400,2);
+test('new state and immutable constants',()=>{let s=newChallenge();assert.equal(s.status,'idle');assert.equal(s.noteY,75);assert.throws(()=>CONFIG.g=1);assert.throws(()=>s.noteY=1)});
+test('empty start ignored',()=>{let s=newChallenge();assert.equal(down(s,10,10,0,1),s)});
+test('note must be held then released by same pointer',()=>{let s=down(newChallenge(),320,100,100,1);assert.equal(s.status,'holdingNote');assert.equal(up(s,320,100,110,2),s);s=up(s,320,100,200,1);assert.equal(s.status,'falling');assert.equal(s.startAt,200)});
+test('air drag follows analytic function not linear tween',()=>{let s=tick(released(),1000);const d=9.81*.12*(1-.12*(1-Math.exp(-1/.12)));assert.ok(Math.abs(s.noteY-(75+d*150))<1e-9)});
+test('duck accepts ellipse not bounding-box corners',()=>{let s=released();assert.equal(duckHit(s,555,380),true);assert.equal(duckHit(s,585,400),false)});
+test('duck drag follows matching pointer only',()=>{let s=down(released(),555,380,100,2);assert.equal(s.status,'draggingDuck');assert.equal(move(s,345,150,200,3),s);assert.equal(up(s,345,150,200,3),s);s=move(s,345,150,400,2);assert.equal(s.duckX,345);assert.equal(s.duckY,150)});
+test('dragging overlap cannot win before release',()=>{let s=move(down(released(),555,380,100,2),345,150,400,2);assert.equal(overlap(s),true);assert.equal(down(s,345,150,400,3),s);assert.equal(s.status,'draggingDuck')});
+test('release alone cannot win',()=>{let s=prepared();assert.equal(s.status,'releasedDuck');assert.equal(overlap(s),true)});
+test('new click in both shapes wins',()=>{let s=down(prepared(),345,150,410,3);assert.equal(s.status,'success');assert.equal(s.elapsedMs,410)});
+test('point in note but outside duck does not win',()=>{let s=prepared(),n=noteRect(s);assert.equal(down(s,n.x+2,n.y+2,400,3),s)});
+test('point in duck but outside note does not win',()=>{let s=up(move(down(released(),555,380,100,2),300,170,400,2),300,170,400,2);let next=down(s,275,170,400,3);assert.equal(next.status,'releasedDuck')});
+test('no pickup cannot win by note clicking',()=>{let s=released();s=down(s,345,100,100,2);assert.equal(s.status,'falling')});
+test('empty release then no regrab allowed',()=>{let s=up(move(down(released(),555,380,100,2),600,150,400,2),600,150,400,2);s=down(s,600,180,600,3);assert.equal(s.status,'releasedDuck')});
+test('duck freefall after release is analytic and floor bounded',()=>{let s=tick(prepared(),500);assert.ok(Math.abs(s.duckY-(150+.5*9.81*.1*.1*150))<1e-8);s=tick(s,1200);assert.equal(s.duckY,390)});
+test('note floor loses even during drag',()=>{let s=move(down(released(),555,380,100,2),345,150,200,2);s=tick(s,5000);assert.equal(s.status,'failed');assert.equal(s.reason,'note-floor');assert.equal(s.noteY+CONFIG.noteHeight,CONFIG.floorY)});
+test('late input cannot rescue grounded note',()=>{let s=down(prepared(),345,390,5000,3);assert.equal(s.status,'failed')});
+test('same physical time same outcome across frame rates',()=>{let a=prepared(),b=prepared();for(let t=410;t<800;t+=10)a=tick(a,t);for(let t=416;t<800;t+=16)b=tick(b,t);assert.deepEqual(tick(a,800),tick(b,800))});
+test('invalid timestamp and backwards events ignored',()=>{let s=tick(released(),300);for(const f of[down,move,up])for(const t of[NaN,Infinity,299])assert.equal(f(s,345,150,t,1),s);assert.equal(tick(s,NaN),s);assert.equal(cancel(s,200),s)});
+test('invalid coordinates ignored',()=>{let s=released();assert.equal(down(s,NaN,150,100,1),s);assert.equal(down(s,345,Infinity,100,1),s)});
+test('cancel and terminal results immutable',()=>{let s=cancel(released(),100);assert.equal(s.status,'failed');assert.equal(s.reason,'cancelled');assert.equal(tick(s,5000),s);assert.equal(down(s,345,150,200,1),s)});
+test('success cannot score again or drift',()=>{let s=down(prepared(),345,150,410,3);assert.equal(tick(s,10000),s);assert.equal(down(s,345,150,500,4),s)});
+
+test('note bottom floor equality fails and just before remains falling',()=>{let s=released();assert.equal(tick(s,NOTE_FLOOR_MS-0.00001).status,'falling');const f=tick(s,NOTE_FLOOR_MS);assert.equal(f.status,'failed');assert.equal(f.elapsedMs,NOTE_FLOOR_MS)});

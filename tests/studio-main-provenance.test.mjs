@@ -1,3 +1,4 @@
+import {readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
 import {readBeforeLongJump} from './helpers/long-jump-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,7 +12,7 @@ test('studio scope adds only approved attribution CSS and preserves existing pub
  assert.deepEqual(m.addedPublicPaths,['games/shared/studio-brand.css']);assert.deepEqual(m.addedFiles.map(f=>f.path),['public/games/shared/studio-brand.css']);
  assert.deepEqual(m.files.map(f=>f.path).sort(),['public/games/hurdles/index.html','public/games/reaction-rod/index.html','public/games/shared/entry-shell.mjs','scripts/build.mjs','scripts/verify.mjs','tests/helpers/loading-main-provenance.mjs','tests/main-loading-provenance.test.mjs'].sort());
  for(const f of m.addedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);
- assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);
+ assert.deepEqual(readGamesBeforeFastHands(),['hurdles','long-jump','reaction-rod','shared']);
 });
 test('studio reversal verifies every changed byte and rejects forged historical baselines',()=>{
  const m=studioManifest();for(const f of m.files){const bytes=read(f.path),before=reverseStudio(f.path,bytes);assert.equal(blob(before),f.beforeGitBlob);assert.deepEqual(readBeforeStudio(new URL(f.path,root)),before);assert.throws(()=>reverseStudio(f.path,Buffer.concat([bytes,Buffer.from('unexpected')])));const bad=structuredClone(m);bad.files.find(x=>x.path===f.path).beforeText+='unexpected';assert.throws(()=>reverseStudio(f.path,bytes,bad));}

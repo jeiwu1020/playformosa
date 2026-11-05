@@ -1,0 +1,1380 @@
+{
+  "baseCommit": "b09b4f841258bef41999bcc3b3684829b59a62c0",
+  "sourceCommit": "037802320dc9317bc0ee02ea70fe790e999cd7b7",
+  "addedPublicPaths": [
+    "assets/fast-hands-card-v2.webp",
+    "games/fast-hands/app.mjs",
+    "games/fast-hands/assets/control-bill.svg",
+    "games/fast-hands/assets/control-duck.svg",
+    "games/fast-hands/assets/duel-items-atlas.png",
+    "games/fast-hands/assets/front-demo-poster.png",
+    "games/fast-hands/assets/front-demo.mp4",
+    "games/fast-hands/assets/intro-catch-generated.webp",
+    "games/fast-hands/assets/intro-duel-generated.webp",
+    "games/fast-hands/assets/king-torso-v3.png",
+    "games/fast-hands/assets/levels-catch-empty-mid.png",
+    "games/fast-hands/assets/levels-catch-grab.png",
+    "games/fast-hands/assets/levels-catch-guns.png",
+    "games/fast-hands/assets/levels-catch-place.png",
+    "games/fast-hands/assets/levels-catch-reach.png",
+    "games/fast-hands/assets/levels-catch-ready.png",
+    "games/fast-hands/assets/levels-catch-return-mid.png",
+    "games/fast-hands/assets/levels-catch-return.png",
+    "games/fast-hands/assets/levels-duel-ai-grab.png",
+    "games/fast-hands/assets/levels-duel-ai-guns.png",
+    "games/fast-hands/assets/levels-duel-ai-place.png",
+    "games/fast-hands/assets/levels-duel-ai-reach.png",
+    "games/fast-hands/assets/levels-duel-ai-return-mid.png",
+    "games/fast-hands/assets/levels-duel-ai.png",
+    "games/fast-hands/assets/levels-duel-neutral.png",
+    "games/fast-hands/assets/levels-duel-player-grab.png",
+    "games/fast-hands/assets/levels-duel-player-guns.png",
+    "games/fast-hands/assets/levels-duel-player-place.png",
+    "games/fast-hands/assets/levels-duel-player-reach.png",
+    "games/fast-hands/assets/levels-duel-player-return-mid.png",
+    "games/fast-hands/assets/levels-duel-player.png",
+    "games/fast-hands/assets/levels-duel-ready.png",
+    "games/fast-hands/assets/levels-pose-provenance.json",
+    "games/fast-hands/assets/result-pose.png",
+    "games/fast-hands/auto-input.mjs",
+    "games/fast-hands/catch.html",
+    "games/fast-hands/challenge.mjs",
+    "games/fast-hands/club.css",
+    "games/fast-hands/club.mjs",
+    "games/fast-hands/duck-startup.css",
+    "games/fast-hands/duel.html",
+    "games/fast-hands/finale-image.mjs",
+    "games/fast-hands/finale.css",
+    "games/fast-hands/finish-timing.mjs",
+    "games/fast-hands/index.html",
+    "games/fast-hands/input-clock.mjs",
+    "games/fast-hands/input.mjs",
+    "games/fast-hands/leaderboard.mjs",
+    "games/fast-hands/level-nav.css",
+    "games/fast-hands/levels-app.mjs",
+    "games/fast-hands/levels-leaderboard.mjs",
+    "games/fast-hands/levels-motion.mjs",
+    "games/fast-hands/levels-ranking.css",
+    "games/fast-hands/levels-replay.mjs",
+    "games/fast-hands/levels-rules.mjs",
+    "games/fast-hands/levels-score-image.mjs",
+    "games/fast-hands/levels-sharing.mjs",
+    "games/fast-hands/levels-sound.mjs",
+    "games/fast-hands/levels-stage.mjs",
+    "games/fast-hands/levels-world.mjs",
+    "games/fast-hands/levels.css",
+    "games/fast-hands/physics.mjs",
+    "games/fast-hands/play-counts.mjs",
+    "games/fast-hands/records.mjs",
+    "games/fast-hands/replay.mjs",
+    "games/fast-hands/result-copy.mjs",
+    "games/fast-hands/result-upload-host.mjs",
+    "games/fast-hands/scene.mjs",
+    "games/fast-hands/score-image.mjs",
+    "games/fast-hands/share.mjs",
+    "games/fast-hands/shuttle.mjs",
+    "games/fast-hands/sound.mjs",
+    "games/fast-hands/style.css",
+    "games/fast-hands/three3d/duck-room.mjs",
+    "games/fast-hands/three3d/game-motion.mjs",
+    "games/fast-hands/three3d/presentation.mjs",
+    "games/fast-hands/three3d/rig.mjs",
+    "games/fast-hands/three3d/stage.mjs",
+    "games/fast-hands/three3d/timeline.mjs",
+    "games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+    "games/fast-hands/three3d/vendor/three.core.min.js",
+    "games/fast-hands/three3d/vendor/three.module.min.js",
+    "games/fast-hands/three3d/view.mjs",
+    "games/fast-hands/three3d/world.mjs",
+    "games/javelin/character3d.mjs"
+  ],
+  "sourceFiles": [
+    {
+      "path": "public/assets/fast-hands-card-v2.webp",
+      "sha256": "00309b43cdcf7711a4e51cd25e89a16611fcd11f89831e3e454c69210a027b94",
+      "gitBlob": "63dfaffe91b4ab5c96b6948ca3874c1eb7abcb59"
+    },
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "sha256": "52214af1061451bb36a6e49edef92fc0aa5ce8ac386e63222ffa0bcbae2efce8",
+      "gitBlob": "50d1cf6783675384f7c7761f87fd48c905c08f9f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "sha256": "adb5e563d0d14a43e5c5140cac328df608efd2452c3d321561116d90cab41cff",
+      "gitBlob": "acf7cc7b9f503e708bfe95411d9d8b7a6febd3e8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "sha256": "2795e6ad6d2f0309760430ec4b6ddc896c0131cc4642544e57b3d840cb144ed7",
+      "gitBlob": "c9b7e5eddbabd2c3ba6f5695a89a8b568149ad62"
+    },
+    {
+      "path": "public/games/fast-hands/assets/duel-items-atlas.png",
+      "sha256": "9a948fd4589c14848d6328734fa43b6c034cb44629f44c6fb9313ac160a9fb69",
+      "gitBlob": "741d8b24c9e7f402333c59583b99b78ee9f2e8ca"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "sha256": "c0104163dc5ab7714b0ff9304ccd918bbf2d2ff7682a8f46e58f424e90bde526",
+      "gitBlob": "8cad948afd1baf956543bd9bcb78975cdd21a080"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "sha256": "3685b4b61fcd5bc9ef157d8c14f0492be82c3316e9d22c162330a0c67aeece8e",
+      "gitBlob": "0f2c5a65a08eebd54546a665636b477dfb26faf5"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-catch-generated.webp",
+      "sha256": "d1b20420be0a38c87494a15c9d431fc5b57b5b9db88c1c28de89752ec6db7494",
+      "gitBlob": "da515e5321fe7194f48092a3484551588d2f9208"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "sha256": "c3d7a570dbecf10b6d99a40f4d98a823a1a86f32727c5c39a98cbe938c15765d",
+      "gitBlob": "38e526d4d88b251d3967ff275137e72f52cb4471"
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "sha256": "b2bbb0f2bf220d45f41b74b008925b6d56f034492022b64d8f8f75cd8b0fa5e5",
+      "gitBlob": "e80c08fc3e9aefeddbd525b647f4bd0027ce2ae3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-empty-mid.png",
+      "sha256": "6dd016f5ca7d9bf85d2e3f1b8f030294f4194b984babe6886f02d60592af26a6",
+      "gitBlob": "551acd20b9edc63add8b858e6f47cb3419ff2be0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-grab.png",
+      "sha256": "4c05569a2779eece80709d3e4ad700966b0e0f0572c2a4b32de754168186bf18",
+      "gitBlob": "218d744facb8697fc2ddd9e0a21699fcbc3441ac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-guns.png",
+      "sha256": "71521c7727d0076a1c8f3ef68e55f8cd4f10cbbe3cc8af6911de4b531934c99e",
+      "gitBlob": "24b6410081a938fc99fe24f0bdd511cd67ae55f8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-place.png",
+      "sha256": "b605b4a94b2e81f724d929646567a64b20c788c8265459117c67370997ae787f",
+      "gitBlob": "8d4dfbd3a2ef94526461a491bc8808662841a2e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-reach.png",
+      "sha256": "c6f971b732aaeb471479302ed57c564c47ff007a4ca8ac2b20a1cc1b16e9a084",
+      "gitBlob": "3e1cf8cc9a3e5ec6eaceb6cd3da97a8651a470d6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-ready.png",
+      "sha256": "77e3df3afb5c39315541cfc462118ad8a6be9f8b2baaaed0951752667a870874",
+      "gitBlob": "eaaa9d91b90bf31540b61a66b175c5374cd7d6e6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return-mid.png",
+      "sha256": "4d143c7d3a518e0bd7a1c898344ca5572255706ce21d7c084ba8079bd2c81cf8",
+      "gitBlob": "05a265158770eb52521388ca34996672ff06c2e0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return.png",
+      "sha256": "84aa9497df8d79e0265a5b27178e731087b5fdbee639257d45916e000bf239be",
+      "gitBlob": "b87520533ff559f33c4bb61289c94ce922e22049"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-grab.png",
+      "sha256": "fbfbcb66da2051294ce63fa3d9ad30a8c7aad93dc9b31c7b1ad8208705fe1d41",
+      "gitBlob": "b2e78c669b094cd8aaf4119f0232e06d3a247f3d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-guns.png",
+      "sha256": "6d884b953eb67a0ab1414fa5c579fc18ddce0d05c08d500ac761f4cb60e2e450",
+      "gitBlob": "b569ebe8e71c032d39463bd9977344915ae7fb93"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-place.png",
+      "sha256": "a1c7848fd3cd72bc33ec38783cf956fb60cf67be87dd4bb62a7f6cb6ae5f4bae",
+      "gitBlob": "efa589889b8d73e25cde3bba6bdd90496fa369c1"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-reach.png",
+      "sha256": "faaef734348022e3f98b6d50bd648e1a744f5017bfddb59dbcba1e21dce07dee",
+      "gitBlob": "32705b647ca9e5b0fd57d4643b3638d3b23b5fac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-return-mid.png",
+      "sha256": "6346651a289500c3927adf513727188f45000a5f8726baf9e5572877bb735566",
+      "gitBlob": "b8859c6a4572707e29fab491778cb7f771f752db"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai.png",
+      "sha256": "14699fbcd8555f1705fda30112bf3f16d0ab1b346059a11f9342383577299adb",
+      "gitBlob": "61b3f5e0779d6786ea7d729e0796768e370b549d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-neutral.png",
+      "sha256": "e7b05d43d5ef1e70c7f75f864a1b207675ae9192d81414959888d489efcf9b33",
+      "gitBlob": "a02d19881a08fcb6a1238747525d704479e0118f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-grab.png",
+      "sha256": "fbf6db998cb0afdcc7531060400b642a327a7b9c15de94053f98bee7a974d7c8",
+      "gitBlob": "773849fd960220c38251966d0119a53f744f87e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-guns.png",
+      "sha256": "9526d951548a9b00e81d6706c1beffe344d4c5de477d8b4de64021ce2a348bca",
+      "gitBlob": "9ad53826585cc71993c766edef13e67930481b56"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-place.png",
+      "sha256": "6931f94f9a10dc9cad9888ef4ccdd40be5ae15c2c3d6b68f8bae2dd6e003d752",
+      "gitBlob": "d9b73888ce30d4b6119c6929e5a9d9141d87007f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-reach.png",
+      "sha256": "2320ba92803d212a6bfbe51571fcb2d68123c18b251e03ee9ad4e461d0addfc9",
+      "gitBlob": "ed8b57433c4d531322a60999222fd23711c72e9f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-return-mid.png",
+      "sha256": "d3c02c261daae07eb1c15ba3515055da611d9069be9fd8ee7b521b4569a39cda",
+      "gitBlob": "725b248967eeb64e9bab42cd64bc21e54dd313c4"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player.png",
+      "sha256": "62c67b8276fa1d06bb43b5e3f987132b299c5b1f418a038d16d1b684f0ec153d",
+      "gitBlob": "38e44936310dea5857ee92d0c99daaf9e3ebcf80"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ready.png",
+      "sha256": "70a3d1af359b5bd512a6f62f074fc8db4932181761c592ac5160a7d8030f6793",
+      "gitBlob": "30cf8cf1b7ad71b0d04075ae83f35824434a16c0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-pose-provenance.json",
+      "sha256": "a5d791c2a10252f56486e07399784f4222f541dc06a24149009120064f24a68a",
+      "gitBlob": "f342f75b907c1349c53e2e97753042e33f5fef2e"
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "sha256": "ae9642834b24d2f6c625fa45ea47b6fb716c59d5ca60df7b2c1b58ee4aa9fd81",
+      "gitBlob": "6f925b5de0ece016e35f5fbc699213fd740b35aa"
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "sha256": "0f9c501f0be140bab830ffba679317345a3e39052cfa0d79b94847ed0c40e42e",
+      "gitBlob": "4e8b2aced85f47f1ac91e8779584a194a0c2c96b"
+    },
+    {
+      "path": "public/games/fast-hands/catch.html",
+      "sha256": "baa2639c743d49ab0af9e21574ba7023e2f878667a49b4c78ee326bd920ede85",
+      "gitBlob": "150cec6d8c07678972f980888c4c0ef08daf9cd8"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "sha256": "5e994219a4ed816d143af9a6ae8c6ea3a296d00b883ac68d7a1714e1d89c298b",
+      "gitBlob": "3095f5b1a62acceb1d0167fea63d3580882b5077"
+    },
+    {
+      "path": "public/games/fast-hands/club.css",
+      "sha256": "959e9e3dcf0e8492d9e3066d624192da860fc8b9e2d52a69b2984c7b55385303",
+      "gitBlob": "555e5e24f72725c491ea249b081675ac8cc40875"
+    },
+    {
+      "path": "public/games/fast-hands/club.mjs",
+      "sha256": "b94f6c9833bf7cffac59f3bcf6cefa57001c1d582ce286ddbee2ac33d446d8e4",
+      "gitBlob": "c5a8fa58477ee27aba4c89d000ef36d2911b0f7b"
+    },
+    {
+      "path": "public/games/fast-hands/duck-startup.css",
+      "sha256": "b5b6420f852cc70abef6feb46144ccd389c6134ade59322118033a8684bc46d9",
+      "gitBlob": "b26ba4673f380c051b633e8a6ae6f61da77e46c6"
+    },
+    {
+      "path": "public/games/fast-hands/duel.html",
+      "sha256": "cdd19689fd57bfc507e7ff5decb1d7a714bcae485460d9307466f7ba5a6bdca8",
+      "gitBlob": "58d6ff5ce3516460f68d636ca0e1fd21dc151caa"
+    },
+    {
+      "path": "public/games/fast-hands/finale-image.mjs",
+      "sha256": "9dda4c12030c8e9208a854470d46534edc8898c1919921c4a08fb13517bb05d7",
+      "gitBlob": "e2952f9bdfee8a4ba03bec389b59e0ad4fc03321"
+    },
+    {
+      "path": "public/games/fast-hands/finale.css",
+      "sha256": "c36aac4655a2ad5e7596f1c0fa062b18678ded0342571e3d9948ad4ed8532d05",
+      "gitBlob": "7049abb931b958eb558e90cfc3528bdaae0f04d1"
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "sha256": "5805b8f407b86bac17cbfcd1621ed4880ab315ea5135c5916e86c05045900a2c",
+      "gitBlob": "e0b93656dea0831beeecae383a871ddc92d5caaf"
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "sha256": "88e4e259ca9ef8905d85839455e8a42015ea39ee37b600bd8b062e09d47a6cf9",
+      "gitBlob": "92a051a63e58a355be11cffd2fbc886c4f97cf82"
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "sha256": "a8c3f3a7c4f6836f5970b59135fb90536fbd0620494cdd6e01bce865bb2e1dd5",
+      "gitBlob": "572f16b5c907f63f7cf9dfb56dfbe59a8a981514"
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "sha256": "96ea2650708593b7a4b11116ef1f3ac5a4840c940f67095f5686b09e98e47c5c",
+      "gitBlob": "7c354c8ff949db76ff1e78d75f6527671a4e9b65"
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "sha256": "5ea5972260fd58ef7188bd3f2a82445edbaa1a332a3361c986ac8f1fa0a6b15b",
+      "gitBlob": "92eadc08678fead764646b2911b0778ac11d87ea"
+    },
+    {
+      "path": "public/games/fast-hands/level-nav.css",
+      "sha256": "c628dff501e99d30f88aba606c359500dca8bc6eeef5fe642cfb5b86c1548182",
+      "gitBlob": "0922d5cf74107931069d80d85dec51e6b66fa8a6"
+    },
+    {
+      "path": "public/games/fast-hands/levels-app.mjs",
+      "sha256": "87bec9166872e66581de498171566b9dd5b79c237139a9bdc3531a9e93f52619",
+      "gitBlob": "8063df36be52630b43e2ac12cd8fcb3b2d26dbd1"
+    },
+    {
+      "path": "public/games/fast-hands/levels-leaderboard.mjs",
+      "sha256": "13d6f16e6312416820e1195e5ca368faefac6429e9c5b44f08dbcc279f7bc440",
+      "gitBlob": "98ba902f3c48687598665cddd3658e2d2122448e"
+    },
+    {
+      "path": "public/games/fast-hands/levels-motion.mjs",
+      "sha256": "b6f0448b2d5642ee16d55c7571e7fc47aba89604d1d62fd4adfd1294bf906bf7",
+      "gitBlob": "b456da480a40acc78d1816b957d1091984becc5a"
+    },
+    {
+      "path": "public/games/fast-hands/levels-ranking.css",
+      "sha256": "2ac5391f10dc3205127ef567d19fac66891696b8bf72a9faf23bdae0418cfc0c",
+      "gitBlob": "5e9ab05c767ea6d7a7cd05cd18278361ff289a07"
+    },
+    {
+      "path": "public/games/fast-hands/levels-replay.mjs",
+      "sha256": "1bddf08e440ff72fc43ccf1f0f57f6cac8735895edafa92e636cfcfeba0cae20",
+      "gitBlob": "1ebc4274cb1bec6ad0f4d51279bc4488f918cd0f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-rules.mjs",
+      "sha256": "7b9302bb1cd0438100b26612989d8dbf025bf480b2ed2651dc8f909ef35ed993",
+      "gitBlob": "ffb5418b603b75c39d79225a911ceaaa9489732b"
+    },
+    {
+      "path": "public/games/fast-hands/levels-score-image.mjs",
+      "sha256": "cefa04ef35a9cb918726b3c23b4239abddd0a74bc8aa7aad11d35f46dd789ea0",
+      "gitBlob": "212114ae6e3336ac8840330c3db8a4d2df6e3df0"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sharing.mjs",
+      "sha256": "5a0b75f0257b24821572651b94fa42c0a0b3ff8d7471aeab75e63bfd6f14c4c9",
+      "gitBlob": "c746c686af577b34547b237781e6fb8c4faf111f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sound.mjs",
+      "sha256": "8d25760252d49823864c34ae6c2c0398e3a0198c5b80493f3168c54dce75c6fb",
+      "gitBlob": "12ee8e782d229abea23ca572465c496393b6ca54"
+    },
+    {
+      "path": "public/games/fast-hands/levels-stage.mjs",
+      "sha256": "45cda0a5eb88da8fdfa5b0ef7b1b235907aeef30a2f67fde6923e0dcb6cc7db7",
+      "gitBlob": "01cb7a4ddc53858a0942128f7344221f96b1a1df"
+    },
+    {
+      "path": "public/games/fast-hands/levels-world.mjs",
+      "sha256": "9c82434b96e262fb408b3afab992c27eb93098041481185f226e5cb036a18202",
+      "gitBlob": "c84a34a9d483ea95f9a1b52b454ef11c984c319a"
+    },
+    {
+      "path": "public/games/fast-hands/levels.css",
+      "sha256": "376047390c646427dfc2c0b1a0d917ba0322489e0b6816faf6f97d89cc4d8482",
+      "gitBlob": "64de36acf30f19bef82214a0c8b64051d52e65bd"
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "sha256": "e464eed3c5988e9d160b828ace77ca2377cb7954b6e21da5247c10823fbf22c2",
+      "gitBlob": "bbdd03c707b7bc490566992d0ebdd07207d49774"
+    },
+    {
+      "path": "public/games/fast-hands/play-counts.mjs",
+      "sha256": "10fc259a276846ff8a1b05cc2bd764faf3b8c710c73e115e1434a2558a4718dd",
+      "gitBlob": "c908a8abb4878e418133605d59d3167bbfee5c1b"
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "sha256": "fe84dc812dd7ffdc0ee3f1653fffd2b2768d6ed0a6bf77dce1be169d1adda02c",
+      "gitBlob": "8bb7603073d21c1ee583cf39087e8acaa9d95d80"
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "sha256": "b3f3d36c13a1639d0a2996fba7910ebcbab45c436f3e5e0a8e6be97b08e6e1e7",
+      "gitBlob": "58c74cb8f0a69cb7adc1c7c42595d6d5aabdfecd"
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "sha256": "0f1ad8abc55a008a559692de4a989cf43f716ae0ad1c457f68936dd9aaf347f3",
+      "gitBlob": "fee03c6d176442407d9be31a22bf9d0f13bf8ac2"
+    },
+    {
+      "path": "public/games/fast-hands/result-upload-host.mjs",
+      "sha256": "c65eb92bd256272a7b979e278cff358077ed3887f1fafe718d4fed2b2efafd39",
+      "gitBlob": "45f1ae4cc81d35178df012d28a6e696e56bdc46f"
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "sha256": "dc416d8ef3badf77650745d0bb9e69300a13e8d7319840677dfad4b0110a802d",
+      "gitBlob": "3ed9bffeaa564d18bdcc252d388e75b78633bd00"
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "sha256": "c7f700337aafd2013db43d62c43da124f42498be19f7b947cb76cda47c287c0a",
+      "gitBlob": "1762a8218a7b92398108023d65926d97001cdd39"
+    },
+    {
+      "path": "public/games/fast-hands/share.mjs",
+      "sha256": "44ed6294c7ce98b31dfbad57246a1e10ad67256f52cd24435ae43d8e5e3951c1",
+      "gitBlob": "55e1f502ae4418a5219fe18d6942606228fc4f15"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "sha256": "35907ce78143c176138280fbedeca9f60ac11bfa49a49afee2db9af58379a459",
+      "gitBlob": "db235d35a165bf6a02da942f6c4524535349af71"
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "sha256": "a54a89581c954ed894ebe6a19cf184d74d693b8101c378486961791ee832e88e",
+      "gitBlob": "146cad743392eec5d2218f60f96e8f9db35fe0ef"
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "sha256": "0c76ddc351d8c49683db555a7251e3fe76ed143d8b1b23c6debc5ec87387924c",
+      "gitBlob": "c9a43ea831d4aeca631e2b74d69cc82150e485ad"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/duck-room.mjs",
+      "sha256": "545743460a31cba8f481b6d411599d8606d078d1c7998b99c625acb419fcd4ab",
+      "gitBlob": "b0628b56a7f517c5eb2238c738d4457d0278d781"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "sha256": "e2077519d5df23be46cb7628de8613efd4bdbe6d6195fde8aa17ae6dbcdd8ee6",
+      "gitBlob": "ba59e9985bbca875c08352634299175f1e9a15b4"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "sha256": "4a529f56e1137621caa4859c61491e1c4192044f29b46c4999909bd3acb4c420",
+      "gitBlob": "90ffc329bafc968fe4f2f082c06141a687f3b350"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "sha256": "a6af9981af6b8e96bdc02e3cadaf0328bd5f57dbec27d577046d3432642ead97",
+      "gitBlob": "7a83ceed7aa4117c67ef2155aa91822a2c7dd9c2"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "sha256": "34567ae6eede498f1a54741caca4d06ee79bea223c92336c34bbcadda93c9989",
+      "gitBlob": "1c31148f792c056ef0eb5ebe6d46d875f5629756"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "sha256": "b9d336ccdf85971483234aabb12ceeab6e369eeacf58ad5b9930a7f01c384d20",
+      "gitBlob": "18dd04914133e799f8195bfc5dcf6f011e179ef7"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "sha256": "eb3e36efec58f73c1f6188ad52a131663ae9091809499bf055c8929ef11eeaf8",
+      "gitBlob": "4bbcb02830b843a598a241f83bad89dc945b0e92"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "sha256": "68100484adca41bd76e87dc20c203dd92a440e7e22098d80daf41e9515db9aa5",
+      "gitBlob": "b18411038a15cf5696939e61809ac86ecd37814d"
+    },
+    {
+      "path": "public/games/javelin/character3d.mjs",
+      "sha256": "845022399cb408f0ab64ab5efafd25c46e1557c786617a5e86abaa513cf9cac4",
+      "gitBlob": "b3e2964b89eaff3d8b3ba6780199264cb3a16873"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": "docs/hurdles-main/SOURCE-MANIFEST.json",
+      "sha256": "b667d75097802c9f2165a7c0e1b388bc4f55e9462bb7d26b2363a9976a037f28",
+      "gitBlob": "cf0cddffe5965f2ec8e439669135705f43baeac1"
+    },
+    {
+      "path": "docs/loading-main/SOURCE-MANIFEST.json",
+      "sha256": "0e65eecbf3644e7c333bcb38f26cefe29faec13cfddc00eebaec607eebb7f878",
+      "gitBlob": "c24bd3173502210d6d05d7148bfa28904c403759"
+    },
+    {
+      "path": "docs/long-jump-main/SOURCE-MANIFEST.json",
+      "sha256": "c008a5ff0fc124c249f5bef579c20f3b22c8e950379168fc03a49c51a7a09db1",
+      "gitBlob": "568cb1a019726b2b88428931012811e919e29892"
+    },
+    {
+      "path": "docs/reaction-rod-main/SOURCE-MANIFEST.json",
+      "sha256": "189875546a6125bbf6be9a12085ece58e57bc290a7d37b235d9ff4da0b8941ee",
+      "gitBlob": "6953df34364182980906f59aedde2d475c72f712"
+    },
+    {
+      "path": "docs/studio-main/SOURCE-MANIFEST.json",
+      "sha256": "5d6bfeb9143f50fa5589f435e2f55bf01fddfad052ad2bab3cada93dd631c9ef",
+      "gitBlob": "8a4842795be18b5a738494c4876a098717e82e11"
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "sha256": "7530720e9cea5f7944169c9c272874c319655745cbf681c1979e80b258f386b2",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "sha256": "5be3b9335761d33bc8d8426ef31c0a1aa165f4920f8136d91a84d66e70fee706",
+      "gitBlob": "c0ae4bd873a7b54e50b1df669615c4abc7307ae2"
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "sha256": "69d0275dfa5a27e1b063f324f99afb9334b09b0a890322109b9a65acf000efa6",
+      "gitBlob": "e9d283733f265ea9ad1af01b071dfbec6d01c0f9"
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "sha256": "14e435cae20d0154d58437773cc046fe0d2550af82c0f1a2036b8110298ab5a2",
+      "gitBlob": "ae2b279c109df77c8d731fb2e00abfa4ce17431a"
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "sha256": "4da85e8dd6601018d788decfda3819ca60501a610b153be2d0b85fcb7a0df39d",
+      "gitBlob": "0e62f221b929408fb90d3296979a3681ba00bb78"
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "sha256": "7e867a8c85ca1009c53f1c4d456be74bb0831f14a5aa9ce781df0be9b52bddc8",
+      "gitBlob": "8d63aca19bc512d002d19290239cb8d747e2d9e9"
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "sha256": "d6802f485d8ea78b5710df2de3ccc15a2c6c8c3783cab294e6f42466b5152230",
+      "gitBlob": "a27e3758767227254404a8575392231e3767e7d1"
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "sha256": "65ad63a91a05706056786ab67f157f14ad94dc6a64894b0326bf5be22476b999",
+      "gitBlob": "9df59d473fda2a5f905ca0f22f03d5ed1fb516c6"
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "sha256": "cbf3685a1db0cbe6a73b0bfd6ca7a7bd550856c618faf9cffedde1c1b14009fa",
+      "gitBlob": "81a794a34f82b9e5129f17b62528598a7d98e77b"
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "sha256": "c05ee8c98bcf5488f09b9a972d3e553a7600be8663985e160a616bea4b85660a",
+      "gitBlob": "b64dbd9d42d3d402fa9424bb5400333065f57184"
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "sha256": "5ce2cc0d11bb60b7504d852158f67584f3d7370b5dc596ab832dd86ec619fb63",
+      "gitBlob": "911b132a60bf3822586d86ac5b651d5819daf4eb"
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "sha256": "bc9ac6a8e0d55f18a66ac7daa9309c40652b6731d29ac96905e6b2a487e2d397",
+      "gitBlob": "e9ee9e6842cddc56cf53539525071888b694fa7a"
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "sha256": "53c01b8ddad011f24df92fa56c717da856353934da86c3b4d70d1ddda80f1828",
+      "gitBlob": "684bf04991b61dca268ede1e58d0ea4f14c530f4"
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "sha256": "1dcaa0a0d19fa49d86cfcfe89b9aaa251a89c4c0daebb3792483ecbfb4918784",
+      "gitBlob": "a34b3e0f54bf195686c61d0b4b8437d59559fd35"
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "sha256": "f4e9377824ae1380acf80f00fc3a16c8d18db79802baf0878c5507ca499475ab",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "sha256": "cdf337b373548c18e5f4a2f51a20caaa5b568374f9d9b651a12c5a3384c098ce",
+      "gitBlob": "6fa3dfc2df3178f9c9f09eb9ce17e8bf93e1e374"
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "sha256": "7530720e9cea5f7944169c9c272874c319655745cbf681c1979e80b258f386b2",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "sha256": "3aed3eb9b0c09f6e1dec685d816b8eda1943975a2f051c53bbfb9b7bc1dd4aab",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "sha256": "52f7c879cea1b74cc0824b62499e2fec8a6ffbd20d8f32fcc814f513563496b5",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "sha256": "9e49cf7fb265aa631ae69f79975cdb7c1735f5083a1475284bf6d0df93378afe",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "sha256": "3a1e1dc3df88bc60b6778f1821db86b644c71f50e91868c4ac00402e87a197df",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "sha256": "1582977b23cf662eadf341f8f7eefcf962536b2c6e6362355831cc1d9ecabd22",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "sha256": "2f038304e1a7f10cef270207a35073f2ffdc171a57d485a00f64bbf2c7aabe10",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "sha256": "4546ea21a9ca47ef74e4413c44ae1bbeb7712ecabac60bda941a7c1b0e8d190f",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "sha256": "6f99e08a092486bbc5fbdac26ad05e11738c6f61af97acca61f57a0007f4b9ae",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "sha256": "67f3889b26f148cf2a142c0eee32e8fe99fe174296121329751a76edfb3eef3f",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "sha256": "30918b813a9f183a137308dae47de7de990b39226429b86b936a2082961f25c0",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "sha256": "8ecd0e2f46b5fbc826f3f79e71f1af99e78168ef9b542e90b0cff2965a49ff14",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "sha256": "18d0c0e2824666197893560fa8f44326b4336441a7a1d5987bf79b0e59c3aa5c",
+      "gitBlob": "e609d930b5bbd283a376853b265d27502d68aaa8"
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "sha256": "1f90adade9deeb96fc68444a4ca311643a5eaf1d7c350391837ba33dd1d31be4",
+      "gitBlob": "9eeffe3ac5526b6a75ecb7a7cffa6f525a3a811f"
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "sha256": "f1c9cf49db20389db0bf9cbae2c01c2fdca4632849e41e964ab98fb3b36b053a",
+      "gitBlob": "e1ce8aecd3282fcd0931d543fea33c328d02362d"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "sha256": "0720c2f82f9a3046510cc4683dc47eb40a2ac4f991277e39a999d7ef54b349dd",
+      "gitBlob": "2db42d4fcb672607dc7e032f041548a53c11f5ed"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "sha256": "2e2b1ce3fd08b4b2962f84175101ae1aeb686acad037a69f18bf33a0ae06ed4a",
+      "gitBlob": "de6466b02d6aa4bbce88c44f691787c3fbdc0cd0"
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "sha256": "55a013e13e49bcdade6bf17bd2729e59063e6ba9888aa46891925cc46e274b03",
+      "gitBlob": "2168b78aea1ab10e72dd5838174f83d71df4d9a2"
+    },
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "sha256": "37accd625a268dc1fa5ffa26049fe9f8c5064bceecdee2f9d53b1af1763dcb0e",
+      "gitBlob": "d3f4e1e313d5ea4cb02f6ea6f1f690a9dcefe59f"
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "sha256": "d44d9205dab18a90ba9434c7f7d263930e8b810f798d50292ce330be885c5250",
+      "gitBlob": "de393040775dd7f07d4fc5fbbafd0d47fb87f12b"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "sha256": "23733c0a3e9b878495684a438152785c4f11a47c67ab271125fc39e73dab1a7b",
+      "gitBlob": "43e7d54c9b579fb8307ab522aa4314cb962e6de5"
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "sha256": "480e3258d45c99554c4afc7c2363c7eb81a86c56a0c53841a6e48e0c42940947",
+      "gitBlob": "a4eab3ddfab6a5ba4b1a4fd52589549fea01778c"
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "sha256": "06732209a836b43a69f0bb4db235b6e91e4faefcbe9e6bc061f590512e105c68",
+      "gitBlob": "700df4e8909d1b481f4d35da27afa3fe65170dd7"
+    },
+    {
+      "path": "public/games/long-jump/manifest.webmanifest",
+      "sha256": "9000930c7fc060192c768863d330f7d12c001df1aea24ffe1708cc134f48432f",
+      "gitBlob": "827f01127c589b231e1078fe60cb578ec7301276"
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "sha256": "02ebf2c90613a7f75f584a7d6efcab2a2aa5cd4d2c176408abb82ee0b136c1e4",
+      "gitBlob": "bb96f4ac6b07ff999b624766ed7758c6c82576d0"
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "sha256": "eeb76b7790f38e5e5b5757ffa177e6bca4a9253566650e03ee7a77d3ccab2fda",
+      "gitBlob": "75867a2188d0fd03490a8e94a87f9d6b042de245"
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "sha256": "fdccd36eedcaa2d491ebcaa36064b3a6f4dfe94f23714caa00bb3128b4bad76c",
+      "gitBlob": "2b8bca8c52267348de8c539dbf53a2d35f6a373f"
+    },
+    {
+      "path": "public/games/long-jump/replay.mjs",
+      "sha256": "e5f7f76b3df6d1b736584223d0ece3eec4d820b4b703bd6468aa59231ff960ec",
+      "gitBlob": "63caf5d5c456bd6757b08b1c772489fb4f010859"
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "sha256": "43ec04b7fb6ba40f03f2f49793aedcd86964fd7c711c36585773ca089e9544dd",
+      "gitBlob": "498d697ddb991983f8e4280b6858c520115fc3c6"
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "sha256": "decdbf9a6203614d5b106e3163a9f5b8c5da8b2794419e20109c5532b23bfbb7",
+      "gitBlob": "a1ccc244fa6d7a81be713f9bc9bd5ef2638e9103"
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "sha256": "36a58937585bea8ba10073dee0ec435a25376abfd367f338de5c0350ea62d8ba",
+      "gitBlob": "eba71c4a1fdd05debd20d7c7715c09f6071d2033"
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "sha256": "d6b66884b3064084dedf831b946483242ef9cb9905afa81b525e89dc4f289d3d",
+      "gitBlob": "48a0df2b81da5467594bf290cd602780b40992e9"
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "sha256": "bf6dd11e465f514721af5aa0a1e5cf9b84de1622909f0a3cb9b6fe33fa19f0f2",
+      "gitBlob": "39be1230c48f48236d305318afa5a6a9b9f99e26"
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "sha256": "187d38999e4fb106b900620cfd7fd660140b9423ecf63e842c756f0a2ef2bc53",
+      "gitBlob": "cb378fc643cc1dc963f0bbb2b986c0f9ab98a891"
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "sha256": "a556040a9e6cb2a0729fe001f7b87e5b798ec2b14059645c42166397a105af5b",
+      "gitBlob": "5dc0ec2412cacde037d3a63cd0853fb36608470a"
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "gitBlob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+      "gitBlob": "70c40977daa0f6e1e312c6b58e9bfe49cb5a87a4"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+      "gitBlob": "20d3c112761a519c7780a5ccc9f72a40937fa83b"
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "sha256": "cbc935d7170e661196dd4be6a94065c16a2111e9c4c4b98ca9556005e20a910a",
+      "gitBlob": "0bec16c55341f752ba4ac665651cbd3d530f2093"
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "sha256": "60d91c10717d2757752a99191431dc42a9b0e4ad8c7a5fa2f7abe338d68ff653",
+      "gitBlob": "dfe93e30eee9d8eff6577ab7d12d7a04f2316fae"
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "sha256": "ca844e5e0e1154e4346d5073d33ea9dc39eeff2b31ba7cf612e74e9c2f699252",
+      "gitBlob": "b9b18327b10711a80dbe310283330c2a5ddec769"
+    },
+    {
+      "path": "public/games/reaction-rod/audio.mjs",
+      "sha256": "c21bb70ba28bf40c2808b475c94ad9a3d89ef293b8e872034d0949bf43191b20",
+      "gitBlob": "2ab5ade9b7cc5f834b2566aefdc630952bf5d045"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/CREDITS.md",
+      "sha256": "3696d096294da387261dc89d7acfa74784fee85fbd9bddb3f292aad1474b45b5",
+      "gitBlob": "e044ffb34f9180f682bef1bbe83ccaf2e8d69067"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/chill-menu.mp3",
+      "sha256": "d25497f3bf59bc90c1a6ba097881cf749744372e09f06a3e5747bdbe0207e144",
+      "gitBlob": "50b833fcbec85ca8dd559aac6b09fdb05377aea9"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/glass-tap.wav",
+      "sha256": "66af77a37cbc7de354f4ba1a7a4653959e4ea815a705dc3aeff0077985c398e7",
+      "gitBlob": "479a2ff557800655a2bee89f08e1ef96c62d78c3"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/spill-drop.wav",
+      "sha256": "e027afbd01a9504c634a21a78e3492cebac24e226d53343da83381b0ed18312f",
+      "gitBlob": "a5bd77ea257f6c582ba4763890cf579fb8d442f8"
+    },
+    {
+      "path": "public/games/reaction-rod/final-moment.mjs",
+      "sha256": "ef2fdd563339101ee7dc3c0624565216072d90b2d89eaa6534c13dd8f7ab6d6b",
+      "gitBlob": "92c345b8cd4d7e46b0926b0a8be3bd6c5e273554"
+    },
+    {
+      "path": "public/games/reaction-rod/framing.mjs",
+      "sha256": "3d6756fb4d9055f842b4c5104b2356fa32777ff4b8cff5d5a972e2249bf0122d",
+      "gitBlob": "4f07858e8b96b9c38fa06c9f5d27c60d821c07d8"
+    },
+    {
+      "path": "public/games/reaction-rod/game-audio-events.mjs",
+      "sha256": "5853805cf13054acd6f29604fac510df44c03963135e7956c5979fbd1d3225c8",
+      "gitBlob": "2467922a9bd57d17adf1c745acd6f5f9f22a0cbd"
+    },
+    {
+      "path": "public/games/reaction-rod/game.mjs",
+      "sha256": "1110eb6913b28a1256febed83683d1d7ce48c4902e14e261329cc5e16da93645",
+      "gitBlob": "033a633da939586f6cf57d3ec4e38fad36bd948f"
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "sha256": "39dcf8bf87edab0015a6753513a692745c934390ac83415633a127bedbd41ff4",
+      "gitBlob": "3b90b7b67029ae4805dca091e4acd98a125aff44"
+    },
+    {
+      "path": "public/games/reaction-rod/layout.mjs",
+      "sha256": "094300ea5ea18f58f60dd3527226c5ee05ca3dc6b6435168b3a6665f23202cbc",
+      "gitBlob": "597253d88dee6718a41e6961a7e62c59c9caa746"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-metrics.mjs",
+      "sha256": "0e84221496d5b05d71cb67e0ae1f4365d05052dec025625e5b19945e66596385",
+      "gitBlob": "b2d34df4f8c02885ce3f6333acbd8fa42c3e1350"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-scroll.mjs",
+      "sha256": "5302800b40e29c386c7ac555841805f33a6503a76393f47004a63eb9799be4c6",
+      "gitBlob": "50cebd4910329c2f75d36758dc87576e441ae1c1"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard.mjs",
+      "sha256": "337f77f07a988ab572691d34261ab6ff8c44e77fc2012e502c7b96b8ff6ea550",
+      "gitBlob": "2200233b699ba4b191981b4f682ec11bfd847fd8"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+      "sha256": "8bdc7b952ae0a12e08ccf9463a4750f7288f4d05bf7f2124cc5805ecaabdb01c",
+      "gitBlob": "0c805e98c2aff9b5d29b2a2aaa9cd7768678787a"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Kenney-Interface-License.txt",
+      "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+      "gitBlob": "1fc5acf8243a8ac899403e7297f8c5efdc4258f2"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Not-Jam-License.txt",
+      "sha256": "b245a49364790d5f30079864efffc212f9ab9011711ea7a3ad2e8b71b90fdfc2",
+      "gitBlob": "60e049509bdf6f0102fa4815ac1d031c7d77b428"
+    },
+    {
+      "path": "public/games/reaction-rod/manifest.webmanifest",
+      "sha256": "27fa1cfb8a58f885ca828e82f956280344fdb7b71ddc6fd78fc3121c5aace879",
+      "gitBlob": "b0b6a524c20de78a1070dd56327b33272b91a27e"
+    },
+    {
+      "path": "public/games/reaction-rod/physics.mjs",
+      "sha256": "129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f",
+      "gitBlob": "a88e8f4437c4b224f725b1a13b3af2b39db5cd6d"
+    },
+    {
+      "path": "public/games/reaction-rod/play-counts.mjs",
+      "sha256": "d9c6b612c3adf1862155f1228a1c18c6b80192972ac51a39e8f70a74d81cde80",
+      "gitBlob": "e1950ccf5909a117b35bd058eaad7ad4e53fe563"
+    },
+    {
+      "path": "public/games/reaction-rod/replay.mjs",
+      "sha256": "2f280ab4ea09b47c61630b1c458411593fcb410897ba144805378e8a3a790b2f",
+      "gitBlob": "115b8a4b470e5889f362184b1d5bbc7df2b0c3d9"
+    },
+    {
+      "path": "public/games/reaction-rod/result.css",
+      "sha256": "c66cd9ffc998aa7e2968f667f8b61dedc48b27ca3c8519134559bf5ecb9fea42",
+      "gitBlob": "5e14fb7fa770ecbcd0228b91c9cc627e5b0b17ac"
+    },
+    {
+      "path": "public/games/reaction-rod/scene.mjs",
+      "sha256": "39ccb8c31358684a2557dfc6e547dea71de66f8895d3d3cae2d85fa5bbc219c1",
+      "gitBlob": "4d7313ddaebb299733b428b2ae639991acf2e0d3"
+    },
+    {
+      "path": "public/games/reaction-rod/share.mjs",
+      "sha256": "79a0209f65409979db9203475862973fd4c6b76b03f4b1fd799d2c07a9773ffe",
+      "gitBlob": "3742b71d55e34a2adbccd42f90cd96dc64cdefdf"
+    },
+    {
+      "path": "public/games/reaction-rod/snapshot.mjs",
+      "sha256": "1c1bce4734d18f4c48605c7310bf1d3aff26921dbdf7dd29ad7eb0d4895cbd79",
+      "gitBlob": "28b318dc026fb2cdb263c02250ada3b07b4606a9"
+    },
+    {
+      "path": "public/games/reaction-rod/style.css",
+      "sha256": "bc169309c2e101b66e0d1f4fb2c70ae0c650c2674c5f9a7e2ef30589251c894b",
+      "gitBlob": "6163314c8995e4c2881f52640aae49f03de58a89"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/reaction-rod/viewport.css",
+      "sha256": "709e7bcaf35de1b845ae40b760c6e044aaf1d466f5a2a546c5e82b719ca40994",
+      "gitBlob": "ce20b50e4e13faf28e1f3aa40c8fcb12d98a5a1c"
+    },
+    {
+      "path": "public/games/shared/audio-preferences.mjs",
+      "sha256": "1318f610966c84dea651912fbf71513bcb224c27d06f45e194e7652a98caa3f7",
+      "gitBlob": "ff71b706bb6eac4fa64d6a8b43275f864ee9e445"
+    },
+    {
+      "path": "public/games/shared/audio-runtime.mjs",
+      "sha256": "67561c08b444a881ce2658fde9cbc85da9e478a70d31fd6beb3c2ec74c85ffb5",
+      "gitBlob": "ceddec5ea717fe403dbb7b6a2114c9fcf515cb3c"
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "sha256": "6212f5816b989aa0a657582844fef94d3a80a1b226b8343a1983449adf084255",
+      "gitBlob": "987bba24c132b4c21928283f3e72e360cebabc2a"
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "sha256": "aec453041e9e63de39877fa18168b00d9552e1dfc030bd575ee4d2a603d7dfbd",
+      "gitBlob": "e1b1ecfc8784d5f1942c6c44b88c936b09b5863f"
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "sha256": "f06334f7550585110af1828befc0cd8c9ab942269eca814b1bede21ac0c464e2",
+      "gitBlob": "e4c4e65df7fa784d8f5a0cbab29043d04ab8f001"
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "sha256": "23367f95a5a978f086c38730339e6a7059a0f6d05f561d54da0a1d648e6bca61",
+      "gitBlob": "d3563ce03f0ef59ab875732927cadb8be4200fed"
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "sha256": "b796badf15b40284a073b6b3b1c1315c9e238af3cef05273566f0acfd121501d",
+      "gitBlob": "d37f933dfc833778c8cc5fa5ca2635103be52292"
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "sha256": "fc4e6ee5863bec79c0cf5d02ef8241aa6d169bc318f18323e54c764916093fc2",
+      "gitBlob": "b23ca1ab928171cd245103e642f99ae5fb04f258"
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "sha256": "d7dae6532aa51661186c386ecd643b2ee83b9f04e54fcf92ca3fdc6241cfcd10",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "sha256": "593950baa39ee4440a4404fa254425f15236e75cc6ac06bd9dc07eb2a52a2c44",
+      "gitBlob": "01fc2f38df10bb85461233d0f0e8e4e6e3a830fd"
+    },
+    {
+      "path": "public/games/shared/leaderboard-config.mjs",
+      "sha256": "5b22cd58a767ee839bf600a68d8f874661f554f19940182a19cfc131906580f9",
+      "gitBlob": "6068a13900e9fa266be02ffae05a874517847661"
+    },
+    {
+      "path": "public/games/shared/leaderboard.css",
+      "sha256": "ca71933d2116f98adb9a37057a037d43211b69dc2f22267e2d2b91b91cc6675d",
+      "gitBlob": "8429a7c664a684094533830c9c86d8b17134109c"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "sha256": "c5205cd84c4d02774d1e0b0d0f460bc73e43ab9975e4b771415241376797eb5c",
+      "gitBlob": "945c44604b42a2ae2449ef28d3543c703201690b"
+    },
+    {
+      "path": "public/games/shared/menu-audio.mjs",
+      "sha256": "458789a922d6fd28f06a827e8cc55aafeb4992fe1579ffa6bb7989e6b4ca7b35",
+      "gitBlob": "35f161653dd3f036af9cff1c27fe8d545da69ae8"
+    },
+    {
+      "path": "public/games/shared/menu-content.mjs",
+      "sha256": "e5098b2985cf370fb00a98b35731c80af440ea6bacd3e6379fb73066b9f5e2dd",
+      "gitBlob": "96477806a67ad663551c43451d1f41a302d6818b"
+    },
+    {
+      "path": "public/games/shared/play-counts.mjs",
+      "sha256": "75c9bfcf3c185fb91cf64ba6eae53e0c16091e49ce69832d25ee2ee9ba7d48f7",
+      "gitBlob": "f07d80094e665e7e01ca7e4248947a695aa32fa7"
+    },
+    {
+      "path": "public/games/shared/production-jump-chrome.css",
+      "sha256": "efe6f262ba822098aeafbae62e240e78623b1ee64c61571d1234cd5e023cd151",
+      "gitBlob": "f8f485a62f92d4bb6f088128670401940f2605d1"
+    },
+    {
+      "path": "public/games/shared/production-jump-leaderboard.mjs",
+      "sha256": "a45824a85c6d785655efa8f9189e4ca75311af5ac70c5eea77b7ad6cab1fb705",
+      "gitBlob": "e36580da2af43d048d01022e127ea7c5f8e9fd35"
+    },
+    {
+      "path": "public/games/shared/scene-audio.mjs",
+      "sha256": "406155feda2dd61cdf37cc5cb902ee41dc6f268156879ec63312ddcf84fd66e2",
+      "gitBlob": "a17e6ca66ca0541b617240bec099147b93c51458"
+    },
+    {
+      "path": "public/games/shared/studio-brand.css",
+      "sha256": "9b20939944d6b0d6a0368c9840ad9ef3be1a0e7c95ada1adfe795a8a0970bcce",
+      "gitBlob": "18ba8abc165e498154dd167de0c0045e36b7df36"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "sha256": "9a7fa89204f6a143d319863d72081e255fca9721bb212aabe8a35ef022b263d4",
+      "gitBlob": "7591f7c7c4957cfd923e835af91e9da421abedd7"
+    },
+    {
+      "path": "worker/leaderboard/003-reaction-rod-production.sql",
+      "sha256": "d199a2a50835c7b167180d1aefc4b5afcaa532ae019067f8853129b593992290",
+      "gitBlob": "2d80f19145cf8ad0b15c735f5a79265daaa49fd8"
+    },
+    {
+      "path": "worker/play-counts/002.sql",
+      "sha256": "53d6022ca5eef923f0dc37ab969150ffddbd571b565232c8589547de1a11151c",
+      "gitBlob": "ceffcb74368ae33ab233899f506b88d361f0e875"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "sha256": "0b0b187e4cca9cacffd9c9b8e1a10b12a8012bd614afc606078822eaf100be80",
+      "gitBlob": "e99bdaed9a7e1635cd58aeaa2dc45c952d6b519b"
+    }
+  ],
+  "files": [
+    {
+      "path": "package.json",
+      "sha256": "f85e28dba428211a20fe34af95122bacde8c70e9cc704dea99851c7cca47e249",
+      "gitBlob": "1e51324e6664bce3abdf1e639932c70fd4b9cbe2",
+      "beforeText": "{\n  \"name\": \"playformosa\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"build\": \"node scripts/build.mjs\",\n    \"test\": \"node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs tests/reaction-rod/*.test.mjs\",\n    \"check\": \"npm test && npm run build && node scripts/verify.mjs\"\n  },\n  \"engines\": {\n    \"node\": \">=20\"\n  },\n  \"devDependencies\": {\n    \"jsdom\": \"26.1.0\",\n    \"sql.js\": \"1.13.0\",\n    \"@napi-rs/canvas\": \"0.1.80\",\n    \"postcss\": \"8.5.6\"\n  }\n}\n",
+      "beforeSha256": "0761cb013d15bd57cba71ba4e85f7042fcb9ad7e2c717fa900185f74bd1a564e",
+      "beforeGitBlob": "c78f6d63f50c834de77fea7981f8b737d509cc49"
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "cee09334344868991809d74fb0bee51eeb6f089435424bb26e34c35f14b45891",
+      "gitBlob": "9adca6bd264da309f543363b6ceec9bd212a38e9",
+      "beforeText": "<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#decathlon\">十項全能</a><a href=\"#minigames\">小遊戲</a><a href=\"#big-games\">大遊戲</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\"><a class=\"button button-primary\" href=\"/games/long-jump/\">先跳一場 <span aria-hidden=\"true\">↗</span></a><a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>2<span> / 10</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\"><article class=\"game-card\"><a href=\"/games/long-jump/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hero-long-jump.png\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 跳遠</span></a><div class=\"game-info\"><p class=\"game-kicker\">第一個挑戰，先落地再說。</p><h3>四肢各有想法</h3><p class=\"event-label\">跳遠</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"long-jump\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/long-jump/\" aria-label=\"開始挑戰：四肢各有想法\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/hurdles/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hurdles-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 110 公尺跨欄</span></a><div class=\"game-info\"><p class=\"game-kicker\">八道欄杆，四肢過招。</p><h3>四肢各有想法｜110公尺跨欄</h3><p class=\"event-label\">110 公尺跨欄</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"hurdles\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/hurdles/\" aria-label=\"開始挑戰：四肢各有想法｜110公尺跨欄\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div><details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 8 個項目正在暖身。先把這一跳玩明白！</p><ul><li><span>100 公尺</span><small>尚未開放</small></li><li><span>鉛球</span><small>尚未開放</small></li><li><span>跳高</span><small>尚未開放</small></li><li><span>400 公尺</span><small>尚未開放</small></li><li><span>鐵餅</span><small>尚未開放</small></li><li><span>撐竿跳高</span><small>尚未開放</small></li><li><span>標槍</span><small>尚未開放</small></li><li><span>1500 公尺</span><small>尚未開放</small></li></ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details></div></section>\n<section class=\"series minigames\" id=\"minigames\" aria-labelledby=\"minigames-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">SMALL GAMES, BIG REACTIONS</p><h2 id=\"minigames-title\">小遊戲</h2></div><p class=\"progress\">目前開放 <strong>1</strong> 款</p></div><div class=\"series-body\"><div class=\"game-list\"><article class=\"game-card\"><a href=\"/games/reaction-rod/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/reaction-rod-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 夜市反應力</span></a><div class=\"game-info\"><p class=\"game-kicker\">十根棒子，手腦各憑本事。</p><h3>接棒啦！</h3><p class=\"event-label\">夜市反應力</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／鍵盤</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"reaction-rod\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/reaction-rod/\" aria-label=\"開始挑戰：接棒啦！\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div></div></section>\n<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"/assets/portal-taiwanfighter.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"/assets/portal-taiwanfighter-logo.webp\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">TAIWAN BATTLE SPIRIT</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">2D 格鬥・建議橫向</p><h3>武鬥台灣魂</h3><p class=\"portal-description\">走進台灣街景，準備好了就進場吧。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"https://taiwanfighter.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：武鬥台灣魂（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>",
+      "beforeSha256": "eef93b9a5c88eeca9f8770547c109ae2c79681959ad3884d7b05bfed46c3171f",
+      "beforeGitBlob": "31f40c36aa0a334794abf97fe2c90397d18224fe"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "41b7ef06503442d6026f9f3acb5354ea3e2ff702a889f57165ec32f173274f3d",
+      "gitBlob": "46bf58391eb82b42c6c6d19eab2b5c0545c2e157",
+      "beforeText": "import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';\nimport {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nconst root = new URL('../',import.meta.url);\nawait assertReleasedGames(new URL('public/',root));\nconst release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst rod=JSON.parse(await readFile(new URL('docs/reaction-rod-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst studio=JSON.parse(await readFile(new URL('docs/studio-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst jump=JSON.parse(await readFile(new URL('docs/long-jump-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths];\nawait assertProductionInventory(new URL('public/',root),allowedPublicPaths);\nconst html=renderPage(catalog);\nawait writeFile(new URL('public/index.html',root),html);\nawait rm(new URL('dist/',root),{recursive:true,force:true});\nawait mkdir(new URL('dist/',root),{recursive:true});\nawait cp(new URL('public/',root),new URL('dist/',root),{recursive:true});\nawait assertReleasedGames(new URL('dist/',root));\nawait assertProductionInventory(new URL('dist/',root),allowedPublicPaths);\nconsole.log('Built static Playformosa to dist/');\n",
+      "beforeSha256": "5f577f8239f380913316aff2db389dd64cb01334f2294833918b41d38500be48",
+      "beforeGitBlob": "dae8b121d5914059c316e8ba563861f042874f28"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "sha256": "9f2c48de95b56ae1fc782c167ebb950dd2733866cab6fbdb63d8e3361dc7ce0d",
+      "gitBlob": "e236b7df5b6b1467076bc17ab6e3237d1eebefc0",
+      "beforeText": "import{readdir,stat}from'node:fs/promises';import path from'node:path';import{fileURLToPath}from'node:url';\nexport const releasedGameIds=['long-jump','hurdles','reaction-rod'];\n// Production artifact admission, not merely homepage visibility.\nexport async function assertReleasedGames(root){root=root instanceof URL?fileURLToPath(root):root;const dir=path.join(root,'games'),entries=await readdir(dir,{withFileTypes:true});for(const e of entries){if(!e.isDirectory()||![...releasedGameIds,'shared'].includes(e.name))throw Error('Unapproved game directory: '+e.name);}for(const id of releasedGameIds)await stat(path.join(dir,id,'index.html'));const walk=async p=>{for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else if(e.name.endsWith('.html')&&!releasedGameIds.some(id=>full===path.join(dir,id,'index.html')))throw Error('Unapproved game HTML: '+path.relative(dir,full));}};await walk(dir);return releasedGameIds;}\n\nexport async function assertProductionInventory(root,allowedPaths){root=root instanceof URL?fileURLToPath(root):root;const seen=[];async function walk(p){for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else seen.push(path.relative(root,full).split(path.sep).join('/'));}}await walk(root);const allowed=new Set(allowedPaths);for(const p of seen)if(!allowed.has(p))throw Error('Unapproved production file: '+p);for(const p of allowed)if(!seen.includes(p))throw Error('Missing production file: '+p);return seen;}\n",
+      "beforeSha256": "3d48d1ad53ecaef87a230bd52fc412bd01786d8c57d245aa6b686e096e02115e",
+      "beforeGitBlob": "e7f9fe5111f5195b2940ce8efc776e607ad18a39"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "sha256": "85f8721fbfe5fa9286a8a2f6c8e21034392d49938202f184da12b3dbba6249b6",
+      "gitBlob": "a54fee181ead066a3c8f7427125da5e4fce9e11e",
+      "beforeText": "import {readFile,readdir,stat} from 'node:fs/promises';\nimport{assertReleasedGames,assertProductionInventory}from'./release-policy.mjs';\nimport path from 'node:path';\nimport {fileURLToPath} from 'node:url';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../dist/',import.meta.url));\nasync function files(dir){const entries=await readdir(dir,{withFileTypes:true});return (await Promise.all(entries.map(item=>item.isDirectory()?files(path.join(dir,item.name)):path.join(dir,item.name)))).flat();}\nawait assertReleasedGames(root);\nconst release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const rod=JSON.parse(await readFile(new URL('../docs/reaction-rod-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const studio=JSON.parse(await readFile(new URL('../docs/studio-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const jump=JSON.parse(await readFile(new URL('../docs/long-jump-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths]);\nconst paths=await files(root);\nlet checked=0;\nfor(const file of paths){\n  if(!/\\.(html|mjs|css)$/.test(file))continue;\n  const source=await readFile(file,'utf8');\n  const refs=file.endsWith('.html')?[...source.matchAll(/(?:src|href)=\"([^\"]+)\"/g)].map(m=>m[1]):file.endsWith('.mjs')?[...source.matchAll(/(?:from\\s*|import\\s*)['\"](\\.[^'\"]+)['\"]/g)].map(m=>m[1]):[...source.matchAll(/url\\(['\"]?([^)'\"\\s]+)['\"]?\\)/g)].map(m=>m[1]);\n  for(const ref of refs){\n    if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;\n    if(ref==='#'){checked++;continue;}\n    if(ref.startsWith('#')){assert.ok(new RegExp(`id=[\"']${ref.slice(1)}[\"']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}\n    let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);\n    target=target.split(/[?#]/)[0];\n    let info;try{info=await stat(target);}catch{throw new Error(`Missing local reference ${ref} from ${path.relative(root,file)}`);}\n    if(info.isDirectory())await stat(path.join(target,'index.html'));\n    checked++;\n  }\n}\nconsole.log(`Verified ${checked} local references across ${paths.length} output files. Browser visual/touch QA not performed.`);\n",
+      "beforeSha256": "56f1de8d6df8a2820b27923a0ab6e08d02b6f685c20612e3e3d0016c2419eff5",
+      "beforeGitBlob": "952ef09ed9e20b8e75092030652c2cfb372fb4f5"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "sha256": "5b1e64f1cc460b11b072784965fcb57b891ed4a7e3b62ad42f95bddae4328761",
+      "gitBlob": "87a2235825fda70d03367993e33235cba38ecebc",
+      "beforeText": "import {readExternalCatalog} from './external-catalog.mjs';\n// Add an actual game here only after its self-contained build is available.\nexport const catalog = {\n  ...readExternalCatalog(),\n  games: [{id:'long-jump', title:'四肢各有想法', event:'跳遠', href:'/games/long-jump/', status:'available'}, {id:'hurdles',title:'四肢各有想法｜110公尺跨欄',event:'110 公尺跨欄',href:'/games/hurdles/',status:'available',image:'/assets/hurdles-card.png',kicker:'八道欄杆，四肢過招。'}],\n  minigames:[{id:'reaction-rod',title:'接棒啦！',event:'夜市反應力',href:'/games/reaction-rod/',status:'available',image:'/assets/reaction-rod-card.png',imageStyle:'illustration',kicker:'十根棒子，手腦各憑本事。',input:'滑鼠／觸控／鍵盤'}],\n events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']\n};\n",
+      "beforeSha256": "73f35b7f0d51ab57f269c855fe0cbb6d82387edf89fbcb5e6bcefa1dee0d4d6c",
+      "beforeGitBlob": "816a26abf1e0731a55fadfd1f3e53eafd225df16"
+    },
+    {
+      "path": "src/render.mjs",
+      "sha256": "89643865785d0b908239b39833228b0b75b1bdb41886642d4cbf08226cc40763",
+      "gitBlob": "46db792d07020f067f24c250f04b9192c921f31e",
+      "beforeText": "const escape = value => String(value).replace(/[&<>\"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[char]));\nexport function renderPage({games,events,minigames=[],externalGames=[]}) {\n  const fighter=externalGames.filter(e=>e.release?.production===true);\n  if(fighter.length>1)throw new Error('Only one approved external entry');\n  for(const e of fighter)if(e.id!=='taiwanfighter'||e.href!=='https://taiwanfighter.playformosa.workers.dev/'||e.image!=='/assets/portal-taiwanfighter.webp'||e.logo!=='/assets/portal-taiwanfighter-logo.webp')throw new Error('Unapproved Fighter destination or asset');\n  const externalSection=fighter.map(e=>`<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"${escape(e.image)}\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"${escape(e.logo)}\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">${escape(e.eyebrow)}</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">${escape(e.genre)}</p><h3>${escape(e.title)}</h3><p class=\"portal-description\">${escape(e.description)}</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"${escape(e.href)}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：${escape(e.title)}（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>`).join('');\n  const available=games.filter(game=>game.status==='available');\n  for (const game of available) if (!/^\\/games\\/[a-z0-9-]+\\/$/.test(game.href)) throw new Error('Expected a local game route');\n  for(const game of available)if(game.image&&game.image!=='/assets/hurdles-card.png')throw new Error('Expected a local card image');\n  const availableMinigames=minigames.filter(game=>game.status==='available');\n  for(const game of availableMinigames)if(game.id!=='reaction-rod'||game.href!=='/games/reaction-rod/'||game.image!=='/assets/reaction-rod-card.png')throw new Error('Unapproved minigame');\n  const nextEvents=events.filter(event=>!available.some(game=>game.event===event));\n  const featured=available[0];\n  const renderCard=(game,collection)=>`<article class=\"game-card\"><a href=\"${escape(game.href)}\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"${escape(game.image || \"/assets/hero-long-jump.png\")}\"${game.image ? (game.imageStyle==='illustration' ? ' class=\"game-illustration\"' : ' class=\"game-scene\"') : ''} alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>${escape(collection)} · ${escape(game.event)}</span></a><div class=\"game-info\"><p class=\"game-kicker\">${escape(game.kicker || \"第一個挑戰，先落地再說。\")}</p><h3>${escape(game.title)}</h3><p class=\"event-label\">${escape(game.event)}${game.label ? ` · ${escape(game.label)}` : \"\"}</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> ${escape(game.input || \"鍵盤／觸控\")}</p>${['reaction-rod'].includes(game.id)?`<p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"${escape(game.id)}\" aria-live=\"polite\">遊玩次數讀取中…</p>`:''}</div><a class=\"button button-primary game-cta\" href=\"${escape(game.href)}\" aria-label=\"開始挑戰：${escape(game.title)}\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article>`;\n  return `<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#decathlon\">十項全能</a><a href=\"#minigames\">小遊戲</a><a href=\"#big-games\">大遊戲</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\">${featured ? `<a class=\"button button-primary\" href=\"${escape(featured.href)}\">先跳一場 <span aria-hidden=\"true\">↗</span></a>` : ''}<a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>${available.length}<span> / ${events.length}</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\">${available.map(game=>`<article class=\"game-card\"><a href=\"${escape(game.href)}\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"${escape(game.image || \"/assets/hero-long-jump.png\")}\"${game.image ? ' class=\"game-illustration\"' : ''} alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · ${escape(game.event)}</span></a><div class=\"game-info\"><p class=\"game-kicker\">${escape(game.kicker || \"第一個挑戰，先落地再說。\")}</p><h3>${escape(game.title)}</h3><p class=\"event-label\">${escape(game.event)}</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"${escape(game.id)}\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"${escape(game.href)}\" aria-label=\"開始挑戰：${escape(game.title)}\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article>`).join('')}</div>${nextEvents.length?`<details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 ${nextEvents.length} 個項目正在暖身。先把這一跳玩明白！</p><ul>${nextEvents.map(event=>`<li><span>${escape(event)}</span><small>尚未開放</small></li>`).join('')}</ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details>`:''}</div></section>\n<section class=\"series minigames\" id=\"minigames\" aria-labelledby=\"minigames-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">SMALL GAMES, BIG REACTIONS</p><h2 id=\"minigames-title\">小遊戲</h2></div><p class=\"progress\">目前開放 <strong>${availableMinigames.length}</strong> 款</p></div><div class=\"series-body\"><div class=\"game-list\">${availableMinigames.map(game=>renderCard(game,'小遊戲')).join('')}${availableMinigames.length ? '' : '<p class=\"minigames-empty\">更多怪點子，慢慢登場。</p>'}</div></div></section>\n${externalSection}\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>`;\n}\n",
+      "beforeSha256": "9da3482acf5caae8eb8d194254139e3a16dac6d61dede78d0a35ed972077ef61",
+      "beforeGitBlob": "65890961de119703ffdc23b153d15d9990cc2adb"
+    },
+    {
+      "path": "tests/helpers/long-jump-main-provenance.mjs",
+      "sha256": "5114224dc6df527a90f458bfffd91a02d69953bf80cda3685a40c41088ff97cc",
+      "gitBlob": "c812fd31d8ccabf85f57a541f998bb14a88b0af5",
+      "beforeText": "import {readFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {fileURLToPath} from 'node:url';\nimport path from 'node:path';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../../',import.meta.url));\nexport const longJumpManifest=()=>JSON.parse(readFileSync(new URL('../../docs/long-jump-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));\nconst hash=bytes=>createHash('sha256').update(bytes).digest('hex');\nconst blob=bytes=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+bytes.length+'\\0'),bytes])).digest('hex');\nexport function reverseLongJump(path,bytes,manifest=longJumpManifest()){\n const f=manifest.files.find(f=>f.path===path);if(!f||f.beforeText===undefined)return Buffer.from(bytes);\n assert.equal(hash(bytes),f.sha256,path+' Long Jump current bytes');assert.equal(blob(bytes),f.gitBlob,path+' Long Jump current Git blob');\n const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,path+' Long Jump prior bytes');assert.equal(blob(before),f.beforeGitBlob,path+' Long Jump prior Git blob');return before;\n}\nexport function readBeforeLongJump(file,encoding){\n const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');\n const bytes=reverseLongJump(relative,readFileSync(file));return encoding?bytes.toString(encoding):bytes;\n}\n",
+      "beforeSha256": "a94068f180a5040708b07eeb70f819badc3516dcad1806908ff2cb222c0aa9fe",
+      "beforeGitBlob": "b358dc3905462bd979063ed27a87a742c491f474"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "sha256": "980bde249cfca1ae6eb759f2e0765fa8f1f80656bc46a1f984b710a2ea612fa8",
+      "gitBlob": "48aadf70d57a775906a157e0be1eefd4377fe8ef",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{readFileSync,existsSync}from'node:fs';import{mkdtemp,mkdir,writeFile,rm}from'node:fs/promises';import{tmpdir}from'node:os';import path from'node:path';import{catalog}from'../src/catalog.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\ntest('production catalog contains only original Jump plus Hurdles and retains original P favicon',()=>{assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod']);assert.deepEqual(catalog.externalGames.map(e=>e.id),['taiwanfighter']);assert.deepEqual(catalog.platforms,[]);assert.match(read('src/render.mjs'),/app-icons\\/platform/);assert.ok(existsSync(new URL('../public/assets/favicon.svg',import.meta.url)));});\ntest('artifact guard rejects another game even when it has no catalog card',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-main-release-'));try{for(const game of['long-jump','hurdles','reaction-rod']){await mkdir(path.join(root,'games',game),{recursive:true});await writeFile(path.join(root,'games',game,'index.html'),'<title>game</title>');}await assertReleasedGames(root);await mkdir(path.join(root,'games','shot-put'));await writeFile(path.join(root,'games','shot-put','index.html'),'<title>unreleased</title>');await assert.rejects(assertReleasedGames(root),/Unapproved game directory/);}finally{await rm(root,{recursive:true,force:true});}});\ntest('actual public game artifact policy and hurdle dependencies are complete',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');await assertReleasedGames(new URL('../public/',import.meta.url));for(const name of['bgm','step','jump','flight','land','result'])for(const ext of['ogg','mp3'])assert.ok(existsSync(new URL('../public/games/hurdles/audio/'+name+'.'+ext,import.meta.url)));const manifest=JSON.parse(read('public/games/hurdles/manifest.webmanifest'));assert.equal(manifest.scope,'./');for(const icon of manifest.icons)assert.ok(existsSync(new URL(icon.src,new URL('../public/games/hurdles/',import.meta.url))));assert.match(read('wrangler.jsonc'),/\"not_found_handling\": \"404-page\"/);});\ntest('artifact guard rejects extra HTML inside shared and unapproved files outside games',async()=>{const{assertReleasedGames,assertProductionInventory}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-extra-'));try{for(const id of['long-jump','hurdles','reaction-rod','shared'])await mkdir(path.join(root,'games',id),{recursive:true});for(const id of['long-jump','hurdles','reaction-rod'])await writeFile(path.join(root,'games',id,'index.html'),'game');await writeFile(path.join(root,'games/shared/index.html'),'unreleased');await assert.rejects(assertReleasedGames(root),/Unapproved game HTML/);await rm(path.join(root,'games/shared/index.html'));await assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html','games/reaction-rod/index.html']);await writeFile(path.join(root,'secret-game.html'),'game');await assert.rejects(assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html','games/reaction-rod/index.html']),/Unapproved production file/);}finally{await rm(root,{recursive:true,force:true});}});\n",
+      "beforeSha256": "d30155066040d485f5e60a43dfee0dbd0df0b0a851b15864b4f2cc4afeb0f177",
+      "beforeGitBlob": "fb8cbbfe4efdad55fa4f1663f991b91bcc88bac0"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "sha256": "2668fde66bb9cd4c4900d9ecabfc98a07ec22eb795c4a874bd8f97189d9c377b",
+      "gitBlob": "2116a0b209cb6869c190781b0b7c0ae27ae81a4d",
+      "beforeText": "import {tmpdir} from 'node:os';import path from 'node:path';import {pathToFileURL} from 'node:url';import {readExternalCatalog} from '../src/external-catalog.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import{readFileSync,mkdtempSync,writeFileSync,rmSync}from'node:fs';import{JSDOM}from'jsdom';import{catalog}from'../src/catalog.mjs';import{renderPage}from'../src/render.mjs';\ntest('main has exactly three recorded-start cards and only approved fighter external',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','reaction-rod']);const external=[...d.querySelectorAll('[data-external-id]')];assert.equal(external.length,1);assert.equal(external[0].dataset.externalId,'taiwanfighter');const a=external[0].querySelector('a');assert.equal(a.href,'https://taiwanfighter.playformosa.workers.dev/');assert.equal(a.target,'_blank');assert.match(a.rel,/noopener/);assert.equal(d.querySelectorAll('script[src=\"/assets/play-counts.mjs\"]').length,1);});\ntest('fighter production flag and exact destination are admission boundaries',()=>{const entry=catalog.externalGames?.[0];assert.ok(entry);assert.equal(new JSDOM(renderPage({...catalog,externalGames:[{...entry,release:{preview:true,production:false}}]})).window.document.querySelector('[data-external-id]'),null);for(const patch of [{href:'https://evil.test/'},{id:'other'},{image:'/assets/other.png'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...entry,...patch}]}));});\ntest('each released controller counts only at successful start tail',()=>{for(const id of ['long-jump','hurdles','reaction-rod']){const s=readFileSync(new URL('../public/games/'+id+'/game.mjs',import.meta.url),'utf8');assert.equal((s.match(/void recordPlayStart\\(window,/g)||[]).length,1);assert.match(s,new RegExp(\"void recordPlayStart\\\\(window,'\"+id+\"'\\\\);}\"));}});\n\ntest('single footer visit counter remains separate from three game starts',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.equal(d.querySelectorAll('footer [data-home-count]').length,1);assert.equal(d.querySelectorAll('[data-play-count]').length,3);for(const n of d.querySelectorAll('[data-play-count]'))assert.equal(n.title,'本功能啟用後累計的開局紀錄');assert.match(d.querySelector('[data-home-count]').title,/短時間重訪不重複/);});\ntest('Fighter metadata is text and exact URL/logo restrictions reject lookalikes',()=>{const e=catalog.externalGames[0];const d=new JSDOM(renderPage({...catalog,externalGames:[{...e,title:'<script>evil()</script>',description:'<img src=x onerror=evil()>'}]})).window.document;assert.equal(d.querySelector('[data-external-id] h3').textContent,'<script>evil()</script>');assert.equal(d.querySelector('[data-external-id] script'),null);assert.equal(d.querySelector('[data-external-id] [onerror]'),null);for(const patch of [{logo:'/assets/evil.webp'},{href:e.href+'?x=1'},{href:'https://taiwanfighter.playformosa.workers.dev.evil.test/'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...e,...patch}]}));});\ntest('external reader rejects missing or nonboolean release flags',()=>{const dir=mkdtempSync(path.join(tmpdir(),'pf-fighter-'));try{for(const release of [undefined,{preview:true},{preview:true,production:'true'}]){writeFileSync(path.join(dir,'taiwanfighter.json'),JSON.stringify({...catalog.externalGames[0],release}));assert.throws(()=>readExternalCatalog(pathToFileURL(dir+'/')));}}finally{rmSync(dir,{recursive:true,force:true});}});\n",
+      "beforeSha256": "c1b41b0cfe6359a0e6baf64dedfd45cdf79246301d03f438913a47937422fa9b",
+      "beforeGitBlob": "97946132aeb186b272ad627ff40f8a97acf607b8"
+    },
+    {
+      "path": "tests/main-loading-provenance.test.mjs",
+      "sha256": "f7d6928b3407d0322a148f0b38bf1085a5b14ef56c428c16fcc5840f67280999",
+      "gitBlob": "8789da96649ec466a7f4c02cad1314e802f382ce",
+      "beforeText": "import {readBeforeStudio} from './helpers/studio-main-provenance.mjs';\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {JSDOM} from 'jsdom';\nimport {loadingManifest,reverseLoading,readBeforeLoading} from './helpers/loading-main-provenance.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeStudio(new URL(p,root));\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst games=['long-jump','hurdles','reaction-rod'];\ntest('main loader changes only three released documents and historical read boundaries and result fixture',()=>{\n const m=loadingManifest();assert.equal(m.baseCommit,'90e6690ca248752917955839d8c1ee2903a903d2');\n assert.deepEqual(m.scope,games);assert.deepEqual(m.files.map(f=>f.path).sort(),[...games.map(g=>'public/games/'+g+'/index.html'),'tests/helpers/rod-main-provenance.mjs','tests/reaction-rod-main-integrity.test.mjs','tests/reaction-rod-upload-scroll.test.mjs'].sort());\n for(const f of m.files){const current=read(f.path),before=reverseLoading(f.path,current);assert.equal(blob(before),f.beforeGitBlob);assert.deepEqual(readBeforeLoading(new URL(f.path,root)),before);assert.throws(()=>reverseLoading(f.path,Buffer.concat([current,Buffer.from('unreviewed')])));const damaged=structuredClone(m);damaged.files.find(x=>x.path===f.path).beforeText+='unreviewed';assert.throws(()=>reverseLoading(f.path,current,damaged));}\n});\ntest('removing the exact loader insertions restores every original game document byte',()=>{\n for(const game of games){const path='public/games/'+game+'/index.html',current=read(path),before=reverseLoading(path,current).toString();const after=current.toString().replace(' data-pf-startup=\"pending\"','').replace(/<style id=\"pf-startup-style\">[\\s\\S]*?<\\/style>/,'').replace(/<link rel=\"modulepreload\"[^>]+>/g,'').replace(/<script id=\"pf-startup-script\">[\\s\\S]*?<\\/script>/,'').replace(/<section id=\"pf-startup\"[\\s\\S]*?<\\/section>/,'');assert.equal(after,before,game+' preserves all original HTML, script imports and metadata');}\n});\ntest('existing production tree stays byte-identical outside the declared overlay',()=>{\n const m=loadingManifest();for(const f of m.protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);\n assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);\n});\ntest('modulepreloads only use existing same-origin modules and match original entry imports',()=>{\n const scripts=[];for(const game of games){const doc=new JSDOM(read('public/games/'+game+'/index.html').toString()).window.document;const preload=[...doc.querySelectorAll('link[rel=modulepreload]')].map(el=>el.getAttribute('href'));assert.equal(new Set(preload).size,preload.length);for(const src of preload){assert.doesNotMatch(src,/^https?:/);assert.match(src,/\\.m?js(?:\\?|$)/);assert.ok(readFileSync(new URL(src.split('?')[0],new URL('public/games/'+game+'/',root))).length);}for(const el of doc.querySelectorAll('script[type=module][src]'))assert.ok(preload.includes(el.getAttribute('src')));const script=doc.getElementById('pf-startup-script').textContent;scripts.push(script);assert.doesNotMatch(script,/\\.click\\(|AudioContext|localStorage|sessionStorage|requestAnimationFrame|\\.play\\(|\\.showModal\\(/);const css=doc.getElementById('pf-startup-style').textContent;assert.match(css,/prefers-reduced-motion/);assert.match(css,/min-height:44px/);assert.match(css,/overflow:auto/);assert.match(css,/visibility:hidden!important/);assert.doesNotMatch(css.split('}')[0],/display:none/);}\n assert.equal(new Set(scripts).size,1,'all three inline bootstraps stay identical');\n});\n",
+      "beforeSha256": "882f80ce5a4e23488e6b9ec465a279b29753d308221b1de3e927570f6ae6ae82",
+      "beforeGitBlob": "6c22ef7796ffd123dc56546097ba93dbf3480794"
+    },
+    {
+      "path": "tests/main-long-jump-promotion.test.mjs",
+      "sha256": "821950cf8525c595ab9c7c239c456776683e59d7362e4e2fa0651437ef8fce88",
+      "gitBlob": "0222890fe6792af5d22eaab36eb59957bafab6a1",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nfunction manifest(){assert.ok(existsSync(new URL('docs/long-jump-main/SOURCE-MANIFEST.json',root)),'new promotion needs its own ledger');return JSON.parse(read('docs/long-jump-main/SOURCE-MANIFEST.json'));}\ntest('Long Jump promotion has a precise independent source ledger and no extra public admission',()=>{\n const m=manifest();assert.equal(m.baseMain,'90e6690ca248752917955839d8c1ee2903a903d2');assert.equal(m.previewSource,'b732a20962613de3fb286fb2a8dc798d615d408d');assert.deepEqual(m.scope,['long-jump']);assert.deepEqual(m.addedPublicPaths,['games/long-jump/replay.mjs']);assert.equal(new Set(m.files.map(f=>f.path)).size,m.files.length);\n const publicChanges=m.files.filter(f=>f.path.startsWith('public/')).map(f=>f.path).sort();assert.deepEqual(publicChanges,['capture.mjs','game.mjs','index.html','layout.mjs','presentation.mjs','replay.mjs','share.mjs','style.css'].map(f=>'public/games/long-jump/'+f).sort());\n for(const f of m.files){const bytes=read(f.path);assert.equal(hash(bytes),f.sha256,f.path);assert.equal(blob(bytes),f.gitBlob,f.path);if(f.beforeText!==undefined){const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,f.path);assert.equal(blob(before),f.beforeGitBlob,f.path);}}\n});\ntest('Long Jump promotion keeps production services, scoring and all unrelated baseline files intact',()=>{\n const m=manifest();for(const f of m.protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);\n for(const path of ['wrangler.jsonc','public/games/shared/leaderboard.mjs','public/games/shared/production-jump-leaderboard.mjs','public/games/shared/play-counts.mjs','public/games/long-jump/physics.mjs','public/games/long-jump/controls.mjs','public/games/long-jump/world.mjs','worker/leaderboard/repository.mjs'])assert.ok(m.protectedFiles.some(f=>f.path===path),path);\n assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);\n});\ntest('current and previous Jump bytes are verified before yielding historical source',async()=>{\n const m=manifest(),{reverseLongJump,readBeforeLongJump}=await import('./helpers/long-jump-main-provenance.mjs');\n for(const f of m.files.filter(f=>f.beforeText!==undefined)){const bytes=read(f.path),old=reverseLongJump(f.path,bytes);assert.equal(blob(old),f.beforeGitBlob);assert.deepEqual(readBeforeLongJump(new URL(f.path,root)),old);assert.throws(()=>reverseLongJump(f.path,Buffer.concat([bytes,Buffer.from('tampered')])));const damaged=structuredClone(m);damaged.files.find(x=>x.path===f.path).beforeText+='tampered';assert.throws(()=>reverseLongJump(f.path,bytes,damaged));}\n});\ntest('complete preview physics and artwork remain identical while replay has exact preview source',()=>{\n const m=manifest();assert.equal(m.unchangedJumpFiles.length,37);for(const f of m.unchangedJumpFiles)assert.equal(blob(read(f.path)),f.previewGitBlob,f.path);for(const name of ['capture.mjs','presentation.mjs','replay.mjs','share.mjs']){const f=m.files.find(f=>f.path==='public/games/long-jump/'+name);assert.equal(f.gitBlob,f.previewGitBlob,name);}\n});\n",
+      "beforeSha256": "667f4d1e2b5062df04561122988e8ea110207a4de13c6dc6a8cc88c47f78c475",
+      "beforeGitBlob": "e34b42c9578d8c20f0bf9ef935bef2238842f018"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "sha256": "96496cdeddfd9b64de11908cf717b846fee22e84b2367cfe83d0a693c7842746",
+      "gitBlob": "17f6a5f6d0d507fa194c22296d819b4120576644",
+      "beforeText": "import {readBeforeRod} from './helpers/rod-main-provenance.mjs';\nimport test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{JSDOM}from'jsdom';import{renderPage}from'../src/render.mjs';import{catalog}from'../src/catalog.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readBeforeRod(new URL('../'+p,import.meta.url));};\ntest('released page entrypoints never load diagnostics in any display mode',()=>{for(const id of['long-jump','hurdles']){const doc=new JSDOM(readFileSync(new URL('../public/games/'+id+'/index.html',import.meta.url),'utf8')).window.document;assert.equal([...doc.scripts].filter(s=>/diagnostic/i.test(s.src)).length,0);assert.doesNotMatch(doc.body.textContent,/診斷|複製轉向/);assert.ok([...doc.scripts].some(s=>/^game\\.mjs(?:\\?|$)/.test(s.getAttribute('src')||'')));assert.ok(doc.querySelector('header a[href]'));}});\ntest('top nav names real big-game target, keeps sports grid and only the approved minigame link',()=>{const d=new JSDOM(renderPage(catalog)).window.document,nav=d.querySelector('.site-header nav');assert.deepEqual([...nav.querySelectorAll('a')].map(a=>[a.textContent,a.getAttribute('href')]),[['十項全能','#decathlon'],['小遊戲','#minigames'],['大遊戲','#big-games'],['關於','#about']]);assert.equal(d.querySelectorAll('#big-games').length,1);assert.ok(d.querySelector('#big-games [data-external-id=\"taiwanfighter\"]'));assert.equal(d.querySelectorAll('[data-play-count]').length,3);assert.ok(d.querySelector('#games'));assert.ok(d.querySelector('[data-home-count]'));});\ntest('correction ledger permits only exact diagnostic load removal and navigation delta',async()=>{const{createHash}=await import('node:crypto'),m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url))),l=m.mainNavDiagnostic,hash=s=>createHash('sha256').update(s).digest('hex');assert.deepEqual(l.files.map(f=>f.path),['public/games/long-jump/index.html','src/render.mjs','public/index.html']);for(const f of l.files){const s=readBeforeV2(f.path).toString();assert.equal(hash(s),f.sha256);const old=f.path.includes('long-jump')?s.replace('</body>','<script type=\"module\" src=\"viewport-diagnostics.mjs\"></script></body>'):s.replace('<a href=\"#big-games\">大遊戲</a>','<a href=\"#games\">遊戲</a>').replace('<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\">','<section class=\"portal-section\" aria-labelledby=\"fighter-title\">');assert.equal(hash(old),f.beforeSha256);assert.notEqual(hash(old+'unexpected'),f.beforeSha256);}});\n",
+      "beforeSha256": "8fabac1948c157c112f001269093b797c2b5c2146257d95cd6f839f1153bf7d2",
+      "beforeGitBlob": "952ab108c927bd888c965a4f2a7ec8c2e323ca36"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "sha256": "530e3eefa56f458c1957664d8e652860c48e28c96d7f4db589cd93b0fd7b8a13",
+      "gitBlob": "e4f1e6f8c44e77468ccf98cd9e77f14b7d518a0d",
+      "beforeText": "import {readBeforeRod} from './helpers/rod-main-provenance.mjs';\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {catalog} from '../src/catalog.mjs';\nimport {eligibleResult} from '../public/games/shared/leaderboard.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeRod(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst manifest=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')),v2=manifest.v2Promotion;\ntest('V2 promotion exact bytes retain auditable historical production chain',()=>{\n assert.equal(v2.baseCommit,'2091d1927ba7378119da7b78be7f936366a41bf2');assert.equal(v2.previewSource,'772d85e2cb063c4dbab38b7adf26956e13c22d57');assert.deepEqual(v2.scope,['long-jump','hurdles']);assert.ok(v2.files.length>0);\n const paths=v2.files.map(f=>f.path);assert.equal(new Set(paths).size,paths.length);\n for(const f of v2.files){assert.match(f.path,/^(public\\/games\\/(long-jump|hurdles|shared)\\/|tests\\/)/);const current=read(f.path);assert.equal(hash(current),f.sha256,f.path);assert.equal(blob(current),f.gitBlob,f.path);assert.equal(current.length,f.bytes);if(f.beforeText!==undefined){const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,f.path+' old sha256');assert.equal(blob(before),f.beforeGitBlob,f.path+' old git blob');}}\n});\ntest('production backend, D1 config, scoring physics and catalog stay byte-identical',()=>{\n assert.ok(v2.protectedFiles.some(f=>f.path==='wrangler.jsonc'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/leaderboard/0001.sql'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/play-counts/002.sql'));\n for(const f of v2.protectedFiles)assert.equal(hash(read(f.path)),f.sha256,f.path);\n assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform','reaction-rod']);\n assert.doesNotMatch(read('public/games/long-jump/game.mjs').toString(),/createLandingReplay|mountControlsFrame/);\n assert.equal(read('public/games/shared/leaderboard-config.mjs').toString().includes('LEADERBOARD_ENABLED = true'),true);\n});\ntest('two-game leaderboard accepts only original legal final-round metrics',()=>{\n assert.deepEqual(eligibleResult('long-jump',{phase:'done',valid:true,legalAdventureKm:12.5,adventureKm:999}),{score:12.5,status:'valid'});\n assert.equal(eligibleResult('long-jump',{phase:'done',valid:false,legalAdventureKm:12.5}),null);\n assert.deepEqual(eligibleResult('hurdles',{phase:'done',t:20}),{score:20,status:'done'});\n assert.equal(eligibleResult('hurdles',{phase:'done',t:181}),null);\n for(const game of ['long-jump','hurdles'])assert.equal(eligibleResult(game,{phase:'run',valid:true,legalAdventureKm:1,t:20}),null);\n for(const game of ['high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'])assert.equal(eligibleResult(game,{phase:'done',valid:true,legalAdventureKm:1,t:20}),null);\n});\n",
+      "beforeSha256": "81acf714ba45c58172b0483f9afa38558ed789afd0295e15ea3d46022009c492",
+      "beforeGitBlob": "53bf2b06ab758d288c7e11e9ea08d67782e9d934"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "sha256": "8fce93090c2992e342eb9114395e6036a63e4780594a9595797a755e2efa060c",
+      "gitBlob": "9f2e41221b3bebac51a8ed1a081ae92142a86582",
+      "beforeText": "import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{database}from'./helpers/leaderboard-sqlite.mjs';import{PlayCountsRepository}from'../worker/play-counts/repository.mjs';\nconst now=1793620800000,base={game:'hurdles',deviceId:'22222222-2222-4222-8222-222222222222',runId:'11111111-1111-4111-8111-111111111111',startedAt:now};async function setup(){const db=await database();db.raw.run(readFileSync(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));return{db,r:new PlayCountsRepository(db,'qa')}}\ntest('new empty counters and atomic concurrent same receipt only count once',async()=>{const{db,r}=await setup();assert.deepEqual(await r.totals(),{'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},home:{count:0,since:null}});const results=await Promise.all([r.start(base,now),r.start(base,now)]);assert.equal(results.filter(x=>x.duplicate).length,1);assert.equal((await r.totals()).hurdles.count,1);assert.equal((await r.totals()).hurdles.since,now);assert.equal((await r.start({...base,game:'long-jump'},now)).error,'conflict');assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_best')[0].values[0][0],0);});\ntest('cooldown refuses new id, subsequent genuine attempt increments, cleanup never increments twice',async()=>{const{db,r}=await setup();await r.start(base,now);assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+1000)).error,'limited');await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000);assert.equal((await r.totals()).hurdles.count,2);db.raw.run('UPDATE play_count_receipts SET created_at=0');await r.start({...base,runId:'44444444-4444-4444-8444-444444444444'},now+6000);assert.equal((await r.totals()).hurdles.count,3);assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],1);});\ntest('transaction rollback never leaves receipt without total',async()=>{const{db,r}=await setup();db.raw.run(\"CREATE TRIGGER deny_counter BEFORE INSERT ON play_count_totals BEGIN SELECT RAISE(ABORT,'test failure');END\");await assert.rejects(r.start(base,now));assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],0);});\ntest('daily global cap uses bounded aggregate rows and admits only one concurrent final slot',async()=>{const{db,r}=await setup(),day=Math.floor(now/86400000);db.raw.run('INSERT INTO play_count_totals VALUES (?,?,?,?,?,?)',['qa','hurdles',9999,now,day,9999]);const results=await Promise.all([r.start(base,now),r.start({...base,deviceId:'33333333-3333-4333-8333-333333333333',runId:'44444444-4444-4444-8444-444444444444'},now)]);assert.equal(results.filter(x=>x.accepted).length,1);assert.equal(results.filter(x=>x.error==='limited').length,1);assert.equal((await r.totals()).hurdles.count,10000);await r.start({...base,runId:'55555555-5555-4555-8555-555555555555'},now+86400000);assert.equal((await r.totals()).hurdles.count,10001);});\ntest('device daily cap and bounded indexed cleanup limit storage and read work',async()=>{const{db,r}=await setup();await r.start(base,now);const dev=db.raw.exec('SELECT device FROM play_count_receipts')[0].values[0][0],day=Math.floor(now/86400000);db.raw.run('BEGIN');for(let i=0;i<99;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','seed'+i,'p',dev,'hurdles',now-3000,day]);for(let i=0;i<150;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','old'+i,'p','other','hurdles',0,0]);db.raw.run('COMMIT');assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000)).error,'limited');assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts WHERE created_at=0')[0].values[0][0],50);for(const [sql,args,index]of[['SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?',['qa',day,dev],'play_count_daily'],['SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>?',['qa',dev,now-2000],'play_count_device'],['SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100',['qa',1],'play_count_expiry']]){const q=db.raw.prepare('EXPLAIN QUERY PLAN '+sql);q.bind(args);let details='';while(q.step())details+=q.getAsObject().detail;q.free();assert.match(details,new RegExp(index));}assert.equal((await r.totals()).hurdles.count,1);});\ntest('duplicate accepted before cap stays accepted and conflicting race never counts twice',async()=>{const{db,r}=await setup();const result=await Promise.all([r.start(base,now),r.start({...base,game:'long-jump'},now)]);assert.equal(result.filter(x=>x.accepted).length,1);assert.equal(result.filter(x=>x.error==='conflict').length,1);const winner=(await r.totals()).hurdles.count?base:{...base,game:'long-jump'};db.raw.run('UPDATE play_count_totals SET day_total=10000');assert.deepEqual(await r.start(winner,now+3000),{accepted:true,duplicate:true});assert.equal(Object.values(await r.totals()).reduce((a,x)=>a+x.count,0),1);});\n",
+      "beforeSha256": "f98cab1d231e0d5655554d09c0b7eabc09606a75e20a65b03dcde3f5fa3dda36",
+      "beforeGitBlob": "0e02864f4a28cfbbaa3aa97d1c7b04fd380b0d9b"
+    },
+    {
+      "path": "tests/reaction-rod-main-integrity.test.mjs",
+      "sha256": "801d74cec5f4b652e315e1e3939653483529fa2acf7f621fe7af4a7f365861c0",
+      "gitBlob": "7f58fe16eac26620f0889d272eccf4aa86b3ecb0",
+      "beforeText": "import {readBeforeLoading} from './helpers/loading-main-provenance.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeLoading(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex');\nconst m=JSON.parse(read('docs/reaction-rod-main/SOURCE-MANIFEST.json'));\ntest('Rod promotion ledger protects every existing game, shared module, original schema and production binding byte',()=>{\n assert.equal(m.baseCommit,'af138c1631b553b65531016f24888266c3ef2bbe');assert.equal(m.previewSource,'52c60d195e494146f95bc702763cbe6d7bcc742a');\n for(const f of m.protectedFiles)assert.equal(hash(read(f.path)),f.sha256,f.path);\n for(const prefix of ['public/games/long-jump/','public/games/hurdles/','public/games/shared/']){assert.ok(m.protectedFiles.some(f=>f.path.startsWith(prefix)));assert.equal(m.files.filter(f=>f.path.startsWith(prefix)).length,0);}\n for(const path of ['wrangler.jsonc','worker/leaderboard/repository.mjs','worker/leaderboard/0001.sql','worker/play-counts/002.sql','src/catalog-entries/taiwanfighter.json','docs/hurdles-main/SOURCE-MANIFEST.json'])assert.ok(m.protectedFiles.some(f=>f.path===path),path);\n});\ntest('all new production files belong only to Rod and public inventory excludes unapproved games',()=>{\n const added=m.addedPublicPaths;assert.equal(new Set(added).size,added.length);\n for(const p of added)assert.match(p,/^(games\\/reaction-rod\\/|assets\\/app-icons\\/reaction-rod\\/|assets\\/reaction-rod-card\\.png$)/);\n assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);\n assert.equal(hash(read('public/games/reaction-rod/physics.mjs')),'129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f');\n for(const f of m.files){assert.equal(hash(read(f.path)),f.sha256,f.path);if(f.beforeText!==undefined)assert.equal(hash(Buffer.from(f.beforeText)),f.beforeSha256,f.path+' historical baseline');}\n});\n",
+      "beforeSha256": "f401698888a9eafba83032f152f22b7c584dd326dd065cc3a5a1342d7fd3158b",
+      "beforeGitBlob": "739996d2b6f0d5397f9720f31de66d9f7a655866"
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "sha256": "9f1354015b3d5c0551a62b39485b7442cd6bd00d3ff786a115b3a92a4608805a",
+      "gitBlob": "1d107ef0ef3cb97c37d4cf6ee8890dc363fd5bc3",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync} from 'node:fs';\nimport {JSDOM} from 'jsdom';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nimport {validateSubmission,BOARDS} from '../worker/leaderboard/index.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\nconst valid={game:'reaction-rod',rules:'catch-rating-v1',unit:'catches',status:'done',score:5,secondaryScore:4.8123456789,nickname:'島民',deviceId:'00000000-0000-4000-8000-000000000001',submissionId:'00000000-0000-4000-8000-000000000002'};\ntest('main navigation and independent shelf admit exactly approved Rod',()=>{\n const d=new JSDOM(renderPage(catalog)).window.document;\n assert.deepEqual([...d.querySelectorAll('.site-header nav a')].map(a=>a.textContent),['十項全能','小遊戲','大遊戲','關於']);\n assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);\n assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod']);\n assert.equal(d.querySelectorAll('#minigames .game-card').length,1);\n assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','reaction-rod']);\n assert.equal(d.querySelector('#minigames .game-cta').getAttribute('href'),'/games/reaction-rod/');\n assert.equal(d.querySelector('[data-external-id] a').href,'https://taiwanfighter.playformosa.workers.dev/');\n});\ntest('Rod API validates full precision without weakening legacy schemas or admitting other games',()=>{\n assert.ok(BOARDS['reaction-rod']); assert.deepEqual(validateSubmission(valid),valid);\n for(const v of [0,11,1.2,NaN])assert.throws(()=>validateSubmission({...valid,score:v}));\n for(const v of [-1,11,NaN,Infinity,'5',undefined])assert.throws(()=>validateSubmission({...valid,secondaryScore:v}));\n for(const game of ['sprint-100m','javelin','high-jump','shot-put','beer-slide'])assert.throws(()=>validateSubmission({...valid,game}));\n const {secondaryScore,...legacy}=valid;\n assert.throws(()=>validateSubmission({...legacy,game:'long-jump',rules:'journey-km-v1',unit:'km',status:'valid',secondaryScore:0}));\n});\ntest('Rod imports only local adapters while all visible routes and licensed audio exist',()=>{\n assert.ok(existsSync(new URL('../public/games/reaction-rod/index.html',import.meta.url)));\n const g=read('public/games/reaction-rod/game.mjs');\n for(const file of ['leaderboard.mjs','play-counts.mjs','audio.mjs','game-audio-events.mjs'])assert.ok(g.includes(\"'./\"+file+\"'\"));\n assert.doesNotMatch(g,/beer-slide/);\n assert.match(read('public/games/reaction-rod/index.html'),/src=\"\\.\\/layout\\.mjs\"/);\n assert.doesNotMatch(read('public/games/reaction-rod/index.html'),/\\.\\.\\/beer-slide/);\n});\n",
+      "beforeSha256": "87f1205636581ed6c7964b180ceb827d31d0f8240f5f21cda90611c40f248d2f",
+      "beforeGitBlob": "a942de833d30211d83dfc985a87046d4ae18e8a6"
+    },
+    {
+      "path": "tests/studio-main-provenance.test.mjs",
+      "sha256": "7de81775fadcd4fd28993d1f9dccaf378c10465da0f43dd0f1d2f2f90e0ff50c",
+      "gitBlob": "2f72a0332329a6a7d2fe4ba884292546d1b59d3e",
+      "beforeText": "import {readBeforeLongJump} from './helpers/long-jump-main-provenance.mjs';\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {studioManifest,reverseStudio,readBeforeStudio} from './helpers/studio-main-provenance.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeLongJump(new URL(p,root));\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\ntest('studio scope adds only approved attribution CSS and preserves existing published games',()=>{\n const m=studioManifest();assert.equal(m.mainBase,'90e6690ca248752917955839d8c1ee2903a903d2');assert.equal(m.previewSource,'1b79d1f22f84638f44b69bd7274bc84670af4876');\n assert.deepEqual(m.addedPublicPaths,['games/shared/studio-brand.css']);assert.deepEqual(m.addedFiles.map(f=>f.path),['public/games/shared/studio-brand.css']);\n assert.deepEqual(m.files.map(f=>f.path).sort(),['public/games/hurdles/index.html','public/games/reaction-rod/index.html','public/games/shared/entry-shell.mjs','scripts/build.mjs','scripts/verify.mjs','tests/helpers/loading-main-provenance.mjs','tests/main-loading-provenance.test.mjs'].sort());\n for(const f of m.addedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);\n assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);\n});\ntest('studio reversal verifies every changed byte and rejects forged historical baselines',()=>{\n const m=studioManifest();for(const f of m.files){const bytes=read(f.path),before=reverseStudio(f.path,bytes);assert.equal(blob(before),f.beforeGitBlob);assert.deepEqual(readBeforeStudio(new URL(f.path,root)),before);assert.throws(()=>reverseStudio(f.path,Buffer.concat([bytes,Buffer.from('unexpected')])));const bad=structuredClone(m);bad.files.find(x=>x.path===f.path).beforeText+='unexpected';assert.throws(()=>reverseStudio(f.path,bytes,bad));}\n});\ntest('attribution surgery preserves the exact prior game documents and entry behavior source',()=>{\n for(const game of ['hurdles','reaction-rod']){const p='public/games/'+game+'/index.html',b=read(p),restored=b.toString().replace('<link rel=\"stylesheet\" href=\"../shared/studio-brand.css\">','').replace(/<div class=\"pf-studio-heading\">(<h1>[^<]*<\\/h1>)<span class=\"pf-studio-live\">島遊無界工作室 \\| PLAYFORMOSA STUDIO<\\/span><\\/div>/,'$1').replace('<p class=\"pf-studio-result\">島遊無界工作室 | PLAYFORMOSA STUDIO</p>','');assert.equal(restored,reverseStudio(p,b).toString(),game);}\n const p='public/games/shared/entry-shell.mjs',b=read(p);assert.equal(b.toString().replace(\"brand.textContent='島遊無界工作室 | PLAYFORMOSA STUDIO'\",\"brand.textContent='PLAYFORMOSA'\"),reverseStudio(p,b).toString());\n});\ntest('studio overlay preserves all other loading-candidate files and every historical source ledger',()=>{\n for(const f of studioManifest().protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);\n for(const p of ['docs/loading-main/SOURCE-MANIFEST.json','docs/hurdles-main/SOURCE-MANIFEST.json','docs/reaction-rod-main/SOURCE-MANIFEST.json','public/games/long-jump/game.mjs','public/games/hurdles/share.mjs','public/games/reaction-rod/share.mjs','wrangler.jsonc'])assert.ok(studioManifest().protectedFiles.some(f=>f.path===p),p);\n});\n",
+      "beforeSha256": "2ebe07d78a9b1c41049e30128db529c392d3a0bdc4bbabc6738f39f023a4c038",
+      "beforeGitBlob": "f6abc3d550cd357c659a3679f2bf1b427d7d024a"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "sha256": "465cbe52a3a3a4153ffc25a8a50786b85f2b525667adb4c9a1ff7782ea2c9084",
+      "gitBlob": "aac5071e0a65bdc6f31b3ab797b27fbb44b7c0af",
+      "beforeText": "import {handlePlayCounts} from '../play-counts/index.mjs';\nimport {LeaderboardRepository} from './repository.mjs';\nimport {ReactionRodRepository} from './reaction-rod-repository.mjs';\nexport const BOARDS=Object.freeze({\n 'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),\n 'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true})\n});\nconst fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\nfunction validateBaseSubmission(value){\n if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');\n const b=typeof value.game==='string'&&Object.hasOwn(BOARDS,value.game)?BOARDS[value.game]:null;if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');\n if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max)throw Error('invalid_score');\n if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\\p{Cc}\\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');\n if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');\n return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));\n}\nexport function validateSubmission(value){\n if(value?.game!=='reaction-rod')return validateBaseSubmission(value);\n if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>10)throw Error('invalid_secondary');\n const {secondaryScore,...base}=value;\n return {...validateBaseSubmission(base),secondaryScore};\n}\nconst json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});\nexport async function handleRequest(request,env,now=Date.now()){\n const url=new URL(request.url);\n if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);\n if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});\n if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);\n const repository=game=>game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);\n try{\n  if(request.method==='GET'&&url.pathname==='/api/leaderboard'){\n   const game=url.searchParams.get('game'),board=Object.hasOwn(BOARDS,game)?BOARDS[game]:null;\n   if(!board||[...url.searchParams.keys()].some(k=>k!=='game'))return json({error:'invalid_board'},400);\n   const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);\n   return json({game,rules:board.rules,unit:board.unit,...await repository(game).board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});\n  }\n  if(request.method!=='POST'||url.pathname!=='/api/leaderboard/submissions')return json({error:'method_not_allowed'},405);\n  if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n  if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n  if(Number(request.headers.get('Content-Length'))>2048)return json({error:'too_large'},413);\n  const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);\n  let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}\n  const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}\n  let data;try{data=validateSubmission(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)));}catch{return json({error:'invalid_submission'},400);}\n  const result=await repository(data.game).submit(data,BOARDS[data.game],now);\n  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'60'}:{});\n }catch{return json({error:'temporarily_unavailable'},503);}\n}\nexport default {fetch(request,env){return handleRequest(request,env);}};\n",
+      "beforeSha256": "38ae04fdfe7bfe0ce6b57d3af45b5fa1e4241729ce6b0bc1ac8cc32f524200b4",
+      "beforeGitBlob": "34ec71578b76b110b4006438d256843a4992f639"
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "sha256": "1e764914b27dcf3d99cea747d5ccba408f573d95850d98ec696656ef3622f788",
+      "gitBlob": "939534ef4c751792efcf16aa58704fccadb2848d",
+      "beforeText": "import{PlayCountsRepository}from'./repository.mjs';\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,fields=['game','deviceId','runId','startedAt'];\nexport function validateStart(v,now,home=false){if(!v||Array.isArray(v)||typeof v!=='object'||Object.keys(v).length!==4||Object.keys(v).some(k=>!fields.includes(k))||!(home?['home']:['long-jump','hurdles','reaction-rod']).includes(v.game)||typeof v.deviceId!=='string'||typeof v.runId!=='string'||!uuid.test(v.deviceId)||!uuid.test(v.runId)||!Number.isSafeInteger(v.startedAt)||v.startedAt<now-600000||v.startedAt>now+30000)throw Error('invalid_start');return{game:v.game,deviceId:v.deviceId.toLowerCase(),runId:v.runId.toLowerCase(),startedAt:v.startedAt};}\nconst json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers}});\nexport async function handlePlayCounts(request,env,now=Date.now()){\n const u=new URL(request.url);if(env.PLAY_COUNTS_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||env.LEADERBOARD_ORIGIN!==u.origin||!env.DB)return json({error:'unavailable'},503);\n try{const repo=new PlayCountsRepository(env.DB,env.LEADERBOARD_SCOPE);\n if(u.search)return json({error:'invalid_query'},400);\n if(request.method==='GET'&&u.pathname==='/api/play-counts')return json({counts:await repo.totals()},200,{'Cache-Control':'public, max-age=30'});\n if(request.method!=='POST'||!['/api/play-counts/starts','/api/play-counts/views'].includes(u.pathname))return json({error:'method_not_allowed'},405);\n if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n if(Number(request.headers.get('Content-Length'))>1024)return json({error:'too_large'},413);\n const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);let size=0,chunks=[];while(true){const{done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>1024){await reader.cancel();return json({error:'too_large'},413)}chunks.push(value)}\n const bytes=new Uint8Array(size);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length}let data;try{data=validateStart(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),now,u.pathname.endsWith('/views'))}catch{return json({error:'invalid_start'},400)}\n const result=await repo.start(data,now);return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'2'}:{});\n }catch{return json({error:'temporarily_unavailable'},503)}\n}\n",
+      "beforeSha256": "29f3b0ae1ff4d1cd894e3c9635423f8023b7bd17d478a5d1a60e3d780de1d4a0",
+      "beforeGitBlob": "0565bc127f2f3b4c78a9ebd3c3b211e2b62f879e"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "sha256": "6aefda294d32379fbcc7f4c4d50356faa994c0dd1fa1b6d4ed9d759ef41a5df5",
+      "gitBlob": "5376c0bd58cde1ce9546808013ca5c8422fd5196",
+      "beforeText": "const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');\nexport class PlayCountsRepository{\n constructor(db,scope){this.db=db;this.scope=scope;}\n async totals(){const rows=await this.db.prepare('SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (?,?,?,?)').bind(this.scope,'long-jump','hurdles','reaction-rod','home').all();const out={'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},home:{count:0,since:null}};for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}\n async start(data,now){const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify([data.game,data.deviceId,data.runId,data.startedAt])),day=Math.floor(now/86400000),p=(q,...args)=>this.db.prepare(q).bind(...args);\n const home=data.game==='home',windowMs=home?1800000:2000;\n const rows=await this.db.batch([\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n p('DELETE FROM play_count_receipts WHERE rowid IN (SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),\n p(`INSERT OR IGNORE INTO play_count_receipts(scope,id,payload,device,counter_key,created_at,day)\n SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS(SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND ${home?\"counter_key='home'\":\"counter_key!='home'\"})\n AND (SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?)<100\n AND (SELECT COALESCE(SUM(day_total),0) FROM play_count_totals WHERE scope=? AND day=?)<10000`,this.scope,data.runId,payload,device,data.game,now,day,this.scope,device,now-windowMs,this.scope,day,device,this.scope,day),\n // Immediately follows receipt INSERT: changes() belongs to that INSERT, never cleanup.\n p(`INSERT INTO play_count_totals(scope,counter_key,total,since,day,day_total) SELECT ?,?,1,?,?,1 WHERE changes()=1\n ON CONFLICT(scope,counter_key) DO UPDATE SET total=play_count_totals.total+1,day=excluded.day,day_total=CASE WHEN play_count_totals.day=excluded.day THEN play_count_totals.day_total+1 ELSE 1 END`,this.scope,data.game,now,day),\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n ...(home?[p(\"SELECT created_at FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND counter_key='home' ORDER BY created_at DESC LIMIT 1\",this.scope,device,now-1800000)]:[])]);\n const receipt=rows[4].results[0],lastHome=rows[5]?.results[0]?.created_at,nextEligibleAt=lastHome==null?null:lastHome+1800000;if(!receipt){if(home&&nextEligibleAt>now)return{accepted:true,counted:false,nextEligibleAt};return{error:'limited'}};if(receipt.payload!==payload)return{error:'conflict'};return{accepted:true,duplicate:rows[0].results.length>0,...(home?{counted:rows[0].results.length===0,nextEligibleAt}:{})};\n }\n}\n",
+      "beforeSha256": "50b945343c94862a25a6e87a44f22fa4742779f1cc37bf180d3e844c7beb5a4c",
+      "beforeGitBlob": "d77ccc5743f7ddd9fe147872072824612a67d170"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
 import {readBeforeLoading} from './helpers/loading-main-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';
 const root=new URL('../',import.meta.url),read=p=>readBeforeLoading(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex');
@@ -11,7 +12,7 @@ test('Rod promotion ledger protects every existing game, shared module, original
 test('all new production files belong only to Rod and public inventory excludes unapproved games',()=>{
  const added=m.addedPublicPaths;assert.equal(new Set(added).size,added.length);
  for(const p of added)assert.match(p,/^(games\/reaction-rod\/|assets\/app-icons\/reaction-rod\/|assets\/reaction-rod-card\.png$)/);
- assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);
+ assert.deepEqual(readGamesBeforeFastHands(),['hurdles','long-jump','reaction-rod','shared']);
  assert.equal(hash(read('public/games/reaction-rod/physics.mjs')),'129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f');
  for(const f of m.files){assert.equal(hash(read(f.path)),f.sha256,f.path);if(f.beforeText!==undefined)assert.equal(hash(Buffer.from(f.beforeText)),f.beforeSha256,f.path+' historical baseline');}
 });

@@ -1,7 +1,7 @@
 const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');
 export class PlayCountsRepository{
  constructor(db,scope){this.db=db;this.scope=scope;}
- async totals(){const rows=await this.db.prepare('SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (?,?,?,?)').bind(this.scope,'long-jump','hurdles','reaction-rod','home').all();const out={'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},home:{count:0,since:null}};for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}
+ async totals(){const rows=await this.db.prepare('SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (?,?,?,?,?,?,?)').bind(this.scope,'long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','home').all();const out={'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},'fast-hands':{count:0,since:null},'fast-hands-catch':{count:0,since:null},'fast-hands-duel':{count:0,since:null},home:{count:0,since:null}};for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}
  async start(data,now){const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify([data.game,data.deviceId,data.runId,data.startedAt])),day=Math.floor(now/86400000),p=(q,...args)=>this.db.prepare(q).bind(...args);
  const home=data.game==='home',windowMs=home?1800000:2000;
  const rows=await this.db.batch([
@@ -19,3 +19,4 @@ export class PlayCountsRepository{
  const receipt=rows[4].results[0],lastHome=rows[5]?.results[0]?.created_at,nextEligibleAt=lastHome==null?null:lastHome+1800000;if(!receipt){if(home&&nextEligibleAt>now)return{accepted:true,counted:false,nextEligibleAt};return{error:'limited'}};if(receipt.payload!==payload)return{error:'conflict'};return{accepted:true,duplicate:rows[0].results.length>0,...(home?{counted:rows[0].results.length===0,nextEligibleAt}:{})};
  }
 }
+

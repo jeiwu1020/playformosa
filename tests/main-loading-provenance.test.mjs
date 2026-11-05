@@ -1,3 +1,4 @@
+import {readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
 import {readBeforeStudio} from './helpers/studio-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -18,7 +19,7 @@ test('removing the exact loader insertions restores every original game document
 });
 test('existing production tree stays byte-identical outside the declared overlay',()=>{
  const m=loadingManifest();for(const f of m.protectedFiles)assert.equal(blob(read(f.path)),f.gitBlob,f.path);
- assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['hurdles','long-jump','reaction-rod','shared']);
+ assert.deepEqual(readGamesBeforeFastHands(),['hurdles','long-jump','reaction-rod','shared']);
 });
 test('modulepreloads only use existing same-origin modules and match original entry imports',()=>{
  const scripts=[];for(const game of games){const doc=new JSDOM(read('public/games/'+game+'/index.html').toString()).window.document;const preload=[...doc.querySelectorAll('link[rel=modulepreload]')].map(el=>el.getAttribute('href'));assert.equal(new Set(preload).size,preload.length);for(const src of preload){assert.doesNotMatch(src,/^https?:/);assert.match(src,/\.m?js(?:\?|$)/);assert.ok(readFileSync(new URL(src.split('?')[0],new URL('public/games/'+game+'/',root))).length);}for(const el of doc.querySelectorAll('script[type=module][src]'))assert.ok(preload.includes(el.getAttribute('src')));const script=doc.getElementById('pf-startup-script').textContent;scripts.push(script);assert.doesNotMatch(script,/\.click\(|AudioContext|localStorage|sessionStorage|requestAnimationFrame|\.play\(|\.showModal\(/);const css=doc.getElementById('pf-startup-style').textContent;assert.match(css,/prefers-reduced-motion/);assert.match(css,/min-height:44px/);assert.match(css,/overflow:auto/);assert.match(css,/visibility:hidden!important/);assert.doesNotMatch(css.split('}')[0],/display:none/);}
