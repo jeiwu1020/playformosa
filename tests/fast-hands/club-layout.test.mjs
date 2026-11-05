@@ -1,11 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import postcss from 'postcss';
 
 const root = new URL('../../public/games/fast-hands/', import.meta.url);
-const clubPath = new URL('club.css', root);
 const sizes = [[320,568],[360,640],[390,844],[430,932],[844,390],[1000,560],[1024,600],[1366,768],[1920,1080]];
 
 // JSDOM does not evaluate viewport queries. Select the real applicable rules
@@ -34,12 +33,14 @@ function page(name, width, height, phase = 'idle') {
   const { document } = dom.window;
   document.body.classList.add('fast-hands-club');
   document.body.dataset.phase = phase;
-  const base = name === 'duck' ? ['style.css','level-nav.css','../shared/studio-brand.css'] : ['levels.css','level-nav.css'];
-  const css = base.map(file => readFileSync(new URL(file, root), 'utf8')).join('\n') + '\n' + (existsSync(clubPath) ? readFileSync(clubPath, 'utf8') : '') + '\n' + readFileSync(new URL('finale.css', root), 'utf8');
+  document.documentElement.dataset.pfStartup='ready';
+  document.body.dataset.clubReady='true';
+  // Match the page's actual stylesheet order, including studio-brand after club.
+  const css=[...document.querySelectorAll('link[rel=stylesheet]')].map(link=>readFileSync(new URL(link.getAttribute('href'),root),'utf8')).join('\n');
   const style = document.createElement('style');
   style.textContent = atViewport(css, width, height);
   document.head.append(style);
-  return { dom, document, style: selector => dom.window.getComputedStyle(document.querySelector(selector)) };
+  return { dom, document, css:style.textContent, style: selector => dom.window.getComputedStyle(document.querySelector(selector)) };
 }
 
 for (const [width,height] of sizes) {
@@ -164,7 +165,7 @@ test('wide short landscape keeps two toolbar rows without moving controls alongs
   const duck=page('duck',844,390);
   assert.equal(duck.style('.game-header').gridTemplateRows,'44px 44px');
   assert.equal(duck.style('.game-header > .level-switch').gridRow,'2');
-  assert.equal(duck.style('.game-header > .pf-studio-heading').display,'block');
+  assert.equal(cascadeWinner(duck,'.game-header > .pf-studio-heading','display').value,'block');
   assert.equal(duck.style('#pad').height,'100px');
   duck.dom.window.close();
   for(const name of ['catch','duel']) {
@@ -227,5 +228,69 @@ test('all three home links stay on one line with identical padding and a fixed 5
    });
    assert.deepEqual(signatures[0],signatures[1]);assert.deepEqual(signatures[1],signatures[2]);
   }finally{pages.forEach(p=>p.dom.window.close())}
+ }
+});
+
+
+// JSDOM does not consistently implement selector specificity. Independently
+// resolve the relevant authored declarations, rather than trusting last-rule wins.
+const compareSpecificity=(a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2];
+function selectorSpecificity(selector){
+ const score=[0,0,0];let source=selector;
+ for(let match;(match=/:([\w-]+)\(/.exec(source));){
+  const start=match.index,open=start+match[0].length-1;let depth=1,end=open+1;
+  while(depth&&end<source.length){if(source[end]==='(')depth++;if(source[end]===')')depth--;end++;}
+  assert.equal(depth,0,'balanced functional selector');
+  const name=match[1],argument=source.slice(open+1,end-1);
+  if(['is','not','has'].includes(name)){
+   const max=postcss.list.comma(argument).map(selectorSpecificity).sort(compareSpecificity).at(-1);
+   max.forEach((value,index)=>score[index]+=value);
+  }else if(name!=='where')score[1]++;
+  source=source.slice(0,start)+source.slice(end);
+ }
+ source=source.replace(/\[[^\]]*\]/g,()=>{score[1]++;return ''});
+ source=source.replace(/::[\w-]+/g,()=>{score[2]++;return ''});
+ source=source.replace(/:[\w-]+/g,()=>{score[1]++;return ''});
+ source=source.replace(/#[\w-]+/g,()=>{score[0]++;return ''});
+ source=source.replace(/\.[\w-]+/g,()=>{score[1]++;return ''});
+ score[2]+=source.split(/[\s>+~]+/).filter(token=>/^[a-z][\w-]*$/i.test(token)).length;
+ return score;
+}
+function cascadeWinner(p,selector,property){
+ const element=p.document.querySelector(selector);assert.ok(element,selector);let winner=null;
+ postcss.parse(p.css).walkRules(rule=>{
+  for(const candidate of postcss.list.comma(rule.selector)){
+   if(candidate.includes('::')||!element.matches(candidate))continue;
+   const specificity=selectorSpecificity(candidate);
+   for(const declaration of rule.nodes.filter(node=>node.type==='decl'&&node.prop===property)){
+    const important=Boolean(declaration.important);
+    if(!winner||important&&!winner.important||important===winner.important&&compareSpecificity(specificity,winner.specificity)>=0)winner={value:declaration.value,specificity,important,selector:candidate};
+   }
+  }
+ });
+ return winner;
+}
+test('toolbar specificity resolver detects the real legacy portrait override',()=>{
+ assert.deepEqual(selectorSpecificity('.pf-game.pf-fast-hands .game-header>.pf-studio-heading'),[0,4,0]);
+ assert.deepEqual(selectorSpecificity('body.fast-hands-club .club-toolbar>div'),[0,2,2]);
+ assert.deepEqual(selectorSpecificity('body.fast-hands-club .club-toolbar>a:is(.pf-home,.home-link)'),[0,3,2]);
+ assert.deepEqual(selectorSpecificity(':where(#ignored) .a:not(.b,#strong)'),[1,1,0]);
+ assert.ok(compareSpecificity([0,4,0],[0,2,2])>0,'legacy portrait heading beats the former common rule');
+});
+test('nine real toolbar cascades keep titles in row one and destinations separate, including 333px portrait',()=>{
+ const viewports=[[320,568],[333,505],[390,844],[430,932],[844,390],[1000,560],[1024,600],[1180,820],[1366,768]];
+ for(const [width,height] of viewports)for(const mode of ['duck','catch','duel']){
+  const p=page(mode,width,height);try{
+   if(mode==='duck'){assert.ok(p.document.body.matches('.pf-game.pf-fast-hands.fast-hands-club'));assert.ok(p.document.querySelector('.club-toolbar>div.brand.pf-studio-heading'));}
+   const winner=(selector,property,expected)=>{const found=cascadeWinner(p,selector,property);assert.equal(found?.value,expected,`${mode} ${width}×${height} ${selector} ${property}: winning selector ${found?.selector}`);};
+   winner('.club-toolbar>div','grid-column','2');winner('.club-toolbar>div','grid-row','1');winner('.club-toolbar>div','display','block');winner('.club-toolbar>div','min-width','0');
+   winner('.club-toolbar>a','grid-column','1');winner('.club-toolbar>a','grid-row','1');winner('.club-toolbar>a','white-space','nowrap');winner('.club-toolbar>a','padding','6px');
+   winner('.club-toolbar .header-tools','grid-column','3');winner('.club-toolbar .header-tools','grid-row','1');
+   winner('.club-toolbar h1','font-size',width<=600?'16px':'22px');winner('.club-toolbar h1','line-height','1.2');winner('.club-toolbar h1','white-space','nowrap');winner('.club-toolbar h1','overflow','hidden');winner('.club-toolbar h1','text-overflow','ellipsis');
+   if(mode==='duck'){winner('.game-header>.level-switch','grid-row','2');winner('.game-header>.level-switch','grid-column','1/-1');}
+   else winner('.level-main>.level-switch','grid-area','nav');
+   assert.equal(p.style('.club-toolbar>div').gridRow,'1');assert.equal(p.style('.club-toolbar>div').gridColumn,'2');
+   assert.notEqual(p.style('.club-toolbar>div').display,'none');assert.notEqual(p.style('.club-toolbar>div').visibility,'hidden');
+  }finally{p.dom.window.close()}
  }
 });
