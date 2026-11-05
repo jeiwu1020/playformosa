@@ -1,3 +1,4 @@
+import {readBeforeHumor} from './javelin-humor-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -29,12 +30,12 @@ export function reverseHomeLabel(path,bytes,m=homeLabelManifest()){
 // This reader is used only at the outer historical boundary, never by live UI tests.
 export function readBeforeHomeLabel(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
- if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readFileSync(file,options);
+ if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readBeforeHumor(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
- const bytes=reverseHomeLabel(path,readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
+ const bytes=reverseHomeLabel(path,readBeforeHumor(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
  return encoding?bytes.toString(encoding):bytes;
 }
-export function inventoryBeforeHomeLabel(paths,{manifest=homeLabelManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+export function inventoryBeforeHomeLabel(paths,{manifest=homeLabelManifest(),read=p=>readBeforeHumor(new URL('../../'+p,import.meta.url))}={}){
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate current paths');
  for(const path of HOME_LABEL_ADDED)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
  for(const f of manifest.addedFiles){const bytes=read(f.path);assert.equal(hash(bytes),f.sha256,f.path+' added SHA256');assert.equal(blob(bytes),f.gitBlob,f.path+' added Git blob');}

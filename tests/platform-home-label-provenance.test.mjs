@@ -1,9 +1,10 @@
+import {readBeforeHumor,inventoryBeforeHumor} from './helpers/javelin-humor-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {homeLabelManifest,HOME_LABEL_CHANGED,HOME_LABEL_ADDED,reverseHomeLabel,inventoryBeforeHomeLabel} from './helpers/home-label-provenance.mjs';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforeHumor(new URL(p,root));
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const games=['beer-slide','discus','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];
 const runtime=games.map(g=>`public/games/${g}/index.html`);
@@ -44,5 +45,5 @@ test('the complete materialized branch preserves every parent blob beyond the ex
  function walk(dir=''){for(const entry of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['dist','node_modules','.git'].includes(entry.name))continue;const path=dir?dir+'/'+entry.name:entry.name;if(entry.isDirectory())walk(path);else{assert.ok(entry.isFile(),path+' must be a regular source file');paths.push(path)}}}walk();
  for(const file of baseline.files){if(!existsSync(new URL(file.path,root))){missing.push(file.path);continue}assert.equal(blob(reverseHomeLabel(file.path,read(file.path))),file.gitBlob,file.path)}
  assert.ok(missing.every(path=>knownOmitted.includes(path)),'only the known remote large-PNG transfer limitation may be absent locally');
- assert.deepEqual(inventoryBeforeHomeLabel(paths).sort(),baseline.files.map(f=>f.path).filter(p=>!missing.includes(p)).sort());
+ assert.deepEqual(inventoryBeforeHomeLabel(inventoryBeforeHumor(paths)).sort(),baseline.files.map(f=>f.path).filter(p=>!missing.includes(p)).sort());
 });
