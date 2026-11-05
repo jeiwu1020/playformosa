@@ -488,6 +488,7 @@ body.fast-hands-club .club-toolbar.level-header>div{display:flex;flex-direction:
 body.fast-hands-club .club-toolbar h1{font-size:22px;line-height:1.2;white-space:nowrap;overflow:visible;text-overflow:clip;margin:0}
 body.fast-hands-club .club-toolbar>a:is(.pf-home,.home-link){grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:center;gap:4px;width:56px;height:44px;min-height:44px;padding:6px;white-space:nowrap;font:700 12px/1.2 system-ui,sans-serif}
 body.fast-hands-club .club-toolbar .pf-studio-live{display:block;margin:0;color:#607461;font:500 11px/1.25 Arial,"Noto Sans TC",system-ui,sans-serif;letter-spacing:0;white-space:nowrap}
+body.fast-hands-club .club-toolbar .club-studio-en{display:inline}
 body.fast-hands-club .club-toolbar .header-tools{display:flex;flex-wrap:nowrap;grid-column:3;grid-row:1;gap:4px;margin:0;align-items:center;justify-self:end}
 body.fast-hands-club .club-toolbar .header-tools>button{display:inline-flex;align-items:center;justify-content:center;width:48px;min-width:44px;height:44px;min-height:44px;padding:6px;border:1px solid #c5d2bb;border-radius:12px;background:#e4ecda;color:#244e43;font:750 12px/1.2 system-ui,sans-serif;box-shadow:none}
 body.fast-hands-club .club-settings{padding:20px;max-width:360px;color:var(--green);background:var(--cream);border:1px solid var(--line);border-radius:18px}
@@ -501,6 +502,7 @@ body.fast-hands-club .club-settings button,body.fast-hands-club #restartButton{m
  body.fast-hands-club .club-toolbar.level-header>div{grid-column:1/-1;grid-row:2;flex-direction:row;justify-content:space-between;align-items:center;gap:8px}
  body.fast-hands-club .club-toolbar>a:is(.pf-home,.home-link){width:44px;font-size:18px}
  body.fast-hands-club .club-toolbar .club-home-label{display:none}
+ body.fast-hands-club .club-toolbar .club-studio-en{display:none}
  body.fast-hands-club .club-toolbar.game-header>.level-switch{grid-row:3}
  body.fast-hands-club .club-toolbar h1{font-size:18px;letter-spacing:0}
  body.fast-hands-club .club-toolbar .header-tools>button{width:44px}

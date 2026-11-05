@@ -342,7 +342,7 @@ test('four first-row actions fit with full touch targets, a visible studio name 
    const columns=win('.club-toolbar','grid-template-columns');assert.equal(columns,narrow?'44px minmax(0,1fr)':'56px minmax(0,1fr) auto');
    assert.equal(win('.club-toolbar .header-tools','grid-row'),'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),narrow?'2':'3');
    assert.equal(win('.club-toolbar>div','grid-row'),narrow?'2':'1');assert.equal(win('.club-toolbar>div','display'),'flex');
-   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.match(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,/島遊無界工作室/);
+   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.equal(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,'島遊無界工作室 | PLAYFORMOSA STUDIO');assert.equal(win('.club-toolbar .club-studio-en','display'),narrow?'none':'inline');
    assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('aria-label'),'返回小遊戲首頁');
    const usable=width-(height<=550&&width>height?24:40),gap=Number.parseFloat(win('.club-toolbar','column-gap')),actionGap=Number.parseFloat(win('.club-toolbar .header-tools','gap')),actionWidth=(narrow?44:48)*4+actionGap*3;
    const titleRoom=narrow?usable-100:usable-56-gap*2-actionWidth;
