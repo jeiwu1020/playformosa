@@ -7,6 +7,7 @@ import {milestones,sceneAltitude,projectAltitudePose,vaultDisplay} from './miles
 import {catalog,altitudeScene,landmarkPose,sceneryCaption,environment,landmarkRoofY} from './scenery.mjs';
 import {createSceneryModels,animateScenery} from './scenery-models.mjs';
 import {skyJourney} from './sky-journey.mjs';
+import {createJourneyHud,paintJourneyCard} from './journey-hud.mjs';
 import {createSkyLayers,skyAnchor} from './sky-models.mjs';
 
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -37,7 +38,7 @@ export function createWorld(host){
  renderer.domElement.setAttribute('aria-label','橘色背心四肢選手，在連續立體世界中助跑、彎桿、起跳；由街景升向太空。');renderer.domElement.setAttribute('role','img');
  if(!renderer.isSoftware){renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;}
  if(getComputedStyle(host).position==='static')host.style.position='relative';
- const labels=document.createElement('canvas');labels.setAttribute('aria-hidden','true');Object.assign(labels.style,{position:'absolute',inset:'0',width:'100%',height:'100%',pointerEvents:'none'});host.appendChild(labels);const labelContext=labels.getContext('2d');
+ const labels=document.createElement('canvas');labels.setAttribute('aria-hidden','true');Object.assign(labels.style,{position:'absolute',inset:'0',width:'100%',height:'100%',pointerEvents:'none'});host.appendChild(labels);const labelContext=labels.getContext('2d');const journeyHud=createJourneyHud(host);
  const camera=new THREE.OrthographicCamera(-7,7,4,-4,.1,110);
  const ambient=new THREE.HemisphereLight(0xfffbef,0x688c7b,2.5);scene.add(ambient);
  const sun=new THREE.DirectionalLight(0xfff1d7,2.6);sun.position.set(-5,12,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-10,right:10,top:9,bottom:-6});scene.add(sun);scene.add(sun.target);
@@ -185,7 +186,7 @@ export function createWorld(host){
   model.traverse(o=>{if(!o.isMesh)return;o.material=o.material.clone();o.userData.sceneryColor=o.material.color.clone();});
   model.visible=false;scenery.push({entry,model,originalScale,originalPosition:model.position.clone(),templateWidth:Math.max(.1,bounds.max.x-bounds.min.x),templateHeight:Math.max(.1,bounds.max.y-bounds.min.y),baseLocal,footCenter,footWidth,footDepth,foundation});
  }
- let activeShowcase=null,activeJourney=null;
+ let activeShowcase=null,activeJourney=null,activeJourneyLayout=null;
  const skyLayers=createSkyLayers(scene);
  const clouds=group('layered-clouds');
  for(let i=0;i<15;i++){const y=5+i*1.65,x=PLANT_X+Math.sin(i*2.3)*11,z=-13-(i%3)*4;
@@ -228,7 +229,7 @@ export function createWorld(host){
  const skyGround=new THREE.Color('#c3e5df'),skyHigh=new THREE.Color('#80adb4'),skyOrbit=new THREE.Color('#263e59'),skyDeep=new THREE.Color('#182b43');
  function drawLabels(altitude){
   const ctx=labelContext;ctx.clearRect(0,0,width,height);const mobile=width<500;
-  if(activeShowcase){const item=activeJourney?.altitude>=45000?{...activeJourney.main,category:'journey'}:activeShowcase.main,neighbour=activeShowcase.items.find(m=>m.height&&m.group===item.group&&m.id!==item.id&&m.weight>.1);
+  if(activeShowcase&&activeJourney?.stageNumber<1){const item=activeShowcase.main,neighbour=activeShowcase.items.find(m=>m.height&&m.group===item.group&&m.id!==item.id&&m.weight>.1);
    const title=(item.category==='building'||item.category==='mountain'?'高度對照 · ':item.category==='airborne'?'飛行景觀 · ':'天空旅程 · ')+item.label;
    const reference=item.category==='journey'?(item.fantasy?'幻想彩蛋 · 不影響成績':'景觀示意 · 不作高度基準'):neighbour?`${item.category==='mountain'?'海拔比較 · ':''}${item.height.toLocaleString('en-US')} m ／ ${neighbour.label} ${neighbour.height.toLocaleString('en-US')} m`:(sceneryCaption(item).startsWith(item.label+' · ')?sceneryCaption(item).slice(item.label.length+3):sceneryCaption(item));
    ctx.font=`700 ${mobile?11:13}px system-ui, sans-serif`;ctx.textBaseline='middle';const tw=Math.max(ctx.measureText(title).width,ctx.measureText(reference).width),w=Math.min(width-16,tw+20),x=(width-w)/2;
@@ -236,10 +237,8 @@ export function createWorld(host){
   }
   const mountainRefs=activeShowcase?.items.filter(m=>m.category==='mountain'&&m.weight>.1)||[];
   if(mountainRefs.length&&activeShowcase.main.category!=='mountain'){const text='海拔比較（非離地山高） · '+mountainRefs.slice(0,2).map(m=>m.label+' '+Math.round(m.height).toLocaleString('en-US')+'m').join(' ／ ');ctx.font=`600 ${mobile?9:11}px system-ui`;ctx.fillStyle='rgba(255,248,224,.9)';ctx.beginPath();ctx.roundRect(8,height-43,width-16,22,5);ctx.fill();ctx.fillStyle='#365c64';ctx.fillText(text,14,height-29);}
-  if(activeJourney?.altitude>=45000){ctx.font=`600 ${mobile?10:12}px system-ui, sans-serif`;ctx.textAlign='center';ctx.fillStyle='rgba(247,233,198,.90)';ctx.fillText(activeJourney.main.note,width/2,height-43,width-24);ctx.textAlign='left';}
-  if(altitude>=100000){ctx.font=`600 ${mobile?9:11}px system-ui, sans-serif`;ctx.fillStyle='rgba(247,233,198,.75)';ctx.fillText('太空想像 · 行星為遠方背景',mobile?13:22,height-21);}
  }
- function render(s){
+ function render(s,capturing=false){
   lastState=s;const altitude=Math.max(0,s.altitude??((s.y??1.18)-1.18)),display=vaultDisplay(s),worldY=display.worldY,ratio=width/height,viewHeight=ratio<.8?8.0:ratio<1.1?7.2:6.4,viewWidth=viewHeight*ratio;
   const offsetX=vaultOffsetX(s,PLANT_X),visualX=s.x+offsetX;
   camera.left=-viewWidth/2;camera.right=viewWidth/2;camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.updateProjectionMatrix();
@@ -277,6 +276,13 @@ export function createWorld(host){
 
   sun.position.set(visualX-5,worldY+12,9);sun.target.position.set(visualX,worldY,0);ambient.intensity=1.8+.7*atmosphere.day;sun.intensity=1.2+1.4*atmosphere.day;
   const points=display.points;const padLift=!s.scoreLocked&&visualX>PLANT_X+1&&(s.falling||s.phase==='land'||s.phase==='done')?.65*(1-smooth(.3,1.8,worldY)):0;for(const p of Object.values(points)){p.x+=offsetX;p.y+=padLift;}character.update(points,s);
+  // Fixed pose anchors plus anatomy padding conservatively bound every mesh.
+  // Eight projections avoid scanning geometry or reading DOM layout each frame.
+  let athlete=null;if(activeJourney.stageNumber>0){const anchors=Object.values(points),xs=anchors.map(p=>p.x),ys=anchors.map(p=>p.y),zs=anchors.map(p=>p.z||0),screen=[];
+   for(const x of[Math.min(...xs)-.42,Math.max(...xs)+.42])for(const y of[Math.min(...ys)-.42,Math.max(...ys)+.42])for(const z of[Math.min(...zs)-.55,Math.max(...zs)+.55]){const p=new THREE.Vector3(x,y,z).project(camera);screen.push({x:(p.x+1)*width/2,y:(1-p.y)*height/2});}
+   const left=Math.min(...screen.map(p=>p.x)),top=Math.min(...screen.map(p=>p.y));athlete={x:left,y:top,width:Math.max(...screen.map(p=>p.x))-left,height:Math.max(...screen.map(p=>p.y))-top};
+  }
+  activeJourneyLayout=journeyHud.update(activeJourney,width,height,{athlete,phase:s.phase,capture:capturing});
   shadow.position.x=visualX;shadow.visible=worldY<1.8;shadow.scale.setScalar(Math.max(.4,1-worldY*.3));
   zone.material.color.set(s.phase==='plant'?'#edbd71':'#abd9a0');
   // A single analytic curve survives carry -> plant -> recoil; after release
@@ -310,6 +316,6 @@ export function createWorld(host){
   if(standards.visible&&(s.phase==='air'||s.phase==='finish')&&!s.falling){const q=new THREE.Vector3(barX,barY+.55,0).project(camera),ctx=labelContext;ctx.font='700 11px system-ui';ctx.textAlign='center';ctx.fillStyle=altitude>30000?'#fff0be':'#365c64';ctx.fillText((s.finishAttempted?'鎖定橫桿 ':'上升橫桿 ')+formatHeight(s.barHeight),clamp((q.x+1)*width/2,65,width-65),clamp((1-q.y)*height/2,120,height-35));ctx.textAlign='left';}
  }
  return{renderer,scene,camera,character,render,resize,get software(){return !!renderer.isSoftware;},capture(s){
-  const oldW=width,oldH=height,oldState=lastState;size(1000,550);render(s);const canvas=document.createElement('canvas');canvas.width=1000;canvas.height=550;const ctx=canvas.getContext('2d');ctx.drawImage(renderer.domElement,0,0,1000,550);ctx.drawImage(labels,0,0,1000,550);size(oldW,oldH);render(oldState??s);return canvas;
+  const oldW=width,oldH=height,oldState=lastState;size(1000,550);render(s,true);const canvas=document.createElement('canvas');canvas.width=1000;canvas.height=550;const ctx=canvas.getContext('2d');ctx.drawImage(renderer.domElement,0,0,1000,550);ctx.drawImage(labels,0,0,1000,550);paintJourneyCard(ctx,skyJourney(s),1000,550,activeJourneyLayout);size(oldW,oldH);render(oldState??s);return canvas;
  }};
 }

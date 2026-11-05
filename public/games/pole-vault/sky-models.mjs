@@ -8,7 +8,7 @@ export function skyAnchor(camera,x,y,depth){
 }
 export function createSkyLayers(scene){
  const root=new THREE.Group();root.name='sky-journey-root';scene.add(root);
- const shapes={box:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,8,5),cone:new THREE.ConeGeometry(1,1,7),cylinder:new THREE.CylinderGeometry(1,1,1,7),rock:new THREE.OctahedronGeometry(1)};
+ const shapes={box:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,8,5),cone:new THREE.ConeGeometry(1,1,7),cylinder:new THREE.CylinderGeometry(1,1,1,7),rock:new THREE.OctahedronGeometry(1),ring:new THREE.TorusGeometry(1,.055,4,18)};
  const groups=new Map();
  const group=id=>{const g=new THREE.Group();g.name='sky-'+id;g.visible=false;root.add(g);groups.set(id,g);return g;};
  function shape(g,type,color,x,y,z,sx,sy,sz,alpha=1){
@@ -55,6 +55,23 @@ export function createSkyLayers(scene){
  for(let i=0;i<5;i++)box(market,i%2?'#e8c37f':'#89aea0',-.76+i*.38,1.12,0,.37,.16,1);
  for(let i=0;i<3;i++)ball(market,'#d2aa70',-.45+i*.42,.37,.12,.13,.09,.11);
  const nebula=group('nebula');for(let i=0;i<3;i++){const m=shape(nebula,'ball',i%2?'#596281':'#466f82',-2+i*2,.7-i*.6,0,3.1,.63,.1,.12);m.rotation.z=.3;}
+
+ const ring=(g,c,r=1)=>{const m=shape(g,'ring',c,0,0,.1,r,r,r);m.rotation.x=1.05;m.rotation.z=.18;return m;};
+ const boundary=group('karman');ring(boundary,'#a8dbd4',1.3);for(let i=0;i<6;i++){const a=i*Math.PI/3;ball(boundary,'#e9d29b',Math.cos(a)*1.3,Math.sin(a)*.67,.1,.08);}
+ const sat=group('satellite');box(sat,'#dfcc97',0,0,0,.6,.75,.6);for(const x of[-1,1]){box(sat,'#517b91',x*.9,0,0,.9,.9,.08);rod(sat,'#c1d3c5',x*.45,0,0,.025,.6,Math.PI/2);}shape(sat,'cone','#efdfb8',0,.7,0,.4,.3,.4);
+ const cargo=group('cargo');rod(cargo,'#d7dcc9',0,0,0,.65,1.3);shape(cargo,'cone','#afc1bb',0,.95,0,.65,.6,.65);box(cargo,'#bd865f',0,0,.63,.65,.5,.05);for(const x of[-1,1])box(cargo,'#7399a6',x*.95,0,0,.65,.8,.08);rod(cargo,'#d9aa68',0,-.8,0,.27,.45);
+ const field=group('asteroids');for(let i=0;i<7;i++){const a=i*2.1;shape(field,'rock',i%2?'#c5ad84':'#8d9b91',Math.cos(a)*1.3,Math.sin(a)*.9,Math.sin(i)*.3,.17+(i%3)*.1,.23+(i%2)*.15,.2);}
+ const mars=group('mars');ball(mars,'#c67f5e',0,0,0,1);for(const[x,y,r]of[[-.4,.3,.24],[.3,-.25,.3],[.25,.43,.12]])ball(mars,'#a8644f',x,y,.83,r,r*.65,.04);ball(mars,'#e3c4a0',0,.85,0,.36,.14,.43);
+ const jupiter=group('jupiter');ball(jupiter,'#cfb281',0,0,0,1.05,.98,1);for(const[y,c]of[[.48,'#a8755c'],[.13,'#e6cfa3'],[-.25,'#b58763'],[-.55,'#e4c69a']])ball(jupiter,c,0,y,.82,.87,.085,.1);ball(jupiter,'#b46a55',.35,-.27,.99,.27,.14,.04);
+ const saturn=group('saturn');ball(saturn,'#d7bd8d',0,0,0,.78);ring(saturn,'#ae9e81',1.4);ring(saturn,'#e2cda4',1.14);ball(saturn,'#e1ca9f',-.1,.23,.7,.53,.15,.08);
+ const neptune=group('neptune');ball(neptune,'#527fba',0,0,0,1);ball(neptune,'#385e8f',.27,-.12,.91,.32,.19,.06);for(const y of[-.5,.38])ball(neptune,'#94bfcc',-.1,y,.78,.69,.07,.1);
+ // Existing milk-tea world gains a pearl orbit, using the same shared geometry.
+ ring(boba,'#bfa17b',1.35);
+ const temple=group('temple');ball(temple,'#82a498',0,-.87,0,1.3,.22,.65);box(temple,'#c27759',0,-.16,0,1.5,.9,.7);box(temple,'#e3c18a',0,.38,0,1.9,.15,.94);box(temple,'#71978a',0,.6,0,1.4,.2,.8);box(temple,'#d6af71',0,.79,0,.9,.15,.65);for(const x of[-.78,.78]){rod(temple,'#b26952',x,.05,.42,.06,.7);ball(temple,'#e6a06c',x,.1,.61,.13,.21,.1);}box(temple,'#466966',0,-.12,.38,.44,.65,.04);
+ const cat=group('cat');ball(cat,'#ead5aa',0,-.2,0,.8,.85,.55);ball(cat,'#f1dfb9',0,.73,0,.63,.58,.5);for(const x of[-.37,.37]){shape(cat,'cone','#dec79d',x,1.28,0,.22,.5,.22);ball(cat,'#354d50',x*.6,.8,.47,.055);ball(cat,'#e39b78',x,.62,.44,.1,.055,.04);}ball(cat,'#dcaa69',0,-.16,.55,.35,.43,.07);rod(cat,'#e6c690',-.85,.61,0,.17,.9,-.27);ball(cat,'#efd9b2',-.97,1.04,0,.2,.24,.18);box(cat,'#cc8b69',0,.31,.4,.55,.1,.1);
+ const lunch=group('lunch');box(lunch,'#c5c3a5',0,0,0,1.9,.35,1.15);box(lunch,'#eee3be',-.42,.23,0,.85,.16,.9);ball(lunch,'#bd8257',.42,.32,.17,.37,.2,.21);rod(lunch,'#e0ba8a',.73,.32,.17,.065,.45,Math.PI/2);for(const[z,c]of[[-.3,'#8ca879'],[.38,'#d49d61']])ball(lunch,c,.4,.28,z,.23,.14,.15);ring(lunch,'#accfc1',1.37);
+ const bus=group('bus');box(bus,'#9bbcb1',-.27,.1,0,1.6,1.05,.7);box(bus,'#e4cd93',-.27,.7,0,1.68,.18,.8);for(const x of[-.76,-.25,.26])box(bus,'#4b727c',x,.34,.37,.38,.39,.04);for(const x of[-.83,.32])ball(bus,'#4d6666',x,-.45,.07,.18,.2,.22);rod(bus,'#d5c39a',1.02,.22,0,.045,2.1);box(bus,'#739c8b',1.02,1.14,0,.63,.42,.13);ball(bus,'#ecbf78',1.02,1.14,.11,.11,.12,.025);
+ const gate=group('gateway');for(const x of[-.8,.8])box(gate,'#7c9da7',x,0,0,.25,2.35,.3);box(gate,'#e3c18c',0,1.25,0,1.9,.28,.4);box(gate,'#a9c3b7',0,-1.2,0,2,.17,.7);ball(gate,'#637a9f',0,0,-.15,.65,1.05,.05);for(let i=0;i<5;i++){const a=i*1.7;ball(gate,'#e3d09c',Math.sin(a)*.42,Math.cos(a)*.82,0,.055);}
  for(const g of groups.values()){g.updateMatrixWorld(true);const bounds=new THREE.Box3().setFromObject(g);g.userData.templateWidth=Math.max(.1,bounds.max.x-bounds.min.x);g.userData.templateHeight=Math.max(.1,bounds.max.y-bounds.min.y);g.userData.templateCenter=bounds.getCenter(new THREE.Vector3());}
  function show(id,alpha,camera,x,y,depth,size,rotation=0,maxHeight=Infinity){
   const g=groups.get(id);if(!g)return;g.visible=alpha>.001;if(!g.visible)return;
@@ -69,9 +86,9 @@ export function createSkyLayers(scene){
   show('airglow',j.horizon,camera,0,-.55+.10*Math.sin(log),-32,vw*1.7);
   show('meteor',j.horizon*.85,camera,-.63,.38,-28,vw*.15,-.12,vh*.20);
   for(const item of j.items){if(['airglow','lunar'].includes(item.id))continue;
-   const left=['probe','pineapple'].includes(item.id),x=left?-.63:.63;
-   const y=.34-item.progress*.63,depth=item.id==='comet'?-26:-17;
-   show(item.id,item.weight,camera,x,y,depth,Math.min(vw*(mobile?.27:.27),vh*.49),Math.sin(time*.12+item.progress)*.07,vh*.39);
+   const left=['probe','pineapple','satellite','mars','saturn','temple','lunch'].includes(item.id),x=left?-.63:.63;
+   const shortWide=width/height>2.2,y=shortWide?-.25-item.progress*.18:.34-item.progress*.63,depth=item.id==='comet'?-26:-17;
+   show(item.id,item.weight,camera,x,y,depth,Math.min(vw*(mobile?.27:.27),vh*.49),Math.sin(time*.12+item.progress)*.07,vh*(shortWide?.27:.39));
   }
   show('moon-stones',j.moon*.6,camera,-.65,-.2,-12,vw*.3);
   const haze=Math.max(0,Math.min(1,(log-8.7)/1.5));show('nebula',haze,camera,-.12,.25,-39,vw*1.25);

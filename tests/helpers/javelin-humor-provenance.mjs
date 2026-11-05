@@ -1,3 +1,4 @@
+import {readBeforeJourney} from './vault-journey-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -29,12 +30,12 @@ export function reverseHumor(path,bytes,m=humorManifest()){
 // This reader is used only at the outer historical boundary, never by live UI tests.
 export function readBeforeHumor(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
- if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readFileSync(file,options);
+ if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readBeforeJourney(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
- const bytes=reverseHumor(path,readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
+ const bytes=reverseHumor(path,readBeforeJourney(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
  return encoding?bytes.toString(encoding):bytes;
 }
-export function inventoryBeforeHumor(paths,{manifest=humorManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+export function inventoryBeforeHumor(paths,{manifest=humorManifest(),read=p=>readBeforeJourney(new URL('../../'+p,import.meta.url))}={}){
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate current paths');
  for(const path of HUMOR_ADDED)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
  for(const f of manifest.addedFiles){const bytes=read(f.path);assert.equal(hash(bytes),f.sha256,f.path+' added SHA256');assert.equal(blob(bytes),f.gitBlob,f.path+' added Git blob');}

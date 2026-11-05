@@ -1,9 +1,10 @@
+import {readBeforeJourney,inventoryBeforeJourney,runtimeInventoryBeforeJourney} from '../helpers/vault-journey-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {humorManifest,HUMOR_CHANGED,HUMOR_ADDED,reverseHumor,inventoryBeforeHumor} from '../helpers/javelin-humor-provenance.mjs';
-const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../../',import.meta.url),read=p=>readBeforeJourney(new URL(p,root));
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 test('humor restoration changes only the valid-result paragraph, not controls or scoring',()=>{
  const path='public/games/javelin/app.mjs',current=read(path),before=reverseHumor(path,current).toString();
@@ -36,5 +37,5 @@ test('the complete materialized branch preserves every parent blob beyond the ex
  function walk(dir=''){for(const entry of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['dist','node_modules','.git'].includes(entry.name))continue;const path=dir?dir+'/'+entry.name:entry.name;if(entry.isDirectory())walk(path);else{assert.ok(entry.isFile(),path+' must be a regular source file');paths.push(path)}}}walk();
  for(const file of baseline.files){if(!existsSync(new URL(file.path,root))){missing.push(file.path);continue}assert.equal(blob(reverseHumor(file.path,read(file.path))),file.gitBlob,file.path)}
  assert.ok(missing.every(path=>knownOmitted.includes(path)),'only the known remote large-PNG transfer limitation may be absent locally');
- assert.deepEqual(inventoryBeforeHumor(paths).sort(),baseline.files.map(f=>f.path).filter(p=>!missing.includes(p)).sort());
+ assert.deepEqual(inventoryBeforeHumor(inventoryBeforeJourney(paths)).sort(),baseline.files.map(f=>f.path).filter(p=>!missing.includes(p)).sort());
 });
