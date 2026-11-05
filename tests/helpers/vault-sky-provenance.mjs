@@ -1,3 +1,4 @@
+import {readBeforeFall} from './sprint-fall-provenance.mjs';
 import{readFileSync}from'node:fs';import{createHash}from'node:crypto';import{fileURLToPath}from'node:url';import{relative,resolve,isAbsolute,sep}from'node:path';import assert from'node:assert/strict';
 const root=fileURLToPath(new URL('../../',import.meta.url)),hash=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 export const SKY_CHANGED=Object.freeze(['public/games/pole-vault/render.mjs','tests/helpers/upload-toolbar-polish-provenance.mjs','tests/upload-toolbar-polish-provenance.test.mjs','tests/fast-hands/art-polish-provenance.test.mjs','tests/fast-hands/result-upload-provenance.test.mjs','tests/fast-hands/split-entries-provenance.test.mjs','tests/reaction-rod/polish-provenance.test.mjs','tests/reaction-rod/replay-provenance.test.mjs']);
@@ -9,15 +10,15 @@ export function reverseSky(path,bytes,m=skyManifest()){
  validate(m);assert.ok(!m.addedPaths.includes(path),path+' is new sky scope, not historical source');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(hash(bytes),f.sha256,path+' sky current SHA256');assert.equal(blob(bytes),f.gitBlob,path+' sky current Git blob');const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,path+' sky preimage SHA256');assert.equal(blob(before),f.beforeGitBlob,path+' sky preimage Git blob');return before;
 }
-export function readBeforeSky(file,options){const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readFileSync(file,options);const encoding=typeof options==='string'?options:options?.encoding;const bytes=reverseSky(path,readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));return encoding?bytes.toString(encoding):bytes;}
-export function inventoryBeforeSky(paths,{manifest=skyManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+export function readBeforeSky(file,options){const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return readBeforeFall(file,options);const encoding=typeof options==='string'?options:options?.encoding;const bytes=reverseSky(path,readBeforeFall(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));return encoding?bytes.toString(encoding):bytes;}
+export function inventoryBeforeSky(paths,{manifest=skyManifest(),read=p=>readBeforeFall(new URL('../../'+p,import.meta.url))}={}){
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate current paths');for(const path of SKY_ADDED)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');for(const f of manifest.addedFiles){const bytes=read(f.path);assert.equal(hash(bytes),f.sha256,f.path+' added SHA256');assert.equal(blob(bytes),f.gitBlob,f.path+' added Git blob');}return paths.filter(p=>!SKY_ADDED.includes(p));
 }
 
 // Runtime-only historical inventories do not include docs/tests. Verify every
 // admitted sky runtime before removing precisely those two paths, independently
 // of unrelated binary assets that a sparse source checkout may not contain.
-export function runtimeInventoryBeforeSky(paths,{manifest=skyManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+export function runtimeInventoryBeforeSky(paths,{manifest=skyManifest(),read=p=>readBeforeFall(new URL('../../'+p,import.meta.url))}={}){
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate runtime paths');
  const additions=SKY_ADDED.filter(path=>path.startsWith('public/'));
  for(const path of additions){assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');const row=manifest.addedFiles.find(f=>f.path===path),bytes=read(path);assert.equal(hash(bytes),row.sha256,path+' added runtime SHA256');assert.equal(blob(bytes),row.gitBlob,path+' added runtime Git blob');}
