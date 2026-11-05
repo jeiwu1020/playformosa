@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {reverseArtPolish,artPolishLedger,artPolishRuntimeAdditions} from './fast-hands-art-polish-provenance.mjs';
 import {readFileSync} from 'node:fs';
@@ -67,12 +68,12 @@ export function reverseResultUpload(path,bytes,ledger=resultUploadLedger(),outer
 
 export function readResultUploadBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseResultUpload(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
 }
 export function resultUploadRuntimeAdditions(){
- const ledger=resultUploadLedger();for(const path of RESULT_UPLOAD_ADDED)reverseResultUpload(path,readFileSync(new URL(path,root)),ledger);
+ const ledger=resultUploadLedger();for(const path of RESULT_UPLOAD_ADDED)reverseResultUpload(path,readBeforePolish(new URL(path,root)),ledger);
  return [...RESULT_UPLOAD_ADDED,...artPolishRuntimeAdditions()];
 }

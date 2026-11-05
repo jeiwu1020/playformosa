@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -14,7 +15,7 @@ const root=new URL('../../',import.meta.url);
 const helpers=await import('../helpers/fast-hands-stability-provenance.mjs').catch(()=>({}));
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
-const read=path=>readFileSync(new URL(path,root));
+const read=path=>readBeforePolish(new URL(path,root));
 function ledger(){assert.equal(typeof helpers.stabilityLedger,'function','the outer stability provenance must exist');return helpers.stabilityLedger();}
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 

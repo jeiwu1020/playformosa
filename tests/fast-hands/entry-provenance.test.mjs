@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -16,7 +17,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 const pinned={"app.mjs": "83e57ec9a00b54ad6bd23ef249491b6b9bd739a3", "index.html": "d13aea9195b9fc7142a71d725715811b345b0f2d", "club.css": "4d3e78f81337fb0c1eaddf50c5aac94c0e87f86b"};
 const reverseEntry=reverseEntryLayer;
-const read=path=>readFileSync(new URL(path,root));
+const read=path=>readBeforePolish(new URL(path,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('entry reversal rejects altered current bytes, bad edits, wrong parent and unapproved paths',()=>{

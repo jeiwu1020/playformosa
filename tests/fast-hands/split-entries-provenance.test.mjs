@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {CHARACTER_APPEARANCE_PATHS} from '../helpers/fast-hands-character-appearance-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,7 +12,7 @@ let api,pins;try{api=await import('../helpers/fast-hands-split-entries-provenanc
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
-const read=p=>readFileSync(new URL(p,root));
+const read=p=>readBeforePolish(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 const changed=[...['app.mjs','assets/intro-duel-generated.webp','catch.html','club.css','club.mjs','duel.html','index.html','leaderboard.mjs','levels-app.mjs','scene.mjs','score-image.mjs','share.mjs','three3d/stage.mjs'].map(p=>prefix+p),'public/index.html','src/catalog.mjs','src/render.mjs','worker/play-counts/index.mjs','worker/play-counts/repository.mjs'].sort();
 const added=[prefix+'play-counts.mjs',prefix+'three3d/duck-room.mjs'];
@@ -93,7 +94,7 @@ test('split entries retains every historical ledger and preimage byte for byte',
 test('split entries rejects a corrupted frozen preimage even if the caller repins its hash',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'split-entries-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json','tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/SPLIT-ENTRIES-MANIFEST.json','docs/fast-hands/NAME-REFRESH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/upload-toolbar-polish-provenance.mjs','docs/upload-toolbar-polish/SOURCE-MANIFEST.json','tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json','tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/SPLIT-ENTRIES-MANIFEST.json','docs/fast-hands/NAME-REFRESH-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.splitEntriesLedger(),row=l.files.find(r=>r.path==='src/catalog.mjs'),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-split-entries-provenance.mjs')).href);

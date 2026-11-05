@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
@@ -28,7 +29,7 @@ export function reverseFinale(path,bytes,ledger=finaleLedger(),outerLedger=shari
 }
 export function readFinaleBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseFinale(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;return encoding?result.toString(encoding):result;
 }
-export function finaleRuntimeAdditions(){const l=finaleLedger();assert.deepEqual(l.files.map(r=>r.path).sort(),[...FINALE_ALLOWED].sort());for(const p of FINALE_ADDED)reverseFinale(p,readFileSync(new URL(p,root)),l);return [...FINALE_ADDED,...sharingFlowRuntimeAdditions()]}
+export function finaleRuntimeAdditions(){const l=finaleLedger();assert.deepEqual(l.files.map(r=>r.path).sort(),[...FINALE_ALLOWED].sort());for(const p of FINALE_ADDED)reverseFinale(p,readBeforePolish(new URL(p,root)),l);return [...FINALE_ADDED,...sharingFlowRuntimeAdditions()]}

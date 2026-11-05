@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {reverseResultUpload,RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -12,7 +13,7 @@ let api;try{api=await import('../helpers/fast-hands-sharing-flow-provenance.mjs'
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
-const read=p=>readFileSync(new URL(p,root));
+const read=p=>readBeforePolish(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
 test('sharing flow reversal rejects changed bytes, invalid edits, illegal paths and invented old content',()=>{

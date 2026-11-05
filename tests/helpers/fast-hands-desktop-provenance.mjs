@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
@@ -34,7 +35,7 @@ export function reverseDesktop(path,bytes,ledger=desktopLedger(),outerLedger=fin
 }
 export function readDesktopBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseDesktop(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;

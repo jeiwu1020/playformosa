@@ -128,3 +128,31 @@ test('first-entry settings close returns to intro and later help preserves an in
   }finally{h.close()}
  }
 });
+
+for(const tool of ['headerRanking','headerSettings','openMenu'])test(`duck ${tool} interrupts held gesture and returns to the game with an explicit new gesture`,async()=>{
+ const h=await duckApp({seen:true});h.d.documentElement.dataset.pfStartup='ready';try{
+  h.$('play').click();h.frame();h.send('pointerdown',.1);h.send('pointermove',.9);h.$(tool).click();
+  const state=h.get('s');assert.equal(h.get('activePointer'),null);assert.equal(state.phase,'cancelled');
+  h.send('pointermove',.1);h.send('pointerup',.1);assert.equal(h.get('s'),state);
+  h.d.querySelector('dialog[open]').close();await new Promise(r=>setTimeout(r,5));
+  assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.d.activeElement,h.$('retry'));
+  assert.equal(h.get('s'),state);h.$('retry').click();assert.equal(h.get('s.phase'),'idle');
+ }finally{h.close()}
+});
+for(const tool of ['headerRanking','headerSettings','openMenu'])test(`duck ${tool} returns the completed result without resetting it`,async()=>{
+ const h=await duckApp({seen:true});h.d.documentElement.dataset.pfStartup='ready';try{
+  h.$('play').click();h.frame();h.send('pointerdown',.1);h.send('pointermove',.9);h.send('pointermove',.1);h.send('pointerup',.1);h.frame(1000);
+  assert.equal(h.$('resultDialog').open,true);const state=h.get('s');h.$(tool).click();
+  assert.equal(h.$('resultDialog').open,false);h.d.querySelector('dialog[open]').close();await new Promise(r=>setTimeout(r,5));
+  assert.equal(h.$('resultDialog').open,true);assert.equal(h.get('s'),state);
+ }finally{h.close()}
+});
+
+test('duck toolbar settings retains the existing input-mode and duck-sound controls',async()=>{
+ const h=await duckApp({seen:true});try{
+  h.$('headerSettings').click();assert.equal(h.$('info').open,true);
+  h.$('mode').value='touch';h.$('mode').dispatchEvent(new h.w.Event('change',{bubbles:true}));assert.equal(h.get('preference'),'touch');assert.equal(h.get('mode'),'touch');
+  h.$('sound').click();assert.equal(h.get('muted'),true);assert.match(h.$('sound').textContent,/關/);
+  h.$('info').close();await new Promise(r=>setTimeout(r,5));assert.equal(h.get('club.blocked()'),false);
+ }finally{h.close()}
+});

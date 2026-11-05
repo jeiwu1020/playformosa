@@ -220,8 +220,6 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
   body.fast-hands-club{padding-right:max(12px,env(safe-area-inset-right));padding-left:max(12px,env(safe-area-inset-left));--club-gap:6px}
   body.fast-hands-club .game-header{column-gap:8px}
   body.fast-hands-club .game-header h1{font-size:22px}
-  body.fast-hands-club .header-tools #headerRanking,
-  body.fast-hands-club .header-tools #headerSettings{display:none}
   body.fast-hands-club .level-switch{gap:4px}
   body.fast-hands-club .level-switch a{font-size:11px;gap:3px;padding:6px 3px}
   body.fast-hands-club .level-switch a>span{font-size:10px}
@@ -327,14 +325,10 @@ body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{
 body.fast-hands-club:has(#artStatus:not([hidden])) #artStatus{grid-area:status}
 body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:retry}
 
-/* A wide, very short screen can share its toolbar with the destinations.
-   Only that toolbar uses horizontal space: the stage, score and inputs stay
-   stacked, and the continuous duck track keeps its complete original width. */
+/* Wide, very short screens retain both toolbar rows. The stage, score and
+   inputs stay stacked, and the duck track keeps its complete original width. */
 @media(min-width:700px) and (max-height:450px) and (orientation:landscape){
   body.fast-hands-club{--club-stage-min:110px;--club-hud:34px;--club-feedback:54px}
-  body.fast-hands-club .game-header{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:44px;column-gap:10px}
-  body.fast-hands-club .game-header>.pf-studio-heading{display:none}
-  body.fast-hands-club .game-header>.level-switch{grid-column:2;grid-row:1}
   body.fast-hands-club .score-row{padding:3px 10px}
   body.fast-hands-club .score-row>div{display:flex;align-items:center;gap:7px}
   body.fast-hands-club .score-row label{flex:none;font-size:9px;line-height:12px}
@@ -345,12 +339,9 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .score-drop{padding-left:10px}
   body.fast-hands-club .level-main{
     --club-stage-min:122px;position:relative;
-    grid-template-areas:"header" "scene" "scores" "feedback" "control";
-    grid-template-rows:44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
+    grid-template-areas:"header" "nav" "scene" "scores" "feedback" "control";
+    grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
   }
-  body.fast-hands-club .level-header>div{display:none}
-  body.fast-hands-club .level-header #openMenu{margin-left:auto}
-  body.fast-hands-club .level-main>.level-switch{grid-area:auto;position:absolute;top:0;left:66px;right:104px;width:auto;height:44px}
   body.fast-hands-club .level-hud{padding:1px 0}
   body.fast-hands-club .level-hud span{font-size:9px;line-height:11px}
   body.fast-hands-club .level-hud strong{font-size:18px;line-height:20px}
@@ -433,7 +424,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
 }
 @media(min-width:1000px) and (max-height:450px){
   body.fast-hands-club{--club-gap:6px;--club-hud:44px;--club-feedback:86px;--club-primary:52px}
-  body.fast-hands-club main{grid-template-rows:44px var(--club-hud) minmax(56px,1fr) 44px auto}
+  body.fast-hands-club main{grid-template-rows:auto var(--club-hud) minmax(56px,1fr) 44px auto}
   body.fast-hands-club .control-section>.instruction{padding:4px 8px;gap:4px}
   body.fast-hands-club .instruction strong{font-size:19px;line-height:1.3}
   body.fast-hands-club .instruction>span{font-size:14px}
@@ -441,7 +432,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .score-row>div{display:block}
   body.fast-hands-club .score-row label{font-size:10px;line-height:12px}
   body.fast-hands-club .score-row strong,body.fast-hands-club .score-row .score-main strong{font-size:20px;line-height:22px}
-  body.fast-hands-club .level-main{grid-template-areas:"header header" "scene scores" "scene feedback" "scene control";grid-template-rows:44px var(--club-hud) minmax(var(--club-feedback),1fr) auto}
+  body.fast-hands-club .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene control";grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto}
   body.fast-hands-club .level-hud{padding:1px 0}
   body.fast-hands-club .level-hud span{font-size:11px;line-height:13px}
   body.fast-hands-club .level-hud strong{font-size:23px;line-height:25px}
@@ -455,7 +446,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .level-controls{grid-template-rows:var(--club-primary) 44px;gap:2px}
   body.fast-hands-club .input-help{display:none}
   body.fast-hands-club .secondary-control{grid-row:2}
-  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
+  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
 }
 
 /* The duel scene is artwork, not a renderer diagnostic. Keep preparation status
@@ -489,4 +480,19 @@ body.fast-hands-club .finale-game-title{font-size:14px;font-weight:800;line-heig
  body.fast-hands-club .mode-intro .entry-buttons>.intro-start{grid-column:1/-1;grid-row:auto}
  body.fast-hands-club .mode-intro .entry-buttons>.club-intro-aux{grid-column:1/-1;grid-row:auto}
  body.fast-hands-club .mode-intro .pf-entry-brand{display:none}
+}
+
+/* Shared named controls: the game title and destinations never compete for a row. */
+body.fast-hands-club .club-toolbar{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;column-gap:8px}
+body.fast-hands-club .club-toolbar>div{display:block;grid-column:2;grid-row:1;min-width:0}
+body.fast-hands-club .club-toolbar h1{font-size:22px;line-height:1.2;white-space:nowrap;margin:0}
+body.fast-hands-club .club-toolbar>a{grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:center;width:56px;height:44px;min-height:44px;padding:6px;font:700 12px/1.2 system-ui,sans-serif}
+body.fast-hands-club .club-toolbar .header-tools{display:flex;grid-column:3;grid-row:1;gap:4px;margin:0;align-items:center;justify-self:end}
+body.fast-hands-club .club-toolbar .header-tools>button{display:inline-flex;align-items:center;justify-content:center;width:48px;min-width:44px;height:44px;min-height:44px;padding:6px;border:1px solid #c5d2bb;border-radius:12px;background:#e4ecda;color:#244e43;font:750 12px/1.2 system-ui,sans-serif;box-shadow:none}
+body.fast-hands-club .club-settings{padding:20px;max-width:360px;color:var(--green);background:var(--cream);border:1px solid var(--line);border-radius:18px}
+body.fast-hands-club .club-settings button,body.fast-hands-club #restartButton{min-height:44px;min-width:44px}
+@media(max-width:600px){
+ body.fast-hands-club .club-toolbar{column-gap:6px}
+ body.fast-hands-club .club-toolbar h1{font-size:16px;letter-spacing:0}
+ body.fast-hands-club .club-toolbar .header-tools>button{width:44px}
 }

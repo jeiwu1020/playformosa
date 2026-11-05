@@ -1,4 +1,4 @@
-import {mountResultUploadHost} from './result-upload-host.mjs';
+import {mountResultUploadHost,createUploadCooldown} from './result-upload-host.mjs';
 import {NOTE_FLOOR_MS} from './challenge.mjs';
 
 const DEVICE_KEY='pf-leaderboard-device-v1',NICKNAME_KEY='pf-leaderboard-nickname-v1';
@@ -12,7 +12,7 @@ export function freezeLeaderboardResult(run,mode,{demo=false}={}){
  return Object.freeze({mode,rules:'shuttle-v3-'+mode,score:run.elapsedMs});
 }
 
-/** Dedicated QA board. Never derives a submission from UI text or local bests.
+/** Voluntary player-reported leaderboard. Never derives a submission from UI text or local bests.
  * captureResult is called exactly at the real successful run transition. Closing
  * a view preserves the round's immutable payload, attempt count and final status.
  */
@@ -25,6 +25,8 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
  let boardMode='mouse',origin='entry',view=null,returnOnClose=true,destroyed=false,uploadToken=0,boardToken=0,uploadRequest=null,boardRequest=null;
  let unavailable=false,ineligibleReason='完成有效挑戰後才能上傳本次成績。';
  const inline=mountResultUploadHost({section:$('rankingUpload'),inlineUpload,onClose(){if(view==='result-upload'){stopUpload();view=null;inline.restore()}}});
+ const cooldown=createUploadCooldown(win,()=>{if(!destroyed)syncUpload()});
+ let rateLimited=false;
  $('rankingNickname').value=read(NICKNAME_KEY)||'';
  function deviceId(){
   if(device)return device;
@@ -36,23 +38,25 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
   const aborted=new Promise((_,reject)=>controller.signal.addEventListener('abort',()=>reject(Error('timeout')),{once:true}));
   timer=win.setTimeout(()=>controller.abort(),10000);
   let fetched;try{fetched=fetcher(url,{...options,signal:controller.signal})}catch(error){fetched=Promise.reject(error)}
-  const result=Promise.race([Promise.resolve(fetched).then(async response=>({response,data:await response.json()})),aborted]).finally(()=>win.clearTimeout(timer));
+  const result=Promise.race([Promise.resolve(fetched).then(async response=>({response,data:await response.json().catch(error=>{if(response.status===429)return null;throw error})})),aborted]).finally(()=>win.clearTimeout(timer));
   return {result,cancel(){win.clearTimeout(timer);controller.abort()}};
  }
  function syncUpload(){
+  const cooldownSeconds=cooldown.remaining(),cooldownMessage=cooldown.message();
+  if(round&&!completed&&!rejected&&!pending){if(cooldownSeconds>0){rateLimited=true;$('rankingUploadStatus').textContent=cooldownMessage;}else if(rateLimited){$('rankingUploadStatus').textContent=payload?'等待已結束，可手動重試同一筆；不會自動上傳。':'等待已結束，可手動提交本次成績；不會自動上傳。';rateLimited=false}}
   $('resultUpload').disabled=!round;
-  $('leaderboardStatus').textContent=round?'本次成功成績可自願上傳測試榜；成績由玩家回報。':'完成有效挑戰後，可自願上傳本次成績至測試排行榜。';
+  $('leaderboardStatus').textContent=round?'本次成功成績可自願上傳排行榜；成績由玩家回報。':'完成有效挑戰後，可自願上傳本次成績至排行榜。';
   $('rankingNickname').disabled=!!payload;
   $('rankingConsent').disabled=!!payload;
-  $('rankingSubmit').disabled=!round||pending||completed||rejected||attempts>=3;
-  $('rankingSubmit').textContent=completed?'已提交':pending?'提交中…':payload?'重試同一筆':'提交本次成績';
+  $('rankingSubmit').disabled=!round||pending||completed||rejected||attempts>=3||cooldownSeconds>0;
+  $('rankingSubmit').textContent=completed?'已提交':pending?'提交中…':cooldownSeconds>0?'等待 '+cooldownSeconds+' 秒':payload?'重試同一筆':'提交本次成績';
   if(unavailable)$('rankingSubmit').disabled=true;
-  inline?.sync({eligible:!!round,pending,completed,rejected,payload,attempts,reason:ineligibleReason,unavailable});
+  inline?.sync({eligible:!!round,pending,completed,rejected,payload,attempts,reason:ineligibleReason,unavailable,cooldownSeconds,cooldownMessage});
  }
  function stopBoard(){boardToken++;boardRequest?.cancel();boardRequest=null;}
  function stopUpload(uncertain=true){
   uploadToken++;uploadRequest?.cancel();uploadRequest=null;
-  if(pending&&uncertain)$('rankingUploadStatus').textContent='已停止等待；送出的成績可能已收錄。可手動重試同一筆，不會重複入榜。'+(attempts>=3?' 本回合已達3次提交上限。':'');
+  if(pending&&uncertain)$('rankingUploadStatus').textContent='已停止等待；送出的成績可能已收錄。可手動重試同一筆，不會重複入榜。'+(attempts>=3?' 本回合已達3次連線嘗試上限。':'');
   pending=false;syncUpload();
  }
  function finishClose(){
@@ -70,8 +74,8 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
   if(view!==nextView){stopBoard();stopUpload();}
   inline?.restore();origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
   $('rankingBoard').hidden=nextView!=='board';$('rankingUpload').hidden=nextView!=='upload';
-  $('rankingTitle').textContent=nextView==='board'?'鴨沒漏補｜測試排行榜':'鴨沒漏補｜上傳成績';
-  $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲選單';
+  $('rankingTitle').textContent=nextView==='board'?'鴨沒漏補｜排行榜':'鴨沒漏補｜上傳成績';
+  $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲';
   if(!dialog.open)onOpen(dialog,origin);
   dialog.querySelector('.ranking-scroll').scrollTop=0;
   return true;
@@ -126,7 +130,7 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
  }
  function focusUploadTarget(element){if(view==='result-upload')inline?.reveal(element);else element.focus({preventScroll:true})}
  async function submit(){
-  if(!round||!((view==='upload'&&dialog.open)||(view==='result-upload'&&inline?.isOpen()))||pending||completed||rejected||attempts>=3)return;
+  if(!round||!((view==='upload'&&dialog.open)||(view==='result-upload'&&inline?.isOpen()))||pending||completed||rejected||attempts>=3||cooldown.remaining()>0)return;
   const id=deviceId();if(!id)return;
   if(!payload){
    const nickname=$('rankingNickname').value.trim();
@@ -137,19 +141,20 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
    payload=Object.freeze({game:'fast-hands',rules:round.rules,unit:'ms',status:'success',score:round.score,nickname,deviceId:id,submissionId});
    write(NICKNAME_KEY,nickname);
   }
-  pending=true;attempts++;const token=++uploadToken;syncUpload();$('rankingUploadStatus').textContent='提交中，請稍候…';
+  rateLimited=false;pending=true;attempts++;const token=++uploadToken;syncUpload();$('rankingUploadStatus').textContent='提交中，請稍候…';
   uploadRequest=request('/api/leaderboard/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   try{
    const {response,data}=await uploadRequest.result;
    if(token!==uploadToken||destroyed)return;
-   if(response.ok&&data?.accepted===true){completed=true;$('rankingUploadStatus').textContent=data.bestUpdated?'已收錄，刷新本瀏覽器線上最佳！':'已收錄，保留本瀏覽器線上最佳。';const own=data.own;if(own&&validScore(own.score)&&Number.isInteger(own.rank)&&own.rank>0)$('rankingUploadStatus').textContent+=' 第 '+own.rank+' 名，最佳 '+seconds(own.score)+' 秒。';}
+   if(response.ok&&data?.accepted===true){completed=true;cooldown.accepted(data);$('rankingUploadStatus').textContent=data.bestUpdated?'已收錄，刷新本瀏覽器線上最佳！':'已收錄，保留本瀏覽器線上最佳。';const own=data.own;if(own&&validScore(own.score)&&Number.isInteger(own.rank)&&own.rank>0)$('rankingUploadStatus').textContent+=' 第 '+own.rank+' 名，最佳 '+seconds(own.score)+' 秒。';}
+   else if(response.status===429){attempts--;const message=cooldown.limited(response,data);rateLimited=cooldown.remaining()>0;$('rankingUploadStatus').textContent=message;}
    else if([400,403,409,413].includes(response.status)){rejected=true;$('rankingUploadStatus').textContent='本次提交無法接受，請重新挑戰後再試。遊戲與下載不受影響。';}
-   else throw Error(response.status===429?'limited':response.status===503?'unavailable':'network');
-  }catch(error){if(token===uploadToken&&!destroyed)$('rankingUploadStatus').textContent=error.message==='limited'?'提交暫時達限，請稍後手動重試同一筆；仍可繼續遊玩。':error.message==='unavailable'?'排行榜暫時無法提交，請稍後手動重試同一筆。':'未確認提交完成，成績可能已收錄。可手動重試同一筆，不會重複入榜。';}
-  finally{if(token===uploadToken){pending=false;uploadRequest=null;if(!completed&&!rejected&&attempts>=3)$('rankingUploadStatus').textContent+=' 本回合已達3次提交上限，請稍後再挑戰。';syncUpload();}}
+   else throw Error(response.status===503?'unavailable':'network');
+  }catch(error){if(token===uploadToken&&!destroyed)$('rankingUploadStatus').textContent=error.message==='unavailable'?'排行榜暫時無法提交，請稍後手動重試同一筆。':'未確認提交完成，成績可能已收錄。可手動重試同一筆，不會重複入榜。';}
+  finally{if(token===uploadToken){pending=false;uploadRequest=null;if(!completed&&!rejected&&attempts>=3)$('rankingUploadStatus').textContent+=' 本回合已達3次連線嘗試上限，請稍後再挑戰。';syncUpload();}}
  }
  function reset(){
-  dismiss(false);stopUpload(false);round=null;sourceRun=null;payload=null;attempts=0;completed=false;rejected=false;unavailable=false;
+  dismiss(false);stopUpload(false);round=null;sourceRun=null;payload=null;attempts=0;completed=false;rejected=false;unavailable=false;rateLimited=false;
   $('rankingConsent').checked=false;$('rankingFrozenScore').textContent='';$('rankingUploadStatus').textContent='';syncUpload();
  }
  function captureResult(run,mode,options){
@@ -163,5 +168,5 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
  for(const type of ['keydown','keyup','keypress'])listen(dialog,type,event=>{if(event.key!=='Tab')event.stopPropagation();if(event.key==='Enter'&&event.target.tagName==='INPUT')event.preventDefault()});
  listen(win,'pagehide',()=>dismiss(false));
  syncUpload();
- return {captureResult,reset,showBoard,showUpload,showResultUpload,dismiss,destroy(){destroyed=true;reset();inline?.destroy();dialog.removeEventListener('close',finishClose);for(const remove of listeners)remove()}};
+ return {captureResult,reset,showBoard,showUpload,showResultUpload,dismiss,destroy(){destroyed=true;cooldown.destroy();reset();inline?.destroy();dialog.removeEventListener('close',finishClose);for(const remove of listeners)remove()}};
 }

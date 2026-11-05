@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -6,7 +7,7 @@ import {createHash} from 'node:crypto';
 let api;
 try{api=await import('../helpers/fast-hands-name-refresh-provenance.mjs')}catch(error){if(error.code!=='ERR_MODULE_NOT_FOUND')throw error}
 const root=new URL('../../',import.meta.url);
-const read=path=>readFileSync(new URL(path,root));
+const read=path=>readBeforePolish(new URL(path,root));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 // Independently recorded from the complete published 928772e parent tree.

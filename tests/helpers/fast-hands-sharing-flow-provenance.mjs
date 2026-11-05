@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {reverseResultUpload,resultUploadLedger,resultUploadRuntimeAdditions} from './fast-hands-result-upload-provenance.mjs';
@@ -86,7 +87,7 @@ export function reverseSharingFlow(path,bytes,ledger=sharingFlowLedger(),outerLe
 
 export function readSharingFlowBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseSharingFlow(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
@@ -94,6 +95,6 @@ export function readSharingFlowBaseline(file,options){
 
 export function sharingFlowRuntimeAdditions(){
  const ledger=sharingFlowLedger();
- for(const path of SHARING_FLOW_ADDED)reverseSharingFlow(path,readFileSync(new URL(path,root)),ledger);
+ for(const path of SHARING_FLOW_ADDED)reverseSharingFlow(path,readBeforePolish(new URL(path,root)),ledger);
  return [...SHARING_FLOW_ADDED,...resultUploadRuntimeAdditions()];
 }

@@ -86,7 +86,8 @@ export async function handleRequest(request,env,now=Date.now()){
    if(env.LEADERBOARD_SCOPE!=='qa')return json({error:'unavailable'},503);
   }
   const result=await repo.submit(data,resolveBoard(data.game,data.rules),now);
-  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'60'}:{});
+  const retryHeaders=result.error==='limited'&&result.reason==='cooldown'?{'Retry-After':String(result.retryAfterSeconds)}:{};
+  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);
  }catch{return json({error:'temporarily_unavailable'},503);}
 }
 export default {fetch(request,env){return handleRequest(request,env);}};

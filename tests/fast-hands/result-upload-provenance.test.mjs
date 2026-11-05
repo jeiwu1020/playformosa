@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED,readArtPolishBaseline} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import test from 'node:test';
@@ -11,7 +12,7 @@ let api,pins;try{api=await import('../helpers/fast-hands-result-upload-provenanc
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
-const read=p=>readFileSync(new URL(p,root));
+const read=p=>readBeforePolish(new URL(p,root));
 const historical=p=>readArtPolishBaseline(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 
@@ -70,7 +71,7 @@ test('result upload retains every old ledger byte for byte including sharing flo
 test('result upload rejects a corrupted frozen preimage even when its manifest hash is repinned',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'result-upload-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json','tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/NAME-REFRESH-MANIFEST.json','tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-result-upload-provenance.mjs','tests/helpers/fast-hands-result-upload-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/RESULT-UPLOAD-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/upload-toolbar-polish-provenance.mjs','docs/upload-toolbar-polish/SOURCE-MANIFEST.json','tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json','tests/helpers/fast-hands-name-refresh-provenance.mjs','docs/fast-hands/NAME-REFRESH-MANIFEST.json','tests/helpers/fast-hands-split-entries-provenance.mjs','tests/helpers/fast-hands-split-entries-pins.mjs','tests/helpers/fast-hands-result-upload-provenance.mjs','tests/helpers/fast-hands-result-upload-pins.mjs','tests/helpers/fast-hands-art-polish-provenance.mjs','tests/helpers/fast-hands-art-polish-pins.mjs','docs/fast-hands/RESULT-UPLOAD-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
   const l=api.resultUploadLedger(),row=l.files.find(r=>r.beforeSha256!==null),bad=Buffer.from('fabricated baseline');
   mkdirSync(dirname(join(dir,row.beforeAsset)),{recursive:true});writeFileSync(join(dir,row.beforeAsset),bad);
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-result-upload-provenance.mjs')).href);

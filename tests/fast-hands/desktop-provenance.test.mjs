@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -14,7 +15,7 @@ const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const reverseDesktop=reverseDesktopLayer;
-const read=path=>readFileSync(new URL(path,root));
+const read=path=>readBeforePolish(new URL(path,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 test('desktop reversal rejects drift, malformed edits, wrong parent and unapproved paths',()=>{
  const reverseDesktop=(p,b,l)=>reverseDesktopLayer(p,b,l,{files:[]},{files:[]},{files:[]},{files:[]},{files:[]});

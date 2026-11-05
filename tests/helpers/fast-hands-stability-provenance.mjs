@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {reverseClub,clubRuntimeAdditions} from './fast-hands-club-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -55,7 +56,7 @@ export function reverseStability(path,bytes,ledger=stabilityLedger()){
 }
 export function readStabilityBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseStability(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
@@ -63,6 +64,6 @@ export function readStabilityBaseline(file,options){
 export function stabilityRuntimeAdditions(){
  const ledger=stabilityLedger();
  assert.deepEqual(ledger.files.map(file=>file.path).sort(),[...STABILITY_ALLOWED].sort());
- for(const path of STABILITY_ADDED)reverseStability(path,readFileSync(new URL(path,root)),ledger);
+ for(const path of STABILITY_ADDED)reverseStability(path,readBeforePolish(new URL(path,root)),ledger);
  return [...STABILITY_ADDED,...clubRuntimeAdditions()];
 }

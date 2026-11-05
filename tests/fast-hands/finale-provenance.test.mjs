@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -9,7 +10,7 @@ import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 let api;try{api=await import('../helpers/fast-hands-finale-provenance.mjs')}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e}
 const root=new URL('../../',import.meta.url),sha=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
-const read=p=>readFileSync(new URL(p,root));
+const read=p=>readBeforePolish(new URL(p,root));
 const historical=p=>readSharingFlowBaseline(new URL(p,root));
 function walk(dir){return readdirSync(new URL(dir,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);}
 

@@ -14,7 +14,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
  let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='',club=null,summaryPresented=false,summaryDismissed=false;
- let replay=null,replayRecorder=createLevelReplayRecorder({mode}),lastReveal=null,ranking=null,rankingOpen=false,capturedRun=null,imageToken=0,imagePromise=null,imageUrl=null;
+ let replay=null,replayRecorder=createLevelReplayRecorder({mode}),lastReveal=null,ranking=null,rankingOpen=false,returnView=null,capturedRun=null,imageToken=0,imagePromise=null,imageUrl=null;
  const sound=soundFactory({window,mode}),sharing=sharingFactory({document,mode});
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
  const poseImages=new Map();
@@ -147,6 +147,16 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   if(document.hidden||!sceneVisible()||(state.phase==='live'&&lastFrame!==null&&now-lastFrame>250)){pause();return;}
   const previous=state,next=press(state,now);if(next!==state){pressedAt=now;settledAt=now;}state=next;observe(previous,now);render(now);
  }
+ function interruptOverlay(){
+  returnView??=($('summary').open||replay?'result':$('entryDialog').open?'intro':'game');
+  pause();closeSummary();
+ }
+ function returnOverlay({reason}={}){
+  if(reason==='pageshow')rankingOpen=false;
+  const view=returnView;returnView=null;
+  if(view==='result'&&state.phase==='done'&&!state.practice&&!disposed){openSummary();$('summaryReplay').focus({preventScroll:true});}
+  lastRendered=null;render();
+ }
  function pause(){if(replay){returnFromReplay();return;}const previous=state,next=pauseMatch(state);if(next!==state){pressedAt=null;settledAt=null;}state=next;observe(previous,clock());lastFrame=null;render();}
  function practice(){if(club?.blocked?.()||rankingOpen)return;closeSummary();clearResult();summaryPresented=false;summaryDismissed=false;pressedAt=null;settledAt=null;state=newMatch(mode,{practice:true,random});lastFrame=null;render();$('roundButton').focus({preventScroll:true});}
  function repeatPractice(){
@@ -202,9 +212,13 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  try{const stage=stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d});if(stage?.then)stage.then(stageResolved).catch(unavailable);else stageResolved(stage);}catch{unavailable();}
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
- ranking=rankingFactory({document,mode,inlineUpload:{host:$('summaryUploadHost'),trigger:$('summaryUpload'),hint:$('summaryUploadHint'),resultDialog:$('summary')},onOpen(dialog){closeSummary();rankingOpen=true;try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
+ ranking=rankingFactory({document,mode,inlineUpload:{host:$('summaryUploadHost'),trigger:$('summaryUpload'),hint:$('summaryUploadHint'),resultDialog:$('summary')},onOpen(dialog){rankingOpen=true;club?.beginOverlay?.('ranking');closeSummary();try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;club?.endOverlay?.();if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
+ listen($('headerRanking'),'click',()=>{if(!club?.blocked?.())ranking?.showBoard({origin:'header'});});
+ listen($('headerSettings'),'click',()=>{if(!club?.beginOverlay?.('settings'))return;$('settingsDialog').showModal();$('soundToggle').focus({preventScroll:true});});
+ listen($('settingsClose'),'click',()=>$('settingsDialog').close());
+ listen($('settingsDialog'),'close',()=>club?.endOverlay?.());
  listen(document,'clubchange',()=>{lastRendered=null;render();});
- club=clubFactory({document,window,mode,getNavigationContext:()=>({phase:state.phase,practice:state.practice}),getResumeTarget:()=>$('roundButton'),isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:()=>pause(),onStart:()=>{}});
+ club=clubFactory({document,window,mode,getNavigationContext:()=>({phase:state.phase,practice:state.practice}),getResumeTarget:()=>$('summary').open?$('summaryReplay'):$('roundButton'),isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:({reason})=>['intro','ranking','settings'].includes(reason)?interruptOverlay():pause(),onReturn:returnOverlay,onStart:()=>{}});
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};
 }
 if(typeof document!=='undefined'&&document.body?.dataset.level)mountLevel({document,window});

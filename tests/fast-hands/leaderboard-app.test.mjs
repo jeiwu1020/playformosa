@@ -44,3 +44,44 @@ test('result direct upload expands inside same ticket and never posts until expl
  h.$('rankingNickname').value='結算玩家';h.$('rankingSubmit').click();await flush();assert.equal(h.leaderboardRequests.length,0);h.$('rankingConsent').checked=true;h.$('rankingSubmit').click();await flush();const post=h.requests.find(x=>x.url==='/api/leaderboard/submissions'&&x.options.method==='POST');assert.ok(post);const body=JSON.parse(post.options.body);assert.equal(body.score,score);assert.equal(body.rules,'shuttle-v3-touch');assert.equal(h.$('resultDialog').open,true);h.$('resultClose').click();h.$('viewResult').click();assert.equal(trigger.disabled,true);assert.match(h.$('resultUploadHint').textContent,/已/);assert.equal(h.leaderboardRequests.length,1);
  }finally{h.cleanup()}
 });
+
+const drainToolbar=()=>new Promise(resolve=>setTimeout(resolve,10));
+test('header board can open frozen-result upload while gameplay remains blocked, then returns focus to the game',async()=>{
+ const h=await harness();try{
+  h.d.documentElement.dataset.pfStartup='ready';h.win();h.$('resultClose').click();const state=h.get('s');
+  h.$('headerRanking').click();await flush();assert.equal(h.$('rankingDialog').open,true);assert.equal(h.$('resultUpload').disabled,false);
+  h.$('resultUpload').click();assert.equal(h.$('rankingUpload').hidden,false);assert.equal(h.$('rankingBoard').hidden,true);
+  assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('retry').click();h.send('pointerdown',.1);h.send('pointerup',.1);assert.equal(h.get('s'),state);
+  assert.equal(h.leaderboardRequests.filter(r=>r.url==='/api/leaderboard/submissions').length,0);
+  h.$('rankingReturn').click();await drainToolbar();assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.d.activeElement,h.$('retry'));assert.equal(h.get('s'),state);
+ }finally{h.cleanup()}
+});
+for(const child of ['entryRanking','about'])test(`replay help ${child} transfers its overlay until the child and intro are closed`,async()=>{
+ const h=await harness();try{
+  h.d.documentElement.dataset.pfStartup='ready';h.win();const state=h.get('s');h.$('resultDemo').click();h.$('openMenu').click();assert.equal(h.$('entryDialog').open,true);
+  h.$(child).click();await drainToolbar();const childDialog=h.$(child==='entryRanking'?'rankingDialog':'info');
+  assert.equal(childDialog.open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);
+  h.$('retry').click();h.send('pointerdown',.1);h.send('pointerup',.1);assert.equal(h.get('s'),state);
+  if(child==='entryRanking'){h.$('resultUpload').click();assert.equal(h.$('rankingUpload').hidden,false);h.$('rankingReturn').click();}else h.$('closeInfo').click();
+  await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.activeElement,h.$(child));
+  h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.d.activeElement,h.$('resultAgain'));assert.equal(h.get('s'),state);assert.equal(h.get('replaying'),false);
+ }finally{h.cleanup()}
+});
+
+for(const tool of ['headerRanking','headerSettings','openMenu'])test(`duck BFCache restores ${tool} without a stale overlay lock or losing the frozen result`,async()=>{
+ const h=await harness();try{
+  h.d.documentElement.dataset.pfStartup='ready';h.win();h.$('resultClose').click();const state=h.get('s');h.$(tool).click();
+  for(const type of ['pagehide','pageshow']){const event=new h.w.Event(type);Object.defineProperty(event,'persisted',{value:true});h.w.dispatchEvent(event);}
+  await drainToolbar();assert.equal(h.get('disposed'),false);assert.equal(h.get('club.blocked()'),false);assert.equal(h.d.querySelectorAll('dialog[open]').length,0);assert.equal(h.get('s'),state);assert.equal(h.d.activeElement,h.$('retry'));
+  h.$('headerRanking').click();assert.equal(h.$('rankingDialog').open,true);h.$('resultUpload').click();assert.equal(h.$('rankingUpload').hidden,false);assert.equal(h.$('rankingSubmit').disabled,false);
+  h.$('rankingClose').click();await drainToolbar();h.$('retry').click();assert.equal(h.get('s.phase'),'idle');
+ }finally{h.cleanup()}
+});
+
+test('a queued close from the replaced intro cannot close its newly reopened parent view',async()=>{
+ const h=await harness();try{
+  h.win();h.$('resultDemo').click();h.$('openMenu').click();h.$('entryRanking').click();h.$('rankingReturn').click();assert.equal(h.$('entryDialog').open,true);
+  h.$('entryDialog').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);
+  h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true);
+ }finally{h.cleanup()}
+});

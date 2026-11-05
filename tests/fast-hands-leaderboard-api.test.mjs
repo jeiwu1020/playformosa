@@ -146,8 +146,8 @@ test('device cooldown applies across Fast Hands modes and leaves rejected attemp
  const db=await fixture(t);
  assert.equal((await handleRequest(post(payload()),env(db),now)).status,200);
  const limited=await handleRequest(post(payload({rules:'shuttle-v3-touch',submissionId:id(2)})),env(db),now+59999);
- assert.equal(limited.status,429);assert.equal(limited.headers.get('Retry-After'),'60');
- assert.deepEqual(await limited.json(),{error:'limited'});
+ assert.equal(limited.status,429);assert.equal(limited.headers.get('Retry-After'),'1');
+ assert.deepEqual(await limited.json(),{error:'limited',reason:'cooldown',retryAfterSeconds:1});
  assert.equal(count(db,'leaderboard_submissions'),1);
  assert.equal((await handleRequest(post(payload({rules:'shuttle-v3-touch',submissionId:id(2)})),env(db),now+60000)).status,200);
  assert.equal(count(db,'leaderboard_submissions'),2);

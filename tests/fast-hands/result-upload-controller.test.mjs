@@ -11,6 +11,7 @@ const deferred=()=>{let resolve;return {promise:new Promise(r=>resolve=r),resolv
 const state=(mode,wins=3)=>mode==='duck'?{phase:'success',elapsedMs:532.123456}:{mode,phase:'done',practice:false,total:mode==='catch'?Infinity:10,results:[...Array.from({length:wins},()=>({winner:'player'})),...Array.from({length:mode==='catch'?1:10-wins},()=>({winner:mode==='catch'?'none':'ai'}))]};
 function fixture(mode,{fetcher,cryptoBlocked=false,queuedClose=false,storedNickname}={}){
  const html=mode==='duck'?readFileSync(new URL('../../public/games/fast-hands/index.html',import.meta.url),'utf8'):'<body><dialog id="summary"><div class="finale-scroll"></div></dialog></body>';
+ const originalNow=Date.now;
  const dom=new JSDOM(html,{url:'https://qa.example/games/fast-hands/'}),w=dom.window,d=w.document;
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};
  const closeEvents=[];
@@ -29,7 +30,7 @@ function fixture(mode,{fetcher,cryptoBlocked=false,queuedClose=false,storedNickn
  const open=()=>{assert.equal(typeof c.showResultUpload,'function','controller must expose result-dialog upload');resultDialog.showModal();c.showResultUpload()};
  const posts=()=>requests.filter(r=>r.options.method==='POST');
  const valid=()=>{$('rankingNickname').value='玩家';$('rankingConsent').checked=true};
- return {mode,c,w,d,$,host,trigger,hint,resultDialog,scroll,scrolled,requests,returns,section,home,run,capture,open,posts,valid,flushCloseEvents(){for(const fire of closeEvents.splice(0))fire()},cleanup(){c.destroy();w.close()}};
+ return {mode,c,w,d,$,host,trigger,hint,resultDialog,scroll,scrolled,requests,returns,section,home,run,capture,open,posts,valid,flushCloseEvents(){for(const fire of closeEvents.splice(0))fire()},cleanup(){c.destroy();w.close();Date.now=originalNow}};
 }
 
 for(const mode of ['duck','catch','duel']){
@@ -52,7 +53,7 @@ for(const mode of ['duck','catch','duel']){
   const wait=deferred();let first=true;const h=fixture(mode,{fetcher:()=>first?(first=false,wait.promise):Promise.resolve(ok({accepted:true}))});try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();const old=JSON.parse(h.posts()[0].options.body);h.c.reset();assert.equal(h.posts()[0].options.signal.aborted,true);assert.equal(h.host.hidden,true);assert.equal(h.trigger.disabled,true);const next=state(mode,4);if(mode==='duck')next.elapsedMs=400;h.capture(next);h.open();assert.equal(h.$('rankingConsent').checked,false);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(h.$('rankingNickname').disabled,false);wait.resolve(ok({accepted:true}));await flush();assert.equal(h.$('rankingSubmit').disabled,false);h.valid();h.$('rankingSubmit').click();await flush();const body=JSON.parse(h.posts()[1].options.body);assert.notEqual(body.submissionId,old.submissionId);assert.equal(body.score,mode==='duck'?400:4);}finally{h.cleanup()}
  });
  test(mode+': every close/reopen preserves the three-attempt cap and terminal rejection',async()=>{
-  for(const status of [503,429,400,403,409,413]){const h=fixture(mode,{fetcher:()=>Promise.resolve(ok({error:'unavailable'},status))});try{h.capture();h.open();h.valid();for(let attempt=0;attempt<4;attempt++){h.$('rankingSubmit').click();await flush();h.resultDialog.close();h.open()}const terminal=[400,403,409,413].includes(status);assert.equal(h.posts().length,terminal?1:3);assert.equal(new Set(h.posts().map(r=>r.options.body)).size,1);assert.equal(h.trigger.disabled,true);assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.hint.textContent,terminal?/無法接受|重新挑戰/:/3次|上限/);}finally{h.cleanup()}}
+  for(const status of [503,400,403,409,413]){const h=fixture(mode,{fetcher:()=>Promise.resolve(ok({error:'unavailable'},status))});try{h.capture();h.open();h.valid();for(let attempt=0;attempt<4;attempt++){h.$('rankingSubmit').click();await flush();h.resultDialog.close();h.open()}const terminal=[400,403,409,413].includes(status);assert.equal(h.posts().length,terminal?1:3);assert.equal(new Set(h.posts().map(r=>r.options.body)).size,1);assert.equal(h.trigger.disabled,true);assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.hint.textContent,terminal?/無法接受|重新挑戰/:/3次|上限/);}finally{h.cleanup()}}
  });
  test(mode+': invalid rounds keep a visible disabled trigger and cannot open or submit',()=>{
   const h=fixture(mode);try{const invalids=mode==='duck'?[{phase:'failed',elapsedMs:0},{phase:'cancelled',elapsedMs:100},{phase:'success',elapsedMs:0}]:[state(mode,0),{...state(mode),practice:true},{...state(mode),phase:'live'}];for(const run of invalids){assert.equal(h.capture(run),false);h.open();assert.equal(h.host.hidden,true);assert.equal(h.trigger.hidden,false);assert.equal(h.trigger.disabled,true);assert.ok(h.hint.textContent.length>0);h.valid();h.$('rankingSubmit').click();assert.equal(h.requests.length,0)}}finally{h.cleanup()}
@@ -82,4 +83,54 @@ for(const mode of ['duck','catch','duel'])for(const remembered of [false,true])t
  const h=fixture(mode,{storedNickname:remembered?'舊暱稱':undefined});try{h.capture();Object.defineProperty(h.scroll,'clientHeight',{value:120});h.scroll.getBoundingClientRect=()=>({top:100,bottom:220,height:120});h.host.getBoundingClientRect=()=>({top:300-h.scroll.scrollTop,bottom:900-h.scroll.scrollTop,height:600});for(const [name,pos,height]of[['rankingNickname',520,46],['rankingConsent',640,22]])h.$(name).getBoundingClientRect=()=>({top:100+pos-h.scroll.scrollTop,bottom:100+pos+height-h.scroll.scrollTop,height});
  h.open();const visible=()=>{const r=h.d.activeElement.getBoundingClientRect();assert.ok(r.top>=100&&r.bottom<=220,`focused ${h.d.activeElement.id}: ${r.top}..${r.bottom} outside100..220`)};visible();h.$('rankingNickname').value='有效暱稱';h.$('rankingSubmit').click();await flush();assert.equal(h.posts().length,0);assert.equal(h.d.activeElement,h.$('rankingConsent'));visible();h.$('rankingNickname').value='';h.$('rankingSubmit').click();await flush();assert.equal(h.posts().length,0);assert.equal(h.d.activeElement,h.$('rankingNickname'));visible();
  }finally{h.cleanup()}
+});
+
+// A real DOM with only transport and time replaced: catches cooldown/budget/lifecycle regressions.
+function clockFor(w){
+ let now=0,id=0;const jobs=new Map();w.Date.now=()=>now;
+ w.setTimeout=(fn,ms)=>{jobs.set(++id,{fn,at:now+ms});return id};w.clearTimeout=id=>jobs.delete(id);
+ return {tick(ms){const end=now+ms;while(true){const next=[...jobs].sort((a,b)=>a[1].at-b[1].at)[0];if(!next||next[1].at>end)break;now=next[1].at;jobs.delete(next[0]);next[1].fn()}now=end},count:()=>jobs.size};
+}
+const limited=(data,header)=>({...ok(data,429),headers:{get:name=>name.toLowerCase()==='retry-after'?header:null}});
+for(const mode of ['duck','catch','duel']){
+ test(mode+': repeated cooldowns never spend retry budget; expiry never posts and retry keeps exact payload',async()=>{
+  let n=0;const h=fixture(mode,{fetcher:()=>Promise.resolve(++n<=4?limited({reason:'cooldown',retryAfterSeconds:2},'9'):ok({error:'unavailable'},503))}),clock=clockFor(h.w);
+  try{h.capture();h.open();h.valid();for(let i=0;i<4;i++){
+   h.$('rankingSubmit').click();await flush();assert.equal(h.posts().length,i+1);assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.hint.textContent,/2 秒/);
+   h.$('rankingSubmit').click();clock.tick(1000);assert.match(h.$('rankingUploadStatus').textContent,/1 秒/);
+   h.resultDialog.close();h.open();assert.equal(h.$('rankingSubmit').disabled,true);clock.tick(1000);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(h.posts().length,i+1);
+  }
+  for(let i=0;i<3;i++){h.$('rankingSubmit').click();await flush()}assert.equal(h.posts().length,7);assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.hint.textContent,/3次/);assert.equal(new Set(h.posts().map(p=>p.options.body)).size,1);
+  }finally{h.cleanup()}assert.equal(clock.count(),0);
+ });
+ test(mode+': reset preserves active same-game cooldown; destroy cancels timer',async()=>{
+  const h=fixture(mode,{fetcher:()=>Promise.resolve(limited({reason:'cooldown',retryAfterSeconds:7},'7'))}),clock=clockFor(h.w);
+  try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();const old=JSON.parse(h.posts()[0].options.body);h.c.reset();h.capture(state(mode,4));h.open();h.valid();assert.equal(h.$('rankingSubmit').disabled,true);h.$('rankingSubmit').click();assert.equal(h.posts().length,1);clock.tick(7000);assert.doesNotMatch(h.$('rankingUploadStatus').textContent,/等待 [1-9][0-9]* 秒/);assert.equal(h.posts().length,1);assert.equal(h.$('rankingSubmit').disabled,false);h.$('rankingSubmit').click();await flush();assert.notEqual(JSON.parse(h.posts()[1].options.body).submissionId,old.submissionId)}finally{h.cleanup()}assert.equal(clock.count(),0);
+ });
+ test(mode+': legacy rate limit honors Retry-After rather than hardcoding sixty seconds',async()=>{
+  const h=fixture(mode,{fetcher:()=>Promise.resolve(limited({error:'limited'},'13'))}),clock=clockFor(h.w);
+  try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();assert.match(h.$('rankingUploadStatus').textContent,/13 秒/);clock.tick(12000);assert.equal(h.$('rankingSubmit').disabled,true);clock.tick(1000);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(h.posts().length,1)}finally{h.cleanup()}
+ });
+ for(const [reason,pattern] of [['daily_limit',/每日|今日|當日/],['capacity',/容量|額滿/]])test(mode+': '+reason+' never promises a sixty-second cooldown',async()=>{
+  const h=fixture(mode,{fetcher:()=>Promise.resolve(limited({error:'limited',reason},'60'))}),clock=clockFor(h.w);
+  try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();assert.match(h.$('rankingUploadStatus').textContent,pattern);assert.doesNotMatch(h.$('rankingUploadStatus').textContent,/60|冷卻/);clock.tick(60000);assert.equal(h.posts().length,1)}finally{h.cleanup()}
+ });
+ test(mode+': accepted submission cooldown also survives a new round',async()=>{
+  const h=fixture(mode),clock=clockFor(h.w);try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();h.capture(state(mode,4));h.open();h.valid();assert.equal(h.$('rankingSubmit').disabled,true);clock.tick(60000);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(h.posts().length,1)}finally{h.cleanup()}
+ });
+}
+for(const mode of ['duck','catch','duel']){
+ test(mode+': duplicate confirmation never creates a fresh sixty-second cooldown',async()=>{
+  const h=fixture(mode,{fetcher:()=>Promise.resolve(ok({accepted:true,duplicate:true}))}),clock=clockFor(h.w);try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();h.capture(state(mode,4));h.open();assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(clock.count(),0)}finally{h.cleanup()}
+ });
+ test(mode+': stale 429 cannot impose cooldown on a newer round',async()=>{
+  const wait=deferred(),h=fixture(mode,{fetcher:()=>wait.promise}),clock=clockFor(h.w);try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();h.capture(state(mode,4));h.open();wait.resolve(limited({reason:'cooldown',retryAfterSeconds:60},'60'));await flush();assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(clock.count(),0)}finally{h.cleanup()}
+ });
+ test(mode+': non-JSON 429 still honors Retry-After and does not consume service retries',async()=>{
+  let n=0;const h=fixture(mode,{fetcher:()=>Promise.resolve(++n<=4?{...limited(null,'2'),json:async()=>{throw new SyntaxError('HTML proxy response')}}:ok({accepted:true}))}),clock=clockFor(h.w);try{h.capture();h.open();h.valid();for(let i=0;i<4;i++){h.$('rankingSubmit').click();await flush();assert.equal(h.$('rankingSubmit').disabled,true);assert.match(h.$('rankingUploadStatus').textContent,/2 秒/);clock.tick(2000);assert.equal(h.$('rankingSubmit').disabled,false)}h.$('rankingSubmit').click();await flush();assert.equal(h.posts().length,5);assert.match(h.hint.textContent,/已收錄/)}finally{h.cleanup()}
+ });
+}
+for(const mode of ['duck','catch','duel'])test(mode+': oversized retry deadline is bounded and clock changes cannot outlive destroy',async()=>{
+ const h=fixture(mode,{fetcher:()=>Promise.resolve(limited({reason:'cooldown',retryAfterSeconds:1e308},'1e308'))}),clock=clockFor(h.w);
+ try{h.capture();h.open();h.valid();h.$('rankingSubmit').click();await flush();assert.match(h.$('rankingUploadStatus').textContent,/60 秒/);clock.tick(60000);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(clock.count(),0);h.$('rankingSubmit').click();await flush();h.w.Date.now=()=>-100000;clock.tick(1000);assert.equal(h.$('rankingSubmit').disabled,true);h.w.Date.now=()=>1e12;clock.tick(1000);assert.equal(h.$('rankingSubmit').disabled,false);assert.equal(clock.count(),0)}finally{h.cleanup()}assert.equal(clock.count(),0);
 });

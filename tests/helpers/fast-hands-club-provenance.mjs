@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {splitEntriesLedger} from './fast-hands-split-entries-provenance.mjs';
 import {artPolishLedger} from './fast-hands-art-polish-provenance.mjs';
 import {resultUploadLedger} from './fast-hands-result-upload-provenance.mjs';
@@ -48,13 +49,13 @@ export function reverseClub(path,bytes,ledger=clubLedger(),outerLedger=entryLedg
 }
 export function readClubBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseClub(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
 }
 export function clubRuntimeAdditions(){
  const ledger=clubLedger();assert.deepEqual(ledger.files.map(file=>file.path).sort(),[...CLUB_ALLOWED].sort());
- for(const path of CLUB_ADDED)reverseClub(path,readFileSync(new URL(path,root)),ledger);
+ for(const path of CLUB_ADDED)reverseClub(path,readBeforePolish(new URL(path,root)),ledger);
  return [...CLUB_ADDED,...entryRuntimeAdditions()];
 }

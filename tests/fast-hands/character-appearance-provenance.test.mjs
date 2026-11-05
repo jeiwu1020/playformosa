@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {reverseDuelCoverFingers} from '../helpers/fast-hands-character-appearance-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,7 +11,7 @@ import {CHARACTER_APPEARANCE_PARENT as parent} from '../helpers/fast-hands-chara
 let api;
 try{api=await import('../helpers/fast-hands-character-appearance-provenance.mjs')}catch(error){if(error.code!=='ERR_MODULE_NOT_FOUND')throw error}
 const root=new URL('../../',import.meta.url),prefix='public/games/fast-hands/';
-const read=p=>readFileSync(new URL(p,root));
+const read=p=>readBeforePolish(new URL(p,root));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const poses=['catch-empty-mid','catch-grab','catch-guns','catch-place','catch-reach','catch-ready','catch-return-mid','catch-return','duel-ai-grab','duel-ai-guns','duel-ai-place','duel-ai-reach','duel-ai-return-mid','duel-ai','duel-neutral','duel-player-grab','duel-player-guns','duel-player-place','duel-player-reach','duel-player-return-mid','duel-player','duel-ready'];

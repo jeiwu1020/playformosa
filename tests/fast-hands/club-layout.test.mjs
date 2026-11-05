@@ -160,20 +160,19 @@ test('a direct entry to any game presents the same introduction heading and star
   assert.deepEqual(styles[2],styles[0]);
 });
 
-test('wide short landscape shares the navigation row without moving controls alongside the stage', () => {
+test('wide short landscape keeps two toolbar rows without moving controls alongside the stage', () => {
   const duck=page('duck',844,390);
-  assert.equal(duck.style('.game-header').gridTemplateRows,'44px');
-  assert.equal(duck.style('.game-header > .level-switch').gridRow,'1');
-  assert.equal(duck.style('.game-header > .pf-studio-heading').display,'none');
+  assert.equal(duck.style('.game-header').gridTemplateRows,'44px 44px');
+  assert.equal(duck.style('.game-header > .level-switch').gridRow,'2');
+  assert.equal(duck.style('.game-header > .pf-studio-heading').display,'block');
   assert.equal(duck.style('#pad').height,'100px');
   duck.dom.window.close();
   for(const name of ['catch','duel']) {
     const p=page(name,844,390);
     assert.equal(p.style('main').position,'relative');
-    assert.equal(p.style('main > .level-switch').position,'absolute');
-    assert.equal(p.style('main > .level-switch').top,'0px');
-    assert.equal(p.style('.level-header > div').display,'none');
-    assert.equal(p.style('main').gridTemplateAreas,'"header" "scene" "scores" "feedback" "control"');
+    assert.notEqual(p.style('main > .level-switch').position,'absolute');
+    assert.equal(p.style('.level-header > div').display,'block');
+    assert.equal(p.style('main').gridTemplateAreas,'"header" "nav" "scene" "scores" "feedback" "control"');
     assert.equal(p.style('.level-controls').position,'static');
     assert.equal(p.style('.level-stage').gridArea,'scene');
     p.dom.window.close();
@@ -198,4 +197,18 @@ test('completed catch and duel tickets keep retry fixed and practice inside coll
       p.dom.window.close();
     }
   }
+});
+
+test('shared toolbars keep all three named actions visible and matching at phone and short landscape sizes',()=>{
+ for(const [width,height] of sizes){
+  const pages=['duck','catch','duel'].map(name=>page(name,width,height));
+  try{
+   const signatures=pages.map(p=>['#headerRanking','#headerSettings','#openMenu'].map(selector=>{
+    const s=p.style(selector);assert.notEqual(s.display,'none',`${width}: ${selector} stays visible`);assert.equal(s.minHeight,'44px');
+    return [s.height,s.minWidth,s.padding,s.color,s.backgroundColor,s.borderRadius];
+   }));
+   assert.deepEqual(signatures[0],signatures[1]);assert.deepEqual(signatures[1],signatures[2]);
+   for(const p of pages){assert.notEqual(p.style('.club-toolbar>div').display,'none','game name stays visible');assert.notEqual(p.style('main > .level-switch, .game-header > .level-switch').position,'absolute','destinations have their own row');}
+  }finally{pages.forEach(p=>p.dom.window.close())}
+ }
 });

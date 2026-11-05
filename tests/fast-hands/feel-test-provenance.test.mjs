@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync,copyFileSync} from 'node:fs';
@@ -54,7 +55,7 @@ for(const [file,[sha256,gitBlob]] of Object.entries(originals)){
     assert.equal(hash(before),sha256);
     assert.equal(createHash('sha1').update(`blob ${before.length}\0`).update(before).digest('hex'),gitBlob);
     const expected=expectedAdmission(before.toString());
-    const current=readFileSync(new URL('tests/reaction-rod/'+file,root),'utf8');
+    const current=readBeforePolish(new URL('tests/reaction-rod/'+file,root),'utf8');
     assert.equal(current,expected);
     assert.notEqual(current.replace('assert.deepEqual','assert.notDeepEqual'),expected);
   });

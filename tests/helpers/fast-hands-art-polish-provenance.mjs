@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {reverseSplitEntries,splitEntriesLedger,splitEntriesRuntimeAdditions} from './fast-hands-split-entries-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -68,12 +69,12 @@ export function reverseArtPolish(path,bytes,ledger=artPolishLedger(),outerLedger
 
 export function readArtPolishBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseArtPolish(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
 }
 export function artPolishRuntimeAdditions(){
- const ledger=artPolishLedger();for(const path of ART_POLISH_ADDED)reverseArtPolish(path,readFileSync(new URL(path,root)),ledger);
+ const ledger=artPolishLedger();for(const path of ART_POLISH_ADDED)reverseArtPolish(path,readBeforePolish(new URL(path,root)),ledger);
  return [...ART_POLISH_ADDED,...splitEntriesRuntimeAdditions()];
 }

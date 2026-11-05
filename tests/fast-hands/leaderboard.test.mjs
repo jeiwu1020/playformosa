@@ -55,7 +55,7 @@ test('manual upload freezes original touch raw milliseconds despite changing vie
 test('duck board and upload show the renamed game while retaining the same board identity',async()=>{
  const h=fixture();try{
   h.controller.showBoard({origin:'entry',mode:'mouse'});await flush();
-  assert.equal(h.$('rankingTitle').textContent,'鴨沒漏補｜測試排行榜');
+  assert.equal(h.$('rankingTitle').textContent,'鴨沒漏補｜排行榜');
   assert.equal(h.requests[0].url,'/api/leaderboard?game=fast-hands&mode=mouse');
   h.$('rankingClose').click();h.capture();h.upload();
   assert.equal(h.$('rankingTitle').textContent,'鴨沒漏補｜上傳成績');
@@ -103,7 +103,7 @@ test('storage failure remains playable and a crypto failure prevents upload with
 });
 
 test('existing anonymous browser and nickname keys are reused without claiming an account login',async()=>{
- const h=fixture({fetcher:()=>ok({accepted:true})});try{h.w.localStorage.setItem('pf-leaderboard-device-v1',uuid);h.capture();h.upload();await h.click();assert.equal(JSON.parse(h.requests[0].options.body).deviceId,uuid);assert.equal(h.w.localStorage.getItem('pf-leaderboard-nickname-v1'),'快手玩家');assert.match(h.$('rankingPrivacy').textContent,/匿名|瀏覽器/);assert.match(h.$('rankingPrivacy').textContent,/不是登入|非登入/);assert.match(h.$('rankingPrivacy').textContent,/暱稱.*成績.*測試榜/);assert.match(h.$('rankingDisclaimer').textContent,/玩家回報.*非.*驗證/);}finally{h.cleanup()}
+ const h=fixture({fetcher:()=>ok({accepted:true})});try{h.w.localStorage.setItem('pf-leaderboard-device-v1',uuid);h.capture();h.upload();await h.click();assert.equal(JSON.parse(h.requests[0].options.body).deviceId,uuid);assert.equal(h.w.localStorage.getItem('pf-leaderboard-nickname-v1'),'快手玩家');assert.match(h.$('rankingPrivacy').textContent,/匿名|瀏覽器/);assert.match(h.$('rankingPrivacy').textContent,/不是登入|非登入/);assert.match(h.$('rankingPrivacy').textContent,/暱稱.*成績.*排行榜/);assert.match(h.$('rankingDisclaimer').textContent,/玩家回報.*非.*驗證/);}finally{h.cleanup()}
 });
 
 

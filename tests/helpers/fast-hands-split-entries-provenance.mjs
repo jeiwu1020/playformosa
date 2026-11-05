@@ -1,3 +1,4 @@
+import {readBeforePolish} from './upload-toolbar-polish-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -83,12 +84,12 @@ export function reverseSplitEntries(path,bytes,ledger=splitEntriesLedger()){
 
 export function readSplitEntriesBaseline(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(rootPath,absolute).split(sep).join('/');
- const bytes=readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
+ const bytes=readBeforePolish(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const within=path!==''&&path!=='..'&&!path.startsWith('../')&&!isAbsolute(path);
  const result=within?reverseSplitEntries(path,bytes):bytes,encoding=typeof options==='string'?options:options?.encoding;
  return encoding?result.toString(encoding):result;
 }
 export function splitEntriesRuntimeAdditions(){
- const ledger=splitEntriesLedger();for(const path of SPLIT_ENTRIES_ADDED)reverseSplitEntries(path,readFileSync(new URL(path,root)),ledger);
+ const ledger=splitEntriesLedger();for(const path of SPLIT_ENTRIES_ADDED)reverseSplitEntries(path,readBeforePolish(new URL(path,root)),ledger);
  return [...SPLIT_ENTRIES_ADDED];
 }

@@ -60,12 +60,12 @@ test('studio signature is visible in entry, next to the game heading, and on the
   assert.match(doc.querySelector('.pf-header > .pf-studio-heading > h1').textContent, /快手王/);
 });
 
-test('upload starts disabled and explains voluntary successful-score sharing to the test board', () => {
+test('upload starts disabled and explains voluntary successful-score sharing to the online board', () => {
   const doc = gameDocument();
   const upload = doc.querySelector('#resultUpload');
   assert.equal(upload.disabled, true);
   const status = doc.getElementById(upload.getAttribute('aria-describedby'));
-  assert.equal(status.textContent, '完成有效挑戰後，可自願上傳本次成績至測試排行榜。');
+  assert.equal(status.textContent, '完成有效挑戰後，可自願上傳本次成績至排行榜。');
   assert.ok(!status.hidden);
 });
 

@@ -77,5 +77,5 @@ test('leaderboard has bounded scroll and explicit separate-mode accessible contr
   assert.equal(byId('rankingTouch')?.['aria-pressed'],'false');
   assert.equal(byId('rankingConsent')?.type,'checkbox');
   assert.ok(tags.some(tag=>tag.role==='region'&&tag.class==='ranking-scroll'&&tag['aria-label']));
-  assert.match(html,/暱稱與本次成績會公開顯示在測試榜/);
+  assert.match(html,/暱稱與本次成績會公開顯示在排行榜/);
 });

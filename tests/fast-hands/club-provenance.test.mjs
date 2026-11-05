@@ -1,3 +1,4 @@
+import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {SPLIT_ENTRIES_ADDED} from '../helpers/fast-hands-split-entries-provenance.mjs';
 import {ART_POLISH_ADDED} from '../helpers/fast-hands-art-polish-provenance.mjs';
 import {RESULT_UPLOAD_ADDED} from '../helpers/fast-hands-result-upload-provenance.mjs';
@@ -15,7 +16,7 @@ import {ENTRY_ADDED} from '../helpers/fast-hands-entry-provenance.mjs';
 const helpers=await import('../helpers/fast-hands-club-provenance.mjs').catch(()=>({}));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const blob=bytes=>createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
-const read=path=>readFileSync(new URL(path,root));
+const read=path=>readBeforePolish(new URL(path,root));
 const changed=['app.mjs','catch.html','duel.html','index.html','levels-app.mjs'].map(path=>prefix+path);
 const added=['club.css','club.mjs'].map(path=>prefix+path);
 const pinned={

@@ -4,7 +4,7 @@ const INTRO_KEY='fast-hands:club-intro:v1';
 const HISTORY_KEY='fastHandsClubIntro';
 const CONTINUE_PARAM='club';
 
-export function mountClub({document,window=document.defaultView,mode='duck',isActive=()=>false,getNavigationContext=()=>({}),getResumeTarget,onInterrupt=()=>{},onStart=()=>{},onNavigate}){
+export function mountClub({document,window=document.defaultView,mode='duck',isActive=()=>false,getNavigationContext=()=>({}),getResumeTarget,onInterrupt=()=>{},onReturn=()=>{},onStart=()=>{},onNavigate}){
  if(mounted.has(document))return mounted.get(document);
  const entry=document.getElementById('entryDialog'),start=document.getElementById('entryStart'),close=document.getElementById('entryClose'),menu=document.getElementById('openMenu');
  if(!entry||!start)throw new Error('The fast-hands club needs its shared entry dialog.');
@@ -12,7 +12,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  base.pathname=base.pathname.replace(/\/(?:index|catch|duel)(?:\.html)?\/?$/,'/');
  if(!base.pathname.endsWith('/'))base.pathname+='/';
  base.search='';base.hash='';
- let storage=null,seen=false,navigating=false,destroyed=false,pending=null,interrupting=false,draining=false,drainTimer=null,suppressReleaseClick=false;
+ let storage=null,seen=false,navigating=false,destroyed=false,pending=null,interrupting=false,draining=false,drainTimer=null,suppressReleaseClick=false,overlay=null,returningOverlay=null;
  const heldKeys=new Set(),heldPointers=new Set(),openingKeys=new Set(),openingPointers=new Set();
  const dialog=document.createElement('dialog');
  dialog.id='clubNavigationDialog';dialog.className='club-navigation-dialog';dialog.hidden=true;
@@ -53,7 +53,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   navigating=true;
   if(onNavigate)onNavigate(url.href);else window.location.assign(url.href);
  }
- function blocked(){return !destroyed&&(!seen||entry.open||Boolean(pending)||navigating||interrupting||draining);}
+ function blocked(){return !destroyed&&(!seen||entry.open||Boolean(pending)||navigating||interrupting||draining||Boolean(overlay));}
  function navigationCopy(context){
   if(mode==='duck')return '這次操作已中止，不留成績。留在這關可從起點重試。';
   if(context.phase==='feedback')return '已完成回合的成績會保留。留在這關可繼續下一回合；離開會結束這場挑戰。';
@@ -71,7 +71,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   window.clearTimeout(drainTimer);drainTimer=null;
   if(!draining||heldKeys.size||heldPointers.size)return;
   // Keep the closing activation blocked through keyup/pointerup default actions.
-  drainTimer=window.setTimeout(()=>{drainTimer=null;if(destroyed||heldKeys.size||heldPointers.size)return;draining=false;notify();},0);
+  drainTimer=window.setTimeout(()=>{drainTimer=null;if(destroyed||heldKeys.size||heldPointers.size)return;draining=false;if(returningOverlay){const closed=returningOverlay;returningOverlay=null;onReturn({reason:closed.reason});notify();restoreFocus(closed.origin);}else notify();},0);
  }
  function closeNavigation(){if(dialog.open)dialog.close();dialog.hidden=true;}
  function chooseNavigation(confirmed){
@@ -132,9 +132,26 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  function abandonNavigation(){
   pending=null;draining=false;window.clearTimeout(drainTimer);drainTimer=null;clearHeldInput();closeNavigation();
  }
+ function beginOverlay(reason){
+  if(destroyed||navigating||pending||draining||overlay)return false;
+  overlay={reason,origin:document.activeElement};
+  onInterrupt({reason});notify();return true;
+ }
+ // Keep the original interruption/return target while replacing an intro with
+ // one of its child dialogs. Closing the old dialog must not resume its parent.
+ function transferOverlay(reason){
+  if(!overlay||destroyed||navigating||pending||draining)return false;
+  overlay.reason=reason;notify();return true;
+ }
+ function endOverlay(){
+  if(!overlay)return;
+  const closed=overlay;overlay=null;draining=true;suppressReleaseClick=true;
+  returningOverlay=closed;notify();finishDrain();
+ }
  function showIntro(){
-  if(destroyed||navigating||pending||draining)return;
-  interrupting=true;onInterrupt({reason:'intro'});
+  if(!seen){if(!destroyed&&!navigating&&!pending)openIntro();return;}
+  if(!beginOverlay('intro'))return;
+  interrupting=true;
   for(const dialog of document.querySelectorAll('dialog[open]'))if(dialog!==entry)dialog.close();
   openIntro();interrupting=false;notify();
  }
@@ -173,7 +190,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  listen(close,'click',()=>{if(seen)closeIntro();});
  listen(menu,'click',showIntro);
  listen(entry,'cancel',event=>{if(!seen)event.preventDefault();});
- listen(entry,'close',notify);
+ listen(entry,'close',()=>{if(!entry.open&&overlay?.reason==='intro')endOverlay();notify();});
  listen(window,'pagehide',event=>{
   onInterrupt({reason:'pagehide'});abandonNavigation();
   if(seen)remember();
@@ -181,12 +198,20 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  });
  listen(window,'pageshow',event=>{
   if(!event.persisted)return;
+  const interrupted=overlay||returningOverlay;
+  overlay=null;returningOverlay=null;abandonNavigation();
   navigating=false;suppressReleaseClick=false;
-  if(seen)closeIntro();
+  if(interrupted){
+   // Controllers dismiss network dialogs silently on pagehide. Recover their
+   // return context as well as the input lock, without starting any gameplay.
+   for(const dialog of document.querySelectorAll('dialog[open]'))dialog.close();
+   onReturn({reason:'pageshow',interrupted:interrupted.reason});
+   restoreFocus(interrupted.origin);
+  }else if(seen)closeIntro();
   ready();
  });
  function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();mounted.delete(document);}
- const api={showIntro,requestNavigation,destroy,blocked,navigationPending:()=>Boolean(pending),get seen(){return seen}};
+ const api={showIntro,beginOverlay,transferOverlay,endOverlay,requestNavigation,destroy,blocked,navigationPending:()=>Boolean(pending),get seen(){return seen}};
  mounted.set(document,api);
  if(seen&&!forcedIntro){closeIntro();onStart();ready();}else{if(seen)onStart();openIntro();ready();}
  return api;
