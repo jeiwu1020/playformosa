@@ -6300,6 +6300,7 @@
     "tests/fast-hands/result-button-layout.test.mjs",
     "tests/fast-hands/result-upload-controller.test.mjs",
     "tests/fast-hands/result-upload-provenance.test.mjs",
+    "tests/fast-hands/screen-alpha-provenance.test.mjs",
     "tests/fast-hands/sharing-flow-provenance.test.mjs",
     "tests/fast-hands/split-entries-provenance.test.mjs",
     "tests/fast-hands/stability-provenance.test.mjs",
