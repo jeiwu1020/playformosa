@@ -212,3 +212,20 @@ test('shared toolbars keep all three named actions visible and matching at phone
   }finally{pages.forEach(p=>p.dom.window.close())}
  }
 });
+
+test('all three home links stay on one line with identical padding and a fixed 56 by 44 target at nine viewports',()=>{
+ for(const [width,height] of [...sizes.filter(([w])=>w!==1920),[1180,820]]){
+  const pages=['duck','catch','duel'].map(name=>page(name,width,height));
+  try{
+   const signatures=pages.map(p=>{
+    const s=p.style('.club-toolbar>a');
+    assert.equal(s.padding,'6px',`${width}×${height}: home padding is shared`);
+    assert.equal(s.whiteSpace,'nowrap',`${width}×${height}: home label never wraps`);
+    assert.equal(s.width,'56px');assert.equal(s.height,'44px');assert.equal(s.minHeight,'44px');
+    assert.match(p.style('.club-toolbar').gridTemplateColumns,/^56px /,'home keeps its original grid width');
+    return [s.padding,s.whiteSpace,s.width,s.height,s.minHeight];
+   });
+   assert.deepEqual(signatures[0],signatures[1]);assert.deepEqual(signatures[1],signatures[2]);
+  }finally{pages.forEach(p=>p.dom.window.close())}
+ }
+});

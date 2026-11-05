@@ -486,7 +486,7 @@ body.fast-hands-club .finale-game-title{font-size:14px;font-weight:800;line-heig
 body.fast-hands-club .club-toolbar{display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;column-gap:8px}
 body.fast-hands-club .club-toolbar>div{display:block;grid-column:2;grid-row:1;min-width:0}
 body.fast-hands-club .club-toolbar h1{font-size:22px;line-height:1.2;white-space:nowrap;margin:0}
-body.fast-hands-club .club-toolbar>a{grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:center;width:56px;height:44px;min-height:44px;padding:6px;font:700 12px/1.2 system-ui,sans-serif}
+body.fast-hands-club .club-toolbar>a:is(.pf-home,.home-link){grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:center;width:56px;height:44px;min-height:44px;padding:6px;white-space:nowrap;font:700 12px/1.2 system-ui,sans-serif}
 body.fast-hands-club .club-toolbar .header-tools{display:flex;grid-column:3;grid-row:1;gap:4px;margin:0;align-items:center;justify-self:end}
 body.fast-hands-club .club-toolbar .header-tools>button{display:inline-flex;align-items:center;justify-content:center;width:48px;min-width:44px;height:44px;min-height:44px;padding:6px;border:1px solid #c5d2bb;border-radius:12px;background:#e4ecda;color:#244e43;font:750 12px/1.2 system-ui,sans-serif;box-shadow:none}
 body.fast-hands-club .club-settings{padding:20px;max-width:360px;color:var(--green);background:var(--cream);border:1px solid var(--line);border-radius:18px}
