@@ -131,15 +131,16 @@ test('an art loading error keeps the requested responsive game and exposes a rec
   }
 });
 
-test('help expands within the full-width control row, not off the edge of its small trigger', () => {
+test('full fairness details live in the upper Help panel instead of a floating lower-control popover', () => {
   for(const name of ['catch','duel']) {
     const p = page(name,320,568);
-    p.document.querySelector('.level-help').open=true;
-    assert.equal(p.style('.secondary-control').position,'relative');
-    assert.equal(p.style('.level-help').position,'static');
-    assert.equal(p.style('.level-help-content').left,'0px');
-    assert.equal(p.style('.level-help-content').right,'0px');
-    assert.equal(p.style('.level-help-content').width,'100%');
+    p.document.querySelector('#entryDialog').open=true;
+    p.document.querySelector('.club-help-details').open=true;
+    assert.equal(p.document.querySelector('.level-controls details'),null);
+    assert.ok(p.document.querySelector('#entryDialog .club-help-details .level-help-content'));
+    assert.equal(p.style('.level-help-content').position,'static');
+    assert.equal(p.style('.level-help-content').maxHeight,'none');
+    assert.equal(p.style('.level-help-content').overflow,'visible');
     p.dom.window.close();
   }
 });
@@ -165,14 +166,14 @@ test('wide short landscape keeps two toolbar rows without moving controls alongs
   const duck=page('duck',844,390);
   assert.equal(duck.style('.game-header').gridTemplateRows,'44px 44px');
   assert.equal(duck.style('.game-header > .level-switch').gridRow,'2');
-  assert.equal(cascadeWinner(duck,'.game-header > .pf-studio-heading','display').value,'block');
+  assert.equal(cascadeWinner(duck,'.game-header > .pf-studio-heading','display').value,'flex');
   assert.equal(duck.style('#pad').height,'100px');
   duck.dom.window.close();
   for(const name of ['catch','duel']) {
     const p=page(name,844,390);
     assert.equal(p.style('main').position,'relative');
     assert.notEqual(p.style('main > .level-switch').position,'absolute');
-    assert.equal(p.style('.level-header > div').display,'block');
+    assert.equal(p.style('.level-header > div').display,'flex');
     assert.equal(p.style('main').gridTemplateAreas,'"header" "nav" "scene" "scores" "feedback" "control"');
     assert.equal(p.style('.level-controls').position,'static');
     assert.equal(p.style('.level-stage').gridArea,'scene');
@@ -214,7 +215,7 @@ test('shared toolbars keep all four named actions visible and matching at phone 
  }
 });
 
-test('all three home links stay on one line with identical padding and a fixed 56 by 44 target at nine viewports',()=>{
+test('all three home links keep identical full-size targets with a compact accessible phone icon',()=>{
  for(const [width,height] of [...sizes.filter(([w])=>w!==1920),[1180,820]]){
   const pages=['duck','catch','duel'].map(name=>page(name,width,height));
   try{
@@ -222,8 +223,8 @@ test('all three home links stay on one line with identical padding and a fixed 5
     const s=p.style('.club-toolbar>a');
     assert.equal(s.padding,'6px',`${width}×${height}: home padding is shared`);
     assert.equal(s.whiteSpace,'nowrap',`${width}×${height}: home label never wraps`);
-    assert.equal(s.width,'56px');assert.equal(s.height,'44px');assert.equal(s.minHeight,'44px');
-    assert.match(p.style('.club-toolbar').gridTemplateColumns,/^56px /,'home keeps its original grid width');
+    assert.equal(s.width,width<=600?'44px':'56px');assert.equal(s.height,'44px');assert.equal(s.minHeight,'44px');
+    assert.match(p.style('.club-toolbar').gridTemplateColumns,width<=600?/^44px /:/^56px /,'home keeps its touch-target grid width');
     return [s.padding,s.whiteSpace,s.width,s.height,s.minHeight];
    });
    assert.deepEqual(signatures[0],signatures[1]);assert.deepEqual(signatures[1],signatures[2]);
@@ -277,19 +278,20 @@ test('toolbar specificity resolver detects the real legacy portrait override',()
  assert.deepEqual(selectorSpecificity(':where(#ignored) .a:not(.b,#strong)'),[1,1,0]);
  assert.ok(compareSpecificity([0,4,0],[0,2,2])>0,'legacy portrait heading beats the former common rule');
 });
-test('nine real toolbar cascades keep titles in row one and destinations separate, including 333px portrait',()=>{
+test('real toolbar cascades keep actions first and unclipped titles separate on narrow screens',()=>{
  const viewports=[[320,568],[333,505],[390,844],[430,932],[844,390],[1000,560],[1024,600],[1180,820],[1366,768]];
  for(const [width,height] of viewports)for(const mode of ['duck','catch','duel']){
   const p=page(mode,width,height);try{
    if(mode==='duck'){assert.ok(p.document.body.matches('.pf-game.pf-fast-hands.fast-hands-club'));assert.ok(p.document.querySelector('.club-toolbar>div.brand.pf-studio-heading'));}
    const winner=(selector,property,expected)=>{const found=cascadeWinner(p,selector,property);assert.equal(found?.value,expected,`${mode} ${width}×${height} ${selector} ${property}: winning selector ${found?.selector}`);};
-   winner('.club-toolbar>div','grid-column','2');winner('.club-toolbar>div','grid-row','1');winner('.club-toolbar>div','display','block');winner('.club-toolbar>div','min-width','0');
+   winner('.club-toolbar>div','grid-column',width<=600?'1/-1':'2');winner('.club-toolbar>div','grid-row',width<=600?'2':'1');winner('.club-toolbar>div','display','flex');winner('.club-toolbar>div','min-width','0');
    winner('.club-toolbar>a','grid-column','1');winner('.club-toolbar>a','grid-row','1');winner('.club-toolbar>a','white-space','nowrap');winner('.club-toolbar>a','padding','6px');
-   winner('.club-toolbar .header-tools','grid-column',width<=600?'1/-1':'3');winner('.club-toolbar .header-tools','grid-row',width<=600?'2':'1');
-   winner('.club-toolbar h1','font-size',width<=600?'16px':'22px');winner('.club-toolbar h1','line-height','1.2');winner('.club-toolbar h1','white-space','nowrap');winner('.club-toolbar h1','overflow','hidden');winner('.club-toolbar h1','text-overflow','ellipsis');
+   winner('.club-toolbar .header-tools','grid-column',width<=600?'2':'3');winner('.club-toolbar .header-tools','grid-row','1');
+   winner('.club-toolbar h1','font-size',width<=600?'18px':'22px');winner('.club-toolbar h1','line-height','1.2');winner('.club-toolbar h1','white-space','nowrap');winner('.club-toolbar h1','overflow','visible');winner('.club-toolbar h1','text-overflow','clip');
    if(mode==='duck'){winner('.game-header>.level-switch','grid-row',width<=600?'3':'2');winner('.game-header>.level-switch','grid-column','1/-1');}
    else winner('.level-main>.level-switch','grid-area','nav');
-   assert.equal(p.style('.club-toolbar>div').gridRow,'1');assert.equal(p.style('.club-toolbar>div').gridColumn,'2');
+   // JSDOM incorrectly lets the later, less-specific studio sheet win these grid properties.
+   // The browser-specific cascade is asserted above instead of accepting that shortcut.
    assert.notEqual(p.style('.club-toolbar>div').display,'none');assert.notEqual(p.style('.club-toolbar>div').visibility,'hidden');
   }finally{p.dom.window.close()}
  }
@@ -328,28 +330,71 @@ assert.equal(p.document.querySelector('.result-dialog').classList.contains('club
  }
 });
 
-// The narrow header must allocate a second row, not squeeze 4 touch targets,
-// Home and a title into 280px of usable width. Check the authored cascade as
-// well as the arithmetic; JSDOM alone does not lay out or honor specificity.
-test('four upper actions fit without consuming the title or destination row at 320px, 333px and short landscape',()=>{
- for(const [width,height] of [[320,568],[333,505],[390,844],[568,260],[600,360],[601,360],[683,384],[844,390],[1000,560],[1366,768]])for(const mode of ['duck','catch','duel']){
+// Four tools and Home stay on the first row. A narrow title-and-studio row
+// avoids truncation and frees vertical space versus the old two 44px tool rows.
+// Resolve actual authored specificity as well as checking the available width.
+test('four first-row actions fit with full touch targets, a visible studio name and no title clipping',()=>{
+ for(const [width,height] of [[320,568],[333,505],[375,667],[390,844],[568,260],[600,360],[601,360],[683,384],[844,390],[1000,560],[1181,820],[1366,768]])for(const mode of ['duck','catch','duel']){
   const p=page(mode,width,height);try{
    const narrow=width<=600,win=(selector,property)=>cascadeWinner(p,selector,property)?.value;
    const actions=p.document.querySelectorAll('.club-toolbar .header-tools>button');assert.equal(actions.length,4);
    for(const action of actions){action.hidden=false;assert.equal(win(`#${action.id}`,'min-width'),'44px');assert.equal(win(`#${action.id}`,'min-height'),'44px');assert.equal(win(`#${action.id}`,'height'),'44px');assert.equal(win(`#${action.id}`,'width'),narrow?'44px':'48px');}
-   const columns=win('.club-toolbar','grid-template-columns');assert.equal(columns,narrow?'56px minmax(0,1fr)':'56px minmax(0,1fr) auto');
-   assert.equal(win('.club-toolbar .header-tools','grid-row'),narrow?'2':'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),narrow?'1/-1':'3');
-   assert.equal(win('.club-toolbar>div','grid-row'),'1');assert.equal(win('.club-toolbar>div','display'),'block');
+   const columns=win('.club-toolbar','grid-template-columns');assert.equal(columns,narrow?'44px minmax(0,1fr)':'56px minmax(0,1fr) auto');
+   assert.equal(win('.club-toolbar .header-tools','grid-row'),'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),narrow?'2':'3');
+   assert.equal(win('.club-toolbar>div','grid-row'),narrow?'2':'1');assert.equal(win('.club-toolbar>div','display'),'flex');
+   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.match(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,/島遊無界工作室/);
+   assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('aria-label'),'返回小遊戲首頁');
    const usable=width-(height<=550&&width>height?24:40),gap=Number.parseFloat(win('.club-toolbar','column-gap')),actionGap=Number.parseFloat(win('.club-toolbar .header-tools','gap')),actionWidth=(narrow?44:48)*4+actionGap*3;
-   const titleRoom=usable-56-gap-(narrow?0:actionWidth+gap);
-   assert.ok(titleRoom>=(narrow?64:88),`${mode} ${width}: all four title characters fit`);assert.ok(actionWidth<=usable,`${mode} ${width}: all four actions fit without shrinking`);
-   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),narrow?'44px 44px 44px':'44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),narrow?'3':'2');}
+   const titleRoom=narrow?usable-100:usable-56-gap*2-actionWidth;
+   assert.ok(titleRoom>=(narrow?72:88),`${mode} ${width}: all four title characters fit`);assert.ok(actionWidth+(narrow?44:56)+gap<=usable,`${mode} ${width}: Home and all four actions fit without shrinking`);
+   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),narrow?'44px 26px 44px':'44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),narrow?'3':'2');}
    else{
-    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),narrow?'calc(88px + var(--club-gap))':'44px');
+    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),narrow?'calc(70px + var(--club-gap))':'44px');
     assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'header growth reserves space before game navigation');
     p.document.getElementById('artStatus').hidden=false;assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'art recovery does not collapse the extra header row');
     assert.equal(win('.level-main>.level-switch','grid-area'),'nav');
    }
+  }finally{p.dom.window.close()}
+ }
+});
+
+// These checks fail if the original complete catch/duel rules are dropped during
+// relocation, or the shared panel sends readers back down below gameplay.
+test('upper Help retains complete fairness rules ahead of its Start actions in all three games',()=>{
+ for(const mode of ['duck','catch','duel']){
+  const p=page(mode,390,844);try{
+   const help=p.document.querySelector('#entryDialog .club-help-details'),actions=p.document.querySelector('#entryDialog .club-cards');
+   assert.ok(help.compareDocumentPosition(actions)&p.dom.window.Node.DOCUMENT_POSITION_FOLLOWING);
+   assert.equal(p.document.querySelector('main .level-help'),null);
+   assert.match(help.textContent,/玩法與公平計時/);
+   if(mode==='catch')for(const rule of ['384 ms','220 ms','不是真實接彈示範','2D 相容畫面'])assert.ok(help.textContent.includes(rule),rule);
+   if(mode==='duel')for(const rule of ['150–280 ms','不會偷看你的操作','伸手動畫只演出結果','非真人連線','2D 相容畫面'])assert.ok(help.textContent.includes(rule),rule);
+   if(mode!=='duck')assert.match(help.textContent,/關閉後請自行按下準備按鈕，不會自動繼續/);
+  }finally{p.dom.window.close()}
+ }
+});
+
+test('relocated fairness copy has no leftover desktop popover surface',()=>{
+ for(const mode of ['catch','duel'])for(const [width,height] of [[320,568],[844,390],[1181,820]]){
+  const p=page(mode,width,height);try{
+   const rule=(property,expected)=>assert.equal(cascadeWinner(p,'.level-help-content',property)?.value,expected,`${mode} ${width} ${property}`);
+   rule('position','static');rule('max-height','none');rule('overflow','visible');rule('padding','0');rule('background','transparent');rule('border','0');rule('box-shadow','none');
+   assert.match(p.document.querySelector('.level-help-content').textContent,/音效開關不影響遊戲規則與成績/);
+  }finally{p.dom.window.close()}
+ }
+});
+
+test('moving lower Help frees its empty row but retains the visible completed-game practice choice',()=>{
+ for(const mode of ['catch','duel'])for(const [width,height] of [[320,568],[333,505],[375,667],[390,844],[844,390],[1000,560],[1181,820],[1181,390],[683,384],[590,410]]){
+  const p=page(mode,width,height);try{
+   const win=(selector,property)=>cascadeWinner(p,selector,property)?.value;
+   assert.equal(win('.secondary-control','display'),'none');
+   const expected=width>=1000&&height>=451?'var(--club-primary) 20px':height<=700?'var(--club-primary)':'var(--club-primary) 15px';
+   assert.equal(win('.level-controls','grid-template-rows'),expected,`${mode} ${width}×${height}: no empty fairness row`);
+   p.document.querySelector('#practiceButton').hidden=false;
+   assert.equal(win('.secondary-control','display'),'flex');assert.equal(win('.secondary-control','height'),'44px');
+   assert.match(win('.level-controls','grid-template-rows'),/44px$/,'existing completed-game practice row remains reachable');
+   assert.equal(win('body','overflow-y'),'auto');assert.equal(win('html','overflow-y'),'auto');
   }finally{p.dom.window.close()}
  }
 });

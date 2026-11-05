@@ -2,7 +2,7 @@
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜彈無虛接</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="levels-ranking.css"><link rel="stylesheet" href="finale.css"></head>
 <body class="level-page fast-hands-club" data-club-mode="catch" data-level="catch" data-phase="idle" data-renderer="pending">
 <main class="level-main">
- <header class="level-header club-toolbar"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>彈無虛接</h1></div><nav class="header-tools" aria-label="遊戲操作"><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button><button id="headerRanking" type="button" class="quiet-button">排行</button><button id="headerSettings" type="button" class="quiet-button">設定</button><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button></nav></header>
+ <header class="level-header club-toolbar"><a class="home-link" href="/#minigames" aria-label="返回小遊戲首頁"><span aria-hidden="true">←</span><span class="club-home-label" aria-hidden="true">首頁</span></a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>彈無虛接</h1><span class="pf-studio-live">島遊無界工作室</span></div><nav class="header-tools" aria-label="遊戲操作"><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button><button id="headerRanking" type="button" class="quiet-button">排行</button><button id="headerSettings" type="button" class="quiet-button">設定</button><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button></nav></header>
  <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch" aria-current="page"><span class="nav-number" aria-hidden="true">02</span>彈無虛接</a><a href="duel.html" data-club-mode="duel"><span class="nav-number" aria-hidden="true">03</span>快手對決</a></nav>
  <section class="level-hud" aria-label="本場比分"><div><span>已通過</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span id="speedLabel" class="arcade-badge">每關更快 · 一次失誤結束</span></div><div><span>挑戰關卡</span><strong id="opponentScore">—</strong></div></section>
  <section id="stage" class="level-stage" aria-label="快手王伸手接住泡棉玩具彈">
@@ -50,7 +50,7 @@
  <img id="atlasProbe" alt="" hidden>
  <p id="artStatus" class="art-status" role="status" hidden></p>
  <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
- <div class="level-controls"><div class="primary-control"><button id="replayReturn" type="button" class="action-button" hidden>返回本次成績</button><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="practiceAgain" type="button" class="action-button practice-repeat" hidden>再練一次</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button> <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一發，再開始逐關加速挑戰。</li><li>泡棉彈飛到掌心時按「接！」，每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li><li>第 1 關飛行約 384 ms（原第 5 關），此後每關加速，逐步接近 220 ms 的速度上限。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>這是泡棉玩具的虛構接彈遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details></div></div>
+ <div class="level-controls"><div class="primary-control"><button id="replayReturn" type="button" class="action-button" hidden>返回本次成績</button><button id="actionButton" type="button" class="action-button" hidden>接！</button><button id="practiceAgain" type="button" class="action-button practice-repeat" hidden>再練一次</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button> </div></div>
 
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
  <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./" data-club-mode="duck">回到鴨沒漏補</a></noscript>
@@ -75,11 +75,12 @@
       <p id="entryDescription">先練手感，再挑戰逐關加速。</p>
     </div>
     <div class="ticket-body club-panel-body">
+      <details class="club-help-details fine-print"><summary>玩法與公平計時</summary><div class="level-help-content"><ol class="help-steps"><li>先練習一發，再開始逐關加速挑戰。</li><li>泡棉彈飛到掌心時按「接！」，每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li><li>第 1 關飛行約 384 ms（原第 5 關），此後每關加速，逐步接近 220 ms 的速度上限。</li></ol><p>觸控／滑鼠點「接！」，電腦也可按空白鍵或 Enter。</p><p>開啟排行、設定或玩法時，當前回合會暫停且不計分，已完成回合保留。關閉後請自行按下準備按鈕，不會自動繼續。</p><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。音效開關不影響遊戲規則與成績。</p><p>這是泡棉玩具的虛構接彈遊戲，不是真實接彈示範。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details>
       <div class="club-cards">
         <article class="club-card"><img src="assets/intro-catch-generated.webp" alt="快手王伸手接住玩具發射器射出的短藍色泡棉彈" width="1536" height="1024"><h3>彈無虛接</h3><p>玩具彈到掌心時，按「接！」。</p></article>
       </div>
       <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="entrySettings" type="button" class="quiet-button">操作設定</button></div></div>
-      <details class="club-help-details fine-print"><summary>玩法與公平計時</summary><ol class="help-steps"><li>先練習一發，熟悉泡棉玩具彈的飛行。</li><li>玩具彈抵達掌心時，按「接！」；每關只能出手一次。</li><li>接住就晉級，太早、太晚或沒接到，本次挑戰即結束。</li></ol><p>觸控／滑鼠點「接！」，電腦也可按空白鍵或 Enter。</p><p>開啟排行、設定或玩法時，當前回合會暫停且不計分，已完成回合保留。關閉後請自行按下準備按鈕，不會自動繼續。</p><p>切換視窗、旋轉或畫面停頓時，也會暫停當前回合。音效開關不影響遊戲規則與成績。</p></details>
+      
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
   </dialog>
