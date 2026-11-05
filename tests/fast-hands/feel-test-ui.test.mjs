@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import {createHash} from 'node:crypto';
+import postcss from 'postcss';
 let api;try{api=await import('../../public/games/fast-hands-test/app.mjs');}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;}
 const root=new URL('../../public/games/fast-hands-test/',import.meta.url);
 function fixture(mode='catch',stageLoader=()=>null,{imagesReady=true}={}){
@@ -14,6 +16,18 @@ function fixture(mode='catch',stageLoader=()=>null,{imagesReady=true}={}){
  return{app,dom,$,set,tick,loadedImages,get now(){return now;},get writes(){return writes;},click(id){$(id).click()},close(){app.destroy();dom.window.close()}};
 }
 test('isolated test page and controller exist',()=>{assert.ok(existsSync(new URL('index.html',root)));assert.equal(typeof api?.mountTest,'function')});
+test('test scene keeps its own desktop height instead of inheriting formal grid flex sizing',()=>{
+ const css=readFileSync(new URL('style.css',root),'utf8'),rules=postcss.parse(css);
+ const declarations=selector=>{const found={};rules.walkRules(selector,rule=>{if(rule.parent.type==='root')rule.walkDecls(d=>found[d.prop]=d.value);});return found;};
+ assert.equal(declarations('.test-play .level-stage').display,'block');
+ assert.equal(declarations('.test-play .scene-viewport').flex,'none');
+ assert.equal(declarations('.test-play .scene-viewport').height,'340px');
+ assert.doesNotMatch(css,/pointer-events:none/,'settings disclosure remains operable after a narrow-to-wide resize');
+ const before=readFileSync(new URL('docs/fast-hands/baselines/feel-test-layout/style.css',new URL('../../',import.meta.url)),'utf8');
+ assert.equal(createHash('sha256').update(before).digest('hex'),'760b18397d1dbd19e85f079ab660091b6a11b338877649287e0faf6bf390c868');
+ const desktopDisclosure='@media(min-width:850px){.config-panel>summary{pointer-events:none;list-style:none}.config-panel>summary::-webkit-details-marker{display:none}.config-panel:not([open])>form{display:block}}\n';
+ assert.equal(css,before.replace('.test-play .level-stage{','.test-play .level-stage{display:block;').replace('.test-play .scene-viewport{','.test-play .scene-viewport{flex:none;').replace(desktopDisclosure,''));
+});
 for(const mode of ['catch','duel'])test(`${mode} one-click test, complete result and retry never count or upload`,()=>{
  const h=fixture(mode);try{h.set('waitMode','fixed');h.set('waitMs',300);h.click('startTest');assert.equal(h.app.state.practice,true);assert.equal(h.app.state.testing,true);assert.equal(h.$('testConfig').disabled,true);h.tick(h.app.state.readyAt);h.tick(mode==='catch'?h.app.state.targetAt:h.now+400);h.click('testAction');assert.equal(h.app.state.phase,'done');assert.match(h.$('testResult').textContent,/玩家反應/);assert.equal(h.$('testResult').hidden,false);h.tick(h.now+1500);h.click('startTest');assert.equal(h.app.state.phase,'waiting');assert.equal(h.app.state.results.length,0);assert.equal(h.writes,0);assert.equal(h.dom.window.localStorage.length,0);assert.equal(h.dom.window.sessionStorage.length,0);}finally{h.close()}
 });
