@@ -140,7 +140,7 @@ body.fast-hands-club .club-navigation-dialog p{margin:0;color:var(--green);font-
 body.fast-hands-club .club-navigation-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
 body.fast-hands-club .club-navigation-actions button{min-width:0;min-height:48px;padding:10px 12px;border:1.5px solid var(--green);border-radius:12px;background:var(--cream);color:var(--green);font:inherit;font-size:15px;font-weight:750;line-height:1.4;cursor:pointer}
 body.fast-hands-club .club-navigation-actions .club-navigation-stay{background:var(--green);color:var(--cream)}
-body.fast-hands-club .club-navigation-actions button:focus-visible{outline:3px solid #b56a16;outline-offset:3px}
+body.fast-hands-club .club-navigation-actions button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 body.fast-hands-club .result-dialog[open]{display:flex;flex-direction:column;grid-template-columns:none;gap:0;padding:0;text-align:center;overflow:hidden}
 body.fast-hands-club .result-top,
 body.fast-hands-club .summary-overview{position:relative;display:block;flex-shrink:0;flex-grow:0;padding:18px 22px 14px;margin:0;background:var(--gold);border-bottom:1px dashed #c0ad7d;border-right:0;text-align:center}
@@ -494,15 +494,14 @@ body.fast-hands-club .club-toolbar .header-tools>button{display:inline-flex;alig
 body.fast-hands-club .club-settings{padding:20px;max-width:360px;color:var(--green);background:var(--cream);border:1px solid var(--line);border-radius:18px}
 body.fast-hands-club .club-settings button,body.fast-hands-club #restartButton{min-height:44px;min-width:44px}
 @media(max-width:600px){
- body.fast-hands-club{--club-header-height:calc(70px + var(--club-gap))}
- body.fast-hands-club .club-toolbar{grid-template-columns:44px minmax(0,1fr);grid-template-rows:44px 26px;column-gap:6px;row-gap:var(--club-gap)}
- body.fast-hands-club .club-toolbar.game-header{grid-template-rows:44px 26px 44px}
+ body.fast-hands-club{--club-header-height:calc(84px + var(--club-gap))}
+ body.fast-hands-club .club-toolbar{grid-template-columns:44px minmax(0,1fr);grid-template-rows:44px 40px;column-gap:6px;row-gap:var(--club-gap)}
+ body.fast-hands-club .club-toolbar.game-header{grid-template-rows:44px 40px 44px}
  body.fast-hands-club .club-toolbar .header-tools{grid-column:2;grid-row:1;gap:4px}
  body.fast-hands-club .club-toolbar.game-header>.brand.pf-studio-heading,
- body.fast-hands-club .club-toolbar.level-header>div{grid-column:1/-1;grid-row:2;flex-direction:row;justify-content:space-between;align-items:center;gap:8px}
+ body.fast-hands-club .club-toolbar.level-header>div{grid-column:1/-1;grid-row:2;flex-direction:column;justify-content:center;align-items:flex-start;gap:2px}
  body.fast-hands-club .club-toolbar>a:is(.pf-home,.home-link){width:44px;font-size:18px}
  body.fast-hands-club .club-toolbar .club-home-label{display:none}
- body.fast-hands-club .club-toolbar .club-studio-en{display:none}
  body.fast-hands-club .club-toolbar.game-header>.level-switch{grid-row:3}
  body.fast-hands-club .club-toolbar h1{font-size:18px;letter-spacing:0}
  body.fast-hands-club .club-toolbar .header-tools>button{width:44px}
@@ -524,7 +523,10 @@ body.fast-hands-club .club-panel button{min-width:44px;min-height:44px;padding:1
 body.fast-hands-club .club-panel button.primary{background:#ef945a;border-color:#d78048;color:var(--deep);box-shadow:0 3px 0 #b76d3c}
 body.fast-hands-club .club-panel button:disabled{cursor:default;opacity:.48}
 body.fast-hands-club .club-panel button.close-button{position:absolute;top:8px;right:8px;width:44px;height:44px;padding:0;border:1px solid #17494115;border-radius:50%;background:#fff9e97a;font:500 27px/1 system-ui,sans-serif}
-body.fast-hands-club .club-panel :focus-visible{outline:3px solid #b56a16;outline-offset:2px}
+body.fast-hands-club .club-panel :focus-visible{outline:3px solid var(--green);outline-offset:2px}
+/* showModal's automatic focus is not keyboard navigation. Do not blur or move
+   its target; a Tab/keyboard interaction restores the native visible ring. */
+body.fast-hands-club[data-club-focus="pointer"] :is(.club-panel,.club-navigation-dialog) :focus{outline:none}
 body.fast-hands-club .club-panel .club-section-title{margin:0 0 10px;font:800 16px/1.4 system-ui,sans-serif;color:var(--green)}
 body.fast-hands-club .club-panel .help-steps{margin:0 0 18px;padding-left:24px;color:var(--green);font:500 15px/1.7 system-ui,sans-serif}
 body.fast-hands-club .club-panel .help-steps li{padding-left:3px;margin:0 0 8px}

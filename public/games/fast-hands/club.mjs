@@ -9,6 +9,9 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  const entry=document.getElementById('entryDialog'),start=document.getElementById('entryStart'),close=document.getElementById('entryClose'),menu=document.getElementById('openMenu');
  if(!entry||!start)throw new Error('The fast-hands club needs its shared entry dialog.');
  const current=new URL(window.location.href),base=new URL(current),removers=[];
+ // Native dialogs can focus a summary or close button on entry. Keep that
+ // focus for accessibility, but only draw its ring after keyboard interaction.
+ document.body.dataset.clubFocus='pointer';
  base.pathname=base.pathname.replace(/\/(?:index|catch|duel)(?:\.html)?\/?$/,'/');
  if(!base.pathname.endsWith('/'))base.pathname+='/';
  base.search='';base.hash='';
@@ -99,6 +102,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
  function consume(event){event.preventDefault();event.stopImmediatePropagation();}
  function activationKey(event){const key=event.code||event.key;return ['Enter','Space','Escape',' '].includes(key)?key:null;}
  function keydown(event){
+  if(!event.metaKey&&!event.ctrlKey&&!event.altKey&&!['Shift','Control','Alt','Meta'].includes(event.key))document.body.dataset.clubFocus='keyboard';
   const key=activationKey(event);if(key)heldKeys.add(key);
   if(draining){consume(event);return;}
   if(!pending)return;
@@ -116,6 +120,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   if(pending&&(openingKeys.delete(key)||!dialog.contains(event.target)))consume(event);
  }
  function pointerdown(event){
+  document.body.dataset.clubFocus='pointer';
   heldPointers.add(event.pointerId);
   if(draining||pending&&!dialog.contains(event.target)){consume(event);return;}
   suppressReleaseClick=false;
@@ -217,7 +222,7 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
   }
   ready();
  });
- function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();mounted.delete(document);}
+ function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();delete document.body.dataset.clubFocus;mounted.delete(document);}
  const api={showIntro,beginOverlay,transferOverlay,endOverlay,requestNavigation,destroy,blocked,navigationPending:()=>Boolean(pending),get seen(){return seen}};
  mounted.set(document,api);
  if(seen&&!forcedIntro){closeIntro();onStart();ready();}else{if(seen)onStart();showIntro();ready();}

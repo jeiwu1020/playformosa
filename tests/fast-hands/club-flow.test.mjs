@@ -24,6 +24,33 @@ function fixture({mode='duck',seen=false,blockedStorage=false,url,active=false,a
 test('every entrance shows its own illustrated game and one start action',()=>{
  for(const mode of ['duck','catch','duel']){const d=new JSDOM(html(mode)).window.document,intro=d.querySelector('#entryDialog');assert.ok(intro,`${mode} has the shared intro`);assert.equal(intro.querySelectorAll('.club-card').length,1);assert.equal(intro.querySelectorAll('.club-card img').length,1);assert.equal(intro.querySelectorAll('.intro-start').length,1);assert.equal(intro.querySelector('#entryStart').textContent.trim(),'開始遊戲');assert.ok(d.body.classList.contains('fast-hands-club'));assert.equal(d.querySelectorAll('[id]').length,new Set([...d.querySelectorAll('[id]')].map(el=>el.id)).size);}
 });
+// Automatic dialog focus must remain usable without being presented as keyboard
+// input. A real key switches the shared panel treatment back immediately.
+for(const mode of ['duck','catch','duel'])test(`${mode} panel focus follows keyboard and pointer input without blurring`,async()=>{
+ const f=fixture({mode});try{
+  f.d.documentElement.dataset.pfStartup='ready';
+  const summary=f.d.querySelector('#entryDialog summary');summary.focus();
+  assert.equal(f.d.activeElement,summary);
+  assert.equal(f.d.body.dataset.clubFocus,'pointer','automatic entry focus has no keyboard ring');
+  const key=(key,extra={})=>summary.dispatchEvent(new f.w.KeyboardEvent('keydown',{key,bubbles:true,cancelable:true,...extra}));
+  key('Shift');assert.equal(f.d.body.dataset.clubFocus,'pointer','modifier alone does not change the input mode');
+  key('Tab');assert.equal(f.d.body.dataset.clubFocus,'keyboard');assert.equal(f.d.activeElement,summary,'changing modality must not blur');
+  key('Escape');summary.dispatchEvent(new f.w.KeyboardEvent('keyup',{key:'Escape',bubbles:true}));
+  for(const pointerType of ['mouse','touch','pen']){
+   const pointer=new f.w.Event('pointerdown',{bubbles:true,cancelable:true});Object.defineProperties(pointer,{pointerId:{value:7},pointerType:{value:pointerType}});summary.dispatchEvent(pointer);
+   assert.equal(pointer.defaultPrevented,false);assert.equal(f.d.body.dataset.clubFocus,'pointer');assert.equal(f.d.activeElement,summary);
+   const release=new f.w.Event('pointerup',{bubbles:true});Object.defineProperty(release,'pointerId',{value:7});summary.dispatchEvent(release);
+   key('Tab');assert.equal(f.d.body.dataset.clubFocus,'keyboard');
+  }
+  f.$('entryStart').click();f.$('openMenu').focus();f.$('openMenu').click();f.$('entryClose').focus();
+  assert.equal(f.d.body.dataset.clubFocus,'keyboard','keyboard activation keeps the reopened close action visible');
+  f.$('entryClose').click();await releaseInput();
+  assert.equal(f.d.activeElement,f.$(mode==='duck'?'openMenu':'roundButton'),'dialog return keeps its existing usable target (duck retry is hidden before gameplay)');
+  assert.equal(f.d.body.dataset.clubFocus,'keyboard');
+  f.club.destroy();key('Tab');assert.equal(f.d.body.dataset.clubFocus,undefined,'destroy releases the modality marker');
+ }finally{f.close()}
+});
+
 test('first duck entry waits for Start then opens a score-free demo',()=>{
  const f=fixture();try{assert.equal(f.$('entryDialog').open,true);assert.equal(f.starts,0);assert.equal(f.$('entryClose').hidden,true);f.$('entryStart').click();assert.equal(f.$('entryDialog').open,false);assert.equal(f.starts,1);assert.equal(f.w.sessionStorage.getItem('fast-hands:club-intro:v1'),'seen');assert.deepEqual(f.destinations,[]);}finally{f.close()}
 });

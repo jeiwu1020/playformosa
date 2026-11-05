@@ -342,14 +342,16 @@ test('four first-row actions fit with full touch targets, a visible studio name 
    const columns=win('.club-toolbar','grid-template-columns');assert.equal(columns,narrow?'44px minmax(0,1fr)':'56px minmax(0,1fr) auto');
    assert.equal(win('.club-toolbar .header-tools','grid-row'),'1');assert.equal(win('.club-toolbar .header-tools','grid-column'),narrow?'2':'3');
    assert.equal(win('.club-toolbar>div','grid-row'),narrow?'2':'1');assert.equal(win('.club-toolbar>div','display'),'flex');
-   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.equal(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,'島遊無界工作室 | PLAYFORMOSA STUDIO');assert.equal(win('.club-toolbar .club-studio-en','display'),narrow?'none':'inline');
+   assert.equal(win('.club-toolbar .pf-studio-live','display'),'block');assert.equal(p.document.querySelector('.club-toolbar .pf-studio-live').textContent,'島遊無界工作室 | PLAYFORMOSA STUDIO');assert.equal(win('.club-toolbar .club-studio-en','display'),'inline','English studio name stays visible on phones too');
    assert.equal(p.document.querySelector('.club-toolbar>a').getAttribute('aria-label'),'返回小遊戲首頁');
    const usable=width-(height<=550&&width>height?24:40),gap=Number.parseFloat(win('.club-toolbar','column-gap')),actionGap=Number.parseFloat(win('.club-toolbar .header-tools','gap')),actionWidth=(narrow?44:48)*4+actionGap*3;
-   const titleRoom=narrow?usable-100:usable-56-gap*2-actionWidth;
+   const titleRoom=narrow?usable:usable-56-gap*2-actionWidth;
+   if(narrow){assert.equal(win('.club-toolbar>div','flex-direction'),'column','title and full studio name use separate lines');assert.equal(win('.club-toolbar>div','align-items'),'flex-start');assert.equal(win('.club-toolbar>div','gap'),'2px');}
+   assert.ok(titleRoom>=220,`${mode} ${width}: full 11px studio name has an unclipped line`);
    assert.ok(titleRoom>=(narrow?72:88),`${mode} ${width}: all four title characters fit`);assert.ok(actionWidth+(narrow?44:56)+gap<=usable,`${mode} ${width}: Home and all four actions fit without shrinking`);
-   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),narrow?'44px 26px 44px':'44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),narrow?'3':'2');}
+   if(mode==='duck'){assert.equal(win('.game-header','grid-template-rows'),narrow?'44px 40px 44px':'44px 44px');assert.equal(win('.game-header>.level-switch','grid-row'),narrow?'3':'2');}
    else{
-    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),narrow?'calc(70px + var(--club-gap))':'44px');
+    assert.equal(win('.level-header','height'),'var(--club-header-height)');assert.equal(win('body','--club-header-height'),narrow?'calc(84px + var(--club-gap))':'44px');
     assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'header growth reserves space before game navigation');
     p.document.getElementById('artStatus').hidden=false;assert.match(win('.level-main','grid-template-rows'),/^var\(--club-header-height\) 44px /,'art recovery does not collapse the extra header row');
     assert.equal(win('.level-main>.level-switch','grid-area'),'nav');
@@ -396,5 +398,45 @@ test('moving lower Help frees its empty row but retains the visible completed-ga
    assert.match(win('.level-controls','grid-template-rows'),/44px$/,'existing completed-game practice row remains reachable');
    assert.equal(win('body','overflow-y'),'auto');assert.equal(win('html','overflow-y'),'auto');
   }finally{p.dom.window.close()}
+ }
+});
+
+// Browser focus-visible can match the first automatically focused dialog action.
+// Suppression must beat both the panel and legacy game focus rules, without
+// removing the focus target. Keyboard input restores the branded visible ring.
+test('panel auto and pointer focus has no ring while keyboard focus stays dark green',()=>{
+ for(const mode of ['duck','catch','duel']){
+  const p=page(mode,390,844);try{
+   p.document.getElementById('entryDialog').open=true;
+   p.document.getElementById('entryClose').hidden=false;
+   for(const selector of ['#entryDialog summary','#entryClose','#entryStart']){
+    const target=p.document.querySelector(selector);target.focus();assert.equal(p.document.activeElement,target);
+    for(const modality of ['pointer','keyboard','pointer']){
+     p.document.body.dataset.clubFocus=modality;
+     assert.equal(cascadeWinner(p,selector,'outline')?.value,modality==='keyboard'?'3px solid var(--green)':'none',`${mode} ${selector} ${modality}`);
+     assert.equal(p.document.activeElement,target,'no focus removal or tabindex workaround');
+    }
+    delete p.document.body.dataset.clubFocus;
+    assert.equal(cascadeWinner(p,selector,'outline')?.value,'3px solid var(--green)','native keyboard focus remains a safe fallback without the controller');
+   }
+  }finally{p.dom.window.close()}
+ }
+});
+
+test('navigation confirmation keeps its trapped focus without a pointer ring and uses a green keyboard ring',async()=>{
+ const {mountClub}=await import('../../public/games/fast-hands/club.mjs');
+ for(const mode of ['duck','catch','duel']){
+  const p=page(mode,390,844),w=p.dom.window;let club;try{
+   w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'))};
+   club=mountClub({document:p.document,mode,isActive:()=>true});
+   club.requestNavigation('https://qa.test/games/fast-hands/catch.html');
+   const stay=p.document.getElementById('clubNavigationStay');assert.equal(p.document.activeElement,stay);
+   assert.equal(cascadeWinner(p,'#clubNavigationStay','outline')?.value,'none','automatic Stay focus does not draw an orange box');
+   stay.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));
+   const leave=p.document.getElementById('clubNavigationLeave');assert.equal(p.document.activeElement,leave,'Tab remains trapped inside confirmation');
+   assert.equal(cascadeWinner(p,'#clubNavigationLeave','outline')?.value,'3px solid var(--green)');
+   leave.dispatchEvent(new w.Event('pointerdown',{bubbles:true,cancelable:true}));
+   assert.equal(cascadeWinner(p,'#clubNavigationLeave','outline')?.value,'none');assert.equal(p.document.activeElement,leave);
+  }finally{club?.destroy();w.close()}
  }
 });
