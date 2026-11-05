@@ -1,3 +1,4 @@
+import {readBeforeHomeLabel,inventoryBeforeHomeLabel} from '../helpers/home-label-provenance.mjs';
 import {readBeforeJavelin,inventoryBeforeJavelin} from '../helpers/javelin-results-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync,existsSync} from 'node:fs';import {createHash} from 'node:crypto';
 const p=await import('../helpers/sprint-fall-provenance.mjs').catch(()=>({}));
@@ -17,7 +18,7 @@ test('every materialized preview path reverses to its pinned Git blob without br
  const baseline=JSON.parse(read('tests/fixtures/sprint-fall-baseline.json')),paths=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['dist','node_modules','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else{assert.ok(e.isFile());paths.push(path);}}}walk();
  const missing=[];for(const f of baseline.files){if(!existsSync(new URL(f.path,root))){missing.push(f.path);continue;}assert.equal(blob(p.reverseFall(f.path,read(f.path))),f.gitBlob,f.path);}
  // Connector omits only these known >1MB remote PNGs; full Git/CI has none.
- assert.ok(missing.every(path=>omitted.includes(path)),'no new missing files');assert.deepEqual(p.inventoryBeforeFall(inventoryBeforeJavelin(paths)).sort(),baseline.files.map(f=>f.path).filter(path=>!missing.includes(path)).sort());
+ assert.ok(missing.every(path=>omitted.includes(path)),'no new missing files');assert.deepEqual(p.inventoryBeforeFall(inventoryBeforeJavelin(inventoryBeforeHomeLabel(paths))).sort(),baseline.files.map(f=>f.path).filter(path=>!missing.includes(path)).sort());
  const m=structuredClone(p.fallManifest());m.files[0].beforeText='forged';m.files[0].beforeGitBlob=blob(Buffer.from('forged'));m.files[0].beforeSha256=createHash('sha256').update('forged').digest('hex');assert.throws(()=>p.reverseFall(m.files[0].path,read(m.files[0].path),m));
  assert.throws(()=>p.inventoryBeforeFall([...paths,paths[0]]));assert.throws(()=>p.inventoryBeforeFall(paths.filter(x=>x!=='tests/sprint-100m/fall-rig.test.mjs')));
 });

@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 for(const game of ['long-jump','hurdles','reaction-rod','beer-slide'])test(`${game} uses platform home/title and ordered real toolbar`,()=>{
  const html=read(`public/games/${game}/index.html`),header=html.match(/<header[\s\S]*?<\/header>/)?.[0]||'';
- assert.match(header,/<a[^>]*class="pf-home"[^>]*href="\/"[^>]*>← 遊戲首頁<\/a>/);
+ assert.match(header,/<a[^>]*class="pf-home"[^>]*href="\/"[^>]*>首頁<\/a>/);
  assert.match(header,/class="pf-header"/);assert.match(header,/<h1/);assert.match(html,/\.\.\/shared\/game-ui.css/);
  assert.ok(header.indexOf('data-game-action="music"')<header.indexOf('data-game-action="restart"'));
  assert.ok(header.indexOf('data-game-action="restart"')<header.indexOf('data-game-action="pause"'));

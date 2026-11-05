@@ -4,7 +4,7 @@
 
 ## 1. Common chrome; game-owned art and rules
 
-Load `../shared/game-ui.css` **after** the game's art stylesheet and put `pf-game` on `<body>`. Use `pf-header` on a header in normal document flow, above the playing area. The left link is always exactly **← 遊戲首頁**, `class="pf-home"`, `href="/"`, accessible name `遊戲首頁`. Do not substitute a brand, icon-only home, or `/#minigames` destination.
+Load `../shared/game-ui.css` **after** the game's art stylesheet and put `pf-game` on `<body>`. Use `pf-header` on a header in normal document flow, above the playing area. The visible left link is exactly **首頁**, without an arrow or other icon. Keep the existing native link, destination, and descriptive accessible name: the sports and standalone games use `class="pf-home"`, `href="/"`, accessible name `遊戲首頁`; the three Fast Hands entries retain their existing `/#minigames` destination and `返回小遊戲首頁` accessible name. This label rule does not rename game-internal navigation, recovery links, or the separate feel-test return link.
 
 The header contains one game title and `nav[aria-label="遊戲操作"]`. In DOM, visual and keyboard order the three buttons are:
 

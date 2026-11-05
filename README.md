@@ -42,7 +42,7 @@ The separate 小遊戲 shelf now contains **接棒啦！** (reaction-rod v9 full
 
 ## Shared game interface / future admission
 
-All four preview games now follow [the platform game UI standard](docs/GAME-UI-STANDARD.md): the same **← 遊戲首頁** link, music/restart/pause toolbar, viewport-safe results and three result-share actions. Beer now prepares a PNG from the actual settled/visible-fall cup, score and verdict; it no longer offers text-only sharing. Threads still receives text and URL only—images must be attached manually. New games must import the shared UI layer and pass the lifecycle, accessibility, sharing, provenance and browser admission checklist, not merely copy the CSS.
+All four preview games now follow [the platform game UI standard](docs/GAME-UI-STANDARD.md): the same **首頁** link, music/restart/pause toolbar, viewport-safe results and three result-share actions. Beer now prepares a PNG from the actual settled/visible-fall cup, score and verdict; it no longer offers text-only sharing. Threads still receives text and URL only—images must be attached manually. New games must import the shared UI layer and pass the lifecycle, accessibility, sharing, provenance and browser admission checklist, not merely copy the CSS.
 
 ## Jump integration batch 1 (preview/hurdles, 2026-11-01)
 
