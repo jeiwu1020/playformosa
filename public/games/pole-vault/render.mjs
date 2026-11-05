@@ -6,6 +6,8 @@ import {createSoftwareRenderer} from './software-renderer.mjs';
 import {milestones,sceneAltitude,projectAltitudePose,vaultDisplay} from './milestones.mjs';
 import {catalog,altitudeScene,landmarkPose,sceneryCaption,environment,landmarkRoofY} from './scenery.mjs';
 import {createSceneryModels,animateScenery} from './scenery-models.mjs';
+import {skyJourney} from './sky-journey.mjs';
+import {createSkyLayers,skyAnchor} from './sky-models.mjs';
 
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
@@ -183,7 +185,8 @@ export function createWorld(host){
   model.traverse(o=>{if(!o.isMesh)return;o.material=o.material.clone();o.userData.sceneryColor=o.material.color.clone();});
   model.visible=false;scenery.push({entry,model,originalScale,originalPosition:model.position.clone(),templateWidth:Math.max(.1,bounds.max.x-bounds.min.x),templateHeight:Math.max(.1,bounds.max.y-bounds.min.y),baseLocal,footCenter,footWidth,footDepth,foundation});
  }
- let activeShowcase=null;
+ let activeShowcase=null,activeJourney=null;
+ const skyLayers=createSkyLayers(scene);
  const clouds=group('layered-clouds');
  for(let i=0;i<15;i++){const y=5+i*1.65,x=PLANT_X+Math.sin(i*2.3)*11,z=-13-(i%3)*4;
   ball(i%3?'#edf0d9':'#d5e5d5',x,y,z,1.4+(i%3)*.3,.28,.7,clouds);ball('#f1f1df',x-.7,y+.15,z,.76,.36,.54,clouds);ball('#edf0dd',x+.6,y+.12,z,.86,.32,.61,clouds);}
@@ -225,14 +228,15 @@ export function createWorld(host){
  const skyGround=new THREE.Color('#c3e5df'),skyHigh=new THREE.Color('#80adb4'),skyOrbit=new THREE.Color('#263e59'),skyDeep=new THREE.Color('#182b43');
  function drawLabels(altitude){
   const ctx=labelContext;ctx.clearRect(0,0,width,height);const mobile=width<500;
-  if(activeShowcase){const item=activeShowcase.main,neighbour=activeShowcase.items.find(m=>m.height&&m.group===item.group&&m.id!==item.id&&m.weight>.1);
+  if(activeShowcase){const item=activeJourney?.altitude>=45000?{...activeJourney.main,category:'journey'}:activeShowcase.main,neighbour=activeShowcase.items.find(m=>m.height&&m.group===item.group&&m.id!==item.id&&m.weight>.1);
    const title=(item.category==='building'||item.category==='mountain'?'高度對照 · ':item.category==='airborne'?'飛行景觀 · ':'天空旅程 · ')+item.label;
-   const reference=neighbour?`${item.category==='mountain'?'海拔比較 · ':''}${item.height.toLocaleString('en-US')} m ／ ${neighbour.label} ${neighbour.height.toLocaleString('en-US')} m`:(sceneryCaption(item).startsWith(item.label+' · ')?sceneryCaption(item).slice(item.label.length+3):sceneryCaption(item));
+   const reference=item.category==='journey'?(item.fantasy?'幻想彩蛋 · 不影響成績':'景觀示意 · 不作高度基準'):neighbour?`${item.category==='mountain'?'海拔比較 · ':''}${item.height.toLocaleString('en-US')} m ／ ${neighbour.label} ${neighbour.height.toLocaleString('en-US')} m`:(sceneryCaption(item).startsWith(item.label+' · ')?sceneryCaption(item).slice(item.label.length+3):sceneryCaption(item));
    ctx.font=`700 ${mobile?11:13}px system-ui, sans-serif`;ctx.textBaseline='middle';const tw=Math.max(ctx.measureText(title).width,ctx.measureText(reference).width),w=Math.min(width-16,tw+20),x=(width-w)/2;
    ctx.fillStyle='rgba(255,248,224,.94)';ctx.beginPath();ctx.roundRect(x,10,w,44,7);ctx.fill();ctx.fillStyle='#365c64';ctx.textAlign='center';ctx.fillText(title,width/2,24);ctx.font=`600 ${mobile?10:11}px system-ui, sans-serif`;ctx.fillText(reference,width/2,43);ctx.textAlign='left';
   }
   const mountainRefs=activeShowcase?.items.filter(m=>m.category==='mountain'&&m.weight>.1)||[];
   if(mountainRefs.length&&activeShowcase.main.category!=='mountain'){const text='海拔比較（非離地山高） · '+mountainRefs.slice(0,2).map(m=>m.label+' '+Math.round(m.height).toLocaleString('en-US')+'m').join(' ／ ');ctx.font=`600 ${mobile?9:11}px system-ui`;ctx.fillStyle='rgba(255,248,224,.9)';ctx.beginPath();ctx.roundRect(8,height-43,width-16,22,5);ctx.fill();ctx.fillStyle='#365c64';ctx.fillText(text,14,height-29);}
+  if(activeJourney?.altitude>=45000){ctx.font=`600 ${mobile?10:12}px system-ui, sans-serif`;ctx.textAlign='center';ctx.fillStyle='rgba(247,233,198,.90)';ctx.fillText(activeJourney.main.note,width/2,height-43,width-24);ctx.textAlign='left';}
   if(altitude>=100000){ctx.font=`600 ${mobile?9:11}px system-ui, sans-serif`;ctx.fillStyle='rgba(247,233,198,.75)';ctx.fillText('太空想像 · 行星為遠方背景',mobile?13:22,height-21);}
  }
  function render(s){
@@ -241,8 +245,9 @@ export function createWorld(host){
   camera.left=-viewWidth/2;camera.right=viewWidth/2;camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.updateProjectionMatrix();
   const framing=cameraFraming(s,worldY,width,height),targetX=visualX+framing.ahead,targetY=framing.targetY;
   camera.position.set(targetX+framing.side,targetY+2.15,13.5);camera.lookAt(targetX,targetY,0);camera.updateMatrixWorld(true);
-  activeShowcase=altitudeScene(s);const atmosphere=environment(s);
-  const sky=new THREE.Color().setRGB(...atmosphere.sky,THREE.SRGBColorSpace);scene.background.copy(sky);scene.fog.color.copy(sky);
+  activeShowcase=altitudeScene(s);activeJourney=skyJourney(s);const atmosphere=environment({...s,altitude:activeJourney.altitude});
+  const sky=new THREE.Color().setRGB(...atmosphere.sky,THREE.SRGBColorSpace);sky.lerp(new THREE.Color('#1c4057'),smooth(25000,95000,activeJourney.altitude)*(1-atmosphere.space)*.65);scene.background.copy(sky);scene.fog.color.copy(sky);
+  skyLayers.update({journey:activeJourney,camera,width,height,time:s.t||0});
   for(const item of scenery){
    const exhibit=activeShowcase.items.find(m=>m.id===item.entry.id),model=item.model;
    model.visible=!!exhibit;model.userData.sceneryRole=exhibit?.role??null;if(!exhibit){model.position.copy(item.originalPosition);model.scale.copy(item.originalScale);model.userData.showcaseScale=0;continue;}
@@ -290,12 +295,14 @@ export function createWorld(host){
   const drop=s.hitBar?Math.min(1,(s.finishTime||0)*.6):0;
   setBeam(crossbar,[barX,barY-drop,-2.45],[barX+.12*drop,barY-drop*1.8,2.45],.047);crossbar.material.color.set(s.hitBar?'#c85d49':s.finishAttempted?'#e3a239':'#ef915c');
   collars.forEach((m,i)=>m.position.set(barX,barY,i===0?-2.3:2.3));
-  space.visible=atmosphere.space>.00001;space.position.set(visualX-PLANT_X,worldY-spaceH+1.8,0);space.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space;});
-  stars.visible=atmosphere.stars>.00001;stars.position.set(visualX-PLANT_X,worldY-38,0);stars.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.stars;});
-  const satelliteFade=smooth(250000,400000,altitude)*(1-smooth(700000,1400000,altitude));satellite.visible=satelliteFade>.00001;satellite.traverse(o=>{if(o.isMesh)o.material.opacity=satelliteFade;});
+  const earthRecede=smooth(6,9,Math.log10(Math.max(1,activeJourney.altitude))),earthScale=viewWidth*(1.6-1.35*earthRecede)/46;
+  space.visible=atmosphere.space>.00001;space.scale.setScalar(earthScale);space.position.copy(skyAnchor(camera,-.15-.45*earthRecede,-1.58+.78*earthRecede,-48)).sub(new THREE.Vector3(PLANT_X+1,spaceH-15,-42).multiplyScalar(earthScale));space.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space*(1-.25*earthRecede);});
+  stars.visible=atmosphere.stars>.00001;stars.position.set(visualX-PLANT_X+.2*Math.sin(worldY*.2),worldY-38+.35*Math.sin(worldY*.3),0);stars.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.stars;});
+  const satelliteFade=smooth(250000,400000,altitude)*(1-smooth(700000,1400000,altitude));satellite.visible=satelliteFade>.00001;satellite.position.copy(skyAnchor(camera,-.64,-.12,-24));satellite.scale.setScalar(Math.min(viewWidth*.23,viewHeight*.22)/4.3);satellite.traverse(o=>{if(o.isMesh)o.material.opacity=satelliteFade;});
   const planetDepth=-40,planetLane=width<500?1.8:4.2,planetX=visualX+planetDepth*framing.side/13.5+planetLane,planetY=worldY+2+2.15*(framing.side*(planetX-visualX)+13.5*planetDepth)/(framing.side*framing.side+13.5*13.5);
-  fantasyPlanet.visible=atmosphere.space>.00001;fantasyPlanet.position.set(planetX,planetY,planetDepth);fantasyPlanet.scale.setScalar(width<500?.55:.8);fantasyPlanet.rotation.y=(s.t||0)*.015;fantasyPlanet.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space*.85;});
-  moon.visible=atmosphere.space>.5;moon.position.set(visualX-2.5-40*framing.side/13.5,worldY-4.3,-40);moon.scale.setScalar(.4);moon.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space*.65;});
+  fantasyPlanet.visible=atmosphere.space>.00001;fantasyPlanet.position.copy(skyAnchor(camera,-.67,.62,-38));fantasyPlanet.scale.setScalar(Math.min(viewWidth*.21,viewHeight*.24)/5.35);fantasyPlanet.rotation.y=(s.t||0)*.015;fantasyPlanet.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space*.42;});
+  const moonVisit=activeJourney.items.find(x=>x.id==='lunar'),moonProgress=moonVisit?.progress??0;
+  moon.visible=atmosphere.space>.5&&activeJourney.altitude<1.1e9;moon.position.copy(skyAnchor(camera,.65,.29-moonProgress*.6,-27));moon.scale.setScalar(Math.min(viewWidth*(.07+activeJourney.moon*(width<500?.20:.29)),viewHeight*.45)/2.5);moon.traverse(o=>{if(o.isMesh)o.material.opacity=atmosphere.space*(.38+activeJourney.moon*.62)*(1-smooth(8e8,1.1e9,activeJourney.altitude));});
   rain.visible=atmosphere.rain>.001;rainMaterial.opacity=atmosphere.rain*.24;rain.children.forEach((m,i)=>m.position.set(visualX-viewWidth*.7+(i*.618%1)*viewWidth*1.4,worldY+viewHeight*.7-((i*.37+(s.t||0)*1.1)%1)*viewHeight*1.4,-4));
   const trailFade=1-smooth(45000,100000,altitude);streaks.visible=s.phase==='air'&&s.vy>0&&altitude>15&&trailFade>.00001;streaks.children.forEach(m=>m.material.opacity=trailFade);
   streaks.children.forEach((m,i)=>m.position.set(visualX+(i%2?1:-1)*(1.5+i*.15),worldY-.4+((i*.53+(s.t||0)*3)%2.5),-.6));

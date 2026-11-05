@@ -1,3 +1,4 @@
+import {readBeforeSky} from './vault-sky-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -29,9 +30,9 @@ export function readBeforePolish(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file));
  const path=relative(root,absolute).split(sep).join('/');
  // Preserve older reader semantics for outside scratch files: no reversal applies.
- if(!path||path.startsWith('../')||path==='..'||isAbsolute(path))return readFileSync(file,options);
+ if(!path||path.startsWith('../')||path==='..'||isAbsolute(path))return readBeforeSky(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
- const bytes=reversePolish(path,readFileSync(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
+ const bytes=reversePolish(path,readBeforeSky(file,typeof options==='object'&&options?{...options,encoding:null}:undefined));
  return encoding?bytes.toString(encoding):bytes;
 }
 export function inventoryBeforePolish(paths,{manifest=polishManifest(),read=path=>readFileSync(new URL('../../'+path,import.meta.url))}={}){
