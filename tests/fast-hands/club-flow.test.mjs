@@ -80,6 +80,26 @@ async function duckApp({seen=false,answer=false}={}){
 test('duck app returning session begins demonstration with no flash of entry',async()=>{
  const h=await duckApp({seen:true});try{h.frame();assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.body.dataset.clubReady,'true');assert.equal(h.get('demo'),true);}finally{h.close()}
 });
+test('duck upper Restart appears after demo and resets the held gesture without changing its existing outcome',async()=>{
+ const h=await duckApp({seen:true});try{
+  const restart=h.d.querySelector('.club-toolbar .header-tools #retry');assert.ok(restart,'Restart belongs above gameplay');
+  h.frame();assert.equal(restart.hidden,true);assert.ok(h.d.querySelector('.actions #play'));
+  h.$('play').click();h.frame();assert.equal(restart.hidden,false);
+  h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.get('s.phase'),'returning');assert.equal(h.captures.size,1);
+  restart.click();h.frame();assert.equal(h.get('s.phase'),'idle');assert.equal(h.get('demo'),false);assert.equal(h.captures.size,0);assert.equal(h.$('time').dataset.ms,'0');
+  h.send('pointermove',.1);h.send('pointerup',.1);h.frame(3000);assert.equal(h.get('s.phase'),'idle');assert.equal(h.$('resultDialog').open,false);
+  assert.ok(h.d.querySelector('#resultDialog #resultAgain'),'completed retry is not moved');
+ }finally{h.close()}
+});
+test('duck lower demonstration reset is hidden throughout an unfinished gesture and kept after its completed result',async()=>{
+ const h=await duckApp({seen:true});try{
+  h.frame();assert.equal(h.$('showDemo').hidden,true);h.$('play').click();h.frame();assert.equal(h.$('showDemo').hidden,true,'idle challenge has only the upper restart');
+  h.send('pointerdown',.1);h.frame();assert.equal(h.$('showDemo').hidden,true);h.send('pointermove',.9);h.frame();assert.equal(h.$('showDemo').hidden,true);
+  h.frame(1900);assert.equal(h.get('s.phase'),'returning');assert.equal(h.$('showDemo').hidden,true,'visual timeout with a held gesture is not a completed result');
+  h.send('pointerup',.9);h.frame(1500);assert.equal(h.$('showDemo').hidden,false);assert.equal(h.captures.size,0);
+  assert.ok(h.$('resultAgain').closest('#resultDialog'));h.$('resultClose').click();h.$('showDemo').click();h.frame();assert.equal(h.get('demo'),true);assert.equal(h.$('showDemo').hidden,true);
+ }finally{h.close()}
+});
 test('duck switch cancellation releases the pointer and suppresses a delayed cancelled-result modal',async()=>{
  const h=await duckApp({seen:true});try{h.$('play').click();h.send('pointerdown',.1);h.send('pointermove',.9);assert.equal(h.captures.size,1);h.switchGame();assert.equal(h.confirms,0);assert.equal(h.$('clubNavigationDialog').open,true);assert.equal(h.captures.size,0);assert.equal(h.get('s.phase'),'cancelled');h.frame(3000);assert.equal(h.$('resultDialog').open,false);assert.equal(h.destinations.length,0);h.$('clubNavigationStay').click();h.send('pointerup',.9);await releaseInput();h.$('retry').click();assert.equal(h.get('s.phase'),'idle');}finally{h.close()}
 });

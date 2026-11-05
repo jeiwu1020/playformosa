@@ -5,6 +5,7 @@ body.fast-hands-club{
   --club-top:max(8px,env(safe-area-inset-top));
   --club-bottom:max(8px,env(safe-area-inset-bottom));
   --club-gap:8px;
+  --club-header-height:44px;
   --club-hud:50px;
   --club-feedback:72px;
   --club-primary:64px;
@@ -29,7 +30,7 @@ body.fast-hands-club main>.score-row{grid-area:scores}
 body.fast-hands-club main>.control-section{grid-area:control}
 body.fast-hands-club main>.actions{grid-area:actions}
 
-/* One 44px toolbar, followed by the same three 44px destinations everywhere. */
+/* Toolbar and destinations use 44px rows; narrow screens split out the actions. */
 body.fast-hands-club .game-header{
   display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:44px 44px;
   align-items:center;gap:var(--club-gap) 10px;min-width:0;
@@ -81,10 +82,10 @@ body.fast-hands-club .actions .quiet-button{flex:0 1 auto}
 body.fast-hands-club .level-main{
   grid-template-columns:minmax(0,1fr);
   grid-template-areas:"header" "nav" "scene" "scores" "feedback" "control";
-  grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
+  grid-template-rows:var(--club-header-height) 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
   gap:var(--club-gap);
 }
-body.fast-hands-club .level-header{grid-area:header;display:flex;align-items:center;gap:8px;height:44px;min-width:0}
+body.fast-hands-club .level-header{grid-area:header;display:flex;align-items:center;gap:8px;height:var(--club-header-height);min-width:0}
 body.fast-hands-club .level-header>div{flex:1;min-width:0}
 body.fast-hands-club .level-header .eyebrow{display:none}
 body.fast-hands-club .level-header h1{margin:0;font-size:22px;line-height:1.3;letter-spacing:-.5px;white-space:nowrap}
@@ -257,7 +258,7 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
 @media(max-height:700px){
   body.fast-hands-club{--club-gap:6px;--club-hud:44px;--club-feedback:58px;--club-primary:56px;--club-stage-min:110px}
   body.fast-hands-club main{grid-template-rows:auto minmax(var(--club-stage-min),1fr) var(--club-hud) auto 44px}
-  body.fast-hands-club .level-main{grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto}
+  body.fast-hands-club .level-main{grid-template-rows:var(--club-header-height) 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto}
   body.fast-hands-club #pad{height:100px}
   body.fast-hands-club .instruction{height:20px;min-height:20px;margin-bottom:4px}
   body.fast-hands-club .instruction strong{line-height:20px}
@@ -320,7 +321,7 @@ body.fast-hands-club .club-intro .pf-entry-brand{font-size:10px;line-height:1.5;
    desktop sidebar or hide the rest of the game. */
 body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{
   grid-template-areas:"header" "nav" "scene" "scores" "feedback" "status" "retry" "control";
-  grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto auto auto;
+  grid-template-rows:var(--club-header-height) 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto auto auto;
 }
 body.fast-hands-club:has(#artStatus:not([hidden])) #artStatus{grid-area:status}
 body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:retry}
@@ -340,7 +341,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .level-main{
     --club-stage-min:122px;position:relative;
     grid-template-areas:"header" "nav" "scene" "scores" "feedback" "control";
-    grid-template-rows:44px 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
+    grid-template-rows:var(--club-header-height) 44px minmax(var(--club-stage-min),1fr) var(--club-hud) var(--club-feedback) auto;
   }
   body.fast-hands-club .level-hud{padding:1px 0}
   body.fast-hands-club .level-hud span{font-size:9px;line-height:11px}
@@ -390,7 +391,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .level-main{
     grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);
     grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene control";
-    grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto;
+    grid-template-rows:var(--club-header-height) 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto;
   }
   body.fast-hands-club .level-hud{padding:8px 0}
   body.fast-hands-club .level-hud span{font-size:13px;line-height:18px}
@@ -410,7 +411,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .secondary-control>.practice-button,body.fast-hands-club .level-help{font-size:14px}
   body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{
     grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";
-    grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto;
+    grid-template-rows:var(--club-header-height) 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto;
   }
 }
 @media(min-width:1000px) and (max-height:700px){
@@ -432,7 +433,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .score-row>div{display:block}
   body.fast-hands-club .score-row label{font-size:10px;line-height:12px}
   body.fast-hands-club .score-row strong,body.fast-hands-club .score-row .score-main strong{font-size:20px;line-height:22px}
-  body.fast-hands-club .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene control";grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto}
+  body.fast-hands-club .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene control";grid-template-rows:var(--club-header-height) 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto}
   body.fast-hands-club .level-hud{padding:1px 0}
   body.fast-hands-club .level-hud span{font-size:11px;line-height:13px}
   body.fast-hands-club .level-hud strong{font-size:23px;line-height:25px}
@@ -446,7 +447,7 @@ body.fast-hands-club:has(#artStatus:not([hidden])) #retryArtButton{grid-area:ret
   body.fast-hands-club .level-controls{grid-template-rows:var(--club-primary) 44px;gap:2px}
   body.fast-hands-club .input-help{display:none}
   body.fast-hands-club .secondary-control{grid-row:2}
-  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:44px 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
+  body.fast-hands-club:has(#artStatus:not([hidden])) .level-main{grid-template-areas:"header header" "nav nav" "scene scores" "scene feedback" "scene status" "scene retry" "scene control";grid-template-rows:var(--club-header-height) 44px var(--club-hud) minmax(var(--club-feedback),1fr) auto 44px auto}
 }
 
 /* The duel scene is artwork, not a renderer diagnostic. Keep preparation status
@@ -493,7 +494,83 @@ body.fast-hands-club .club-toolbar .header-tools>button{display:inline-flex;alig
 body.fast-hands-club .club-settings{padding:20px;max-width:360px;color:var(--green);background:var(--cream);border:1px solid var(--line);border-radius:18px}
 body.fast-hands-club .club-settings button,body.fast-hands-club #restartButton{min-height:44px;min-width:44px}
 @media(max-width:600px){
- body.fast-hands-club .club-toolbar{column-gap:6px}
+ body.fast-hands-club{--club-header-height:calc(88px + var(--club-gap))}
+ body.fast-hands-club .club-toolbar{grid-template-columns:56px minmax(0,1fr);grid-template-rows:44px 44px;column-gap:6px;row-gap:var(--club-gap)}
+ body.fast-hands-club .club-toolbar.game-header{grid-template-rows:44px 44px 44px}
+ body.fast-hands-club .club-toolbar .header-tools{grid-column:1/-1;grid-row:2;gap:8px}
+ body.fast-hands-club .club-toolbar.game-header>.level-switch{grid-row:3}
  body.fast-hands-club .club-toolbar h1{font-size:16px;letter-spacing:0}
  body.fast-hands-club .club-toolbar .header-tools>button{width:44px}
 }
+
+/* One auxiliary-panel contract for Help, Settings and Rankings only. Result
+   tickets and their inline upload host keep their separate layout contract.
+   The body shrinks inside the safe-area-bounded dialog, never a second 100dvh. */
+body.fast-hands-club dialog.club-panel{padding:0;overflow:hidden;max-width:520px;font:500 15px/1.6 system-ui,sans-serif;text-align:left}
+body.fast-hands-club dialog.club-panel[open]{display:flex;flex-direction:column;gap:0;grid-template-columns:none}
+body.fast-hands-club .club-panel>.club-panel-header{position:relative;display:block;flex:none;min-width:0;padding:18px 20px 14px;margin:0;background:var(--gold);border:0;border-bottom:1px dashed #c0ad7d;text-align:left}
+body.fast-hands-club .club-panel>.club-panel-header .ticket-kicker{display:block;padding-right:40px;color:#516546;font:800 10px/1.4 system-ui,sans-serif;letter-spacing:1.2px}
+body.fast-hands-club .club-panel>.club-panel-header h2{margin:7px 40px 6px 0;color:var(--green);font:850 24px/1.3 system-ui,sans-serif;font-size:24px;line-height:1.3;letter-spacing:0;overflow-wrap:anywhere}
+body.fast-hands-club .club-panel>.club-panel-header p{margin:0;color:#46614b;font:500 15px/1.6 system-ui,sans-serif}
+body.fast-hands-club .club-panel>.club-panel-body{flex:1 1 auto;min-width:0;min-height:0;max-height:none;overflow:auto;padding:18px 20px;margin:0;overscroll-behavior:contain;scroll-padding:18px;-webkit-overflow-scrolling:touch}
+body.fast-hands-club .club-panel>.club-panel-footer{flex:none;display:flex;gap:10px;padding:12px 20px;margin:0;border-top:1px solid var(--line);background:var(--cream)}
+body.fast-hands-club .club-panel>.club-panel-footer>button{width:100%;margin:0}
+body.fast-hands-club .club-panel button{min-width:44px;min-height:44px;padding:10px 14px;margin:0;border:1px solid var(--line);border-radius:12px;background:#e4ecda;color:var(--green);font:750 15px/1.4 system-ui,sans-serif;cursor:pointer}
+body.fast-hands-club .club-panel button.primary{background:#ef945a;border-color:#d78048;color:var(--deep);box-shadow:0 3px 0 #b76d3c}
+body.fast-hands-club .club-panel button:disabled{cursor:default;opacity:.48}
+body.fast-hands-club .club-panel button.close-button{position:absolute;top:8px;right:8px;width:44px;height:44px;padding:0;border:1px solid #17494115;border-radius:50%;background:#fff9e97a;font:500 27px/1 system-ui,sans-serif}
+body.fast-hands-club .club-panel :focus-visible{outline:3px solid #b56a16;outline-offset:2px}
+body.fast-hands-club .club-panel .club-section-title{margin:0 0 10px;font:800 16px/1.4 system-ui,sans-serif;color:var(--green)}
+body.fast-hands-club .club-panel .help-steps{margin:0 0 18px;padding-left:24px;color:var(--green);font:500 15px/1.7 system-ui,sans-serif}
+body.fast-hands-club .club-panel .help-steps li{padding-left:3px;margin:0 0 8px}
+body.fast-hands-club .club-panel .settings-panel{margin:0 0 18px;padding:0 14px;border:1px solid var(--line);border-radius:14px;background:#eef1df}
+body.fast-hands-club .club-panel .club-setting-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 0;margin:0;font:500 15px/1.5 system-ui,sans-serif;text-align:left}
+body.fast-hands-club .club-panel .club-setting-row+.club-setting-row{border-top:1px solid var(--line)}
+body.fast-hands-club .club-panel .club-setting-row strong{display:block;font-size:15px;font-weight:800}
+body.fast-hands-club .club-panel .club-setting-row small{display:block;margin-top:4px;color:var(--muted);font-size:13px;line-height:1.6}
+body.fast-hands-club .club-panel select{min-width:0;max-width:100%;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fffdf4;color:var(--green);font:600 14px/1.4 system-ui,sans-serif}
+body.fast-hands-club .club-panel .fine-print{margin:0;color:var(--muted);font:500 13px/1.7 system-ui,sans-serif}
+body.fast-hands-club .club-panel .fine-print summary{min-height:44px;padding:10px 0;color:var(--green);font-weight:750;cursor:pointer}
+body.fast-hands-club .club-panel .fine-print p{margin:0 0 10px}
+body.fast-hands-club .club-panel .ranking-rule,
+body.fast-hands-club .club-panel [id$="eaderboardStatus"],
+body.fast-hands-club .club-panel [id$="oardStatus"]{font-size:13px;line-height:1.7;color:var(--muted)}
+body.fast-hands-club .club-panel .ranking-own{padding:14px;margin:14px 0;background:#eef1df;border:1px solid var(--line);border-radius:14px}
+body.fast-hands-club .club-panel .ranking-own h3{margin:0 0 8px;font-size:15px}
+body.fast-hands-club .club-panel .ranking-own p{margin:6px 0 0;font-size:13px;line-height:1.6}
+body.fast-hands-club .club-panel .ranking-entries{margin:12px 0 16px;padding:0;list-style:none}
+body.fast-hands-club .club-panel .ranking-entries li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding:12px 6px;border-bottom:1px solid var(--line);font:500 14px/1.5 system-ui,sans-serif}
+body.fast-hands-club .club-panel .ranking-entries li.is-me{background:#f4dda766}
+body.fast-hands-club .club-panel .ranking-entries .ranking-name{min-width:0;overflow-wrap:anywhere}
+body.fast-hands-club .club-panel input[type="text"]{box-sizing:border-box;width:100%;min-height:44px;margin:8px 0 16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fffdf4;color:var(--green);font:500 16px/1.5 system-ui,sans-serif}
+body.fast-hands-club .club-panel .ranking-consent,
+body.fast-hands-club .club-panel .level-ranking-consent{display:flex;align-items:flex-start;gap:10px;margin:12px 0 16px;font:500 14px/1.6 system-ui,sans-serif}
+body.fast-hands-club .club-panel input[type="checkbox"]{width:22px;height:22px;flex:none;margin:0;accent-color:var(--green)}
+@media(max-width:400px){
+ body.fast-hands-club .club-panel .mode-label{grid-template-columns:minmax(0,1fr)}
+ body.fast-hands-club .club-panel .mode-label select{width:100%}
+}
+@media(max-height:400px){
+ body.fast-hands-club .club-panel>.club-panel-header{padding:12px 18px}
+ body.fast-hands-club .club-panel>.club-panel-header h2{font-size:22px;margin-top:4px;margin-bottom:4px}
+ body.fast-hands-club .club-panel>.club-panel-body{padding:14px 18px}
+ body.fast-hands-club .club-panel>.club-panel-footer{padding:10px 18px}
+}
+body.fast-hands-club .club-panel .club-settings-note{margin:0;color:var(--muted);font:500 13px/1.7 system-ui,sans-serif}
+body.fast-hands-club .club-panel .club-help-details{flex:none;grid-column:1/-1;margin:14px 0 0;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#eef1df;text-align:left}
+body.fast-hands-club .club-panel .club-help-details .help-steps{margin:4px 0 14px}
+@media(min-width:601px) and (max-height:500px){
+ body.fast-hands-club .mode-intro .club-help-details{grid-row:2}
+}
+/* Keep the single-game Help explicitly sized. Legacy entry grids must not
+   decide a 580px panel's columns merely because the browser is desktop-wide. */
+body.fast-hands-club dialog.club-panel.mode-intro{max-width:580px}
+body.fast-hands-club .club-panel.mode-intro>.club-panel-body{display:flex;flex-direction:column}
+body.fast-hands-club .club-panel.mode-intro .entry-buttons>.intro-start{min-height:48px;font-size:17px}
+body.fast-hands-club .club-panel.mode-intro .entry-buttons:has(.club-intro-aux)>.intro-start,
+body.fast-hands-club .club-panel.mode-intro .entry-buttons:has(.club-intro-aux)>.club-intro-aux{grid-column:1/-1;grid-row:auto}
+@media(min-width:601px) and (max-height:500px){
+ body.fast-hands-club dialog.club-panel.mode-intro{max-width:740px}
+ body.fast-hands-club .club-panel.mode-intro>.club-panel-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,1fr);gap:16px;align-items:center}
+}
+body.fast-hands-club .club-panel .ranking-modes button[aria-pressed="true"]{background:var(--green);color:var(--cream);border-color:var(--green)}

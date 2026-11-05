@@ -7,10 +7,10 @@ import {JSDOM} from 'jsdom';
 const appUrl=new URL('../../public/games/fast-hands/app.mjs',import.meta.url);
 const raw=readFileSync(appUrl,'utf8');
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
-async function harness({fetcher}={}){
+async function harness({fetcher,queued=false}={}){
  const bindings={};for(const m of raw.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g)){const mod=await import(new URL(m[2],appUrl));for(const part of m[1].split(',')){const [key,alias]=part.trim().split(/\s+as\s+/);bindings[alias||key]=mod[key]}}
  const dom=new JSDOM(readFileSync(new URL('index.html',appUrl),'utf8'),{url:'https://qa.test/games/fast-hands/',pretendToBeVisual:true}),w=dom.window,d=w.document,$=id=>d.getElementById(id);
- w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){if(this.open){this.open=false;this.dispatchEvent(new w.Event('close'))}};
+ const closes=[];w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){if(this.open){this.open=false;const fire=()=>this.dispatchEvent(new w.Event('close'));if(queued)closes.push(fire);else fire()}};
  let now=0,raf,videoPlaying=false;const requests=[];
  w.HTMLMediaElement.prototype.play=function(){videoPlaying=true;return Promise.resolve()};w.HTMLMediaElement.prototype.pause=function(){videoPlaying=false};Object.defineProperty($('demo3d'),'paused',{get:()=>!videoPlaying});
  w.fetch=async(url,options)=>{requests.push({url,options});return fetcher?fetcher(url,options):{ok:true,status:200,json:async()=>url.includes('submissions')?{accepted:true,bestUpdated:true}:{game:'fast-hands',rules:'shuttle-v3-'+new URL(url,'https://qa.test').searchParams.get('mode'),unit:'ms',entries:[],own:null}}};
@@ -20,7 +20,7 @@ async function harness({fetcher}={}){
  function frame(ms=20){now+=ms;raf?.()}
  function send(type,x,pointerType='mouse'){now+=10;const event=new w.Event(type,{bubbles:true,cancelable:true});for(const [key,value]of Object.entries({pointerType,pointerId:1,isPrimary:true,button:0,clientX:x*1000,timeStamp:now}))Object.defineProperty(event,key,{value});$('pad').dispatchEvent(event)}
  function win(mode='mouse'){ if($('entryDialog').open)$('entryStart').click();$('play').click();frame();send('pointerdown',.1,mode);send('pointermove',.9,mode);send('pointermove',.1,mode);send('pointerup',.1,mode);frame(1000) }
- return {dom,w,d,$,requests,get leaderboardRequests(){return requests.filter(r=>['/api/leaderboard','/api/leaderboard/submissions'].includes(new URL(r.url,'https://qa.test').pathname));},get countRequests(){return requests.filter(r=>r.url==='/api/play-counts/starts');},frame,send,win,get:expr=>vm.runInContext(expr,context),cleanup(){assert.ok(requests.every(r=>['/api/leaderboard','/api/leaderboard/submissions','/api/play-counts/starts'].includes(new URL(r.url,'https://qa.test').pathname)),'unexpected network endpoint');w.dispatchEvent(new w.Event('pagehide'));dom.window.close()},get videoPlaying(){return videoPlaying}};
+ return {dom,w,d,$,requests,flushClose(){for(const fire of closes.splice(0))fire()},get leaderboardRequests(){return requests.filter(r=>['/api/leaderboard','/api/leaderboard/submissions'].includes(new URL(r.url,'https://qa.test').pathname));},get countRequests(){return requests.filter(r=>r.url==='/api/play-counts/starts');},frame,send,win,get:expr=>vm.runInContext(expr,context),cleanup(){assert.ok(requests.every(r=>['/api/leaderboard','/api/leaderboard/submissions','/api/play-counts/starts'].includes(new URL(r.url,'https://qa.test').pathname)),'unexpected network endpoint');w.dispatchEvent(new w.Event('pagehide'));dom.window.close()},get videoPlaying(){return videoPlaying}};
 }
 
 test('real app opens a single accessible board from entry, pauses demo, blocks gestures and returns to entry',async()=>{
@@ -84,4 +84,24 @@ test('a queued close from the replaced intro cannot close its newly reopened par
   h.$('entryDialog').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);
   h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true);
  }finally{h.cleanup()}
+});
+
+for(const [child,dialog,back] of [['entryRanking','rankingDialog','rankingReturn'],['about','info','closeInfo']])test(`duck first-entry ${child} provides accurate back text, focus and safe repeated native closes`,async()=>{
+ const h=await harness({queued:true});try{
+  for(let i=0;i<2;i++){
+   h.$(child).click();h.flushClose();assert.equal(h.$(dialog).open,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.$(back).textContent,'返回玩法');
+   h.$(back).click();h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.d.activeElement,h.$(child));assert.equal(h.$('entryClose').hidden,true);
+   h.$(dialog).dispatchEvent(new h.w.Event('close'));assert.equal(h.$('entryDialog').open,true);assert.equal(h.leaderboardRequests.filter(r=>r.options.method==='POST').length,0);
+  }
+  h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.get('demo'),true);assert.equal(h.videoPlaying,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,0);
+ }finally{h.cleanup()}
+});
+for(const child of ['entryRanking','about'])test(`duck unstarted ${child} BFCache returns to initial Help instead of stranding the player`,async()=>{
+ const h=await harness({queued:true});try{h.$(child).click();h.flushClose();for(const type of ['pagehide','pageshow'])h.w.dispatchEvent(new h.w.PageTransitionEvent(type,{persisted:true}));h.flushClose();await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('entryClose').hidden,true);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);assert.equal(h.get('demo'),true);assert.equal(h.countRequests.length,0);h.$('entryStart').click();h.flushClose();await drainToolbar();h.frame();assert.equal(h.videoPlaying,true)}finally{h.cleanup()}
+});
+test('duck a stale Settings close after a new toolbar opening cannot unlock gameplay or dismiss Help',async()=>{
+ const h=await harness();try{h.win();const state=h.get('s');h.$('openMenu').click();h.$('about').click();h.$('closeInfo').click();h.$('about').click();h.$('info').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('info').open,true);assert.equal(h.$('entryDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('retry').click();assert.equal(h.get('s'),state);h.$('closeInfo').click();h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true);assert.equal(h.get('s'),state)}finally{h.cleanup()}
+});
+test('duck duplicate child ranking close after switching to upload never stacks its result over Help',async()=>{
+ const h=await harness();try{h.win();h.$('openMenu').click();h.$('entryRanking').click();h.$('resultUpload').click();assert.equal(h.$('rankingReturn').textContent,'返回玩法');h.$('rankingReturn').click();h.$('rankingDialog').dispatchEvent(new h.w.Event('close'));await drainToolbar();assert.equal(h.$('entryDialog').open,true);assert.equal(h.$('resultDialog').open,false);assert.equal(h.d.querySelectorAll('dialog[open]').length,1);h.$('entryClose').click();await drainToolbar();assert.equal(h.$('resultDialog').open,true)}finally{h.cleanup()}
 });

@@ -14,7 +14,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  if(!['catch','duel'].includes(mode))throw new TypeError('Missing level');
  const catching=mode==='catch',listeners=[];
  let state=newMatch(mode,{practice:true,random}),lastFrame=null,frameId,disposed=false,lastRendered=null,width=window.innerWidth,stageView=null,artError=false,atlasUrl='assets/duel-items-atlas.png',resultPage=0,rendererState='pending',startupTimer=null,pressedAt=null,settledAt=null,lastMotionReady=null,lastPoseFrom='',lastPoseTo='',club=null,summaryPresented=false,summaryDismissed=false;
- let replay=null,replayRecorder=createLevelReplayRecorder({mode}),lastReveal=null,ranking=null,rankingOpen=false,returnView=null,capturedRun=null,imageToken=0,imagePromise=null,imageUrl=null;
+ let replay=null,replayRecorder=createLevelReplayRecorder({mode}),lastReveal=null,ranking=null,rankingOpen=false,settingsOpen=false,returnView=null,introChild=null,capturedRun=null,imageToken=0,imagePromise=null,imageUrl=null;
  const sound=soundFactory({window,mode}),sharing=sharingFactory({document,mode});
  const listen=(target,type,fn,options)=>{target.addEventListener(type,fn,options);listeners.push(()=>target.removeEventListener(type,fn,options));};
  const poseImages=new Map();
@@ -72,7 +72,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
    $('opponentScore').textContent=state.practice?'—':catching?String(current):String(count('ai'));
    const timing=state.flightMs??catchStageSettings(1,{practice:state.practice}).flightMs;
    $('speedLabel').textContent=catching?`${Math.round(timing)} ms 飛行 · 每關加速`:'快手王反應 150–280 ms';
-   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=active||state.phase==='idle'||practiceChoices;$('practiceAgain').hidden=!practiceChoices;$('practiceAgain').disabled=!motionReady||artError||rendererState==='pending';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(summaryReady&&!summaryDismissed);
+   $('actionButton').disabled=artError||rendererState==='pending';$('roundButton').disabled=artError||rendererState==='pending'||!motionReady;$('actionButton').hidden=!active;$('roundButton').hidden=active;$('practiceButton').hidden=state.phase!=='done'||practiceChoices;$('practiceAgain').hidden=!practiceChoices;$('practiceAgain').disabled=!motionReady||artError||rendererState==='pending';$('practiceButton').disabled=!motionReady;$('summary').hidden=!(summaryReady&&!summaryDismissed);
    $('roundButton').textContent=state.phase==='idle'?'先練習一次':state.phase==='paused'?'準備好了，重來這一回':state.practice?'正式開始':state.phase==='done'?(catching?'再挑戰一次':'再戰十回合'):(catching?`挑戰第 ${state.results.length+1} 關`:'下一回合');
    $('actionButton').textContent=catching?'接！':'搶！';$('actionButton').setAttribute('aria-label',catching?'伸手接泡棉彈':'出手搶物品');
    let title=catching?'看準掌心，準備接彈。':'手先忍住，看到訊號再搶。';let hint=catching?'泡棉彈到掌心前時，按下大按鈕。':'等「出手！」亮起再按，太早按就輸這回合。';let signal=catching?'看準掌心':'等訊號';
@@ -152,7 +152,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
   pause();closeSummary();
  }
  function returnOverlay({reason}={}){
-  if(reason==='pageshow')rankingOpen=false;
+  if(reason==='pageshow'){rankingOpen=false;settingsOpen=false;introChild=null;}
   const view=returnView;returnView=null;
   if(view==='result'&&state.phase==='done'&&!state.practice&&!disposed){openSummary();$('summaryReplay').focus({preventScroll:true});}
   lastRendered=null;render();
@@ -212,11 +212,31 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  try{const stage=stageLoader($('levelCanvas'),{mode,onUnavailable:unavailable,onReady:ready3d});if(stage?.then)stage.then(stageResolved).catch(unavailable);else stageResolved(stage);}catch{unavailable();}
  if(!catching&&$('atlasProbe').complete&&!$('atlasProbe').naturalWidth)artFailed();
 
- ranking=rankingFactory({document,mode,inlineUpload:{host:$('summaryUploadHost'),trigger:$('summaryUpload'),hint:$('summaryUploadHint'),resultDialog:$('summary')},onOpen(dialog){rankingOpen=true;club?.beginOverlay?.('ranking');closeSummary();try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;club?.endOverlay?.();if(origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
+ function openIntroChild(reason,trigger){
+  if(!$('entryDialog').open||club?.navigationPending?.())return false;
+  if(club?.seen&&!club?.transferOverlay?.(reason))return false;
+  introChild=trigger;$('entryDialog').close();return true;
+ }
+ function returnToIntro(){
+  if(!introChild||disposed||club?.navigationPending?.())return false;
+  if(club?.seen&&!club?.transferOverlay?.('intro'))return false;
+  const trigger=introChild;introChild=null;
+  $('entryDialog').hidden=false;if(!$('entryDialog').open)$('entryDialog').showModal();
+  $(trigger).focus({preventScroll:true});return true;
+ }
+ function rankingReturnLabel(origin){return introChild?'返回玩法':returnView==='result'||!returnView&&origin==='result'?'返回本次成績':'返回遊戲';}
+ ranking=rankingFactory({document,mode,inlineUpload:{host:$('summaryUploadHost'),trigger:$('summaryUpload'),hint:$('summaryUploadHint'),resultDialog:$('summary')},getReturnLabel:rankingReturnLabel,onOpen(dialog){rankingOpen=true;if(!introChild)club?.beginOverlay?.('ranking');closeSummary();try{dialog.showModal();}catch{dialog.setAttribute('open','');}},onClose(origin){rankingOpen=false;if(returnToIntro())return;club?.endOverlay?.();if(!club?.blocked?.()&&origin==='result'&&state.phase==='done'&&!state.practice&&!disposed)openSummary();}});
  listen($('headerRanking'),'click',()=>{if(!club?.blocked?.())ranking?.showBoard({origin:'header'});});
- listen($('headerSettings'),'click',()=>{if(!club?.beginOverlay?.('settings'))return;$('settingsDialog').showModal();$('soundToggle').focus({preventScroll:true});});
+ listen($('entryRanking'),'click',()=>{if(openIntroChild('ranking','entryRanking'))ranking?.showBoard({origin:'entry'});});
+ function openSettings(fromIntro=false){
+  if(fromIntro?!openIntroChild('settings','entrySettings'):!club?.beginOverlay?.('settings'))return;
+  $('settingsClose').textContent=fromIntro?'返回玩法':returnView==='result'?'返回本次成績':'關閉設定';
+  settingsOpen=true;$('settingsDialog').showModal();$('soundToggle').focus({preventScroll:true});
+ }
+ listen($('headerSettings'),'click',()=>openSettings());listen($('entrySettings'),'click',()=>openSettings(true));
  listen($('settingsClose'),'click',()=>$('settingsDialog').close());
- listen($('settingsDialog'),'close',()=>club?.endOverlay?.());
+ // A queued close belongs only to Settings, never a newer sibling dialog.
+ listen($('settingsDialog'),'close',()=>{if($('settingsDialog').open||!settingsOpen)return;settingsOpen=false;if(!returnToIntro())club?.endOverlay?.();});
  listen(document,'clubchange',()=>{lastRendered=null;render();});
  club=clubFactory({document,window,mode,getNavigationContext:()=>({phase:state.phase,practice:state.practice}),getResumeTarget:()=>$('summary').open?$('summaryReplay'):$('roundButton'),isActive:()=>['waiting','live','paused'].includes(state.phase)||(!state.practice&&state.results.length>0&&state.phase!=='done'),onInterrupt:({reason})=>['intro','ranking','settings'].includes(reason)?interruptOverlay():pause(),onReturn:returnOverlay,onStart:()=>{}});
  render();frameId=requestFrame(frame);return{get state(){return state;},destroy};

@@ -6329,6 +6329,7 @@
     "docs/upload-toolbar-polish/SOURCE-MANIFEST.json",
     "public/games/shared/upload-cooldown.mjs",
     "tests/fast-hands-cooldown-backend.test.mjs",
+    "tests/fast-hands/dialog-navigation.test.mjs",
     "tests/fast-hands/toolbar-safety.test.mjs",
     "tests/fixtures/upload-toolbar-polish-baseline.json",
     "tests/helpers/upload-toolbar-polish-provenance.mjs",

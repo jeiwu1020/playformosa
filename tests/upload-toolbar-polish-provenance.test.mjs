@@ -7,7 +7,7 @@ const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 const fixtureBytes=read('tests/fixtures/upload-toolbar-polish-baseline.json');
-assert.equal(hash(fixtureBytes),'853da95e01ea8917523ac4c5b81a998e7d467d34fb31a4c6b6d339119347777e','preview base inventory is independently pinned to remote 0378023');
+assert.equal(hash(fixtureBytes),'d5b9ac91e134a4360fd48051c09f1eab89308435f491d2c4cdc80f2c71b35b8d','preview base inventory is independently pinned to remote 0378023');
 const baseline=JSON.parse(fixtureBytes);
 test('preview polish declares only exact reviewed paths and one new public helper',()=>{
  const m=polishManifest();assert.equal(m.baseCommit,'037802320dc9317bc0ee02ea70fe790e999cd7b7');assert.equal(m.baseTree,'993db78e2486fac40d77690cc85451556ffe3e92');

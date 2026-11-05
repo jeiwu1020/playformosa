@@ -2,7 +2,7 @@
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f2e6"><title>快手王｜快手對決</title><link rel="stylesheet" href="levels.css"><link rel="stylesheet" href="level-nav.css"><link rel="stylesheet" href="club.css"><link rel="stylesheet" href="levels-ranking.css"><link rel="stylesheet" href="finale.css"></head>
 <body class="level-page fast-hands-club" data-club-mode="duel" data-level="duel" data-phase="idle" data-renderer="pending">
 <main class="level-main">
- <header class="level-header club-toolbar"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>快手對決</h1></div><nav class="header-tools" aria-label="遊戲操作"><button id="headerRanking" type="button" class="quiet-button">排行</button><button id="headerSettings" type="button" class="quiet-button">設定</button><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button></nav></header>
+ <header class="level-header club-toolbar"><a class="home-link" href="/#minigames">← 首頁</a><div><p class="eyebrow">PLAYFORMOSA · FAST HANDS CLUB</p><h1>快手對決</h1></div><nav class="header-tools" aria-label="遊戲操作"><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button><button id="headerRanking" type="button" class="quiet-button">排行</button><button id="headerSettings" type="button" class="quiet-button">設定</button><button id="openMenu" type="button" class="quiet-button" aria-label="重看本關玩法介紹">玩法</button></nav></header>
  <nav class="level-switch" aria-label="切換快手王關卡"><a href="./" data-club-mode="duck"><span class="nav-number" aria-hidden="true">01</span>鴨沒漏補</a><a href="catch.html" data-club-mode="catch"><span class="nav-number" aria-hidden="true">02</span>彈無虛接</a><a href="duel.html" data-club-mode="duel" aria-current="page"><span class="nav-number" aria-hidden="true">03</span>快手對決</a></nav>
  <section class="level-hud" aria-label="本場比分"><div><span>你 · 運動員</span><strong id="playerScore">—</strong></div><div class="round-label"><span id="roundLabel">不計分練習</span><span id="speedLabel" class="arcade-badge">AI 虛擬對手 · 十種驚喜</span></div><div><span>快手王</span><strong id="opponentScore">—</strong></div></section>
  <section id="stage" class="level-stage" aria-label="運動員與快手王伸手搶同一件物品">
@@ -50,24 +50,36 @@
  <img id="atlasProbe" src="assets/duel-items-atlas.png" alt="" hidden>
  <p id="artStatus" class="art-status" role="status" hidden></p>
  <button id="retryArtButton" type="button" class="practice-button" hidden>重新載入道具圖像</button>
- <div class="level-controls"><div class="primary-control"><button id="replayReturn" type="button" class="action-button" hidden>返回本次成績</button><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="practiceAgain" type="button" class="action-button practice-repeat" hidden>再練一次</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="restartButton" type="button" class="quiet-button" aria-label="重新開始，回到練習">重來</button><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button> <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details></div></div>
+ <div class="level-controls"><div class="primary-control"><button id="replayReturn" type="button" class="action-button" hidden>返回本次成績</button><button id="actionButton" type="button" class="action-button" hidden>搶！</button><button id="practiceAgain" type="button" class="action-button practice-repeat" hidden>再練一次</button><button id="roundButton" type="button" class="action-button">先練習一次</button></div><p class="input-help">點大按鈕 · 電腦可按空白鍵或 Enter</p><div class="secondary-control"><button id="practiceButton" type="button" class="practice-button" hidden>回到練習</button> <details class="level-help"><summary>玩法與公平計時</summary><div class="level-help-content"><ol><li>先練習一回合，再與快手王打滿十回合，每回都換不同物品。</li><li>等「出手！」亮起，再按「搶！」。提前出手算搶跑，直接輸掉這回合。</li><li>快手王正常反應 150–280 ms，偶爾失手會慢一點；時間在訊號前抽定，不會偷看你的操作。</li><li>以按鈕觸發時間判定，伸手動畫只演出結果，不影響勝負。</li></ol><p>切換關卡或按「重來」會重開本局。切換視窗、旋轉或畫面停頓時，當前回合暫停且不計分。</p><p>對手為 AI 遊戲角色，非真人連線。 本裝置遊戲計時，不是真人能力紀錄。若裝置無法顯示 WebGL，會使用同模型的 2D 相容畫面。</p></div></details></div></div>
 
  <footer class="level-footer">島遊無界工作室 | PLAYFORMOSA STUDIO</footer>
  <noscript><p>請開啟 JavaScript 後重新載入，才能開始挑戰。</p><a href="./" data-club-mode="duck">回到鴨沒漏補</a></noscript>
 </main>
-<dialog id="settingsDialog" class="ticket-dialog club-settings" aria-labelledby="settingsTitle"><h2 id="settingsTitle">設定</h2><button id="soundToggle" type="button" class="quiet-button" aria-label="遊戲音效開關" aria-pressed="false">音效：開</button><button id="settingsClose" type="button" class="quiet-button">關閉設定</button></dialog>
-  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro mode-intro" aria-labelledby="entryTitle" aria-describedby="entryDescription">
-    <div class="ticket-top">
+<dialog id="settingsDialog" class="ticket-dialog club-settings club-panel" aria-labelledby="settingsTitle">
+  <header class="club-panel-header"><span class="ticket-kicker">FAST HANDS · SETTINGS</span><h2 id="settingsTitle">操作設定</h2><p>快手對決 · 調整聲音，照自己的習慣玩。</p></header>
+  <div class="club-panel-body" role="region" aria-label="操作說明與設定，可捲動" tabindex="0">
+    <h3 class="club-section-title">操作偏好</h3>
+    <div class="settings-panel">
+
+      <div class="club-setting-row"><span><strong>遊戲音效</strong><small>開啟或關閉本頁的遊戲提示音。</small></span><button id="soundToggle" type="button" class="secondary" aria-label="遊戲音效開關" aria-pressed="false">音效：開</button></div>
+    </div>
+    <p class="club-settings-note">音效開關立即生效，不影響規則與成績。關閉設定後，請自行按下準備按鈕，不會自動繼續回合。</p>
+  </div>
+  <footer class="club-panel-footer"><button id="settingsClose" type="button" class="primary">關閉設定</button></footer>
+</dialog>
+  <dialog id="entryDialog" class="ticket-dialog entry-dialog club-intro mode-intro club-panel" aria-labelledby="entryTitle" aria-describedby="entryDescription">
+    <div class="ticket-top club-panel-header">
       <span class="ticket-kicker">PLAYFORMOSA · FAST HANDS CLUB</span>
       <button id="entryClose" type="button" class="close-button" aria-label="關閉介紹，回到遊戲" hidden>×</button>
       <h2 id="entryTitle">快手對決</h2>
       <p id="entryDescription">先練一次，再和快手王比十回合。</p>
     </div>
-    <div class="ticket-body">
+    <div class="ticket-body club-panel-body">
       <div class="club-cards">
         <article class="club-card"><img src="assets/intro-duel-generated.webp" alt="快手王與橘衣運動選手伸手搶同一隻小鴨" width="1536" height="1024"><h3>快手對決</h3><p>看到「出手！」按「搶！」，比十回合。</p></article>
       </div>
-      <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button></div>
+      <div class="entry-buttons"><button id="entryStart" type="button" class="primary intro-start">開始遊戲</button><div class="club-intro-aux"><button id="entryRanking" type="button" class="quiet-button">排行榜</button><button id="entrySettings" type="button" class="quiet-button">操作設定</button></div></div>
+      <details class="club-help-details fine-print"><summary>玩法與公平計時</summary><ol class="help-steps"><li>先練習一回，熟悉放下物品與等待訊號。</li><li>等「搶！」訊號出現，按下按鈕；提早出手會判為搶跑。</li><li>正式挑戰共十回合，比比誰搶到的次數多。</li></ol><p>觸控／滑鼠點「搶！」，電腦也可按空白鍵或 Enter。</p><p>開啟排行、設定或玩法時，當前回合會暫停且不計分，已完成回合保留。關閉後請自行按下準備按鈕，不會自動繼續。</p><p>切換視窗、旋轉或畫面停頓時，也會暫停當前回合。音效開關不影響遊戲規則與成績。</p></details>
       <p class="pf-entry-brand">島遊無界工作室 | PLAYFORMOSA STUDIO</p>
     </div>
   </dialog>

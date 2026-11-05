@@ -17,11 +17,15 @@ export function freezeLevelLeaderboardResult(state,{replay=false}={}){
  * captureResult is called exactly at the real successful run transition. Closing
  * a view preserves the round's immutable payload, attempt count and final status.
  */
-export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{},inlineUpload}={}){
+export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{},getReturnLabel=origin=>origin==='result'?'返回本次成績':'返回遊戲',inlineUpload}={}){
  if(!['catch','duel'].includes(mode))throw new TypeError('Unknown leaderboard mode');
  const win=document.defaultView,$=id=>document.getElementById('level'+id[0].toUpperCase()+id.slice(1));
- const dialog=document.createElement('dialog');dialog.id='levelRankingDialog';dialog.className='level-ranking-dialog';dialog.setAttribute('aria-labelledby','levelRankingTitle');
- dialog.innerHTML=`<div class="ranking-scroll"><header><h2 id="levelRankingTitle">休閒挑戰排行榜</h2><button id="levelRankingClose" type="button" aria-label="關閉排行榜">關閉</button></header><p>按鈕／鍵盤休閒挑戰 · 成績由玩家自行回報，未經競技驗證。${mode==='duel'?'AI 每回合隨機反應，勝場僅供同樂。':''}</p><section id="levelRankingBoard"><p id="levelRankingBoardStatus" role="status"></p><ol id="levelRankingEntries"></ol><section id="levelRankingOwn"></section><button id="levelRankingRefresh" type="button">重新讀取</button><button id="levelRankingUploadButton" type="button">上傳本次成績</button><p id="levelLeaderboardStatus"></p></section><section id="levelRankingUpload" hidden><p id="levelRankingFrozenScore"></p><label for="levelRankingNickname">公開暱稱（1–20字）</label><input id="levelRankingNickname" type="text" maxlength="40" autocomplete="nickname"><label class="level-ranking-consent"><input id="levelRankingConsent" type="checkbox">我同意公開暱稱與本次成績，並在本瀏覽器儲存匿名識別與暱稱。請勿填入個人敏感資料。</label><p>排行榜以匿名瀏覽器識別保留個人最佳；不會自動上傳。</p><button id="levelRankingSubmit" type="button">提交本次成績</button><button id="levelRankingBack" type="button">返回排行榜</button><p id="levelRankingUploadStatus" role="status"></p></section><button id="levelRankingReturn" type="button">返回成績</button></div>`;
+ const dialog=document.createElement('dialog');dialog.id='levelRankingDialog';dialog.className='level-ranking-dialog club-panel';dialog.setAttribute('aria-labelledby','levelRankingTitle');
+ dialog.setAttribute('aria-describedby','levelRankingDisclaimer');
+ dialog.innerHTML=`<header class="ranking-header club-panel-header"><span class="ticket-kicker">FAST HANDS · ${LEVEL_RULES[mode].label}</span><button id="levelRankingClose" type="button" class="close-button" aria-label="關閉排行榜，返回上一畫面">×</button><h2 id="levelRankingTitle">排行榜</h2><p id="levelRankingDisclaimer">休閒比一比。成績由玩家回報，非經驗證的正式競賽。</p></header>
+ <div class="ranking-scroll club-panel-body" role="region" aria-label="排行榜與提交內容，可捲動" tabindex="0"><section id="levelRankingBoard"><button id="levelRankingUploadButton" type="button" class="primary">上傳本次成績</button><p id="levelLeaderboardStatus"></p><p class="ranking-rule">${mode==='catch'?'按鈕／鍵盤休閒挑戰 · 依通過關數排名。':'按鈕／鍵盤休閒挑戰 · 依十回合勝場排名。AI 每回合隨機反應，勝場僅供同樂。'}</p><section id="levelRankingOwn" class="ranking-own"></section><p id="levelRankingBoardStatus" role="status"></p><ol id="levelRankingEntries" class="ranking-entries" aria-label="前二十名成績"></ol><button id="levelRankingRefresh" type="button" class="quiet-button">重新讀取排行榜</button></section>
+ <section id="levelRankingUpload" aria-label="自願提交本次成績" hidden><p id="levelRankingFrozenScore"></p><label for="levelRankingNickname">公開暱稱（1–20字）</label><input id="levelRankingNickname" type="text" maxlength="40" autocomplete="nickname"><label class="level-ranking-consent"><input id="levelRankingConsent" type="checkbox">我同意公開暱稱與本次成績，並在本瀏覽器儲存匿名識別與暱稱。請勿填入個人敏感資料。</label><p>排行榜以匿名瀏覽器識別保留個人最佳；不會自動上傳。</p><button id="levelRankingSubmit" type="button" class="primary">提交本次成績</button><button id="levelRankingBack" type="button" class="quiet-button">返回排行榜</button><p id="levelRankingUploadStatus" role="status"></p></section></div>
+ <footer class="ranking-footer club-panel-footer"><button id="levelRankingReturn" type="button" class="quiet-button">返回成績</button></footer>`;
  document.body.append(dialog);
  const board=LEVEL_RULES[mode],validScore=score=>Number.isSafeInteger(score)&&score>0&&score<=board.max,format=score=>score+(mode==='catch'?' 關':' 勝');
  const read=key=>{try{return win.localStorage.getItem(key)}catch{return null}};
@@ -68,7 +72,7 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
  function finishClose(){
   if(dialog.open||view==='result-upload')return; // Ignore a queued close event after a newer view opens.
   stopBoard();stopUpload();view=null;
-  if(returnOnClose&&!destroyed)onClose(origin);
+  if(returnOnClose&&!destroyed){returnOnClose=false;onClose(origin);}
  }
  dialog.addEventListener('close',finishClose);
  function dismiss(returnToParent=true){
@@ -81,8 +85,8 @@ export function mountLevelLeaderboard({document,mode,fetcher=(...args)=>document
   inline?.restore();origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
   $('rankingBoard').hidden=nextView!=='board';$('rankingUpload').hidden=nextView!=='upload';
   $('rankingTitle').textContent=nextView==='board'?'排行榜':'上傳本次成績';
-  $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲';
   if(!dialog.open)onOpen(dialog,origin);
+  $('rankingReturn').textContent=getReturnLabel(origin);
   dialog.querySelector('.ranking-scroll').scrollTop=0;
   return true;
  }

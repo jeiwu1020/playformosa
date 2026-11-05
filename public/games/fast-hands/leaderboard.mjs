@@ -16,7 +16,7 @@ export function freezeLeaderboardResult(run,mode,{demo=false}={}){
  * captureResult is called exactly at the real successful run transition. Closing
  * a view preserves the round's immutable payload, attempt count and final status.
  */
-export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{},inlineUpload}={}){
+export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.defaultView.fetch(...args),onOpen=dialog=>dialog.showModal(),onClose=()=>{},getReturnLabel=origin=>origin==='result'?'返回本次成績':'返回遊戲',inlineUpload}={}){
  const win=document.defaultView,$=id=>document.getElementById(id),dialog=$('rankingDialog');
  const read=key=>{try{return win.localStorage.getItem(key)}catch{return null}};
  const write=(key,value)=>{try{win.localStorage.setItem(key,value)}catch{}};
@@ -62,7 +62,7 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
  function finishClose(){
   if(dialog.open||view==='result-upload')return; // Ignore a queued close event after a newer view opens.
   stopBoard();stopUpload();view=null;
-  if(returnOnClose&&!destroyed)onClose(origin);
+  if(returnOnClose&&!destroyed){returnOnClose=false;onClose(origin);}
  }
  dialog.addEventListener('close',finishClose);
  function dismiss(returnToParent=true){
@@ -75,8 +75,8 @@ export function mountFastHandsLeaderboard({document,fetcher=(...args)=>document.
   inline?.restore();origin=nextOrigin==='result'?'result':'entry';view=nextView;returnOnClose=true;
   $('rankingBoard').hidden=nextView!=='board';$('rankingUpload').hidden=nextView!=='upload';
   $('rankingTitle').textContent=nextView==='board'?'鴨沒漏補｜排行榜':'鴨沒漏補｜上傳成績';
-  $('rankingReturn').textContent=origin==='result'?'返回本次成績':'返回遊戲';
   if(!dialog.open)onOpen(dialog,origin);
+  $('rankingReturn').textContent=getReturnLabel(origin);
   dialog.querySelector('.ranking-scroll').scrollTop=0;
   return true;
  }

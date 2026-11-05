@@ -76,11 +76,13 @@ const offline=$('demo3d'),dialogs=[$('entryDialog'),$('info'),$('resultDialog'),
 const isTerminal=phase=>['success','failed','cancelled'].includes(phase);
 const blocked=()=>dialogs.some(dialog=>dialog.open)||Boolean(club?.blocked());
 function transferToolbarIntro(reason,trigger){
- if(toolbarSurface!=='intro'||!club?.transferOverlay?.(reason))return false;
+ if(!$('entryDialog').open||club?.navigationPending?.())return false;
+ if(club?.seen&&(toolbarSurface!=='intro'||!club?.transferOverlay?.(reason)))return false;
  toolbarSurface=reason;toolbarChildReturn=trigger;return true;
 }
 function returnToToolbarIntro(){
- if(!toolbarChildReturn||!club?.transferOverlay?.('intro'))return false;
+ if(!toolbarChildReturn||disposed||club?.navigationPending?.())return false;
+ if(club?.seen&&!club?.transferOverlay?.('intro'))return false;
  const trigger=toolbarChildReturn;toolbarChildReturn=null;toolbarBoardRequested=false;toolbarSurface='intro';
  openDialog($('entryDialog'));$(trigger).focus({preventScroll:true});return true;
 }
@@ -89,7 +91,7 @@ function closeDialogs(){if($('rankingDialog').open)leaderboard?.dismiss(false);f
 function openDialog(dialog){dialog.hidden=false;if(!dialog.open)dialog.showModal();syncOverlay();}
 for(const dialog of dialogs)dialog.addEventListener('close',syncOverlay);
 document.addEventListener('clubchange',syncOverlay);
-leaderboard=mountFastHandsLeaderboard({document,inlineUpload:{host:$('resultUploadHost'),trigger:$('resultUploadDirect'),hint:$('resultUploadHint'),resultDialog:$('resultDialog')},onOpen(dialog,origin){if(toolbarBoardRequested)club?.beginOverlay?.('ranking');interrupt('ranking');closeDialogs();openDialog(dialog);},onClose(origin){if(disposed)return;if(toolbarBoardRequested){if(!returnToToolbarIntro())club?.endOverlay?.();return;}openDialog(origin==='result'&&resultShown?$('resultDialog'):$('entryDialog'));}});
+leaderboard=mountFastHandsLeaderboard({document,getReturnLabel:origin=>toolbarChildReturn?'返回玩法':toolbarBoardRequested?(toolbarReturn==='result'?'返回本次成績':'返回遊戲'):origin==='result'?'返回本次成績':'返回玩法',inlineUpload:{host:$('resultUploadHost'),trigger:$('resultUploadDirect'),hint:$('resultUploadHint'),resultDialog:$('resultDialog')},onOpen(dialog,origin){if(toolbarBoardRequested&&!toolbarChildReturn)club?.beginOverlay?.('ranking');interrupt('ranking');closeDialogs();openDialog(dialog);},onClose(origin){if(disposed)return;if(toolbarBoardRequested){if(!returnToToolbarIntro())club?.endOverlay?.();return;}openDialog(origin==='result'&&resultShown?$('resultDialog'):$('entryDialog'));}});
 function syncVideo(){
  if(rendererMode==='fallback'&&demo&&!blocked()&&!document.hidden&&document.body.dataset.video!=='failed'){if(offline.paused)void offline.play().catch(()=>{});}
  else offline.pause();
@@ -155,9 +157,9 @@ $('headerRanking').onclick=()=>{if(club?.blocked?.())return;toolbarBoardRequeste
 $('viewResult').onclick=showResult;$('resultAgain').onclick=startGame;
 $('resultClose').onclick=()=>{$('resultDialog').close();syncOverlay();};
 $('sound').onclick=()=>{muted=!muted;$('sound').textContent='鴨叫：'+(muted?'關':'開');$('sound').setAttribute('aria-pressed',String(muted));if(!muted)unlock();};
-$('about').onclick=()=>{if(club?.blocked?.()&&!($('entryDialog').open&&!club?.navigationPending?.()))return;transferToolbarIntro('settings','about');interrupt('help');closeDialogs();openDialog($('info'));};
-$('headerSettings').onclick=()=>{if(!club?.beginOverlay?.('settings'))return;closeDialogs();openDialog($('info'));$('mode').focus({preventScroll:true});};
-$('info').addEventListener('close',()=>{if(toolbarSurface==='settings'&&!returnToToolbarIntro())club?.endOverlay?.();});
+$('about').onclick=()=>{if(club?.blocked?.()&&!($('entryDialog').open&&!club?.navigationPending?.()))return;transferToolbarIntro('settings','about');$('closeInfo').textContent='返回玩法';interrupt('help');closeDialogs();openDialog($('info'));};
+$('headerSettings').onclick=()=>{if(!club?.beginOverlay?.('settings'))return;$('closeInfo').textContent=toolbarReturn==='result'?'返回本次成績':'關閉設定';closeDialogs();openDialog($('info'));$('mode').focus({preventScroll:true});};
+$('info').addEventListener('close',()=>{if($('info').open||$('entryDialog').open)return;if(toolbarSurface==='settings'&&!returnToToolbarIntro())club?.endOverlay?.();});
 $('info').addEventListener('close',()=>window.queueMicrotask(()=>{
  if(club&&!club.seen&&!disposed&&!imagePageAway&&!dialogs.some(dialog=>dialog.open))club.showIntro();
 }));
@@ -175,7 +177,7 @@ function updateControls(view){
 }
 const labels={idle:'從紙鈔開始，按住準備出手',armed:'準備好了，就往右滑',outbound:'一路往右，抓小鴨！',returning:'抓到了，快滑回左邊！',success:'兩樣都接住了！',failed:'鈔票落地了，再試一次',cancelled:'這輪中止，不留成績'};
 const prompts={idle:'從紙鈔開始 → 抓小鴨 → 回紙鈔',armed:'滑出左邊起點，才開始計時',outbound:'全程按住，碰到右邊就抓起',returning:'不要放開！一口氣滑回左邊',success:'漂亮！再比一次自己的紀錄',failed:'在左邊重新按住，就能再挑戰',cancelled:'在左邊重新按住，就能再挑戰'};
-function draw(){if(disposed)return;const now=clock(),demoTime=rendererMode==='fallback'&&offline.readyState>=1&&document.body.dataset.video!=='failed'?offline.currentTime*1000:now-demoStart,d=demo?(rendererMode==='loading'?demo3D(0):rendererMode==='fallback'&&document.body.dataset.video==='failed'?demoSample(now-demoStart):demo3D(demoTime)):null,playback=replaying?sampleReplay(replayClip,now-replayStart):null,view=playback?.state??(d?d.state:snapshot(s,now)),phase=demo?'demo':view.phase;if(lastPhase!==phase){document.body.dataset.phase=phase;$('status').textContent=demo?'動作示範':labels[view.phase];lastPhase=phase;}if(d)$('status').textContent=rendererMode==='loading'?'正在準備角色…':d.label;if(playback)$('status').textContent='本次操作重播 · 原速';$('badge').textContent=replaying?'本次重播':demo?'先看一次':view.phase==='success'?'完成！':view.phase==='armed'?'準備中':'一筆挑戰';$('play').hidden=!demo;$('play').disabled=rendererMode==='loading';$('retry').hidden=demo;$('retry').disabled=rendererMode==='loading';$('showDemo').hidden=demo;$('mode').disabled=activePointer!==null||replaying;$('instruction').textContent=replaying?'正在重播你這一輪的操作':demo?'從紙鈔開始 → 抓小鴨 → 回紙鈔':prompts[view.phase];$('gestureHint').textContent=replaying?'原速重播 · 不計分，不會再上傳':demo?'按住紙鈔區，全程不放開':preference==='auto'&&view.phase==='idle'?'滑鼠或單指，全程按住':mode==='touch'?'同一根手指，不放開':'按住左鍵，不放開';updateControls(view);const ms=demo?0:view.elapsedMs;$('time').innerHTML=(ms/1000).toFixed(3)+' <small>s</small>';$('time').dataset.ms=String(ms);const best=cachedBest;$('best').textContent=best===null?'—':(best/1000).toFixed(3)+' s';$('bestMode').textContent=mode==='touch'?'觸控':'滑鼠';$('distance').innerHTML=((demo?0:view.dropPx)/150*100).toFixed(1)+' <small>cm</small>';$('thumb').style.left=((view.controlX??.1)*100)+'%';const finishAge=playback?.finishAge??(finishStartedAt===null?0:Math.max(0,now-finishStartedAt));
+function draw(){if(disposed)return;const now=clock(),demoTime=rendererMode==='fallback'&&offline.readyState>=1&&document.body.dataset.video!=='failed'?offline.currentTime*1000:now-demoStart,d=demo?(rendererMode==='loading'?demo3D(0):rendererMode==='fallback'&&document.body.dataset.video==='failed'?demoSample(now-demoStart):demo3D(demoTime)):null,playback=replaying?sampleReplay(replayClip,now-replayStart):null,view=playback?.state??(d?d.state:snapshot(s,now)),phase=demo?'demo':view.phase;if(lastPhase!==phase){document.body.dataset.phase=phase;$('status').textContent=demo?'動作示範':labels[view.phase];lastPhase=phase;}if(d)$('status').textContent=rendererMode==='loading'?'正在準備角色…':d.label;if(playback)$('status').textContent='本次操作重播 · 原速';$('badge').textContent=replaying?'本次重播':demo?'先看一次':view.phase==='success'?'完成！':view.phase==='armed'?'準備中':'一筆挑戰';$('play').hidden=!demo;$('play').disabled=rendererMode==='loading';$('retry').hidden=demo;$('retry').disabled=rendererMode==='loading';$('showDemo').hidden=demo||!isTerminal(view.phase)||activePointer!==null||replaying;$('mode').disabled=activePointer!==null||replaying;$('instruction').textContent=replaying?'正在重播你這一輪的操作':demo?'從紙鈔開始 → 抓小鴨 → 回紙鈔':prompts[view.phase];$('gestureHint').textContent=replaying?'原速重播 · 不計分，不會再上傳':demo?'按住紙鈔區，全程不放開':preference==='auto'&&view.phase==='idle'?'滑鼠或單指，全程按住':mode==='touch'?'同一根手指，不放開':'按住左鍵，不放開';updateControls(view);const ms=demo?0:view.elapsedMs;$('time').innerHTML=(ms/1000).toFixed(3)+' <small>s</small>';$('time').dataset.ms=String(ms);const best=cachedBest;$('best').textContent=best===null?'—':(best/1000).toFixed(3)+' s';$('bestMode').textContent=mode==='touch'?'觸控':'滑鼠';$('distance').innerHTML=((demo?0:view.dropPx)/150*100).toFixed(1)+' <small>cm</small>';$('thumb').style.left=((view.controlX??.1)*100)+'%';const finishAge=playback?.finishAge??(finishStartedAt===null?0:Math.max(0,now-finishStartedAt));
  if(!demo&&!replaying&&isTerminal(view.phase)){terminalSeenAt??=now;if(activePointer===null&&!resultShown&&!resultSuppressed&&!blocked()&&!document.hidden&&now-(view.phase==='success'?finishStartedAt:terminalSeenAt)>=(view.phase==='success'?FINISH_RESULT_DELAY_MS:350))showResult();}else terminalSeenAt=null;
  if(!document.hidden){
   if(stage){stage.render(d?.sample??sampleForRun(view,finishAge),{now,maxFps:demo?30:60});document.body.dataset.renderFrames=String(stage?.metrics.frames??0);document.body.dataset.triangles=String(stage?.metrics.triangles??0);document.body.dataset.renderMs=String(stage?.metrics.renderMs??0);}

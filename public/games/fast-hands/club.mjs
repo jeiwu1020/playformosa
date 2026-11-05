@@ -208,6 +208,13 @@ export function mountClub({document,window=document.defaultView,mode='duck',isAc
    onReturn({reason:'pageshow',interrupted:interrupted.reason});
    restoreFocus(interrupted.origin);
   }else if(seen)closeIntro();
+  else{
+   // An unstarted intro also owns auxiliary dialogs, but has no gameplay
+   // interruption to resume. Restore Start after BFCache without marking seen.
+   onReturn({reason:'pageshow'});
+   for(const dialog of document.querySelectorAll('dialog[open]'))if(dialog!==entry)dialog.close();
+   openIntro();
+  }
   ready();
  });
  function destroy(){if(destroyed)return;destroyed=true;for(const remove of removers)remove();abandonNavigation();dialog.remove();mounted.delete(document);}
