@@ -11,8 +11,8 @@ const root=new URL('../../',import.meta.url);
 const paths=['app.mjs','index.html','rules.mjs','style.css'].map(p=>'public/games/fast-hands-test/'+p);
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const originals={
-  'polish-provenance.test.mjs':['f5bd70b1dbb9140478ba31382dff3569cf33fe362c00401b189fb28042e1ab6b','0a69606b81f53acd430d443569fd9483e021d347'],
-  'replay-provenance.test.mjs':['a96326cecbaa57cdbc6461660a23f5c0e774a536f72070072e9ecf8d0f4154bb','212fe86f447f1897b40d2311d254222811d950f2'],
+  'polish-provenance.test.mjs':['ff80d8f97d8131864bc3f79b792e74d85a90654c3d7ed62131db6441a7c92edb','d025357619d40c5f2b4d0b35de97116faf7c44d7'],
+  'replay-provenance.test.mjs':['e48be8602d32184385b08eefb055002c99233cf30a2104ce91930ae8c971468e','cfe42bf0924d5f1a5adaf8e7ad1e91d646d905ec'],
 };
 const admissionImport="import {feelTestRuntimeAdditions} from '../helpers/fast-hands-feel-test-provenance.mjs';\n";
 function expectedAdmission(before){
