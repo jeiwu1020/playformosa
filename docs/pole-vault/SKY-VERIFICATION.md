@@ -9,8 +9,8 @@ Height-selected clouds, upper-atmosphere glow/meteor, orbital station/probe, lun
 ## Automated checks
 
 - Full unchanged baseline: 2740 tests, 2720 pass, 20 failures.
-- Full candidate: 2752 tests, 2732 pass, the same 20 failures. Exact failing test names and ENOENT paths, inventory missing-path diffs, or assertion messages were compared. No new failures.
-- Twelve new tests cover height progression, finish stability, finite extremes, fixed meshes, immutable gameplay state, capture/history restoration, portrait bounds and strict historical provenance.
+- Initial local candidate: 2752 tests, 2732 pass, the same 20 failures. Exact failing test names and ENOENT paths, inventory missing-path diffs, or assertion messages were compared. No new failures.
+- Fourteen new tests cover height progression, finish stability, finite extremes, fixed meshes, immutable gameplay state, capture/history restoration, portrait bounds and strict historical provenance.
 - Build passes. Preview release configuration check passes.
 - Static asset verification cannot complete because public/assets/high-jump-card.png is unavailable locally. This is an original missing asset, not a product change.
 
@@ -29,3 +29,9 @@ The connector could not materialize twelve remote PNGs larger than 1 MB: the ori
 A strict outer audit layer records exact before/current hashes, all added paths and the complete 1266-file remote baseline. Historical readers reverse this approved change before checking older frozen ledgers. Three isolated provenance tests copy this layer's helper, manifest and fixture so they still exercise their original corruption checks. Unknown additions, forged preimages, current drift, duplicate paths and missing new files are rejected.
 
 Publication is a delta tree on the freshly verified remote base, with compare-and-swap of preview/hurdles only. main is not a deployment target. A matching successful Cloudflare check and a live preview reload are verified after publication.
+
+## Deployment correction
+
+The first Cloudflare build ran with all remote assets and passed 2750/2752 tests. It exposed two historical Reaction Rod runtime-inventory checks that had not removed the two verified new sky modules. Local missing images had stopped those checks before their final inventory assertions; matching the first local failure was therefore insufficient evidence of the later assertion.
+
+Both inventory boundaries now use a strict runtime-only sky reversal that verifies the two new files' current hashes before removing exactly those paths. Older protected-file checks and pins remain unchanged. An independent runtime-inventory regression scans the actual directories without reading unrelated PNGs, and rejects missing/duplicate/tampered additions while preserving unknown files for the older inventories to reject. The new regression was observed failing before this correction.

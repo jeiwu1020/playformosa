@@ -20,3 +20,21 @@ test('every materialized preview path reverses to its pinned Git blob without br
  const m=structuredClone(p.skyManifest());m.files[0].beforeText='forged';m.files[0].beforeGitBlob=blob(Buffer.from('forged'));m.files[0].beforeSha256=createHash('sha256').update('forged').digest('hex');assert.throws(()=>p.reverseSky(m.files[0].path,read(m.files[0].path),m));
  assert.throws(()=>p.inventoryBeforeSky([...paths,paths[0]]));assert.throws(()=>p.inventoryBeforeSky(paths.filter(x=>x!=='public/games/pole-vault/sky-models.mjs')));
 });
+
+test('runtime-only sky inventory validates additions without reading unrelated missing binary assets',()=>{
+ assert.equal(typeof p.runtimeInventoryBeforeSky,'function');
+ const dirs=['public','worker','src','config'],paths=[];const walk=dir=>{for(const e of readdirSync(new URL(dir+'/',root),{withFileTypes:true})){const path=dir+'/'+e.name;if(e.isDirectory())walk(path);else paths.push(path);}};dirs.forEach(walk);
+ const expected=JSON.parse(read('tests/fixtures/vault-sky-baseline.json')).files.map(f=>f.path).filter(path=>dirs.some(dir=>path.startsWith(dir+'/'))&&existsSync(new URL(path,root))).sort();
+ assert.deepEqual(p.runtimeInventoryBeforeSky(paths).sort(),expected);
+ for(const name of ['sky-journey.mjs','sky-models.mjs']){const path='public/games/pole-vault/'+name;assert.throws(()=>p.runtimeInventoryBeforeSky(paths.filter(f=>f!==path)));assert.throws(()=>p.runtimeInventoryBeforeSky(paths,{read:f=>f===path?Buffer.from('tampered sky source'):read(f)}));}
+ assert.throws(()=>p.runtimeInventoryBeforeSky([...paths,paths[0]]));
+ assert.ok(p.runtimeInventoryBeforeSky([...paths,'public/unreviewed.mjs']).includes('public/unreviewed.mjs'),'unknown runtime must never be silently ignored');
+});
+
+test('complete remote runtime inventory reproduces the CI mismatch without reading unrelated binaries',async()=>{
+ const {inventoryBeforePolish}=await import('../helpers/upload-toolbar-polish-provenance.mjs');
+ const base=JSON.parse(read('tests/fixtures/vault-sky-baseline.json')).files.map(f=>f.path).filter(path=>['public/','worker/','src/','config/'].some(prefix=>path.startsWith(prefix)));
+ const current=[...base,...p.SKY_ADDED.filter(path=>path.startsWith('public/'))],expected=base.filter(path=>path!=='public/games/shared/upload-cooldown.mjs').sort();
+ assert.throws(()=>assert.deepEqual(inventoryBeforePolish(current).sort(),expected),'old boundary alone reproduces the exact two-path CI mismatch');
+ assert.deepEqual(inventoryBeforePolish(p.runtimeInventoryBeforeSky(current)).sort(),expected,'both historical runtime boundaries now receive the original full inventory');
+});

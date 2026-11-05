@@ -49,6 +49,22 @@
       "beforeGitBlob": "a3fd6f6de8941adbcc84ba20624658690aec8ca6",
       "sha256": "cb6de78cb52def16c030eb7d426b0e97a99763eff75bf6c8dc0c31d795b7518c",
       "gitBlob": "67d3ba0fa0c5df1a761cdb892de91342909a7839"
+    },
+    {
+      "path": "tests/reaction-rod/polish-provenance.test.mjs",
+      "beforeText": "import {inventoryBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';\nimport {feelTestRuntimeAdditions} from '../helpers/fast-hands-feel-test-provenance.mjs';\nimport {levelsRuntimeAdditions} from '../helpers/fast-hands-levels-provenance.mjs';\nimport {sharingRuntimeAdditions} from '../helpers/fast-hands-sharing-provenance.mjs';\nimport {rankingRuntimeAdditions} from '../helpers/fast-hands-ranking-provenance.mjs';\nimport {startupRuntimeAdditions} from '../helpers/startup-provenance.mjs';\nimport {studioRuntimeAdditions} from '../helpers/studio-provenance.mjs';\nimport {readFastHandsBaseline as readStudioBaseline,fastHandsRuntimeAdditions} from '../helpers/fast-hands-provenance.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import {readdirSync} from 'node:fs';import {polishLedger,polishHash,reverseRodPolish} from '../helpers/rod-polish-provenance.mjs';\nconst root=new URL('../../',import.meta.url),read=p=>readStudioBaseline(new URL(p,root));\nconst paths=['reaction-rod/index.html','reaction-rod/game.mjs','reaction-rod/result.css','shared/leaderboard.mjs'];\ntest('polish has exactly four reversible presentation files and preserves all other runtime bytes',()=>{const l=polishLedger();assert.equal(l.baseCommit,'ba0145c3bad717474689090e3049c3905ba1fd08');assert.deepEqual(l.files.map(f=>f.path),paths);for(const f of l.files){const bytes=read('public/games/'+f.path);assert.equal(polishHash(bytes),f.sha256);assert.equal(polishHash(reverseRodPolish(f.path,bytes)),f.beforeSha256);assert.throws(()=>reverseRodPolish(f.path,Buffer.concat([bytes,Buffer.from('// unreviewed mutation')])));}for(const f of l.protected)assert.equal(polishHash(read(f.path)),f.sha256,f.path);const walk=p=>readdirSync(new URL(p,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(p+'/'+e.name):[p+'/'+e.name]);assert.deepEqual(inventoryBeforePolish(['public','worker','src','config'].flatMap(walk)).sort(),[...l.protected.filter(f=>!f.path.startsWith('docs/')).map(f=>f.path),...paths.map(p=>'public/games/'+p),...studioRuntimeAdditions(),...fastHandsRuntimeAdditions(),...startupRuntimeAdditions(),...rankingRuntimeAdditions(),...sharingRuntimeAdditions(),...levelsRuntimeAdditions(),...feelTestRuntimeAdditions()].sort());});\ntest('Rod controller differs only in the upload destination, keeping focus, physics, replay and sharing exact',()=>{const path='reaction-rod/game.mjs',current=read('public/games/'+path),before=reverseRodPolish(path,current).toString();assert.equal(current.toString().replace(\"resultUploadContainer:$('resultUpload'),\",''),before);assert.equal(polishHash(read('public/games/reaction-rod/physics.mjs')),'129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f');});\n",
+      "beforeSha256": "270ac694a7bd56ef5766a092392c0410f88845b6fbd69eb5477429716066f579",
+      "beforeGitBlob": "a608a0635217804b4c593692507216f483e85c87",
+      "sha256": "365d0c77282656a24116b91b93fef3498f3464fc56829aa4b931c57b606c6656",
+      "gitBlob": "c9e992edb808f13c6a32a1c495e1efb0533345e6"
+    },
+    {
+      "path": "tests/reaction-rod/replay-provenance.test.mjs",
+      "beforeText": "import {inventoryBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';\nimport {feelTestRuntimeAdditions} from '../helpers/fast-hands-feel-test-provenance.mjs';\nimport {levelsRuntimeAdditions} from '../helpers/fast-hands-levels-provenance.mjs';\nimport {sharingRuntimeAdditions} from '../helpers/fast-hands-sharing-provenance.mjs';\nimport {rankingRuntimeAdditions} from '../helpers/fast-hands-ranking-provenance.mjs';\nimport {startupRuntimeAdditions} from '../helpers/startup-provenance.mjs';\nimport {reverseRodPolish} from '../helpers/rod-polish-provenance.mjs';\nimport {studioRuntimeAdditions} from '../helpers/studio-provenance.mjs';\nimport {readFastHandsBaseline as readStudioBaseline,fastHandsRuntimeAdditions} from '../helpers/fast-hands-provenance.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import {readdirSync} from 'node:fs';import {replayLedger,replayHash,reverseRodReplay} from '../helpers/rod-replay-provenance.mjs';\nconst root=new URL('../../',import.meta.url),read=p=>readStudioBaseline(new URL(p,root));\nconst paths=['reaction-rod/index.html','reaction-rod/game.mjs','reaction-rod/result.css','reaction-rod/scene.mjs','reaction-rod/replay.mjs','shared/leaderboard.mjs','shared/leaderboard-scroll.mjs'];\ntest('replay candidate has exactly seven runtime files, exact reversible parent bytes and no physics change',()=>{const l=replayLedger();assert.equal(l.baseCommit,'9e5edbf54bb2d2732b686fa9c5e05d135b34cbb1');assert.deepEqual(l.files.map(f=>f.path),paths);for(const f of l.files){const bytes=read('public/games/'+f.path);assert.equal(replayHash(reverseRodPolish(f.path,bytes)),f.sha256);const before=reverseRodReplay(f.path,bytes);if(f.beforeSha256)assert.equal(replayHash(before),f.beforeSha256);assert.throws(()=>reverseRodReplay(f.path,Buffer.concat([bytes,Buffer.from('// unreviewed mutation')])));}assert.equal(replayHash(read('public/games/reaction-rod/physics.mjs')),'129771df49eff9a8c3cdf9a32515ff982187339f813d6eac4cf88ed6d9c1282f');});\ntest('all unrelated runtime sources, workers, data and historical ledgers remain byte-exact',()=>{const l=replayLedger();assert.ok(l.protected.length>440);for(const f of l.protected)assert.equal(replayHash(read(f.path)),f.sha256,f.path);const walk=(p)=>readdirSync(new URL(p,root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(p+'/'+e.name):[p+'/'+e.name]);const actual=inventoryBeforePolish(['public','worker','src','config'].flatMap(walk)).sort(),expected=[...l.protected.map(x=>x.path).filter(x=>!x.startsWith('docs/')),...paths.map(p=>'public/games/'+p),...studioRuntimeAdditions(),...fastHandsRuntimeAdditions(),...startupRuntimeAdditions(),...rankingRuntimeAdditions(),...sharingRuntimeAdditions(),...levelsRuntimeAdditions(),...feelTestRuntimeAdditions()].sort();assert.deepEqual(actual,expected);});\ntest('normal pointer input handlers and scene update remain exact while observers are separate',()=>{const game=read('public/games/reaction-rod/game.mjs').toString(),old=reverseRodReplay('reaction-rod/game.mjs',read('public/games/reaction-rod/game.mjs')).toString();const part=(s,a,b)=>s.slice(s.indexOf(a),s.indexOf(b));assert.equal(part(game,'function eventAim(',\"$('startBtn').addEventListener\"),part(old,'function eventAim(',\"$('startBtn').addEventListener\"));const scene=read('public/games/reaction-rod/scene.mjs'),before=reverseRodReplay('reaction-rod/scene.mjs',scene);assert.equal(part(scene.toString(),'function update(',\"function resize(\"),part(before.toString(),'function update(',\"function resize(\"));});\n",
+      "beforeSha256": "069c46cc667a24c74b67ebc766b2964413752abd8e2504962d5821fca3d7ccb9",
+      "beforeGitBlob": "6f1d93f7bb8e7a18a9d4fc41eac5f19e35236150",
+      "sha256": "73dc9f6c10675bb71ec63348eb81c8c88727275e01fb6474c27bb91077b08178",
+      "gitBlob": "9ea3e70b3e28ac51acaf19be37fb36e8da499688"
     }
   ],
   "addedPaths": [
@@ -67,8 +83,8 @@
   "addedFiles": [
     {
       "path": "docs/pole-vault/SKY-VERIFICATION.md",
-      "sha256": "c37f0ce86d39d452036e495f35c3858ec704a3afb62ea17ce8873a72678962af",
-      "gitBlob": "6da1bc14487daf3d1b41d0c5ad07a3b660edc829"
+      "sha256": "a75de7cf76cf29b14222d0649c9dbc37571ce96f79746fc8a50f5a9a8313eb81",
+      "gitBlob": "de92cfcf9103f3d95947e78c5aef1015ed61a44a"
     },
     {
       "path": "docs/superpowers/plans/2026-11-05-vault-sky.md",
@@ -97,8 +113,8 @@
     },
     {
       "path": "tests/helpers/vault-sky-provenance.mjs",
-      "sha256": "6331d0a274fb9b08a335c1aedf87f8ed85c34761a6f84a3acb733aa089a2ef91",
-      "gitBlob": "176944aa6e6ba75a13a30dea0a2edc4ecabc35d1"
+      "sha256": "0d43ba2e73170b4a4a8f790240a4f7d51087d1ae250394f56d109c1b3213bbd2",
+      "gitBlob": "2680b50eb509b17221ec5d01d39803d1b5eb8afd"
     },
     {
       "path": "tests/pole-vault/sky-journey.test.mjs",
@@ -107,8 +123,8 @@
     },
     {
       "path": "tests/pole-vault/sky-provenance.test.mjs",
-      "sha256": "dbac2803699c6bdad391662b68c7a4909323c016277c70feb594372f57bb7c01",
-      "gitBlob": "e1379a381917421a15becbe54055cdaff0833cb9"
+      "sha256": "3d568534d1d5fa463645bbb4dba9fca9184439b234bdc252c33061bf1cb83286",
+      "gitBlob": "1e5f8e1a26994027a8c9688a878b77da4d3b9328"
     },
     {
       "path": "tests/pole-vault/sky-render.test.mjs",
