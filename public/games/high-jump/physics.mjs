@@ -28,20 +28,23 @@ function launch(s,i){const p=pose(s);
  const forward=clamp(s.speed*.22,.7,3),towardBar=(Math.max(.4,-s.x)+.35)/s.apexTime;
  s.vx=clamp(towardBar,forward*.5,forward*1.25);
  if(s.autoHeight){s.target=s.barHeight=BAR_START_HEIGHT;s.barLocked=false;s.barSettled=false;}
- s.barRiseDuration=0;s.launchBalance=s.balance;s.air=0;s.phase='air';s.launches++;s.holdTimes.fill(0);s.charging=false;s.crouch=0;s.chargeFoot=-1;
+ s.barRiseDuration=0;s.launchBalance=s.balance;s.air=0;s.backTurn=0;s.phase='air';s.launches++;s.holdTimes.fill(0);s.charging=false;s.crouch=0;s.chargeFoot=-1;
  // A body already through the bar before takeoff cannot retroactively clear it.
  if(Object.keys(partNames).some(name=>p[name].x>=0))s.underBar=true;
  if(s.autoHeight){const plan=planBar(s);s.barGoal=plan.height;s.barLockTime=plan.lockTime;s.barRiseY=plan.riseY;}
- s.feedback='手腳還是自己的：彎腿收腳，手臂調平衡。';}
+ s.feedback='先用雙手帶頭肩過桿，髖部過去再收雙腿。';}
 
 const point=(x,y)=>({x,y});
+function desiredBackTurn(s){const q=clamp((s.air/s.apexTime-.60)/(.4+.6*(1-Math.min(s.limbs[2],s.limbs[3]))),0,1);return q*q*(3-2*q)*(.28+.72*Math.min(s.limbs[2],s.limbs[3]));}
+// Hands can earn rotation, but lowering them cannot rewind the body's flight.
+function retainBackTurn(s){s.backTurn=Math.max(s.backTurn||0,desiredBackTurn(s));}
 function knee(f,turn=0){const d=Math.max(.001,Math.hypot(f.x,f.y)),b=Math.sqrt(Math.max(0,.55**2-d*d/4));const side=Math.cos(turn*Math.PI);return {...point(f.x/2-f.y/d*b*side,f.y/2+f.x/d*b*side),z:b*Math.sin(turn*Math.PI)};}
 const masses={hip:5,shoulder:3,head:2,knee0:1,knee1:1,foot0:.5,foot1:.5,elbow0:.4,elbow1:.4,hand0:.25,hand1:.25};
 export function pose(s){const air=s.phase==='air',settled=['land','done'].includes(s.phase)&&s.launches>0;
  const landT=settled?clamp((s.landTime||0)/.35,0,1):0,landBlend=landT*landT*(3-2*landT);
  const l=settled?(s.landingLimbs||s.limbs).map((v,i)=>v+((i<2?1:.25)-v)*landBlend):s.limbs;
  const transition=air||settled?clamp(s.air/.3,0,1):0,blend=transition*transition*(3-2*transition);
- const q=air||settled?clamp((s.air/s.apexTime-.60)/(.4+.6*(1-Math.min(l[2],l[3]))),0,1):0,turn=q*q*(3-2*q),airRoll=air||settled?1.42*turn+blend*((l[2]-l[3])*.3+(l[0]-l[1])*.16)+(s.launchBalance||0)*(1-.65*blend):s.balance;
+ const turn=air||settled?(s.backTurn??desiredBackTurn(s)):0,airRoll=air||settled?1.42*turn+blend*((l[2]-l[3])*.3+(l[0]-l[1])*.16)+(s.launchBalance||0)*(1-.65*blend):s.balance;
  const roll=settled?airRoll+(1.62-airRoll)*landBlend:airRoll;
  const facing=settled?1:blend;
  const arch=blend*(l[2]+l[3])*.5;
@@ -57,10 +60,13 @@ export function pose(s){const air=s.phase==='air',settled=['land','done'].includ
  let cx=0,cy=0,cz=0,total=0;{for(const [name,m]of Object.entries(masses)){cx+=local[name].x*m;cy+=local[name].y*m;cz+=(local[name].z||0)*m;total+=m;}cx/=total;cy/=total;cz/=total;}
  const p={lean:roll};for(const [name,v]of Object.entries(local)){const u=v.x-cx,w=v.y-cy;p[name]={...point(s.x+u*Math.cos(roll)+w*Math.sin(roll),s.y-u*Math.sin(roll)+w*Math.cos(roll)),z:(v.z||0)-cz};}return p;
 }
-const segments=[['head','shoulder',.21],['shoulder','hip',.2],['hip','knee0',.09],['hip','knee1',.09],['knee0','foot0',.08],['knee1','foot1',.08],['shoulder','elbow0',.07],['elbow0','hand0',.06],['shoulder','elbow1',.07],['elbow1','hand1',.06]];
+const segments=[['head','shoulder',.21],['shoulder','hip',.22],['hip','knee0',.09],['hip','knee1',.09],['knee0','foot0',.08],['knee1','foot1',.08],['shoulder','elbow0',.07],['elbow0','hand0',.06],['shoulder','elbow1',.07],['elbow1','hand1',.06]];
+// Clothing is part of the visible body: the shorts extend outside the thigh/torso capsules.
+const BAR_CONTACT_RADIUS=Math.SQRT2*.042; // Enclose the visible square bar and stripe corners.
+const contactJoints=[['head',.34],['hip',.25],['foot0',.2],['foot1',.2]];
 const partNames={head:'頭部',shoulder:'肩背',hip:'髖部',knee0:'左膝',knee1:'右膝',foot0:'左腳',foot1:'右腳',elbow0:'左手臂',elbow1:'右手臂',hand0:'左手',hand1:'右手'};
 export const visibleBarHeight=s=>s.autoHeight===false?s.target:(s.barHeight??s.target);
-export function barContact(s,p=pose(s)){const height=visibleBarHeight(s);for(const [name,r] of [['head',.34],['foot0',.2],['foot1',.2]]){const v=p[name];if(Math.hypot(v.x,v.y-height)<r+.045)return partNames[name];}for(const [aa,bb,r]of segments){const a=p[aa],b=p[bb],dx=b.x-a.x,dy=b.y-a.y,t=clamp((-a.x*dx+(height-a.y)*dy)/(dx*dx+dy*dy||1),0,1);if(Math.hypot(a.x+dx*t,a.y+dy*t-height)<r+.045)return partNames[bb];}return null;}
+export function barContact(s,p=pose(s)){const height=visibleBarHeight(s);for(const [name,r] of contactJoints){const v=p[name];if(Math.hypot(v.x,v.y-height)<r+BAR_CONTACT_RADIUS)return partNames[name];}for(const [aa,bb,r]of segments){const a=p[aa],b=p[bb],dx=b.x-a.x,dy=b.y-a.y,t=clamp((-a.x*dx+(height-a.y)*dy)/(dx*dx+dy*dy||1),0,1);if(Math.hypot(a.x+dx*t,a.y+dy*t-height)<r+BAR_CONTACT_RADIUS)return partNames[bb];}return null;}
 // Lowest point where a capsule intersects the bar plane. Same radii as collision.
 function capsuleFloor(a,b,r){const dx=b.x-a.x,dy=b.y-a.y;let low=Infinity;
  const at=t=>{if(t<0||t>1)return;const x=a.x+dx*t;if(Math.abs(x)<=r+1e-9)low=Math.min(low,a.y+dy*t-Math.sqrt(Math.max(0,r*r-x*x)));};
@@ -68,13 +74,17 @@ function capsuleFloor(a,b,r){const dx=b.x-a.x,dy=b.y-a.y;let low=Infinity;
 }
 // A standard coordinated pose defines clearance once at takeoff, never from live input.
 // Samples are geometry-only: no recursive physics, collisions, scoring or COM changes.
-export function planBar(s){const q=snapshot(s);let low=Infinity;const dt=1/120;
- for(let t=dt;t<6;t+=dt){q.air=t;q.x=s.launchX+s.vx*t;q.y=s.launchY+s.vy*t-3.9*t*t;if(q.y<1)break;
-  for(let i=0;i<4;i++)q.limbs[i]+=((t>=.12?1:0)-q.limbs[i])*(1-Math.exp(-12*dt));
-  const p=pose(q);for(const [name,r]of[['head',.34],['foot0',.2],['foot1',.2]])low=Math.min(low,capsuleFloor(p[name],p[name],r+.045));
-  for(const[a,b,r]of segments)low=Math.min(low,capsuleFloor(p[a],p[b],r+.045));
+export function planBar(s){const q=snapshot(s);let low=Infinity,hipsPassed=false;const dt=1/240;
+ for(let t=dt;t<6;t+=dt){
+  hipsPassed ||= pose(q).hip.x>=0;
+  for(let i=0;i<4;i++)q.limbs[i]+=((i<2?Number(hipsPassed):Number(q.air>=.12))-q.limbs[i])*(1-Math.exp(-12*dt));
+  q.air=t;q.x=s.launchX+s.vx*t;q.y=s.launchY+s.vy*t-3.9*t*t;if(q.y<1)break;retainBackTurn(q);
+  const p=pose(q);for(const [name,r]of contactJoints)low=Math.min(low,capsuleFloor(p[name],p[name],r+BAR_CONTACT_RADIUS));
+  for(const[a,b,r]of segments)low=Math.min(low,capsuleFloor(p[a],p[b],r+BAR_CONTACT_RADIUS));
  }
- const height=clamp(Math.floor(((Number.isFinite(low)?low:BAR_START_HEIGHT)-.10)*10)/10,BAR_START_HEIGHT,MAX_TARGET);
+ // Shorter beginner jumps retain extra geometric room, not a button exemption.
+ const reserve=.10+.22*(1-clamp((s.launchPower-.15)/.45,0,1));
+ const height=clamp(Math.floor(((Number.isFinite(low)?low:BAR_START_HEIGHT)-reserve)*10)/10,BAR_START_HEIGHT,MAX_TARGET);
  // A fixed COM-centred safety envelope, independent of the player's limbs.
  // Finish the rise before this envelope can meet the final bar, with 50ms lead.
  let lockTime=s.apexTime;for(let t=0;t<=s.apexTime;t+=dt){const x=s.launchX+s.vx*t,y=s.launchY+s.vy*t-3.9*t*t;if(Math.hypot(x,y-height)<=1.7){lockTime=Math.max(0,t-.05);break;}}
@@ -104,7 +114,7 @@ function tick(s,dt){if(s.paused||s.phase==='done')return;s.t+=dt;
  if(Math.abs(s.balance)>1.12){s.fallen=true;s.phase='fall';s.charging=false;s.crouch=0;s.vy=0;s.feedback='重心倒了！手臂和左右腿要一起協調。';}
  else if(s.x>.2){s.phase='land';s.feedback='一路走過去了，橫桿以為你是裁判。';}return;}
  if(s.phase==='fall'){s.vy-=9.8*dt;s.y+=s.vy*dt;s.spin+=Math.sin(s.balance)*dt*3;s.balance+=s.spin*dt;s.x+=s.speed*dt;s.z=approachZ(s.x);const p=pose(s),low=Math.min(...Object.keys(partNames).filter(k=>!k.startsWith('foot')).map(k=>p[k].y-(k==='head'?.34:k==='hip'?.25:.12)));if(low<.11){s.y+=.11-low;s.phase='land';s.landTime=0;}return;}
- if(s.phase==='air'){s.air+=dt;s.x=s.launchX+s.vx*s.air;s.y=s.launchY+s.vy*s.air-3.9*s.air*s.air;s.z=approachZ(s.x);s.peak=Math.max(s.peak,s.y);const currentPose=pose(s);
+ if(s.phase==='air'){s.air+=dt;s.x=s.launchX+s.vx*s.air;s.y=s.launchY+s.vy*s.air-3.9*s.air*s.air;s.z=approachZ(s.x);s.peak=Math.max(s.peak,s.y);retainBackTurn(s);const currentPose=pose(s);
  // The launch owns difficulty. Actual rise animates one pose-independent physical bar.
  if(s.autoHeight&&!s.barLocked){const u=clamp((s.y-s.launchY)/Math.max(.001,s.barRiseY-s.launchY),0,1);
   s.barHeight=Math.max(s.barHeight,Math.floor((BAR_START_HEIGHT+(s.barGoal-BAR_START_HEIGHT)*u)*10+1e-7)/10);
