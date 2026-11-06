@@ -1,0 +1,87 @@
+{
+  "baseCommit": "8e502b76005f9b74219394e0c35336ff09eafd88",
+  "baseTree": "6d17b5b19ad6cbc6572f15f9084d1f079a8bd31d",
+  "purpose": "Explicitly authorized rear-hair and arm-articulation revision; original prototype source hashes remain unchanged.",
+  "references": [
+    {
+      "url": "https://www.wenweipo.com/a/202608/23/AP6a8abc51e4b0c1e50025eda7.html",
+      "use": "Observed bent elbows and high front forearms in reporter footage; motion inspiration only, no copied media or measured joint-angle claim."
+    },
+    {
+      "url": "https://www.sina.cn/news/detail/5335130365494975.html",
+      "use": "Manufacturer-context identification of Tiangong Omni."
+    }
+  ],
+  "files": [
+    {
+      "path": "public/games/run-1500m/character3d.mjs",
+      "beforeGitBlob": "b3e2964b89eaff3d8b3ba6780199264cb3a16873",
+      "beforeSha256": "845022399cb408f0ab64ab5efafd25c46e1557c786617a5e86abaa513cf9cac4",
+      "gitBlob": "e37149830272fe7d05ca0a0d5a6574fd9c9e60d4",
+      "sha256": "7ed2dec10caea76506b14513aca4ccd2ec2cbba7fb79d81559b859a3658a2864"
+    },
+    {
+      "path": "public/games/run-1500m/pose.mjs",
+      "beforeGitBlob": "e51fdf5e15203eae52e76c4850e68ae0cca1b36e",
+      "beforeSha256": "a1ca21c6223efc1651862a0542e908c7c4326b8947a5dd756b5c40361fe6b258",
+      "gitBlob": "a4642fb28129b107445a0515bdffd845824ad719",
+      "sha256": "88408b78450ac724d0f4f6d075854175b90da45c8fc317d1d284e6d9d0b1bff3"
+    },
+    {
+      "path": "public/games/run-1500m/render.mjs",
+      "beforeGitBlob": "d547740bf1fc3d233f1b4d1c11ea36b35d3c72c7",
+      "beforeSha256": "adcfcccb83a90f5ad56aa4519466961ac4343fd324286626bc4ec0eb4739538c",
+      "gitBlob": "d637a1c8a4223230764498a0a02342ea0ac09205",
+      "sha256": "7dcb5c0bc667802dc28a72c8a0c0eef393c14307bacfba3a280494330ecbf751"
+    },
+    {
+      "path": "public/games/run-1500m/runner-atlas.png",
+      "beforeGitBlob": "391f23e2eafe20c19be75ac790b1baed38596115",
+      "beforeSha256": "fb542d4c61b3b8ade2c47abc573ea0ab6a1f6eba2c1898821b75f23b6138ed1a",
+      "gitBlob": "aa32eda1ff00647abdeb96c368f456081e7fe8d8",
+      "sha256": "e75510c6092d5bcb6156be634182dd4edf0d117eab18a7da8603b5043032b936"
+    },
+    {
+      "path": "public/games/run-400m/character3d.mjs",
+      "beforeGitBlob": "b3e2964b89eaff3d8b3ba6780199264cb3a16873",
+      "beforeSha256": "845022399cb408f0ab64ab5efafd25c46e1557c786617a5e86abaa513cf9cac4",
+      "gitBlob": "e37149830272fe7d05ca0a0d5a6574fd9c9e60d4",
+      "sha256": "7ed2dec10caea76506b14513aca4ccd2ec2cbba7fb79d81559b859a3658a2864"
+    },
+    {
+      "path": "public/games/run-400m/extra-poses.png",
+      "beforeGitBlob": "4840b11fd01888e920dc1279d0ddf4592f57363a",
+      "beforeSha256": "792070c22b887b8047c926074e8f07ebe7ce0bd7b4d8abe5ab8a31e11c5d9042",
+      "gitBlob": "cd8ec32f892f94f1488176c694c3b10883e73f54",
+      "sha256": "7e34a4491b88337e8917af0cd45320c7c2658c5eca0da27bda916e7e32d12be2"
+    },
+    {
+      "path": "public/games/run-400m/fallback.mjs",
+      "beforeGitBlob": "aac024ba4c2131e3698b3e27b0a1760cb1d0746d",
+      "beforeSha256": "20488113bed656fb96098e4bc8ae4c4f1404f6851dee719a705724780e9feefe",
+      "gitBlob": "198f238d979bfea747beb4961490ab5d62ef5ffa",
+      "sha256": "0ad3bcc821a3c08e6f9ba6c8ca7c624325c1a796727908afc898616804e585b4"
+    },
+    {
+      "path": "public/games/run-400m/pose3d.mjs",
+      "beforeGitBlob": "2d1e6b10dea67e3d5f1b7e10ab3ad0f375a0028a",
+      "beforeSha256": "98919454c4d7dc081ba6df2fb112d7a26884ba87cf74911273f071f24e342460",
+      "gitBlob": "99644e57398551e1a8a857d3b4479cea62e3eacc",
+      "sha256": "8a1ab583eee840101b0b7227e5a8b7728135bcfd668e447fd5bb76f07446c832"
+    },
+    {
+      "path": "public/games/run-400m/runner-atlas.png",
+      "beforeGitBlob": "391f23e2eafe20c19be75ac790b1baed38596115",
+      "beforeSha256": "fb542d4c61b3b8ade2c47abc573ea0ab6a1f6eba2c1898821b75f23b6138ed1a",
+      "gitBlob": "c46a7c18da69c3b9b6afacfee6be0787c25d236a",
+      "sha256": "c856598cabbf13d39c559537be8b3afddf2bc7582677b29068294999f4c7313a"
+    },
+    {
+      "path": "public/games/shared/runner-arm-pose.mjs",
+      "beforeGitBlob": null,
+      "beforeSha256": null,
+      "gitBlob": "440b3c59e6870fa6d844b02ee94a9c7714241557",
+      "sha256": "43afdc98c104f8c4cd7af5d8f965d175eb41fcc3540ec5b8ad5dd5f1332ddeef"
+    }
+  ]
+}

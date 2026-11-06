@@ -1,5 +1,5 @@
 // Original procedural runner, visually guided by the site's hero illustration.
-// All anatomical endpoints come from physics; hair, face and clothing are cosmetic only.
+// Anatomical endpoints are render-only poses; hair, face and clothing are cosmetic.
 export function createCharacter(THREE,scene,options={}){
  const group=new THREE.Group();group.name='hero-runner';scene.add(group);
  const colors={skin:0xf1bd83,skinShade:0xe7a66e,orange:0xf47625,orangeDark:0xd8521e,navy:0x243d54,navyLight:0x35556b,brown:0x513627,brownLight:0x6b4931,white:0xfff8e8,ink:0x211e1b,ear:0xd98c68};
@@ -19,6 +19,10 @@ export function createCharacter(THREE,scene,options={}){
  const head=node(group,'head');sphere(head,'face','skin',0,0,0,.292,.30,.272);
  for(const [side,x]of [['left',-.286],['right',.286]]){sphere(head,'ear-'+side,'skin',x,-.012,0,.054,.075,.046);sphere(head,'ear-inner-'+side,'ear',x,-.013,.035,.028,.048,.013);}
  const hair=node(head,'hair');mesh(hair,'hair-cap',geo.hair,'brown',0,.025,-.025);
+ // Back-and-side shell stops behind the temples, leaving eyes/nose/mouth clear.
+ // Its overlap with the original cap keeps the hairstyle and palette intact.
+ const rearHair=new THREE.SphereGeometry(1,24,16,Math.PI-.21,Math.PI+.42,.58,1.75);
+ mesh(hair,'rear-hair',rearHair,'brown',0,.005,-.014,.304,.311,.289);
  for(let i=0;i<7;i++){const x=-.235+i*.071,y=.245+.035*Math.sin(i/6*Math.PI),z=-.02+(i%2)*.045;const tuft=sphere(hair,'tuft-'+i,i%2?'brownLight':'brown',x,y,z,.068,.108,.075);tuft.rotation.z=-.45+i*.10;const tip=mesh(hair,'tuft-tip-'+i,geo.sphere,'brown',x+.025,y+.057,z,.036,.067,.047);tip.rotation.z=-.45+i*.10;}
  for(const side of [-1,1]){const lock=sphere(hair,'side-lock-'+side,'brown',side*.258,.10,-.03,.055,.13,.11);lock.rotation.z=side*.2;}
  for(const [side,x]of [['left',-.091],['right',.091]]){
@@ -52,19 +56,24 @@ export function createCharacter(THREE,scene,options={}){
   for(let k=0;k<2;k++)mesh(shoe,'lace-'+i+'-'+k,geo.box,'white',.012+k*.045,.052,.058,.025,.012,.09);
   limbs.push({upperArm,forearm,elbow,thigh,knee,shin,shortsLeg,shortsHem,sock,sockBand,hand,shoe});
  }
- const up=new THREE.Vector3(0,1,0),from=new THREE.Vector3(),to=new THREE.Vector3(),direction=new THREE.Vector3();
+ const up=new THREE.Vector3(0,1,0),from=new THREE.Vector3(),to=new THREE.Vector3(),direction=new THREE.Vector3(),handY=new THREE.Vector3(),handZ=new THREE.Vector3(),handX=new THREE.Vector3(),handBasis=new THREE.Matrix4();
  function point(obj,p,z){obj.position.set(p.x,p.y,z+(p.z||0));}
  function bone(obj,a,b,z,length){from.set(a.x,a.y,z+(a.z||0));to.set(b.x,b.y,z+(b.z||0));direction.subVectors(to,from);obj.position.copy(from).add(to).multiplyScalar(.5);obj.quaternion.setFromUnitVectors(up,direction.clone().normalize());obj.scale.set(1,direction.length()/length,1);}
  function band(obj,a,b,z,fraction){obj.position.set(a.x+(b.x-a.x)*fraction,a.y+(b.y-a.y)*fraction,z+(a.z||0)+((b.z||0)-(a.z||0))*fraction);direction.set(b.x-a.x,b.y-a.y,(b.z||0)-(a.z||0)).normalize();obj.quaternion.setFromUnitVectors(up,direction);}
  function update(points,state){
-  point(body,points.hip,0);body.rotation.set(0,.55,-(state.lean||0),'ZYX');point(head,points.head,0);
-  const glance=state.phase==='land'||state.phase==='done'||Math.abs(Math.sin(state.lean||0))>.45;
-  head.rotation.set(0,glance?.12:.8,-(state.lean||0),'ZYX');
+  point(body,points.hip,0);body.rotation.set(0,Math.PI/2,-(state.lean||0),'ZYX');point(head,points.head,0);
+  head.rotation.set(0,Math.PI/2+(state.headYaw||0),-(state.lean||0),'ZYX');
   for(let i=0;i<2;i++){const z=i===0?.205:-.205,l=limbs[i],elbow=points['elbow'+i],wrist=points['hand'+i],knee=points['knee'+i],foot=points['foot'+i];
    bone(l.upperArm,points.shoulder,elbow,z,.34);bone(l.forearm,elbow,wrist,z,.32);point(l.elbow,elbow,z);
    bone(l.thigh,points.hip,knee,z,.55);bone(l.shin,knee,foot,z,.55);point(l.knee,knee,z);
    band(l.shortsLeg,points.hip,knee,z,.15);band(l.shortsHem,points.hip,knee,z,.31);band(l.sock,knee,foot,z,.76);band(l.sockBand,knee,foot,z,.67);
-   point(l.hand,wrist,z);l.hand.rotation.z=Math.atan2(wrist.x-elbow.x,elbow.y-wrist.y);
+   point(l.hand,wrist,z);
+   // Fingers extend along the whole 3D forearm. Keep palms inward and mirror
+   // the thumb instead of giving both limbs the same flat, right-handed palm.
+   handY.set(elbow.x-wrist.x,elbow.y-wrist.y,(elbow.z||0)-(wrist.z||0)).normalize();
+   handZ.set(0,0,i===0?-1:1).addScaledVector(handY,-handY.z*(i===0?-1:1)).normalize();
+   handX.crossVectors(handY,handZ).normalize();handBasis.makeBasis(handX,handY,handZ);
+   l.hand.quaternion.setFromRotationMatrix(handBasis);l.hand.scale.x=i===0?1:-1;
    point(l.shoe,foot,z);l.shoe.rotation.z=Math.atan2(foot.x-knee.x,knee.y-foot.y);
   }
   group.updateMatrixWorld(true);
