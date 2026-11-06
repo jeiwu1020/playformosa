@@ -66,13 +66,13 @@ test('pause cancellation does not synthesize a release launch',()=>{
 });
 test('a launch with no further input returns promptly from the air',()=>{
   api();const {s}=run(s=>s.phase==='run'?runway(s):s.phase==='plant'&&s.charge<.82?[true,true,false,false]:NONE,25);
-  assert.equal(s.phase,'done');assert.ok(s.maxHeight>2&&s.maxHeight<100);assert.ok(s.t<25);
+  assert.equal(s.phase,'done');assert.ok(s.maxHeight>1&&s.maxHeight<10);assert.ok(s.t<25);
 });
 test('coordinated limb movement clears the expanded skyline while spam cannot',()=>{
-  api();const good=run(skill,60);
+  api();const good=run(skill,105);
   const spam=run((s,i)=>s.phase==='run'?runway(s):s.phase==='plant'?(s.charge<.82?[true,true,false,false]:NONE):[s.lean>.06,s.lean<-.06,i%8<2,i%8>=4&&i%8<6],45);
   assert.equal(good.s.phase,'air');assert.equal(good.s.falling,false);assert.ok(good.s.maxHeight>=829.8,`skilled height ${good.s.maxHeight}`);
-  assert.ok(good.s.t>=59);assert.equal(spam.s.phase,'done');assert.ok(good.s.maxHeight>spam.s.maxHeight*100);
+  assert.ok(good.s.t>=104);assert.equal(spam.s.phase,'done');assert.ok(good.s.maxHeight>spam.s.maxHeight*100);
   assert.ok(good.trace.some(e=>e.event==='milestone'));assert.ok(!good.trace.some(e=>e.event==='land'));
   console.log('Strategy results:',JSON.stringify({skill:{height:good.s.maxHeight,time:good.s.t},spam:{height:spam.s.maxHeight,time:spam.s.t}}));
 });

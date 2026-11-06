@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {readdirSync,existsSync} from 'node:fs';
+import {readBeforePace as readFileSync} from '../helpers/vault-pace-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {journeyManifest,JOURNEY_CHANGED,JOURNEY_ADDED,reverseJourney,inventoryBeforeJourney,runtimeInventoryBeforeJourney} from '../helpers/vault-journey-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root));

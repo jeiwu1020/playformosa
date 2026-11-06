@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readBeforePace as readFileSync,inventoryBeforePace,runtimeInventoryBeforePace,PACE_ADDED} from './vault-pace-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,isAbsolute,sep} from 'node:path';
@@ -35,6 +35,7 @@ export function readBeforeJourney(file,options){
  return encoding?bytes.toString(encoding):bytes;
 }
 export function inventoryBeforeJourney(paths,{manifest=journeyManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+ if(paths.some(p=>PACE_ADDED.includes(p)))paths=inventoryBeforePace(paths);
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate current paths');
  for(const path of JOURNEY_ADDED)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
  for(const f of manifest.addedFiles){const bytes=read(f.path);assert.equal(hash(bytes),f.sha256,f.path+' added SHA256');assert.equal(blob(bytes),f.gitBlob,f.path+' added Git blob');}
@@ -43,6 +44,7 @@ export function inventoryBeforeJourney(paths,{manifest=journeyManifest(),read=p=
 
 // Validate the one added runtime independently of unrelated binary reads.
 export function runtimeInventoryBeforeJourney(paths,{manifest=journeyManifest(),read=p=>readFileSync(new URL('../../'+p,import.meta.url))}={}){
+ paths=runtimeInventoryBeforePace(paths);
  validate(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate runtime paths');
  const additions=JOURNEY_ADDED.filter(path=>path.startsWith('public/'));
  for(const path of additions){assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');const row=manifest.addedFiles.find(f=>f.path===path),bytes=read(path);assert.equal(hash(bytes),row.sha256,path+' added runtime SHA256');assert.equal(blob(bytes),row.gitBlob,path+' added runtime Git blob');}

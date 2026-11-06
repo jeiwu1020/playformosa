@@ -1,0 +1,1911 @@
+{
+  "ruleset": "real-altitude-v3",
+  "simulatorOnly": true,
+  "notHumanTypicalPlay": true,
+  "allReferenceHeightsUnchanged": true,
+  "cases": [
+    {
+      "seed": 1,
+      "reactionSeconds": 0.4,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.381722838984797e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.825
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.833
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.833
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.833
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.842
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.85
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.85
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.858
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.867
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.875
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.883
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.892
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.9
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.908
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.917
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.925
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.933
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.942
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.95
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.95
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.958
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.967
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.742
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 5.05,
+          "seconds": 5.758
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 62.808,
+          "seconds": 6.742
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.55,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 76.05,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.55,
+          "seconds": 9.5
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "reactionSeconds": 0.4,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.3755143057252847e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.842
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.842
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.842
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.85
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.85
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.858
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.867
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.875
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.875
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.892
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.9
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.9
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.908
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.917
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.925
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.933
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.942
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.95
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.958
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.967
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.975
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.983
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.492
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 4.8,
+          "seconds": 6.258
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 11.058,
+          "seconds": 6.25
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.75
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 24.058,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.558,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 37.058,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.558,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 50.058,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.558,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 63.058,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.55,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 76.05,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.55,
+          "seconds": 9.5
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "reactionSeconds": 0.4,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.3844212696862043e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.825
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.825
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.825
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.833
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.833
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.842
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.85
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.858
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.858
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.875
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.883
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.883
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.892
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.9
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.908
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.917
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.925
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.933
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.942
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.95
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.958
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.967
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.742
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 5.05,
+          "seconds": 5.758
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 62.808,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.3,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 75.8,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.3,
+          "seconds": 9.75
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "reactionSeconds": 0.4,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.388965760017251e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.817
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.817
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.817
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.825
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.825
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.833
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.842
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.842
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.85
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.867
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.875
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.875
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.883
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.892
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.9
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.908
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.917
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.925
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.933
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.942
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.95
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.958
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.492
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 4.8,
+          "seconds": 6.008
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 62.808,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.3,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 75.8,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.3,
+          "seconds": 9.75
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "reactionSeconds": 0.55,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.376247671783398e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.842
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.842
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.842
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.85
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.85
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.858
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.858
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.867
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.875
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.883
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.892
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.9
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.908
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.917
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.925
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.933
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.942
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.95
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.958
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.967
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.975
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.983
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.742
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 5.05,
+          "seconds": 6.008
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 11.058,
+          "seconds": 6.25
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.75
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 24.058,
+          "seconds": 6.25
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.75
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 37.058,
+          "seconds": 6.25
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.75
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.558,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 63.058,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.55,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 76.05,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.55,
+          "seconds": 9.5
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "reactionSeconds": 0.55,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.380644367121289e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.833
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.833
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.833
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.842
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.842
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.85
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.85
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.858
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.867
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.875
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.883
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.892
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.9
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.908
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.917
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.925
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.933
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.942
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.95
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.958
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.967
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.975
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.742
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 5.05,
+          "seconds": 5.758
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.75
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 63.058,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.55,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 76.05,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.55,
+          "seconds": 9.5
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "reactionSeconds": 0.55,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.398848092431427e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.792
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.8
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.8
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.808
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.808
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.817
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.817
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.825
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.833
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.842
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.85
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.858
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.867
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.875
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.883
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.892
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.9
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.908
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.917
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.925
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.933
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.942
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.492
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 4.8,
+          "seconds": 6.008
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 62.808,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.3,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 75.8,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.3,
+          "seconds": 9.75
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "reactionSeconds": 0.55,
+      "beatJitterSeconds": 0.06,
+      "missProbability": 0.08,
+      "phase": "air",
+      "airTime": 406.30833333312813,
+      "height": 2.4057185218335234e+23,
+      "crossings": [
+        {
+          "id": "airglow",
+          "label": "大氣光暈",
+          "height": 45000,
+          "airTime": 169.783
+        },
+        {
+          "id": "meteor",
+          "label": "流星擦肩而過",
+          "height": 70000,
+          "airTime": 178.783
+        },
+        {
+          "id": "karman",
+          "label": "卡門線・太空邊界",
+          "height": 100000,
+          "airTime": 187.783
+        },
+        {
+          "id": "satellite",
+          "label": "人造衛星",
+          "height": 180000,
+          "airTime": 196.792
+        },
+        {
+          "id": "station",
+          "label": "國際太空站",
+          "height": 400000,
+          "airTime": 205.8
+        },
+        {
+          "id": "cargo",
+          "label": "軌道補給艙",
+          "height": 1200000,
+          "airTime": 214.8
+        },
+        {
+          "id": "probe",
+          "label": "深空探測器",
+          "height": 4000000,
+          "airTime": 223.808
+        },
+        {
+          "id": "asteroids",
+          "label": "小行星巡遊",
+          "height": 20000000,
+          "airTime": 232.817
+        },
+        {
+          "id": "lunar",
+          "label": "月球近景",
+          "height": 100000000,
+          "airTime": 241.825
+        },
+        {
+          "id": "mars",
+          "label": "火星紅沙地",
+          "height": 1000000000,
+          "airTime": 250.833
+        },
+        {
+          "id": "jupiter",
+          "label": "木星大紅斑",
+          "height": 8000000000,
+          "airTime": 259.842
+        },
+        {
+          "id": "saturn",
+          "label": "土星光環",
+          "height": 50000000000,
+          "airTime": 268.85
+        },
+        {
+          "id": "neptune",
+          "label": "海王星藍風暴",
+          "height": 300000000000,
+          "airTime": 277.858
+        },
+        {
+          "id": "comet",
+          "label": "彗星快遞",
+          "height": 2000000000000,
+          "airTime": 286.867
+        },
+        {
+          "id": "boba",
+          "label": "珍奶星環",
+          "height": 10000000000000,
+          "airTime": 295.867
+        },
+        {
+          "id": "pineapple",
+          "label": "鳳梨太空艙",
+          "height": 70000000000000,
+          "airTime": 304.875
+        },
+        {
+          "id": "market",
+          "label": "宇宙夜市",
+          "height": 500000000000000,
+          "airTime": 313.883
+        },
+        {
+          "id": "temple",
+          "label": "銀河廟會",
+          "height": 3000000000000000,
+          "airTime": 322.892
+        },
+        {
+          "id": "cat",
+          "label": "招財貓星球",
+          "height": 20000000000000000,
+          "airTime": 331.9
+        },
+        {
+          "id": "lunch",
+          "label": "便當飛碟",
+          "height": 100000000000000000,
+          "airTime": 340.908
+        },
+        {
+          "id": "bus",
+          "label": "宇宙公車站",
+          "height": 800000000000000000,
+          "airTime": 349.917
+        },
+        {
+          "id": "gateway",
+          "label": "銀河任意門",
+          "height": 6000000000000000000,
+          "airTime": 358.925
+        }
+      ],
+      "cityIntervals": [
+        {
+          "id": "chair",
+          "label": "一張椅子",
+          "time": 0.058,
+          "seconds": 0.25
+        },
+        {
+          "id": "bus",
+          "label": "一台公車",
+          "time": 0.308,
+          "seconds": 4.492
+        },
+        {
+          "id": "tree",
+          "label": "一棵大樹",
+          "time": 4.8,
+          "seconds": 6.008
+        },
+        {
+          "id": "lincoln",
+          "label": "林肯紀念堂",
+          "time": 10.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "christ",
+          "label": "巴西基督像",
+          "time": 17.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "arc",
+          "label": "巴黎凱旋門",
+          "time": 23.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "liberty",
+          "label": "自由女神",
+          "time": 30.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "londoneye",
+          "label": "倫敦眼",
+          "time": 36.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "washington",
+          "label": "華盛頓紀念碑",
+          "time": 43.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "gateway",
+          "label": "聖路易拱門",
+          "time": 49.808,
+          "seconds": 6.5
+        },
+        {
+          "id": "eiffel",
+          "label": "艾菲爾鐵塔",
+          "time": 56.308,
+          "seconds": 6.5
+        },
+        {
+          "id": "esb",
+          "label": "帝國大廈",
+          "time": 62.808,
+          "seconds": 6.492
+        },
+        {
+          "id": "taipei101",
+          "label": "台北 101",
+          "time": 69.3,
+          "seconds": 6.5
+        },
+        {
+          "id": "skytree",
+          "label": "東京晴空塔",
+          "time": 75.8,
+          "seconds": 6.5
+        },
+        {
+          "id": "burj",
+          "label": "哈里發塔",
+          "time": 82.3,
+          "seconds": 9.75
+        }
+      ]
+    }
+  ],
+  "failureControls": [
+    {
+      "name": "stop",
+      "phase": "done",
+      "height": 1.9156497152082237,
+      "airTime": 2.808333333333326,
+      "reason": "四肢停住太久，升力休息了。"
+    },
+    {
+      "name": "hold",
+      "phase": "done",
+      "height": 2.071445161198491,
+      "airTime": 2.808333333333326,
+      "reason": "四肢停住太久，升力休息了。"
+    },
+    {
+      "name": "uncorrected",
+      "phase": "done",
+      "height": 16.126779502525117,
+      "airTime": 12.09166666666662,
+      "reason": "持續失衡，四肢決定先回護墊。"
+    }
+  ]
+}

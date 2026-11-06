@@ -1,5 +1,5 @@
 import {sceneAltitude,heightAtSceneAltitude,vaultOffsetX} from './altitude.mjs';
-import {ascentVelocity} from './flight-profile.mjs';
+import {ascentVelocity,RULESET} from './flight-profile.mjs';
 // Deterministic arcade pole vault. Metres are real score units; the renderer may
 // compress altitude, but must preserve this rig's limb sizes and measured feet.
 export const DT=1/120, PLANT_X=18, PLANT_WINDOW=2, FINISH_HOLD=1.15;
@@ -14,7 +14,7 @@ const GROUND_HIP=1.18, FOOT_FLOOR=.08;
 export const PAD_TOP=.685, PAD_X=PLANT_X+3.7;
 
 export function fresh(){
-  return {t:0,phase:'run',x:0,y:GROUND_HIP,vx:0,vy:0,maxHeight:0,altitude:0,
+  return {ruleset:RULESET,t:0,phase:'run',x:0,y:GROUND_HIP,vx:0,vy:0,maxHeight:0,altitude:0,
     lean:0,energy:1,charge:0,plantQuality:0,releaseQuality:0,grip:0,
     combo:0,cue:'按住 J＋K 握穩，A／S 交替助跑。',cueUntil:3,
     events:[],reason:'',progress:0,
@@ -180,7 +180,7 @@ export function requestFinish(s){
 function beginFinish(s,reason='主動收工。'){
   if(s.scoreLocked)return;
   s.scoreLocked=true;s.scoreLockCount++;s.endReason=reason;
-  s.scoreSnapshot={height:s.maxHeight,stats:{...s.stats},energy:s.energy,combo:s.combo,time:s.t};s.events.push('score-lock');
+  s.scoreSnapshot={ruleset:s.ruleset,height:s.maxHeight,stats:{...s.stats},energy:s.energy,combo:s.combo,time:s.t};s.events.push('score-lock');
   s.finishStartLegs=[0,1].map(i=>limbAngles(s,i));s.finishJ=[...s.j];
   const local=pose({...s,y:0});s.finishHipHeight=.08-Math.min(local.foot0.y,local.foot1.y);s.finishAltitude=s.altitude;
   s.phase='finish';s.finishAttempted=true;s.finishTime=0;s.finishX=s.x;s.finishY=s.y;s.finishLean=s.lean;s.finishEnergy=s.energy;s.finishHold=FINISH_HOLD;
@@ -288,6 +288,9 @@ export function step(s,raw=[],dt=DT){
     else if(s.balanceTime>1.4)beginFinish(s,'持續失衡，四肢決定先回護墊。');
     else if(s.airTime-s.lastWorkTime>2.8)beginFinish(s,'四肢停住太久，升力休息了。');
     else if(s.airTime>.34&&s.vy<=0)beginFinish(s,'升力慢慢用完了，護墊接手。');
+    // Paced astronomical travel can now reach the existing numeric safety cap.
+    // Lock this earned height and use the normal finish, never freeze in air.
+    else if(s.y>=1e150)beginFinish(s,'已達本局可計算高度上限，成績鎖定，準備回護墊。');
   }else if(s.phase==='finish'){
     finishStep(s,dt);
   }else if(s.phase==='drop'){

@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Paced ascent QA — simulated inputs, not manual scores</title>
+<style>body{margin:0;background:#f5f1e8;color:#24434a;font:14px system-ui}nav{display:flex;flex-wrap:wrap;gap:7px;padding:10px}button,select{min-height:34px;padding:5px 9px}#status{padding:5px 12px}#frame{position:relative;margin:auto;width:1000px;max-width:100%;height:550px}#scene{width:100%;height:100%}#height{position:absolute;left:10px;bottom:10px;padding:8px;background:#fff8e3d9;border-radius:10px;pointer-events:none}input{width:240px}</style>
+<nav><strong>QA：真實物理＋有限反應模擬，非手動通關</strong><a href="/games/pole-vault/">實際遊戲</a><button data-size="1000,550">桌面</button><button data-size="390,600">手機</button><button data-size="320,440">小手機</button><button data-size="844,240">橫向</button></nav>
+<nav><select id="stage"></select><button data-time="20">城市</button><button data-time="70">高樓</button><button data-time="111">高山</button><button data-stage="airglow">光暈</button><button data-stage="lunar">月球</button><button data-stage="boba">珍奶</button><button data-stage="gateway">任意門</button><button id="play">1× 連續播放</button><button id="pause">暫停</button><button id="next">＋9 秒</button><input aria-label="模擬時間" id="time" type="range" min="0" max="405" step=".25" value="20"></nav>
+<div id="status">正在模擬</div><div id="frame"><div id="scene"></div><div id="height"></div></div>
+<script type="module">
+import * as P from '../../../public/games/pole-vault/physics.mjs';
+import {createWorld} from '../../../public/games/pole-vault/render.mjs';
+import {JOURNEY_STAGES,skyJourney} from '../../../public/games/pole-vault/sky-journey.mjs';
+import {imperfectController,runPacedAttempt} from '../helpers/pace-strategy.mjs';
+const report=runPacedAttempt(P,JOURNEY_STAGES,{controller:imperfectController(7,{reaction:.55,noise:.06,miss:.08}),sampleEvery:.25});
+const host=document.querySelector('#scene'),world=createWorld(host),time=document.querySelector('#time'),select=document.querySelector('#stage');let now=20,playing=false,previous=performance.now();
+for(const row of report.crossings){const o=document.createElement('option');o.value=String(row.airTime+5.7);o.textContent=row.label+' · 起跳後 '+row.airTime.toFixed(1)+' 秒';select.append(o);}
+function render(){const s=report.samples[Math.min(report.samples.length-1,Math.round(now/.25))],j=skyJourney(s);world.render(s);time.value=String(now);document.querySelector('#height').textContent='高度 '+P.formatHeight(s.altitude)+' ｜ 能量 '+Math.round(s.energy*100)+'%';document.querySelector('#status').textContent=`輸入模擬 ${s.t.toFixed(2)} 秒，空中 ${s.airTime.toFixed(2)} 秒 ｜ ${j.main.label} ｜ ${host.clientWidth}×${host.clientHeight} ｜ ${world.software?'原模型 CPU fallback':'WebGL'} ｜ 非手動成績，未上傳`;document.body.dataset.stage=j.main.id;}
+select.onchange=()=>{playing=false;now=+select.value;render();};time.oninput=()=>{playing=false;now=+time.value;render();};
+for(const b of document.querySelectorAll('[data-stage]'))b.onclick=()=>{playing=false;now=report.crossings.find(s=>s.id===b.dataset.stage).airTime+5.7;render();};for(const b of document.querySelectorAll('[data-time]'))b.onclick=()=>{playing=false;now=+b.dataset.time;render();};for(const b of document.querySelectorAll('[data-size]'))b.onclick=()=>{const[w,h]=b.dataset.size.split(',');const f=document.querySelector('#frame');f.style.width=w+'px';f.style.height=h+'px';world.resize();render();};
+document.querySelector('#play').onclick=()=>{playing=true;previous=performance.now();};document.querySelector('#pause').onclick=()=>playing=false;document.querySelector('#next').onclick=()=>{playing=false;now=Math.min(405,now+9);render();};
+function tick(t){if(playing){now=Math.min(405,now+Math.min(.1,(t-previous)/1000));render();}previous=t;requestAnimationFrame(tick);}render();requestAnimationFrame(tick);
+</script></html>

@@ -8,7 +8,7 @@ const rounds={
  'long-jump':{phase:'done',valid:true,legalAdventureKm:4},
  hurdles:{phase:'done',t:20},
  'high-jump':{phase:'done',success:true,height:2},
- 'pole-vault':{phase:'done',maxHeight:3},
+ 'pole-vault':{phase:'done',ruleset:'real-altitude-v3',maxHeight:3,scoreSnapshot:{height:3,ruleset:'real-altitude-v3'}},
  'shot-put':{phase:'done',valid:true,distance:7},
  discus:{phase:'done',foul:false,score:8},
  'reaction-rod':{phase:'done',caught:8,rating:7},

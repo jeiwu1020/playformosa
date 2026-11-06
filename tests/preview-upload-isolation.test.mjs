@@ -11,7 +11,7 @@ const legacy={
  'long-jump':{rules:'journey-km-v1',unit:'km',status:'valid',score:12.345,run:{phase:'done',valid:true,legalAdventureKm:12.345}},
  hurdles:{rules:'110m-8h-v1',unit:'s',status:'done',score:23.125,run:{phase:'done',t:23.125}},
  'high-jump':{rules:'cleared-height-v1',unit:'m',status:'cleared',score:2.125,run:{phase:'done',success:true,height:2.125}},
- 'pole-vault':{rules:'highest-feet-v1',unit:'m',status:'done',score:6.125,run:{phase:'done',maxHeight:99,scoreSnapshot:{height:6.125}}},
+ 'pole-vault':{rules:'highest-feet-v1',unit:'m',status:'done',score:6.125,run:{phase:'done',ruleset:'real-altitude-v3',maxHeight:99,scoreSnapshot:{height:6.125,ruleset:'real-altitude-v3'}}},
  'shot-put':{rules:'relay-distance-v1',unit:'m',status:'valid',score:17.125,run:{phase:'done',valid:true,distance:17.125}},
  discus:{rules:'wind-ufo-distance-v1',unit:'m',status:'valid',score:52.125,run:{phase:'done',foul:false,score:52.125}},
  'reaction-rod':{rules:'catch-rating-v1',unit:'catches',status:'done',score:8,secondaryScore:7.125,run:{phase:'done',caught:8,rating:7.125}},
@@ -23,7 +23,9 @@ const fast={
  'fast-hands-catch':{rules:'cleared-levels-v1',unit:'levels',status:'done',score:3},
  'fast-hands-duel':{rules:'ten-round-wins-v1',unit:'wins',status:'done',score:5}
 };
-const contracts={...legacy,...fast},games=Object.keys(contracts);
+const preview={...legacy,'pole-vault':{...legacy['pole-vault'],rules:'real-altitude-v3'}};
+const productionSubmission=(game,id)=>({...submission(game,id),...(legacy[game]?{rules:legacy[game].rules}:{})});
+const contracts={...preview,...fast},games=Object.keys(contracts);
 const uuid=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
 const submission=(game,id,device=1)=>{const {run,...contract}=contracts[game];return{game,...contract,nickname:'島民',deviceId:uuid(device),submissionId:uuid(id)}};
 const origin='https://local.test',epoch=1_800_000_000_000;
@@ -41,7 +43,7 @@ test('preview preserves all nine legacy contracts and Fast Hands QA-only guards'
  const {post}=await backend(ctx);
  for(const [index,game] of games.entries()){
   for(const key of ['rules','unit','status'])if(legacy[game])assert.equal(BOARDS[game][key],legacy[game][key]);
-  assert.equal((await post(submission(game,index+1),0,'production')).status,legacy[game]?200:503,game+' production policy');
+  assert.equal((await post(productionSubmission(game,index+1),0,'production')).status,legacy[game]?200:503,game+' production policy');
  }
 });
 test('preview all 12 games alternate on one device without sharing or extending cooldowns',async ctx=>{
@@ -67,8 +69,8 @@ test('preview nine legacy games isolate QA and production cooldowns; duck modes 
  const {post}=await backend(ctx);
  for(const [index,game] of Object.keys(legacy).entries()){
   assert.equal((await post(submission(game,index+1))).status,200);
-  assert.equal((await post(submission(game,100+index),1,'production')).status,200,game);
-  assert.equal((await post(submission(game,200+index),1001,'production')).retry,'59',game);
+  assert.equal((await post(productionSubmission(game,100+index),1,'production')).status,200,game);
+  assert.equal((await post(productionSubmission(game,200+index),1001,'production')).retry,'59',game);
  }
  assert.equal((await post(submission('fast-hands',500))).status,200);
  const touch={...submission('fast-hands',501),rules:'shuttle-v3-touch'};
@@ -108,7 +110,7 @@ for(const game of Object.keys(legacy)){
    }
    for(let i=0;i<4;i++){c.submit.click();await flush()}
    assert.equal(c.posts.length,7);assert.equal(c.submit.disabled,true);assert.equal(new Set(c.posts.map(p=>p.body)).size,1);
-   const sent=JSON.parse(c.posts[0].body),{run,...contract}=legacy[game];
+   const sent=JSON.parse(c.posts[0].body),{run,...contract}=preview[game];
    for(const [key,value]of Object.entries(contract))assert.equal(sent[key],value,game+' '+key);
    assert.deepEqual(Object.keys(sent).sort(),['game','rules','unit','status','score','nickname','deviceId','submissionId',...(game==='reaction-rod'?['secondaryScore']:[])].sort());
   }finally{h.close()}
