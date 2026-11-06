@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readBeforeRunners as readFileSync,inventoryBeforeRunners} from './runner-integration-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,isAbsolute,sep} from 'node:path';
@@ -46,6 +46,7 @@ export function readBeforePace(file,options){
 }
 const raw=p=>readFileSync(new URL('../../'+p,import.meta.url));
 export function inventoryBeforePace(paths,{manifest=paceManifest(),read=raw,runtimeOnly=false}={}){
+ paths=inventoryBeforeRunners(paths,{runtimeOnly});
  validatePaceManifest(manifest);assert.equal(new Set(paths).size,paths.length,'duplicate pacing inventory');const additions=PACE_ADDED.filter(p=>!runtimeOnly||runtime(p));
  for(const p of additions)assert.equal(paths.filter(x=>x===p).length,1,p+' must appear exactly once');
  for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(paceHash(bytes),f.sha256,f.path+' added SHA256');assert.equal(paceBlob(bytes),f.gitBlob,f.path+' added Git blob');}

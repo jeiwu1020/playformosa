@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {catalog} from '../src/catalog.mjs';
+import {preRunnerCatalog as catalog} from './helpers/runner-catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 
 test('platform exposes the playable hurdles test entry without hiding long jump', () => {

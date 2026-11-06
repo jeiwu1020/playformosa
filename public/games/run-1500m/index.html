@@ -1,0 +1,62 @@
+<!doctype html><html data-pf-startup="pending" lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f1e7"><meta name="description" content="四肢各有想法1500公尺平台測試版：配速、跟跑、搶位，留一點力氣給最後一圈。"><title>四肢各有想法｜1500公尺戰術賽</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="stylesheet" href="../shared/studio-brand.css"><link rel="stylesheet" href="../shared/runner-platform.css"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}
+#pf-startup{position:fixed;inset:0;z-index:2147483647;display:flex;overflow:auto;box-sizing:border-box;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));background:#f6f1df;color:#243e38;font:16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center}
+#pf-startup .pf-loading-card{box-sizing:border-box;width:min(100%,440px);flex:none;margin:auto;padding:22px 22px 16px;border:2px solid #294c40;border-radius:24px;background:#fff9e8;box-shadow:0 7px 0 #d7dfc8}
+#pf-startup .pf-loading-brand{margin:0;color:#667969;font-size:11px;font-weight:700;letter-spacing:2px}
+#pf-startup .pf-loading-art{display:block;width:170px;height:132px;margin:12px auto 4px;overflow:visible}
+#pf-startup .pf-loading-person{transform-origin:90px 112px;animation:pf-loading-warmup 1.6s ease-in-out infinite}
+#pf-startup .pf-loading-badge{display:inline-block;margin:0 0 9px;padding:2px 11px;border:1px solid #b3c3ab;border-radius:999px;background:#e6efd6;font-size:12px;font-weight:700;letter-spacing:1px}
+#pf-startup #pf-startup-status{margin:0;font-size:21px;line-height:1.45;font-weight:800}
+#pf-startup .pf-loading-joke{margin:9px 0 18px;color:#526c5b;font-size:15px;line-height:1.7;overflow-wrap:anywhere}
+#pf-startup nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;border-top:1px dashed #bdc9b8;padding-top:12px;margin-top:16px}
+#pf-startup nav a{display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;min-height:44px;padding:5px 12px;color:#294c40;font-size:13px;text-underline-offset:4px;border-radius:10px}
+#pf-startup a:focus-visible{outline:3px solid #dc683e;outline-offset:2px}
+#pf-startup noscript p{margin:8px 0 0;font-size:14px}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-person{animation:none}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-joke,html[data-pf-startup="waiting"] #pf-startup .pf-loading-badge{display:none}
+html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
+@keyframes pf-loading-warmup{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){#pf-startup .pf-loading-person{animation:none}}
+@media(max-height:450px){#pf-startup{padding:12px 16px}#pf-startup .pf-loading-card{padding:14px 18px 10px}#pf-startup .pf-loading-art{width:110px;height:85px;margin:4px auto 0}#pf-startup .pf-loading-joke{margin-bottom:8px}#pf-startup nav{margin-top:8px;padding-top:6px}}
+</style><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||!entry||entry.hidden)return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script><link rel="icon" type="image/png" sizes="32x32" href="/assets/app-icons/run-1500m/favicon-32.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/app-icons/run-1500m/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"></head><body class="pf-game pf-runner"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">起跑線就位，四肢正在同步開機。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
+<header class="pf-header"><a class="pf-home" href="/" aria-label="遊戲首頁">首頁</a><div class="heading"><h1>四肢各有想法<span>1500 公尺戰術賽</span></h1><p>街機戰術賽 · 約2–2.5分鐘 · 3圈＋300m</p></div><nav aria-label="遊戲操作"><button id="sound" data-game-action="music" aria-pressed="false" title="音樂">♫<span>音樂</span></button><button id="restart" data-game-action="restart" title="重新開始">↻<span>重來</span></button><button id="pause" data-game-action="pause" title="暫停">Ⅱ<span>暫停</span></button><button id="help" title="操作說明">?<span>說明</span></button></nav></header>
+<main class="controls-frame"><div class="controls-left"><button data-key="j" class="hand"><kbd>J</kbd><b>向內搶位</b><small>短按放開</small></button><button data-key="a" class="foot"><kbd>A</kbd><b>左腳</b><small>交替短按</small></button></div>
+<section class="arena" id="arena" aria-label="1500公尺橢圓跑道"><canvas id="world" tabindex="0" aria-label="後方跟隨視角的1500公尺跑群"></canvas><div class="hud-left"><span class="eyebrow">實際遊戲用時</span><strong id="time">0:00.00</strong><div><b id="place">四人就位</b><span id="remaining">還有1500m</span></div></div><aside class="map-panel"><div><span>逆時針 · 全場位置</span><b id="lap">第1圈</b></div><canvas id="minimap" width="340" height="180" aria-label="全場四位選手位置小地圖"></canvas><p id="progress">0 / 1500 m</p></aside><div id="signal" aria-live="polite"></div><div id="lane-preview" hidden></div><div class="meters"><div class="meter-label"><span>剩餘體力</span><b id="energy-number">100%</b></div><div class="energy-track"><i id="energy"></i></div><div class="pace-row"><b id="pace">站姿就位</b><span id="speed">0 km/h</span></div><div id="supply">固定補給 · 換道取罐 +22%</div><div id="draft">找一個值得跟的對手</div></div><div class="scene-note" id="render-note"></div><div class="cue" id="cue">配速先穩住，超車再加速。</div></section>
+<div class="controls-right"><button data-key="k" class="hand"><kbd>K</kbd><b>向外超車</b><small>短按放開</small></button><button data-key="s" class="foot"><kbd>S</kbd><b>右腳</b><small>交替短按</small></button></div></main>
+<footer><span>最後10m雙手 J＋K 挺胸壓線。</span><button id="records">線上榮譽榜 ↗</button></footer>
+<dialog id="result" class="pf-result-dialog" aria-labelledby="resultTitle"><div id="resultBody"></div></dialog><dialog id="fallback" aria-labelledby="fallback-title"><h2 id="fallback-title" tabindex="-1">儲存或複製成績</h2><img id="fallback-image" hidden alt="本場成績PNG，可長按儲存"><textarea id="fallback-text" readonly aria-label="可手動複製的成績"></textarea><button id="fallback-close">返回成績</button></dialog><section id="replayControls" hidden aria-label="終點重播控制"><p>終點精彩 · 真實快照 · 半速播放 · 不重算成績</p><div><button id="replayPlay">暫停</button><button id="replayAgain">重播片段</button><button id="replayBack">返回成績</button></div><label>重播進度 <input id="replaySeek" type="range" min="0" max="1000" value="0"></label></section><script type="module" src="app.mjs"></script></body></html>

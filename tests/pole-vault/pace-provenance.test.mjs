@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {readdirSync,existsSync} from 'node:fs';
+import {readBeforeRunners as readFileSync} from '../helpers/runner-integration-provenance.mjs';
 import * as p from '../helpers/vault-pace-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=path=>readFileSync(new URL(path,root));
 function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['.git','node_modules','dist'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else{assert.ok(e.isFile(),path+' regular file');result.push(path);}}}walk();return result;}

@@ -8,6 +8,8 @@ export const BOARD_METRICS=Object.freeze({
  discus:{rules:'wind-ufo-distance-v1',unit:'m',status:'valid',direction:'desc'},
  'reaction-rod':{rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',secondary:true},
  'beer-slide':{rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc'},
+ 'run-400m':{rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc'},
+ 'run-1500m':{rules:'1500m-ccw-tactics-v3',unit:'s',status:'done',direction:'asc'},
  'tower-climb':{rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc'}
 });
 export function resultToSubmission(game,r){
@@ -23,8 +25,10 @@ export function resultToSubmission(game,r){
  case 'discus':if(r.foul!==false)return null;score=r.score;break;
  case 'reaction-rod':score=r.caught;if(!Number.isInteger(score)||score>10||!Number.isFinite(r.rating)||r.rating<0||r.rating>10)return null;break;
  case 'beer-slide':if(r.fallen||r.invalid||r.invalidReason||r.cancelled)return null;score=r.raw;if(score>10)return null;break;
+ case 'run-400m':case 'run-1500m':if(r.finished!==true||r.ruleset!==b.rules||r.scoreSnapshot?.ruleset!==b.rules)return null;score=r.scoreSnapshot.seconds;break;
  case 'tower-climb':if(r.finished!==true||r.floor!==10)return null;score=r.time;if(score>60)return null;break;
  }
+ if(game==='run-400m'&&(score<30||score>=3600))return null;
  if(typeof score!=='number'||!Number.isFinite(score)||score<=0)return null;
  return {score,status:b.status,...(b.secondary?{secondaryScore:r.rating}:{})};
 }

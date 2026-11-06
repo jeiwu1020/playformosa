@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {catalog} from '../src/catalog.mjs';
+import {preRunnerCatalog as catalog} from './helpers/runner-catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('first batch jump entries survive subsequent admission',()=>{

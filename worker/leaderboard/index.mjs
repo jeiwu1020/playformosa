@@ -14,6 +14,10 @@ export const BOARDS=Object.freeze({
 });
 // Pacing revision is QA-only; keep all production contracts unchanged.
 const QA_POLE_VAULT_BOARD=Object.freeze({...BOARDS['pole-vault'],rules:'real-altitude-v3'});
+export const QA_RUNNER_BOARDS=Object.freeze({
+ 'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
+ 'run-1500m':Object.freeze({rules:'1500m-ccw-tactics-v3',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
+});
 // Fast Hands rules isolate the two input modes without changing the nine legacy boards.
 export const FAST_HANDS_BOARDS=Object.freeze({
  mouse:Object.freeze({rules:'shuttle-v3-mouse',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true}),
@@ -26,6 +30,7 @@ export const LEVEL_BOARDS=Object.freeze({
 const isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);
 const isFast=game=>game==='fast-hands'||isLevel(game);
 function resolveBoard(game,rules,scope){
+ if(Object.hasOwn(QA_RUNNER_BOARDS,game))return scope==='qa'?QA_RUNNER_BOARDS[game]:null;
  if(scope==='qa'&&game==='pole-vault')return QA_POLE_VAULT_BOARD;
  if(isLevel(game))return LEVEL_BOARDS[game];
  if(game==='fast-hands')return Object.values(FAST_HANDS_BOARDS).find(board=>board.rules===rules)??null;
@@ -37,7 +42,7 @@ export function validateSubmission(value,scope){
  if(!value||Array.isArray(value)||typeof value!=='object'||(Object.keys(value).length!==fields.length&&Object.keys(value).length!==fields.length+1)||fields.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>!fields.includes(k)&&k!=='secondaryScore'))throw Error('invalid_fields');
  if(isFast(value.game)&&Object.keys(value).length!==fields.length)throw Error('invalid_fields');
  const b=resolveBoard(value.game,value.rules,scope);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
- if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
+ if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||(b.min!==undefined&&value.score<b.min)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
  if(b.secondary){if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>10)throw Error('invalid_secondary');}
  else if(Object.hasOwn(value,'secondaryScore')&&value.secondaryScore!==0)throw Error('invalid_secondary');
  if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\p{Cc}\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');

@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as e from '../../public/games/run-1500m/race.mjs';
+const tap=(r,k,id=0)=>{e.input(r,k,true,id);e.input(r,k,false,id)};
+const ready=()=>{const r=e.createRace();e.startRace(r);e.step(r,3.5);return r};
+const run=(gap,seconds=60)=>{const r=ready(),p=r.runners[0];p.lane=p.targetLane=0;for(const q of r.runners.slice(1))q.finished=999;let n=0,next=0;for(let i=0;i<120*seconds;i++){if(r.time>=next){tap(r,n++%2?'s':'a');next=r.time+gap}e.step(r,1/120)}return p};
+test('a formerly free max-speed cadence consumes its reserve before the final lap',()=>{const p=run(.325,60);assert.ok(p.energy<25,`energy ${p.energy}`);assert.ok(p.s<1100)});
+test('cruising still leaves a meaningful reserve without making supplies mandatory',()=>{const p=run(.43,100);assert.ok(p.energy>30&&p.energy<70,`energy ${p.energy}`)});
+test('draft energy saving is meaningful at attack pace and ends when leaving the wake',()=>{const sample=draft=>{const r=ready(),p=r.runners[0],q=r.runners[1];for(const other of r.runners.slice(1))other.aiNext=other.aiLook=Infinity;p.energy=70;p.s=100;p.lane=p.targetLane=1;p.started=true;p.lastStep=r.time;p.cadence=.35;p.v=12;q.s=102;q.lane=q.targetLane=draft?1:2;q.started=true;q.lastStep=r.time;q.cadence=.35;q.v=12;for(const other of r.runners.slice(2))other.s=500;e.step(r,1/120);return{spent:70-p.energy,slip:p.slip}};const alone=sample(false),draft=sample(true);assert.equal(alone.slip,0);assert.ok(draft.spent<alone.spent*.65,`${draft.spent}/${alone.spent}`)});
+test('AI shows distinct pace phases and a recoverable energy policy',()=>{assert.equal(typeof e.aiPlan,'function');const r=ready(),p=r.runners[3];r.time=10;p.s=500;const early=e.aiPlan(r,p);p.s=1350;const late=e.aiPlan(r,p);assert.ok(late.interval<early.interval-.03);p.energy=10;const tired=e.aiPlan(r,p);assert.ok(tired.interval>=.55);p.energy=30;assert.ok(e.aiPlan(r,p).interval>=.55);p.energy=55;assert.ok(e.aiPlan(r,p).interval<.5)});
+test('new difficult-race records are separated from v2 records',async()=>{const {addRecord,STORAGE_KEY}=await import('../../public/games/run-1500m/records.mjs');assert.notEqual(STORAGE_KEY,'pf-1500m-prototype-1500m-arcade-supply-v2');assert.throws(()=>addRecord([],{rules:'1500m-arcade-supply-v2',time:109.17,status:'done'}))});

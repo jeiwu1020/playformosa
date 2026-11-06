@@ -1,0 +1,24 @@
+{
+  "generator": "OpenAI image_gen",
+  "purpose": "Homepage illustration and menu/install icon only. Runtime runner/track art unchanged.",
+  "files": [
+    {
+      "game": "run-400m",
+      "sourceFilename": "run-400m-cover.png",
+      "sourceSha256": "3c0ef1401114d14d21cdd8b955b5eb9e31b34e0333e15c17f5576c68cfdef580",
+      "width": 1672,
+      "height": 941,
+      "cover": "public/assets/run-400m-card.png",
+      "icons": "public/assets/app-icons/run-400m/"
+    },
+    {
+      "game": "run-1500m",
+      "sourceFilename": "run-1500m-cover.png",
+      "sourceSha256": "7a17ca3ce954b9a01c077f394ac83f9300f5d9ce42c445d3304a20e8467103d2",
+      "width": 1672,
+      "height": 941,
+      "cover": "public/assets/run-1500m-card.png",
+      "icons": "public/assets/app-icons/run-1500m/"
+    }
+  ]
+}
