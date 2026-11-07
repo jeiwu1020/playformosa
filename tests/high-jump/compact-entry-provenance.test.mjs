@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeCourtesyIntegration as readFileSync} from '../helpers/courtesy-integration-provenance.mjs';
 import * as p from '../helpers/high-jump-compact-entry-provenance.mjs';
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url));
 test('compact entry independently pins the complete published parent tree',()=>{

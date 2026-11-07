@@ -1,0 +1,42 @@
+{
+  "privateVersion": 15,
+  "privateSourceCommit": "00f34420f2824ede92b553bd6d6bed998a2989a9",
+  "platformBaseCommit": "883498a7eb27c9670b87ed49764b57d87b9fd118",
+  "omitted": [
+    "ranking-client.js"
+  ],
+  "files": {
+    "index.html": "5c92a12b36ff93ce1931fc0b83088ba894d786879ea50011abfac6e301a6053b",
+    "style.css": "cdca39afee8dd092bdec94035bab1e21cad90b1841f885965537bbb17f979df1",
+    "round-clock.js": "8ef9de1b4ed710c5ff1fbff9d7e12acca375bfb03ff74b9379b73b8299ebe144",
+    "music.js": "af6e655f51fe02c37cf8083ab17a2992c59e5e321deb2d9c6d1bbffa958ff6ae",
+    "touch-controls.js": "081b280a6a89266a4ba2b550fdd488fcf33dd86c450526e9e298ff9a11d11760",
+    "rules.js": "90ac1536da4b92c1969d9045fd6182deda8b01823f42425b355d92ea2ad90a6f",
+    "game.js": "4e63e37ae1aaa53bde9db648bc668616206e2036c7c9184f978dc6b4ac4bb6c0",
+    "comic-events.js": "f1a9f8f2e85501cb18c908f7f4a83774ad127c41ff88918b88d95ac61f4bc1a0",
+    "round-variation.js": "40bbcede84d8976780ebff61392bea9e714a27139934d2c3f1eaa5b3e56933f7",
+    "sfx.js": "51e1382d832e98489cd1360223471668c561a9a500eccb75fd2932cbac0e8a55",
+    "threat-plan.js": "d9b99dbc0ba5a68e3a27f7948883f5e56a83569a50ba0389127ddb174731f99f",
+    "bench-layout.js": "fa930a329f1dafab63cb11e85def4027f5f3ebb48e34843e0aef2148ee7d6792",
+    "vendor/PHASER-LICENSE.txt": "c3123cd25de4eccf1fd5a5a0a6fc872299116d1dbbb48b00f2554a4c35220a65",
+    "vendor/phaser-3.90.0.min.js": "e92ddef111ba42e92d316979c732311757093688ea1810591cb7aa2858eba7a7",
+    "assets/aunt-v4.png": "83e6763586a349bfc672693e8624bd300a7c2a2765032fecb2218688c973fe03",
+    "assets/aunt-v4-frames.json": "c7130b533f8cbe306605677d67631a7fd34ce465998e20d94dd8d24d8b5fec69",
+    "assets/hero-v3.png": "f27f5e8feaf2c21a0769a59ce7c2d04cd87fc9f012e194ff4a92f3f780f2c59e",
+    "assets/seated-v7.png": "7e8f16cc6e1604a62e31e1bd4e17bda36db92cf637f3ea7c0f3525d6eb79cfff",
+    "assets/commuters.png": "ba67db0d732a685c39c4f4941c0826aeb4b309a6c2bb1335dca0b8d5d3cadd31",
+    "assets/variation-v7.json": "a9fec369e4e5813d0ea2742a2b03b3a730248ae1ea11d1ebf9b1a6e096d4118b",
+    "assets/seated-gesture-v7.png": "29540dfc21cd6e8a8c1573f42fa6c0522f35bf90dc2d0c416a75e6951be4fb41",
+    "assets/stubborn-v7.png": "7ca5ef9ed18f99848d162bbeb54561acf0e41dec5e80111aff2f8b854a78742d",
+    "assets/passengers-v3.png": "2ab3afe1f8c34622a63ec04078b30ab83b8897e744123a0c76b9378671a607e0",
+    "assets/frames.json": "195c6aabe96096e655c1cc0241b6d58293f4d386d1a3478bf00f5cfc4287cdca",
+    "assets/hero-v3-frames.json": "6a368559151aa192395fe93139f7eb37ea843dde1279e47add9aaf435754453c",
+    "assets/office-v7.png": "c5206547ec4adac61b01c0cce85be748500cf86cbb87c84bdd93feefefd9c1dc",
+    "assets/intruders-v4.png": "a004cdfe63cf22ba2dec79f87bfeacc224fc4df9e3939b8129cfe701d6ff1dc8",
+    "assets/metro.png": "0581e64fce4c71150ea4f57afa18f7c33d167b515f19f06383e1a11f12d78651",
+    "assets/sfx/credits.txt": "400d6bf0ca8a105121d7af76a21a20d4fe811f562d92a80a53fbda17b50ae0d2",
+    "assets/music/monkeys-spinning-monkeys-game.mp3": "b485ec4796e4072ab5c6836f97e0c7dfe5af0089ab6853ebeecf2ce9cdb8c24f",
+    "assets/music/monkeys-spinning-monkeys.mp3": "a5bb345c23849ad0786aa0bc5157a9f2d4039660fe00282e55754d475f36dc14",
+    "assets/music/attribution.md": "79a115f1c4b1c8184164e13bdf77b1e3b930d931905147c6a89c35114791dcc5"
+  }
+}

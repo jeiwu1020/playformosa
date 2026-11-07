@@ -1,5 +1,5 @@
 // Reversible compact desktop-entry boundary. Gameplay assertions still inspect live files.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeCourtesyIntegration as actual,courtesyIntegrationParentBytes,inventoryBeforeCourtesyIntegration,COURTESY_INTEGRATION_ADDED} from './courtesy-integration-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -32,14 +32,14 @@ export function validateCompactEntryManifest(m){
  return m;
 }
 export function reverseCompactEntry(path,bytes,m=compactEntryManifest()){
- validateCompactEntryManifest(m);assert.ok(!COMPACT_ENTRY_ADDED.includes(path),path+' is new compact-entry scope, not historical source');
+ validateCompactEntryManifest(m);bytes=courtesyIntegrationParentBytes(path,bytes);assert.ok(!COMPACT_ENTRY_ADDED.includes(path),path+' is new compact-entry scope, not historical source');
  const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' compact-entry current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' compact-entry current Git blob');return Buffer.from(f.beforeText);
 }
 // A direct inner API may receive live bytes or this independently pinned parent.
 export function compactEntryParentBytes(path,bytes,m=compactEntryManifest()){
  validateCompactEntryManifest(m);assert.ok(!COMPACT_ENTRY_ADDED.includes(path),path+' is new compact-entry scope, not historical source');
- const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ const f=m.files.find(f=>f.path===path);if(!f)return courtesyIntegrationParentBytes(path,bytes);
  const parent=Buffer.from(f.beforeText);if(Buffer.from(bytes).equals(parent))return parent;
  return reverseCompactEntry(path,bytes,m);
 }
@@ -50,11 +50,12 @@ export function readBeforeCompactEntry(file,options){
  const before=COMPACT_ENTRY_CHANGED.includes(path)?reverseCompactEntry(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeCompactEntry(paths,{manifest=compactEntryManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ if(paths.some(path=>COURTESY_INTEGRATION_ADDED.includes(path)))paths=inventoryBeforeCourtesyIntegration(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate compact-entry inventory');validateCompactEntryManifest(manifest);
  const additions=COMPACT_ENTRY_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  // Preserve the existing API for intentionally older, partial inventories.
  if(!runtimeOnly&&!paths.some(p=>COMPACT_ENTRY_ADDED.includes(p)))return paths;
  for(const path of additions)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
- for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
+ for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=courtesyIntegrationParentBytes(f.path,read(f.path));assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
  return paths.filter(p=>!additions.includes(p));
 }

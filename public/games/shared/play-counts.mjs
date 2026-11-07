@@ -1,7 +1,7 @@
 // Best-effort recorded starts; never awaited by gameplay, no offline queue or heartbeat.
 export async function recordPlayStart(win,game){
  try{
- if(!['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'].includes(game))return;
+ if(!['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb','courtesy-contest'].includes(game))return;
  const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;let deviceId;
  try{deviceId=win.localStorage.getItem('pf-leaderboard-device-v1')}catch{}
  if(!uuid.test(deviceId||'')){deviceId=win.crypto.randomUUID();try{win.localStorage.setItem('pf-leaderboard-device-v1',deviceId)}catch{}}

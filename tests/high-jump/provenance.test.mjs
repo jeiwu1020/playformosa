@@ -1,3 +1,4 @@
+import {readBeforeCourtesyIntegration} from '../helpers/courtesy-integration-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -36,7 +37,7 @@ test('coordination reader preserves encodings and does not rewrite unrelated fil
  assert.deepEqual(p.readBeforeCoordination(url),before);
  assert.equal(p.readBeforeCoordination(url,'utf8'),before.toString());
  assert.equal(p.readBeforeCoordination(url,{encoding:'utf8'}),before.toString());
- const unrelated=new URL('../../package.json',import.meta.url);assert.deepEqual(p.readBeforeCoordination(unrelated),readFileSync(unrelated));
+ const unrelated=new URL('../../package.json',import.meta.url);assert.deepEqual(p.readBeforeCoordination(unrelated),readBeforeCourtesyIntegration(unrelated));
  const bytes=Buffer.from('untouched'),copy=p.reverseCoordination('public/unknown.mjs',bytes);assert.deepEqual(copy,bytes);assert.notEqual(copy,bytes);
 });
 test('direct runner reversal accepts only exact coordination bytes or pinned restored parent bytes',async()=>{

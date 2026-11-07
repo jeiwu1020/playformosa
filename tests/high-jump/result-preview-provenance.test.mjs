@@ -1,3 +1,4 @@
+import {readBeforeCourtesyIntegration} from '../helpers/courtesy-integration-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -30,7 +31,7 @@ test('result-preview additions are checked before removal and unknown inventory 
 });
 test('result-preview reader preserves encodings and leaves live functional tests unchanged',()=>{
  for(const path of p.RESULT_PREVIEW_CHANGED){const url=new URL('../../'+path,import.meta.url),before=p.reverseResultPreview(path,read(path));assert.deepEqual(p.readBeforeResultPreview(url),before);assert.equal(p.readBeforeResultPreview(url,'utf8'),before.toString());assert.equal(p.readBeforeResultPreview(url,{encoding:'utf8'}),before.toString());}
- const unrelated=new URL('../../package.json',import.meta.url);assert.deepEqual(p.readBeforeResultPreview(unrelated),readFileSync(unrelated));
+ const unrelated=new URL('../../package.json',import.meta.url);assert.deepEqual(p.readBeforeResultPreview(unrelated),readBeforeCourtesyIntegration(unrelated));
  for(const path of ['tests/high-jump/approach-instructions.test.mjs','tests/high-jump/result-photo-consistency.test.mjs'])assert.doesNotMatch(read(path).toString(),/readBefore(?:Coordination|ResultPreview|Runners)/);
 });
 test('result-preview composes with coordination and direct runner APIs at exact boundaries',async()=>{

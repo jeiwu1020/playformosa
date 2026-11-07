@@ -16,6 +16,8 @@ function cssGraph(file,seen=new Set()){
  css.walkAtRules('import',rule=>{
   const href=rule.params.match(/(?:url\(\s*)?["']([^"']+)["']/)?.[1];
   assert.ok(href,`readable CSS import in ${file}`);
+  // Network imports are resolved by the browser, not relative filesystem paths.
+  if(/^(?:https?:)?\/\//i.test(href))return;
   cssGraph(path.resolve(path.dirname(file),href.split(/[?#]/)[0]),seen);
  });
  return seen;

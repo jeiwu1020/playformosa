@@ -1,3 +1,4 @@
+import {readBeforeCourtesyIntegration} from './helpers/courtesy-integration-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -30,7 +31,7 @@ test('dialog-layout additions are checked before removal and unknown inventory s
 });
 test('dialog-layout reader preserves encodings and leaves live functional tests unchanged',()=>{
  for(const path of p.DIALOG_LAYOUT_CHANGED){const url=new URL('../'+path,import.meta.url),before=p.reverseDialogLayout(path,read(path));assert.deepEqual(p.readBeforeDialogLayout(url),before);assert.equal(p.readBeforeDialogLayout(url,'utf8'),before.toString());assert.equal(p.readBeforeDialogLayout(url,{encoding:'utf8'}),before.toString());}
- const unrelated=new URL('../package.json',import.meta.url);assert.deepEqual(p.readBeforeDialogLayout(unrelated),readFileSync(unrelated));
+ const unrelated=new URL('../package.json',import.meta.url);assert.deepEqual(p.readBeforeDialogLayout(unrelated),readBeforeCourtesyIntegration(unrelated));
  for(const path of ['tests/high-jump/approach-instructions.test.mjs','tests/high-jump/result-photo-consistency.test.mjs'])assert.doesNotMatch(read(path).toString(),/readBefore(?:Coordination|DialogLayout|Runners)/);
 });
 test('dialog-layout composes with result-preview and direct runner APIs without accepting tampered bytes',async()=>{
