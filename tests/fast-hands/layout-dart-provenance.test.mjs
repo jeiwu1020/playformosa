@@ -1,7 +1,18 @@
 import {readScreenAlphaBaseline} from '../helpers/fast-hands-screen-alpha-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import{readBeforePolish as readFileSync}from'../helpers/upload-toolbar-polish-provenance.mjs';import{createHash}from'node:crypto';
 import{layoutDartLedger,reverseLayoutDart,LAYOUT_DART_ALLOWED}from'../helpers/fast-hands-layout-dart-provenance.mjs';
 const root=new URL('../../',import.meta.url),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
+test('layout and dart CSS reversal is checked independently of unavailable image fixtures',()=>{
+ const ledger=layoutDartLedger();
+ for(const path of ['public/games/fast-hands/style.css','public/games/fast-hands/levels.css']){
+  const row=ledger.files.find(f=>f.path===path),bytes=readFileSync(new URL(path,root));
+  assert.ok(row,path+' has an independently pinned historical row');
+  assert.equal(blob(reverseLayoutDart(path,bytes)),row.baseGitBlob,path+' restores exact historical bytes');
+  assert.throws(()=>reverseLayoutDart(path,Buffer.concat([bytes,Buffer.from('drift')])));
+  const forged=structuredClone(ledger);forged.files.find(f=>f.path===path).baseGitBlob='0'.repeat(40);
+  assert.throws(()=>reverseLayoutDart(path,bytes,forged));
+ }
+});
 test('layout and dart revision admits only six presentation paths and restores the exact published baseline',()=>{
  const ledger=layoutDartLedger();assert.equal(ledger.baseCommit,'440e37c35d5ef7a73a024a492544c3a0935c530b');assert.equal(new Set(ledger.files.map(f=>f.path)).size,ledger.files.length);
  for(const path of ['style.css','levels-world.mjs','levels.css'])assert.ok(ledger.files.some(f=>f.path==='public/games/fast-hands/'+path));

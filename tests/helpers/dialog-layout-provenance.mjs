@@ -1,5 +1,5 @@
 // Reversible desktop-dialog and shared-scrollbar boundary. Gameplay assertions still inspect live files.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeDialogRepair as actual,dialogRepairParentBytes,inventoryBeforeDialogRepair,DIALOG_REPAIR_ADDED} from './dialog-layout-repair-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -32,14 +32,14 @@ export function validateDialogLayoutManifest(m){
  return m;
 }
 export function reverseDialogLayout(path,bytes,m=dialogLayoutManifest()){
- validateDialogLayoutManifest(m);assert.ok(!DIALOG_LAYOUT_ADDED.includes(path),path+' is new dialog-layout scope, not historical source');
+ validateDialogLayoutManifest(m);bytes=dialogRepairParentBytes(path,bytes);assert.ok(!DIALOG_LAYOUT_ADDED.includes(path),path+' is new dialog-layout scope, not historical source');
  const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' dialog-layout current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' dialog-layout current Git blob');return Buffer.from(f.beforeText);
 }
 // A direct inner API may receive live bytes or this independently pinned parent.
 export function dialogLayoutParentBytes(path,bytes,m=dialogLayoutManifest()){
  validateDialogLayoutManifest(m);assert.ok(!DIALOG_LAYOUT_ADDED.includes(path),path+' is new dialog-layout scope, not historical source');
- const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ const f=m.files.find(f=>f.path===path);if(!f)return dialogRepairParentBytes(path,bytes);
  const parent=Buffer.from(f.beforeText);if(Buffer.from(bytes).equals(parent))return parent;
  return reverseDialogLayout(path,bytes,m);
 }
@@ -50,11 +50,12 @@ export function readBeforeDialogLayout(file,options){
  const before=DIALOG_LAYOUT_CHANGED.includes(path)?reverseDialogLayout(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeDialogLayout(paths,{manifest=dialogLayoutManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ if(paths.some(path=>DIALOG_REPAIR_ADDED.includes(path)))paths=inventoryBeforeDialogRepair(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate dialog-layout inventory');validateDialogLayoutManifest(manifest);
  const additions=DIALOG_LAYOUT_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  // Preserve the existing API for intentionally older, partial inventories.
  if(!runtimeOnly&&!paths.some(p=>DIALOG_LAYOUT_ADDED.includes(p)))return paths;
  for(const path of additions)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
- for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
+ for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=dialogRepairParentBytes(f.path,read(f.path));assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
  return paths.filter(p=>!additions.includes(p));
 }
