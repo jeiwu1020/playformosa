@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import {existsSync} from 'node:fs';
+import {readBeforeCourtesyUpgrade as readFileSync} from '../helpers/courtesy-upgrade-provenance.mjs';
 const root=new URL('../../',import.meta.url),manifestUrl=new URL('docs/runners/VISUAL-REVISION-MANIFEST.json',root);
 
 test('approved visual revision has a separate, exact-base provenance record',async()=>{

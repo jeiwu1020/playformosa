@@ -1,5 +1,5 @@
 // Reversible courtesy integration boundary. Gameplay assertions still inspect live files.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeCourtesyUpgrade as actual,courtesyUpgradeParentBytes,inventoryBeforeCourtesyUpgrade} from './courtesy-upgrade-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -32,14 +32,14 @@ export function validateCourtesyIntegrationManifest(m){
  return m;
 }
 export function reverseCourtesyIntegration(path,bytes,m=courtesyIntegrationManifest()){
- validateCourtesyIntegrationManifest(m);assert.ok(!COURTESY_INTEGRATION_ADDED.includes(path),path+' is new courtesy-integration scope, not historical source');
+ validateCourtesyIntegrationManifest(m);bytes=courtesyUpgradeParentBytes(path,bytes);assert.ok(!COURTESY_INTEGRATION_ADDED.includes(path),path+' is new courtesy-integration scope, not historical source');
  const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' courtesy-integration current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' courtesy-integration current Git blob');return Buffer.from(f.beforeText);
 }
 // A direct inner API may receive live bytes or this independently pinned parent.
 export function courtesyIntegrationParentBytes(path,bytes,m=courtesyIntegrationManifest()){
  validateCourtesyIntegrationManifest(m);assert.ok(!COURTESY_INTEGRATION_ADDED.includes(path),path+' is new courtesy-integration scope, not historical source');
- const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ const f=m.files.find(f=>f.path===path);if(!f)return courtesyUpgradeParentBytes(path,bytes);
  const parent=Buffer.from(f.beforeText);if(Buffer.from(bytes).equals(parent))return parent;
  return reverseCourtesyIntegration(path,bytes,m);
 }
@@ -50,11 +50,12 @@ export function readBeforeCourtesyIntegration(file,options){
  const before=COURTESY_INTEGRATION_CHANGED.includes(path)?reverseCourtesyIntegration(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeCourtesyIntegration(paths,{manifest=courtesyIntegrationManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeCourtesyUpgrade(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate courtesy-integration inventory');validateCourtesyIntegrationManifest(manifest);
  const additions=COURTESY_INTEGRATION_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  // Preserve the existing API for intentionally older, partial inventories.
  if(!runtimeOnly&&!paths.some(p=>COURTESY_INTEGRATION_ADDED.includes(p)))return paths;
  for(const path of additions)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
- for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
+ for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=courtesyUpgradeParentBytes(f.path,read(f.path));assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
  return paths.filter(p=>!additions.includes(p));
 }

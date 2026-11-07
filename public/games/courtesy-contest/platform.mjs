@@ -1,6 +1,7 @@
 import {createEntryShell} from '../shared/entry-shell.mjs';
 import {syncPauseButton,createResultDialog} from '../shared/game-ui.mjs';
 import {audioPreferences} from '../shared/audio-preferences.mjs';
+import {mountLeaderboard} from '../shared/leaderboard.mjs';
 import {recordPlayStart} from '../shared/play-counts.mjs';
 import {copyResultFrame,createCourtesySharing} from './share.mjs';
 const $=id=>document.getElementById(id),active=s=>['play','seating','depart'].includes(s.phase);
@@ -20,17 +21,16 @@ export function courtesyAudio(audio,music,prefs=audioPreferences()){
 export function installCourtesyPlatform(scene,audio,music){
  const sharing=createCourtesySharing(document),result=createResultDialog($('result'),{focusTarget:()=>$('result-title'),returnFocus:()=>$('toolbar-restart')});
  const advanced=$('instructions').querySelector('.help-body');advanced.removeAttribute('tabindex');
- const entry=createEntryShell({document,title:'客氣大賽',goal:'你先坐！不，你先坐！發車前坐穩才算贏。',operations:['←／你請坐：互讓完成才計次。','→／謝謝：立刻開始坐下，坐穩需 0.3 秒。','點搶座乘客／空白鍵趕人；倒數 30→20 後隱藏。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
+ const entry=createEntryShell({document,title:'客氣大賽',goal:'30 秒內和對方客氣互讓，次數越多越好；發車前要坐穩，否則就會摔個四腳朝天！',operations:['←／你請坐：互讓完成才計次。','→／謝謝：立刻開始坐下，坐穩需 0.3 秒。','點搶座乘客／空白鍵趕人；倒數 30→20 後隱藏。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
  const originalStart=scene.start.bind(scene),originalPause=scene.pauseRound.bind(scene),originalResume=scene.resumeRound.bind(scene);
  let captureSerial=0;
- scene.start=()=>{if(document.hidden||scene.starting)return;captureSerial++;sharing.reset();result.close();entry.close({restoreView:false});if(scene.tabPaused){scene.tabPaused=false;scene.scene.resume();$('pause-overlay').classList.add('hidden');}originalStart();sync();};
+ scene.start=()=>{if(document.hidden||scene.starting)return;captureSerial++;sharing.reset();leaderboard?.reset();result.close();entry.close({restoreView:false});if(scene.tabPaused){scene.tabPaused=false;scene.scene.resume();$('pause-overlay').classList.add('hidden');}originalStart();sync();};
  scene.pauseRound=()=>{originalPause();if(scene.tabPaused){$('pause-overlay').classList.add('hidden');entry.openPause();entry.dialog.querySelector('[data-pf-pause]')?.append(help);}sync();};
  scene.resumeRound=()=>{if(document.hidden)return;entry.close({restoreView:false});originalResume();sync();};
  entry.configurePause({canContinue:()=>!document.hidden,onContinue:()=>scene.resumeRound(),onRestart:()=>scene.start()});
  const audioAdapter=courtesyAudio(audio,music);entry.setAudio(audioAdapter);
  document.querySelector('[data-pf-music-toggle]')?.setAttribute('data-game-action','music');$('sound').removeAttribute('data-game-action');
- const note=document.createElement('p');note.className='platform-ranking-note';note.textContent='平台排行榜尚未開放；目前只記錄遊玩次數。';entry.dialog.querySelector('details').prepend(note);
- const ranking=()=>{const text=document.createElement('section');text.innerHTML='<h2>平台排行榜尚未開放</h2><p>目前只記錄遊玩次數；成績不會上傳排名。</p>';entry.openView(text,{label:'客氣大賽平台排行榜'});};entry.setRankingAction(ranking);
+ const leaderboard=mountLeaderboard({document,game:'courtesy-contest',entry:entry.dialog,result:$('result'),resultActionContainer:$('result-play'),resultUploadContainer:$('result-upload'),shell:entry});
  const help=document.createElement('button');help.className='pf-menu-row';help.textContent='操作說明與素材授權';help.onclick=()=>entry.open({help:true});entry.dialog.addEventListener('click',()=>{const root=entry.dialog.querySelector('[data-pf-pause]');if(root&&!root.contains(help))root.append(help);});
  $('toolbar-restart').onclick=()=>scene.start();$('toolbar-pause').onclick=()=>scene.tabPaused?scene.resumeRound():scene.pauseRound();$('restart').onclick=()=>scene.start();$('resume').onclick=()=>scene.resumeRound();
  window.addEventListener('blur',()=>scene.pauseRound());
@@ -38,8 +38,8 @@ export function installCourtesyPlatform(scene,audio,music){
  window.addEventListener('keydown',e=>{if(e.target?.closest?.('input,textarea,select,[contenteditable],dialog'))return;if(['p','P','Escape'].includes(e.key)&&active(scene)){e.preventDefault();scene.tabPaused?scene.resumeRound():scene.pauseRound();}});
  $('intro').hidden=true;$('intro').classList.add('hidden');document.querySelector('[data-pf-entry-loading]')?.remove();entry.open();sync();
  function sync(){syncPauseButton($('toolbar-pause'),{paused:scene.tabPaused,available:active(scene)});$('toolbar-restart').disabled=!scene.ready||scene.starting;audioAdapter.sync();}
- return{sync,started(){captureSerial++;sharing.reset();result.close();recordPlayStart(window,'courtesy-contest');sync();},finished(){
-  sync();const token=++captureSerial,data={grade:$('rank').textContent,title:$('result-title').textContent,count:scene.count,bonus:scene.chainBonus,status:$('result-status-text').textContent,remaining:$('result-remaining').textContent};
+ return{sync,started(){captureSerial++;sharing.reset();leaderboard?.reset();result.close();recordPlayStart(window,'courtesy-contest');sync();},finished(){
+  sync();leaderboard?.setResult({phase:'done',seated:scene.seated===true,count:scene.count,remaining:Number.isFinite(scene.seatSettledAtMs)?Math.ceil((30000-scene.seatSettledAtMs)/10)/100:null});const token=++captureSerial,data={grade:$('rank').textContent,title:$('result-title').textContent,count:scene.count,bonus:scene.chainBonus,status:$('result-status-text').textContent,remaining:$('result-remaining').textContent};
   // Keep the stage geometry unchanged. Snapshot its actual final rendered pose.
   const capture=()=>{if(token!==captureSerial||scene.phase!=='result')return;try{sharing.prepare(copyResultFrame(document,scene.game.canvas),data);}catch{$('share-status').textContent='成績圖片暫時無法產生。';}result.open();};
   scene.game.events.once('postrender',capture);

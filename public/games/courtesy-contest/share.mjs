@@ -1,3 +1,4 @@
+import {paintCourtesyScoreCard} from './score-card.mjs';
 import {buildThreadsIntent,copyResultText,saveResultImage} from '../long-jump/share.mjs';
 // Copy inside Phaser's postrender task, before resize can clear its drawing buffer.
 export function copyResultFrame(document,source){
@@ -16,13 +17,8 @@ export function createCourtesySharing(document){
  function reset(){generation++;file=null;frozen=null;result=null;value='';pending=copyPending=false;close();image.disabled=true;image.textContent='製作成績圖…';copy.disabled=true;threads.removeAttribute('href');status.textContent='';$('result-photo').hidden=true;}
  function encode(){
   if(!frozen||!result)return;const token=generation;image.disabled=true;image.textContent='製作成績圖…';status.textContent='';
-  const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=800;const c=canvas.getContext('2d');
   try{
-   c.fillStyle='#fff8e8';c.fillRect(0,0,1080,800);c.fillStyle='#274b3c';c.font='700 25px Arial';c.fillText('PLAYFORMOSA STUDIO · 客氣大賽',48,56);
-   c.font='800 52px Arial';c.fillText(result.grade+' · '+result.title,48,132,984);c.font='700 38px Arial';c.fillText(result.count+' 次互讓'+(result.bonus?' · 連鎖 +'+result.bonus:''),48,195,984);
-   c.font='30px Arial';c.fillText(result.status+'　'+result.remaining,48,250,984);
-   const h=Math.min(410,984*frozen.height/frozen.width),w=h*frozen.width/frozen.height;c.drawImage(frozen,(1080-w)/2,290,w,h);
-   c.fillStyle='#476555';c.font='24px Arial';c.fillText(route,48,754,984);
+   const canvas=paintCourtesyScoreCard(frozen,result,()=>document.createElement('canvas'));
    canvas.toBlob(blob=>{if(token!==generation)return;try{if(!blob?.size||blob.type!=='image/png')throw Error();file=new win.File([blob],'playformosa-courtesy-contest.png',{type:'image/png'});image.disabled=false;image.textContent=mobile()?'分享成績圖片':'下載成績圖片';}catch{failed();}},'image/png');
   }catch{failed();}
   function failed(){if(token!==generation)return;file=null;image.disabled=false;image.textContent='重試製作成績圖';status.textContent='圖片未能完成，可重試；成績文字仍可複製。';}

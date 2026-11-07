@@ -1,5 +1,6 @@
 // Final-round snapshots only. These adapters never read historical local bests.
 export const BOARD_METRICS=Object.freeze({
+ 'courtesy-contest':{rules:'seated-courtesy-v1',unit:'courtesies',status:'seated',direction:'desc',secondary:true,secondaryUnit:'秒'},
  'long-jump':{rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc'},
  hurdles:{rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc'},
  'high-jump':{rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc'},
@@ -16,6 +17,10 @@ export function resultToSubmission(game,r){
  const b=Object.hasOwn(BOARD_METRICS,game)?BOARD_METRICS[game]:null;
  if(!b||!r||r.phase!=='done')return null;
  let score;
+ if(game==='courtesy-contest'){
+  if(r.seated!==true||!Number.isSafeInteger(r.count)||r.count<0||r.count>=Number.MAX_SAFE_INTEGER||typeof r.remaining!=='number'||!Number.isFinite(r.remaining)||r.remaining<0||r.remaining>30)return null;
+  return {score:r.count,status:b.status,secondaryScore:r.remaining};
+ }
  switch(game){
  case 'long-jump':if(r.valid!==true)return null;score=r.legalAdventureKm;break;
  case 'hurdles':score=r.t;if(score>180)return null;break;

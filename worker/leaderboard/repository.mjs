@@ -1,26 +1,26 @@
 const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');
 export class LeaderboardRepository {
  constructor(db,scope){this.db=db;this.scope=scope;}
- ordering(b){return `score ${b.direction==='asc'?'ASC':'DESC'}${b.secondary?',secondary_score DESC':''},device ASC`;}
- better(b,left,right){const op=b.direction==='asc'?'<':'>';return b.secondary?`(${left}.score,${left}.secondary_score)>(${right}.score,${right}.secondary_score)`:`${left}.score ${op} ${right}.score`;}
+ ordering(b){return `score ${b.direction==='asc'?'ASC':'DESC'}${b.secondary?`,secondary_score ${b.secondaryDirection==='asc'?'ASC':'DESC'}`:''},device ASC`;}
+ better(b,left,right){const op=b.direction==='asc'?'<':'>';return b.secondary&&b.secondaryDirection==='asc'?`(${left}.score ${op} ${right}.score OR (${left}.score=${right}.score AND ${left}.secondary_score<${right}.secondary_score))`:b.secondary?`(${left}.score,${left}.secondary_score)>(${right}.score,${right}.secondary_score)`:`${left}.score ${op} ${right}.score`;}
  async top(game,b){return (await this.board(game,b)).entries.map(({nickname,score,...rest})=>({nickname,score,...(b.secondary?{secondaryScore:rest.secondaryScore}:{})}));}
  ownQuery(game,b,device){
   const better=this.better(b,'other','me'),reverse=b.direction==='asc'?'DESC':'ASC';
   const from=`FROM leaderboard_best other WHERE other.scope=me.scope AND other.game=me.game AND other.rules=me.rules AND ${better}`;
-  const order=`ORDER BY other.score ${reverse}${b.secondary?',other.secondary_score ASC':''} LIMIT 1`;
+  const order=`ORDER BY other.score ${reverse}${b.secondary?`,other.secondary_score ${b.secondaryDirection==='asc'?'DESC':'ASC'}`:''} LIMIT 1`;
   return this.db.prepare(`SELECT me.nickname,me.score,me.secondary_score,
    (SELECT count(*)+1 ${from}) AS rank,
    (SELECT other.score ${from} ${order}) AS previous,
    (SELECT other.secondary_score ${from} ${order}) AS previous_secondary
    FROM leaderboard_best me WHERE me.scope=? AND me.game=? AND me.rules=? AND me.device=?`).bind(this.scope,game,b.rules,device||'');
  }
- ownRow(row,b){if(!row)return null;const secondaryGap=b.secondary&&row.previous===row.score;return {nickname:row.nickname,score:row.score,rank:Number(row.rank),gap:row.previous===null?null:Math.abs(secondaryGap?row.previous_secondary-row.secondary_score:row.previous-row.score),...(b.secondary?{secondaryScore:row.secondary_score,gapMetric:row.previous===null?null:secondaryGap?'rating':'catches'}:{})};}
+ ownRow(row,b){if(!row)return null;const secondaryGap=b.secondary&&row.previous===row.score;return {nickname:row.nickname,score:row.score-(b.storageOffset??0),rank:Number(row.rank),gap:row.previous===null?null:Math.abs(secondaryGap?row.previous_secondary-row.secondary_score:row.previous-row.score),...(b.secondary?{secondaryScore:row.secondary_score,gapMetric:row.previous===null?null:secondaryGap?(b.secondaryMetric??'rating'):(b.primaryMetric??'catches')}:{})};}
  async own(game,b,deviceId){return deviceId?this.ownRow(await this.ownQuery(game,b,await digest(this.scope+':'+deviceId)).first(),b):null;}
  async board(game,b,deviceId=null){
   const device=deviceId?await digest(this.scope+':'+deviceId):null;
   const result=await this.db.batch([
    this.db.prepare(`SELECT nickname,score,secondary_score,device FROM leaderboard_best WHERE scope=? AND game=? AND rules=? ORDER BY ${this.ordering(b)} LIMIT 20`).bind(this.scope,game,b.rules),this.ownQuery(game,b,device)]);
-  let rank=0,prior=null,secondary=null;const entries=result[0].results.map((row,i)=>{if(row.score!==prior||(b.secondary&&row.secondary_score!==secondary))rank=i+1;prior=row.score;secondary=row.secondary_score;return {nickname:row.nickname,score:row.score,rank,isMe:device!==null&&row.device===device,...(b.secondary?{secondaryScore:row.secondary_score}:{})};});
+  let rank=0,prior=null,secondary=null;const entries=result[0].results.map((row,i)=>{if(row.score!==prior||(b.secondary&&row.secondary_score!==secondary))rank=i+1;prior=row.score;secondary=row.secondary_score;return {nickname:row.nickname,score:row.score-(b.storageOffset??0),rank,isMe:device!==null&&row.device===device,...(b.secondary?{secondaryScore:row.secondary_score}:{})};});
   return {entries,own:this.ownRow(result[1].results[0],b)};
  }
  async submit(data,b,now){
@@ -36,7 +36,7 @@ export class LeaderboardRepository {
     SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE
     NOT EXISTS(SELECT 1 FROM leaderboard_submissions WHERE scope=? AND device=? AND created_at>? AND game=?)
     AND (SELECT count(*) FROM leaderboard_submissions WHERE scope=? AND day=?)<1000
-    AND (EXISTS(SELECT 1 FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?) OR (SELECT count(*) FROM leaderboard_best WHERE scope=?)<10000)`,this.scope,data.submissionId,payload,device,data.game,data.rules,data.nickname,data.score,now,day,data.secondaryScore??0,this.scope,device,now-60000,data.game,this.scope,day,this.scope,data.game,data.rules,device,this.scope),
+    AND (EXISTS(SELECT 1 FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?) OR (SELECT count(*) FROM leaderboard_best WHERE scope=?)<10000)`,this.scope,data.submissionId,payload,device,data.game,data.rules,data.nickname,data.score+(b.storageOffset??0),now,day,data.secondaryScore??0,this.scope,device,now-60000,data.game,this.scope,day,this.scope,data.game,data.rules,device,this.scope),
    p(`INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at,secondary_score)
      SELECT scope,game,rules,device,nickname,score,created_at,secondary_score FROM leaderboard_submissions WHERE scope=? AND id=? AND payload=?
      ON CONFLICT(scope,game,rules,device) DO UPDATE SET nickname=excluded.nickname,score=excluded.score,updated_at=excluded.updated_at,secondary_score=excluded.secondary_score

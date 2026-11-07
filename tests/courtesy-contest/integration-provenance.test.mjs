@@ -19,10 +19,10 @@ test('courtesy additions have exact inventories and byte hashes',()=>{
 test('courtesy preserves every previous manifest and baseline byte for byte',()=>{
  assert.ok(p);for(const f of p.courtesyIntegrationBaseline.files.filter(f=>/^(docs|tests\/fixtures)\//.test(f.path)&&/(MANIFEST|BASELINE|baseline)\.json$/.test(f.path)))assert.equal(p.gitBlob(read(f.path)),f.gitBlob,f.path);
 });
-test('every materialized parent byte reverses exactly; seven unavailable binaries stay pinned remotely',()=>{
+test('every materialized parent byte reverses exactly; one unavailable historical binary stays pinned remotely',()=>{
  assert.ok(p);const missing=[];
  for(const f of p.courtesyIntegrationBaseline.files){let bytes;try{bytes=read(f.path)}catch(e){if(e.code!=='ENOENT')throw e;missing.push(f.path);continue;}
   assert.equal(p.gitBlob(p.reverseCourtesyIntegration(f.path,bytes)),f.gitBlob,f.path);
  }
- if(missing.length)assert.deepEqual(missing.sort(),['docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png','public/assets/run-1500m-card.png','public/assets/run-400m-card.png','public/games/fast-hands/assets/duel-items-atlas.png','public/games/fast-hands/assets/king-torso-v3.png','public/games/run-1500m/runner-atlas.png','public/games/run-400m/runner-atlas.png'].sort());
+ if(missing.length)assert.deepEqual(missing.sort(),['docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png'].sort());
 });

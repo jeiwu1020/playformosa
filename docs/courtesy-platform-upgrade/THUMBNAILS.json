@@ -1,0 +1,92 @@
+{
+  "baseCommit": "256fb83c78d189640b252ee4333f45ec8146fe5f",
+  "branch": "preview/hurdles",
+  "generation": "Built-in image generation; no API or paid third-party generation",
+  "scope": "Replace only the two existing homepage PNG assets; no catalog, gameplay, CSS, or main changes.",
+  "references": [
+    {
+      "path": "public/assets/sprint-100m-card.png",
+      "gitBlob": "658f67882b9b7906e8d2e9f9a8134b84d36695f5"
+    },
+    {
+      "path": "public/assets/hurdles-card.png",
+      "gitBlob": "db89fb323cfff286621308512a944ee2d62d9824"
+    },
+    {
+      "path": "public/assets/shot-put-card.png",
+      "gitBlob": "a4333c66526a6e7a0d60913960a0610c87e1fcad"
+    }
+  ],
+  "before": [
+    {
+      "path": "public/assets/run-400m-card.png",
+      "gitBlob": "ec29f2d2b4a59ad0b7e5def7265993f2ae8af5e5"
+    },
+    {
+      "path": "public/assets/run-1500m-card.png",
+      "gitBlob": "e83f6b38fc3226a13e39a326b3c07d058ad894cc"
+    }
+  ],
+  "after": [
+    {
+      "path": "public/assets/run-1500m-card.png",
+      "bytes": 1904057,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "487da58c3692a5ce304495d1541da4e14e1d21c41fdf0e2afbdd1d901760beb1",
+      "gitBlob": "2d8e8ce80bf027b4a05dfd13596e6bcdc0c14e5d",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "transparentPixelFraction": 0.5880953470865885,
+      "opaquePixelFraction": 0.0,
+      "subjectBBoxAlpha128": [
+        301,
+        6,
+        1207,
+        1011
+      ]
+    },
+    {
+      "path": "public/assets/run-400m-card.png",
+      "bytes": 2004295,
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "c3594472b108fb777ed22b573de9593d5299ef1e9e29654cf0de1331495aef0d",
+      "gitBlob": "5c6623accb09d55e30f969a0a598f775961c4e87",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "transparentPixelFraction": 0.6487013498942057,
+      "opaquePixelFraction": 0.0,
+      "subjectBBoxAlpha128": [
+        219,
+        15,
+        1204,
+        1004
+      ]
+    }
+  ],
+  "library": [
+    {
+      "path": "assets/run-400m-card.png",
+      "library_file_id": "libfile_8ff3c27974388191ae2f5be9eddb82c9",
+      "file_id": "file_00000000416881f5a106610ae5abf13a",
+      "version": 0
+    },
+    {
+      "path": "assets/run-1500m-card.png",
+      "library_file_id": "libfile_75ea1b3b3d6c8191b9e11b7ec5a348eb",
+      "file_id": "file_00000000dca881f59a786e570c28f16b",
+      "version": 0
+    }
+  ]
+}
