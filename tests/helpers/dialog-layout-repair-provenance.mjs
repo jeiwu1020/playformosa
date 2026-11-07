@@ -50,7 +50,8 @@ export function readBeforeDialogRepair(file,options){
  const before=DIALOG_REPAIR_CHANGED.includes(path)?reverseDialogRepair(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeDialogRepair(paths,{manifest=dialogRepairManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
- if(paths.some(path=>COMPACT_ENTRY_ADDED.includes(path)))paths=inventoryBeforeCompactEntry(paths,{read,runtimeOnly});
+ // Always forward: metadata-only intermediate layers may wrap newer runtime additions.
+ paths=inventoryBeforeCompactEntry(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate dialog-layout-repair inventory');validateDialogRepairManifest(manifest);
  const additions=DIALOG_REPAIR_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  // Preserve the existing API for intentionally older, partial inventories.
