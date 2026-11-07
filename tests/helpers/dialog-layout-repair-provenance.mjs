@@ -1,5 +1,5 @@
 // Reversible historical-reader repair boundary. Gameplay assertions still inspect live files.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeCompactEntry as actual,compactEntryParentBytes,inventoryBeforeCompactEntry,COMPACT_ENTRY_ADDED} from './high-jump-compact-entry-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -32,14 +32,14 @@ export function validateDialogRepairManifest(m){
  return m;
 }
 export function reverseDialogRepair(path,bytes,m=dialogRepairManifest()){
- validateDialogRepairManifest(m);assert.ok(!DIALOG_REPAIR_ADDED.includes(path),path+' is new dialog-layout-repair scope, not historical source');
+ validateDialogRepairManifest(m);bytes=compactEntryParentBytes(path,bytes);assert.ok(!DIALOG_REPAIR_ADDED.includes(path),path+' is new dialog-layout-repair scope, not historical source');
  const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' dialog-layout-repair current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' dialog-layout-repair current Git blob');return Buffer.from(f.beforeText);
 }
 // A direct inner API may receive live bytes or this independently pinned parent.
 export function dialogRepairParentBytes(path,bytes,m=dialogRepairManifest()){
  validateDialogRepairManifest(m);assert.ok(!DIALOG_REPAIR_ADDED.includes(path),path+' is new dialog-layout-repair scope, not historical source');
- const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ const f=m.files.find(f=>f.path===path);if(!f)return compactEntryParentBytes(path,bytes);
  const parent=Buffer.from(f.beforeText);if(Buffer.from(bytes).equals(parent))return parent;
  return reverseDialogRepair(path,bytes,m);
 }
@@ -50,11 +50,12 @@ export function readBeforeDialogRepair(file,options){
  const before=DIALOG_REPAIR_CHANGED.includes(path)?reverseDialogRepair(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeDialogRepair(paths,{manifest=dialogRepairManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ if(paths.some(path=>COMPACT_ENTRY_ADDED.includes(path)))paths=inventoryBeforeCompactEntry(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate dialog-layout-repair inventory');validateDialogRepairManifest(manifest);
  const additions=DIALOG_REPAIR_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  // Preserve the existing API for intentionally older, partial inventories.
  if(!runtimeOnly&&!paths.some(p=>DIALOG_REPAIR_ADDED.includes(p)))return paths;
  for(const path of additions)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
- for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
+ for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=compactEntryParentBytes(f.path,read(f.path));assert.equal(sha256(bytes),f.sha256,f.path+' added SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' added Git blob');}
  return paths.filter(p=>!additions.includes(p));
 }

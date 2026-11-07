@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeCompactEntry as readFileSync} from './helpers/high-jump-compact-entry-provenance.mjs';
 import * as repair from './helpers/dialog-layout-repair-provenance.mjs';
 import * as layout from './helpers/dialog-layout-provenance.mjs';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url));

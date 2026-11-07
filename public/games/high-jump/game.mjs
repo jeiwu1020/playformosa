@@ -43,7 +43,9 @@ function evolve(dt){if(!world||!active||s.paused)return;if(replay){replay.time+=
 function frame(){try{const now=performance.now(),ready=active?clock.frame(now):false;const shown=update();if(world&&active&&!s.paused&&ready)drawSafely(shown,()=>{clock.present(now);if(!replay)audioEvents.update(s,{emitResult:false});if(pendingFinish){pendingFinish=false;finish();}});}catch(error){s.paused=true;clock.pause?.();try{pause(true,'繪圖暫時失敗，按繼續或重來再試。');}catch{}}finally{requestAnimationFrame(frame)}}requestAnimationFrame(frame);
 
 function helpVisit(){leaderboard?.suspend();return suspendHelpPresentation(document,{pause:()=>{interrupt();release();},controllers:{result},dialogs:['paused','result','intro'],after:({restoredDialog})=>{if(!restoredDialog&&active&&s.paused&&(s.phase!=='done'||replay))entry.openPause();}});}
+function mountDesktopEntry(dialog){if(!dialog||dialog.querySelector('.pf-entry-operations-desktop'))return;const original=dialog.querySelector('.pf-entry-operations');if(!original)return;const document=dialog.ownerDocument,compact=document.createElement('div');compact.className='pf-entry-operations-desktop';for(const text of ['助跑：A／S 交替短按，J／K 擺臂平衡。','起跳：長按 A 或 S 蓄力，綠區放開。','過桿：J／K 帶頭肩，髖過桿後 A／S 收腿。']){const p=document.createElement('p');p.textContent=text;compact.append(p);}original.after(compact);}
 const entry=createGameEntry({document,gameId:'high-jump',operations:['助跑：A／S 交替短按，搭配 J／K 擺動手臂、調整平衡。','起跳：長按 A 或 S 蓄力，在綠區放開起跳。','過桿：先按 J／K 帶頭肩過桿，髖部過桿後按 A／S 收腿。'],onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{interrupt();release();},canStart:()=>initialPresentationReady});entry.open();
+mountDesktopEntry(entry.dialog);
 
 entry.setAudio(music);
 

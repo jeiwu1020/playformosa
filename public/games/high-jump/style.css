@@ -42,20 +42,22 @@ dialog{position:fixed;width:min(480px,calc(100vw - 28px));max-height:calc(100dvh
 /* Explicit persistent instructions, never removed when running starts. */
 .pf-game.pf-high-jump #prompt{display:block!important;visibility:visible;flex-shrink:0;overflow-wrap:anywhere}
 
-/* Desktop tickets use the available width; touch/mobile keeps the existing layout. */
+/* Keep the complete mobile copy; only the desktop opening uses compact instructions. */
+.pf-game.pf-high-jump .pf-entry-operations-desktop{display:none;}
 @media (min-width:900px) and (hover:hover) and (pointer:fine){
- .pf-game.pf-high-jump dialog.pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog){width:min(1000px,calc(100vw - 32px))!important;padding:18px!important;}
- .pf-game.pf-high-jump dialog.pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)[open]{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;align-content:start;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket{grid-column:1/-1;margin:-18px -18px 0!important;padding:14px 20px!important;grid-template-columns:minmax(0,1fr) 64px;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket>img{width:64px;height:64px;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket h2{font-size:26px!important;margin:4px 0!important;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-goal{grid-column:1/-1;margin:0!important;font-size:18px!important;line-height:1.5!important;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-operations{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog) .pf-entry-operation{min-width:0;margin:0!important;padding:12px;border:1px solid #c4d1b7;border-radius:14px;background:#f5f0d9;font-size:16px!important;line-height:1.55!important;}
+ .pf-game.pf-high-jump dialog.pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog){width:min(500px,calc(100vw - 24px))!important;max-height:calc(100dvh - 24px)!important;padding:16px!important;overflow:auto!important;overscroll-behavior:contain;}
+ .pf-game.pf-high-jump dialog.pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)[open]{display:grid!important;grid-template-columns:minmax(0,1fr);gap:8px;align-content:start;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket{grid-column:1;margin:-16px -16px 0!important;padding:12px 16px!important;grid-template-columns:minmax(0,1fr) 54px;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket>img{width:54px;height:54px;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-menu-ticket h2{font-size:22px!important;margin:4px 0!important;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-goal{margin:0!important;font-size:16px!important;line-height:1.45!important;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-operations{display:none;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-operations-desktop{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding:10px 12px;border:1px solid #c4d1b7;border-radius:14px;background:#f5f0d9;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-operations-desktop>p{margin:0!important;font-size:17px!important;line-height:1.5!important;}
  .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>details{min-width:0;margin:0!important;align-self:start;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>details>summary{margin:0;min-height:52px;padding:10px 15px;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-start{margin:0!important;align-self:start;}
- .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>:is(.pf-leaderboard,.pf-entry-error){grid-column:1/-1;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>details>summary{margin:0;min-height:44px;padding:8px 12px;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>.pf-entry-start{margin:0!important;min-height:48px;padding:8px 12px;align-self:start;}
+ .pf-game.pf-high-jump .pf-entry:not(.pf-pause-dialog):not(.pf-honor-dialog)>:is(.pf-leaderboard,.pf-entry-error){grid-column:1;}
  .pf-game.pf-high-jump #result{width:min(1080px,calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right)));padding:18px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,1fr);grid-template-rows:repeat(8,auto);grid-auto-rows:max-content;gap:10px 20px;align-content:start;}
  .pf-game.pf-high-jump #result .result-scene{grid-column:1;grid-row:1/8;align-self:start;}
  .pf-game.pf-high-jump #result #resultPhoto{max-height:400px;}
