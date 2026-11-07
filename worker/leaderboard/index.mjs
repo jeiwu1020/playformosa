@@ -14,7 +14,7 @@ export const BOARDS=Object.freeze({
 });
 // Existing schema requires score > 0: courtesy alone stores count + 1 and decodes API reads.
 // Keep the encoded integer safe; no schema migration and no legacy-board score changes.
-export const QA_COURTESY_BOARD=Object.freeze({rules:'seated-courtesy-v1',unit:'courtesies',status:'seated',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,secondary:true,secondaryDirection:'asc',secondaryMax:30,primaryMetric:'courtesies',secondaryMetric:'remaining'});
+export const QA_COURTESY_BOARD=Object.freeze({rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,secondary:true,secondaryDirection:'asc',secondaryMax:30,primaryMetric:'courtesies',secondaryMetric:'remaining'});
 // Pacing revision is QA-only; keep all production contracts unchanged.
 const QA_POLE_VAULT_BOARD=Object.freeze({...BOARDS['pole-vault'],rules:'real-altitude-v3'});
 export const QA_RUNNER_BOARDS=Object.freeze({
@@ -49,6 +49,7 @@ export function validateSubmission(value,scope){
  if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||(b.min!==undefined&&value.score<b.min)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
  if(b.secondary){if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>(b.secondaryMax??10))throw Error('invalid_secondary');}
  else if(Object.hasOwn(value,'secondaryScore')&&value.secondaryScore!==0)throw Error('invalid_secondary');
+ if(value.game==='courtesy-contest'&&(value.secondaryScore<.01||Math.abs(value.secondaryScore*100-Math.round(value.secondaryScore*100))>1e-9))throw Error('invalid_secondary');
  if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\p{Cc}\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');
  if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');
  return Object.fromEntries([...fields,...(b.secondary?['secondaryScore']:[])].map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));

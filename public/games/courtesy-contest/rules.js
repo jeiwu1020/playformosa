@@ -1,8 +1,8 @@
 export const ranks=[{min:12,grade:'SSS',title:'全車廂禮貌擔當',line:'你把座位讓成了非物質文化遺產。'},{min:8,grade:'S',title:'客氣界的太極宗師',line:'這不是讓座，這是兩個人的膝關節外交。'},{min:5,grade:'A',title:'有禮到站不穩',line:'阿姨：這孩子有前途，就是有點難請坐。'},{min:2,grade:'B',title:'禮貌點到為止',line:'有來有往，屁股也有地方安放。'},{min:0,grade:'C',title:'謝謝派務實乘客',line:'客氣是美德，坐著也是。你選擇了腰椎。'}];
 export function resultFor(count,seated,reason){if(reason==='stolen')return{grade:'F',title:'客氣到被插隊',line:'你們還在交換禮貌，人家已經交換座位。'};if(!seated)return{grade:count>=8?'F+':'F',title:count>=8?'站著輸，禮貌贏':'禮貌性滑壘',line:count>=8?'你贏得阿姨的尊重，卻輸給牛頓的定律。':'人還沒坐下，靈魂已經抵達下一站。'};return ranks.find(x=>count>=x.min);}
 
-export function seatedAtDeparture(pose,busy){return pose===4&&!busy;}
-export function seatProgress(count){return Math.min(2,Math.floor(count/4));}
+export function seatedAtDeparture(pose,busy,accepted=false){return accepted===true&&pose===4&&!busy;}
+export function seatProgress(){return 0;}
 export function countdownVisible(remaining){return Number.isFinite(remaining)&&remaining>19;}
 export const THREAT_SECONDS=3;
 export const THREAT_WINDUP=.8;

@@ -98,7 +98,7 @@ test('hidden pause preserves the fastest threat window until explicit Continue',
 
 test('four and eight completed exchanges each award exactly one chain bonus',()=>{
  const h=harness({variation:true});completeOffers(h,4);
- assert.equal(h.s.chainBonus,1);assert.equal(h.s.chainLast,4);assert.equal(h.s.seatReady,false);assert.equal(h.s.player.pose,3);
+ assert.equal(h.s.chainBonus,1);assert.equal(h.s.chainLast,4);assert.equal(h.s.seatReady,false);assert.equal(h.s.player.pose,2);
  const id=h.s.chain;h.s.maybeChain();h.s.maybeChain();assert.equal(h.s.chainBonus,1);assert.equal(h.s.chain,id);
  h.tick(200);assert.equal(activeGestures(h).length,2);assertAudienceSeated(h);
  completeOffers(h,4);assert.equal(h.s.count,8);assert.equal(h.s.chainBonus,2);assert.equal(h.s.chainLast,8);

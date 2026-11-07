@@ -31,15 +31,14 @@ test('a fast player can meet all ten planned intruders in one real round',()=>{
  assert.deepEqual(seen,thresholds.map((count,i)=>({count,speed:speeds[i]})));
  h.s.thank();h.tick(300);assert.equal(replayRun(payload(h),plan).completedCount,26);
 });
-test('briefly returning to the seat does not erase an approaching intruder when offers continue',()=>{
+test('returning to the standing pose does not erase an approaching intruder when offers continue',()=>{
  const h=playing();completed(h,9);h.s.offer();const incoming=h.s.threat;assert.ok(incoming);h.tick(970);
- assert.equal(h.s.seatReady,true);assert.equal(h.s.threat,incoming);
+ assert.equal(h.s.seatReady,false);assert.equal(h.s.threat,incoming);
  h.s.offer();h.tick(970);h.s.offer();h.tick(859);assert.equal(h.s.phase,'play');h.tick(1);assert.equal(h.s.reason,'stolen');
 });
-test('stopping safely seated lets the approaching intruder leave without stealing or scoring an extra exchange',()=>{
+test('stopping after an exchange leaves the seat open to the approaching intruder',()=>{
  const h=playing();completed(h,9);h.s.offer();h.tick(970);assert.ok(h.s.threat);h.tick(1830);
- assert.equal(h.s.threat,null);assert.equal(h.s.seatReady,true);assert.equal(h.s.reason,null);assert.equal(h.s.count,10);
- h.tick(30000-h.now);assert.equal(h.s.seated,true);assert.equal(replayRun(payload(h,'timer'),plan).completedCount,10);
+ assert.equal(h.s.threat,null);assert.equal(h.s.seatReady,false);assert.equal(h.s.reason,'stolen');assert.equal(h.s.count,10);assert.equal(h.s.seated,false);
 });
 test('Thanks still immediately dismisses an intruder and only scores already completed exchanges',()=>{
  const h=playing();completed(h,9);h.s.offer();h.tick(100);h.s.thank();assert.equal(h.s.threat,null);h.tick(300);
@@ -74,8 +73,8 @@ for(const index of [0,2,5,7,8,9])for(const action of ['repel','thank'])for(const
   const replay=replayRun(payload(h),plan);assert.equal(replay.completedCount,h.s.count);assert.equal(replay.seatSettledAtMs,h.s.seatSettledAtMs);
  });
 }
-test('a seated arrival may clear before the next offer, without carrying a stale hazard into a fresh one',()=>{
- const h=playing();completed(h,9);h.s.offer();h.tick(2800);assert.equal(h.s.threat,null);
+test('repelling an arrival clears the hazard without carrying it into a later offer',()=>{
+ const h=playing();completed(h,9);h.s.offer();h.tick(970);h.s.repel();assert.equal(h.s.threat,null);
  h.s.offer();h.tick(970);h.s.offer();assert.ok(h.s.threat);h.s.repel();h.s.thank();h.tick(300);
  assert.equal(replayRun(payload(h),plan).completedCount,h.s.count);
 });

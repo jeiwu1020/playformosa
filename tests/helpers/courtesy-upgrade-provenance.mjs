@@ -1,5 +1,6 @@
 // Exact reversible boundary for the approved courtesy platform and two runner-card upgrade.
-import {readFileSync as actual,statSync} from 'node:fs';
+import {statSync} from 'node:fs';
+import {readBeforeCourtesyResultMobile as actual,courtesyResultMobileParentBytes,inventoryBeforeCourtesyResultMobile} from './courtesy-result-mobile-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -37,11 +38,11 @@ export function validateCourtesyUpgradeManifest(m){
  if(signature!==null)validated.set(m,signature);return m;
 }
 export function reverseCourtesyUpgrade(path,bytes,m=courtesyUpgradeManifest()){
- validateCourtesyUpgradeManifest(m);assert.ok(!COURTESY_UPGRADE_ADDED.includes(path),path+' is new upgrade scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ validateCourtesyUpgradeManifest(m);bytes=courtesyResultMobileParentBytes(path,bytes);assert.ok(!COURTESY_UPGRADE_ADDED.includes(path),path+' is new upgrade scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' current Git blob');return beforeBytes(f);
 }
 export function courtesyUpgradeParentBytes(path,bytes,m=courtesyUpgradeManifest()){
- validateCourtesyUpgradeManifest(m);assert.ok(!COURTESY_UPGRADE_ADDED.includes(path),path+' is new upgrade scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ validateCourtesyUpgradeManifest(m);assert.ok(!COURTESY_UPGRADE_ADDED.includes(path),path+' is new upgrade scope');const f=m.files.find(f=>f.path===path);if(!f)return courtesyResultMobileParentBytes(path,bytes);
  const parent=beforeBytes(f);if(Buffer.from(bytes).equals(parent))return parent;return reverseCourtesyUpgrade(path,bytes,m);
 }
 export function readBeforeCourtesyUpgrade(file,options){
@@ -51,10 +52,11 @@ export function readBeforeCourtesyUpgrade(file,options){
  const before=COURTESY_UPGRADE_CHANGED.includes(path)?reverseCourtesyUpgrade(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeCourtesyUpgrade(paths,{manifest=courtesyUpgradeManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeCourtesyResultMobile(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate upgrade inventory');validateCourtesyUpgradeManifest(manifest);
  if(!paths.some(p=>COURTESY_UPGRADE_ADDED.includes(p)))return paths;
  const additions=COURTESY_UPGRADE_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
  for(const path of additions)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear exactly once');
- for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=read(f.path);assert.equal(sha256(bytes),f.sha256,f.path+' addition SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' addition Git blob');}
+ for(const f of manifest.addedFiles.filter(f=>additions.includes(f.path))){const bytes=courtesyResultMobileParentBytes(f.path,read(f.path));assert.equal(sha256(bytes),f.sha256,f.path+' addition SHA256');assert.equal(gitBlob(bytes),f.gitBlob,f.path+' addition Git blob');}
  return paths.filter(p=>!additions.includes(p));
 }

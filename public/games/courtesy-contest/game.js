@@ -16,7 +16,7 @@ $('sound').onclick=()=>{audio.enabled=!audio.enabled;$('sound').querySelector('s
 $('help').onclick=()=>{if(!['play','seating','depart'].includes(window.__courtesy?.getState().phase))ui.help.showModal();};$('close-help').onclick=()=>ui.help.close();
 
 class CourtesyScene extends Phaser.Scene{
- constructor(){super('Courtesy');this.phase='intro';this.roundId=0;this.count=0;this.remaining=30;this.ready=false;this.lastIntruder=-1;this.threat=null;this.cooldown=0;this.threatChance=.65;this.motionLog=[];this.transients=[];this.seated=false;this.seatReady=false;this.tabPaused=false;this.roundClock=new ActiveRoundClock(30);this.comic=null;this.comicSerial=0;this.comicUsed=0;this.comicLastAt=0;this.lastComic=null;this.partner='aunt';this.lastPartner='';this.chainBonus=0;this.chainLast=0;this.chainSerial=0;this.chain=null;this.starting=false;this.trace=[];this.seatSettledAtMs=null;this.threatPlan=[];this.threatIndex=0;}
+ constructor(){super('Courtesy');this.phase='intro';this.roundId=0;this.count=0;this.remaining=30;this.ready=false;this.lastIntruder=-1;this.threat=null;this.cooldown=0;this.threatChance=.65;this.motionLog=[];this.transients=[];this.seated=false;this.seatReady=false;this.tabPaused=false;this.roundClock=new ActiveRoundClock(30);this.comic=null;this.comicSerial=0;this.comicUsed=0;this.comicLastAt=0;this.lastComic=null;this.partner='aunt';this.lastPartner='';this.chainBonus=0;this.chainLast=0;this.chainSerial=0;this.chain=null;this.starting=false;this.trace=[];this.seatAcceptedAtMs=null;this.seatSettledAtMs=null;this.threatPlan=[];this.threatIndex=0;}
  preload(){
   for(const key of ['office','stubborn'])this.load.image(key,'./assets/'+key+'-v7.png');this.load.json('variation','./assets/variation-v7.json');this.load.spritesheet('seatedNew','./assets/seated-v7.png',{frameWidth:724,frameHeight:724});this.load.spritesheet('seatedGesture','./assets/seated-gesture-v7.png',{frameWidth:724,frameHeight:724});
   this.load.image('metro','./assets/metro.png');this.load.image('people','./assets/commuters.png');this.load.json('frames','./assets/frames.json');
@@ -50,6 +50,8 @@ class CourtesyScene extends Phaser.Scene{
  }
  syncDeadline(now=performance.now()){
   if(!['play','seating'].includes(this.phase)||this.tabPaused)return false;
+  // Acceptance is final; the remaining seating animation is presentation only.
+  if(this.phase==='seating'&&this.seatAcceptedAtMs!==null)return false;
   const elapsedMs=this.roundClock.elapsed(now),elapsed=elapsedMs/1000;this.remaining=this.roundClock.remaining(now);this.cooldown=Math.max(0,(this.cooldownUntil||0)-elapsed);
   if(this.threat){
    const startedAtMs=this.threat.startedAtMs??Math.round(this.threat.startedAt*1000),expiresAtMs=this.threat.expiresAtMs??startedAtMs+Math.round((this.threat.duration||THREAT_SECONDS)*1000);
@@ -57,13 +59,11 @@ class CourtesyScene extends Phaser.Scene{
    // Compare absolute milliseconds, not floating-point seconds subtracted from
    // each other: 5.8 - 4 can otherwise incorrectly leave a 1.8s threat alive.
    if(elapsedMs>=expiresAtMs){
-    // An occupied seat is safe, but briefly returning during repeated offers
-    // does not reset the same newcomer's deadline.
-    if(this.persistentThreats&&this.seatReady&&!this.busy&&this.playerIsSeated()){this.cancelThreat();this.say('坐穩了，沒空可搶！');}
-    else{this.steal();return true;}
+    // Repeated standing offers never cancel an approaching intruder.
+    this.steal();return true;
    }
   }
-  if(this.remaining>0)return false;this.depart(departureIsSafe({seatReady:this.seatReady&&this.playerIsSeated(),busy:this.busy}));return true;
+  if(this.remaining>0)return false;this.depart(false);return true;
  }
  handleVisibilityChange(){if(document.hidden)this.pauseRound();}
  pauseRound(){if(this.tabPaused||!['play','seating','depart'].includes(this.phase))return;const now=performance.now();this.syncDeadline(now);if(['play','seating'].includes(this.phase))this.recordEvent('pause',{},now);this.roundClock.pause(now);this.tabPaused=true;music.pausedByGame=true;music.audio.pause();audio.context?.suspend();ui.pause.classList.remove('hidden');ui.pause.scrollTop=0;this.scene.pause();this.writeDiagnostics();}
@@ -124,7 +124,7 @@ class CourtesyScene extends Phaser.Scene{
   for(const x of xs)for(const y of ys)edges.push((x*Math.cos(rad)-y*Math.sin(rad))*sc);
   return Phaser.Math.Clamp(desired,7-Math.min(...edges),this.W-7-Math.max(...edges));
  }
- playerSeatX(){return this.count>=8?this.seatX:this.px+Math.min(1,this.count/8)*(this.seatX-this.px);}
+ playerSeatX(){return this.px;}
  paintVacancy(){this.seatGlow.clear();if(this.seated||this.stolen||this.seatReady)return;this.seatGlow.fillStyle(0xffe29b,.5).fillRoundedRect(this.seatX-this.vacancyWidth/2,this.seatY-this.H*.018,this.vacancyWidth,this.H*.075,8).lineStyle(3,0xffefbd,.9).strokeRoundedRect(this.seatX-this.vacancyWidth/2,this.seatY-this.H*.018,this.vacancyWidth,this.H*.075,8);}
  pose(actor,frame){
   if(!actor?.active)return;const isAunt=actor===this.aunt;let key='people',index=(isAunt?6:0)+frame,meta=this.frameData[index],feet=isAunt?492:484,scale=this.baseScale*(isAunt?1.05:1.15);
@@ -152,7 +152,7 @@ class CourtesyScene extends Phaser.Scene{
   launch(null);
  }
  startRound(run=null){
-  this.rankingRunId=run?.runId||null;this.rankingSubmitted=false;this.trace=[];this.seatSettledAtMs=null;this.departureTiming=null;this.threatPlan=Array.isArray(run?.plan)?run.plan.map(event=>({...event})):createThreatPlan(Math.random);this.threatIndex=0;this.pressureThreats=isPressureThreatPlan(this.threatPlan);this.persistentThreats=this.pressureThreats||isEscalatingThreatPlan(this.threatPlan);
+  this.rankingRunId=run?.runId||null;this.rankingSubmitted=false;this.trace=[];this.seatAcceptedAtMs=null;this.seatSettledAtMs=null;this.departureTiming=null;this.threatPlan=Array.isArray(run?.plan)?run.plan.map(event=>({...event})):createThreatPlan(Math.random);this.threatIndex=0;this.pressureThreats=isPressureThreatPlan(this.threatPlan);this.persistentThreats=this.pressureThreats||isEscalatingThreatPlan(this.threatPlan);
   ui.app.classList.remove('is-result');ui.app.classList.remove('is-intro');ui.controls.hidden=false;this.cancelChain();this.chainBonus=0;this.chainLast=0;if(this.variation){this.partner=choosePartner(Math.random(),this.lastPartner);this.lastPartner=this.partner;}this.cancelComicEvent();this.comicUsed=0;this.comicLastAt=0;this.lastComic=null;this.wallStartedAt=performance.now();this.roundClock.start(this.wallStartedAt);this.seatReady=false;music.pausedByGame=false;ui.pause.classList.add('hidden');
   this.roundId++;this.time.removeAllEvents();this.tweens.killAll();this.transients.forEach(t=>t.destroy());this.transients=[];for(const p of this.spectators){p.reaction?.destroy();p.reaction=null;p.sprite.angle=0;this.spectatorPose(p);}
   this.phase='play';this.count=0;this.remaining=30;this.seated=false;this.stolen=false;this.reason=null;this.busy=false;this.cooldown=0;this.cooldownUntil=0;this.threatChance=.65;this.cancelThreat();this.banner.setText('');this.motionLog=[];this.player.setAngle(0).setAlpha(1);this.aunt.setAngle(0).setAlpha(1);this.player.lift=0;this.aunt.lift=0;this.player.pose=2;this.aunt.pose=1;this.layout();
@@ -162,17 +162,17 @@ class CourtesyScene extends Phaser.Scene{
   const acceptedNow=performance.now();if(this.syncDeadline(acceptedNow)||this.tabPaused||this.phase!=='play'||this.busy||ui.help.open||document.hidden)return;
   const offerEvent=this.recordEvent('offer',{},acceptedNow);this.cancelComicEvent();this.seatReady=false;this.seatSettledAtMs=null;this.paintVacancy();this.maybeThreat(offerEvent.atMs);this.busy=true;ui.offer.disabled=true;
   const nextCount=this.count+1,lines=partnerLines(this.count,this.partner),motion=courtesyMotion(this.count);
-  this.flourish(this.player,motion,1);this.flourish(this.aunt,motion,-1);this.say(lines[0]);ui.status.textContent=lines[0];this.sequence(this.player,[3,2,0,1],65);this.tweens.add({targets:this.player,x:this.px-this.W*motion.reach,duration:240,ease:'Sine.easeInOut'});this.tweens.add({targets:this.aunt,x:this.seatX+this.W*.03,duration:300,ease:'Sine.easeInOut'});this.sequence(this.aunt,[0,2,3,Math.min(4,2+Math.floor(this.count/3))],85);
+  this.flourish(this.player,motion,1);this.flourish(this.aunt,motion,-1);this.say(lines[0]);ui.status.textContent=lines[0];this.sequence(this.player,[3,2,0,1],65);this.tweens.add({targets:this.player,x:this.px-this.W*motion.reach,duration:240,ease:'Sine.easeInOut'});this.tweens.add({targets:this.aunt,x:this.seatX+this.W*.03,duration:300,ease:'Sine.easeInOut'});this.sequence(this.aunt,[0,2,3,2],85);
   audio.play('offer');this.transient(nextCount>=8?'客氣到極限！':nextCount>=4?'禮貌反擊！':'請！',this.W*.5,this.H*.43);
   this.later(540,()=>{
    if(this.phase!=='play')return;this.say(lines[1]);ui.status.textContent=lines[1];this.sequence(this.aunt,[3,2,0,1],65);this.tweens.add({targets:this.aunt,x:this.ax,duration:270,ease:'Sine.easeInOut'});
-   this.tweens.add({targets:this.player,x:nextCount>=8?this.seatX:this.px+nextCount/8*(this.seatX-this.px),duration:330,ease:'Sine.easeInOut'});this.sequence(this.player,[0,2,3,Math.min(4,2+Math.floor(nextCount/4))],90);audio.play('reply');
+   this.tweens.add({targets:this.player,x:this.px,duration:330,ease:'Sine.easeInOut'});this.sequence(this.player,[0,2,3,2],90);audio.play('reply');
    this.later(430,()=>{
-    if(this.phase!=='play')return;const aligned=nextCount>=8&&this.playerIsSeated(),completedNow=performance.now();if(this.syncDeadline(completedNow))return;
-    this.count=nextCount;ui.count.textContent=String(this.count);this.busy=false;this.seatReady=aligned;
-    const completion=this.recordEvent('complete',{seated:this.seatReady},completedNow);if(this.seatReady)this.seatSettledAtMs=completion.atMs;this.paintVacancy();ui.offer.disabled=false;
+    if(this.phase!=='play')return;const completedNow=performance.now();if(this.syncDeadline(completedNow))return;
+    this.count=nextCount;ui.count.textContent=String(this.count);this.busy=false;this.seatReady=false;
+    this.recordEvent('complete',{seated:false},completedNow);this.paintVacancy();ui.offer.disabled=false;
     if(this.count%3===0)this.react('courtesy');
-    if(this.seatReady){ui.status.textContent='坐穩了，還要再讓嗎？';if(this.threat){if(this.persistentThreats)ui.status.textContent='坐穩就安全，起身前先趕走他！';else{this.cancelThreat();this.say('坐穩了，沒空可搶！');}}}
+
     this.maybeChain();if(!this.threat&&!this.maybeComicEvent()&&this.count%3===0)this.say('路人：'+passengerQuip(this.count),1400);
    });
   });
@@ -234,25 +234,25 @@ class CourtesyScene extends Phaser.Scene{
  }
  thank(){
   const acceptedNow=performance.now();if(this.syncDeadline(acceptedNow)||this.tabPaused||this.phase!=='play'||ui.help.open||document.hidden)return;
-  this.recordEvent('thanks',{},acceptedNow);this.seatSettledAtMs=null;this.cancelComicEvent();this.cancelChain();this.phase='seating';this.roundId++;this.cancelThreat();this.busy=true;this.seatReady=false;ui.offer.disabled=true;ui.thanks.disabled=true;this.tweens.killTweensOf(this.player);this.tweens.killTweensOf(this.aunt);this.player.setAngle(0);this.aunt.setAngle(0);this.player.lift=0;this.aunt.lift=0;this.say('謝謝！我就坐了！');ui.status.textContent='謝謝，坐下囉！';
+  this.recordEvent('thanks',{},acceptedNow);this.seatAcceptedAtMs=this.roundClock.elapsed(acceptedNow);this.seated=true;this.seatSettledAtMs=null;this.cancelComicEvent();this.cancelChain();this.phase='seating';this.roundId++;this.cancelThreat();this.busy=true;this.seatReady=false;ui.offer.disabled=true;ui.thanks.disabled=true;this.tweens.killTweensOf(this.player);this.tweens.killTweensOf(this.aunt);this.player.setAngle(0);this.aunt.setAngle(0);this.player.lift=0;this.aunt.lift=0;this.say('謝謝！我就坐了！');ui.status.textContent='謝謝，坐下囉！';
   this.tweens.add({targets:this.player,x:this.seatX,duration:250,ease:'Sine.easeInOut'});this.tweens.add({targets:this.aunt,x:this.gripPlacement().x,duration:220,ease:'Sine.easeInOut'});this.sequence(this.player,[2,3,4],110);this.sequence(this.aunt,[0,6],220);audio.play('reply');
   this.later(300,()=>{
-   this.seatReady=this.playerIsSeated();const settledNow=performance.now(),settledTiming=this.timing(settledNow);this.busy=false;
-   // Validate the deadline at the actual pose commit, then keep that one sample
-   // for both the seated event and departure even if rendering/GC takes longer.
-   if(this.roundClock.expired(settledNow)){this.seatReady=false;this.depart(false,'timer',settledTiming);return;}
+   // Commit the completed animation pose even when a stalled frame runs timers before tweens.
+   this.tweens.killTweensOf(this.player);this.player.x=this.seatX;this.pose(this.player,4);
+   this.seatReady=true;const settledNow=performance.now(),settledTiming=this.timing(settledNow);this.busy=false;
+   // The accepted press already locked success; never recheck its deadline here.
    if(this.seatReady)this.seatSettledAtMs=this.recordEvent('seated',{},settledNow).atMs;
    this.depart(this.seatReady,'thanks',settledTiming);
   });
  }
  depart(seated,reason='timer',timingSnapshot=null){
-  if(this.phase==='depart'||this.phase==='result')return;seated=seated===true&&this.seatReady&&this.playerIsSeated()&&!this.busy;const departed=timingSnapshot||this.timing();this.departureTiming={finishedAtMs:departed.atMs,wallElapsedMs:departed.wallMs};this.cancelComicEvent();this.cancelChain();this.player.lift=0;this.aunt.lift=0;this.phase='depart';ui.controls.hidden=true;this.roundId++;this.busy=true;this.seated=seated;this.reason=reason;if(reason!=='stolen')this.cancelThreat();ui.offer.disabled=true;ui.thanks.disabled=true;ui.timer.classList.remove('timer-hidden');ui.timer.removeAttribute('aria-hidden');$('time-label').textContent='列車狀態';ui.clock.textContent='發車';ui.clock.nextElementSibling.hidden=true;this.clearSpeech();this.banner.setText(seated?'坐好了，出發！':reason==='stolen'?'位子被搶走啦！':'哎呀！發車了！');this.cameras.main.shake(450,seated?.004:.009);audio.play('depart');this.tweens.killTweensOf(this.player);this.tweens.killTweensOf(this.aunt);this.roundClock.pause(performance.now());this.paintVacancy();
+  if(this.phase==='depart'||this.phase==='result')return;seated=seated===true&&departureIsSafe({accepted:Number.isFinite(this.seatAcceptedAtMs),seatReady:this.seatReady&&this.playerIsSeated(),busy:this.busy});const departed=timingSnapshot||this.timing();this.departureTiming={finishedAtMs:departed.atMs,wallElapsedMs:departed.wallMs};this.cancelComicEvent();this.cancelChain();this.player.lift=0;this.aunt.lift=0;this.phase='depart';ui.controls.hidden=true;this.roundId++;this.busy=true;this.seated=seated;this.reason=reason;if(reason!=='stolen')this.cancelThreat();ui.offer.disabled=true;ui.thanks.disabled=true;ui.timer.classList.remove('timer-hidden');ui.timer.removeAttribute('aria-hidden');$('time-label').textContent='列車狀態';ui.clock.textContent='發車';ui.clock.nextElementSibling.hidden=true;this.clearSpeech();this.banner.setText(seated?'坐好了，出發！':reason==='stolen'?'位子被搶走啦！':'哎呀！發車了！');this.cameras.main.shake(450,seated?.004:.009);audio.play('depart');this.tweens.killTweensOf(this.player);this.tweens.killTweensOf(this.aunt);this.roundClock.pause(performance.now());this.paintVacancy();
   if(seated){this.pose(this.aunt,6);this.pose(this.player,4);this.tweens.add({targets:this.player,angle:3,duration:140,yoyo:true,repeat:3});ui.status.textContent='你坐穩，對手抓穩！';}
   else{this.pose(this.player,5);this.pose(this.aunt,5);this.player.x=this.silhouetteX(this.player,this.W*.34);this.aunt.x=this.silhouetteX(this.aunt,this.W*.72);this.player.angle=0;this.aunt.angle=0;this.tweens.add({targets:this.player,x:this.silhouetteX(this.player,this.W*.29,-8),y:this.player.restY+this.H*.025,angle:-8,duration:580,ease:'Bounce.easeOut'});this.tweens.add({targets:this.aunt,x:this.silhouetteX(this.aunt,this.W*.75,8),y:this.aunt.restY+this.H*.015,angle:8,duration:600,ease:'Bounce.easeOut'});ui.status.textContent=reason==='stolen'?'空位被搶，兩個一起摔！':'沒坐穩，兩個一起摔！';this.later(300,()=>{audio.play('fall');this.transient('咚！',this.W*.34,this.H*.72,'#ffe0ac',this.mobile?38:56);});}
   this.later(1800,()=>this.finish(seated));
  }
  finish(seated){
-  this.phase='result';ui.app.classList.add('is-result');music.stop();$('help').disabled=false;this.banner.setText('');const r=resultFor(this.count+this.chainBonus,seated,this.reason);$('rank').textContent=r.grade;$('result-title').textContent=r.title;$('result-comment').textContent=this.reason==='stolen'?INTRUDERS[this.stolenBy].stolen:r.line.replace('阿姨：',PARTNERS.find(p=>p.id===this.partner).name+'：');$('result-count').textContent=String(this.count);$('result-bonus').textContent=this.chainBonus?'連鎖 +'+this.chainBonus:'';$('result-bonus').hidden=!this.chainBonus;$('result-status').textContent=seated?'✓':'哎呀';$('result-status-text').textContent=seated?'安全入座':this.reason==='stolen'?'空位被搶':'屁股落地';$('result-kicker').textContent=seated?'本班列車 · 安全發車':'本班列車 · 禮貌事故';ui.result.classList.remove('hidden');ui.result.scrollTop=0;if($('result-remaining'))$('result-remaining').textContent=seated&&this.seatSettledAtMs!==null?'坐穩時剩 '+(Math.ceil((30000-this.seatSettledAtMs)/10)/100).toFixed(2)+' 秒':'—';if(seated){audio.play('win');}window.courtesyPlatform?.finished(this);
+  this.phase='result';ui.app.classList.add('is-result');music.stop();$('help').disabled=false;this.banner.setText('');const r=resultFor(this.count+this.chainBonus,seated,this.reason);$('rank').textContent=r.grade;$('result-title').textContent=r.title;$('result-comment').textContent=this.reason==='stolen'?INTRUDERS[this.stolenBy].stolen:r.line.replace('阿姨：',PARTNERS.find(p=>p.id===this.partner).name+'：');$('result-count').textContent=String(this.count);$('result-bonus').textContent=this.chainBonus?'連鎖 +'+this.chainBonus:'';$('result-bonus').hidden=!this.chainBonus;$('result-status').textContent=seated?'✓':'哎呀';$('result-status-text').textContent=seated?'安全入座':this.reason==='stolen'?'空位被搶':'屁股落地';$('result-kicker').textContent=seated?'本班列車 · 安全發車':'本班列車 · 禮貌事故';ui.result.classList.remove('hidden');ui.result.scrollTop=0;if($('result-remaining'))$('result-remaining').textContent=seated&&this.seatAcceptedAtMs!==null?'按下謝謝時剩 '+(Math.ceil((30000-this.seatAcceptedAtMs)/10)/100).toFixed(2)+' 秒':'—';if(seated){audio.play('win');}window.courtesyPlatform?.finished(this);
  }
  update(time,delta){
   if(!this.ready)return;const paused=this.tabPaused||document.hidden||ui.help.open;
@@ -263,7 +263,7 @@ class CourtesyScene extends Phaser.Scene{
   if(!this.lastDiagnostics||time-this.lastDiagnostics>100){this.lastDiagnostics=time;this.writeDiagnostics();}
  }
  writeDiagnostics(){window.courtesyPlatform?.sync(this);const root=$('game');Object.assign(root.dataset,{phaser:Phaser.VERSION,composition:this.mobile?'portrait':'desktop',adultScale:this.baseScale.toFixed(6),audience:String(this.spectators.filter(p=>p.sprite.visible).length),floorY:this.floorY.toFixed(2),phase:this.phase,count:String(this.count),comic:this.comic?.kind||'none',comicUsed:String(this.comicUsed),partner:this.partner,chainBonus:String(this.chainBonus),aligned:String(this.playerIsSeated()),gestureLevel:String(courtesyMotion(this.count).level),seatReady:String(this.seatReady),seatSettledAtMs:this.seatSettledAtMs===null?'':String(this.seatSettledAtMs),paused:String(this.tabPaused),remaining:this.roundClock.remaining(performance.now()).toFixed(3),playerFrame:String(this.player.pose),auntFrame:String(this.aunt.pose),threat:this.threat?INTRUDERS[this.threat.type].name:'none',threatTexture:this.intruder.texture.key,threatElapsed:this.threat?this.threat.elapsed.toFixed(2):'',reason:this.reason||'',timerVisible:String(!ui.timer.classList.contains('timer-hidden')),musicPlaying:String(!music.audio.paused),musicBackend:music.audio.backend||'',musicState:music.audio.state||'',musicLoad:music.audio.loadState||'',musicTime:Number(music.audio.currentTime||0).toFixed(3),musicDuration:Number(music.audio.duration||0).toFixed(3),musicRate:music.audio.playbackRate.toFixed(3),musicBlocked:String(music.blocked),seatY:this.seatY.toFixed(2),playerBounds:JSON.stringify(this.player.getBounds()),auntBounds:JSON.stringify(this.aunt.getBounds())});}
- debugState(){return{phase:this.phase,count:this.count,remaining:this.roundClock.remaining(performance.now()),seatReady:this.seatReady,seatSettledAtMs:this.seatSettledAtMs,rankingRunId:this.rankingRunId,paused:this.tabPaused,busy:this.busy,comic:this.comic?.kind||null,comicUsed:this.comicUsed,threat:this.threat,cooldown:this.cooldown,seated:this.seated,reason:this.reason,playerFrame:this.player.pose,auntFrame:this.aunt.pose,motionLog:[...this.motionLog]};}
+ debugState(){return{phase:this.phase,count:this.count,remaining:this.roundClock.remaining(performance.now()),seatReady:this.seatReady,seatAcceptedAtMs:this.seatAcceptedAtMs,seatSettledAtMs:this.seatSettledAtMs,rankingRunId:this.rankingRunId,paused:this.tabPaused,busy:this.busy,comic:this.comic?.kind||null,comicUsed:this.comicUsed,threat:this.threat,cooldown:this.cooldown,seated:this.seated,reason:this.reason,playerFrame:this.player.pose,auntFrame:this.aunt.pose,motionLog:[...this.motionLog]};}
 }
 // Native DOM buttons own pointer activation; Phaser keeps keyboard input only.
 // Avoid its default touch/wheel preventDefault so browser pinch and page scroll survive.

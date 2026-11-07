@@ -29,7 +29,7 @@ test('download card follows platform 1080 by 1180 hierarchy and preserves the ac
  assert.equal(typeof paint,'function');
  const text=[],images=[],ctx={fillRect(){},strokeRect(){},fillText(t,x,y){text.push({t,x,y,font:this.font});},measureText(t){const size=Number(this.font.match(/(\d+)px/)[1]);return{width:[...t].length*size*.65,actualBoundingBoxAscent:size*.8,actualBoundingBoxDescent:size*.2}},drawImage(...args){images.push(args)}};
  const canvas={getContext:()=>ctx},frame={width:954,height:360};
- const out=paint(frame,{grade:'S',title:'客氣冠軍',count:12,bonus:3,status:'安全入座',remaining:'坐穩時剩 0.58 秒'},()=>canvas);
+ const out=paint(frame,{grade:'S',title:'客氣冠軍',count:12,bonus:3,status:'安全入座',remaining:'按下謝謝時剩 0.58 秒'},()=>canvas);
  assert.equal(out.width,1080);assert.equal(out.height,1180);
  assert.equal(text[0].t,'PLAYFORMOSA STUDIO');assert.equal(text[1].t,'客氣大賽');
  assert.ok(text.some(x=>x.t==='12 次互讓'));assert.ok(text.some(x=>x.t.includes('0.58 秒')));
@@ -39,4 +39,4 @@ test('download card follows platform 1080 by 1180 hierarchy and preserves the ac
  assert.ok(text.every(x=>x.y>0&&x.y<1180));
 });
 
-test('entry explains the 30 second mutual-offer goal and safe-seating risk concisely',()=>{const source=read('public/games/courtesy-contest/platform.mjs');assert.match(source,/30 秒內和對方客氣互讓，次數越多越好；發車前要坐穩，否則就會摔個四腳朝天！/);assert.match(source,/坐穩需 0\.3 秒/);});
+test('entry explains the 30 second mutual-offer goal and safe-seating risk concisely',()=>{const source=read('public/games/courtesy-contest/platform.mjs');assert.match(source,/30 秒內和對方客氣互讓，次數越多越好；發車前有效按下謝謝就確認成功並記錄時間，沒按會跌倒！/);assert.match(source,/0\.3 秒坐下動畫不影響成績/);});

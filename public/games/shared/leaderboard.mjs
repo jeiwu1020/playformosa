@@ -6,7 +6,7 @@ import {BOARD_METRICS as boards,resultToSubmission} from './leaderboard-metrics.
 export const eligibleResult=resultToSubmission;
 const displayUnits={km:'公里',s:'秒',m:'公尺',catches:'根',points:'分',courtesies:'次'};
 const boardLabels={
- 'courtesy-contest':['客氣大賽','安全入座才入榜；先比讓座次數，同次數以坐穩時剩餘秒數越接近零越前面。'],
+ 'courtesy-contest':['客氣大賽','發車前有效按下謝謝才入榜；先比互讓完成次數，同次數以按下時剩餘秒數越接近零越前面。'],
  'long-jump':['跳遠','合法落地，越遠越好。'],hurdles:['110公尺跨欄','越快越好，欄杆不是扶手。'],
  'high-jump':['跳高','成功過桿高度，越高越好。'],'pole-vault':['撐竿跳','最高高度，四肢向天空報到。'],
  'shot-put':['鉛球','有效距離，重物也想去旅行。'],discus:['鐵餅','有效距離，跟著風去兜一圈。'],

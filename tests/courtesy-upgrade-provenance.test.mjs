@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import * as p from './helpers/courtesy-upgrade-provenance.mjs';
+import {courtesyResultMobileParentBytes} from './helpers/courtesy-result-mobile-provenance.mjs';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url));
 test('upgrade reconstructs its complete remote parent and rejects invented history',()=>{
  assert.equal(p.verifyCourtesyUpgradeBase(p.courtesyUpgradeBaseline),true);
@@ -29,7 +30,7 @@ test('historical manifests, database schemas, gameplay and other materialized so
  const missing=[];
  for(const f of p.courtesyUpgradeBaseline.files){let live;try{live=read(f.path);}catch(e){if(e.code!=='ENOENT')throw e;missing.push(f.path);continue;}
   assert.equal(p.gitBlob(p.reverseCourtesyUpgrade(f.path,live)),f.gitBlob,f.path);
-  if(/^(docs|tests\/fixtures)\//.test(f.path)||/^worker\/.*\.sql$/.test(f.path)||f.path==='public/games/courtesy-contest/game.js')assert.equal(p.gitBlob(live),f.gitBlob,f.path+' immutable original');
+  if(/^(docs|tests\/fixtures)\//.test(f.path)||/^worker\/.*\.sql$/.test(f.path)||f.path==='public/games/courtesy-contest/game.js')assert.equal(p.gitBlob(courtesyResultMobileParentBytes(f.path,live)),f.gitBlob,f.path+' immutable original after the exact follow-up reversal');
  }
  // A complete checkout has no omissions; a sparse local snapshot may lack only this pinned legacy binary.
  if(missing.length)assert.deepEqual(missing,['docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png']);

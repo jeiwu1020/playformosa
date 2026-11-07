@@ -25,8 +25,8 @@ for(const [at,windup,travel] of [[0,800,3000],[9999,800,3000],[10000,700,850],[1
   const x=h.s.intruder.x;h.tick(windup-1);assert.equal(h.s.intruder.x,x);h.tick(2);assert.notEqual(h.s.intruder.x,x);
  });
 }
-test('late density never starts an unrequested encounter while the player is resting safely',()=>{
- const h=playing();completed(h,8);h.tick(21000-h.now);assert.equal(h.s.threat,null);assert.equal(h.s.threatIndex,3);assert.equal(h.s.seatReady,true);
+test('late density never starts an unrequested encounter while the player rests standing',()=>{
+ const h=playing();completed(h,8);h.tick(21000-h.now);assert.equal(h.s.threat,null);assert.equal(h.s.threatIndex,3);assert.equal(h.s.seatReady,false);
 });
 test('no late encounter starts without its whole 950ms reaction window plus the departure margin',()=>{
  for(const [at,expected]of [[28550,true],[28551,false]]){const h=playing();h.s.count=3;h.now=at;h.s.offer();assert.equal(Boolean(h.s.threat),expected);}

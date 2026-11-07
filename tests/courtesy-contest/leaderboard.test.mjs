@@ -5,24 +5,24 @@ import {database} from '../helpers/leaderboard-sqlite.mjs';
 import {validateSubmission,handleRequest} from '../../worker/leaderboard/index.mjs';
 import {mountLeaderboard,eligibleResult} from '../../public/games/shared/leaderboard.mjs';
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
-const payload=(n=1,score=8,secondaryScore=1,extra={})=>({game:'courtesy-contest',rules:'seated-courtesy-v1',unit:'courtesies',status:'seated',score,secondaryScore,nickname:'客氣玩家',deviceId:id(n),submissionId:id(n),...extra});
+const payload=(n=1,score=8,secondaryScore=1,extra={})=>({game:'courtesy-contest',rules:'press-courtesy-v2',unit:'courtesies',status:'seated',score,secondaryScore,nickname:'客氣玩家',deviceId:id(n),submissionId:id(n),...extra});
 const fixture=async()=>{const db=await database(),env={DB:db,LEADERBOARD_ENABLED:'true',LEADERBOARD_SCOPE:'qa',LEADERBOARD_ORIGIN:'https://qa.example'};return {db,env,post:(p,time=100000)=>handleRequest(new Request('https://qa.example/api/leaderboard/submissions',{method:'POST',headers:{Origin:env.LEADERBOARD_ORIGIN,'Content-Type':'application/json'},body:typeof p==='string'?p:JSON.stringify(p)}),env,time),board:async device=>(await handleRequest(new Request('https://qa.example/api/leaderboard?game=courtesy-contest',{headers:device?{'X-Leaderboard-Device':id(device)}:{}}),env)).json()};};
 test('courtesy strict QA contract permits seated zero and rejects invalid bounds/status/extra fields',()=>{
  assert.equal(validateSubmission(payload(1,0,30),'qa').score,0);
- assert.equal(validateSubmission(payload(1,1,0),'qa').secondaryScore,0);
+ assert.equal(validateSubmission(payload(1,1,.01),'qa').secondaryScore,.01);
  for(const change of [{score:-1},{score:.5},{score:Number.MAX_SAFE_INTEGER},{score:Number.MAX_SAFE_INTEGER+1},{score:Infinity},{score:NaN},{secondaryScore:-.01},{secondaryScore:30.01},{secondaryScore:NaN},{secondaryScore:'1'},{secondaryScore:undefined},{status:'failed'},{status:'done'},{rules:'old'},{unit:'s'},{seated:true}])assert.throws(()=>validateSubmission({...payload(),...change},'qa'));
  assert.throws(()=>validateSubmission(payload(),'production'));
 });
 test('SQLite courtesy ranks count DESC / remaining ASC, ties and own nearest gap; best tuple updates only',async t=>{
  const f=await fixture();t.after(()=>f.db.raw.close());
- for(const [n,count,seconds] of [[1,8,1],[2,8,1],[3,8,2],[4,7,0],[5,0,30]])assert.equal((await f.post(payload(n,count,seconds))).status,200);
- let b=await f.board(3);assert.deepEqual(b.entries.map(x=>[x.score,x.secondaryScore,x.rank]),[[8,1,1],[8,1,1],[8,2,3],[7,0,4],[0,30,5]]);assert.equal(b.own.rank,3);assert.equal(b.own.gap,1);assert.equal(b.own.gapMetric,'remaining');
+ for(const [n,count,seconds] of [[1,8,1],[2,8,1],[3,8,2],[4,7,.01],[5,0,30]])assert.equal((await f.post(payload(n,count,seconds))).status,200);
+ let b=await f.board(3);assert.deepEqual(b.entries.map(x=>[x.score,x.secondaryScore,x.rank]),[[8,1,1],[8,1,1],[8,2,3],[7,.01,4],[0,30,5]]);assert.equal(b.own.rank,3);assert.equal(b.own.gap,1);assert.equal(b.own.gapMetric,'remaining');
  assert.equal((await f.board(4)).own.gapMetric,'courtesies');assert.equal((await f.board(4)).own.gap,1);
- for(const [run,count,seconds,updated] of [[10,8,.5,true],[11,8,3,false],[12,7,0,false],[13,9,30,true]]){const r=await f.post(payload(3,count,seconds,{submissionId:id(run)}),100000+(run-9)*61000);assert.equal((await r.json()).bestUpdated,updated);}
+ for(const [run,count,seconds,updated] of [[10,8,.5,true],[11,8,3,false],[12,7,.01,false],[13,9,30,true]]){const r=await f.post(payload(3,count,seconds,{submissionId:id(run)}),100000+(run-9)*61000);assert.equal((await r.json()).bestUpdated,updated);}
  b=await f.board(3);assert.equal(b.own.score,9);assert.equal(b.own.secondaryScore,30);assert.equal(b.own.rank,1);assert.equal(b.own.gap,null);
 });
 test('SQLite courtesy duplicate, conflict, cooldown and strict malformed requests preserve admitted best',async t=>{
- const f=await fixture();t.after(()=>f.db.raw.close());const p=payload(1,0,0);
+ const f=await fixture();t.after(()=>f.db.raw.close());const p=payload(1,0,.01);
  assert.equal((await f.post(p)).status,200);assert.equal((await (await f.post(p)).json()).duplicate,true);assert.equal((await f.post({...p,secondaryScore:1})).status,409);
  const limited=await f.post({...p,submissionId:id(2)},100001);assert.equal(limited.status,429);assert.equal(limited.headers.get('Retry-After'),'60');
  const duplicateKey=JSON.stringify(payload(3)).replace('"score":8','"score":1,"score":8');assert.equal((await f.post(duplicateKey)).status,400);
@@ -36,13 +36,13 @@ test('courtesy client eligibility uses completed safe-seat snapshot, includes ze
 });
 test('courtesy shared client manually uploads correct tuple and labels seconds without private auth',async t=>{
  const d=new JSDOM('<section id="entry"></section><section id="result"></section>',{url:'https://qa.example/'});t.after(()=>d.window.close());const doc=d.window.document,calls=[];
- const c=mountLeaderboard({document:doc,game:'courtesy-contest',enabled:true,entry:doc.querySelector('#entry'),result:doc.querySelector('#result'),fetcher:async(url,opts)=>{calls.push({url,opts});return {ok:true,json:async()=>opts.method?{accepted:true,duplicate:false,bestUpdated:true}:{game:'courtesy-contest',rules:'seated-courtesy-v1',unit:'courtesies',entries:[],own:null}};}});assert.ok(c);t.after(()=>c.destroy());
+ const c=mountLeaderboard({document:doc,game:'courtesy-contest',enabled:true,entry:doc.querySelector('#entry'),result:doc.querySelector('#result'),fetcher:async(url,opts)=>{calls.push({url,opts});return {ok:true,json:async()=>opts.method?{accepted:true,duplicate:false,bestUpdated:true}:{game:'courtesy-contest',rules:'press-courtesy-v2',unit:'courtesies',entries:[],own:null}};}});assert.ok(c);t.after(()=>c.destroy());
  c.setResult({phase:'done',seated:true,count:0,remaining:.01});assert.equal(calls.length,0);const panel=doc.querySelector('#result details');assert.equal(panel.hidden,false);assert.match(panel.textContent,/0 次.*0.01 秒/);panel.querySelector('input').value='測試';panel.querySelector('[data-submit]').click();await new Promise(r=>setImmediate(r));
  assert.equal(calls.filter(x=>x.opts.method==='POST').length,1);assert.deepEqual(JSON.parse(calls[0].opts.body),{...payload(1,0,.01),nickname:'測試',deviceId:JSON.parse(calls[0].opts.body).deviceId,submissionId:JSON.parse(calls[0].opts.body).submissionId});
  c.setResult({phase:'done',seated:false,count:20,remaining:0});assert.equal(panel.hidden,true);
 });
 test('courtesy top20 and outside own rank match independent mixed-direction ranking including zero ties',async t=>{
- const f=await fixture();t.after(()=>f.db.raw.close());const scores=Array.from({length:26},(_,i)=>({n:i+1,count:i%4,seconds:(i*7)%31}));
+ const f=await fixture();t.after(()=>f.db.raw.close());const scores=Array.from({length:26},(_,i)=>({n:i+1,count:i%4,seconds:((i*7)%31)||.01}));
  for(const row of scores)assert.equal((await f.post(payload(row.n,row.count,row.seconds))).status,200);
  const expected=[...scores].sort((a,b)=>b.count-a.count||a.seconds-b.seconds);
  for(const row of scores){const board=await f.board(row.n),better=scores.filter(x=>x.count>row.count||(x.count===row.count&&x.seconds<row.seconds));assert.equal(board.own.rank,better.length+1);assert.equal(board.own.score,row.count);assert.equal(board.own.secondaryScore,row.seconds);assert.deepEqual(board.entries.map(x=>[x.score,x.secondaryScore]),expected.slice(0,20).map(x=>[x.count,x.seconds]));}
@@ -70,4 +70,21 @@ test('courtesy concurrent retries keep one receipt and conflicting tuples cannot
 test('courtesy ranking uses its existing home-card icon while legacy board icons remain unchanged',t=>{
  const d=new JSDOM('<section id="entry"></section>',{url:'https://qa.example/'});t.after(()=>d.window.close());const doc=d.window.document;
  for(const game of ['courtesy-contest','reaction-rod']){const c=mountLeaderboard({document:doc,game,enabled:true,entry:doc.querySelector('#entry')});assert.equal(doc.querySelector('.pf-honor-board header img').getAttribute('src'),game==='courtesy-contest'?'/assets/courtesy-contest-card.jpg':'/assets/app-icons/reaction-rod/apple-touch-icon.png');c.destroy();}
+});
+
+test('old seated timing rules cannot enter press-time leaderboard',()=>{assert.throws(()=>validateSubmission(payload(1,8,1,{rules:'seated-courtesy-v1'}),'qa'));});
+test('new press-time board isolates historical seated rows without deleting them',async t=>{
+ const f=await fixture();t.after(()=>f.db.raw.close());
+ f.db.raw.run("INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at,secondary_score) VALUES('qa','courtesy-contest','seated-courtesy-v1','old-device','old',99,1,0)");
+ assert.deepEqual((await f.board()).entries,[]);
+ assert.equal((await f.post(payload(1,3,.01))).status,200);
+ const b=await f.board();assert.equal(b.rules,'press-courtesy-v2');assert.deepEqual(b.entries.map(x=>[x.score,x.secondaryScore]),[[3,.01]]);
+ assert.equal(f.db.raw.exec("SELECT count(*) FROM leaderboard_best WHERE rules='seated-courtesy-v1'")[0].values[0][0],1);
+});
+test('press-time scores use strictly positive hundredths consistently on client and server',()=>{
+ for(const seconds of [0,.001,.009,.011,1.234]){
+  assert.throws(()=>validateSubmission(payload(1,8,seconds),'qa'));
+  assert.equal(eligibleResult('courtesy-contest',{phase:'done',seated:true,count:8,remaining:seconds}),null);
+ }
+ for(const seconds of [.01,.07,.29,1.01,29.99,30])assert.equal(validateSubmission(payload(1,8,seconds),'qa').secondaryScore,seconds);
 });

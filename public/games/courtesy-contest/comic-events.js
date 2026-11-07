@@ -1,21 +1,13 @@
 // Presentation-only helpers. Callers own the round clock, scoring, seat state,
 // cancellation tokens and immediate interruption by Thanks or real threats.
-const MOTIONS = [
-  {level: 0, angle: 3, hop: 0, reach: .025},
-  {level: 1, angle: 7, hop: 4, reach: .035},
-  {level: 2, angle: 12, hop: 8, reach: .045},
-  {level: 3, angle: 17, hop: 12, reach: .055}
-];
-
 function courtesyLevel(count) {
   const exchanges = Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
   return exchanges >= 10 ? 3 : exchanges >= 7 ? 2 : exchanges >= 4 ? 1 : 0;
 }
 
-// angle: degrees; hop: unscaled sprite pixels; reach: fraction of scene width.
-// No duration is returned: stronger motion must not lengthen input lockout.
-export function courtesyMotion(count) {
-  return {...MOTIONS[courtesyLevel(count)]};
+// Every exchange uses the same standing gesture, regardless of score.
+export function courtesyMotion() {
+  return {level: 0, angle: 3, hop: 0, reach: .025};
 }
 
 // Count completed exchanges only. Initialize used and lastAt to zero each round.

@@ -3,21 +3,10 @@ import assert from 'node:assert/strict';
 
 import * as comic from '../../public/games/courtesy-contest/comic-events.js';
 
-test('courtesy movement escalates with exchanges but remains bounded', () => {
-  assert.equal(typeof comic.courtesyMotion, 'function');
-  const motions = [0, 4, 7, 10].map(comic.courtesyMotion);
-  assert.deepEqual(motions.map(motion => motion.level), [0, 1, 2, 3]);
-  for (let i = 1; i < motions.length; i++) {
-    assert.ok(motions[i].angle > motions[i - 1].angle);
-    assert.ok(motions[i].hop > motions[i - 1].hop);
-    assert.ok(motions[i].reach > motions[i - 1].reach);
-  }
-  for (const motion of motions) {
-    assert.ok(motion.angle >= 0 && motion.angle <= 18);
-    assert.ok(motion.hop >= 0 && motion.hop <= 12);
-    assert.ok(motion.reach > 0 && motion.reach <= .06);
-  }
-  assert.deepEqual(comic.courtesyMotion(999), motions[3]);
+test('courtesy movement stays identical at every exchange count', () => {
+ const opening=comic.courtesyMotion(0);
+ for(const count of [0,4,7,10,29,999])assert.deepEqual(comic.courtesyMotion(count),opening);
+ assert.deepEqual(opening,{level:0,angle:3,hop:0,reach:.025});
 });
 
 test('movement treats malformed exchange counts as opening poses and returns independent data', () => {

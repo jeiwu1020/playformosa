@@ -1,11 +1,14 @@
 # Courtesy contest QA contract
 
 Only scope `qa` resolves `courtesy-contest`; production requests fail closed.
-Public payload uses rules `seated-courtesy-v1`, unit `courtesies`, status `seated`,
+Public payload uses rules `press-courtesy-v2`, unit `courtesies`, status `seated`,
 `score` for completed courtesy count, and `secondaryScore` for seconds remaining
-when safely seated (0 through 30 inclusive). Only a completed safely seated round
+when a valid thanks press is accepted before the deadline (.01 through 30 inclusive, in whole hundredths). Offers keep the same standing gesture at every count and never create a safe seat.
+Only a completed safely seated round with an accepted thanks press
 may be offered for upload. Bonus/grade never changes the count. The integration
-rounds seconds upward to the displayed hundredth before submitting.
+rounds seconds upward to the displayed hundredth before submitting. Client and server
+reject zero and sub-hundredth scores; their hundredth check tolerates binary floating-point noise
+within 1e-9 hundredths. The new rules key isolates old seated-time rows without deleting them.
 
 Order: count descending, then remaining seconds ascending. Equal tuples share a
 competition rank. Manual uploads reuse the shared anonymous-device, nickname,

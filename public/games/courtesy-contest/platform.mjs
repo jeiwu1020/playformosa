@@ -19,9 +19,9 @@ export function courtesyAudio(audio,music,prefs=audioPreferences()){
  return{getState,subscribe(fn){listeners.add(fn);return()=>listeners.delete(fn);},sync:emit,unlock(){audio.unlock();return music.play();},setMusicEnabled:musicEnabled=>prefs.set({musicEnabled}),setEffectsEnabled:effectsEnabled=>prefs.set({effectsEnabled}),setMusicVolume:musicVolume=>prefs.set({musicVolume}),setEffectsVolume:effectsVolume=>prefs.set({effectsVolume})};
 }
 export function installCourtesyPlatform(scene,audio,music){
- const sharing=createCourtesySharing(document),result=createResultDialog($('result'),{focusTarget:()=>$('result-title'),returnFocus:()=>$('toolbar-restart')});
+ const sharing=createCourtesySharing(document),result=createResultDialog($('result'),{focusTarget:()=>$('restart'),returnFocus:()=>$('toolbar-restart')});
  const advanced=$('instructions').querySelector('.help-body');advanced.removeAttribute('tabindex');
- const entry=createEntryShell({document,title:'客氣大賽',goal:'30 秒內和對方客氣互讓，次數越多越好；發車前要坐穩，否則就會摔個四腳朝天！',operations:['←／你請坐：互讓完成才計次。','→／謝謝：立刻開始坐下，坐穩需 0.3 秒。','點搶座乘客／空白鍵趕人；倒數 30→20 後隱藏。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
+ const entry=createEntryShell({document,title:'客氣大賽',goal:'30 秒內和對方客氣互讓，次數越多越好；發車前有效按下謝謝就確認成功並記錄時間，沒按會跌倒！',operations:['←／你請坐：相同站立互讓姿勢，完成才計次。','→／謝謝：有效按下即確認成功；0.3 秒坐下動畫不影響成績。','點搶座乘客／空白鍵趕人；倒數 30→20 後隱藏。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
  const originalStart=scene.start.bind(scene),originalPause=scene.pauseRound.bind(scene),originalResume=scene.resumeRound.bind(scene);
  let captureSerial=0;
  scene.start=()=>{if(document.hidden||scene.starting)return;captureSerial++;sharing.reset();leaderboard?.reset();result.close();entry.close({restoreView:false});if(scene.tabPaused){scene.tabPaused=false;scene.scene.resume();$('pause-overlay').classList.add('hidden');}originalStart();sync();};
@@ -39,7 +39,7 @@ export function installCourtesyPlatform(scene,audio,music){
  $('intro').hidden=true;$('intro').classList.add('hidden');document.querySelector('[data-pf-entry-loading]')?.remove();entry.open();sync();
  function sync(){syncPauseButton($('toolbar-pause'),{paused:scene.tabPaused,available:active(scene)});$('toolbar-restart').disabled=!scene.ready||scene.starting;audioAdapter.sync();}
  return{sync,started(){captureSerial++;sharing.reset();leaderboard?.reset();result.close();recordPlayStart(window,'courtesy-contest');sync();},finished(){
-  sync();leaderboard?.setResult({phase:'done',seated:scene.seated===true,count:scene.count,remaining:Number.isFinite(scene.seatSettledAtMs)?Math.ceil((30000-scene.seatSettledAtMs)/10)/100:null});const token=++captureSerial,data={grade:$('rank').textContent,title:$('result-title').textContent,count:scene.count,bonus:scene.chainBonus,status:$('result-status-text').textContent,remaining:$('result-remaining').textContent};
+  sync();leaderboard?.setResult({phase:'done',seated:scene.seated===true,count:scene.count,remaining:Number.isFinite(scene.seatAcceptedAtMs)?Math.ceil((30000-scene.seatAcceptedAtMs)/10)/100:null});const token=++captureSerial,data={grade:$('rank').textContent,title:$('result-title').textContent,count:scene.count,bonus:scene.chainBonus,status:$('result-status-text').textContent,remaining:$('result-remaining').textContent};
   // Keep the stage geometry unchanged. Snapshot its actual final rendered pose.
   const capture=()=>{if(token!==captureSerial||scene.phase!=='result')return;try{sharing.prepare(copyResultFrame(document,scene.game.canvas),data);}catch{$('share-status').textContent='成績圖片暫時無法產生。';}result.open();};
   scene.game.events.once('postrender',capture);

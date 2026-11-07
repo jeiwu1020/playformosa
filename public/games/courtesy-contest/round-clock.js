@@ -8,4 +8,4 @@ export class ActiveRoundClock{
  pause(now){if(!this.paused&&this.started){this.spent=this.elapsed(now);this.paused=true;}}
  resume(now){if(this.paused&&this.started){this.segmentStart=now;this.paused=false;}}
 }
-export function departureIsSafe({seatReady,busy}){return seatReady===true&&!busy;}
+export function departureIsSafe({seatReady,busy,accepted=false}){return accepted===true&&seatReady===true&&!busy;}
