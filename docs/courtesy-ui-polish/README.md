@@ -1,0 +1,13 @@
+# Courtesy pointer, help, mobile layout and score-card polish boundary
+
+This presentation-only follow-up starts at preview/hurdles commit bc8d0332c4df286f12b246895782ca733ce5e8ad, complete Git tree fe2bc3ff9450db95cd3814aba880f154f82c5b70. It does not change main, gameplay, immediate acceptance, timers, scores, leaderboard rules or press-courtesy-v2 behavior.
+
+The requested changes add a visible rotating upload disclosure arrow, use a pointing-hand cursor for buttons, clarify the instructions, center the portrait gameplay layout, widen short-landscape gameplay controls while keeping them on one screen, and remove the score PNG's green photo mat and unused space. The PNG retains the complete frozen final game frame without cropping or replacement art.
+
+BASELINE.json independently pins all 1,547 parent blobs and modes. MANIFEST.json lists exact changed paths, verified UTF-8 preimages, current SHA-256 and Git blob identities, and every exact addition. The outer helper reconstructs the entire parent tree and rejects altered preimages, unexpected manifest scope, missing additions, duplicate inventory entries and current-byte drift. Unknown runtime, documentation, test and evidence paths remain visible to older audits.
+
+All earlier manifests, baselines and frozen preimages remain byte-identical. Only the previous outer result/mobile helper delegates through this new boundary. Its original bytes are a verified preimage, preserving the complete reversible chain. Three isolated historical test fixtures copy the new boundary's exact dependencies. Presentation tests are updated only where their old dimensions or layout assumptions were intentionally replaced.
+
+The unavailable historical binary docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png remains pinned as remote blob 5491d5280c2a2faeac41e9a19028698e9af015f8. Publication must use the existing remote tree as its base and retain this blob without deletion or replacement. Existing tracked historical evidence remains part of the complete parent. New validation reports, test logs, screenshots and backups live outside the source candidate.
+
+To seal the final reviewed bytes, run regenerate.py with --parent pointing to a byte-verified copy of the pinned commit and --tree pointing to the complete recursive Git tree JSON. Supply each permitted change as --allow-changed and each added test as --allow-added. The script verifies every available parent blob, reconstructs the full parent tree, and rejects unlisted changes, deletions and additions. Only dependencies, generated dist output, Git metadata and local tool state are excluded from source publication. No directory-wide evidence or source exemption is used.

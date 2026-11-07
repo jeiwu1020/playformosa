@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import * as p from './helpers/courtesy-result-mobile-provenance.mjs';
+import {courtesyUiPolishParentBytes} from './helpers/courtesy-ui-polish-provenance.mjs';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url));
 test('result/mobile reconstructs its complete remote parent and rejects invented history',()=>{
  assert.equal(p.verifyCourtesyResultMobileBase(p.courtesyResultMobileBaseline),true);
@@ -28,7 +29,7 @@ test('historical manifests, database schemas, gameplay and other materialized so
  const missing=[];
  for(const f of p.courtesyResultMobileBaseline.files){let live;try{live=read(f.path);}catch(e){if(e.code!=='ENOENT')throw e;missing.push(f.path);continue;}
   assert.equal(p.gitBlob(p.reverseCourtesyResultMobile(f.path,live)),f.gitBlob,f.path);
-  if(!p.COURTESY_RESULT_MOBILE_CHANGED.includes(f.path))assert.equal(p.gitBlob(live),f.gitBlob,f.path+' unchanged outside the exact follow-up scope');
+  if(!p.COURTESY_RESULT_MOBILE_CHANGED.includes(f.path))assert.equal(p.gitBlob(courtesyUiPolishParentBytes(f.path,live)),f.gitBlob,f.path+' unchanged outside the exact follow-up scope after polish reversal');
  }
  // A complete checkout has no omissions; a sparse local snapshot may lack only this pinned legacy binary.
  if(missing.length)assert.deepEqual(missing,['docs/fast-hands/baselines/screen-alpha/assets/duel-items-atlas.png']);
