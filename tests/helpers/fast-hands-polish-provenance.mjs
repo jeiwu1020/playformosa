@@ -1,3 +1,4 @@
+import {readBeforeGestures} from './mobile-gestures-provenance.mjs';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -18,5 +19,5 @@ export function reversePolish(file,bytes,manifest=polishManifest()){
 export function readBeforePolish(file,encoding){
  const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');
  assert.ok(relative!=='..'&&!relative.startsWith('../')&&!path.isAbsolute(relative),'historical path must remain inside repository');
- const bytes=reversePolish(relative,readFileSync(file));return encoding?bytes.toString(encoding):bytes;
+ const bytes=reversePolish(relative,readBeforeGestures(file));return encoding?bytes.toString(encoding):bytes;
 }

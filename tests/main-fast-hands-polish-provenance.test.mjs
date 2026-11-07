@@ -1,9 +1,10 @@
+import {readBeforeGestures,inventoryBeforeGestures} from './helpers/mobile-gestures-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {polishManifest,reversePolish,readBeforePolish} from './helpers/fast-hands-polish-provenance.mjs';
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforeGestures(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 const fixtureBytes=read('tests/fixtures/fast-hands-polish-baseline.json');
@@ -14,7 +15,7 @@ test('polish declares only the approved six-game upload and three-game toolbar s
  assert.deepEqual(m.files.map(f=>f.path).sort(),baseline.modifiedPaths);assert.deepEqual([...m.addedPaths].sort(),baseline.addedPaths);
  assert.deepEqual(m.addedPublicPaths,['games/shared/upload-cooldown.mjs']);
  const actual=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){const p=dir?dir+'/'+e.name:e.name;if(!dir&&['dist','node_modules','.git'].includes(e.name))continue;if(e.isDirectory())walk(p);else {assert.ok(e.isFile(),p+' must be a regular file');actual.push(p);}}}walk();
- assert.deepEqual(actual.sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unreviewed additions or deletions');
+ assert.deepEqual(inventoryBeforeGestures(actual).sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unreviewed additions or deletions');
 });
 test('all 544 original tracked files match remote base after the exact approved delta is reversed',()=>{
  const m=polishManifest();assert.equal(baseline.files.length,544);

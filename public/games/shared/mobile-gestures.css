@@ -1,0 +1,10 @@
+/* Browser gestures must not cancel pointer-driven gameplay. Keep this off
+   html/body and reading dialogs: users can still zoom instructions and results. */
+[data-game-gesture-surface]:not([data-game-gesture-overlays]) {
+  touch-action: none;
+}
+/* Games may have nested results dialogs or inline pause/help panels. When open, the parent
+   must also allow zoom, since a child's touch-action cannot override an ancestor. */
+[data-game-gesture-surface][data-game-gesture-overlays]:not(:has(dialog[open], [data-game-gesture-reading]:not([hidden]))) {
+  touch-action: none;
+}
