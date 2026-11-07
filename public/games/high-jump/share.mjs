@@ -15,8 +15,10 @@ export function createSharing({byId,canonical=location.origin+'/games/high-jump/
  gate.invalidate();file=null;busy=false;byId('imageShare').disabled=true;
  // Copy settled WebGL pixels synchronously before any resize/replay can erase them.
  const shot=document.createElement('canvas');shot.width=canvas.width;shot.height=canvas.height;shot.getContext('2d').drawImage(canvas,0,0);
- const preview=byId('resultPhoto');preview.width=shot.width;preview.height=shot.height;preview.getContext('2d').drawImage(shot,0,0);preview.hidden=false;
- frozen=paintScoreCard(shot,{...s,title:rating},()=>document.createElement('canvas'),renderScene);
+ // Reuse the exact photo rendered for the download card, not the dialog's transient aspect.
+ let photo=shot;
+ frozen=paintScoreCard(shot,{...s,title:rating},()=>document.createElement('canvas'),renderScene?(w,h)=>{photo=renderScene(w,h);return photo;}:null);
+ const preview=byId('resultPhoto');preview.width=photo.width;preview.height=photo.height;preview.getContext('2d').drawImage(photo,0,0);preview.hidden=false;
  text=resultText(s,rating,canonical);byId('threads').href='https://www.threads.net/intent/post?text='+encodeURIComponent(text);byId('imageShare').textContent=mobile()?'分享成績圖片':'下載成績圖片';encode(gate.token);
  }};
 }
