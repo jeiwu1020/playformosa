@@ -9,7 +9,7 @@ import {readClubBaseline,CLUB_ADDED} from '../helpers/fast-hands-club-provenance
 import {STABILITY_ADDED} from '../helpers/fast-hands-stability-provenance.mjs';
 import {readLayoutDartBaseline} from '../helpers/fast-hands-layout-dart-provenance.mjs';
 import {ART_ADDED} from '../helpers/fast-hands-levels-art-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';import{createHash}from'node:crypto';
 import {levelLedger,readLevelsBaseline,reverseLevels,levelsRuntimeAdditions,LEVEL_ADDED} from '../helpers/fast-hands-levels-provenance.mjs';
 const root=new URL('../../',import.meta.url);
 test('new levels admit one navigation-only original edit and six isolated runtime additions',()=>{

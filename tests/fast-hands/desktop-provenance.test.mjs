@@ -6,7 +6,8 @@ import {SHARING_FLOW_ADDED} from '../helpers/fast-hands-sharing-flow-provenance.
 import {FINALE_ADDED,readFinaleBaseline} from '../helpers/fast-hands-finale-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';

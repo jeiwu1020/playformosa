@@ -1,6 +1,6 @@
 import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import {readLayoutDartBaseline} from '../helpers/fast-hands-layout-dart-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';import{createHash}from'node:crypto';
 const root=new URL('../../',import.meta.url);
 const helpers=await import('../helpers/fast-hands-levels-art-provenance.mjs').catch(()=>({}));
 test('art revision restores exact previous level bytes and hashes every admitted asset',()=>{

@@ -1,7 +1,7 @@
 import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 
 let api;

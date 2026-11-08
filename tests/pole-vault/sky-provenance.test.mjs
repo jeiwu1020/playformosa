@@ -3,7 +3,8 @@ import {readBeforeHumor,inventoryBeforeHumor} from '../helpers/javelin-humor-pro
 import {readBeforeHomeLabel,inventoryBeforeHomeLabel} from '../helpers/home-label-provenance.mjs';
 import {inventoryBeforeJavelin} from '../helpers/javelin-results-provenance.mjs';
 import {readBeforeFall,inventoryBeforeFall} from '../helpers/sprint-fall-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync,existsSync} from 'node:fs';import {createHash} from 'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,existsSync} from 'node:fs';import {createHash} from 'node:crypto';
 const p=await import('../helpers/vault-sky-provenance.mjs').catch(()=>({}));
 const root=new URL('../../',import.meta.url),read=f=>readBeforeFall(new URL(f,root)),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 test('sky presentation patch reverses exactly to the independently verified preview renderer',()=>{

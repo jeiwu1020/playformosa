@@ -1,7 +1,7 @@
 import {readLoadingLookBaseline} from '../helpers/loading-look-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {rankingLedger,reverseRanking,rankingRuntimeAdditions,readRankingBaseline,RANKING_MODIFIED,RANKING_ADDED} from '../helpers/fast-hands-ranking-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readLoadingLookBaseline(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');

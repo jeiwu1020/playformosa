@@ -2,7 +2,8 @@ import {readBeforeJourney,inventoryBeforeJourney,runtimeInventoryBeforeJourney} 
 import {readBeforeHumor,inventoryBeforeHumor} from './helpers/javelin-humor-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from './helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {homeLabelManifest,HOME_LABEL_CHANGED,HOME_LABEL_ADDED,reverseHomeLabel,inventoryBeforeHomeLabel} from './helpers/home-label-provenance.mjs';
 const root=new URL('../',import.meta.url),read=p=>readBeforeHumor(new URL(p,root));

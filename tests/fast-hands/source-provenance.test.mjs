@@ -3,7 +3,8 @@ import {sharingRuntimeAdditions} from '../helpers/fast-hands-sharing-provenance.
 import {readRankingBaseline,rankingRuntimeAdditions} from '../helpers/fast-hands-ranking-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 const root=new URL('../../',import.meta.url);
 const manifest=JSON.parse(readFileSync(new URL('docs/fast-hands/import-manifest.json',root),'utf8'));

@@ -1,7 +1,7 @@
 import {readRankingBaseline} from './helpers/fast-hands-ranking-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from './helpers/mobile-gestures-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {startupLedger,startupHash,reverseStartup,readStartupBaseline,startupRuntimeAdditions} from './helpers/startup-provenance.mjs';
 

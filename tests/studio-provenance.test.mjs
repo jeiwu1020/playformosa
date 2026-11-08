@@ -1,5 +1,5 @@
 import {readStartupBaseline} from './helpers/startup-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import{createHash}from'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from './helpers/mobile-gestures-preview-provenance.mjs';import{createHash}from'node:crypto';
 import{studioLedger,studioHash,reverseStudio,studioRuntimeAdditions}from'./helpers/studio-provenance.mjs';
 const root=new URL('../',import.meta.url),read=p=>readStartupBaseline(new URL(p,root));
 const games=['beer-slide','discus','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];

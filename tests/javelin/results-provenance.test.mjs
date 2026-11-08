@@ -1,7 +1,8 @@
 import {readBeforeJourney,inventoryBeforeJourney,runtimeInventoryBeforeJourney} from '../helpers/vault-journey-provenance.mjs';
 import {readBeforeHumor,inventoryBeforeHumor} from '../helpers/javelin-humor-provenance.mjs';
 import {readBeforeHomeLabel,inventoryBeforeHomeLabel} from '../helpers/home-label-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,readdirSync,existsSync} from 'node:fs';import {createHash} from 'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,existsSync} from 'node:fs';import {createHash} from 'node:crypto';
 const p=await import('../helpers/javelin-results-provenance.mjs').catch(()=>({}));
 const root=new URL('../../',import.meta.url),read=f=>readBeforeHomeLabel(new URL(f,root)),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 test('javelin result presentation patch reverses exactly to the independently verified preview renderer',()=>{

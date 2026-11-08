@@ -1,6 +1,6 @@
 import {reverseRodReplay} from '../helpers/rod-replay-provenance.mjs';
 import {readStudioBaseline} from '../helpers/studio-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {resultLedger,resultHash,reverseRodResult} from '../helpers/rod-result-provenance.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';import {resultLedger,resultHash,reverseRodResult} from '../helpers/rod-result-provenance.mjs';
 const read=p=>readStudioBaseline(new URL('../../public/games/'+p,import.meta.url));
 const paths=['reaction-rod/index.html','reaction-rod/game.mjs','reaction-rod/physics.mjs','reaction-rod/snapshot.mjs','reaction-rod/final-moment.mjs','reaction-rod/result.css'];
 test('result presentation permits only the six documented files and reverses existing bytes exactly',()=>{const ledger=resultLedger();assert.equal(ledger.baseCommit,'128f1c45ab47af45e46e950a6c6f4007a7b2cdc4');assert.deepEqual(ledger.files.map(f=>f.path),paths);for(const file of ledger.files){const bytes=read(file.path);assert.equal(resultHash(reverseRodReplay(file.path,bytes)),file.sha256);if(file.beforeSha256){assert.equal(resultHash(reverseRodResult(file.path,bytes)),file.beforeSha256);assert.throws(()=>reverseRodResult(file.path,Buffer.concat([bytes,Buffer.from('\n// hidden drift')])));}}});

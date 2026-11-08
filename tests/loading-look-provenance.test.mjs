@@ -1,5 +1,5 @@
 import {readSharingBaseline} from './helpers/fast-hands-sharing-provenance.mjs';
-import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{createHash}from'node:crypto';
+import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from './helpers/mobile-gestures-preview-provenance.mjs';import{createHash}from'node:crypto';
 import{loadingLookLedger,loadingLookHash,reverseLoadingLook,readLoadingLookBaseline}from'./helpers/loading-look-provenance.mjs';
 const root=new URL('../',import.meta.url),games=['beer-slide','discus','fast-hands','high-jump','hurdles','javelin','long-jump','pole-vault','reaction-rod','shot-put','sprint-100m','tower-climb'];
 const blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');

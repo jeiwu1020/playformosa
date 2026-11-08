@@ -1,7 +1,8 @@
 import {readBeforeJourney,inventoryBeforeJourney,runtimeInventoryBeforeJourney} from '../helpers/vault-journey-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {humorManifest,HUMOR_CHANGED,HUMOR_ADDED,reverseHumor,inventoryBeforeHumor} from '../helpers/javelin-humor-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readBeforeJourney(new URL(p,root));

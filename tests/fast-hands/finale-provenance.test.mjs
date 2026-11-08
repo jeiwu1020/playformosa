@@ -6,7 +6,8 @@ import {SHARING_FLOW_ADDED,readSharingFlowBaseline} from '../helpers/fast-hands-
 import {FINALE_BASE_BLOBS,FINALE_HISTORY_SHA} from '../helpers/fast-hands-finale-pins.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 let api;try{api=await import('../helpers/fast-hands-finale-provenance.mjs')}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e}
 const root=new URL('../../',import.meta.url),sha=b=>createHash('sha256').update(b).digest('hex'),blob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');

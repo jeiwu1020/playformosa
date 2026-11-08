@@ -1,5 +1,5 @@
 // Exact reversible boundary for the approved courtesy pointer, help, mobile layout and score-card polish.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeGestures as actual,inventoryBeforeGestures} from './mobile-gestures-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative,resolve,sep,isAbsolute} from 'node:path';
@@ -47,6 +47,7 @@ export function readBeforeCourtesyUiPolish(file,options){
  const before=COURTESY_UI_POLISH_CHANGED.includes(path)?reverseCourtesyUiPolish(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeCourtesyUiPolish(paths,{manifest=courtesyUiPolishManifest(),read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeGestures(paths,{runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate upgrade inventory');validateCourtesyUiPolishManifest(manifest);
  if(!paths.some(p=>COURTESY_UI_POLISH_ADDED.includes(p)))return paths;
  const additions=COURTESY_UI_POLISH_ADDED.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));

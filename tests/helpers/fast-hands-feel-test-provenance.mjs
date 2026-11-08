@@ -1,3 +1,4 @@
+import {gestureParentBytes} from './mobile-gestures-preview-provenance.mjs';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -17,7 +18,7 @@ export function feelTestRuntimeAdditions(root=new URL('../../',import.meta.url))
   assert.ok(entries.every(e=>e.isFile()),'feel-test additions must be regular files');
   return files.map(([name,sha256])=>{
     const path='public/games/fast-hands-test/'+name;
-    assert.equal(createHash('sha256').update(readFileSync(new URL(path,root))).digest('hex'),sha256,'feel-test runtime bytes: '+path);
+    assert.equal(createHash('sha256').update(gestureParentBytes(path,readFileSync(new URL(path,root)))).digest('hex'),sha256,'feel-test runtime bytes: '+path);
     return path;
   });
 }

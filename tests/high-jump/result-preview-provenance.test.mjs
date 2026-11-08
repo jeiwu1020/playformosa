@@ -1,7 +1,7 @@
 import {readBeforeCourtesyIntegration} from '../helpers/courtesy-integration-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
 import * as p from '../helpers/high-jump-result-preview-provenance.mjs';
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url));
 test('result-preview parent is the complete independently reconstructed remote tree',()=>{

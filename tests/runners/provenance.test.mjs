@@ -1,4 +1,4 @@
-import test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';
+import test from'node:test';import assert from'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
 import * as p from'../helpers/runner-integration-provenance.mjs';
 import {verifyImportedOrRevised} from '../helpers/runner-visual-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=path=>readFileSync(new URL(path,root));

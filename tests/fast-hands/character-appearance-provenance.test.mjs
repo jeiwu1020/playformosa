@@ -2,7 +2,8 @@ import {readBeforePolish} from '../helpers/upload-toolbar-polish-provenance.mjs'
 import {reverseDuelCoverFingers} from '../helpers/fast-hands-character-appearance-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync,mkdtempSync,mkdirSync,cpSync,writeFileSync,rmSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
+import {readdirSync,mkdtempSync,mkdirSync,cpSync,writeFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -79,7 +80,7 @@ test('appearance rejects malformed inventories, unsafe preimages and forged curr
 test('a corrupted complete preimage fails even if the caller forges matching baseline hashes',async()=>{
  assert.ok(api);const dir=mkdtempSync(join(tmpdir(),'character-appearance-preimage-'));
  try{
-  for(const p of ['tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});cpSync(new URL(p,root),join(dir,p))}
+  for(const p of ['tests/helpers/fast-hands-character-appearance-provenance.mjs','tests/helpers/fast-hands-character-appearance-pins.mjs','docs/fast-hands/CHARACTER-APPEARANCE-MANIFEST.json']){mkdirSync(dirname(join(dir,p)),{recursive:true});writeFileSync(join(dir,p),readFileSync(new URL(p,root)))}
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/fast-hands-character-appearance-provenance.mjs')).href);
   for(const path of [prefix+'three3d/rig.mjs',platformAdapter]){
    const ledger=api.characterAppearanceLedger(),row=[...ledger.files,...ledger.testAdapters].find(r=>r.path===path),bad=Buffer.from('fabricated parent');

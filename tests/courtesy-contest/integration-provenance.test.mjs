@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
 let p;try{p=await import('../helpers/courtesy-integration-provenance.mjs')}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;}
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url));
 test('courtesy integration pins the complete published preview parent',()=>{
