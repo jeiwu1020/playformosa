@@ -13,9 +13,9 @@ test('main navigation and independent shelf admit only approved Rod and Fast Han
  assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles','high-jump']);
  assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
  assert.equal(d.querySelectorAll('#minigames .game-card').length,4);
- assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','high-jump','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
+ assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','high-jump','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','taiwanfighter']);
  assert.equal(d.querySelector('#minigames .game-cta').getAttribute('href'),'/games/reaction-rod/');
- assert.equal(d.querySelector('[data-external-id] a').href,'https://taiwanfighter.playformosa.workers.dev/');
+ assert.equal(d.querySelector('[data-external-id] a').getAttribute('href'),'/api/play-counts/entries/taiwanfighter');
 });
 test('Rod API validates full precision without weakening legacy schemas or admitting other games',()=>{
  assert.ok(BOARDS['reaction-rod']); assert.deepEqual(validateSubmission(valid),valid);

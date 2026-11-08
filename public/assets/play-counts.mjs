@@ -1,7 +1,7 @@
 export async function loadPlayCounts(document,{fetcher=(...args)=>document.defaultView.fetch(...args)}={}){
  const nodes=[...document.querySelectorAll('[data-play-count],[data-home-count]')];if(!nodes.length)return;
  const win=document.defaultView;let timer;
- try{const controller=new win.AbortController();timer=win.setTimeout(()=>controller.abort(),5000);const response=await fetcher('/api/play-counts',{signal:controller.signal});if(!response.ok)throw Error('unavailable');const data=await response.json();for(const n of nodes){const count=data.counts?.[n.hasAttribute('data-home-count')?'home':n.dataset.playCount]?.count;n.textContent=Number.isSafeInteger(count)&&count>=0?(n.hasAttribute('data-home-count')?'累積瀏覽 ':'已開玩 ')+count.toLocaleString()+' 次':'次數暫時讀不到';}}
+ try{const controller=new win.AbortController();timer=win.setTimeout(()=>controller.abort(),5000);const response=await fetcher('/api/play-counts',{signal:controller.signal});if(!response.ok)throw Error('unavailable');const data=await response.json();for(const n of nodes){const count=data.counts?.[n.hasAttribute('data-home-count')?'home':n.dataset.playCount]?.count;n.textContent=Number.isSafeInteger(count)&&count>=0?(n.hasAttribute('data-home-count')?'累積瀏覽 ':n.dataset.playCount==='taiwanfighter'?'開玩次數 ':'已開玩 ')+count.toLocaleString()+' 次':'次數暫時讀不到';}}
  catch{for(const n of nodes)n.textContent='次數暫時讀不到';}finally{win.clearTimeout(timer)}
 }
 

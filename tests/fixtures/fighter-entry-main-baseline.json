@@ -1,0 +1,2514 @@
+{
+  "baseMain": "79af5bedbbbc3eee5b03132fb5f693a97f27840b",
+  "files": [
+    {
+      "path": ".gitignore",
+      "gitBlob": "53b9700cb1b47705e31c017cb6098f01f1bd4865"
+    },
+    {
+      "path": "APPLY-CANDIDATE.md",
+      "gitBlob": "e2ea1141edf813a3adf3733f4b878fe70b251323"
+    },
+    {
+      "path": "README.md",
+      "gitBlob": "1acaa5bb9b802cec82952fba351702340e9cade1"
+    },
+    {
+      "path": "docs/audio/PROVENANCE.md",
+      "gitBlob": "4f8d2429257fb2bcb60f848a8b645e32ca01fb54"
+    },
+    {
+      "path": "docs/audio/QA-20261027.md",
+      "gitBlob": "924ded4bcf14877df76668bbcb4f38dd8c364ef2"
+    },
+    {
+      "path": "docs/audio/manifest.json",
+      "gitBlob": "da96712530b30e2e21d1388f3ee0824e1151b48e"
+    },
+    {
+      "path": "docs/audio/selected-manifest.json",
+      "gitBlob": "0cc18d088b5e273a231c05e851af24c62fa53fe6"
+    },
+    {
+      "path": "docs/cosmos/PROVENANCE.md",
+      "gitBlob": "172fb1586c8083c0b72db60c59b3456ed67a92a2"
+    },
+    {
+      "path": "docs/fast-hands-main/PLAN.md",
+      "gitBlob": "fbf2698395c3be4e4522bade736a903dd76f3122"
+    },
+    {
+      "path": "docs/fast-hands-main/SOURCE-MANIFEST.json",
+      "gitBlob": "752fb993958cd31f8961ffea6bb1823e74fb1a93"
+    },
+    {
+      "path": "docs/fast-hands-main/VERIFICATION.md",
+      "gitBlob": "c6437b13ab834848615c0da1307c46588ea66e80"
+    },
+    {
+      "path": "docs/fast-hands-polish/README.md",
+      "gitBlob": "107d397b517f266ddcf1d479777a849985c68c38"
+    },
+    {
+      "path": "docs/fast-hands-polish/SOURCE-MANIFEST.json",
+      "gitBlob": "1c160d9cc5f156be2dde6205c389c7839db3dc75"
+    },
+    {
+      "path": "docs/high-jump-main/RELEASE.md",
+      "gitBlob": "f1e5d7b7dfd782b49e7afc87c9858fbbc89308e1"
+    },
+    {
+      "path": "docs/high-jump-main/SOURCE-MANIFEST.json",
+      "gitBlob": "f35936e653cf5061962662b3208261bac0e91110"
+    },
+    {
+      "path": "docs/history/long-jump-v7.md",
+      "gitBlob": "5b6f11ff4ba2015468c242e2ac8386f91cfa72d2"
+    },
+    {
+      "path": "docs/history/long-jump-v8-route.md",
+      "gitBlob": "fd4ef8a269b2813f367647728fd95918bd5cbe20"
+    },
+    {
+      "path": "docs/history/long-jump-v8.md",
+      "gitBlob": "72c36a73dfb26f2ea733d7c357856d1c1599de3b"
+    },
+    {
+      "path": "docs/history/v7-tests/README.md",
+      "gitBlob": "3853b6f7697ee4af38a6f9fa3e21e4340d5fc425"
+    },
+    {
+      "path": "docs/history/v7-tests/air-stride.test.mjs",
+      "gitBlob": "d3f868a24ee8dbcf2b2b748c318432a5e39b25b9"
+    },
+    {
+      "path": "docs/history/v7-tests/anatomy-flips.test.mjs",
+      "gitBlob": "ffc5b5f0ace3c2d8a895a8a72406a20a961d4834"
+    },
+    {
+      "path": "docs/history/v7-tests/controls-v06.test.mjs",
+      "gitBlob": "de65362f516cb0b4e6fdada60b4167638e2a1b4f"
+    },
+    {
+      "path": "docs/history/v7-tests/glides.test.mjs",
+      "gitBlob": "b7460b5f2435b97d5692f0363e2f11b688d9780a"
+    },
+    {
+      "path": "docs/history/v7-tests/intents-v06.test.mjs",
+      "gitBlob": "90a4b35c7123f26b04ad2fd15f4d5bf867ab99ac"
+    },
+    {
+      "path": "docs/history/v7-tests/landing-v7.test.mjs",
+      "gitBlob": "01411f5583665a179c6914e33cdee593ff4182e0"
+    },
+    {
+      "path": "docs/history/v7-tests/physics.test.mjs",
+      "gitBlob": "3b572bfab79bd49d1dc03530bfe4724e653f0aa0"
+    },
+    {
+      "path": "docs/history/v7-tests/readiness.test.mjs",
+      "gitBlob": "193cf0211eaaad88a6d59a190883710805bb4553"
+    },
+    {
+      "path": "docs/hurdles-main/SOURCE-MANIFEST.json",
+      "gitBlob": "cf0cddffe5965f2ec8e439669135705f43baeac1"
+    },
+    {
+      "path": "docs/landmark-art.md",
+      "gitBlob": "a0587bfe7e5e7e7a6d0d1e2ca05e988f56e40ea8"
+    },
+    {
+      "path": "docs/loading-main/SOURCE-MANIFEST.json",
+      "gitBlob": "c24bd3173502210d6d05d7148bfa28904c403759"
+    },
+    {
+      "path": "docs/loading-main/VERIFICATION.md",
+      "gitBlob": "e60051c8d99d6a8dcb13ea673d1d8fa8d79427b2"
+    },
+    {
+      "path": "docs/long-jump-main/PLAN.md",
+      "gitBlob": "8974af613da79512627ef092bf93253023895958"
+    },
+    {
+      "path": "docs/long-jump-main/SOURCE-MANIFEST.json",
+      "gitBlob": "568cb1a019726b2b88428931012811e919e29892"
+    },
+    {
+      "path": "docs/long-jump-main/VERIFICATION.md",
+      "gitBlob": "64d21ca4c5ed5ba00ae4d030a50b058cdea59f55"
+    },
+    {
+      "path": "docs/long-jump-physics.md",
+      "gitBlob": "e7b47d50ef646baf94421c667b960d236e86d005"
+    },
+    {
+      "path": "docs/long-jump.md",
+      "gitBlob": "15d911a42d331e03404a501cc3873b6d907650f1"
+    },
+    {
+      "path": "docs/mobile-gestures/SOURCE-MANIFEST.json",
+      "gitBlob": "d128ae03f5f1053b43b36e1dbb4cae163363531e"
+    },
+    {
+      "path": "docs/plans/2026-10-25-approved-design.md",
+      "gitBlob": "7bc35adefdd55c3b2e3d3fb874b0872a55750c77"
+    },
+    {
+      "path": "docs/plans/2026-10-27-v8-implementation.md",
+      "gitBlob": "7ead56374493ce23a65f4ab1bda66c958e6402cb"
+    },
+    {
+      "path": "docs/reaction-rod-main/PLAN.md",
+      "gitBlob": "bab45f09c977f5e641af3ffd7547ac1d46a4a702"
+    },
+    {
+      "path": "docs/reaction-rod-main/SOURCE-MANIFEST.json",
+      "gitBlob": "6953df34364182980906f59aedde2d475c72f712"
+    },
+    {
+      "path": "docs/reaction-rod-main/VERIFICATION.md",
+      "gitBlob": "ecc478f4eed4d1585e0d982b67c85201a08f4281"
+    },
+    {
+      "path": "docs/studio-main/SOURCE-MANIFEST.json",
+      "gitBlob": "8a4842795be18b5a738494c4876a098717e82e11"
+    },
+    {
+      "path": "docs/studio-main/VERIFICATION.md",
+      "gitBlob": "bea86acc6c5443ef944c886108fc21b6a2943078"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-adventure-route.md",
+      "gitBlob": "a6feab0f85eb0dbdbdf20d53f2ace9fdc8b81417"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-jump-polish.md",
+      "gitBlob": "c6a2c2e2c0e717ac68add7bc02816e0a6e0c7499"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-landmark-polish.md",
+      "gitBlob": "20a4e9d22f83957405b94694983fc1c33efa23db"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-cosmic-journey.md",
+      "gitBlob": "d45fa7318dd35ee715a13c1892d46bf4ffe5b1fb"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-current-visual-sandpits.md",
+      "gitBlob": "8f79df8dd932035aa755a6c510d1452b94914ed4"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-hurdles-main.md",
+      "gitBlob": "cc988aa69d02383a617a1335751bfdc4591b0ad1"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-main-counts-fighter.md",
+      "gitBlob": "82852aeba9e459fb05debc8898440d2400dd7cf9"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-production-leaderboard.md",
+      "gitBlob": "6e4a291cb775db97bb65a6d5f9cd210ea3f5e82e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-adventure-route-design.md",
+      "gitBlob": "50101290e39ef6b783009e9e01cb64072bbf0ad4"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-landmark-polish.md",
+      "gitBlob": "9646c18ae8039f249bc74cdb3354741a89b7f55e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-cosmic-journey.md",
+      "gitBlob": "44fd4dfc3c03a53a919d52ee3e74d6747c035ed1"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-visual-sandpits-design.md",
+      "gitBlob": "bc44e0752e896475d3a5cd89052a96584c5fe636"
+    },
+    {
+      "path": "docs/verification.md",
+      "gitBlob": "a838cda265f5cad171cd59c97808bff93f2ddde4"
+    },
+    {
+      "path": "package-lock.json",
+      "gitBlob": "9527ac5e656df97105c30d5b01e71f7a282b5044"
+    },
+    {
+      "path": "package.json",
+      "gitBlob": "268181de2dfae3357095f1681cc41ef9850c270d"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/apple-touch-icon.png",
+      "gitBlob": "ccfa9729307faa95da3aae85fded2e6ac55f3eec"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/favicon-32.png",
+      "gitBlob": "e06851e7914b307cebca6c0bfd655106ba68b337"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/favicon-48.png",
+      "gitBlob": "d46ca3d04a1f9022fa450e7c31d7c30edb6e53ec"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-192.png",
+      "gitBlob": "0cb6e702d79894a48cecb2f585e1115e6720af72"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-512.png",
+      "gitBlob": "ebd7be464a8a7ea28c963aeea2409c2208d64be6"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-maskable-512.png",
+      "gitBlob": "135710da7d5f8a3afa15e8a66ad338fdfa2aef54"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/apple-touch-icon.png",
+      "gitBlob": "1925e531295289eeb930d89c08fda13eed1c81e0"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-32.png",
+      "gitBlob": "e5f5573e097a9b461482f1f78f5dc90ef2fc0f1e"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-48.png",
+      "gitBlob": "2d84fc504212446ab3c5df1f00593ec78142ea39"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-192.png",
+      "gitBlob": "a711bf06b5ddd05a5d4584b1da0c625e8130492d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-maskable-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/apple-touch-icon.png",
+      "gitBlob": "6fd4c6232959e7e29c11fa20134bde1b589cf440"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-32.png",
+      "gitBlob": "ef945c4a18164c7ca40d692a88d3942257b4d6a7"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-48.png",
+      "gitBlob": "a571ee42abffa13cb4d635b42d2dfa72b73e7c5c"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-192.png",
+      "gitBlob": "ca7cfb984d41af6cd446941ac8820c7931070772"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-maskable-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/apple-touch-icon.png",
+      "gitBlob": "8672db4ed34ccf1f27010362ea1e64897e6068bf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-32.png",
+      "gitBlob": "279b02dfac70a4c0ffa8049ee846169b4cbe93f0"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-48.png",
+      "gitBlob": "b6978b692ca8da9f23232808c530be5da188bf6e"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-192.png",
+      "gitBlob": "0fec80b83cb6b8c3093159ac25261fda8b06a4f8"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-512.png",
+      "gitBlob": "359c490ff9842e32d8bf59aba98e5a404c7ff808"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-maskable-512.png",
+      "gitBlob": "314aed68f60b72f7447d6bd35bde11cdbc06b7cd"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/apple-touch-icon.png",
+      "gitBlob": "0f754034fcee82e39586f54d8318fe4190450085"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-32.png",
+      "gitBlob": "182ea863240591cb74680057017112c74a431c86"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-48.png",
+      "gitBlob": "3e3a7de068275715476175adc375ef68782ba3d3"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-192.png",
+      "gitBlob": "a9e7cf9490debdbee239655a815366a1868bf142"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-maskable-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/fast-hands-card-v2.webp",
+      "gitBlob": "63dfaffe91b4ab5c96b6948ca3874c1eb7abcb59"
+    },
+    {
+      "path": "public/assets/favicon.svg",
+      "gitBlob": "0953ffa38027e37ebc75bef4a2f05ae4668e6e5a"
+    },
+    {
+      "path": "public/assets/hero-long-jump.png",
+      "gitBlob": "89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f"
+    },
+    {
+      "path": "public/assets/high-jump-card.png",
+      "gitBlob": "4a128d0e717b50344e62a697adda34423c0e232d"
+    },
+    {
+      "path": "public/assets/home.css",
+      "gitBlob": "f5bfdfb7001aa0d8d9575802521ba65895e547b7"
+    },
+    {
+      "path": "public/assets/hurdles-card.png",
+      "gitBlob": "db89fb323cfff286621308512a944ee2d62d9824"
+    },
+    {
+      "path": "public/assets/play-counts.mjs",
+      "gitBlob": "75fd926dffc5d294100ce28fc2e26a83c97927e1"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter-logo.webp",
+      "gitBlob": "a840112e019937ea49ae99f6a019d4425a0eded2"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter.webp",
+      "gitBlob": "c438378b7a7290552051608b1bdb78dd92c1c7a2"
+    },
+    {
+      "path": "public/assets/reaction-rod-card.png",
+      "gitBlob": "8405deb9228d1402625b2f9a1703f1c216e59126"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/controls.mjs",
+      "gitBlob": "00975e353a7a0a91c6095141a9cb1b148bbe771d"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/game.mjs",
+      "gitBlob": "113c39ebb70ac7d1f264574029cf43f90bc64a2a"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/index.html",
+      "gitBlob": "7dac875884f8f01b318109124e7c888525e69faf"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/physics.mjs",
+      "gitBlob": "33cf9cda1715efa2caf0538851c5bdfe84f44949"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/style.css",
+      "gitBlob": "95816ca7ba03531212d7f6d21e822e8f1a04a4f4"
+    },
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "gitBlob": "5a703b176e3ac561557fe3efeb9d2375379a2575"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "gitBlob": "acf7cc7b9f503e708bfe95411d9d8b7a6febd3e8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "gitBlob": "c9b7e5eddbabd2c3ba6f5695a89a8b568149ad62"
+    },
+    {
+      "path": "public/games/fast-hands/assets/duel-items-atlas.png",
+      "gitBlob": "741d8b24c9e7f402333c59583b99b78ee9f2e8ca"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "gitBlob": "8cad948afd1baf956543bd9bcb78975cdd21a080"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "gitBlob": "0f2c5a65a08eebd54546a665636b477dfb26faf5"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-catch-generated.webp",
+      "gitBlob": "da515e5321fe7194f48092a3484551588d2f9208"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "gitBlob": "38e526d4d88b251d3967ff275137e72f52cb4471"
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "gitBlob": "e80c08fc3e9aefeddbd525b647f4bd0027ce2ae3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-empty-mid.png",
+      "gitBlob": "551acd20b9edc63add8b858e6f47cb3419ff2be0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-grab.png",
+      "gitBlob": "218d744facb8697fc2ddd9e0a21699fcbc3441ac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-guns.png",
+      "gitBlob": "24b6410081a938fc99fe24f0bdd511cd67ae55f8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-place.png",
+      "gitBlob": "8d4dfbd3a2ef94526461a491bc8808662841a2e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-reach.png",
+      "gitBlob": "3e1cf8cc9a3e5ec6eaceb6cd3da97a8651a470d6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-ready.png",
+      "gitBlob": "eaaa9d91b90bf31540b61a66b175c5374cd7d6e6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return-mid.png",
+      "gitBlob": "05a265158770eb52521388ca34996672ff06c2e0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return.png",
+      "gitBlob": "b87520533ff559f33c4bb61289c94ce922e22049"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-grab.png",
+      "gitBlob": "b2e78c669b094cd8aaf4119f0232e06d3a247f3d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-guns.png",
+      "gitBlob": "b569ebe8e71c032d39463bd9977344915ae7fb93"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-place.png",
+      "gitBlob": "efa589889b8d73e25cde3bba6bdd90496fa369c1"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-reach.png",
+      "gitBlob": "32705b647ca9e5b0fd57d4643b3638d3b23b5fac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-return-mid.png",
+      "gitBlob": "b8859c6a4572707e29fab491778cb7f771f752db"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai.png",
+      "gitBlob": "61b3f5e0779d6786ea7d729e0796768e370b549d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-neutral.png",
+      "gitBlob": "a02d19881a08fcb6a1238747525d704479e0118f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-grab.png",
+      "gitBlob": "773849fd960220c38251966d0119a53f744f87e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-guns.png",
+      "gitBlob": "9ad53826585cc71993c766edef13e67930481b56"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-place.png",
+      "gitBlob": "d9b73888ce30d4b6119c6929e5a9d9141d87007f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-reach.png",
+      "gitBlob": "ed8b57433c4d531322a60999222fd23711c72e9f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-return-mid.png",
+      "gitBlob": "725b248967eeb64e9bab42cd64bc21e54dd313c4"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player.png",
+      "gitBlob": "38e44936310dea5857ee92d0c99daaf9e3ebcf80"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ready.png",
+      "gitBlob": "30cf8cf1b7ad71b0d04075ae83f35824434a16c0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-pose-provenance.json",
+      "gitBlob": "f342f75b907c1349c53e2e97753042e33f5fef2e"
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "gitBlob": "6f925b5de0ece016e35f5fbc699213fd740b35aa"
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "gitBlob": "4e8b2aced85f47f1ac91e8779584a194a0c2c96b"
+    },
+    {
+      "path": "public/games/fast-hands/catch.html",
+      "gitBlob": "ca8632fb54948fdadc0d222c77836449d2d240ba"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "gitBlob": "3095f5b1a62acceb1d0167fea63d3580882b5077"
+    },
+    {
+      "path": "public/games/fast-hands/club.css",
+      "gitBlob": "67ae11fbdf45ca60035afb6459920cadff9201f7"
+    },
+    {
+      "path": "public/games/fast-hands/club.mjs",
+      "gitBlob": "7e7eb2644adfa75904f7b8158bb23e3b9f9a2319"
+    },
+    {
+      "path": "public/games/fast-hands/duck-startup.css",
+      "gitBlob": "b26ba4673f380c051b633e8a6ae6f61da77e46c6"
+    },
+    {
+      "path": "public/games/fast-hands/duel.html",
+      "gitBlob": "bad479ffa30f0ade7b405ddea82d5c7dea2f7582"
+    },
+    {
+      "path": "public/games/fast-hands/finale-image.mjs",
+      "gitBlob": "e2952f9bdfee8a4ba03bec389b59e0ad4fc03321"
+    },
+    {
+      "path": "public/games/fast-hands/finale.css",
+      "gitBlob": "7049abb931b958eb558e90cfc3528bdaae0f04d1"
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "gitBlob": "e0b93656dea0831beeecae383a871ddc92d5caaf"
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "gitBlob": "9b710f25e017e2bc711942fb6a9d1dff6f5a8877"
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "gitBlob": "572f16b5c907f63f7cf9dfb56dfbe59a8a981514"
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "gitBlob": "7c354c8ff949db76ff1e78d75f6527671a4e9b65"
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "gitBlob": "6c11195211e0f34b777ddfa283165ec3a3103a25"
+    },
+    {
+      "path": "public/games/fast-hands/level-nav.css",
+      "gitBlob": "0922d5cf74107931069d80d85dec51e6b66fa8a6"
+    },
+    {
+      "path": "public/games/fast-hands/levels-app.mjs",
+      "gitBlob": "f476ecb44654697823014d6428c8d405144c0b16"
+    },
+    {
+      "path": "public/games/fast-hands/levels-leaderboard.mjs",
+      "gitBlob": "fe5fdf0a4a435359ee247d24bdc548c8c8fb38fd"
+    },
+    {
+      "path": "public/games/fast-hands/levels-motion.mjs",
+      "gitBlob": "b456da480a40acc78d1816b957d1091984becc5a"
+    },
+    {
+      "path": "public/games/fast-hands/levels-ranking.css",
+      "gitBlob": "5e9ab05c767ea6d7a7cd05cd18278361ff289a07"
+    },
+    {
+      "path": "public/games/fast-hands/levels-replay.mjs",
+      "gitBlob": "1ebc4274cb1bec6ad0f4d51279bc4488f918cd0f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-rules.mjs",
+      "gitBlob": "ffb5418b603b75c39d79225a911ceaaa9489732b"
+    },
+    {
+      "path": "public/games/fast-hands/levels-score-image.mjs",
+      "gitBlob": "212114ae6e3336ac8840330c3db8a4d2df6e3df0"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sharing.mjs",
+      "gitBlob": "c746c686af577b34547b237781e6fb8c4faf111f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sound.mjs",
+      "gitBlob": "12ee8e782d229abea23ca572465c496393b6ca54"
+    },
+    {
+      "path": "public/games/fast-hands/levels-stage.mjs",
+      "gitBlob": "01cb7a4ddc53858a0942128f7344221f96b1a1df"
+    },
+    {
+      "path": "public/games/fast-hands/levels-world.mjs",
+      "gitBlob": "c84a34a9d483ea95f9a1b52b454ef11c984c319a"
+    },
+    {
+      "path": "public/games/fast-hands/levels.css",
+      "gitBlob": "64de36acf30f19bef82214a0c8b64051d52e65bd"
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "gitBlob": "bbdd03c707b7bc490566992d0ebdd07207d49774"
+    },
+    {
+      "path": "public/games/fast-hands/play-counts.mjs",
+      "gitBlob": "c908a8abb4878e418133605d59d3167bbfee5c1b"
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "gitBlob": "8bb7603073d21c1ee583cf39087e8acaa9d95d80"
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "gitBlob": "58c74cb8f0a69cb7adc1c7c42595d6d5aabdfecd"
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "gitBlob": "fee03c6d176442407d9be31a22bf9d0f13bf8ac2"
+    },
+    {
+      "path": "public/games/fast-hands/result-upload-host.mjs",
+      "gitBlob": "17a8e134e16ba0b660c40f34e521a1e6eab2967a"
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "gitBlob": "3ed9bffeaa564d18bdcc252d388e75b78633bd00"
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "gitBlob": "1762a8218a7b92398108023d65926d97001cdd39"
+    },
+    {
+      "path": "public/games/fast-hands/share.mjs",
+      "gitBlob": "55e1f502ae4418a5219fe18d6942606228fc4f15"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "gitBlob": "db235d35a165bf6a02da942f6c4524535349af71"
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "gitBlob": "146cad743392eec5d2218f60f96e8f9db35fe0ef"
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "gitBlob": "c9a43ea831d4aeca631e2b74d69cc82150e485ad"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/duck-room.mjs",
+      "gitBlob": "b0628b56a7f517c5eb2238c738d4457d0278d781"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "gitBlob": "ba59e9985bbca875c08352634299175f1e9a15b4"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "gitBlob": "90ffc329bafc968fe4f2f082c06141a687f3b350"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "gitBlob": "7a83ceed7aa4117c67ef2155aa91822a2c7dd9c2"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "gitBlob": "1c31148f792c056ef0eb5ebe6d46d875f5629756"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "gitBlob": "18dd04914133e799f8195bfc5dcf6f011e179ef7"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "gitBlob": "4bbcb02830b843a598a241f83bad89dc945b0e92"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "gitBlob": "b18411038a15cf5696939e61809ac86ecd37814d"
+    },
+    {
+      "path": "public/games/high-jump/action-inputs.mjs",
+      "gitBlob": "bd45b5d8675195cb50583488a4c03edf03b8839c"
+    },
+    {
+      "path": "public/games/high-jump/audio.mjs",
+      "gitBlob": "d586fa25aa493afd6a88d59d554c3bdac0fd70a2"
+    },
+    {
+      "path": "public/games/high-jump/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/high-jump/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/high-jump/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/high-jump/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/high-jump/character.mjs",
+      "gitBlob": "0864ddd50162f562f54032138984cb6206b99e91"
+    },
+    {
+      "path": "public/games/high-jump/clock.mjs",
+      "gitBlob": "bdda17c49e819a5e1b4cdce92c0b3661e12cab39"
+    },
+    {
+      "path": "public/games/high-jump/control-bindings.mjs",
+      "gitBlob": "898bbd604f2d115bd38d72a1093ad7990365876e"
+    },
+    {
+      "path": "public/games/high-jump/game-audio-events.mjs",
+      "gitBlob": "f55025d4b48f8c7fcdd3b046f3098436a1c026e0"
+    },
+    {
+      "path": "public/games/high-jump/game.mjs",
+      "gitBlob": "041b088f64da629cd8e9aaac1e8a649d2f455636"
+    },
+    {
+      "path": "public/games/high-jump/index.html",
+      "gitBlob": "4e14d5f5484ee924bf5ad582df5212bc03df8311"
+    },
+    {
+      "path": "public/games/high-jump/leaderboard.mjs",
+      "gitBlob": "d31a17a4c30737869ed90bde8df7d4d0f968d06e"
+    },
+    {
+      "path": "public/games/high-jump/manifest.webmanifest",
+      "gitBlob": "0cf6062502e0949cd73d528781f8581bdf0ce87f"
+    },
+    {
+      "path": "public/games/high-jump/physics.mjs",
+      "gitBlob": "c2e4e733244117dd4c62c1ff6fb001083e5c593b"
+    },
+    {
+      "path": "public/games/high-jump/play-counts.mjs",
+      "gitBlob": "96cbf778a8b735474ba0c542f4dbeb3d4d19f688"
+    },
+    {
+      "path": "public/games/high-jump/render-transaction.mjs",
+      "gitBlob": "bc1dcd17626d1edc0cc65b765bf3d399e3fb6af9"
+    },
+    {
+      "path": "public/games/high-jump/render.mjs",
+      "gitBlob": "51623aa420d0523c8bcb11bc5e280fe631dc1c1f"
+    },
+    {
+      "path": "public/games/high-jump/replay.mjs",
+      "gitBlob": "7871da0f644a2e55a4814422bfe1f5ddb5f8caec"
+    },
+    {
+      "path": "public/games/high-jump/score-card.mjs",
+      "gitBlob": "da7a65fde2c0e0d46f2919c6979856f5616f8cc3"
+    },
+    {
+      "path": "public/games/high-jump/share.mjs",
+      "gitBlob": "4ba781773ae47cdbdcde8e8b529a0898c110e30a"
+    },
+    {
+      "path": "public/games/high-jump/shared/game-ui.css",
+      "gitBlob": "0ee8856c87cd01a000c447f5edba7b1c6cce1abf"
+    },
+    {
+      "path": "public/games/high-jump/shared/game-ui.mjs",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/high-jump/software-renderer.mjs",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/high-jump/style.css",
+      "gitBlob": "ae6e6074d8e895d2360e14e6ef745b40999c4b0b"
+    },
+    {
+      "path": "public/games/high-jump/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/high-jump/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/high-jump/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/high-jump/verdicts.mjs",
+      "gitBlob": "95d1d122adfa45269ebdf3af81cee2c17c0a4874"
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "gitBlob": "c0ae4bd873a7b54e50b1df669615c4abc7307ae2"
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "gitBlob": "e9d283733f265ea9ad1af01b071dfbec6d01c0f9"
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "gitBlob": "ae2b279c109df77c8d731fb2e00abfa4ce17431a"
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "gitBlob": "0e62f221b929408fb90d3296979a3681ba00bb78"
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "gitBlob": "5909a37882d813426d86fd16fdd5e5c8308573b3"
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "gitBlob": "a27e3758767227254404a8575392231e3767e7d1"
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "gitBlob": "9df59d473fda2a5f905ca0f22f03d5ed1fb516c6"
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "gitBlob": "81a794a34f82b9e5129f17b62528598a7d98e77b"
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "gitBlob": "b64dbd9d42d3d402fa9424bb5400333065f57184"
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "gitBlob": "911b132a60bf3822586d86ac5b651d5819daf4eb"
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "gitBlob": "e9ee9e6842cddc56cf53539525071888b694fa7a"
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "gitBlob": "684bf04991b61dca268ede1e58d0ea4f14c530f4"
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "gitBlob": "a34b3e0f54bf195686c61d0b4b8437d59559fd35"
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "gitBlob": "6fa3dfc2df3178f9c9f09eb9ce17e8bf93e1e374"
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/javelin/character3d.mjs",
+      "gitBlob": "b3e2964b89eaff3d8b3ba6780199264cb3a16873"
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "gitBlob": "e609d930b5bbd283a376853b265d27502d68aaa8"
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "gitBlob": "9eeffe3ac5526b6a75ecb7a7cffa6f525a3a811f"
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "gitBlob": "e1ce8aecd3282fcd0931d543fea33c328d02362d"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "gitBlob": "2db42d4fcb672607dc7e032f041548a53c11f5ed"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "gitBlob": "de6466b02d6aa4bbce88c44f691787c3fbdc0cd0"
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "gitBlob": "2168b78aea1ab10e72dd5838174f83d71df4d9a2"
+    },
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "gitBlob": "d3f4e1e313d5ea4cb02f6ea6f1f690a9dcefe59f"
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "gitBlob": "de393040775dd7f07d4fc5fbbafd0d47fb87f12b"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "gitBlob": "788b7075347827de88619dde9669047788b09356"
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "gitBlob": "a4eab3ddfab6a5ba4b1a4fd52589549fea01778c"
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "gitBlob": "700df4e8909d1b481f4d35da27afa3fe65170dd7"
+    },
+    {
+      "path": "public/games/long-jump/manifest.webmanifest",
+      "gitBlob": "827f01127c589b231e1078fe60cb578ec7301276"
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "gitBlob": "bb96f4ac6b07ff999b624766ed7758c6c82576d0"
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "gitBlob": "75867a2188d0fd03490a8e94a87f9d6b042de245"
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "gitBlob": "2b8bca8c52267348de8c539dbf53a2d35f6a373f"
+    },
+    {
+      "path": "public/games/long-jump/replay.mjs",
+      "gitBlob": "63caf5d5c456bd6757b08b1c772489fb4f010859"
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "gitBlob": "498d697ddb991983f8e4280b6858c520115fc3c6"
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "gitBlob": "a1ccc244fa6d7a81be713f9bc9bd5ef2638e9103"
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "gitBlob": "eba71c4a1fdd05debd20d7c7715c09f6071d2033"
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "gitBlob": "48a0df2b81da5467594bf290cd602780b40992e9"
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "gitBlob": "39be1230c48f48236d305318afa5a6a9b9f99e26"
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "gitBlob": "cb378fc643cc1dc963f0bbb2b986c0f9ab98a891"
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "gitBlob": "5dc0ec2412cacde037d3a63cd0853fb36608470a"
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "gitBlob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "gitBlob": "70c40977daa0f6e1e312c6b58e9bfe49cb5a87a4"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "gitBlob": "20d3c112761a519c7780a5ccc9f72a40937fa83b"
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "gitBlob": "0bec16c55341f752ba4ac665651cbd3d530f2093"
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "gitBlob": "dfe93e30eee9d8eff6577ab7d12d7a04f2316fae"
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "gitBlob": "b9b18327b10711a80dbe310283330c2a5ddec769"
+    },
+    {
+      "path": "public/games/reaction-rod/audio.mjs",
+      "gitBlob": "2ab5ade9b7cc5f834b2566aefdc630952bf5d045"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/CREDITS.md",
+      "gitBlob": "e044ffb34f9180f682bef1bbe83ccaf2e8d69067"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/chill-menu.mp3",
+      "gitBlob": "50b833fcbec85ca8dd559aac6b09fdb05377aea9"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/glass-tap.wav",
+      "gitBlob": "479a2ff557800655a2bee89f08e1ef96c62d78c3"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/spill-drop.wav",
+      "gitBlob": "a5bd77ea257f6c582ba4763890cf579fb8d442f8"
+    },
+    {
+      "path": "public/games/reaction-rod/final-moment.mjs",
+      "gitBlob": "92c345b8cd4d7e46b0926b0a8be3bd6c5e273554"
+    },
+    {
+      "path": "public/games/reaction-rod/framing.mjs",
+      "gitBlob": "4f07858e8b96b9c38fa06c9f5d27c60d821c07d8"
+    },
+    {
+      "path": "public/games/reaction-rod/game-audio-events.mjs",
+      "gitBlob": "2467922a9bd57d17adf1c745acd6f5f9f22a0cbd"
+    },
+    {
+      "path": "public/games/reaction-rod/game.mjs",
+      "gitBlob": "033a633da939586f6cf57d3ec4e38fad36bd948f"
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "gitBlob": "6e6f4eb4ada7a5852d1072055d629e1fb942b64d"
+    },
+    {
+      "path": "public/games/reaction-rod/layout.mjs",
+      "gitBlob": "597253d88dee6718a41e6961a7e62c59c9caa746"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-metrics.mjs",
+      "gitBlob": "b2d34df4f8c02885ce3f6333acbd8fa42c3e1350"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-scroll.mjs",
+      "gitBlob": "50cebd4910329c2f75d36758dc87576e441ae1c1"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard.mjs",
+      "gitBlob": "3930c5824dff762a45f1f79d6572f42a013351dd"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+      "gitBlob": "0c805e98c2aff9b5d29b2a2aaa9cd7768678787a"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Kenney-Interface-License.txt",
+      "gitBlob": "1fc5acf8243a8ac899403e7297f8c5efdc4258f2"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Not-Jam-License.txt",
+      "gitBlob": "60e049509bdf6f0102fa4815ac1d031c7d77b428"
+    },
+    {
+      "path": "public/games/reaction-rod/manifest.webmanifest",
+      "gitBlob": "b0b6a524c20de78a1070dd56327b33272b91a27e"
+    },
+    {
+      "path": "public/games/reaction-rod/physics.mjs",
+      "gitBlob": "a88e8f4437c4b224f725b1a13b3af2b39db5cd6d"
+    },
+    {
+      "path": "public/games/reaction-rod/play-counts.mjs",
+      "gitBlob": "e1950ccf5909a117b35bd058eaad7ad4e53fe563"
+    },
+    {
+      "path": "public/games/reaction-rod/replay.mjs",
+      "gitBlob": "115b8a4b470e5889f362184b1d5bbc7df2b0c3d9"
+    },
+    {
+      "path": "public/games/reaction-rod/result.css",
+      "gitBlob": "5e14fb7fa770ecbcd0228b91c9cc627e5b0b17ac"
+    },
+    {
+      "path": "public/games/reaction-rod/scene.mjs",
+      "gitBlob": "4d7313ddaebb299733b428b2ae639991acf2e0d3"
+    },
+    {
+      "path": "public/games/reaction-rod/share.mjs",
+      "gitBlob": "3742b71d55e34a2adbccd42f90cd96dc64cdefdf"
+    },
+    {
+      "path": "public/games/reaction-rod/snapshot.mjs",
+      "gitBlob": "28b318dc026fb2cdb263c02250ada3b07b4606a9"
+    },
+    {
+      "path": "public/games/reaction-rod/style.css",
+      "gitBlob": "6163314c8995e4c2881f52640aae49f03de58a89"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/reaction-rod/viewport.css",
+      "gitBlob": "ce20b50e4e13faf28e1f3aa40c8fcb12d98a5a1c"
+    },
+    {
+      "path": "public/games/shared/audio-preferences.mjs",
+      "gitBlob": "ff71b706bb6eac4fa64d6a8b43275f864ee9e445"
+    },
+    {
+      "path": "public/games/shared/audio-runtime.mjs",
+      "gitBlob": "ceddec5ea717fe403dbb7b6a2114c9fcf515cb3c"
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "gitBlob": "987bba24c132b4c21928283f3e72e360cebabc2a"
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "gitBlob": "e1b1ecfc8784d5f1942c6c44b88c936b09b5863f"
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "gitBlob": "e4c4e65df7fa784d8f5a0cbab29043d04ab8f001"
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "gitBlob": "d3563ce03f0ef59ab875732927cadb8be4200fed"
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "gitBlob": "d37f933dfc833778c8cc5fa5ca2635103be52292"
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "gitBlob": "b23ca1ab928171cd245103e642f99ae5fb04f258"
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "gitBlob": "01fc2f38df10bb85461233d0f0e8e4e6e3a830fd"
+    },
+    {
+      "path": "public/games/shared/leaderboard-config.mjs",
+      "gitBlob": "6068a13900e9fa266be02ffae05a874517847661"
+    },
+    {
+      "path": "public/games/shared/leaderboard.css",
+      "gitBlob": "8429a7c664a684094533830c9c86d8b17134109c"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "gitBlob": "37893003f50d9278d59152a9d4b021327710e47c"
+    },
+    {
+      "path": "public/games/shared/menu-audio.mjs",
+      "gitBlob": "35f161653dd3f036af9cff1c27fe8d545da69ae8"
+    },
+    {
+      "path": "public/games/shared/menu-content.mjs",
+      "gitBlob": "96477806a67ad663551c43451d1f41a302d6818b"
+    },
+    {
+      "path": "public/games/shared/mobile-gestures.css",
+      "gitBlob": "aaacef1eeba00909de620fc2930302928e1b21b2"
+    },
+    {
+      "path": "public/games/shared/mobile-gestures.mjs",
+      "gitBlob": "2381e6ed3c6bbefee9deb35af9b8b670df25506e"
+    },
+    {
+      "path": "public/games/shared/play-counts.mjs",
+      "gitBlob": "f07d80094e665e7e01ca7e4248947a695aa32fa7"
+    },
+    {
+      "path": "public/games/shared/production-jump-chrome.css",
+      "gitBlob": "f8f485a62f92d4bb6f088128670401940f2605d1"
+    },
+    {
+      "path": "public/games/shared/production-jump-leaderboard.mjs",
+      "gitBlob": "e36580da2af43d048d01022e127ea7c5f8e9fd35"
+    },
+    {
+      "path": "public/games/shared/scene-audio.mjs",
+      "gitBlob": "a17e6ca66ca0541b617240bec099147b93c51458"
+    },
+    {
+      "path": "public/games/shared/studio-brand.css",
+      "gitBlob": "18ba8abc165e498154dd167de0c0045e36b7df36"
+    },
+    {
+      "path": "public/games/shared/upload-cooldown.mjs",
+      "gitBlob": "cb34a03111dc945f5fc52afa98f774115602f21e"
+    },
+    {
+      "path": "public/index.html",
+      "gitBlob": "7b4e0446626d8896acfead620b015f3bdeb7b2e2"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "gitBlob": "aa16a9071ee62f9b769b5cc67dbc922673e7241a"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "gitBlob": "433389afd0c2b67ce75665cdb81f8cd21fed024f"
+    },
+    {
+      "path": "scripts/check-cosmos-parity.mjs",
+      "gitBlob": "24cc18f8981e2278693fa610c4a506b339bf8938"
+    },
+    {
+      "path": "scripts/paint-cosmos-evidence.py",
+      "gitBlob": "a284226fe035bbff4c319530600f8cda9fbb475b"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "gitBlob": "cb97bada4bd1e2da7918929ce71c85b8ca01ebb7"
+    },
+    {
+      "path": "scripts/render-cosmos-evidence.mjs",
+      "gitBlob": "866d18c2e666c07323ae21d91d0ee43df6f046f3"
+    },
+    {
+      "path": "scripts/render-v10-blender.py",
+      "gitBlob": "d332b8f1ff8c8c692d2534ab83914f74e4b4733e"
+    },
+    {
+      "path": "scripts/render-v10-evidence.mjs",
+      "gitBlob": "b8aff7d317df89bfddb4f4fd0f50401eec5f1e9d"
+    },
+    {
+      "path": "scripts/render-v8-blender.py",
+      "gitBlob": "3759c198bf8e5d8ca2b4b847466a2d1276f9e9d1"
+    },
+    {
+      "path": "scripts/render-v8-evidence.mjs",
+      "gitBlob": "d99a461d26fcd6b7816cff181929864e7214d4e1"
+    },
+    {
+      "path": "scripts/render-v9-blender.py",
+      "gitBlob": "f01c2839e8ed0ae88ffca547bb97d17e7f1e3b87"
+    },
+    {
+      "path": "scripts/render-v9-evidence.mjs",
+      "gitBlob": "5327dd841a0adc20604d409a21ee38ed70561795"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "gitBlob": "4bbbabc4e48c363d9fd77eb7548efecf6af6ae26"
+    },
+    {
+      "path": "src/catalog-entries/taiwanfighter.json",
+      "gitBlob": "42056a39017f28e2eb8f25229edfb0fde53c30ec"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "gitBlob": "0d01508a194c90fa2ebfa6498eb4037f7f3ed5a0"
+    },
+    {
+      "path": "src/external-catalog.mjs",
+      "gitBlob": "1b4a01e611bd2b2f036040f38f7f81e215d7cb26"
+    },
+    {
+      "path": "src/render.mjs",
+      "gitBlob": "e4e2ae61dae9321454cba471e7132d11fc1d7d75"
+    },
+    {
+      "path": "tests/build.test.mjs",
+      "gitBlob": "7b84811e643c1054fb879a91f3cf4e16b1c6261a"
+    },
+    {
+      "path": "tests/experiment-physics.test.mjs",
+      "gitBlob": "8ead78446d730d1945815a99182d8e50cd8d95dc"
+    },
+    {
+      "path": "tests/experiment-ui.test.mjs",
+      "gitBlob": "f4a57949c4d34432a0550ab097c389494edb7426"
+    },
+    {
+      "path": "tests/experiment-v2.test.mjs",
+      "gitBlob": "8a4b5d999cb5d6628d0dcb42c1a35a1c41bfe921"
+    },
+    {
+      "path": "tests/fast-hands-cooldown-backend.test.mjs",
+      "gitBlob": "752451113520020c47b33be8ccc3af07c975c8db"
+    },
+    {
+      "path": "tests/fast-hands-main-backend.test.mjs",
+      "gitBlob": "8b8dd9dd76cb1dc08b005ce211ff7dc128ea741f"
+    },
+    {
+      "path": "tests/fast-hands/app-3d.test.mjs",
+      "gitBlob": "fee222670e4730a4bcde9e9bd4ee8d381dcb0758"
+    },
+    {
+      "path": "tests/fast-hands/art-polish-presentation.test.mjs",
+      "gitBlob": "9f44fb6053fddb3001a3a7530671dde2872bef16"
+    },
+    {
+      "path": "tests/fast-hands/auto-input.test.mjs",
+      "gitBlob": "717aa1d26cd3dba5aa01e1a31c63ad14678067ad"
+    },
+    {
+      "path": "tests/fast-hands/challenge.test.mjs",
+      "gitBlob": "16594a299ffd147d6ea9aab4eff66407ed39fe5c"
+    },
+    {
+      "path": "tests/fast-hands/club-flow.test.mjs",
+      "gitBlob": "3109e40bb03321a95c328917de144a74aaa812df"
+    },
+    {
+      "path": "tests/fast-hands/club-layout.test.mjs",
+      "gitBlob": "d1e0f8a3d85b14ac3e14165e10a92bae76bdd0ed"
+    },
+    {
+      "path": "tests/fast-hands/club-navigation.test.mjs",
+      "gitBlob": "44b86307b1f76d88716b13a01846b92563ec1cae"
+    },
+    {
+      "path": "tests/fast-hands/club-results.test.mjs",
+      "gitBlob": "7c8c0bce1fe94add3e7a2d5ddee1453f4df65ee4"
+    },
+    {
+      "path": "tests/fast-hands/covers.test.mjs",
+      "gitBlob": "343ac2edf34f43e6ed6788807b98605500f9e522"
+    },
+    {
+      "path": "tests/fast-hands/demo-3d.test.mjs",
+      "gitBlob": "73a1a135a96a20cd05de4f82bc9c7d549faf0d72"
+    },
+    {
+      "path": "tests/fast-hands/desktop-layout.test.mjs",
+      "gitBlob": "1e55a88276d1cce04a1a4a2b16416eb37a354b16"
+    },
+    {
+      "path": "tests/fast-hands/dialog-navigation.test.mjs",
+      "gitBlob": "12b05bb311677582f4d530d3282520f4c7e87f28"
+    },
+    {
+      "path": "tests/fast-hands/duck-finale-image.test.mjs",
+      "gitBlob": "808ecbe2b692f86c77b328f3e3e84818813314b2"
+    },
+    {
+      "path": "tests/fast-hands/duck-room.test.mjs",
+      "gitBlob": "1afc8a7bff0e1349930ddc4f6ab194b461670805"
+    },
+    {
+      "path": "tests/fast-hands/duck-score-layout.test.mjs",
+      "gitBlob": "5dae12dd25f959148998939f376f52e9fe8fdafd"
+    },
+    {
+      "path": "tests/fast-hands/duck-startup.test.mjs",
+      "gitBlob": "096675be9390fcf1ce2de45153c607279522a7a6"
+    },
+    {
+      "path": "tests/fast-hands/duel-athlete-proportions.test.mjs",
+      "gitBlob": "f131e32da54eb47fb8650342d026b7152280ecc2"
+    },
+    {
+      "path": "tests/fast-hands/finale-css.test.mjs",
+      "gitBlob": "d31e1d598856a955326280bef6295bd7ff2d44c0"
+    },
+    {
+      "path": "tests/fast-hands/finale-image.test.mjs",
+      "gitBlob": "0df9e67b2832197a8c0a165d659afbffeaba2145"
+    },
+    {
+      "path": "tests/fast-hands/finale-layout.test.mjs",
+      "gitBlob": "5750978dabebd2deb8a5032cd3815f2de98c6f31"
+    },
+    {
+      "path": "tests/fast-hands/game-motion.test.mjs",
+      "gitBlob": "c4d663b93077c53c3e93af10c04e17928ec51a4d"
+    },
+    {
+      "path": "tests/fast-hands/generated-intro-covers.test.mjs",
+      "gitBlob": "2801b566cd7934bb408bbe751789b766b3508360"
+    },
+    {
+      "path": "tests/fast-hands/input-clock.test.mjs",
+      "gitBlob": "aa1fec020539a31f0716f23c257783b3a1bb092e"
+    },
+    {
+      "path": "tests/fast-hands/input.test.mjs",
+      "gitBlob": "418fc5655a0a99ccdb7f6a4f449fa13095a17ca9"
+    },
+    {
+      "path": "tests/fast-hands/intro-readable.test.mjs",
+      "gitBlob": "13224453a62d07765e44ae79e9f92a5262398ac3"
+    },
+    {
+      "path": "tests/fast-hands/king-trousers.test.mjs",
+      "gitBlob": "4eef4ba8265a6bfa688020499020429f3d4fd479"
+    },
+    {
+      "path": "tests/fast-hands/leaderboard-app.test.mjs",
+      "gitBlob": "03a462007569cc1250e82fe75369732aad6fe787"
+    },
+    {
+      "path": "tests/fast-hands/leaderboard.test.mjs",
+      "gitBlob": "8996bedab1e2bc89ad71082c014c1a997a1dcb4e"
+    },
+    {
+      "path": "tests/fast-hands/levels-art-rules.test.mjs",
+      "gitBlob": "436583cac5ef5613a25867d0a12f9851b249bc90"
+    },
+    {
+      "path": "tests/fast-hands/levels-art-ui.test.mjs",
+      "gitBlob": "21a43bceb35af77b189977220319455a6cc10618"
+    },
+    {
+      "path": "tests/fast-hands/levels-dart-shape.test.mjs",
+      "gitBlob": "f9d21d32bd5750573614cd0dcee119be1a8d7125"
+    },
+    {
+      "path": "tests/fast-hands/levels-finale-motion.test.mjs",
+      "gitBlob": "79cf3baa0f9ec1ccdf273d1f430e7e7cabe4565e"
+    },
+    {
+      "path": "tests/fast-hands/levels-finale-ui.test.mjs",
+      "gitBlob": "eb85767049bc32da8c6fa0c348bccc3222da5605"
+    },
+    {
+      "path": "tests/fast-hands/levels-leaderboard.test.mjs",
+      "gitBlob": "29223bd0564dd8eb206de1b70f2658ae3563080d"
+    },
+    {
+      "path": "tests/fast-hands/levels-motion.test.mjs",
+      "gitBlob": "e9746e639a65f80fb5b2b4a2135b205ae77e169e"
+    },
+    {
+      "path": "tests/fast-hands/levels-replay.test.mjs",
+      "gitBlob": "4601264b9b4601d8c8713e5eaad4c6092cb88ac3"
+    },
+    {
+      "path": "tests/fast-hands/levels-rules.test.mjs",
+      "gitBlob": "19b01730b2a4c1383dfdf40389f53bfe1e7a89c7"
+    },
+    {
+      "path": "tests/fast-hands/levels-score-image.test.mjs",
+      "gitBlob": "a0b52373ebe7a794c8ae339b2e23ce67693d3fcc"
+    },
+    {
+      "path": "tests/fast-hands/levels-sharing.test.mjs",
+      "gitBlob": "dd8203c8e84476c765c2d800d24f118fbdd9d5e3"
+    },
+    {
+      "path": "tests/fast-hands/levels-sound.test.mjs",
+      "gitBlob": "29510e810961e1b5e04c825ce1c1050486c7f36c"
+    },
+    {
+      "path": "tests/fast-hands/levels-stage-capture.test.mjs",
+      "gitBlob": "12af91b73380e71056fd462f4cdad5e3f50a7fa0"
+    },
+    {
+      "path": "tests/fast-hands/levels-ui.test.mjs",
+      "gitBlob": "3a00ed9f92cb7a6a72cf51bd5b973adb919edc3f"
+    },
+    {
+      "path": "tests/fast-hands/levels-world.test.mjs",
+      "gitBlob": "6ad8b65006ec13afeb0929ca05be486b2a3b02a6"
+    },
+    {
+      "path": "tests/fast-hands/name-refresh-ui.test.mjs",
+      "gitBlob": "c4de5ad6b0789a7e0091174888087930c476a055"
+    },
+    {
+      "path": "tests/fast-hands/navigation-level-integration.test.mjs",
+      "gitBlob": "827c697d94f646223a554ce284fdad8de6b8fddb"
+    },
+    {
+      "path": "tests/fast-hands/physics.test.mjs",
+      "gitBlob": "f2f183104f602394f27b56479b91240709e9c3b1"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-api.test.mjs",
+      "gitBlob": "dd4419f3e5140b24258ec16ecba09717cac01dbc"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-client.test.mjs",
+      "gitBlob": "a10af0a60f286da7cddc284d7363b2e5cf85b8a1"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-gameplay.test.mjs",
+      "gitBlob": "856e3d9ed1214e059b7bd5d3295e61db48916359"
+    },
+    {
+      "path": "tests/fast-hands/practice-choice.test.mjs",
+      "gitBlob": "227f5a4702310d44ba8ef94ce3e399f772169600"
+    },
+    {
+      "path": "tests/fast-hands/records.test.mjs",
+      "gitBlob": "1d3a2f4bf3afae81707f3c32e40f289716bf6e8e"
+    },
+    {
+      "path": "tests/fast-hands/replay.test.mjs",
+      "gitBlob": "062379d95d48f99352685477edea29777469dbd1"
+    },
+    {
+      "path": "tests/fast-hands/result-button-layout.test.mjs",
+      "gitBlob": "cb18b54eb3446cc579fd7da1e9880b9c2426e601"
+    },
+    {
+      "path": "tests/fast-hands/result-copy.test.mjs",
+      "gitBlob": "52b70d529e42e4c34547ff991dc4be051b28622e"
+    },
+    {
+      "path": "tests/fast-hands/result-upload-controller.test.mjs",
+      "gitBlob": "c83b2ab773f6e5a95fa16f1e3b2608112ecf5463"
+    },
+    {
+      "path": "tests/fast-hands/result-upload-layout.test.mjs",
+      "gitBlob": "a3b064eef567483da9bd61cdbb6b6ed26c39ddb1"
+    },
+    {
+      "path": "tests/fast-hands/scene.test.mjs",
+      "gitBlob": "1f0fac7d5c523601161b4f140e5f57d8e21c3953"
+    },
+    {
+      "path": "tests/fast-hands/score-image.test.mjs",
+      "gitBlob": "bd6ef4aeb1396dd47e154324d033b5e08506cf81"
+    },
+    {
+      "path": "tests/fast-hands/screen-alpha-atlas.test.mjs",
+      "gitBlob": "7f1a2f087237dbef5544030cd6a97cebacfe2a61"
+    },
+    {
+      "path": "tests/fast-hands/screen-alpha-ui.test.mjs",
+      "gitBlob": "5be8c6c8e233ad74f662aba88e099c47fb20d7b2"
+    },
+    {
+      "path": "tests/fast-hands/selection-guards.test.mjs",
+      "gitBlob": "9c5cec93efd11b243034de5e97895107b519caf3"
+    },
+    {
+      "path": "tests/fast-hands/share-shell.test.mjs",
+      "gitBlob": "00e9753833c05a8a9953f3fe4e647fb4a441b302"
+    },
+    {
+      "path": "tests/fast-hands/share.test.mjs",
+      "gitBlob": "3710a7a3fee707908c92cf4fb87301b04c08f706"
+    },
+    {
+      "path": "tests/fast-hands/shuttle.test.mjs",
+      "gitBlob": "aed6c8f9b2680eeb6feebdaa2879c96376c7e254"
+    },
+    {
+      "path": "tests/fast-hands/sound.test.mjs",
+      "gitBlob": "442482aa95ca8a455b402a2f1adf1cbd0412f552"
+    },
+    {
+      "path": "tests/fast-hands/split-entries.test.mjs",
+      "gitBlob": "5f956e6fa5b10081e0cb689b8ab6e797c8983c06"
+    },
+    {
+      "path": "tests/fast-hands/stability-ui.test.mjs",
+      "gitBlob": "a6b850dfb7cb399ee774ce09aca8c92831b26e8f"
+    },
+    {
+      "path": "tests/fast-hands/stage.test.mjs",
+      "gitBlob": "a94c67b5041e7f156047ae4dd7813c47cf0629b0"
+    },
+    {
+      "path": "tests/fast-hands/toolbar-safety.test.mjs",
+      "gitBlob": "3576489445641a9cbeba11ff042b15bc54ae666b"
+    },
+    {
+      "path": "tests/fast-hands/ui-shell.test.mjs",
+      "gitBlob": "8301dea497713ccc518ab1dc559d391245307c6f"
+    },
+    {
+      "path": "tests/fixtures/fast-hands-main-baseline.json",
+      "gitBlob": "4780b7f7f2cf42a2bc177e53e19c4ac204fe65fe"
+    },
+    {
+      "path": "tests/fixtures/fast-hands-polish-baseline.json",
+      "gitBlob": "397106eef90c2c6278f6253e426c1043a780b43d"
+    },
+    {
+      "path": "tests/fixtures/high-jump-main-baseline.json",
+      "gitBlob": "4750074a539d3f2ee52c5f89ab9491dbad44c60a"
+    },
+    {
+      "path": "tests/fixtures/mobile-gestures-main-baseline.json",
+      "gitBlob": "6954577e7f170bbbebaf3fa4149400cc63ef7cc9"
+    },
+    {
+      "path": "tests/helpers/entry-boundary.mjs",
+      "gitBlob": "a47f5263142d5682e0c78be15a0c15e6b19a0be3"
+    },
+    {
+      "path": "tests/helpers/fast-hands-main-provenance.mjs",
+      "gitBlob": "c52a27651ec2cbd3402ef9d5c4fad23e876149bb"
+    },
+    {
+      "path": "tests/helpers/fast-hands-polish-provenance.mjs",
+      "gitBlob": "159143d0186cb8a4b9416554ae00db100a2f167d"
+    },
+    {
+      "path": "tests/helpers/high-jump-main-provenance.mjs",
+      "gitBlob": "5f285c94d91e13d61e8bc8365ee254406311fc77"
+    },
+    {
+      "path": "tests/helpers/leaderboard-sqlite.mjs",
+      "gitBlob": "107c0a29801b7c98786c5ff1e26fa89b23e2e399"
+    },
+    {
+      "path": "tests/helpers/loading-main-provenance.mjs",
+      "gitBlob": "ca8cef3fde3d202d7eba81bf212112306512d7ae"
+    },
+    {
+      "path": "tests/helpers/long-jump-main-provenance.mjs",
+      "gitBlob": "c812fd31d8ccabf85f57a541f998bb14a88b0af5"
+    },
+    {
+      "path": "tests/helpers/mobile-gestures-provenance.mjs",
+      "gitBlob": "6351295d0d3aa1eefdc282e272cdc2a7ee5f04ea"
+    },
+    {
+      "path": "tests/helpers/rod-entry-boundary.mjs",
+      "gitBlob": "2d50869c6c8b3a7288515e1d4f18abbf5c683a39"
+    },
+    {
+      "path": "tests/helpers/rod-main-provenance.mjs",
+      "gitBlob": "fb75a7f554ea59e76da396f3e0f59a0e765f312d"
+    },
+    {
+      "path": "tests/helpers/studio-main-provenance.mjs",
+      "gitBlob": "51d176f8b10d0a67b44a70ff2733a9fc4aad057f"
+    },
+    {
+      "path": "tests/high-jump-main-backend.test.mjs",
+      "gitBlob": "3133f5c272c40f4727e1b4e973178e09d439d5f6"
+    },
+    {
+      "path": "tests/high-jump-main-provenance.test.mjs",
+      "gitBlob": "097735c545694db69ba2c7c4eb4a804b7a67720a"
+    },
+    {
+      "path": "tests/high-jump-main.test.mjs",
+      "gitBlob": "f29be25312ee7ec0b5ba221fbe2a454df9bb8db8"
+    },
+    {
+      "path": "tests/high-jump/approach-instructions.test.mjs",
+      "gitBlob": "89e857242efbb3d6027ab562a9a3b0220794dbcb"
+    },
+    {
+      "path": "tests/high-jump/clock.test.mjs",
+      "gitBlob": "97066a0b4f309fcdf3d3e775ed6e64320d0327f6"
+    },
+    {
+      "path": "tests/high-jump/coordination-geometry.test.mjs",
+      "gitBlob": "bd2a2e98fe5fe81f2c375275de9681fe76e70e32"
+    },
+    {
+      "path": "tests/high-jump/coordination-input.test.mjs",
+      "gitBlob": "3138c1c24a3fed107383e5ec868267202eee81bb"
+    },
+    {
+      "path": "tests/high-jump/coordination.test.mjs",
+      "gitBlob": "b38c7b7586b994e236aebcaddf7a06f15848ad81"
+    },
+    {
+      "path": "tests/high-jump/desktop-dialog-layout.test.mjs",
+      "gitBlob": "e629150a00cbe731f218761875a3a40ccf28d6c5"
+    },
+    {
+      "path": "tests/high-jump/fixtures/highjump-c3baa575.mjs",
+      "gitBlob": "dc37c6a1b36622e51429e8b3d52a3635165d861c"
+    },
+    {
+      "path": "tests/high-jump/fixtures/longjump-main-reference.mjs",
+      "gitBlob": "6a7bd444081b91bc80ad4c591f8d1f5a87fd325b"
+    },
+    {
+      "path": "tests/high-jump/helpers/coordination-trace.mjs",
+      "gitBlob": "07c6e07889edeb99ed9ef88cfd6ebee0bc743f9c"
+    },
+    {
+      "path": "tests/high-jump/helpers/reproduce-asjk.mjs",
+      "gitBlob": "0b6bdd37ed83714e132d2fc241ab5f8774112508"
+    },
+    {
+      "path": "tests/high-jump/physics.test.mjs",
+      "gitBlob": "5a86b558ea8c0dfc9e76c55101d5513eaf77bb19"
+    },
+    {
+      "path": "tests/high-jump/result-photo-consistency.test.mjs",
+      "gitBlob": "f3a2e76b7f1c6d2c0fd149eecf14ebcd4c19aabe"
+    },
+    {
+      "path": "tests/high-jump/sharing-flow.test.mjs",
+      "gitBlob": "7a500c9ac57255c8e35412253b7b7b942d098c61"
+    },
+    {
+      "path": "tests/high-jump/short-replay.test.mjs",
+      "gitBlob": "522f01efd7c3274a7f6e573832f6dfa522a02ed7"
+    },
+    {
+      "path": "tests/high-jump/v3-controller.test.mjs",
+      "gitBlob": "caa7bf366829e8b42717579d79645c2517da0440"
+    },
+    {
+      "path": "tests/high-jump/v3-input.test.mjs",
+      "gitBlob": "383d7d8ddd1d43e36576189b724e92ed3ac12289"
+    },
+    {
+      "path": "tests/home-layout.browser.html",
+      "gitBlob": "b414090915f0324cef8e1b4e70ef285d960d4c77"
+    },
+    {
+      "path": "tests/home-layout.test.mjs",
+      "gitBlob": "574e1f6c4f9ef8741067c1e2d97b49e46f473832"
+    },
+    {
+      "path": "tests/home-views-api.test.mjs",
+      "gitBlob": "68ebdb1f437a01e2ff1f5b4181ec065fb7d9caff"
+    },
+    {
+      "path": "tests/home-views-client.test.mjs",
+      "gitBlob": "3a3386b3923ffe6ee3cf335779f73fceeddbd95f"
+    },
+    {
+      "path": "tests/honor-board-api.test.mjs",
+      "gitBlob": "29c7856fb594bea4b11bd52c5ed76e4a4fd410f4"
+    },
+    {
+      "path": "tests/honor-board-view.test.mjs",
+      "gitBlob": "8bbd72491296451c4e8b061e24d3f1c7f1575b30"
+    },
+    {
+      "path": "tests/hurdles-admission.test.mjs",
+      "gitBlob": "6bb36d75417feb37fcb1f49fce90379940ca2e5d"
+    },
+    {
+      "path": "tests/hurdles-platform.test.mjs",
+      "gitBlob": "f8b61e3c3de932f4395db90c450a4554bc6f391e"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "gitBlob": "7c213111a43908008e9a15196ed8a5b5410f42ff"
+    },
+    {
+      "path": "tests/hurdles/accessibility.test.mjs",
+      "gitBlob": "05c671e6ce36e869f66505bbc460f2d027aff418"
+    },
+    {
+      "path": "tests/hurdles/helpers/matched-race.mjs",
+      "gitBlob": "5265b022c3c7042cadfcedc47be481dd55abea19"
+    },
+    {
+      "path": "tests/hurdles/input.test.mjs",
+      "gitBlob": "8dd21c3bb0dc7209b1d1124cd17f09a00680fe4d"
+    },
+    {
+      "path": "tests/hurdles/pacing.test.mjs",
+      "gitBlob": "4e229103bea03899b99dd8b075b64b3bf186115f"
+    },
+    {
+      "path": "tests/hurdles/physics.test.mjs",
+      "gitBlob": "6042c48f5d2c31a3ef8f1982e558072e5c773a72"
+    },
+    {
+      "path": "tests/hurdles/platform-ui.test.mjs",
+      "gitBlob": "a7bf683b9e7b186cffc73106ceff824ad160888f"
+    },
+    {
+      "path": "tests/hurdles/play-surface.test.mjs",
+      "gitBlob": "8e98e889cd0fa97074e6f9dc0b49658442af7745"
+    },
+    {
+      "path": "tests/hurdles/replay.test.mjs",
+      "gitBlob": "01e155bf3967e6f2dc08309fc29b93ab3348bb9c"
+    },
+    {
+      "path": "tests/hurdles/result-fit.test.mjs",
+      "gitBlob": "a85e2993c034c897aacbae272422a578cb773d85"
+    },
+    {
+      "path": "tests/hurdles/result-guard.test.mjs",
+      "gitBlob": "438ae845b11b8277b7f25f32d19b201af5a1a694"
+    },
+    {
+      "path": "tests/hurdles/revision.test.mjs",
+      "gitBlob": "a61444b4329ed21e57f2c272ba211c1a03c029e7"
+    },
+    {
+      "path": "tests/hurdles/share.test.mjs",
+      "gitBlob": "8d70050fe39a35d275b7750fa4a01a31c95e158a"
+    },
+    {
+      "path": "tests/leaderboard-api.test.mjs",
+      "gitBlob": "002bafb27de45136d4d32eb38e3b5c63ddc5d14b"
+    },
+    {
+      "path": "tests/leaderboard-client.test.mjs",
+      "gitBlob": "056c3baee7c0d3551e361a22672db812ee969856"
+    },
+    {
+      "path": "tests/leaderboard-diagnostic-cost.test.mjs",
+      "gitBlob": "0ff0964280e48c7d584b0b74762902263526eb88"
+    },
+    {
+      "path": "tests/leaderboard-enabled-controller.test.mjs",
+      "gitBlob": "01c80a74a78de4ab701ce37ff70c3f2aca464c7e"
+    },
+    {
+      "path": "tests/leaderboard-repository.test.mjs",
+      "gitBlob": "f0265397ab6db788d314e78fa1a51abfcd3cf7ad"
+    },
+    {
+      "path": "tests/leaderboard-upload-cooldown.test.mjs",
+      "gitBlob": "3a434074cf2d6a3aa929565b3afb561804f67ca8"
+    },
+    {
+      "path": "tests/long-jump/audio.test.mjs",
+      "gitBlob": "a42fc0494bc6e832a0e4b7986900470c26d85d96"
+    },
+    {
+      "path": "tests/long-jump/browser-dom.html",
+      "gitBlob": "6e283af9c7bbe980083017b568b91b9c1f3c2b13"
+    },
+    {
+      "path": "tests/long-jump/browser-portrait-layout.html",
+      "gitBlob": "aa94b2cf80fc391358846d464c565a5ace261a8a"
+    },
+    {
+      "path": "tests/long-jump/browser-recovery.html",
+      "gitBlob": "4542ff3bd37531ae248940f72e8a7274339543d0"
+    },
+    {
+      "path": "tests/long-jump/browser-root-origin.html",
+      "gitBlob": "f4306d61b1a451291d69b568c45792e533a2d378"
+    },
+    {
+      "path": "tests/long-jump/capture.test.mjs",
+      "gitBlob": "61d33b1b7fbf4bae9e7eeb996216343e32cdd687"
+    },
+    {
+      "path": "tests/long-jump/character.test.mjs",
+      "gitBlob": "e108e04a248043f6f7b03a1c5324c4dbfb8e1b3a"
+    },
+    {
+      "path": "tests/long-jump/controls.test.mjs",
+      "gitBlob": "3452ae4f10b1dae166aa946663954d4d25419715"
+    },
+    {
+      "path": "tests/long-jump/cosmic-route.test.mjs",
+      "gitBlob": "c33676cc6d0cd91400d400d551cf0c92ce3dad46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-scenery.test.mjs",
+      "gitBlob": "2795e7bacd99eb6a258b4bb567d6f86168431d46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-verdicts.test.mjs",
+      "gitBlob": "a5366cbea29003bc0f60f4095a6e64bbc1baead4"
+    },
+    {
+      "path": "tests/long-jump/dialogs.test.mjs",
+      "gitBlob": "b82f4aa78a63321b87bad3b10e894a5028ec1df6"
+    },
+    {
+      "path": "tests/long-jump/endless-multiverse.test.mjs",
+      "gitBlob": "a483e8d4cd4ef743481c2c7babda605fc668d54f"
+    },
+    {
+      "path": "tests/long-jump/fixtures/cosmic-legacy-route.json",
+      "gitBlob": "0af23c5eecd1590539bdd0c08125a0fc8a2ff450"
+    },
+    {
+      "path": "tests/long-jump/fixtures/v8-feel.json",
+      "gitBlob": "6a6b11e0534eeafee6363d72a295fdb7f7fe0eba"
+    },
+    {
+      "path": "tests/long-jump/flavour.test.mjs",
+      "gitBlob": "09eb5ade1e92b647819423dd6f37a59a508f656e"
+    },
+    {
+      "path": "tests/long-jump/game-lifecycle.test.mjs",
+      "gitBlob": "0c16a24ccb87305c374bc9db9859816d29d8fab6"
+    },
+    {
+      "path": "tests/long-jump/landing-preview.test.mjs",
+      "gitBlob": "ee578aab6ab5799917031e43644295c41a130b02"
+    },
+    {
+      "path": "tests/long-jump/layout.test.mjs",
+      "gitBlob": "2b8cdff77c207bf65ed38d5bc7ad4abecb8f4d80"
+    },
+    {
+      "path": "tests/long-jump/play-surface.test.mjs",
+      "gitBlob": "6f5908c67e483d70e762e1b511e69762fbad03a1"
+    },
+    {
+      "path": "tests/long-jump/polish.test.mjs",
+      "gitBlob": "0c617e91b1cf03e22a7cbe95b21b4f132998f659"
+    },
+    {
+      "path": "tests/long-jump/prepare-recovery-browser.mjs",
+      "gitBlob": "2516eebb90102719178205f6254ac79f11753cbe"
+    },
+    {
+      "path": "tests/long-jump/prepare-root-origin-browser.mjs",
+      "gitBlob": "bc22a75bba7bca0fa4a86769e15f07d1d5c850f1"
+    },
+    {
+      "path": "tests/long-jump/prepare-viewport-diagnostics-browser.mjs",
+      "gitBlob": "f97a00abc714de3af8286da410455fe95b17a5ae"
+    },
+    {
+      "path": "tests/long-jump/raw-result-preview.test.mjs",
+      "gitBlob": "56f14eff1fb2ee0e0355049dbd3c69043052e2cf"
+    },
+    {
+      "path": "tests/long-jump/replay-result-ui.test.mjs",
+      "gitBlob": "baf855c5d00db7f1373b61c87958ac756c64c4c6"
+    },
+    {
+      "path": "tests/long-jump/replay.test.mjs",
+      "gitBlob": "21ce3edbbd7a4889be79751edfbdc3abbb09a390"
+    },
+    {
+      "path": "tests/long-jump/result-ranking-width.test.mjs",
+      "gitBlob": "111520c1b829ac5039d931ec98ff8ee25f03f05d"
+    },
+    {
+      "path": "tests/long-jump/result-view.test.mjs",
+      "gitBlob": "905d03a6487871f17757cb6882b2d4237c41c2a9"
+    },
+    {
+      "path": "tests/long-jump/rotation-dialog.test.mjs",
+      "gitBlob": "24c3d0cef3c022cfc8b9dd2f7cb09b062b82350b"
+    },
+    {
+      "path": "tests/long-jump/rotation-input.test.mjs",
+      "gitBlob": "d106563ccdd507d667e7443c70305c0ba9641736"
+    },
+    {
+      "path": "tests/long-jump/sandpits.test.mjs",
+      "gitBlob": "7b2375ea33feb4ccb1473744b30d4101eae51aa8"
+    },
+    {
+      "path": "tests/long-jump/scenario-v06.mjs",
+      "gitBlob": "d13bd4cc8fd605c5275e8f192bd818f80c7696d0"
+    },
+    {
+      "path": "tests/long-jump/selected-audio.test.mjs",
+      "gitBlob": "822bee2d9c003392c5958cb39693e4574eb82848"
+    },
+    {
+      "path": "tests/long-jump/selected-dialog.test.mjs",
+      "gitBlob": "d077d6f069c2098b27901defbe45c72acb2923c8"
+    },
+    {
+      "path": "tests/long-jump/share-v04.test.mjs",
+      "gitBlob": "a14355d87793c5464d2c3b16a84edafe73f3a2f8"
+    },
+    {
+      "path": "tests/long-jump/share-v05.test.mjs",
+      "gitBlob": "8fe0f2ddeae825b247865b0ba76ae689bd6ab45c"
+    },
+    {
+      "path": "tests/long-jump/share.test.mjs",
+      "gitBlob": "14c62fbf9c434b5ffa9320fb2e11c82d06222a5d"
+    },
+    {
+      "path": "tests/long-jump/standalone-dialog.test.mjs",
+      "gitBlob": "d02fb1125fc63dc5855f874e1da38b82c14f8172"
+    },
+    {
+      "path": "tests/long-jump/v10-landmark-structure.test.mjs",
+      "gitBlob": "1a523bab55d2bde48c023fcc8ead034447db3811"
+    },
+    {
+      "path": "tests/long-jump/v10-scenery.test.mjs",
+      "gitBlob": "36711cd7f2ba8cef9674bf65246b9af88991bb36"
+    },
+    {
+      "path": "tests/long-jump/v8-motion.test.mjs",
+      "gitBlob": "0bcbb1f0e49c016a756cb0fcfcfb34f71031d465"
+    },
+    {
+      "path": "tests/long-jump/v8-presentation.test.mjs",
+      "gitBlob": "68ec7c513fb3aad16e4088f89203fbd233f457da"
+    },
+    {
+      "path": "tests/long-jump/v8-scenarios.mjs",
+      "gitBlob": "48314cbf34befa4a0d5d73d13c644e99578f2149"
+    },
+    {
+      "path": "tests/long-jump/v8-scenery.test.mjs",
+      "gitBlob": "301f2ae57080bb0e9988310c20bc90ede5ccc74c"
+    },
+    {
+      "path": "tests/long-jump/v8-verdicts.test.mjs",
+      "gitBlob": "f6a8c1fd5f3b9349fe89abb204f9454220d8a812"
+    },
+    {
+      "path": "tests/long-jump/v8-world.test.mjs",
+      "gitBlob": "20d04391cbe3ef986c35b18bd0fed20ebc9a2fda"
+    },
+    {
+      "path": "tests/long-jump/v9-feel.test.mjs",
+      "gitBlob": "3b47512ebc4b5a3b43c3bfc0ce765d908c03596b"
+    },
+    {
+      "path": "tests/long-jump/v9-presentation.test.mjs",
+      "gitBlob": "035662d9425b90129f2e55f4a1c31216aef6fda4"
+    },
+    {
+      "path": "tests/long-jump/v9-route.test.mjs",
+      "gitBlob": "08b8a75e96c00958870ef3976c81f55d3bf74b81"
+    },
+    {
+      "path": "tests/long-jump/v9-scenery.test.mjs",
+      "gitBlob": "7b9d27060fc506371c3944ea6c5ec06c0fb929ac"
+    },
+    {
+      "path": "tests/long-jump/verdicts.test.mjs",
+      "gitBlob": "71ab3e9126381626d3f4bfaf416442a164e9a612"
+    },
+    {
+      "path": "tests/long-jump/viewport-diagnostics.test.mjs",
+      "gitBlob": "aad7faf184d1a4836647a95b33cf5b9043918728"
+    },
+    {
+      "path": "tests/long-jump/viewport-root-origin.test.mjs",
+      "gitBlob": "e26344a726055c102a16d1ea28b51aeb6a584351"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "gitBlob": "f8e797b948b2ac42c97fdabe3ea7f82d15f57e62"
+    },
+    {
+      "path": "tests/main-fast-hands-polish-provenance.test.mjs",
+      "gitBlob": "2da359eadbf08d441cd7dd4ab8daefa2d10aadbf"
+    },
+    {
+      "path": "tests/main-fast-hands-provenance.test.mjs",
+      "gitBlob": "ca5b53619aba6968c9ff9ffa722ac1b3ffb72f41"
+    },
+    {
+      "path": "tests/main-fast-hands.test.mjs",
+      "gitBlob": "2660fed8de54a583f7cbd55e76793130b710648f"
+    },
+    {
+      "path": "tests/main-icons.test.mjs",
+      "gitBlob": "c49873a9899de9dd0549f0b6851dba0b898d178d"
+    },
+    {
+      "path": "tests/main-loading-provenance.test.mjs",
+      "gitBlob": "8789da96649ec466a7f4c02cad1314e802f382ce"
+    },
+    {
+      "path": "tests/main-loading.test.mjs",
+      "gitBlob": "85e7fef31d3044cb8d9f95c7580b0f0cdda108c0"
+    },
+    {
+      "path": "tests/main-long-jump-promotion.test.mjs",
+      "gitBlob": "0222890fe6792af5d22eaab36eb59957bafab6a1"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "gitBlob": "56a8e4cd0c579eefebf4ab5de2f3bda310f5ab5e"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "gitBlob": "c0be972f2bac912a93431589fa446f8211e43e9a"
+    },
+    {
+      "path": "tests/mobile-gestures-provenance.test.mjs",
+      "gitBlob": "f7ffa473fb2462288b520fee52a19cc1504e430c"
+    },
+    {
+      "path": "tests/mobile-gestures.test.mjs",
+      "gitBlob": "5ad5332168216209c20e36eca7783180e0ad7745"
+    },
+    {
+      "path": "tests/play-counts-api.test.mjs",
+      "gitBlob": "c42e005a85ffc7694c72c81c1f7b141f09fb3c72"
+    },
+    {
+      "path": "tests/play-counts-client.test.mjs",
+      "gitBlob": "c121420e3b68d088191ac076d3d8ecdbf1b07936"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "gitBlob": "bf5c28542d78c42d2bca98ac6eaba468e8e8fc04"
+    },
+    {
+      "path": "tests/production-jump-controller.test.mjs",
+      "gitBlob": "99042329d823808981c18eea2ecbc6ff40cc7156"
+    },
+    {
+      "path": "tests/production-jump-leaderboard.test.mjs",
+      "gitBlob": "8ab7a82301129fcf9c616f3e22aceef94f44d1b6"
+    },
+    {
+      "path": "tests/production-leaderboard.test.mjs",
+      "gitBlob": "12b65e5a022ed31ebf7d3f46886321eed5208490"
+    },
+    {
+      "path": "tests/ranking-refinement.test.mjs",
+      "gitBlob": "2d0dbfe6ae919fc5452d284a540f556e856b305e"
+    },
+    {
+      "path": "tests/reaction-rod-database.test.mjs",
+      "gitBlob": "4530404c9f133e2583902f9c5c0c729ae7c212f5"
+    },
+    {
+      "path": "tests/reaction-rod-main-integrity.test.mjs",
+      "gitBlob": "7f58fe16eac26620f0889d272eccf4aa86b3ecb0"
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "gitBlob": "da4c208dea356760ca4b7d0417f1045162161cdd"
+    },
+    {
+      "path": "tests/reaction-rod-upload-scroll.test.mjs",
+      "gitBlob": "38ce0ff3646723453832a2d581a4d6e0b5b15721"
+    },
+    {
+      "path": "tests/reaction-rod/art-v4-baseline.json",
+      "gitBlob": "639389d18929de809230e7b848865be4874d5fff"
+    },
+    {
+      "path": "tests/reaction-rod/art.test.mjs",
+      "gitBlob": "f35dea5e0f8fd691b3355bf4e968977cdeb974b6"
+    },
+    {
+      "path": "tests/reaction-rod/crouch.test.mjs",
+      "gitBlob": "c01e0bb434f58fbe67bc8220765bb26adc81f795"
+    },
+    {
+      "path": "tests/reaction-rod/difficulty.test.mjs",
+      "gitBlob": "ede7f009641de425bae7a012ac4e506135582ce8"
+    },
+    {
+      "path": "tests/reaction-rod/final-moment.test.mjs",
+      "gitBlob": "dc6db9abb3110187d2a79e8c0969dd3ca8f962b4"
+    },
+    {
+      "path": "tests/reaction-rod/final-photo.test.mjs",
+      "gitBlob": "c2fa8eae107796c5daf8985dc00d3dcf832fbfb5"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-result-base-physics.mjs",
+      "gitBlob": "087846f9432cfc622ac20f7f552b89f3011f9fae"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-v9-game.mjs",
+      "gitBlob": "a3ee98fbab23b9dce1fdc6b207f6640ebfc2c7f1"
+    },
+    {
+      "path": "tests/reaction-rod/framing-v7.test.mjs",
+      "gitBlob": "1f58cbe8cb24c7b2ee3982ecb246d8f0d02d0054"
+    },
+    {
+      "path": "tests/reaction-rod/model-crouch.test.mjs",
+      "gitBlob": "d00eafdc439c07b3c308bf2f3fb49b6778c5edfb"
+    },
+    {
+      "path": "tests/reaction-rod/physics.test.mjs",
+      "gitBlob": "9ceb250f770639df274ab1f3638f823727fc164c"
+    },
+    {
+      "path": "tests/reaction-rod/replay-integration.test.mjs",
+      "gitBlob": "c4d0712e89484f3ac5d77d66cc83ade9b1818a9a"
+    },
+    {
+      "path": "tests/reaction-rod/replay-layout.test.mjs",
+      "gitBlob": "2cec936b07dff5b8f4a0156c1fe8d841e679794e"
+    },
+    {
+      "path": "tests/reaction-rod/replay-scene.test.mjs",
+      "gitBlob": "38156f6d7fb50519003591d6f7c66661b0ae1259"
+    },
+    {
+      "path": "tests/reaction-rod/replay.test.mjs",
+      "gitBlob": "09bc89daafe8c3f32153fe3e3bff9e133703f70d"
+    },
+    {
+      "path": "tests/reaction-rod/result-layout.test.mjs",
+      "gitBlob": "fd19e0cf5779ad4f9c7f2cd315760de9af96ee31"
+    },
+    {
+      "path": "tests/reaction-rod/result-polish.test.mjs",
+      "gitBlob": "a552d6631c43f277ceb3111e0d2b7faf9218adc3"
+    },
+    {
+      "path": "tests/reaction-rod/share.test.mjs",
+      "gitBlob": "3f1f7d7f59aab500d8b8b1a1c6da672e34af69c7"
+    },
+    {
+      "path": "tests/reaction-rod/snapshot-v7.test.mjs",
+      "gitBlob": "25802c244dd546129d79e373843aa220c24d34e5"
+    },
+    {
+      "path": "tests/reaction-rod/standing.test.mjs",
+      "gitBlob": "d6de1b04d7caeb90b0f5789a1f794159c687e72d"
+    },
+    {
+      "path": "tests/reaction-rod/ui.test.mjs",
+      "gitBlob": "d1ed917f649e1d250a95a9f43fc9ee80a67a66ea"
+    },
+    {
+      "path": "tests/reaction-rod/viewport.test.mjs",
+      "gitBlob": "31d8bb8c69a04258bcbcb4215faa2a43fea3d94b"
+    },
+    {
+      "path": "tests/render.test.mjs",
+      "gitBlob": "5d8249d34e50ce0a84926ac0c3e191a923df4092"
+    },
+    {
+      "path": "tests/studio-main-provenance.test.mjs",
+      "gitBlob": "2f72a0332329a6a7d2fe4ba884292546d1b59d3e"
+    },
+    {
+      "path": "tests/studio-main.test.mjs",
+      "gitBlob": "b0af6057382971f5de8cf0a15399fed4ec69bee2"
+    },
+    {
+      "path": "tests/v2-menu-audio.test.mjs",
+      "gitBlob": "cf53cb89153542576a7f53b4369e4325ba180c66"
+    },
+    {
+      "path": "tests/v2-menu-style.test.mjs",
+      "gitBlob": "45d053c3178371fd319c9ef0e2e72791e5a4ee5d"
+    },
+    {
+      "path": "tests/v2-menu.test.mjs",
+      "gitBlob": "bb6d15d1b6fb634cdc72a4bad0631067b7b9857e"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "gitBlob": "7591f7c7c4957cfd923e835af91e9da421abedd7"
+    },
+    {
+      "path": "worker/leaderboard/003-reaction-rod-production.sql",
+      "gitBlob": "2d80f19145cf8ad0b15c735f5a79265daaa49fd8"
+    },
+    {
+      "path": "worker/leaderboard/DEPLOYMENT-NOTES.md",
+      "gitBlob": "6bfb50d2db990c0e9684d832776025c0acb95d77"
+    },
+    {
+      "path": "worker/leaderboard/README.md",
+      "gitBlob": "61e56935f1a09c167064a5a86c8ef616b3167dad"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "gitBlob": "279c2fb072ceb60872227e05aec68d8027ce5679"
+    },
+    {
+      "path": "worker/leaderboard/reaction-rod-repository.mjs",
+      "gitBlob": "a67f5c16bf68bed283886b6b8cf490240073eeee"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "gitBlob": "787d41662fc34d20628ca8ceb11a7985b0e4b57f"
+    },
+    {
+      "path": "worker/play-counts/002.sql",
+      "gitBlob": "ceffcb74368ae33ab233899f506b88d361f0e875"
+    },
+    {
+      "path": "worker/play-counts/README.md",
+      "gitBlob": "9396e6dac0ee6d080947a92fc7a40cbdb01bdf91"
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "gitBlob": "ef1ce9a1ff02f34d5ef89d91883eabb0104f7116"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "gitBlob": "ee62d0c50ad721fb2a8b36ee0a91cd6e1b423e4f"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "gitBlob": "e99bdaed9a7e1635cd58aeaa2dc45c952d6b519b"
+    }
+  ],
+  "modifiedPaths": [
+    "public/assets/play-counts.mjs",
+    "public/index.html",
+    "scripts/verify.mjs",
+    "src/render.mjs",
+    "tests/helpers/high-jump-main-provenance.mjs",
+    "tests/high-jump-main-provenance.test.mjs",
+    "tests/leaderboard-api.test.mjs",
+    "tests/main-counts-fighter.test.mjs",
+    "tests/main-fast-hands.test.mjs",
+    "tests/main-nav-diagnostic.test.mjs",
+    "tests/play-counts-repository.test.mjs",
+    "tests/reaction-rod-main.test.mjs",
+    "worker/leaderboard/index.mjs",
+    "worker/play-counts/repository.mjs"
+  ],
+  "addedPaths": [
+    "docs/fighter-entry-counts/README.md",
+    "docs/fighter-entry-counts/SOURCE-MANIFEST.json",
+    "tests/fighter-entry-count.test.mjs",
+    "tests/fighter-entry-provenance.test.mjs",
+    "tests/fixtures/fighter-entry-main-baseline.json",
+    "tests/helpers/fighter-entry-provenance.mjs",
+    "worker/play-counts/entries.mjs"
+  ]
+}

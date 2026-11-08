@@ -1,4 +1,5 @@
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeFighter as readFileSync,inventoryBeforeFighter} from './fighter-entry-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -32,6 +33,7 @@ export function readBeforeHighJump(file,encoding){
  return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeHighJump(actual){
+ actual=inventoryBeforeFighter(actual);
  const m=highJumpManifest();validateHighJumpManifest(m);assert.equal(new Set(m.addedPaths).size,m.addedPaths.length);
  for(const p of m.addedPaths){assert.ok(actual.includes(p),p+' required high-jump addition');if(p==='docs/high-jump-main/SOURCE-MANIFEST.json')continue;const row=m.files.find(f=>f.path===p);assert.ok(row);assert.equal(blob(readFileSync(path.join(root,p))),row.gitBlob,p);}
  return actual.filter(p=>!m.addedPaths.includes(p));

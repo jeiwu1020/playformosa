@@ -15,7 +15,7 @@ const ids=['long-jump','hurdles','high-jump','reaction-rod',...expected.map(x=>x
 test('main admits exactly seven games and all three approved Fast Hands intro cards',()=>{
  assert.deepEqual([...catalog.games,...catalog.minigames].map(g=>g.id),ids);
  for(const [id,title,href,image] of expected){const g=catalog.minigames.find(g=>g.id===id);assert.deepEqual([g.title,g.href,g.image],[title,href,image]);}
- const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),ids);
+ const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),[...ids,'taiwanfighter']);
  for(const [,title,href,image] of expected){assert.ok(html.includes(title));assert.ok(html.includes(`href="${href}"`));assert.ok(html.includes(`src="${image}"`));}
 });
 test('new minigame admission rejects unapproved IDs, routes, query strings and artwork',()=>{

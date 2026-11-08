@@ -1,4 +1,5 @@
 import {handlePlayCounts} from '../play-counts/index.mjs';
+import {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';
 import {LeaderboardRepository} from './repository.mjs';
 import {ReactionRodRepository} from './reaction-rod-repository.mjs';
 import {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';
@@ -54,8 +55,9 @@ function parseSubmission(text){
  return validateSubmission(value);
 }
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
-export async function handleRequest(request,env,now=Date.now()){
+export async function handleRequest(request,env,now=Date.now(),context){
  const url=new URL(request.url);
+ if(url.pathname===fighterEntryPath)return handleFighterEntry(request,env,now,context);
  if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});
  if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);
@@ -85,5 +87,5 @@ export async function handleRequest(request,env,now=Date.now()){
   return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);
  }catch{return json({error:'temporarily_unavailable'},503);}
 }
-export default {fetch(request,env){return handleRequest(request,env);}};
+export default {fetch(request,env,context){return handleRequest(request,env,Date.now(),context);}};
 
