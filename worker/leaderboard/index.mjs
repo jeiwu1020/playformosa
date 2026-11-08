@@ -3,6 +3,7 @@ import {LeaderboardRepository} from './repository.mjs';
 import {ReactionRodRepository} from './reaction-rod-repository.mjs';
 import {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';
 export const BOARDS=Object.freeze({
+ 'high-jump':Object.freeze({rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE}),
  'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
  hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),
  'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true})

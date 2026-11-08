@@ -4,6 +4,7 @@ import {catalog} from '../src/catalog.mjs';
 import {renderPage} from '../src/render.mjs';
 const root = new URL('../',import.meta.url);
 await assertReleasedGames(new URL('public/',root));
+const highJump=JSON.parse(await readFile(new URL('../docs/high-jump-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));
 const release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));
 const rod=JSON.parse(await readFile(new URL('docs/reaction-rod-main/SOURCE-MANIFEST.json',root),'utf8'));
 const studio=JSON.parse(await readFile(new URL('docs/studio-main/SOURCE-MANIFEST.json',root),'utf8'));
@@ -11,7 +12,7 @@ const jump=JSON.parse(await readFile(new URL('docs/long-jump-main/SOURCE-MANIFES
 const fastHands=JSON.parse(await readFile(new URL('docs/fast-hands-main/SOURCE-MANIFEST.json',root),'utf8'));
 const polish=JSON.parse(await readFile(new URL('docs/fast-hands-polish/SOURCE-MANIFEST.json',root),'utf8'));
 const gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MANIFEST.json',root),'utf8'));
-const allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths];
+const allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);

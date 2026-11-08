@@ -1,9 +1,10 @@
+import {readBeforeHighJump,inventoryBeforeHighJump} from './helpers/high-jump-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 
-const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),read=p=>readBeforeHighJump(new URL(p,root));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');
 const baselineBytes=read('tests/fixtures/mobile-gestures-main-baseline.json');
@@ -30,7 +31,7 @@ test('gesture release admits only six HTML entries, two shared files and its ver
    if(e.isDirectory())walk(p);else{assert.ok(e.isFile(),p+' must be a regular file');actual.push(p);}
   }
  }
- walk();assert.deepEqual(actual.sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unapproved additions or deletions');
+ walk();assert.deepEqual(inventoryBeforeHighJump(actual).sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unapproved additions or deletions');
 });
 
 test('every original remote main byte is restored only by the declared verified gesture delta',async()=>{

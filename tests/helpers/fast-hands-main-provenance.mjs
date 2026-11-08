@@ -1,3 +1,4 @@
+import {readGameDirsBeforeHighJump} from './high-jump-main-provenance.mjs';
 import {readBeforePolish} from './fast-hands-polish-provenance.mjs';
 import {readFileSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -30,5 +31,5 @@ export function readGamesBeforeFastHands(){
  const declared=m.addedPublicPaths.filter(p=>/^games\/(fast-hands|javelin)\//.test(p)).map(p=>'public/'+p).sort();
  assert.deepEqual(actual.sort(),declared,'Fast Hands added game-directory inventory');
  for(const p of actual){const matches=m.sourceFiles.filter(f=>f.path===p);assert.equal(matches.length,1,p+' source evidence');const bytes=readBeforePolish(path.join(root,p));assert.equal(hash(bytes),matches[0].sha256,p);assert.equal(blob(bytes),matches[0].gitBlob,p);}
- return readdirSync(path.join(root,'public/games')).filter(p=>!addedDirs.includes(p)).sort();
+ return readGameDirsBeforeHighJump().filter(p=>!addedDirs.includes(p)).sort();
 }

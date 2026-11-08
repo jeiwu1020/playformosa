@@ -10,10 +10,10 @@ const valid={game:'reaction-rod',rules:'catch-rating-v1',unit:'catches',status:'
 test('main navigation and independent shelf admit only approved Rod and Fast Hands',()=>{
  const d=new JSDOM(renderPage(catalog)).window.document;
  assert.deepEqual([...d.querySelectorAll('.site-header nav a')].map(a=>a.textContent),['十項全能','小遊戲','大遊戲','關於']);
- assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);
+ assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles','high-jump']);
  assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
  assert.equal(d.querySelectorAll('#minigames .game-card').length,4);
- assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
+ assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','high-jump','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
  assert.equal(d.querySelector('#minigames .game-cta').getAttribute('href'),'/games/reaction-rod/');
  assert.equal(d.querySelector('[data-external-id] a').href,'https://taiwanfighter.playformosa.workers.dev/');
 });

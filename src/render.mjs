@@ -6,7 +6,7 @@ export function renderPage({games,events,minigames=[],externalGames=[]}) {
   const externalSection=fighter.map(e=>`<section class="portal-section" id="big-games" aria-labelledby="fighter-title"><p class="eyebrow">INDEPENDENT WORLDS</p><h2 id="fighter-title">大遊戲</h2><article class="portal-card portal-card--taiwanfighter" data-external-id="taiwanfighter"><div class="portal-art"><img src="${escape(e.image)}" alt="" width="1672" height="941" loading="lazy"><img class="portal-game-logo" src="${escape(e.logo)}" alt="" width="1446" height="1120" loading="lazy"><span class="portal-art-label">${escape(e.eyebrow)}</span></div><div class="portal-card-body"><p class="portal-genre">${escape(e.genre)}</p><h3>${escape(e.title)}</h3><p class="portal-description">${escape(e.description)}</p><div class="portal-card-bottom"><span class="portal-destination">獨立遊戲網站・另開新分頁</span><a class="button portal-cta" href="${escape(e.href)}" target="_blank" rel="noopener noreferrer" aria-label="前往遊玩：${escape(e.title)}（另開新分頁）">前往遊玩 ↗</a></div></div></article></section>`).join('');
   const available=games.filter(game=>game.status==='available');
   for (const game of available) if (!/^\/games\/[a-z0-9-]+\/$/.test(game.href)) throw new Error('Expected a local game route');
-  for(const game of available)if(game.image&&game.image!=='/assets/hurdles-card.png')throw new Error('Expected a local card image');
+  for(const game of available)if(game.image&&!['/assets/hurdles-card.png','/assets/high-jump-card.png'].includes(game.image))throw new Error('Expected a local card image');
   const availableMinigames=minigames.filter(game=>game.status==='available');
   const approvedMinigames={
     'reaction-rod':['/games/reaction-rod/','/assets/reaction-rod-card.png'],

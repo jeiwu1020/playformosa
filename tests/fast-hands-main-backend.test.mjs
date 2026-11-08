@@ -19,7 +19,7 @@ test('Fast Hands submits and reads all four boards in production and QA, isolate
  for(const scope of ['production','qa']){const e={...env,LEADERBOARD_SCOPE:scope};for(const [i,c] of configs.entries()){const p=payload(c,i+1),r=await post(e,p);assert.equal(r.status,200,scope+' '+c[1]);assert.equal((await r.json()).accepted,true);const board=await (await get(e,c)).json();assert.equal(board.rules,c[1]);assert.deepEqual(board.entries.map(x=>x.score),[c[4]]);assert.equal((await (await post(e,p)).json()).duplicate,true);}}
  assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_best')[0].values[0][0],11);
  assert.deepEqual(db.raw.exec("SELECT * FROM leaderboard_best WHERE game IN ('long-jump','hurdles','reaction-rod') ORDER BY game"),before);assert.deepEqual(db.raw.exec('SELECT sql FROM sqlite_schema ORDER BY name'),schema);
- assert.deepEqual(Object.keys(BOARDS),['long-jump','hurdles','reaction-rod']);
+ assert.deepEqual(Object.keys(BOARDS),['high-jump','long-jump','hurdles','reaction-rod']);
  }finally{db.raw.close();}
 });
 test('Fast Hands strict field and score validation keeps raw precision and rejects unsafe integers',()=>{

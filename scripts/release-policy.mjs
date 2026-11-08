@@ -1,14 +1,14 @@
 import {readdir,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-export const releasedGameIds=['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel'];
-const releasedHtml=['long-jump/index.html','hurdles/index.html','reaction-rod/index.html','fast-hands/index.html','fast-hands/catch.html','fast-hands/duel.html'];
+export const releasedGameIds=['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','high-jump'];
+const releasedHtml=['long-jump/index.html','hurdles/index.html','reaction-rod/index.html','fast-hands/index.html','fast-hands/catch.html','fast-hands/duel.html','high-jump/index.html'];
 // Production artifact admission, not merely homepage visibility.
 export async function assertReleasedGames(root){
   root=root instanceof URL?fileURLToPath(root):root;
   const dir=path.join(root,'games');
   for(const e of await readdir(dir,{withFileTypes:true})){
-    if(!e.isDirectory()||!['long-jump','hurdles','reaction-rod','fast-hands','shared','javelin'].includes(e.name))throw Error('Unapproved game directory: '+e.name);
+    if(!e.isDirectory()||!['long-jump','hurdles','reaction-rod','fast-hands','shared','javelin','high-jump'].includes(e.name))throw Error('Unapproved game directory: '+e.name);
   }
   for(const entry of releasedHtml)await stat(path.join(dir,entry));
   const walk=async p=>{for(const e of await readdir(p,{withFileTypes:true})){

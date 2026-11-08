@@ -1,0 +1,2964 @@
+{
+  "baseMain": "bf3f719ada30eac22352c6ac6301af67ecbcfd43",
+  "previewSource": "6723ba4c25dcae45fccb81dc2d8606098b2dab32",
+  "scope": [
+    "high-jump"
+  ],
+  "addedPublicPaths": [
+    "assets/app-icons/high-jump/apple-touch-icon.png",
+    "assets/app-icons/high-jump/favicon-32.png",
+    "assets/app-icons/high-jump/favicon-48.png",
+    "assets/app-icons/high-jump/icon-192.png",
+    "assets/app-icons/high-jump/icon-512.png",
+    "assets/app-icons/high-jump/icon-maskable-512.png",
+    "assets/high-jump-card.png",
+    "games/high-jump/action-inputs.mjs",
+    "games/high-jump/audio.mjs",
+    "games/high-jump/audio/CC-BY-4.0-legalcode.txt",
+    "games/high-jump/audio/Kenney-RPG-License.txt",
+    "games/high-jump/audio/NotJam-CC0-source-statement.txt",
+    "games/high-jump/audio/bgm.mp3",
+    "games/high-jump/character.mjs",
+    "games/high-jump/clock.mjs",
+    "games/high-jump/control-bindings.mjs",
+    "games/high-jump/game-audio-events.mjs",
+    "games/high-jump/game.mjs",
+    "games/high-jump/index.html",
+    "games/high-jump/leaderboard.mjs",
+    "games/high-jump/manifest.webmanifest",
+    "games/high-jump/physics.mjs",
+    "games/high-jump/play-counts.mjs",
+    "games/high-jump/render-transaction.mjs",
+    "games/high-jump/render.mjs",
+    "games/high-jump/replay.mjs",
+    "games/high-jump/score-card.mjs",
+    "games/high-jump/share.mjs",
+    "games/high-jump/shared/game-ui.css",
+    "games/high-jump/shared/game-ui.mjs",
+    "games/high-jump/software-renderer.mjs",
+    "games/high-jump/style.css",
+    "games/high-jump/vendor/THREE-LICENSE.txt",
+    "games/high-jump/vendor/three.core.min.js",
+    "games/high-jump/vendor/three.module.min.js",
+    "games/high-jump/verdicts.mjs"
+  ],
+  "addedPaths": [
+    "docs/high-jump-main/RELEASE.md",
+    "docs/high-jump-main/SOURCE-MANIFEST.json",
+    "public/assets/app-icons/high-jump/apple-touch-icon.png",
+    "public/assets/app-icons/high-jump/favicon-32.png",
+    "public/assets/app-icons/high-jump/favicon-48.png",
+    "public/assets/app-icons/high-jump/icon-192.png",
+    "public/assets/app-icons/high-jump/icon-512.png",
+    "public/assets/app-icons/high-jump/icon-maskable-512.png",
+    "public/assets/high-jump-card.png",
+    "public/games/high-jump/action-inputs.mjs",
+    "public/games/high-jump/audio.mjs",
+    "public/games/high-jump/audio/CC-BY-4.0-legalcode.txt",
+    "public/games/high-jump/audio/Kenney-RPG-License.txt",
+    "public/games/high-jump/audio/NotJam-CC0-source-statement.txt",
+    "public/games/high-jump/audio/bgm.mp3",
+    "public/games/high-jump/character.mjs",
+    "public/games/high-jump/clock.mjs",
+    "public/games/high-jump/control-bindings.mjs",
+    "public/games/high-jump/game-audio-events.mjs",
+    "public/games/high-jump/game.mjs",
+    "public/games/high-jump/index.html",
+    "public/games/high-jump/leaderboard.mjs",
+    "public/games/high-jump/manifest.webmanifest",
+    "public/games/high-jump/physics.mjs",
+    "public/games/high-jump/play-counts.mjs",
+    "public/games/high-jump/render-transaction.mjs",
+    "public/games/high-jump/render.mjs",
+    "public/games/high-jump/replay.mjs",
+    "public/games/high-jump/score-card.mjs",
+    "public/games/high-jump/share.mjs",
+    "public/games/high-jump/shared/game-ui.css",
+    "public/games/high-jump/shared/game-ui.mjs",
+    "public/games/high-jump/software-renderer.mjs",
+    "public/games/high-jump/style.css",
+    "public/games/high-jump/vendor/THREE-LICENSE.txt",
+    "public/games/high-jump/vendor/three.core.min.js",
+    "public/games/high-jump/vendor/three.module.min.js",
+    "public/games/high-jump/verdicts.mjs",
+    "tests/fixtures/high-jump-main-baseline.json",
+    "tests/helpers/high-jump-main-provenance.mjs",
+    "tests/high-jump-main-backend.test.mjs",
+    "tests/high-jump-main-provenance.test.mjs",
+    "tests/high-jump-main.test.mjs",
+    "tests/high-jump/approach-instructions.test.mjs",
+    "tests/high-jump/clock.test.mjs",
+    "tests/high-jump/coordination-geometry.test.mjs",
+    "tests/high-jump/coordination-input.test.mjs",
+    "tests/high-jump/coordination.test.mjs",
+    "tests/high-jump/desktop-dialog-layout.test.mjs",
+    "tests/high-jump/fixtures/highjump-c3baa575.mjs",
+    "tests/high-jump/fixtures/longjump-main-reference.mjs",
+    "tests/high-jump/helpers/coordination-trace.mjs",
+    "tests/high-jump/helpers/reproduce-asjk.mjs",
+    "tests/high-jump/physics.test.mjs",
+    "tests/high-jump/result-photo-consistency.test.mjs",
+    "tests/high-jump/sharing-flow.test.mjs",
+    "tests/high-jump/short-replay.test.mjs",
+    "tests/high-jump/v3-controller.test.mjs",
+    "tests/high-jump/v3-input.test.mjs"
+  ],
+  "files": [
+    {
+      "path": "docs/high-jump-main/RELEASE.md",
+      "sha256": "da5452b9ba9610598cc7fb3d6d765b1eb369a46240ed8d08a83924d56479342e",
+      "gitBlob": "f1e5d7b7dfd782b49e7afc87c9858fbbc89308e1",
+      "bytes": 1794
+    },
+    {
+      "path": "package.json",
+      "sha256": "112b152596ca5466aef1391b94ee6af9bd7cfd5be22e0b9fd0fe897a8b067dec",
+      "gitBlob": "268181de2dfae3357095f1681cc41ef9850c270d",
+      "bytes": 567,
+      "beforeText": "{\n  \"name\": \"playformosa\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"build\": \"node scripts/build.mjs\",\n    \"test\": \"node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs tests/reaction-rod/*.test.mjs tests/fast-hands/*.test.mjs\",\n    \"check\": \"npm test && npm run build && node scripts/verify.mjs\"\n  },\n  \"engines\": {\n    \"node\": \">=20\"\n  },\n  \"devDependencies\": {\n    \"jsdom\": \"26.1.0\",\n    \"sql.js\": \"1.13.0\",\n    \"@napi-rs/canvas\": \"0.1.80\",\n    \"postcss\": \"8.5.6\"\n  }\n}\n",
+      "beforeSha256": "f85e28dba428211a20fe34af95122bacde8c70e9cc704dea99851c7cca47e249",
+      "beforeGitBlob": "1e51324e6664bce3abdf1e639932c70fd4b9cbe2"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/apple-touch-icon.png",
+      "sha256": "4015f936f7f21d6558ac279e20f0d478396b6356a63016c11aca0eab9bde515d",
+      "gitBlob": "ccfa9729307faa95da3aae85fded2e6ac55f3eec",
+      "bytes": 49178,
+      "previewGitBlob": "ccfa9729307faa95da3aae85fded2e6ac55f3eec"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/favicon-32.png",
+      "sha256": "0184010b748f433da4d104ea846cd8bd2ad8fe9a635997cd1cd15f8bf045a2b6",
+      "gitBlob": "e06851e7914b307cebca6c0bfd655106ba68b337",
+      "bytes": 2375,
+      "previewGitBlob": "e06851e7914b307cebca6c0bfd655106ba68b337"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/favicon-48.png",
+      "sha256": "e58ee705dfad11e50fef63262b01ccafc391b04736ed5be3c52d230c559b0d1f",
+      "gitBlob": "d46ca3d04a1f9022fa450e7c31d7c30edb6e53ec",
+      "bytes": 4846,
+      "previewGitBlob": "d46ca3d04a1f9022fa450e7c31d7c30edb6e53ec"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-192.png",
+      "sha256": "7dd79b6f90c441c0cf1f767755853e004f9591c74efb1ac93e01311f20e9e17c",
+      "gitBlob": "0cb6e702d79894a48cecb2f585e1115e6720af72",
+      "bytes": 55073,
+      "previewGitBlob": "0cb6e702d79894a48cecb2f585e1115e6720af72"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-512.png",
+      "sha256": "feae7dcf60883088ca0830c5096d773388a9d726436f71735efdfbf0c6940314",
+      "gitBlob": "ebd7be464a8a7ea28c963aeea2409c2208d64be6",
+      "bytes": 329238,
+      "previewGitBlob": "ebd7be464a8a7ea28c963aeea2409c2208d64be6"
+    },
+    {
+      "path": "public/assets/app-icons/high-jump/icon-maskable-512.png",
+      "sha256": "9d14254607e16211993ac128855ece243df0a64333038a889258f145769c5a7f",
+      "gitBlob": "135710da7d5f8a3afa15e8a66ad338fdfa2aef54",
+      "bytes": 268563,
+      "previewGitBlob": "135710da7d5f8a3afa15e8a66ad338fdfa2aef54"
+    },
+    {
+      "path": "public/assets/high-jump-card.png",
+      "sha256": "ffdb5daa5ef9d6dad048b13ab0e61f5ad5df2e459a527ceed67c1bf368a35661",
+      "gitBlob": "4a128d0e717b50344e62a697adda34423c0e232d",
+      "bytes": 1968991,
+      "previewGitBlob": "4a128d0e717b50344e62a697adda34423c0e232d"
+    },
+    {
+      "path": "public/games/high-jump/action-inputs.mjs",
+      "sha256": "923c3a231c63d65af0db0b14a5ada37ecb0d6ace3a964212965779d801a29a35",
+      "gitBlob": "bd45b5d8675195cb50583488a4c03edf03b8839c",
+      "bytes": 909,
+      "previewGitBlob": "bd45b5d8675195cb50583488a4c03edf03b8839c"
+    },
+    {
+      "path": "public/games/high-jump/audio.mjs",
+      "sha256": "b685ca643034aee5be7adc07610d902b70fa2d9b82b807270da05ad5721b79e7",
+      "gitBlob": "d586fa25aa493afd6a88d59d554c3bdac0fd70a2",
+      "bytes": 509
+    },
+    {
+      "path": "public/games/high-jump/audio/CC-BY-4.0-legalcode.txt",
+      "sha256": "52c1850fc3ff6cf9a2b7b6c1c24921b65b5119a73db150963c8215728f06b642",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f",
+      "bytes": 21838,
+      "previewGitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/high-jump/audio/Kenney-RPG-License.txt",
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4",
+      "bytes": 478,
+      "previewGitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/high-jump/audio/NotJam-CC0-source-statement.txt",
+      "sha256": "3c7c52215d7d677178acec21d5b7df9b3ee17d054ed956d502bc70e8f8b250d8",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d",
+      "bytes": 745,
+      "previewGitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/high-jump/audio/bgm.mp3",
+      "sha256": "42276637779daedbe87c2a4771ddfec520ba024eb7814d636c54d5ef317ee585",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b",
+      "bytes": 3504212,
+      "previewGitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/high-jump/character.mjs",
+      "sha256": "54c1157d69f948086e17027e71cf792dbbfd130d771b001d1033ba22cade277e",
+      "gitBlob": "0864ddd50162f562f54032138984cb6206b99e91",
+      "bytes": 7446,
+      "previewGitBlob": "0864ddd50162f562f54032138984cb6206b99e91"
+    },
+    {
+      "path": "public/games/high-jump/clock.mjs",
+      "sha256": "0e7eea7716d59431c5d35fe1c649ec35ba4995c1bc0a266d672d5c4f558962d2",
+      "gitBlob": "bdda17c49e819a5e1b4cdce92c0b3661e12cab39",
+      "bytes": 1508,
+      "previewGitBlob": "bdda17c49e819a5e1b4cdce92c0b3661e12cab39"
+    },
+    {
+      "path": "public/games/high-jump/control-bindings.mjs",
+      "sha256": "1958cbaae58301502dacba1f84e04b405c4ddf6f2b4bba0eebea4b765af0f75e",
+      "gitBlob": "898bbd604f2d115bd38d72a1093ad7990365876e",
+      "bytes": 1996,
+      "previewGitBlob": "898bbd604f2d115bd38d72a1093ad7990365876e"
+    },
+    {
+      "path": "public/games/high-jump/game-audio-events.mjs",
+      "sha256": "45fe46e5d949b2f7a551b14cb63a09832974c6163bb4ba5b49209f00ebbacdd5",
+      "gitBlob": "f55025d4b48f8c7fcdd3b046f3098436a1c026e0",
+      "bytes": 1719
+    },
+    {
+      "path": "public/games/high-jump/game.mjs",
+      "sha256": "635e5f76f425a546b144ec430241c2eaf64d3b5dcd18c4ef9d9377deddd3a741",
+      "gitBlob": "041b088f64da629cd8e9aaac1e8a649d2f455636",
+      "bytes": 11142,
+      "previewGitBlob": "0a77f8d46162d7d5a3b6875692983a8951643200"
+    },
+    {
+      "path": "public/games/high-jump/index.html",
+      "sha256": "15a426b9889ec62f121acce456846b20a2e2b1be87594367d443a50382e2a9ec",
+      "gitBlob": "4e14d5f5484ee924bf5ad582df5212bc03df8311",
+      "bytes": 12614,
+      "previewGitBlob": "4e14d5f5484ee924bf5ad582df5212bc03df8311"
+    },
+    {
+      "path": "public/games/high-jump/leaderboard.mjs",
+      "sha256": "f2cbef1e858786a644bb2d1c4fb6356f939defcf04584e37a4272b5c8c4fcefa",
+      "gitBlob": "d31a17a4c30737869ed90bde8df7d4d0f968d06e",
+      "bytes": 11548
+    },
+    {
+      "path": "public/games/high-jump/manifest.webmanifest",
+      "sha256": "c9a3b3dbbf091e54abeb29177e6de1e5be1a30a58e8b7c0482f2812a1eaf13b4",
+      "gitBlob": "0cf6062502e0949cd73d528781f8581bdf0ce87f",
+      "bytes": 730,
+      "previewGitBlob": "0cf6062502e0949cd73d528781f8581bdf0ce87f"
+    },
+    {
+      "path": "public/games/high-jump/physics.mjs",
+      "sha256": "109cff5e0d2722212ae3094270588610bc13dcdee9291670c69ad515389c0610",
+      "gitBlob": "c2e4e733244117dd4c62c1ff6fb001083e5c593b",
+      "bytes": 15025,
+      "previewGitBlob": "c2e4e733244117dd4c62c1ff6fb001083e5c593b"
+    },
+    {
+      "path": "public/games/high-jump/play-counts.mjs",
+      "sha256": "0b44a411e28eae6e2c2c38f5c2901517e489c44a2b12c89a5bdcd66155808c87",
+      "gitBlob": "96cbf778a8b735474ba0c542f4dbeb3d4d19f688",
+      "bytes": 1171
+    },
+    {
+      "path": "public/games/high-jump/render-transaction.mjs",
+      "sha256": "7f8455508a3b93931c7fe8e1ef137bf16cbbb8db3ae055347d4bccf003743361",
+      "gitBlob": "bc1dcd17626d1edc0cc65b765bf3d399e3fb6af9",
+      "bytes": 702,
+      "previewGitBlob": "bc1dcd17626d1edc0cc65b765bf3d399e3fb6af9"
+    },
+    {
+      "path": "public/games/high-jump/render.mjs",
+      "sha256": "d1aa2e8e29f1ed2b4c7bfb21ebc6cbe8782b71c2129d1687cdaffa1af704d1db",
+      "gitBlob": "51623aa420d0523c8bcb11bc5e280fe631dc1c1f",
+      "bytes": 10281,
+      "previewGitBlob": "51623aa420d0523c8bcb11bc5e280fe631dc1c1f"
+    },
+    {
+      "path": "public/games/high-jump/replay.mjs",
+      "sha256": "1ac6a0e90b6a8f7c603f566ce3e545f5ffbacf4c9aaf76fc034124f9eb7b8aba",
+      "gitBlob": "7871da0f644a2e55a4814422bfe1f5ddb5f8caec",
+      "bytes": 661,
+      "previewGitBlob": "7871da0f644a2e55a4814422bfe1f5ddb5f8caec"
+    },
+    {
+      "path": "public/games/high-jump/score-card.mjs",
+      "sha256": "1662ebbfaae1f0568d2249e2096111626b346346ca4ada206b9c2749cb43085a",
+      "gitBlob": "da7a65fde2c0e0d46f2919c6979856f5616f8cc3",
+      "bytes": 2877,
+      "previewGitBlob": "da7a65fde2c0e0d46f2919c6979856f5616f8cc3"
+    },
+    {
+      "path": "public/games/high-jump/share.mjs",
+      "sha256": "e4d6a147ffa56ebe5c6445045fc484d015be01fd3e5657561c824ab1cbde83e1",
+      "gitBlob": "4ba781773ae47cdbdcde8e8b529a0898c110e30a",
+      "bytes": 5065,
+      "previewGitBlob": "4ba781773ae47cdbdcde8e8b529a0898c110e30a"
+    },
+    {
+      "path": "public/games/high-jump/shared/game-ui.css",
+      "sha256": "0461deed424328737b825796d07dd00a25099431598071fda0fd11b7fad2c252",
+      "gitBlob": "0ee8856c87cd01a000c447f5edba7b1c6cce1abf",
+      "bytes": 7688,
+      "previewGitBlob": "0ee8856c87cd01a000c447f5edba7b1c6cce1abf"
+    },
+    {
+      "path": "public/games/high-jump/shared/game-ui.mjs",
+      "sha256": "d7dae6532aa51661186c386ecd643b2ee83b9f04e54fcf92ca3fdc6241cfcd10",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08",
+      "bytes": 2163,
+      "previewGitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/high-jump/software-renderer.mjs",
+      "sha256": "f4e9377824ae1380acf80f00fc3a16c8d18db79802baf0878c5507ca499475ab",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231",
+      "bytes": 3022,
+      "previewGitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/high-jump/style.css",
+      "sha256": "3a98a09ab760e70a77dd9bb77d7b6c8c513b1d13054cb2fc2c25b7c339c1396c",
+      "gitBlob": "ae6e6074d8e895d2360e14e6ef745b40999c4b0b",
+      "bytes": 11251,
+      "previewGitBlob": "ae6e6074d8e895d2360e14e6ef745b40999c4b0b"
+    },
+    {
+      "path": "public/games/high-jump/vendor/THREE-LICENSE.txt",
+      "sha256": "da421a2efc51f026964b5c556d50102769d26502d4e0f85f599b1336e26a15f9",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530",
+      "bytes": 1082,
+      "previewGitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/high-jump/vendor/three.core.min.js",
+      "sha256": "7be0e00456c1736162fd6afa07315c13e9ceecbe6247128bfd453efb27585fe7",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3",
+      "bytes": 381125,
+      "previewGitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/high-jump/vendor/three.module.min.js",
+      "sha256": "147e8cb8c048718bf9fef1de2b85fe51486edca3391b1bc31760c4af4b898018",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e",
+      "bytes": 338909,
+      "previewGitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/high-jump/verdicts.mjs",
+      "sha256": "08d63dfae469c63c4ea7e75ac16a43e308263c0ed7d6d5e8d1a564cc19dd6730",
+      "gitBlob": "95d1d122adfa45269ebdf3af81cee2c17c0a4874",
+      "bytes": 3234,
+      "previewGitBlob": "95d1d122adfa45269ebdf3af81cee2c17c0a4874"
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "82db5bc2a9d0ac8ce986d525f428d3ede0e958da8c8e735e04e48e2ffeaceaf0",
+      "gitBlob": "7b4e0446626d8896acfead620b015f3bdeb7b2e2",
+      "bytes": 11821,
+      "beforeText": "<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#decathlon\">十項全能</a><a href=\"#minigames\">小遊戲</a><a href=\"#big-games\">大遊戲</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\"><a class=\"button button-primary\" href=\"/games/long-jump/\">先跳一場 <span aria-hidden=\"true\">↗</span></a><a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>2<span> / 10</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\"><article class=\"game-card\"><a href=\"/games/long-jump/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hero-long-jump.png\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 跳遠</span></a><div class=\"game-info\"><p class=\"game-kicker\">第一個挑戰，先落地再說。</p><h3>四肢各有想法</h3><p class=\"event-label\">跳遠</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"long-jump\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/long-jump/\" aria-label=\"開始挑戰：四肢各有想法\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/hurdles/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hurdles-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 110 公尺跨欄</span></a><div class=\"game-info\"><p class=\"game-kicker\">八道欄杆，四肢過招。</p><h3>四肢各有想法｜110公尺跨欄</h3><p class=\"event-label\">110 公尺跨欄</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"hurdles\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/hurdles/\" aria-label=\"開始挑戰：四肢各有想法｜110公尺跨欄\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div><details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 8 個項目正在暖身。先把這一跳玩明白！</p><ul><li><span>100 公尺</span><small>尚未開放</small></li><li><span>鉛球</span><small>尚未開放</small></li><li><span>跳高</span><small>尚未開放</small></li><li><span>400 公尺</span><small>尚未開放</small></li><li><span>鐵餅</span><small>尚未開放</small></li><li><span>撐竿跳高</span><small>尚未開放</small></li><li><span>標槍</span><small>尚未開放</small></li><li><span>1500 公尺</span><small>尚未開放</small></li></ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details></div></section>\n<section class=\"series minigames\" id=\"minigames\" aria-labelledby=\"minigames-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">SMALL GAMES, BIG REACTIONS</p><h2 id=\"minigames-title\">小遊戲</h2></div><p class=\"progress\">目前開放 <strong>4</strong> 款</p></div><div class=\"series-body\"><div class=\"game-list\"><article class=\"game-card\"><a href=\"/games/reaction-rod/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/reaction-rod-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 夜市反應力</span></a><div class=\"game-info\"><p class=\"game-kicker\">十根棒子，手腦各憑本事。</p><h3>接棒啦！</h3><p class=\"event-label\">夜市反應力</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／鍵盤</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"reaction-rod\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/reaction-rod/\" aria-label=\"開始挑戰：接棒啦！\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/fast-hands-card-v2.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 一筆往返手速挑戰</span></a><div class=\"game-info\"><p class=\"game-kicker\">放鈔、抓鴨、回接，一筆完成。</p><h3>快手王｜鴨沒漏補</h3><p class=\"event-label\">一筆往返手速挑戰</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/?intro=1\" aria-label=\"開始挑戰：快手王｜鴨沒漏補\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/catch.html?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/games/fast-hands/assets/intro-catch-generated.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 逐關加速接彈挑戰</span></a><div class=\"game-info\"><p class=\"game-kicker\">看準掌心，看看能接到第幾關。</p><h3>快手王｜彈無虛接</h3><p class=\"event-label\">逐關加速接彈挑戰</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／空白鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands-catch\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/catch.html?intro=1\" aria-label=\"開始挑戰：快手王｜彈無虛接\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/duel.html?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/games/fast-hands/assets/intro-duel-generated.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 十回合反應對決</span></a><div class=\"game-info\"><p class=\"game-kicker\">等訊號、搶驚喜，十回合分勝負。</p><h3>快手王｜快手對決</h3><p class=\"event-label\">十回合反應對決</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／空白鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands-duel\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/duel.html?intro=1\" aria-label=\"開始挑戰：快手王｜快手對決\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div></div></section>\n<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"/assets/portal-taiwanfighter.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"/assets/portal-taiwanfighter-logo.webp\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">TAIWAN BATTLE SPIRIT</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">2D 格鬥・建議橫向</p><h3>武鬥台灣魂</h3><p class=\"portal-description\">走進台灣街景，準備好了就進場吧。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"https://taiwanfighter.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：武鬥台灣魂（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>",
+      "beforeSha256": "cee09334344868991809d74fb0bee51eeb6f089435424bb26e34c35f14b45891",
+      "beforeGitBlob": "9adca6bd264da309f543363b6ceec9bd212a38e9"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "62dc0b26780e04d516e1894b48881393592bfa60f2eebbde13cefa36d75401b2",
+      "gitBlob": "433389afd0c2b67ce75665cdb81f8cd21fed024f",
+      "bytes": 1982,
+      "beforeText": "import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';\nimport {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nconst root = new URL('../',import.meta.url);\nawait assertReleasedGames(new URL('public/',root));\nconst release=JSON.parse(await readFile(new URL('docs/hurdles-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst rod=JSON.parse(await readFile(new URL('docs/reaction-rod-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst studio=JSON.parse(await readFile(new URL('docs/studio-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst jump=JSON.parse(await readFile(new URL('docs/long-jump-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst fastHands=JSON.parse(await readFile(new URL('docs/fast-hands-main/SOURCE-MANIFEST.json',root),'utf8'));\nconst polish=JSON.parse(await readFile(new URL('docs/fast-hands-polish/SOURCE-MANIFEST.json',root),'utf8'));\nconst gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MANIFEST.json',root),'utf8'));\nconst allowedPublicPaths=[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths];\nawait assertProductionInventory(new URL('public/',root),allowedPublicPaths);\nconst html=renderPage(catalog);\nawait writeFile(new URL('public/index.html',root),html);\nawait rm(new URL('dist/',root),{recursive:true,force:true});\nawait mkdir(new URL('dist/',root),{recursive:true});\nawait cp(new URL('public/',root),new URL('dist/',root),{recursive:true});\nawait assertReleasedGames(new URL('dist/',root));\nawait assertProductionInventory(new URL('dist/',root),allowedPublicPaths);\nconsole.log('Built static Playformosa to dist/');\n",
+      "beforeSha256": "b9ac9d8eef32450363dd9613b2be17e46c131eb3d307385258c13b4d4427079f",
+      "beforeGitBlob": "95664984d65fd110b4bcaff337a990c151e5c6a1"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "sha256": "c044fd71b17749d10ddcbae9d9e712ee3b3d8363b8f8c8dc4f1ae374dcd17f2f",
+      "gitBlob": "cb97bada4bd1e2da7918929ce71c85b8ca01ebb7",
+      "bytes": 2053,
+      "beforeText": "import {readdir,stat} from 'node:fs/promises';\nimport path from 'node:path';\nimport {fileURLToPath} from 'node:url';\nexport const releasedGameIds=['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel'];\nconst releasedHtml=['long-jump/index.html','hurdles/index.html','reaction-rod/index.html','fast-hands/index.html','fast-hands/catch.html','fast-hands/duel.html'];\n// Production artifact admission, not merely homepage visibility.\nexport async function assertReleasedGames(root){\n  root=root instanceof URL?fileURLToPath(root):root;\n  const dir=path.join(root,'games');\n  for(const e of await readdir(dir,{withFileTypes:true})){\n    if(!e.isDirectory()||!['long-jump','hurdles','reaction-rod','fast-hands','shared','javelin'].includes(e.name))throw Error('Unapproved game directory: '+e.name);\n  }\n  for(const entry of releasedHtml)await stat(path.join(dir,entry));\n  const walk=async p=>{for(const e of await readdir(p,{withFileTypes:true})){\n    const full=path.join(p,e.name),relative=path.relative(dir,full).split(path.sep).join('/');\n    if(relative.startsWith('javelin/')&&relative!=='javelin/character3d.mjs')throw Error('Unapproved character dependency: '+relative);\n    if(e.isDirectory())await walk(full);\n    else if(e.name.endsWith('.html')&&!releasedHtml.includes(relative))throw Error('Unapproved game HTML: '+relative);\n  }};\n  await walk(dir);\n  return releasedGameIds;\n}\n\nexport async function assertProductionInventory(root,allowedPaths){root=root instanceof URL?fileURLToPath(root):root;const seen=[];async function walk(p){for(const e of await readdir(p,{withFileTypes:true})){const full=path.join(p,e.name);if(e.isDirectory())await walk(full);else seen.push(path.relative(root,full).split(path.sep).join('/'));}}await walk(root);const allowed=new Set(allowedPaths);for(const p of seen)if(!allowed.has(p))throw Error('Unapproved production file: '+p);for(const p of allowed)if(!seen.includes(p))throw Error('Missing production file: '+p);return seen;}\n",
+      "beforeSha256": "9f2c48de95b56ae1fc782c167ebb950dd2733866cab6fbdb63d8e3361dc7ce0d",
+      "beforeGitBlob": "e236b7df5b6b1467076bc17ab6e3237d1eebefc0"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "sha256": "1d244b8d7689fd7e24b4292b5540d58638c97b0caec9c23607e093c9674b8ec0",
+      "gitBlob": "4bbbabc4e48c363d9fd77eb7548efecf6af6ae26",
+      "bytes": 2963,
+      "beforeText": "import {readFile,readdir,stat} from 'node:fs/promises';\nimport{assertReleasedGames,assertProductionInventory}from'./release-policy.mjs';\nimport path from 'node:path';\nimport {fileURLToPath} from 'node:url';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../dist/',import.meta.url));\nasync function files(dir){const entries=await readdir(dir,{withFileTypes:true});return (await Promise.all(entries.map(item=>item.isDirectory()?files(path.join(dir,item.name)):path.join(dir,item.name)))).flat();}\nawait assertReleasedGames(root);\nconst release=JSON.parse(await readFile(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const rod=JSON.parse(await readFile(new URL('../docs/reaction-rod-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const studio=JSON.parse(await readFile(new URL('../docs/studio-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const jump=JSON.parse(await readFile(new URL('../docs/long-jump-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const fastHands=JSON.parse(await readFile(new URL('../docs/fast-hands-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const polish=JSON.parse(await readFile(new URL('../docs/fast-hands-polish/SOURCE-MANIFEST.json',import.meta.url),'utf8'));const gestures=JSON.parse(await readFile(new URL('../docs/mobile-gestures/SOURCE-MANIFEST.json',import.meta.url),'utf8'));await assertProductionInventory(root,[...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths]);\nconst paths=await files(root);\nlet checked=0;\nfor(const file of paths){\n  if(!/\\.(html|mjs|css)$/.test(file))continue;\n  const source=await readFile(file,'utf8');\n  const refs=file.endsWith('.html')?[...source.matchAll(/(?:src|href)=\"([^\"]+)\"/g)].map(m=>m[1]):file.endsWith('.mjs')?[...source.matchAll(/(?:from\\s*|import\\s*)['\"](\\.[^'\"]+)['\"]/g)].map(m=>m[1]):[...source.matchAll(/url\\(['\"]?([^)'\"\\s]+)['\"]?\\)/g)].map(m=>m[1]);\n  for(const ref of refs){\n    if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;\n    if(ref==='#'){checked++;continue;}\n    if(ref.startsWith('#')){assert.ok(new RegExp(`id=[\"']${ref.slice(1)}[\"']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}\n    let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);\n    target=target.split(/[?#]/)[0];\n    let info;try{info=await stat(target);}catch{throw new Error(`Missing local reference ${ref} from ${path.relative(root,file)}`);}\n    if(info.isDirectory())await stat(path.join(target,'index.html'));\n    checked++;\n  }\n}\nconsole.log(`Verified ${checked} local references across ${paths.length} output files. Browser visual/touch QA not performed.`);\n",
+      "beforeSha256": "2a60f874a3cb6cca26ee4d604947661407b264e5ecaf6c96c02e1c93d0c4b353",
+      "beforeGitBlob": "c8d5c5ae595f742df5beb3037b6217ce3ef5fabd"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "sha256": "68b795f854b8a47594e34dcff604749fb80fcf59a61d3e6e30143eb026840486",
+      "gitBlob": "0d01508a194c90fa2ebfa6498eb4037f7f3ed5a0",
+      "bytes": 2052,
+      "beforeText": "import {readExternalCatalog} from './external-catalog.mjs';\n// Add an actual game here only after its self-contained build is available.\nexport const catalog = {\n  ...readExternalCatalog(),\n  games: [{id:'long-jump', title:'四肢各有想法', event:'跳遠', href:'/games/long-jump/', status:'available'}, {id:'hurdles',title:'四肢各有想法｜110公尺跨欄',event:'110 公尺跨欄',href:'/games/hurdles/',status:'available',image:'/assets/hurdles-card.png',kicker:'八道欄杆，四肢過招。'}],\n  minigames:[{id:'reaction-rod',title:'接棒啦！',event:'夜市反應力',href:'/games/reaction-rod/',status:'available',image:'/assets/reaction-rod-card.png',imageStyle:'illustration',kicker:'十根棒子，手腦各憑本事。',input:'滑鼠／觸控／鍵盤'},\n    {id:'fast-hands',title:'快手王｜鴨沒漏補',event:'一筆往返手速挑戰',href:'/games/fast-hands/?intro=1',status:'available',image:'/assets/fast-hands-card-v2.webp',imageStyle:'illustration',kicker:'放鈔、抓鴨、回接，一筆完成。',input:'滑鼠／觸控'},\n    {id:'fast-hands-catch',title:'快手王｜彈無虛接',event:'逐關加速接彈挑戰',href:'/games/fast-hands/catch.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-catch-generated.webp',imageStyle:'illustration',kicker:'看準掌心，看看能接到第幾關。',input:'滑鼠／觸控／空白鍵'},\n    {id:'fast-hands-duel',title:'快手王｜快手對決',event:'十回合反應對決',href:'/games/fast-hands/duel.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-duel-generated.webp',imageStyle:'illustration',kicker:'等訊號、搶驚喜，十回合分勝負。',input:'滑鼠／觸控／空白鍵'}],\n events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']\n};\n",
+      "beforeSha256": "5b1e64f1cc460b11b072784965fcb57b891ed4a7e3b62ad42f95bddae4328761",
+      "beforeGitBlob": "87a2235825fda70d03367993e33235cba38ecebc"
+    },
+    {
+      "path": "src/render.mjs",
+      "sha256": "fb8cdcd3855cc1a7ac7b9155a0c2e9f19b0e32f7d3f7e0b2e23c911fe1267fdf",
+      "gitBlob": "e4e2ae61dae9321454cba471e7132d11fc1d7d75",
+      "bytes": 9703,
+      "beforeText": "const escape = value => String(value).replace(/[&<>\"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[char]));\nexport function renderPage({games,events,minigames=[],externalGames=[]}) {\n  const fighter=externalGames.filter(e=>e.release?.production===true);\n  if(fighter.length>1)throw new Error('Only one approved external entry');\n  for(const e of fighter)if(e.id!=='taiwanfighter'||e.href!=='https://taiwanfighter.playformosa.workers.dev/'||e.image!=='/assets/portal-taiwanfighter.webp'||e.logo!=='/assets/portal-taiwanfighter-logo.webp')throw new Error('Unapproved Fighter destination or asset');\n  const externalSection=fighter.map(e=>`<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\"><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"fighter-title\">大遊戲</h2><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"${escape(e.image)}\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\"><img class=\"portal-game-logo\" src=\"${escape(e.logo)}\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\"><span class=\"portal-art-label\">${escape(e.eyebrow)}</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">${escape(e.genre)}</p><h3>${escape(e.title)}</h3><p class=\"portal-description\">${escape(e.description)}</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站・另開新分頁</span><a class=\"button portal-cta\" href=\"${escape(e.href)}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：${escape(e.title)}（另開新分頁）\">前往遊玩 ↗</a></div></div></article></section>`).join('');\n  const available=games.filter(game=>game.status==='available');\n  for (const game of available) if (!/^\\/games\\/[a-z0-9-]+\\/$/.test(game.href)) throw new Error('Expected a local game route');\n  for(const game of available)if(game.image&&game.image!=='/assets/hurdles-card.png')throw new Error('Expected a local card image');\n  const availableMinigames=minigames.filter(game=>game.status==='available');\n  const approvedMinigames={\n    'reaction-rod':['/games/reaction-rod/','/assets/reaction-rod-card.png'],\n    'fast-hands':['/games/fast-hands/?intro=1','/assets/fast-hands-card-v2.webp'],\n    'fast-hands-catch':['/games/fast-hands/catch.html?intro=1','/games/fast-hands/assets/intro-catch-generated.webp'],\n    'fast-hands-duel':['/games/fast-hands/duel.html?intro=1','/games/fast-hands/assets/intro-duel-generated.webp']\n  };\n  for(const game of availableMinigames){const approved=approvedMinigames[game.id];if(!approved||game.href!==approved[0]||game.image!==approved[1])throw new Error('Unapproved minigame');}\n  const nextEvents=events.filter(event=>!available.some(game=>game.event===event));\n  const featured=available[0];\n  const renderCard=(game,collection)=>`<article class=\"game-card\"><a href=\"${escape(game.href)}\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"${escape(game.image || \"/assets/hero-long-jump.png\")}\"${game.image ? (game.imageStyle==='illustration' ? ' class=\"game-illustration\"' : ' class=\"game-scene\"') : ''} alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>${escape(collection)} · ${escape(game.event)}</span></a><div class=\"game-info\"><p class=\"game-kicker\">${escape(game.kicker || \"第一個挑戰，先落地再說。\")}</p><h3>${escape(game.title)}</h3><p class=\"event-label\">${escape(game.event)}${game.label ? ` · ${escape(game.label)}` : \"\"}</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> ${escape(game.input || \"鍵盤／觸控\")}</p>${['reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel'].includes(game.id)?`<p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"${escape(game.id)}\" aria-live=\"polite\">遊玩次數讀取中…</p>`:''}</div><a class=\"button button-primary game-cta\" href=\"${escape(game.href)}\" aria-label=\"開始挑戰：${escape(game.title)}\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article>`;\n  return `<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#decathlon\">十項全能</a><a href=\"#minigames\">小遊戲</a><a href=\"#big-games\">大遊戲</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\">${featured ? `<a class=\"button button-primary\" href=\"${escape(featured.href)}\">先跳一場 <span aria-hidden=\"true\">↗</span></a>` : ''}<a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>${available.length}<span> / ${events.length}</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\">${available.map(game=>`<article class=\"game-card\"><a href=\"${escape(game.href)}\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"${escape(game.image || \"/assets/hero-long-jump.png\")}\"${game.image ? ' class=\"game-illustration\"' : ''} alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · ${escape(game.event)}</span></a><div class=\"game-info\"><p class=\"game-kicker\">${escape(game.kicker || \"第一個挑戰，先落地再說。\")}</p><h3>${escape(game.title)}</h3><p class=\"event-label\">${escape(game.event)}</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"${escape(game.id)}\" aria-live=\"polite\">開玩次數讀取中…</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"${escape(game.href)}\" aria-label=\"開始挑戰：${escape(game.title)}\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article>`).join('')}</div>${nextEvents.length?`<details class=\"roadmap\"><summary>查看後續項目 <span aria-hidden=\"true\">＋</span></summary><div class=\"roadmap-content\"><p>還有 ${nextEvents.length} 個項目正在暖身。先把這一跳玩明白！</p><ul>${nextEvents.map(event=>`<li><span>${escape(event)}</span><small>尚未開放</small></li>`).join('')}</ul><p class=\"roadmap-note\">後續項目為開發規劃，開放時間未定。</p></div></details>`:''}</div></section>\n<section class=\"series minigames\" id=\"minigames\" aria-labelledby=\"minigames-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">SMALL GAMES, BIG REACTIONS</p><h2 id=\"minigames-title\">小遊戲</h2></div><p class=\"progress\">目前開放 <strong>${availableMinigames.length}</strong> 款</p></div><div class=\"series-body\"><div class=\"game-list\">${availableMinigames.map(game=>renderCard(game,'小遊戲')).join('')}${availableMinigames.length ? '' : '<p class=\"minigames-empty\">更多怪點子，慢慢登場。</p>'}</div></div></section>\n${externalSection}\n<section class=\"shelf\" aria-labelledby=\"shelf-title\"><h2 id=\"shelf-title\">遊戲架</h2><p>更多怪點子，慢慢登場。</p><span class=\"shelf-doodle\" aria-hidden=\"true\">✳</span></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>`;\n}\n",
+      "beforeSha256": "89643865785d0b908239b39833228b0b75b1bdb41886642d4cbf08226cc40763",
+      "beforeGitBlob": "46db792d07020f067f24c250f04b9192c921f31e"
+    },
+    {
+      "path": "tests/fast-hands-main-backend.test.mjs",
+      "sha256": "6834146df49d258cced14bb4475bf7dbadf2fa25f1ed17ea2adc44bb9fe800d5",
+      "gitBlob": "8b8dd9dd76cb1dc08b005ce211ff7dc128ea741f",
+      "bytes": 6403,
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync} from 'node:fs';\nimport {database} from './helpers/leaderboard-sqlite.mjs';\nimport {handleRequest,validateSubmission,BOARDS} from '../worker/leaderboard/index.mjs';\nimport {NOTE_FLOOR_MS} from '../public/games/fast-hands/challenge.mjs';\nconst origin='https://main.test',now=1800000000000;\nconst id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;\nconst configs=[['fast-hands','shuttle-v3-mouse','ms','success',532.123456,'&mode=mouse'],['fast-hands','shuttle-v3-touch','ms','success',400.123456,'&mode=touch'],['fast-hands-catch','cleared-levels-v1','levels','done',23,''],['fast-hands-duel','ten-round-wins-v1','wins','done',7,'']];\nconst payload=(c,n=1)=>({game:c[0],rules:c[1],unit:c[2],status:c[3],score:c[4],nickname:'玩家',deviceId:id(n),submissionId:id(n+100)});\nasync function fixture(){const db=await database();db.raw.run(readFileSync(new URL('../worker/leaderboard/003-reaction-rod-production.sql',import.meta.url),'utf8'));db.raw.run(readFileSync(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));const env={DB:db,LEADERBOARD_ENABLED:'true',PLAY_COUNTS_ENABLED:'true',LEADERBOARD_ORIGIN:origin,LEADERBOARD_SCOPE:'production'};return {db,env};}\nconst post=(env,p,at=now,suffix='')=>handleRequest(new Request(origin+'/api/leaderboard/submissions'+suffix,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:typeof p==='string'?p:JSON.stringify(p)}),env,at);\nconst get=(env,c)=>handleRequest(new Request(origin+'/api/leaderboard?game='+c[0]+c[5]),env,now);\ntest('Fast Hands submits and reads all four boards in production and QA, isolated by game, rule and scope without changing old rows or schema',async()=>{\n const {db,env}=await fixture();try{\n const old=[['long-jump','journey-km-v1','km','valid',12,''],['hurdles','110m-8h-v1','s','done',15,''],['reaction-rod','catch-rating-v1','catches','done',5,'']];\n for(const [i,c] of old.entries()){const p=payload(c,50+i);if(i===2)p.secondaryScore=4.123456789;assert.equal((await post(env,p)).status,200);}\n const before=db.raw.exec(\"SELECT * FROM leaderboard_best ORDER BY game\"),schema=db.raw.exec('SELECT sql FROM sqlite_schema ORDER BY name');\n for(const scope of ['production','qa']){const e={...env,LEADERBOARD_SCOPE:scope};for(const [i,c] of configs.entries()){const p=payload(c,i+1),r=await post(e,p);assert.equal(r.status,200,scope+' '+c[1]);assert.equal((await r.json()).accepted,true);const board=await (await get(e,c)).json();assert.equal(board.rules,c[1]);assert.deepEqual(board.entries.map(x=>x.score),[c[4]]);assert.equal((await (await post(e,p)).json()).duplicate,true);}}\n assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_best')[0].values[0][0],11);\n assert.deepEqual(db.raw.exec(\"SELECT * FROM leaderboard_best WHERE game IN ('long-jump','hurdles','reaction-rod') ORDER BY game\"),before);assert.deepEqual(db.raw.exec('SELECT sql FROM sqlite_schema ORDER BY name'),schema);\n assert.deepEqual(Object.keys(BOARDS),['long-jump','hurdles','reaction-rod']);\n }finally{db.raw.close();}\n});\ntest('Fast Hands strict field and score validation keeps raw precision and rejects unsafe integers',()=>{\n for(const c of configs){const p=payload(c);assert.equal(validateSubmission(p).score,c[4]);for(const change of [{secondaryScore:0},{score:0},{score:Infinity},{scope:'qa'},{rules:'wrong'},{unit:'wrong'},{status:'wrong'}])assert.throws(()=>validateSubmission({...p,...change}));}\n for(const c of configs.slice(0,2))assert.throws(()=>validateSubmission({...payload(c),score:NOTE_FLOOR_MS}));\n for(const c of configs.slice(2))for(const score of [1.5,Number.MAX_SAFE_INTEGER+1])assert.throws(()=>validateSubmission({...payload(c),score}));\n assert.throws(()=>validateSubmission({...payload(configs[3]),score:11}));\n});\ntest('Fast Hands rejects ambiguous queries and duplicate JSON keys without writes',async()=>{\n const {db,env}=await fixture();try{for(const c of configs){const p=payload(c);for(const suffix of ['&game='+c[0],'&scope=qa','&mode=touch'])assert.equal((await handleRequest(new Request(origin+'/api/leaderboard?game='+c[0]+c[5]+suffix),env)).status,400);assert.equal((await post(env,p,now,'?scope=qa')).status,400);for(const key of ['score','sc\\\\u006fre']){const raw=JSON.stringify(p).replace(/}$/,`,\"${key}\":1}`);assert.equal((await post(env,raw)).status,400);}}assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_submissions')[0].values[0][0],0);}finally{db.raw.close();}\n});\ntest('Fast Hands best-only ordering and duplicate conflicts remain enforced; all games have independent cooldown',async()=>{\n const {db,env}=await fixture();try{const c=configs[0],p=payload(c);assert.equal((await post(env,p)).status,200);assert.equal((await post(env,{...p,score:400})).status,409);assert.equal((await post(env,{...payload(configs[2]),submissionId:id(999)})).status,200);assert.equal((await post(env,{...p,submissionId:id(998),score:600},now+60001)).status,200);assert.equal((await post(env,{...p,submissionId:id(997),score:300.123456},now+120002)).status,200);assert.equal((await (await get(env,c)).json()).entries[0].score,300.123456);const legacy={...payload(['long-jump','journey-km-v1','km','valid',12]),submissionId:id(996)};assert.equal((await post(env,legacy,now+120003)).status,200);}finally{db.raw.close();}\n});\ntest('all three Fast Hands play counts use existing tables and remain scope isolated',async()=>{\n const {db,env}=await fixture();try{for(const scope of ['qa','production']){const e={...env,LEADERBOARD_SCOPE:scope};for(const [i,game] of ['fast-hands','fast-hands-catch','fast-hands-duel'].entries()){const p={game,deviceId:id(i+1),runId:id(i+10),startedAt:now};const request=()=>new Request(origin+'/api/play-counts/starts',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(p)});assert.equal((await handleRequest(request(),e,now)).status,200);assert.equal((await (await handleRequest(request(),e,now)).json()).duplicate,true);}const counts=(await (await handleRequest(new Request(origin+'/api/play-counts'),e,now)).json()).counts;for(const game of ['fast-hands','fast-hands-catch','fast-hands-duel'])assert.deepEqual(counts[game],{count:1,since:now});for(const game of ['long-jump','hurdles','reaction-rod','home'])assert.deepEqual(counts[game],{count:0,since:null});}}finally{db.raw.close();}\n});\n",
+      "beforeSha256": "6d808e01e6180f491770b08f37a154451b6dbd152065a45c63c5a6c6bc4a519a",
+      "beforeGitBlob": "ef65036396bf09ce587f92aaef3ee738d9c208d5"
+    },
+    {
+      "path": "tests/fixtures/high-jump-main-baseline.json",
+      "sha256": "2d9254e9c0a9ad5d358a0aa7c45f3b667016f4ccf5e13149c4cbb00dd2ad97d5",
+      "gitBlob": "4750074a539d3f2ee52c5f89ab9491dbad44c60a",
+      "bytes": 76825
+    },
+    {
+      "path": "tests/helpers/fast-hands-main-provenance.mjs",
+      "sha256": "8a3df8cdca963fbbed8b25b1f477e93cffd1c928d0d46780a29aa7ca85accb8c",
+      "gitBlob": "c52a27651ec2cbd3402ef9d5c4fad23e876149bb",
+      "bytes": 3130,
+      "beforeText": "import {readBeforePolish} from './fast-hands-polish-provenance.mjs';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {fileURLToPath} from 'node:url';\nimport path from 'node:path';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../../',import.meta.url));\nexport const fastHandsManifest=()=>JSON.parse(readFileSync(new URL('../../docs/fast-hands-main/SOURCE-MANIFEST.json',import.meta.url),'utf8'));\nconst hash=bytes=>createHash('sha256').update(bytes).digest('hex');\nconst blob=bytes=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+bytes.length+'\\0'),bytes])).digest('hex');\nexport function reverseFastHands(file,bytes,manifest=fastHandsManifest()){\n assert.equal(new Set(manifest.files.map(f=>f.path)).size,manifest.files.length,'duplicate Fast Hands historical paths');\n assert.ok(!manifest.addedPublicPaths.some(p=>'public/'+p===file),file+' is a new Fast Hands file, not historical source');\n const f=manifest.files.find(f=>f.path===file);if(!f)return Buffer.from(bytes);\n assert.equal(typeof f.beforeText,'string',file+' Fast Hands prior text required');\n assert.equal(hash(bytes),f.sha256,file+' Fast Hands current bytes');assert.equal(blob(bytes),f.gitBlob,file+' Fast Hands current Git blob');\n const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,file+' Fast Hands prior bytes');assert.equal(blob(before),f.beforeGitBlob,file+' Fast Hands prior Git blob');return before;\n}\nexport function readBeforeFastHands(file,encoding){\n const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');\n assert.ok(relative!== '..'&&!relative.startsWith('../')&&!path.isAbsolute(relative),'historical path must remain inside repository');\n const bytes=reverseFastHands(relative,readBeforePolish(file));return encoding?bytes.toString(encoding):bytes;\n}\n// New folders are removed only after exact file inventory and source bytes are verified.\n// Historical ledgers therefore retain their original approved game-directory scope.\nexport function readGamesBeforeFastHands(){\n const m=fastHandsManifest(),addedDirs=['fast-hands','javelin'],actual=[];\n function walk(dir){for(const e of readdirSync(path.join(root,dir),{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory())walk(p);else{assert.ok(e.isFile(),p+' must be a regular file');actual.push(p);}}}\n for(const dir of addedDirs)walk('public/games/'+dir);\n const declared=m.addedPublicPaths.filter(p=>/^games\\/(fast-hands|javelin)\\//.test(p)).map(p=>'public/'+p).sort();\n assert.deepEqual(actual.sort(),declared,'Fast Hands added game-directory inventory');\n for(const p of actual){const matches=m.sourceFiles.filter(f=>f.path===p);assert.equal(matches.length,1,p+' source evidence');const bytes=readBeforePolish(path.join(root,p));assert.equal(hash(bytes),matches[0].sha256,p);assert.equal(blob(bytes),matches[0].gitBlob,p);}\n return readdirSync(path.join(root,'public/games')).filter(p=>!addedDirs.includes(p)).sort();\n}\n",
+      "beforeSha256": "bea0ba757a613e147f9bee82e193bfb57af552404a7d2a67e8541788b7032b17",
+      "beforeGitBlob": "29a1620c540932ac9b8a38c6864dded652b51e6a"
+    },
+    {
+      "path": "tests/helpers/high-jump-main-provenance.mjs",
+      "sha256": "a72ddc9b64327e3c6f6ba6819bd13d744b5377be49a2dcddc386223936ab1e6f",
+      "gitBlob": "5f285c94d91e13d61e8bc8365ee254406311fc77",
+      "bytes": 3844
+    },
+    {
+      "path": "tests/helpers/mobile-gestures-provenance.mjs",
+      "sha256": "8c96ab56dc95aa30857f0d097e5a9c716df2d35173798de852d9fe57770556a1",
+      "gitBlob": "6351295d0d3aa1eefdc282e272cdc2a7ee5f04ea",
+      "bytes": 3714,
+      "beforeText": "import {readFileSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {fileURLToPath} from 'node:url';\nimport path from 'node:path';\nimport assert from 'node:assert/strict';\n\nconst root=fileURLToPath(new URL('../../',import.meta.url));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst fixture=readFileSync(new URL('../fixtures/mobile-gestures-main-baseline.json',import.meta.url));\nassert.equal(hash(fixture),'c4b9f7145d2754873572dd24f680c1afdc06ee1885f76b19a046bff8e64c0952','gesture remote baseline must not be rewritten');\nconst baseline=JSON.parse(fixture),originals=new Map(baseline.files.map(f=>[f.path,f]));\nexport const gestureManifest=()=>JSON.parse(readFileSync(new URL('../../docs/mobile-gestures/SOURCE-MANIFEST.json',import.meta.url),'utf8'));\n\nfunction assertManifest(manifest){\n assert.equal(manifest.baseCommit,baseline.baseCommit,'gesture base commit');\n assert.equal(manifest.baseTree,baseline.baseTree,'gesture base tree');\n assert.deepEqual(manifest.files.map(f=>f.path).sort(),baseline.modifiedPaths,'exact gesture modification scope');\n assert.deepEqual([...manifest.addedPaths].sort(),baseline.addedPaths,'exact gesture addition scope');\n}\n\nexport function reverseGestures(file,bytes,manifest=gestureManifest()){\n assertManifest(manifest);\n assert.ok(!manifest.addedPaths.includes(file),file+' is new gesture evidence, not historical source');\n const f=manifest.files.find(f=>f.path===file);if(!f)return Buffer.from(bytes);\n const original=originals.get(file);assert.ok(original,file+' must exist in remote main');\n assert.equal(typeof f.beforeText,'string',file+' requires prior text');\n assert.equal(f.beforeSha256,original.sha256,file+' independently pinned prior SHA256');\n assert.equal(f.beforeGitBlob,original.gitBlob,file+' independently pinned prior Git blob');\n assert.equal(hash(bytes),f.sha256,file+' gesture current bytes');\n assert.equal(blob(bytes),f.gitBlob,file+' gesture current Git blob');\n const before=Buffer.from(f.beforeText);\n assert.equal(hash(before),original.sha256,file+' gesture prior bytes');\n assert.equal(blob(before),original.gitBlob,file+' gesture prior Git blob');\n return before;\n}\n\nexport function readBeforeGestures(file,encoding){\n const absolute=file instanceof URL?fileURLToPath(file):path.resolve(file),relative=path.relative(root,absolute).split(path.sep).join('/');\n assert.ok(relative!=='..'&&!relative.startsWith('../')&&!path.isAbsolute(relative),'historical path must remain inside repository');\n const bytes=reverseGestures(relative,readFileSync(file));return encoding?bytes.toString(encoding):bytes;\n}\n\nexport function verifyGestureAdditions(manifest=gestureManifest()){\n assertManifest(manifest);\n // A ledger cannot contain its own byte hash. Its exact schema/scope is checked\n // above, while every other new file (including this helper) is byte-verified.\n const expected=baseline.addedPaths.filter(p=>p!=='docs/mobile-gestures/SOURCE-MANIFEST.json');\n assert.deepEqual(manifest.addedFiles.map(f=>f.path).sort(),expected,'all non-self additions require evidence');\n for(const f of manifest.addedFiles){const bytes=readFileSync(path.join(root,f.path));assert.equal(hash(bytes),f.sha256,f.path+' added bytes');assert.equal(blob(bytes),f.gitBlob,f.path+' added Git blob');}\n}\n\nexport function inventoryBeforeGestures(actual){\n const manifest=gestureManifest();verifyGestureAdditions(manifest);\n for(const p of manifest.addedPaths)assert.ok(actual.includes(p),p+' required gesture addition');\n return actual.filter(p=>!manifest.addedPaths.includes(p));\n}\n",
+      "beforeSha256": "3f32f19fb718648b4e04eb9dd788cd2fd8b47bde3aea140d6cc4523415443361",
+      "beforeGitBlob": "dce96582ea5ad294566394bc5f28ab66d9c9dff7"
+    },
+    {
+      "path": "tests/high-jump-main-backend.test.mjs",
+      "sha256": "9bfdc98f4c724cc088100f00047d25fc4e26bf8ddd74ee7a0389e03fa3417800",
+      "gitBlob": "3133f5c272c40f4727e1b4e973178e09d439d5f6",
+      "bytes": 3408
+    },
+    {
+      "path": "tests/high-jump-main-provenance.test.mjs",
+      "sha256": "a4320e9ccf590dd5915d551e98b8e5c8d2d97de3fda3d5d5b00b38f87e8775cd",
+      "gitBlob": "097735c545694db69ba2c7c4eb4a804b7a67720a",
+      "bytes": 1796
+    },
+    {
+      "path": "tests/high-jump-main.test.mjs",
+      "sha256": "ba45012785f292e8a7d8a9345f10a163d544de43fc44f6792a09718942abb30b",
+      "gitBlob": "f29be25312ee7ec0b5ba221fbe2a454df9bb8db8",
+      "bytes": 2098
+    },
+    {
+      "path": "tests/high-jump/approach-instructions.test.mjs",
+      "sha256": "bbb5a0ed0a6d857b7762750cbe33c388a2b1b7b119ca053f19ec6ddc1fa80721",
+      "gitBlob": "89e857242efbb3d6027ab562a9a3b0220794dbcb",
+      "bytes": 1644,
+      "previewGitBlob": "89e857242efbb3d6027ab562a9a3b0220794dbcb"
+    },
+    {
+      "path": "tests/high-jump/clock.test.mjs",
+      "sha256": "7ee4276e7a193b825dac5145a9e9220cf92aa1ff5bbab21c79a9a09cd903f88f",
+      "gitBlob": "97066a0b4f309fcdf3d3e775ed6e64320d0327f6",
+      "bytes": 1128,
+      "previewGitBlob": "97066a0b4f309fcdf3d3e775ed6e64320d0327f6"
+    },
+    {
+      "path": "tests/high-jump/coordination-geometry.test.mjs",
+      "sha256": "45fd99a56e3d8e6b25f1f35d0ab61c6275dfc2c526b59d924ffaae705ce1287c",
+      "gitBlob": "bd2a2e98fe5fe81f2c375275de9681fe76e70e32",
+      "bytes": 4881,
+      "previewGitBlob": "bd2a2e98fe5fe81f2c375275de9681fe76e70e32"
+    },
+    {
+      "path": "tests/high-jump/coordination-input.test.mjs",
+      "sha256": "d54fa1059aef760f6c5b24599ca3a16a132d71ce6d842594fe822024e0ab754d",
+      "gitBlob": "3138c1c24a3fed107383e5ec868267202eee81bb",
+      "bytes": 7528,
+      "previewGitBlob": "3138c1c24a3fed107383e5ec868267202eee81bb"
+    },
+    {
+      "path": "tests/high-jump/coordination.test.mjs",
+      "sha256": "d0087ea257e1014e6a047a6562b4fc87c08da03e0abfe99880e186d3e95c76f4",
+      "gitBlob": "b38c7b7586b994e236aebcaddf7a06f15848ad81",
+      "bytes": 4992,
+      "previewGitBlob": "b38c7b7586b994e236aebcaddf7a06f15848ad81"
+    },
+    {
+      "path": "tests/high-jump/desktop-dialog-layout.test.mjs",
+      "sha256": "5183875b620dec0061f2ea08560d4a74a1c4f1905076281c81bc108e98354d62",
+      "gitBlob": "e629150a00cbe731f218761875a3a40ccf28d6c5",
+      "bytes": 5563,
+      "previewGitBlob": "e629150a00cbe731f218761875a3a40ccf28d6c5"
+    },
+    {
+      "path": "tests/high-jump/fixtures/highjump-c3baa575.mjs",
+      "sha256": "5325ad6fb5e24284eff957e117984b691fba2ed2debbdb0ac1b1b81af1a52a2c",
+      "gitBlob": "dc37c6a1b36622e51429e8b3d52a3635165d861c",
+      "bytes": 11959,
+      "previewGitBlob": "dc37c6a1b36622e51429e8b3d52a3635165d861c"
+    },
+    {
+      "path": "tests/high-jump/fixtures/longjump-main-reference.mjs",
+      "sha256": "6e5c2ec1c7376bcbca68c54d8f59cbac92d904086340c8a56d612eade4fdf2d1",
+      "gitBlob": "6a7bd444081b91bc80ad4c591f8d1f5a87fd325b",
+      "bytes": 13048,
+      "previewGitBlob": "6a7bd444081b91bc80ad4c591f8d1f5a87fd325b"
+    },
+    {
+      "path": "tests/high-jump/helpers/coordination-trace.mjs",
+      "sha256": "9248c53132189f3a11f5f4d410dca3a09ee09c728be600a2b8240e4846b2b49a",
+      "gitBlob": "07c6e07889edeb99ed9ef88cfd6ebee0bc743f9c",
+      "bytes": 920,
+      "previewGitBlob": "07c6e07889edeb99ed9ef88cfd6ebee0bc743f9c"
+    },
+    {
+      "path": "tests/high-jump/helpers/reproduce-asjk.mjs",
+      "sha256": "80f7169d8af852152a090c485606948397eb98f2e5124c2365b6c57c6980e00d",
+      "gitBlob": "0b6bdd37ed83714e132d2fc241ab5f8774112508",
+      "bytes": 1766,
+      "previewGitBlob": "0b6bdd37ed83714e132d2fc241ab5f8774112508"
+    },
+    {
+      "path": "tests/high-jump/physics.test.mjs",
+      "sha256": "61e69243459948c7c977a18d20d6ee0c5ced57011a9686729d7d501f89e9e790",
+      "gitBlob": "5a86b558ea8c0dfc9e76c55101d5513eaf77bb19",
+      "bytes": 1021,
+      "previewGitBlob": "5a86b558ea8c0dfc9e76c55101d5513eaf77bb19"
+    },
+    {
+      "path": "tests/high-jump/result-photo-consistency.test.mjs",
+      "sha256": "56bec3cb923b4b07221e735c49e1e3bb18ad99911643383400ca8b2acaed4094",
+      "gitBlob": "f3a2e76b7f1c6d2c0fd149eecf14ebcd4c19aabe",
+      "bytes": 4068,
+      "previewGitBlob": "f3a2e76b7f1c6d2c0fd149eecf14ebcd4c19aabe"
+    },
+    {
+      "path": "tests/high-jump/sharing-flow.test.mjs",
+      "sha256": "a21e469441e313d8f29b56148f1a63534d643efd4f905070b3364641ddcdef1a",
+      "gitBlob": "7a500c9ac57255c8e35412253b7b7b942d098c61",
+      "bytes": 5933,
+      "previewGitBlob": "7a500c9ac57255c8e35412253b7b7b942d098c61"
+    },
+    {
+      "path": "tests/high-jump/short-replay.test.mjs",
+      "sha256": "a76aeadd0b2b468658d8442c57caa8157ed2724a425fbf297a4fbf1dc0a75b4b",
+      "gitBlob": "522f01efd7c3274a7f6e573832f6dfa522a02ed7",
+      "bytes": 3173,
+      "previewGitBlob": "522f01efd7c3274a7f6e573832f6dfa522a02ed7"
+    },
+    {
+      "path": "tests/high-jump/v3-controller.test.mjs",
+      "sha256": "09c736b4c2a25964bd128424965509c8601a1d7e0303011cdb37c23ff2c919bd",
+      "gitBlob": "caa7bf366829e8b42717579d79645c2517da0440",
+      "bytes": 2295,
+      "previewGitBlob": "caa7bf366829e8b42717579d79645c2517da0440"
+    },
+    {
+      "path": "tests/high-jump/v3-input.test.mjs",
+      "sha256": "464aeb4876e9efbdf4c78c7d2aa95389208a08b987c95e44100c6fc07b43e8a6",
+      "gitBlob": "383d7d8ddd1d43e36576189b724e92ed3ac12289",
+      "bytes": 1387,
+      "previewGitBlob": "383d7d8ddd1d43e36576189b724e92ed3ac12289"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "sha256": "631b29e73a206f344ed1ece05fbe2bf1d05e2fc51b2f431e531fd2c0dc397e21",
+      "gitBlob": "7c213111a43908008e9a15196ed8a5b5410f42ff",
+      "bytes": 3987,
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{readFileSync,existsSync}from'node:fs';import{mkdtemp,mkdir,writeFile,rm}from'node:fs/promises';import{tmpdir}from'node:os';import path from'node:path';import{catalog}from'../src/catalog.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\ntest('production catalog contains only original Jump plus Hurdles and retains original P favicon',()=>{assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);assert.deepEqual(catalog.externalGames.map(e=>e.id),['taiwanfighter']);assert.deepEqual(catalog.platforms,[]);assert.match(read('src/render.mjs'),/app-icons\\/platform/);assert.ok(existsSync(new URL('../public/assets/favicon.svg',import.meta.url)));});\ntest('artifact guard rejects another game even when it has no catalog card',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-main-release-'));try{for(const game of['long-jump','hurdles','reaction-rod','fast-hands']){await mkdir(path.join(root,'games',game),{recursive:true});await writeFile(path.join(root,'games',game,'index.html'),'<title>game</title>');}for(const name of ['catch.html','duel.html'])await writeFile(path.join(root,'games/fast-hands',name),'game');await assertReleasedGames(root);await mkdir(path.join(root,'games','shot-put'));await writeFile(path.join(root,'games','shot-put','index.html'),'<title>unreleased</title>');await assert.rejects(assertReleasedGames(root),/Unapproved game directory/);}finally{await rm(root,{recursive:true,force:true});}});\ntest('actual public game artifact policy and hurdle dependencies are complete',async()=>{const{assertReleasedGames}=await import('../scripts/release-policy.mjs');await assertReleasedGames(new URL('../public/',import.meta.url));for(const name of['bgm','step','jump','flight','land','result'])for(const ext of['ogg','mp3'])assert.ok(existsSync(new URL('../public/games/hurdles/audio/'+name+'.'+ext,import.meta.url)));const manifest=JSON.parse(read('public/games/hurdles/manifest.webmanifest'));assert.equal(manifest.scope,'./');for(const icon of manifest.icons)assert.ok(existsSync(new URL(icon.src,new URL('../public/games/hurdles/',import.meta.url))));assert.match(read('wrangler.jsonc'),/\"not_found_handling\": \"404-page\"/);});\ntest('artifact guard rejects extra HTML inside shared and unapproved files outside games',async()=>{const{assertReleasedGames,assertProductionInventory}=await import('../scripts/release-policy.mjs');const root=await mkdtemp(path.join(tmpdir(),'pf-extra-'));try{for(const id of['long-jump','hurdles','reaction-rod','fast-hands','shared'])await mkdir(path.join(root,'games',id),{recursive:true});for(const id of['long-jump','hurdles','reaction-rod','fast-hands'])await writeFile(path.join(root,'games',id,'index.html'),'game');for(const name of ['catch.html','duel.html'])await writeFile(path.join(root,'games/fast-hands',name),'game');await writeFile(path.join(root,'games/shared/index.html'),'unreleased');await assert.rejects(assertReleasedGames(root),/Unapproved game HTML/);await rm(path.join(root,'games/shared/index.html'));await assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html','games/reaction-rod/index.html','games/fast-hands/index.html','games/fast-hands/catch.html','games/fast-hands/duel.html']);await writeFile(path.join(root,'secret-game.html'),'game');await assert.rejects(assertProductionInventory(root,['games/long-jump/index.html','games/hurdles/index.html','games/reaction-rod/index.html','games/fast-hands/index.html','games/fast-hands/catch.html','games/fast-hands/duel.html']),/Unapproved production file/);}finally{await rm(root,{recursive:true,force:true});}});\n",
+      "beforeSha256": "980bde249cfca1ae6eb759f2e0765fa8f1f80656bc46a1f984b710a2ea612fa8",
+      "beforeGitBlob": "48aadf70d57a775906a157e0be1eefd4377fe8ef"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "sha256": "2461b05df85caccd56699e3d83a2d0185d41984c855ab91e6db5534432d20a4e",
+      "gitBlob": "f8e797b948b2ac42c97fdabe3ea7f82d15f57e62",
+      "bytes": 3655,
+      "beforeText": "import {tmpdir} from 'node:os';import path from 'node:path';import {pathToFileURL} from 'node:url';import {readExternalCatalog} from '../src/external-catalog.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import{readFileSync,mkdtempSync,writeFileSync,rmSync}from'node:fs';import{JSDOM}from'jsdom';import{catalog}from'../src/catalog.mjs';import{renderPage}from'../src/render.mjs';\ntest('main has exactly six recorded-start cards and only approved fighter external',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);const external=[...d.querySelectorAll('[data-external-id]')];assert.equal(external.length,1);assert.equal(external[0].dataset.externalId,'taiwanfighter');const a=external[0].querySelector('a');assert.equal(a.href,'https://taiwanfighter.playformosa.workers.dev/');assert.equal(a.target,'_blank');assert.match(a.rel,/noopener/);assert.equal(d.querySelectorAll('script[src=\"/assets/play-counts.mjs\"]').length,1);});\ntest('fighter production flag and exact destination are admission boundaries',()=>{const entry=catalog.externalGames?.[0];assert.ok(entry);assert.equal(new JSDOM(renderPage({...catalog,externalGames:[{...entry,release:{preview:true,production:false}}]})).window.document.querySelector('[data-external-id]'),null);for(const patch of [{href:'https://evil.test/'},{id:'other'},{image:'/assets/other.png'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...entry,...patch}]}));});\ntest('each released controller counts only at successful start tail',()=>{for(const id of ['long-jump','hurdles','reaction-rod']){const s=readFileSync(new URL('../public/games/'+id+'/game.mjs',import.meta.url),'utf8');assert.equal((s.match(/void recordPlayStart\\(window,/g)||[]).length,1);assert.match(s,new RegExp(\"void recordPlayStart\\\\(window,'\"+id+\"'\\\\);}\"));}});\n\ntest('single footer visit counter remains separate from six game starts',()=>{const d=new JSDOM(renderPage(catalog)).window.document;assert.equal(d.querySelectorAll('footer [data-home-count]').length,1);assert.equal(d.querySelectorAll('[data-play-count]').length,6);for(const n of d.querySelectorAll('[data-play-count]'))assert.equal(n.title,'本功能啟用後累計的開局紀錄');assert.match(d.querySelector('[data-home-count]').title,/短時間重訪不重複/);});\ntest('Fighter metadata is text and exact URL/logo restrictions reject lookalikes',()=>{const e=catalog.externalGames[0];const d=new JSDOM(renderPage({...catalog,externalGames:[{...e,title:'<script>evil()</script>',description:'<img src=x onerror=evil()>'}]})).window.document;assert.equal(d.querySelector('[data-external-id] h3').textContent,'<script>evil()</script>');assert.equal(d.querySelector('[data-external-id] script'),null);assert.equal(d.querySelector('[data-external-id] [onerror]'),null);for(const patch of [{logo:'/assets/evil.webp'},{href:e.href+'?x=1'},{href:'https://taiwanfighter.playformosa.workers.dev.evil.test/'}])assert.throws(()=>renderPage({...catalog,externalGames:[{...e,...patch}]}));});\ntest('external reader rejects missing or nonboolean release flags',()=>{const dir=mkdtempSync(path.join(tmpdir(),'pf-fighter-'));try{for(const release of [undefined,{preview:true},{preview:true,production:'true'}]){writeFileSync(path.join(dir,'taiwanfighter.json'),JSON.stringify({...catalog.externalGames[0],release}));assert.throws(()=>readExternalCatalog(pathToFileURL(dir+'/')));}}finally{rmSync(dir,{recursive:true,force:true});}});\n",
+      "beforeSha256": "2668fde66bb9cd4c4900d9ecabfc98a07ec22eb795c4a874bd8f97189d9c377b",
+      "beforeGitBlob": "2116a0b209cb6869c190781b0b7c0ae27ae81a4d"
+    },
+    {
+      "path": "tests/main-fast-hands-polish-provenance.test.mjs",
+      "sha256": "810dd9b1a9a0c68aceaf481c54f34ea0ff4b26463ea3f1b7965bcc5165094e52",
+      "gitBlob": "2da359eadbf08d441cd7dd4ab8daefa2d10aadbf",
+      "bytes": 4046,
+      "beforeText": "import {readBeforeGestures,inventoryBeforeGestures} from './helpers/mobile-gestures-provenance.mjs';\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {polishManifest,reversePolish,readBeforePolish} from './helpers/fast-hands-polish-provenance.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeGestures(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst fixtureBytes=read('tests/fixtures/fast-hands-polish-baseline.json');\nassert.equal(hash(fixtureBytes),'80987b826f9ceeeeaf7e50653f14af5626c6f773bd167befe3d92ea6f0200cd4','polish base is independently pinned to main 2857cf6');\nconst baseline=JSON.parse(fixtureBytes);\ntest('polish declares only the approved six-game upload and three-game toolbar scope',()=>{\n const m=polishManifest();assert.equal(m.baseCommit,'2857cf68e6cf45f0cbb0e7a3e63520dba60e2c41');assert.equal(m.baseTree,'8b2d255b710933b2370c950706c8299ce8d7dacf');\n assert.deepEqual(m.files.map(f=>f.path).sort(),baseline.modifiedPaths);assert.deepEqual([...m.addedPaths].sort(),baseline.addedPaths);\n assert.deepEqual(m.addedPublicPaths,['games/shared/upload-cooldown.mjs']);\n const actual=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){const p=dir?dir+'/'+e.name:e.name;if(!dir&&['dist','node_modules','.git'].includes(e.name))continue;if(e.isDirectory())walk(p);else {assert.ok(e.isFile(),p+' must be a regular file');actual.push(p);}}}walk();\n assert.deepEqual(inventoryBeforeGestures(actual).sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unreviewed additions or deletions');\n});\ntest('all 544 original tracked files match remote base after the exact approved delta is reversed',()=>{\n const m=polishManifest();assert.equal(baseline.files.length,544);\n for(const f of baseline.files){const before=readBeforePolish(new URL(f.path,root));assert.equal(hash(before),f.sha256,f.path);assert.equal(blob(before),f.gitBlob,f.path);}\n for(const f of m.files){const original=baseline.files.find(b=>b.path===f.path);assert.ok(original,f.path);assert.equal(f.beforeSha256,original.sha256);assert.equal(f.beforeGitBlob,original.gitBlob);}\n});\ntest('current bytes and saved prior bytes must both validate, and additions cannot impersonate history',()=>{\n const m=polishManifest();for(const f of m.files){const bytes=read(f.path);assert.equal(blob(reversePolish(f.path,bytes,m)),f.beforeGitBlob);\n  assert.throws(()=>reversePolish(f.path,Buffer.concat([bytes,Buffer.from('tamper')]),m));\n  for(const field of ['beforeText','beforeSha256','beforeGitBlob','sha256','gitBlob']){const bad=structuredClone(m);bad.files.find(x=>x.path===f.path)[field]+='tamper';assert.throws(()=>reversePolish(f.path,bytes,bad),f.path+' '+field);}\n  const bad=structuredClone(m);bad.files.push({...f});assert.throws(()=>reversePolish(f.path,bytes,bad));\n }\n for(const p of m.addedPaths)assert.throws(()=>reversePolish(p,read(p),m));\n});\ntest('schema, bindings, old ledgers, original game engines and score rules stay byte-identical',()=>{\n const protectedPaths=baseline.files.filter(f=>f.path==='wrangler.jsonc'||f.path.startsWith('docs/')||f.path.endsWith('.sql')||/^public\\/games\\/(hurdles|long-jump|reaction-rod|javelin)\\//.test(f.path)&&f.path!=='public/games/reaction-rod/leaderboard.mjs'||/^public\\/games\\/fast-hands\\/(core|duck|levels|catch|duel)\\//.test(f.path));\n assert.ok(protectedPaths.length>100);\n for(const f of protectedPaths){assert.ok(!baseline.modifiedPaths.includes(f.path),f.path);assert.equal(blob(read(f.path)),f.gitBlob,f.path);}\n for(const name of ['0001.sql','003-reaction-rod-production.sql'])assert.ok(protectedPaths.some(f=>f.path==='worker/leaderboard/'+name));\n});\n",
+      "beforeSha256": "3b97eff9a8df532fc0775bb33fd71ff3be174a1c8c4085f25586e7f8782bb614",
+      "beforeGitBlob": "cbc0204be886993d7cd00c4d82f92649bf0529b9"
+    },
+    {
+      "path": "tests/main-fast-hands.test.mjs",
+      "sha256": "53f2ac546e06843a41e68947718dbf6b7823a4ddd3a2f99e40abdc6e4d6bd475",
+      "gitBlob": "2660fed8de54a583f7cbd55e76793130b710648f",
+      "bytes": 3034,
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {mkdtemp,mkdir,writeFile,rm} from 'node:fs/promises';\nimport {tmpdir} from 'node:os';\nimport path from 'node:path';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nimport {assertReleasedGames,releasedGameIds} from '../scripts/release-policy.mjs';\nconst expected=[\n ['fast-hands','快手王｜鴨沒漏補','/games/fast-hands/?intro=1','/assets/fast-hands-card-v2.webp'],\n ['fast-hands-catch','快手王｜彈無虛接','/games/fast-hands/catch.html?intro=1','/games/fast-hands/assets/intro-catch-generated.webp'],\n ['fast-hands-duel','快手王｜快手對決','/games/fast-hands/duel.html?intro=1','/games/fast-hands/assets/intro-duel-generated.webp']\n];\nconst ids=['long-jump','hurdles','reaction-rod',...expected.map(x=>x[0])];\ntest('main admits exactly six games and all three approved Fast Hands intro cards',()=>{\n assert.deepEqual([...catalog.games,...catalog.minigames].map(g=>g.id),ids);\n for(const [id,title,href,image] of expected){const g=catalog.minigames.find(g=>g.id===id);assert.deepEqual([g.title,g.href,g.image],[title,href,image]);}\n const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count=\"([^\"]+)\"/g)].map(m=>m[1]),ids);\n for(const [,title,href,image] of expected){assert.ok(html.includes(title));assert.ok(html.includes(`href=\"${href}\"`));assert.ok(html.includes(`src=\"${image}\"`));}\n});\ntest('new minigame admission rejects unapproved IDs, routes, query strings and artwork',()=>{\n for(const game of catalog.minigames){for(const patch of [{id:'fast-hands-test'},{href:game.href+'evil'},{href:'https://evil.test/'},{image:'/assets/other.webp'}])assert.throws(()=>renderPage({...catalog,minigames:[{...game,...patch}]}),/Unapproved minigame/);}\n});\ntest('production release policy admits only six HTML routes and the character-only dependency',async()=>{\n assert.deepEqual(releasedGameIds,ids);\n const root=await mkdtemp(path.join(tmpdir(),'fast-hands-release-'));\n const put=async p=>{await mkdir(path.dirname(path.join(root,p)),{recursive:true});await writeFile(path.join(root,p),'');};\n try{\n  for(const p of ['long-jump/index.html','hurdles/index.html','reaction-rod/index.html','fast-hands/index.html','fast-hands/catch.html','fast-hands/duel.html','javelin/character3d.mjs'])await put('games/'+p);\n  await assertReleasedGames(root);\n  for(const p of ['fast-hands/test.html','javelin/index.html','fast-hands-test/index.html','beer-slide/index.html','javelin/game.mjs']){await put('games/'+p);await assert.rejects(assertReleasedGames(root),/Unapproved/);await rm(path.join(root,'games',p));if(p.startsWith('fast-hands-test/')||p.startsWith('beer-slide/'))await rm(path.dirname(path.join(root,'games',p)),{recursive:true});}\n  await rm(path.join(root,'games/fast-hands/catch.html'));await assert.rejects(assertReleasedGames(root),/ENOENT/);\n }finally{await rm(root,{recursive:true,force:true});}\n});\n",
+      "beforeSha256": "d8c4e47075cdfc6c1c2b93ec696a912c795f68687556c2455ae830137cd78a52",
+      "beforeGitBlob": "110724ac11bde894a61a73df350d38fe348c4613"
+    },
+    {
+      "path": "tests/main-icons.test.mjs",
+      "sha256": "1f1f40713c49624c6b6795ac60c2b472d210511398faf97e019a2f3ecad6439d",
+      "gitBlob": "c49873a9899de9dd0549f0b6851dba0b898d178d",
+      "bytes": 3472,
+      "beforeText": "import {readBeforeRod} from './helpers/rod-main-provenance.mjs';\nimport test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,existsSync,readdirSync} from 'node:fs';import {createHash} from 'node:crypto';import {JSDOM} from 'jsdom';import {renderPage} from '../src/render.mjs';import {catalog} from '../src/catalog.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readBeforeRod(new URL('../'+p,import.meta.url));};\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root)),hash=x=>createHash('sha256').update(x).digest('hex');\ntest('only platform Jump Hurdles have complete exact icon identities; original P remains',()=>{assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform','reaction-rod']);for(const [slug,route] of [['platform',''],['long-jump','games/long-jump/'],['hurdles','games/hurdles/'],['reaction-rod','games/reaction-rod/']]){const m=JSON.parse(read('public/'+route+'manifest.webmanifest'));assert.equal(m.id,'/'+route);assert.equal(m.scope,'./');assert.equal(m.start_url,'./');for(const i of m.icons)assert.ok(existsSync(new URL(i.src,new URL('public/'+route,root))));const html=route?read('public/'+route+'index.html').toString():renderPage(catalog),doc=new JSDOM(html).window.document;assert.equal(doc.querySelectorAll('link[rel=\"manifest\"]').length,1);assert.equal(doc.querySelectorAll('link[rel=\"apple-touch-icon\"]').length,1);assert.ok([...doc.querySelectorAll('link[rel=\"icon\"]')].every(n=>n.href.includes('/app-icons/'+slug+'/')));}assert.equal(hash(read('public/assets/favicon.svg')),JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).originalFaviconSha256);});\ntest('icon promotion keeps exact imported bytes and all prior runtime body content',()=>{const m=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionIcons;assert.ok(m);for(const f of m.files)assert.equal(hash(readBeforeV2(f.path)),f.sha256);for(const f of m.headOnly){const a=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionLeaderboard.files.find(x=>x.path===f.path);if(a){assert.equal(a.beforeSha256,f.afterSha256);const correction=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).mainNavDiagnostic?.files.find(x=>x.path===f.path);if(correction)assert.equal(correction.beforeSha256,a.sha256);assert.equal(hash(readBeforeV2(f.path)),correction?.sha256||a.sha256);const doc=new JSDOM(readBeforeV2(f.path).toString()).window.document;assert.equal(doc.querySelectorAll('link[rel=icon]').length,2);assert.equal(doc.querySelector('link[rel=manifest]').getAttribute('href'),'./manifest.webmanifest');}else {const later=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).productionCounts.files.find(x=>x.path===f.path);if(later){const correction=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')).mainNavDiagnostic?.files.find(x=>x.path===f.path);if(correction)assert.equal(correction.beforeSha256,later.sha256);assert.equal(hash(readBeforeV2(f.path)),correction?.sha256||later.sha256);assert.match(readBeforeV2(f.path).toString(),/app-icons\\/platform\\/favicon-32.png/);}else assert.equal(hash(Buffer.from(readBeforeV2(f.path).toString().split('</head>')[1])),f.bodySha256);}}assert.equal(m.files.length,14);});\n",
+      "beforeSha256": "ca0c498b917edbe9e0b88b8e70a525b16e70fee007e10fa117dcfeb038c2dbf1",
+      "beforeGitBlob": "6a5845fe0192066c0d06a9976e90818f3e630e02"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "sha256": "660be05b8fd6385927b731d64af77ce1efa7578c18cf905f932d0fd179bfa8b5",
+      "gitBlob": "56a8e4cd0c579eefebf4ab5de2f3bda310f5ab5e",
+      "bytes": 2760,
+      "beforeText": "import {readBeforeRod} from './helpers/rod-main-provenance.mjs';\nimport test from'node:test';import assert from'node:assert/strict';import{readFileSync}from'node:fs';import{JSDOM}from'jsdom';import{renderPage}from'../src/render.mjs';import{catalog}from'../src/catalog.mjs';\nconst readBeforeV2=p=>{const m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url)));const f=m.v2Promotion.files.find(f=>f.path===p);return f?.beforeText!==undefined?Buffer.from(f.beforeText):readBeforeRod(new URL('../'+p,import.meta.url));};\ntest('released page entrypoints never load diagnostics in any display mode',()=>{for(const id of['long-jump','hurdles']){const doc=new JSDOM(readFileSync(new URL('../public/games/'+id+'/index.html',import.meta.url),'utf8')).window.document;assert.equal([...doc.scripts].filter(s=>/diagnostic/i.test(s.src)).length,0);assert.doesNotMatch(doc.body.textContent,/診斷|複製轉向/);assert.ok([...doc.scripts].some(s=>/^game\\.mjs(?:\\?|$)/.test(s.getAttribute('src')||'')));assert.ok(doc.querySelector('header a[href]'));}});\ntest('top nav names real big-game target, keeps sports grid and only the approved minigame links',()=>{const d=new JSDOM(renderPage(catalog)).window.document,nav=d.querySelector('.site-header nav');assert.deepEqual([...nav.querySelectorAll('a')].map(a=>[a.textContent,a.getAttribute('href')]),[['十項全能','#decathlon'],['小遊戲','#minigames'],['大遊戲','#big-games'],['關於','#about']]);assert.equal(d.querySelectorAll('#big-games').length,1);assert.ok(d.querySelector('#big-games [data-external-id=\"taiwanfighter\"]'));assert.equal(d.querySelectorAll('[data-play-count]').length,6);assert.ok(d.querySelector('#games'));assert.ok(d.querySelector('[data-home-count]'));});\ntest('correction ledger permits only exact diagnostic load removal and navigation delta',async()=>{const{createHash}=await import('node:crypto'),m=JSON.parse(readFileSync(new URL('../docs/hurdles-main/SOURCE-MANIFEST.json',import.meta.url))),l=m.mainNavDiagnostic,hash=s=>createHash('sha256').update(s).digest('hex');assert.deepEqual(l.files.map(f=>f.path),['public/games/long-jump/index.html','src/render.mjs','public/index.html']);for(const f of l.files){const s=readBeforeV2(f.path).toString();assert.equal(hash(s),f.sha256);const old=f.path.includes('long-jump')?s.replace('</body>','<script type=\"module\" src=\"viewport-diagnostics.mjs\"></script></body>'):s.replace('<a href=\"#big-games\">大遊戲</a>','<a href=\"#games\">遊戲</a>').replace('<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"fighter-title\">','<section class=\"portal-section\" aria-labelledby=\"fighter-title\">');assert.equal(hash(old),f.beforeSha256);assert.notEqual(hash(old+'unexpected'),f.beforeSha256);}});\n",
+      "beforeSha256": "96496cdeddfd9b64de11908cf717b846fee22e84b2367cfe83d0a693c7842746",
+      "beforeGitBlob": "17f6a5f6d0d507fa194c22296d819b4120576644"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "sha256": "2a0233db8969a6d01802a80866fc1e73772162a864541f205779262f8d4e22f5",
+      "gitBlob": "c0be972f2bac912a93431589fa446f8211e43e9a",
+      "bytes": 3386,
+      "beforeText": "import {readBeforeRod} from './helpers/rod-main-provenance.mjs';\nimport test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {catalog} from '../src/catalog.mjs';\nimport {eligibleResult} from '../public/games/shared/leaderboard.mjs';\nconst root=new URL('../',import.meta.url),read=p=>readBeforeRod(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst manifest=JSON.parse(read('docs/hurdles-main/SOURCE-MANIFEST.json')),v2=manifest.v2Promotion;\ntest('V2 promotion exact bytes retain auditable historical production chain',()=>{\n assert.equal(v2.baseCommit,'2091d1927ba7378119da7b78be7f936366a41bf2');assert.equal(v2.previewSource,'772d85e2cb063c4dbab38b7adf26956e13c22d57');assert.deepEqual(v2.scope,['long-jump','hurdles']);assert.ok(v2.files.length>0);\n const paths=v2.files.map(f=>f.path);assert.equal(new Set(paths).size,paths.length);\n for(const f of v2.files){assert.match(f.path,/^(public\\/games\\/(long-jump|hurdles|shared)\\/|tests\\/)/);const current=read(f.path);assert.equal(hash(current),f.sha256,f.path);assert.equal(blob(current),f.gitBlob,f.path);assert.equal(current.length,f.bytes);if(f.beforeText!==undefined){const before=Buffer.from(f.beforeText);assert.equal(hash(before),f.beforeSha256,f.path+' old sha256');assert.equal(blob(before),f.beforeGitBlob,f.path+' old git blob');}}\n});\ntest('production backend, D1 config, scoring physics and catalog stay byte-identical',()=>{\n assert.ok(v2.protectedFiles.some(f=>f.path==='wrangler.jsonc'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/leaderboard/0001.sql'));assert.ok(v2.protectedFiles.some(f=>f.path==='worker/play-counts/002.sql'));\n for(const f of v2.protectedFiles)assert.equal(hash(read(f.path)),f.sha256,f.path);\n assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);assert.deepEqual(readdirSync(new URL('public/games/',root)).sort(),['fast-hands','hurdles','javelin','long-jump','reaction-rod','shared']);assert.deepEqual(readdirSync(new URL('public/assets/app-icons/',root)).sort(),['hurdles','long-jump','platform','reaction-rod']);\n assert.doesNotMatch(read('public/games/long-jump/game.mjs').toString(),/createLandingReplay|mountControlsFrame/);\n assert.equal(read('public/games/shared/leaderboard-config.mjs').toString().includes('LEADERBOARD_ENABLED = true'),true);\n});\ntest('two-game leaderboard accepts only original legal final-round metrics',()=>{\n assert.deepEqual(eligibleResult('long-jump',{phase:'done',valid:true,legalAdventureKm:12.5,adventureKm:999}),{score:12.5,status:'valid'});\n assert.equal(eligibleResult('long-jump',{phase:'done',valid:false,legalAdventureKm:12.5}),null);\n assert.deepEqual(eligibleResult('hurdles',{phase:'done',t:20}),{score:20,status:'done'});\n assert.equal(eligibleResult('hurdles',{phase:'done',t:181}),null);\n for(const game of ['long-jump','hurdles'])assert.equal(eligibleResult(game,{phase:'run',valid:true,legalAdventureKm:1,t:20}),null);\n for(const game of ['high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'])assert.equal(eligibleResult(game,{phase:'done',valid:true,legalAdventureKm:1,t:20}),null);\n});\n",
+      "beforeSha256": "530e3eefa56f458c1957664d8e652860c48e28c96d7f4db589cd93b0fd7b8a13",
+      "beforeGitBlob": "e4f1e6f8c44e77468ccf98cd9e77f14b7d518a0d"
+    },
+    {
+      "path": "tests/mobile-gestures-provenance.test.mjs",
+      "sha256": "b679ce3a97e404ae41b5efa49eef29640550ca00f6029e4ec2aca9a9420d8c8a",
+      "gitBlob": "f7ffa473fb2462288b520fee52a19cc1504e430c",
+      "bytes": 4565,
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync,readdirSync} from 'node:fs';\nimport {createHash} from 'node:crypto';\n\nconst root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));\nconst hash=b=>createHash('sha256').update(b).digest('hex');\nconst blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\\0'),b])).digest('hex');\nconst baselineBytes=read('tests/fixtures/mobile-gestures-main-baseline.json');\nassert.equal(hash(baselineBytes),'c4b9f7145d2754873572dd24f680c1afdc06ee1885f76b19a046bff8e64c0952','gesture baseline is pinned to the exact remote main inventory');\nconst baseline=JSON.parse(baselineBytes);\nconst helper=async()=>{\n assert.ok(existsSync(new URL('tests/helpers/mobile-gestures-provenance.mjs',root)),'gesture promotion requires a verified historical reversal');\n return import('./helpers/mobile-gestures-provenance.mjs');\n};\n\ntest('gesture release admits only six HTML entries, two shared files and its verification support',async()=>{\n const {gestureManifest,verifyGestureAdditions}=await helper(),m=gestureManifest();\n assert.equal(m.baseCommit,'d7b4f5fbd3b623a31f2883dce52683735a85c6c4');\n assert.equal(m.baseTree,'5c9161dc18ec4215e3dd40d212d8a9fa7324b903');\n assert.deepEqual(m.files.map(f=>f.path).sort(),baseline.modifiedPaths);\n assert.deepEqual([...m.addedPaths].sort(),baseline.addedPaths);\n assert.deepEqual(m.addedPublicPaths,['games/shared/mobile-gestures.css','games/shared/mobile-gestures.mjs']);\n verifyGestureAdditions();\n const actual=[];\n function walk(dir=''){\n  for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){\n   const p=dir?dir+'/'+e.name:e.name;\n   if(!dir&&['dist','node_modules','.git'].includes(e.name))continue;\n   if(e.isDirectory())walk(p);else{assert.ok(e.isFile(),p+' must be a regular file');actual.push(p);}\n  }\n }\n walk();assert.deepEqual(actual.sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'no unapproved additions or deletions');\n});\n\ntest('every original remote main byte is restored only by the declared verified gesture delta',async()=>{\n const {gestureManifest,readBeforeGestures}=await helper(),m=gestureManifest();\n assert.equal(baseline.files.length,555);\n for(const f of baseline.files){const before=readBeforeGestures(new URL(f.path,root));assert.equal(hash(before),f.sha256,f.path);assert.equal(blob(before),f.gitBlob,f.path);}\n for(const f of m.files){const original=baseline.files.find(b=>b.path===f.path);assert.ok(original,f.path);assert.equal(f.beforeSha256,original.sha256,f.path);assert.equal(f.beforeGitBlob,original.gitBlob,f.path);}\n const publicChanges=m.files.filter(f=>f.path.startsWith('public/')).map(f=>f.path);\n assert.equal(publicChanges.length,6);\n assert.ok(publicChanges.every(p=>p.endsWith('.html')),'existing game engines, scoring, assets and styles are unchanged');\n for(const f of m.files.filter(f=>f.path.startsWith('public/'))){\n  const restored=read(f.path).toString()\n   .replace('<link rel=\"stylesheet\" href=\"../shared/mobile-gestures.css\">','')\n   .replace('<script type=\"module\" src=\"../shared/mobile-gestures.mjs\"></script>','')\n   .replace(/ data-game-gesture-(?:surface|overlays|reading)\\b/g,'');\n  assert.equal(restored,f.beforeText,f.path+' permits only guard assets and declarative boundary markers');\n }\n});\n\ntest('reversal rejects altered current or prior bytes, forged baselines, duplicates and new-file history',async()=>{\n const {gestureManifest,reverseGestures,verifyGestureAdditions}=await helper(),m=gestureManifest();\n for(const f of m.files){\n  const bytes=read(f.path);assert.equal(blob(reverseGestures(f.path,bytes,m)),f.beforeGitBlob);\n  assert.throws(()=>reverseGestures(f.path,Buffer.concat([bytes,Buffer.from('tampered')]),m));\n  for(const field of ['beforeText','beforeSha256','beforeGitBlob','sha256','gitBlob']){const bad=structuredClone(m);bad.files.find(x=>x.path===f.path)[field]+='tampered';assert.throws(()=>reverseGestures(f.path,bytes,bad),f.path+' '+field);}\n  const duplicate=structuredClone(m);duplicate.files.push({...f});assert.throws(()=>reverseGestures(f.path,bytes,duplicate));\n }\n for(const p of m.addedPaths)assert.throws(()=>reverseGestures(p,read(p),m));\n for(const f of m.addedFiles){const bad=structuredClone(m);bad.addedFiles.find(x=>x.path===f.path).sha256+='tampered';assert.throws(()=>verifyGestureAdditions(bad),f.path);}\n});\n",
+      "beforeSha256": "1be413aa7ab03d249cabe353a8ddb663ee392621c23dc3d62e7565e55027ed46",
+      "beforeGitBlob": "25b0ebcdfa31be1486c7e8a6525b5600e9a0cfa2"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "sha256": "50e88f4d0470b26c14225c4dedf18a08cf5ae08095b437aa57a26ef0835c9d98",
+      "gitBlob": "bf5c28542d78c42d2bca98ac6eaba468e8e8fc04",
+      "bytes": 5169,
+      "beforeText": "import test from 'node:test';import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{database}from'./helpers/leaderboard-sqlite.mjs';import{PlayCountsRepository}from'../worker/play-counts/repository.mjs';\nconst now=1793620800000,base={game:'hurdles',deviceId:'22222222-2222-4222-8222-222222222222',runId:'11111111-1111-4111-8111-111111111111',startedAt:now};async function setup(){const db=await database();db.raw.run(readFileSync(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));return{db,r:new PlayCountsRepository(db,'qa')}}\ntest('new empty counters and atomic concurrent same receipt only count once',async()=>{const{db,r}=await setup();assert.deepEqual(await r.totals(),{'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},'fast-hands':{count:0,since:null},'fast-hands-catch':{count:0,since:null},'fast-hands-duel':{count:0,since:null},home:{count:0,since:null}});const results=await Promise.all([r.start(base,now),r.start(base,now)]);assert.equal(results.filter(x=>x.duplicate).length,1);assert.equal((await r.totals()).hurdles.count,1);assert.equal((await r.totals()).hurdles.since,now);assert.equal((await r.start({...base,game:'long-jump'},now)).error,'conflict');assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_best')[0].values[0][0],0);});\ntest('cooldown refuses new id, subsequent genuine attempt increments, cleanup never increments twice',async()=>{const{db,r}=await setup();await r.start(base,now);assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+1000)).error,'limited');await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000);assert.equal((await r.totals()).hurdles.count,2);db.raw.run('UPDATE play_count_receipts SET created_at=0');await r.start({...base,runId:'44444444-4444-4444-8444-444444444444'},now+6000);assert.equal((await r.totals()).hurdles.count,3);assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],1);});\ntest('transaction rollback never leaves receipt without total',async()=>{const{db,r}=await setup();db.raw.run(\"CREATE TRIGGER deny_counter BEFORE INSERT ON play_count_totals BEGIN SELECT RAISE(ABORT,'test failure');END\");await assert.rejects(r.start(base,now));assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts')[0].values[0][0],0);});\ntest('daily global cap uses bounded aggregate rows and admits only one concurrent final slot',async()=>{const{db,r}=await setup(),day=Math.floor(now/86400000);db.raw.run('INSERT INTO play_count_totals VALUES (?,?,?,?,?,?)',['qa','hurdles',9999,now,day,9999]);const results=await Promise.all([r.start(base,now),r.start({...base,deviceId:'33333333-3333-4333-8333-333333333333',runId:'44444444-4444-4444-8444-444444444444'},now)]);assert.equal(results.filter(x=>x.accepted).length,1);assert.equal(results.filter(x=>x.error==='limited').length,1);assert.equal((await r.totals()).hurdles.count,10000);await r.start({...base,runId:'55555555-5555-4555-8555-555555555555'},now+86400000);assert.equal((await r.totals()).hurdles.count,10001);});\ntest('device daily cap and bounded indexed cleanup limit storage and read work',async()=>{const{db,r}=await setup();await r.start(base,now);const dev=db.raw.exec('SELECT device FROM play_count_receipts')[0].values[0][0],day=Math.floor(now/86400000);db.raw.run('BEGIN');for(let i=0;i<99;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','seed'+i,'p',dev,'hurdles',now-3000,day]);for(let i=0;i<150;i++)db.raw.run('INSERT INTO play_count_receipts VALUES (?,?,?,?,?,?,?)',['qa','old'+i,'p','other','hurdles',0,0]);db.raw.run('COMMIT');assert.equal((await r.start({...base,runId:'33333333-3333-4333-8333-333333333333'},now+3000)).error,'limited');assert.equal(db.raw.exec('SELECT count(*) FROM play_count_receipts WHERE created_at=0')[0].values[0][0],50);for(const [sql,args,index]of[['SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?',['qa',day,dev],'play_count_daily'],['SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>?',['qa',dev,now-2000],'play_count_device'],['SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100',['qa',1],'play_count_expiry']]){const q=db.raw.prepare('EXPLAIN QUERY PLAN '+sql);q.bind(args);let details='';while(q.step())details+=q.getAsObject().detail;q.free();assert.match(details,new RegExp(index));}assert.equal((await r.totals()).hurdles.count,1);});\ntest('duplicate accepted before cap stays accepted and conflicting race never counts twice',async()=>{const{db,r}=await setup();const result=await Promise.all([r.start(base,now),r.start({...base,game:'long-jump'},now)]);assert.equal(result.filter(x=>x.accepted).length,1);assert.equal(result.filter(x=>x.error==='conflict').length,1);const winner=(await r.totals()).hurdles.count?base:{...base,game:'long-jump'};db.raw.run('UPDATE play_count_totals SET day_total=10000');assert.deepEqual(await r.start(winner,now+3000),{accepted:true,duplicate:true});assert.equal(Object.values(await r.totals()).reduce((a,x)=>a+x.count,0),1);});\n\n",
+      "beforeSha256": "8fce93090c2992e342eb9114395e6036a63e4780594a9595797a755e2efa060c",
+      "beforeGitBlob": "9f2e41221b3bebac51a8ed1a081ae92142a86582"
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "sha256": "00672292e8f488b2158381344ca493fae1b034e77c684010d648051e0ef4921b",
+      "gitBlob": "da4c208dea356760ca4b7d0417f1045162161cdd",
+      "bytes": 2890,
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync} from 'node:fs';\nimport {JSDOM} from 'jsdom';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nimport {validateSubmission,BOARDS} from '../worker/leaderboard/index.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\nconst valid={game:'reaction-rod',rules:'catch-rating-v1',unit:'catches',status:'done',score:5,secondaryScore:4.8123456789,nickname:'島民',deviceId:'00000000-0000-4000-8000-000000000001',submissionId:'00000000-0000-4000-8000-000000000002'};\ntest('main navigation and independent shelf admit only approved Rod and Fast Hands',()=>{\n const d=new JSDOM(renderPage(catalog)).window.document;\n assert.deepEqual([...d.querySelectorAll('.site-header nav a')].map(a=>a.textContent),['十項全能','小遊戲','大遊戲','關於']);\n assert.deepEqual(catalog.games.map(g=>g.id),['long-jump','hurdles']);\n assert.deepEqual(catalog.minigames.map(g=>g.id),['reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);\n assert.equal(d.querySelectorAll('#minigames .game-card').length,4);\n assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);\n assert.equal(d.querySelector('#minigames .game-cta').getAttribute('href'),'/games/reaction-rod/');\n assert.equal(d.querySelector('[data-external-id] a').href,'https://taiwanfighter.playformosa.workers.dev/');\n});\ntest('Rod API validates full precision without weakening legacy schemas or admitting other games',()=>{\n assert.ok(BOARDS['reaction-rod']); assert.deepEqual(validateSubmission(valid),valid);\n for(const v of [0,11,1.2,NaN])assert.throws(()=>validateSubmission({...valid,score:v}));\n for(const v of [-1,11,NaN,Infinity,'5',undefined])assert.throws(()=>validateSubmission({...valid,secondaryScore:v}));\n for(const game of ['sprint-100m','javelin','high-jump','shot-put','beer-slide'])assert.throws(()=>validateSubmission({...valid,game}));\n const {secondaryScore,...legacy}=valid;\n assert.throws(()=>validateSubmission({...legacy,game:'long-jump',rules:'journey-km-v1',unit:'km',status:'valid',secondaryScore:0}));\n});\ntest('Rod imports only local adapters while all visible routes and licensed audio exist',()=>{\n assert.ok(existsSync(new URL('../public/games/reaction-rod/index.html',import.meta.url)));\n const g=read('public/games/reaction-rod/game.mjs');\n for(const file of ['leaderboard.mjs','play-counts.mjs','audio.mjs','game-audio-events.mjs'])assert.ok(g.includes(\"'./\"+file+\"'\"));\n assert.doesNotMatch(g,/beer-slide/);\n assert.match(read('public/games/reaction-rod/index.html'),/src=\"\\.\\/layout\\.mjs\"/);\n assert.doesNotMatch(read('public/games/reaction-rod/index.html'),/\\.\\.\\/beer-slide/);\n});\n",
+      "beforeSha256": "9f1354015b3d5c0551a62b39485b7442cd6bd00d3ff786a115b3a92a4608805a",
+      "beforeGitBlob": "1d107ef0ef3cb97c37d4cf6ee8890dc363fd5bc3"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "sha256": "cd213a1c1b40a16987b5bfb7b348e5ea8c78e3d2b8055406975660af6d9d9aed",
+      "gitBlob": "279c2fb072ceb60872227e05aec68d8027ce5679",
+      "bytes": 7561,
+      "beforeText": "import {handlePlayCounts} from '../play-counts/index.mjs';\nimport {LeaderboardRepository} from './repository.mjs';\nimport {ReactionRodRepository} from './reaction-rod-repository.mjs';\nimport {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';\nexport const BOARDS=Object.freeze({\n 'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),\n 'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true})\n});\n// Fast Hands boards share the existing single-score repository, isolated by rules.\nexport const FAST_HANDS_BOARDS=Object.freeze({\n mouse:Object.freeze({rules:'shuttle-v3-mouse',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true}),\n touch:Object.freeze({rules:'shuttle-v3-touch',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true})\n});\nexport const LEVEL_BOARDS=Object.freeze({\n 'fast-hands-catch':Object.freeze({rules:'cleared-levels-v1',unit:'levels',status:'done',direction:'desc',max:Number.MAX_SAFE_INTEGER,integer:true}),\n 'fast-hands-duel':Object.freeze({rules:'ten-round-wins-v1',unit:'wins',status:'done',direction:'desc',max:10,integer:true})\n});\nconst isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);\nconst isFast=game=>game==='fast-hands'||isLevel(game);\nfunction resolveBoard(game,rules){\n if(isLevel(game))return LEVEL_BOARDS[game];\n if(game==='fast-hands')return Object.values(FAST_HANDS_BOARDS).find(board=>board.rules===rules)??null;\n return typeof game==='string'&&Object.hasOwn(BOARDS,game)?BOARDS[game]:null;\n}\nconst fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\nfunction validateBaseSubmission(value){\n if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');\n const b=resolveBoard(value.game,value.rules);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');\n if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');\n if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\\p{Cc}\\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');\n if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');\n return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));\n}\nexport function validateSubmission(value){\n if(value?.game!=='reaction-rod')return validateBaseSubmission(value);\n if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>10)throw Error('invalid_secondary');\n const {secondaryScore,...base}=value;\n return {...validateBaseSubmission(base),secondaryScore};\n}\nfunction parseSubmission(text){\n const value=JSON.parse(text);\n if(isFast(value?.game)){\n  // JSON.parse alone silently keeps the last duplicate key. Scan complete string tokens\n  // so escaped property names are compared correctly and quoted nickname text is ignored.\n  const keys=new Set();\n  for(const token of text.matchAll(/\"(?:[^\"\\\\]|\\\\.)*\"/g)){\n   if(!text.slice(token.index+token[0].length).trimStart().startsWith(':'))continue;\n   const key=JSON.parse(token[0]);if(keys.has(key))throw Error('invalid_fields');keys.add(key);\n  }\n }\n return validateSubmission(value);\n}\nconst json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});\nexport async function handleRequest(request,env,now=Date.now()){\n const url=new URL(request.url);\n if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);\n if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});\n if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);\n const repository=game=>game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);\n try{\n  if(request.method==='GET'&&url.pathname==='/api/leaderboard'){\n   const game=url.searchParams.get('game'),fast=game==='fast-hands',mode=url.searchParams.get('mode');\n   const board=fast?(Object.hasOwn(FAST_HANDS_BOARDS,mode)?FAST_HANDS_BOARDS[mode]:null):resolveBoard(game);\n   const invalidQuery=fast\n    ?url.searchParams.getAll('game').length!==1||url.searchParams.getAll('mode').length!==1||[...url.searchParams.keys()].some(k=>k!=='game'&&k!=='mode')\n    :(isLevel(game)&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');\n   if(!board||invalidQuery)return json({error:'invalid_board'},400);\n   const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);\n   return json({game,rules:board.rules,unit:board.unit,...await repository(game).board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});\n  }\n  if(request.method!=='POST'||url.pathname!=='/api/leaderboard/submissions')return json({error:'method_not_allowed'},405);\n  if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n  if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n  if(Number(request.headers.get('Content-Length'))>2048)return json({error:'too_large'},413);\n  const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);\n  let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}\n  const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}\n  let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{return json({error:'invalid_submission'},400);}\n  if(isFast(data.game)&&url.search)return json({error:'invalid_submission'},400);\n  const result=await repository(data.game).submit(data,resolveBoard(data.game,data.rules),now);\n  const retryHeaders=result.error==='limited'&&result.reason==='cooldown'?{'Retry-After':String(result.retryAfterSeconds)}:{};\n  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);\n }catch{return json({error:'temporarily_unavailable'},503);}\n}\nexport default {fetch(request,env){return handleRequest(request,env);}};\n\n",
+      "beforeSha256": "c96b565d3dfbb3126f38e295dc7035650e394c7e7ede7f5e2999945aef240338",
+      "beforeGitBlob": "1306946710a02253de791b63db72a9c057c858fa",
+      "previewGitBlob": "01da46289798825b95c40a7d21e41d48b560184e"
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "sha256": "c291d7a4bbb437cae796a589c9a9c0de76a20521ae10a43673aa4de122fcaaf2",
+      "gitBlob": "ef1ce9a1ff02f34d5ef89d91883eabb0104f7116",
+      "bytes": 2832,
+      "beforeText": "import{PlayCountsRepository}from'./repository.mjs';\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,fields=['game','deviceId','runId','startedAt'];\nexport function validateStart(v,now,home=false){if(!v||Array.isArray(v)||typeof v!=='object'||Object.keys(v).length!==4||Object.keys(v).some(k=>!fields.includes(k))||!(home?['home']:['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']).includes(v.game)||typeof v.deviceId!=='string'||typeof v.runId!=='string'||!uuid.test(v.deviceId)||!uuid.test(v.runId)||!Number.isSafeInteger(v.startedAt)||v.startedAt<now-600000||v.startedAt>now+30000)throw Error('invalid_start');return{game:v.game,deviceId:v.deviceId.toLowerCase(),runId:v.runId.toLowerCase(),startedAt:v.startedAt};}\nconst json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers}});\nexport async function handlePlayCounts(request,env,now=Date.now()){\n const u=new URL(request.url);if(env.PLAY_COUNTS_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||env.LEADERBOARD_ORIGIN!==u.origin||!env.DB)return json({error:'unavailable'},503);\n try{const repo=new PlayCountsRepository(env.DB,env.LEADERBOARD_SCOPE);\n if(u.search)return json({error:'invalid_query'},400);\n if(request.method==='GET'&&u.pathname==='/api/play-counts')return json({counts:await repo.totals()},200,{'Cache-Control':'public, max-age=30'});\n if(request.method!=='POST'||!['/api/play-counts/starts','/api/play-counts/views'].includes(u.pathname))return json({error:'method_not_allowed'},405);\n if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n if(Number(request.headers.get('Content-Length'))>1024)return json({error:'too_large'},413);\n const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);let size=0,chunks=[];while(true){const{done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>1024){await reader.cancel();return json({error:'too_large'},413)}chunks.push(value)}\n const bytes=new Uint8Array(size);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length}let data;try{data=validateStart(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)),now,u.pathname.endsWith('/views'))}catch{return json({error:'invalid_start'},400)}\n const result=await repo.start(data,now);return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,result.error==='limited'?{'Retry-After':'2'}:{});\n }catch{return json({error:'temporarily_unavailable'},503)}\n}\n\n",
+      "beforeSha256": "1e764914b27dcf3d99cea747d5ccba408f573d95850d98ec696656ef3622f788",
+      "beforeGitBlob": "939534ef4c751792efcf16aa58704fccadb2848d",
+      "previewGitBlob": "d1435403771ce91dd97f6da83796d35c8d7f5416"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "sha256": "57716c8e69f58da40b0526eddfb1667ea9d4a5c433aefa3936e73811d5c99b49",
+      "gitBlob": "ee62d0c50ad721fb2a8b36ee0a91cd6e1b423e4f",
+      "bytes": 3232,
+      "beforeText": "const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');\nexport class PlayCountsRepository{\n constructor(db,scope){this.db=db;this.scope=scope;}\n async totals(){const rows=await this.db.prepare('SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (?,?,?,?,?,?,?)').bind(this.scope,'long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','home').all();const out={'long-jump':{count:0,since:null},hurdles:{count:0,since:null},'reaction-rod':{count:0,since:null},'fast-hands':{count:0,since:null},'fast-hands-catch':{count:0,since:null},'fast-hands-duel':{count:0,since:null},home:{count:0,since:null}};for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}\n async start(data,now){const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify([data.game,data.deviceId,data.runId,data.startedAt])),day=Math.floor(now/86400000),p=(q,...args)=>this.db.prepare(q).bind(...args);\n const home=data.game==='home',windowMs=home?1800000:2000;\n const rows=await this.db.batch([\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n p('DELETE FROM play_count_receipts WHERE rowid IN (SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),\n p(`INSERT OR IGNORE INTO play_count_receipts(scope,id,payload,device,counter_key,created_at,day)\n SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS(SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND ${home?\"counter_key='home'\":\"counter_key!='home'\"})\n AND (SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?)<100\n AND (SELECT COALESCE(SUM(day_total),0) FROM play_count_totals WHERE scope=? AND day=?)<10000`,this.scope,data.runId,payload,device,data.game,now,day,this.scope,device,now-windowMs,this.scope,day,device,this.scope,day),\n // Immediately follows receipt INSERT: changes() belongs to that INSERT, never cleanup.\n p(`INSERT INTO play_count_totals(scope,counter_key,total,since,day,day_total) SELECT ?,?,1,?,?,1 WHERE changes()=1\n ON CONFLICT(scope,counter_key) DO UPDATE SET total=play_count_totals.total+1,day=excluded.day,day_total=CASE WHEN play_count_totals.day=excluded.day THEN play_count_totals.day_total+1 ELSE 1 END`,this.scope,data.game,now,day),\n p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),\n ...(home?[p(\"SELECT created_at FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND counter_key='home' ORDER BY created_at DESC LIMIT 1\",this.scope,device,now-1800000)]:[])]);\n const receipt=rows[4].results[0],lastHome=rows[5]?.results[0]?.created_at,nextEligibleAt=lastHome==null?null:lastHome+1800000;if(!receipt){if(home&&nextEligibleAt>now)return{accepted:true,counted:false,nextEligibleAt};return{error:'limited'}};if(receipt.payload!==payload)return{error:'conflict'};return{accepted:true,duplicate:rows[0].results.length>0,...(home?{counted:rows[0].results.length===0,nextEligibleAt}:{})};\n }\n}\n\n",
+      "beforeSha256": "6aefda294d32379fbcc7f4c4d50356faa994c0dd1fa1b6d4ed9d759ef41a5df5",
+      "beforeGitBlob": "5376c0bd58cde1ce9546808013ca5c8422fd5196"
+    }
+  ],
+  "baseFiles": [
+    {
+      "path": ".gitignore",
+      "gitBlob": "53b9700cb1b47705e31c017cb6098f01f1bd4865"
+    },
+    {
+      "path": "APPLY-CANDIDATE.md",
+      "gitBlob": "e2ea1141edf813a3adf3733f4b878fe70b251323"
+    },
+    {
+      "path": "README.md",
+      "gitBlob": "1acaa5bb9b802cec82952fba351702340e9cade1"
+    },
+    {
+      "path": "docs/audio/PROVENANCE.md",
+      "gitBlob": "4f8d2429257fb2bcb60f848a8b645e32ca01fb54"
+    },
+    {
+      "path": "docs/audio/QA-20261027.md",
+      "gitBlob": "924ded4bcf14877df76668bbcb4f38dd8c364ef2"
+    },
+    {
+      "path": "docs/audio/manifest.json",
+      "gitBlob": "da96712530b30e2e21d1388f3ee0824e1151b48e"
+    },
+    {
+      "path": "docs/audio/selected-manifest.json",
+      "gitBlob": "0cc18d088b5e273a231c05e851af24c62fa53fe6"
+    },
+    {
+      "path": "docs/cosmos/PROVENANCE.md",
+      "gitBlob": "172fb1586c8083c0b72db60c59b3456ed67a92a2"
+    },
+    {
+      "path": "docs/fast-hands-main/PLAN.md",
+      "gitBlob": "fbf2698395c3be4e4522bade736a903dd76f3122"
+    },
+    {
+      "path": "docs/fast-hands-main/SOURCE-MANIFEST.json",
+      "gitBlob": "752fb993958cd31f8961ffea6bb1823e74fb1a93"
+    },
+    {
+      "path": "docs/fast-hands-main/VERIFICATION.md",
+      "gitBlob": "c6437b13ab834848615c0da1307c46588ea66e80"
+    },
+    {
+      "path": "docs/fast-hands-polish/README.md",
+      "gitBlob": "107d397b517f266ddcf1d479777a849985c68c38"
+    },
+    {
+      "path": "docs/fast-hands-polish/SOURCE-MANIFEST.json",
+      "gitBlob": "1c160d9cc5f156be2dde6205c389c7839db3dc75"
+    },
+    {
+      "path": "docs/history/long-jump-v7.md",
+      "gitBlob": "5b6f11ff4ba2015468c242e2ac8386f91cfa72d2"
+    },
+    {
+      "path": "docs/history/long-jump-v8-route.md",
+      "gitBlob": "fd4ef8a269b2813f367647728fd95918bd5cbe20"
+    },
+    {
+      "path": "docs/history/long-jump-v8.md",
+      "gitBlob": "72c36a73dfb26f2ea733d7c357856d1c1599de3b"
+    },
+    {
+      "path": "docs/history/v7-tests/README.md",
+      "gitBlob": "3853b6f7697ee4af38a6f9fa3e21e4340d5fc425"
+    },
+    {
+      "path": "docs/history/v7-tests/air-stride.test.mjs",
+      "gitBlob": "d3f868a24ee8dbcf2b2b748c318432a5e39b25b9"
+    },
+    {
+      "path": "docs/history/v7-tests/anatomy-flips.test.mjs",
+      "gitBlob": "ffc5b5f0ace3c2d8a895a8a72406a20a961d4834"
+    },
+    {
+      "path": "docs/history/v7-tests/controls-v06.test.mjs",
+      "gitBlob": "de65362f516cb0b4e6fdada60b4167638e2a1b4f"
+    },
+    {
+      "path": "docs/history/v7-tests/glides.test.mjs",
+      "gitBlob": "b7460b5f2435b97d5692f0363e2f11b688d9780a"
+    },
+    {
+      "path": "docs/history/v7-tests/intents-v06.test.mjs",
+      "gitBlob": "90a4b35c7123f26b04ad2fd15f4d5bf867ab99ac"
+    },
+    {
+      "path": "docs/history/v7-tests/landing-v7.test.mjs",
+      "gitBlob": "01411f5583665a179c6914e33cdee593ff4182e0"
+    },
+    {
+      "path": "docs/history/v7-tests/physics.test.mjs",
+      "gitBlob": "3b572bfab79bd49d1dc03530bfe4724e653f0aa0"
+    },
+    {
+      "path": "docs/history/v7-tests/readiness.test.mjs",
+      "gitBlob": "193cf0211eaaad88a6d59a190883710805bb4553"
+    },
+    {
+      "path": "docs/hurdles-main/SOURCE-MANIFEST.json",
+      "gitBlob": "cf0cddffe5965f2ec8e439669135705f43baeac1"
+    },
+    {
+      "path": "docs/landmark-art.md",
+      "gitBlob": "a0587bfe7e5e7e7a6d0d1e2ca05e988f56e40ea8"
+    },
+    {
+      "path": "docs/loading-main/SOURCE-MANIFEST.json",
+      "gitBlob": "c24bd3173502210d6d05d7148bfa28904c403759"
+    },
+    {
+      "path": "docs/loading-main/VERIFICATION.md",
+      "gitBlob": "e60051c8d99d6a8dcb13ea673d1d8fa8d79427b2"
+    },
+    {
+      "path": "docs/long-jump-main/PLAN.md",
+      "gitBlob": "8974af613da79512627ef092bf93253023895958"
+    },
+    {
+      "path": "docs/long-jump-main/SOURCE-MANIFEST.json",
+      "gitBlob": "568cb1a019726b2b88428931012811e919e29892"
+    },
+    {
+      "path": "docs/long-jump-main/VERIFICATION.md",
+      "gitBlob": "64d21ca4c5ed5ba00ae4d030a50b058cdea59f55"
+    },
+    {
+      "path": "docs/long-jump-physics.md",
+      "gitBlob": "e7b47d50ef646baf94421c667b960d236e86d005"
+    },
+    {
+      "path": "docs/long-jump.md",
+      "gitBlob": "15d911a42d331e03404a501cc3873b6d907650f1"
+    },
+    {
+      "path": "docs/mobile-gestures/SOURCE-MANIFEST.json",
+      "gitBlob": "d128ae03f5f1053b43b36e1dbb4cae163363531e"
+    },
+    {
+      "path": "docs/plans/2026-10-25-approved-design.md",
+      "gitBlob": "7bc35adefdd55c3b2e3d3fb874b0872a55750c77"
+    },
+    {
+      "path": "docs/plans/2026-10-27-v8-implementation.md",
+      "gitBlob": "7ead56374493ce23a65f4ab1bda66c958e6402cb"
+    },
+    {
+      "path": "docs/reaction-rod-main/PLAN.md",
+      "gitBlob": "bab45f09c977f5e641af3ffd7547ac1d46a4a702"
+    },
+    {
+      "path": "docs/reaction-rod-main/SOURCE-MANIFEST.json",
+      "gitBlob": "6953df34364182980906f59aedde2d475c72f712"
+    },
+    {
+      "path": "docs/reaction-rod-main/VERIFICATION.md",
+      "gitBlob": "ecc478f4eed4d1585e0d982b67c85201a08f4281"
+    },
+    {
+      "path": "docs/studio-main/SOURCE-MANIFEST.json",
+      "gitBlob": "8a4842795be18b5a738494c4876a098717e82e11"
+    },
+    {
+      "path": "docs/studio-main/VERIFICATION.md",
+      "gitBlob": "bea86acc6c5443ef944c886108fc21b6a2943078"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-adventure-route.md",
+      "gitBlob": "a6feab0f85eb0dbdbdf20d53f2ace9fdc8b81417"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-jump-polish.md",
+      "gitBlob": "c6a2c2e2c0e717ac68add7bc02816e0a6e0c7499"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-landmark-polish.md",
+      "gitBlob": "20a4e9d22f83957405b94694983fc1c33efa23db"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-cosmic-journey.md",
+      "gitBlob": "d45fa7318dd35ee715a13c1892d46bf4ffe5b1fb"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-28-current-visual-sandpits.md",
+      "gitBlob": "8f79df8dd932035aa755a6c510d1452b94914ed4"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-hurdles-main.md",
+      "gitBlob": "cc988aa69d02383a617a1335751bfdc4591b0ad1"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-main-counts-fighter.md",
+      "gitBlob": "82852aeba9e459fb05debc8898440d2400dd7cf9"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-production-leaderboard.md",
+      "gitBlob": "6e4a291cb775db97bb65a6d5f9cd210ea3f5e82e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-adventure-route-design.md",
+      "gitBlob": "50101290e39ef6b783009e9e01cb64072bbf0ad4"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-27-landmark-polish.md",
+      "gitBlob": "9646c18ae8039f249bc74cdb3354741a89b7f55e"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-cosmic-journey.md",
+      "gitBlob": "44fd4dfc3c03a53a919d52ee3e74d6747c035ed1"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-28-visual-sandpits-design.md",
+      "gitBlob": "bc44e0752e896475d3a5cd89052a96584c5fe636"
+    },
+    {
+      "path": "docs/verification.md",
+      "gitBlob": "a838cda265f5cad171cd59c97808bff93f2ddde4"
+    },
+    {
+      "path": "package-lock.json",
+      "gitBlob": "9527ac5e656df97105c30d5b01e71f7a282b5044"
+    },
+    {
+      "path": "package.json",
+      "gitBlob": "1e51324e6664bce3abdf1e639932c70fd4b9cbe2"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/apple-touch-icon.png",
+      "gitBlob": "1925e531295289eeb930d89c08fda13eed1c81e0"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-32.png",
+      "gitBlob": "e5f5573e097a9b461482f1f78f5dc90ef2fc0f1e"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/favicon-48.png",
+      "gitBlob": "2d84fc504212446ab3c5df1f00593ec78142ea39"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-192.png",
+      "gitBlob": "a711bf06b5ddd05a5d4584b1da0c625e8130492d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/hurdles/icon-maskable-512.png",
+      "gitBlob": "57918aea81959f435abf558877bcd9f9d4e2461d"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/apple-touch-icon.png",
+      "gitBlob": "6fd4c6232959e7e29c11fa20134bde1b589cf440"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-32.png",
+      "gitBlob": "ef945c4a18164c7ca40d692a88d3942257b4d6a7"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/favicon-48.png",
+      "gitBlob": "a571ee42abffa13cb4d635b42d2dfa72b73e7c5c"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-192.png",
+      "gitBlob": "ca7cfb984d41af6cd446941ac8820c7931070772"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/long-jump/icon-maskable-512.png",
+      "gitBlob": "c0739019cda5c544caa39793142ae6740a6dcfaf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/apple-touch-icon.png",
+      "gitBlob": "8672db4ed34ccf1f27010362ea1e64897e6068bf"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-32.png",
+      "gitBlob": "279b02dfac70a4c0ffa8049ee846169b4cbe93f0"
+    },
+    {
+      "path": "public/assets/app-icons/platform/favicon-48.png",
+      "gitBlob": "b6978b692ca8da9f23232808c530be5da188bf6e"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-192.png",
+      "gitBlob": "0fec80b83cb6b8c3093159ac25261fda8b06a4f8"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-512.png",
+      "gitBlob": "359c490ff9842e32d8bf59aba98e5a404c7ff808"
+    },
+    {
+      "path": "public/assets/app-icons/platform/icon-maskable-512.png",
+      "gitBlob": "314aed68f60b72f7447d6bd35bde11cdbc06b7cd"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/apple-touch-icon.png",
+      "gitBlob": "0f754034fcee82e39586f54d8318fe4190450085"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-32.png",
+      "gitBlob": "182ea863240591cb74680057017112c74a431c86"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/favicon-48.png",
+      "gitBlob": "3e3a7de068275715476175adc375ef68782ba3d3"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-192.png",
+      "gitBlob": "a9e7cf9490debdbee239655a815366a1868bf142"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/app-icons/reaction-rod/icon-maskable-512.png",
+      "gitBlob": "20b8b3e04703c0232d9ecedb7f5721423448db02"
+    },
+    {
+      "path": "public/assets/fast-hands-card-v2.webp",
+      "gitBlob": "63dfaffe91b4ab5c96b6948ca3874c1eb7abcb59"
+    },
+    {
+      "path": "public/assets/favicon.svg",
+      "gitBlob": "0953ffa38027e37ebc75bef4a2f05ae4668e6e5a"
+    },
+    {
+      "path": "public/assets/hero-long-jump.png",
+      "gitBlob": "89d8dd2580a7b4c0842b6c7091bae7a8fa8fcc1f"
+    },
+    {
+      "path": "public/assets/home.css",
+      "gitBlob": "f5bfdfb7001aa0d8d9575802521ba65895e547b7"
+    },
+    {
+      "path": "public/assets/hurdles-card.png",
+      "gitBlob": "db89fb323cfff286621308512a944ee2d62d9824"
+    },
+    {
+      "path": "public/assets/play-counts.mjs",
+      "gitBlob": "75fd926dffc5d294100ce28fc2e26a83c97927e1"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter-logo.webp",
+      "gitBlob": "a840112e019937ea49ae99f6a019d4425a0eded2"
+    },
+    {
+      "path": "public/assets/portal-taiwanfighter.webp",
+      "gitBlob": "c438378b7a7290552051608b1bdb78dd92c1c7a2"
+    },
+    {
+      "path": "public/assets/reaction-rod-card.png",
+      "gitBlob": "8405deb9228d1402625b2f9a1703f1c216e59126"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/controls.mjs",
+      "gitBlob": "00975e353a7a0a91c6095141a9cb1b148bbe771d"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/game.mjs",
+      "gitBlob": "113c39ebb70ac7d1f264574029cf43f90bc64a2a"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/index.html",
+      "gitBlob": "7dac875884f8f01b318109124e7c888525e69faf"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/physics.mjs",
+      "gitBlob": "33cf9cda1715efa2caf0538851c5bdfe84f44949"
+    },
+    {
+      "path": "public/experiments/long-jump-physics/style.css",
+      "gitBlob": "95816ca7ba03531212d7f6d21e822e8f1a04a4f4"
+    },
+    {
+      "path": "public/games/fast-hands/app.mjs",
+      "gitBlob": "5a703b176e3ac561557fe3efeb9d2375379a2575"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-bill.svg",
+      "gitBlob": "acf7cc7b9f503e708bfe95411d9d8b7a6febd3e8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/control-duck.svg",
+      "gitBlob": "c9b7e5eddbabd2c3ba6f5695a89a8b568149ad62"
+    },
+    {
+      "path": "public/games/fast-hands/assets/duel-items-atlas.png",
+      "gitBlob": "741d8b24c9e7f402333c59583b99b78ee9f2e8ca"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo-poster.png",
+      "gitBlob": "8cad948afd1baf956543bd9bcb78975cdd21a080"
+    },
+    {
+      "path": "public/games/fast-hands/assets/front-demo.mp4",
+      "gitBlob": "0f2c5a65a08eebd54546a665636b477dfb26faf5"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-catch-generated.webp",
+      "gitBlob": "da515e5321fe7194f48092a3484551588d2f9208"
+    },
+    {
+      "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+      "gitBlob": "38e526d4d88b251d3967ff275137e72f52cb4471"
+    },
+    {
+      "path": "public/games/fast-hands/assets/king-torso-v3.png",
+      "gitBlob": "e80c08fc3e9aefeddbd525b647f4bd0027ce2ae3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-empty-mid.png",
+      "gitBlob": "551acd20b9edc63add8b858e6f47cb3419ff2be0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-grab.png",
+      "gitBlob": "218d744facb8697fc2ddd9e0a21699fcbc3441ac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-guns.png",
+      "gitBlob": "24b6410081a938fc99fe24f0bdd511cd67ae55f8"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-place.png",
+      "gitBlob": "8d4dfbd3a2ef94526461a491bc8808662841a2e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-reach.png",
+      "gitBlob": "3e1cf8cc9a3e5ec6eaceb6cd3da97a8651a470d6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-ready.png",
+      "gitBlob": "eaaa9d91b90bf31540b61a66b175c5374cd7d6e6"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return-mid.png",
+      "gitBlob": "05a265158770eb52521388ca34996672ff06c2e0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-catch-return.png",
+      "gitBlob": "b87520533ff559f33c4bb61289c94ce922e22049"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-grab.png",
+      "gitBlob": "b2e78c669b094cd8aaf4119f0232e06d3a247f3d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-guns.png",
+      "gitBlob": "b569ebe8e71c032d39463bd9977344915ae7fb93"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-place.png",
+      "gitBlob": "efa589889b8d73e25cde3bba6bdd90496fa369c1"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-reach.png",
+      "gitBlob": "32705b647ca9e5b0fd57d4643b3638d3b23b5fac"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai-return-mid.png",
+      "gitBlob": "b8859c6a4572707e29fab491778cb7f771f752db"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ai.png",
+      "gitBlob": "61b3f5e0779d6786ea7d729e0796768e370b549d"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-neutral.png",
+      "gitBlob": "a02d19881a08fcb6a1238747525d704479e0118f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-grab.png",
+      "gitBlob": "773849fd960220c38251966d0119a53f744f87e3"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-guns.png",
+      "gitBlob": "9ad53826585cc71993c766edef13e67930481b56"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-place.png",
+      "gitBlob": "d9b73888ce30d4b6119c6929e5a9d9141d87007f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-reach.png",
+      "gitBlob": "ed8b57433c4d531322a60999222fd23711c72e9f"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player-return-mid.png",
+      "gitBlob": "725b248967eeb64e9bab42cd64bc21e54dd313c4"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-player.png",
+      "gitBlob": "38e44936310dea5857ee92d0c99daaf9e3ebcf80"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-duel-ready.png",
+      "gitBlob": "30cf8cf1b7ad71b0d04075ae83f35824434a16c0"
+    },
+    {
+      "path": "public/games/fast-hands/assets/levels-pose-provenance.json",
+      "gitBlob": "f342f75b907c1349c53e2e97753042e33f5fef2e"
+    },
+    {
+      "path": "public/games/fast-hands/assets/result-pose.png",
+      "gitBlob": "6f925b5de0ece016e35f5fbc699213fd740b35aa"
+    },
+    {
+      "path": "public/games/fast-hands/auto-input.mjs",
+      "gitBlob": "4e8b2aced85f47f1ac91e8779584a194a0c2c96b"
+    },
+    {
+      "path": "public/games/fast-hands/catch.html",
+      "gitBlob": "ca8632fb54948fdadc0d222c77836449d2d240ba"
+    },
+    {
+      "path": "public/games/fast-hands/challenge.mjs",
+      "gitBlob": "3095f5b1a62acceb1d0167fea63d3580882b5077"
+    },
+    {
+      "path": "public/games/fast-hands/club.css",
+      "gitBlob": "67ae11fbdf45ca60035afb6459920cadff9201f7"
+    },
+    {
+      "path": "public/games/fast-hands/club.mjs",
+      "gitBlob": "7e7eb2644adfa75904f7b8158bb23e3b9f9a2319"
+    },
+    {
+      "path": "public/games/fast-hands/duck-startup.css",
+      "gitBlob": "b26ba4673f380c051b633e8a6ae6f61da77e46c6"
+    },
+    {
+      "path": "public/games/fast-hands/duel.html",
+      "gitBlob": "bad479ffa30f0ade7b405ddea82d5c7dea2f7582"
+    },
+    {
+      "path": "public/games/fast-hands/finale-image.mjs",
+      "gitBlob": "e2952f9bdfee8a4ba03bec389b59e0ad4fc03321"
+    },
+    {
+      "path": "public/games/fast-hands/finale.css",
+      "gitBlob": "7049abb931b958eb558e90cfc3528bdaae0f04d1"
+    },
+    {
+      "path": "public/games/fast-hands/finish-timing.mjs",
+      "gitBlob": "e0b93656dea0831beeecae383a871ddc92d5caaf"
+    },
+    {
+      "path": "public/games/fast-hands/index.html",
+      "gitBlob": "9b710f25e017e2bc711942fb6a9d1dff6f5a8877"
+    },
+    {
+      "path": "public/games/fast-hands/input-clock.mjs",
+      "gitBlob": "572f16b5c907f63f7cf9dfb56dfbe59a8a981514"
+    },
+    {
+      "path": "public/games/fast-hands/input.mjs",
+      "gitBlob": "7c354c8ff949db76ff1e78d75f6527671a4e9b65"
+    },
+    {
+      "path": "public/games/fast-hands/leaderboard.mjs",
+      "gitBlob": "6c11195211e0f34b777ddfa283165ec3a3103a25"
+    },
+    {
+      "path": "public/games/fast-hands/level-nav.css",
+      "gitBlob": "0922d5cf74107931069d80d85dec51e6b66fa8a6"
+    },
+    {
+      "path": "public/games/fast-hands/levels-app.mjs",
+      "gitBlob": "f476ecb44654697823014d6428c8d405144c0b16"
+    },
+    {
+      "path": "public/games/fast-hands/levels-leaderboard.mjs",
+      "gitBlob": "fe5fdf0a4a435359ee247d24bdc548c8c8fb38fd"
+    },
+    {
+      "path": "public/games/fast-hands/levels-motion.mjs",
+      "gitBlob": "b456da480a40acc78d1816b957d1091984becc5a"
+    },
+    {
+      "path": "public/games/fast-hands/levels-ranking.css",
+      "gitBlob": "5e9ab05c767ea6d7a7cd05cd18278361ff289a07"
+    },
+    {
+      "path": "public/games/fast-hands/levels-replay.mjs",
+      "gitBlob": "1ebc4274cb1bec6ad0f4d51279bc4488f918cd0f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-rules.mjs",
+      "gitBlob": "ffb5418b603b75c39d79225a911ceaaa9489732b"
+    },
+    {
+      "path": "public/games/fast-hands/levels-score-image.mjs",
+      "gitBlob": "212114ae6e3336ac8840330c3db8a4d2df6e3df0"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sharing.mjs",
+      "gitBlob": "c746c686af577b34547b237781e6fb8c4faf111f"
+    },
+    {
+      "path": "public/games/fast-hands/levels-sound.mjs",
+      "gitBlob": "12ee8e782d229abea23ca572465c496393b6ca54"
+    },
+    {
+      "path": "public/games/fast-hands/levels-stage.mjs",
+      "gitBlob": "01cb7a4ddc53858a0942128f7344221f96b1a1df"
+    },
+    {
+      "path": "public/games/fast-hands/levels-world.mjs",
+      "gitBlob": "c84a34a9d483ea95f9a1b52b454ef11c984c319a"
+    },
+    {
+      "path": "public/games/fast-hands/levels.css",
+      "gitBlob": "64de36acf30f19bef82214a0c8b64051d52e65bd"
+    },
+    {
+      "path": "public/games/fast-hands/physics.mjs",
+      "gitBlob": "bbdd03c707b7bc490566992d0ebdd07207d49774"
+    },
+    {
+      "path": "public/games/fast-hands/play-counts.mjs",
+      "gitBlob": "c908a8abb4878e418133605d59d3167bbfee5c1b"
+    },
+    {
+      "path": "public/games/fast-hands/records.mjs",
+      "gitBlob": "8bb7603073d21c1ee583cf39087e8acaa9d95d80"
+    },
+    {
+      "path": "public/games/fast-hands/replay.mjs",
+      "gitBlob": "58c74cb8f0a69cb7adc1c7c42595d6d5aabdfecd"
+    },
+    {
+      "path": "public/games/fast-hands/result-copy.mjs",
+      "gitBlob": "fee03c6d176442407d9be31a22bf9d0f13bf8ac2"
+    },
+    {
+      "path": "public/games/fast-hands/result-upload-host.mjs",
+      "gitBlob": "17a8e134e16ba0b660c40f34e521a1e6eab2967a"
+    },
+    {
+      "path": "public/games/fast-hands/scene.mjs",
+      "gitBlob": "3ed9bffeaa564d18bdcc252d388e75b78633bd00"
+    },
+    {
+      "path": "public/games/fast-hands/score-image.mjs",
+      "gitBlob": "1762a8218a7b92398108023d65926d97001cdd39"
+    },
+    {
+      "path": "public/games/fast-hands/share.mjs",
+      "gitBlob": "55e1f502ae4418a5219fe18d6942606228fc4f15"
+    },
+    {
+      "path": "public/games/fast-hands/shuttle.mjs",
+      "gitBlob": "db235d35a165bf6a02da942f6c4524535349af71"
+    },
+    {
+      "path": "public/games/fast-hands/sound.mjs",
+      "gitBlob": "146cad743392eec5d2218f60f96e8f9db35fe0ef"
+    },
+    {
+      "path": "public/games/fast-hands/style.css",
+      "gitBlob": "c9a43ea831d4aeca631e2b74d69cc82150e485ad"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/duck-room.mjs",
+      "gitBlob": "b0628b56a7f517c5eb2238c738d4457d0278d781"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/game-motion.mjs",
+      "gitBlob": "ba59e9985bbca875c08352634299175f1e9a15b4"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/presentation.mjs",
+      "gitBlob": "90ffc329bafc968fe4f2f082c06141a687f3b350"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/rig.mjs",
+      "gitBlob": "7a83ceed7aa4117c67ef2155aa91822a2c7dd9c2"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/stage.mjs",
+      "gitBlob": "1c31148f792c056ef0eb5ebe6d46d875f5629756"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/timeline.mjs",
+      "gitBlob": "18dd04914133e799f8195bfc5dcf6f011e179ef7"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/view.mjs",
+      "gitBlob": "4bbcb02830b843a598a241f83bad89dc945b0e92"
+    },
+    {
+      "path": "public/games/fast-hands/three3d/world.mjs",
+      "gitBlob": "b18411038a15cf5696939e61809ac86ecd37814d"
+    },
+    {
+      "path": "public/games/hurdles/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/hurdles/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/hurdles/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/hurdles/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/hurdles/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/hurdles/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/hurdles/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/hurdles/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/hurdles/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/hurdles/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/hurdles/character.mjs",
+      "gitBlob": "c0ae4bd873a7b54e50b1df669615c4abc7307ae2"
+    },
+    {
+      "path": "public/games/hurdles/countdown.mjs",
+      "gitBlob": "e9d283733f265ea9ad1af01b071dfbec6d01c0f9"
+    },
+    {
+      "path": "public/games/hurdles/favicon.svg",
+      "gitBlob": "ae2b279c109df77c8d731fb2e00abfa4ce17431a"
+    },
+    {
+      "path": "public/games/hurdles/game.mjs",
+      "gitBlob": "0e62f221b929408fb90d3296979a3681ba00bb78"
+    },
+    {
+      "path": "public/games/hurdles/index.html",
+      "gitBlob": "5909a37882d813426d86fd16fdd5e5c8308573b3"
+    },
+    {
+      "path": "public/games/hurdles/input.mjs",
+      "gitBlob": "a27e3758767227254404a8575392231e3767e7d1"
+    },
+    {
+      "path": "public/games/hurdles/manifest.webmanifest",
+      "gitBlob": "9df59d473fda2a5f905ca0f22f03d5ed1fb516c6"
+    },
+    {
+      "path": "public/games/hurdles/physics.mjs",
+      "gitBlob": "81a794a34f82b9e5129f17b62528598a7d98e77b"
+    },
+    {
+      "path": "public/games/hurdles/play-surface.mjs",
+      "gitBlob": "b64dbd9d42d3d402fa9424bb5400333065f57184"
+    },
+    {
+      "path": "public/games/hurdles/render.mjs",
+      "gitBlob": "911b132a60bf3822586d86ac5b651d5819daf4eb"
+    },
+    {
+      "path": "public/games/hurdles/replay.mjs",
+      "gitBlob": "e9ee9e6842cddc56cf53539525071888b694fa7a"
+    },
+    {
+      "path": "public/games/hurdles/result-guard.mjs",
+      "gitBlob": "684bf04991b61dca268ede1e58d0ea4f14c530f4"
+    },
+    {
+      "path": "public/games/hurdles/share.mjs",
+      "gitBlob": "a34b3e0f54bf195686c61d0b4b8437d59559fd35"
+    },
+    {
+      "path": "public/games/hurdles/software-renderer.mjs",
+      "gitBlob": "a1e9be262883449f3366b2907901953622238231"
+    },
+    {
+      "path": "public/games/hurdles/style.css",
+      "gitBlob": "6fa3dfc2df3178f9c9f09eb9ce17e8bf93e1e374"
+    },
+    {
+      "path": "public/games/hurdles/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/hurdles/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/javelin/character3d.mjs",
+      "gitBlob": "b3e2964b89eaff3d8b3ba6780199264cb3a16873"
+    },
+    {
+      "path": "public/games/long-jump/audio.mjs",
+      "gitBlob": "f15b585380c89fb7d6ddd1fac0867348a1306c20"
+    },
+    {
+      "path": "public/games/long-jump/audio/CC-BY-4.0-legalcode.txt",
+      "gitBlob": "865093b9e5e5c4e2544bcc32cf14b4bd2e1ee99f"
+    },
+    {
+      "path": "public/games/long-jump/audio/Kenney-RPG-License.txt",
+      "gitBlob": "c19921a2fb2402ead892083a2a5d09ce90e7e9e4"
+    },
+    {
+      "path": "public/games/long-jump/audio/NotJam-CC0-source-statement.txt",
+      "gitBlob": "1ef3611968eaad15814890ef9330d3ea58fc495d"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.mp3",
+      "gitBlob": "1c4cde8e211854f2d820329cfd40205fa6cb8a2b"
+    },
+    {
+      "path": "public/games/long-jump/audio/bgm.ogg",
+      "gitBlob": "60a770bd5cd1fd030ad24153f5d091ec6021d189"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.mp3",
+      "gitBlob": "914c682a51bb3bc81bf34a34cea126c340257cc6"
+    },
+    {
+      "path": "public/games/long-jump/audio/flight.ogg",
+      "gitBlob": "04a054a7c6bc6404eb475096652c39439fec5a74"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.mp3",
+      "gitBlob": "505f256d29a5a9abf548a330c61e9c931cea5566"
+    },
+    {
+      "path": "public/games/long-jump/audio/jump.ogg",
+      "gitBlob": "769e7019e13806ad6c7b7f95cea39ddfbd77030a"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.mp3",
+      "gitBlob": "3fd8fddeb89c546c302e064a613bdba29e8babb6"
+    },
+    {
+      "path": "public/games/long-jump/audio/land.ogg",
+      "gitBlob": "a6677e0956b575f08f963445915c03af5a4558e9"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.mp3",
+      "gitBlob": "1cfd3b5f5c7cce6a0e00a6b75d92e8d637924ef5"
+    },
+    {
+      "path": "public/games/long-jump/audio/result.ogg",
+      "gitBlob": "480a8bb5e028b7f16709114667d4ef563d2fe65b"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.mp3",
+      "gitBlob": "6691ba621d5b1c2b6506fd87cf6ad1cfd786c2ea"
+    },
+    {
+      "path": "public/games/long-jump/audio/step.ogg",
+      "gitBlob": "c78918965fd3984b48e3d2813a06c764ac4a3f3b"
+    },
+    {
+      "path": "public/games/long-jump/capture.mjs",
+      "gitBlob": "e609d930b5bbd283a376853b265d27502d68aaa8"
+    },
+    {
+      "path": "public/games/long-jump/character.mjs",
+      "gitBlob": "9eeffe3ac5526b6a75ecb7a7cffa6f525a3a811f"
+    },
+    {
+      "path": "public/games/long-jump/controls.mjs",
+      "gitBlob": "e1ce8aecd3282fcd0931d543fea33c328d02362d"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-art.mjs",
+      "gitBlob": "2db42d4fcb672607dc7e032f041548a53c11f5ed"
+    },
+    {
+      "path": "public/games/long-jump/cosmic-data.mjs",
+      "gitBlob": "de6466b02d6aa4bbce88c44f691787c3fbdc0cd0"
+    },
+    {
+      "path": "public/games/long-jump/dialogs.mjs",
+      "gitBlob": "2168b78aea1ab10e72dd5838174f83d71df4d9a2"
+    },
+    {
+      "path": "public/games/long-jump/flavour.mjs",
+      "gitBlob": "d3f4e1e313d5ea4cb02f6ea6f1f690a9dcefe59f"
+    },
+    {
+      "path": "public/games/long-jump/game.mjs",
+      "gitBlob": "de393040775dd7f07d4fc5fbbafd0d47fb87f12b"
+    },
+    {
+      "path": "public/games/long-jump/index.html",
+      "gitBlob": "788b7075347827de88619dde9669047788b09356"
+    },
+    {
+      "path": "public/games/long-jump/landmarks.mjs",
+      "gitBlob": "a4eab3ddfab6a5ba4b1a4fd52589549fea01778c"
+    },
+    {
+      "path": "public/games/long-jump/layout.mjs",
+      "gitBlob": "700df4e8909d1b481f4d35da27afa3fe65170dd7"
+    },
+    {
+      "path": "public/games/long-jump/manifest.webmanifest",
+      "gitBlob": "827f01127c589b231e1078fe60cb578ec7301276"
+    },
+    {
+      "path": "public/games/long-jump/physics.mjs",
+      "gitBlob": "bb96f4ac6b07ff999b624766ed7758c6c82576d0"
+    },
+    {
+      "path": "public/games/long-jump/play-surface.mjs",
+      "gitBlob": "75867a2188d0fd03490a8e94a87f9d6b042de245"
+    },
+    {
+      "path": "public/games/long-jump/presentation.mjs",
+      "gitBlob": "2b8bca8c52267348de8c539dbf53a2d35f6a373f"
+    },
+    {
+      "path": "public/games/long-jump/replay.mjs",
+      "gitBlob": "63caf5d5c456bd6757b08b1c772489fb4f010859"
+    },
+    {
+      "path": "public/games/long-jump/result-view.mjs",
+      "gitBlob": "498d697ddb991983f8e4280b6858c520115fc3c6"
+    },
+    {
+      "path": "public/games/long-jump/route-data.mjs",
+      "gitBlob": "a1ccc244fa6d7a81be713f9bc9bd5ef2638e9103"
+    },
+    {
+      "path": "public/games/long-jump/sandpits.mjs",
+      "gitBlob": "eba71c4a1fdd05debd20d7c7715c09f6071d2033"
+    },
+    {
+      "path": "public/games/long-jump/scenery-art.mjs",
+      "gitBlob": "48a0df2b81da5467594bf290cd602780b40992e9"
+    },
+    {
+      "path": "public/games/long-jump/scenery.mjs",
+      "gitBlob": "39be1230c48f48236d305318afa5a6a9b9f99e26"
+    },
+    {
+      "path": "public/games/long-jump/share.mjs",
+      "gitBlob": "cb378fc643cc1dc963f0bbb2b986c0f9ab98a891"
+    },
+    {
+      "path": "public/games/long-jump/style.css",
+      "gitBlob": "5dc0ec2412cacde037d3a63cd0853fb36608470a"
+    },
+    {
+      "path": "public/games/long-jump/vendor/THREE-LICENSE.txt",
+      "gitBlob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.core.min.js",
+      "gitBlob": "70c40977daa0f6e1e312c6b58e9bfe49cb5a87a4"
+    },
+    {
+      "path": "public/games/long-jump/vendor/three.module.min.js",
+      "gitBlob": "20d3c112761a519c7780a5ccc9f72a40937fa83b"
+    },
+    {
+      "path": "public/games/long-jump/verdicts.mjs",
+      "gitBlob": "0bec16c55341f752ba4ac665651cbd3d530f2093"
+    },
+    {
+      "path": "public/games/long-jump/viewport-diagnostics.mjs",
+      "gitBlob": "dfe93e30eee9d8eff6577ab7d12d7a04f2316fae"
+    },
+    {
+      "path": "public/games/long-jump/world.mjs",
+      "gitBlob": "b9b18327b10711a80dbe310283330c2a5ddec769"
+    },
+    {
+      "path": "public/games/reaction-rod/audio.mjs",
+      "gitBlob": "2ab5ade9b7cc5f834b2566aefdc630952bf5d045"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/CREDITS.md",
+      "gitBlob": "e044ffb34f9180f682bef1bbe83ccaf2e8d69067"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/chill-menu.mp3",
+      "gitBlob": "50b833fcbec85ca8dd559aac6b09fdb05377aea9"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/glass-tap.wav",
+      "gitBlob": "479a2ff557800655a2bee89f08e1ef96c62d78c3"
+    },
+    {
+      "path": "public/games/reaction-rod/audio/spill-drop.wav",
+      "gitBlob": "a5bd77ea257f6c582ba4763890cf579fb8d442f8"
+    },
+    {
+      "path": "public/games/reaction-rod/final-moment.mjs",
+      "gitBlob": "92c345b8cd4d7e46b0926b0a8be3bd6c5e273554"
+    },
+    {
+      "path": "public/games/reaction-rod/framing.mjs",
+      "gitBlob": "4f07858e8b96b9c38fa06c9f5d27c60d821c07d8"
+    },
+    {
+      "path": "public/games/reaction-rod/game-audio-events.mjs",
+      "gitBlob": "2467922a9bd57d17adf1c745acd6f5f9f22a0cbd"
+    },
+    {
+      "path": "public/games/reaction-rod/game.mjs",
+      "gitBlob": "033a633da939586f6cf57d3ec4e38fad36bd948f"
+    },
+    {
+      "path": "public/games/reaction-rod/index.html",
+      "gitBlob": "6e6f4eb4ada7a5852d1072055d629e1fb942b64d"
+    },
+    {
+      "path": "public/games/reaction-rod/layout.mjs",
+      "gitBlob": "597253d88dee6718a41e6961a7e62c59c9caa746"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-metrics.mjs",
+      "gitBlob": "b2d34df4f8c02885ce3f6333acbd8fa42c3e1350"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard-scroll.mjs",
+      "gitBlob": "50cebd4910329c2f75d36758dc87576e441ae1c1"
+    },
+    {
+      "path": "public/games/reaction-rod/leaderboard.mjs",
+      "gitBlob": "3930c5824dff762a45f1f79d6572f42a013351dd"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/CC0-1.0-legalcode.txt",
+      "gitBlob": "0c805e98c2aff9b5d29b2a2aaa9cd7768678787a"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Kenney-Interface-License.txt",
+      "gitBlob": "1fc5acf8243a8ac899403e7297f8c5efdc4258f2"
+    },
+    {
+      "path": "public/games/reaction-rod/licenses/Not-Jam-License.txt",
+      "gitBlob": "60e049509bdf6f0102fa4815ac1d031c7d77b428"
+    },
+    {
+      "path": "public/games/reaction-rod/manifest.webmanifest",
+      "gitBlob": "b0b6a524c20de78a1070dd56327b33272b91a27e"
+    },
+    {
+      "path": "public/games/reaction-rod/physics.mjs",
+      "gitBlob": "a88e8f4437c4b224f725b1a13b3af2b39db5cd6d"
+    },
+    {
+      "path": "public/games/reaction-rod/play-counts.mjs",
+      "gitBlob": "e1950ccf5909a117b35bd058eaad7ad4e53fe563"
+    },
+    {
+      "path": "public/games/reaction-rod/replay.mjs",
+      "gitBlob": "115b8a4b470e5889f362184b1d5bbc7df2b0c3d9"
+    },
+    {
+      "path": "public/games/reaction-rod/result.css",
+      "gitBlob": "5e14fb7fa770ecbcd0228b91c9cc627e5b0b17ac"
+    },
+    {
+      "path": "public/games/reaction-rod/scene.mjs",
+      "gitBlob": "4d7313ddaebb299733b428b2ae639991acf2e0d3"
+    },
+    {
+      "path": "public/games/reaction-rod/share.mjs",
+      "gitBlob": "3742b71d55e34a2adbccd42f90cd96dc64cdefdf"
+    },
+    {
+      "path": "public/games/reaction-rod/snapshot.mjs",
+      "gitBlob": "28b318dc026fb2cdb263c02250ada3b07b4606a9"
+    },
+    {
+      "path": "public/games/reaction-rod/style.css",
+      "gitBlob": "6163314c8995e4c2881f52640aae49f03de58a89"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/THREE-LICENSE.txt",
+      "gitBlob": "556cb495510b5d4d61fa986975217a7ae2a76530"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.core.min.js",
+      "gitBlob": "316285237e5460597ad7c75bee315f73508611b3"
+    },
+    {
+      "path": "public/games/reaction-rod/vendor/three.module.min.js",
+      "gitBlob": "de2723256517cb522aa91fe273f3e68446701c0e"
+    },
+    {
+      "path": "public/games/reaction-rod/viewport.css",
+      "gitBlob": "ce20b50e4e13faf28e1f3aa40c8fcb12d98a5a1c"
+    },
+    {
+      "path": "public/games/shared/audio-preferences.mjs",
+      "gitBlob": "ff71b706bb6eac4fa64d6a8b43275f864ee9e445"
+    },
+    {
+      "path": "public/games/shared/audio-runtime.mjs",
+      "gitBlob": "ceddec5ea717fe403dbb7b6a2114c9fcf515cb3c"
+    },
+    {
+      "path": "public/games/shared/controls-shell.css",
+      "gitBlob": "987bba24c132b4c21928283f3e72e360cebabc2a"
+    },
+    {
+      "path": "public/games/shared/controls-shell.mjs",
+      "gitBlob": "e1b1ecfc8784d5f1942c6c44b88c936b09b5863f"
+    },
+    {
+      "path": "public/games/shared/entry-content.mjs",
+      "gitBlob": "e4c4e65df7fa784d8f5a0cbab29043d04ab8f001"
+    },
+    {
+      "path": "public/games/shared/entry-shell.css",
+      "gitBlob": "d3563ce03f0ef59ab875732927cadb8be4200fed"
+    },
+    {
+      "path": "public/games/shared/entry-shell.mjs",
+      "gitBlob": "d37f933dfc833778c8cc5fa5ca2635103be52292"
+    },
+    {
+      "path": "public/games/shared/game-ui.css",
+      "gitBlob": "b23ca1ab928171cd245103e642f99ae5fb04f258"
+    },
+    {
+      "path": "public/games/shared/game-ui.mjs",
+      "gitBlob": "5612f1a8b28df61df4f81651756380a07c77af08"
+    },
+    {
+      "path": "public/games/shared/help-coordinator.mjs",
+      "gitBlob": "01fc2f38df10bb85461233d0f0e8e4e6e3a830fd"
+    },
+    {
+      "path": "public/games/shared/leaderboard-config.mjs",
+      "gitBlob": "6068a13900e9fa266be02ffae05a874517847661"
+    },
+    {
+      "path": "public/games/shared/leaderboard.css",
+      "gitBlob": "8429a7c664a684094533830c9c86d8b17134109c"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "gitBlob": "37893003f50d9278d59152a9d4b021327710e47c"
+    },
+    {
+      "path": "public/games/shared/menu-audio.mjs",
+      "gitBlob": "35f161653dd3f036af9cff1c27fe8d545da69ae8"
+    },
+    {
+      "path": "public/games/shared/menu-content.mjs",
+      "gitBlob": "96477806a67ad663551c43451d1f41a302d6818b"
+    },
+    {
+      "path": "public/games/shared/mobile-gestures.css",
+      "gitBlob": "aaacef1eeba00909de620fc2930302928e1b21b2"
+    },
+    {
+      "path": "public/games/shared/mobile-gestures.mjs",
+      "gitBlob": "2381e6ed3c6bbefee9deb35af9b8b670df25506e"
+    },
+    {
+      "path": "public/games/shared/play-counts.mjs",
+      "gitBlob": "f07d80094e665e7e01ca7e4248947a695aa32fa7"
+    },
+    {
+      "path": "public/games/shared/production-jump-chrome.css",
+      "gitBlob": "f8f485a62f92d4bb6f088128670401940f2605d1"
+    },
+    {
+      "path": "public/games/shared/production-jump-leaderboard.mjs",
+      "gitBlob": "e36580da2af43d048d01022e127ea7c5f8e9fd35"
+    },
+    {
+      "path": "public/games/shared/scene-audio.mjs",
+      "gitBlob": "a17e6ca66ca0541b617240bec099147b93c51458"
+    },
+    {
+      "path": "public/games/shared/studio-brand.css",
+      "gitBlob": "18ba8abc165e498154dd167de0c0045e36b7df36"
+    },
+    {
+      "path": "public/games/shared/upload-cooldown.mjs",
+      "gitBlob": "cb34a03111dc945f5fc52afa98f774115602f21e"
+    },
+    {
+      "path": "public/index.html",
+      "gitBlob": "9adca6bd264da309f543363b6ceec9bd212a38e9"
+    },
+    {
+      "path": "public/manifest.webmanifest",
+      "gitBlob": "aa16a9071ee62f9b769b5cc67dbc922673e7241a"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "gitBlob": "95664984d65fd110b4bcaff337a990c151e5c6a1"
+    },
+    {
+      "path": "scripts/check-cosmos-parity.mjs",
+      "gitBlob": "24cc18f8981e2278693fa610c4a506b339bf8938"
+    },
+    {
+      "path": "scripts/paint-cosmos-evidence.py",
+      "gitBlob": "a284226fe035bbff4c319530600f8cda9fbb475b"
+    },
+    {
+      "path": "scripts/release-policy.mjs",
+      "gitBlob": "e236b7df5b6b1467076bc17ab6e3237d1eebefc0"
+    },
+    {
+      "path": "scripts/render-cosmos-evidence.mjs",
+      "gitBlob": "866d18c2e666c07323ae21d91d0ee43df6f046f3"
+    },
+    {
+      "path": "scripts/render-v10-blender.py",
+      "gitBlob": "d332b8f1ff8c8c692d2534ab83914f74e4b4733e"
+    },
+    {
+      "path": "scripts/render-v10-evidence.mjs",
+      "gitBlob": "b8aff7d317df89bfddb4f4fd0f50401eec5f1e9d"
+    },
+    {
+      "path": "scripts/render-v8-blender.py",
+      "gitBlob": "3759c198bf8e5d8ca2b4b847466a2d1276f9e9d1"
+    },
+    {
+      "path": "scripts/render-v8-evidence.mjs",
+      "gitBlob": "d99a461d26fcd6b7816cff181929864e7214d4e1"
+    },
+    {
+      "path": "scripts/render-v9-blender.py",
+      "gitBlob": "f01c2839e8ed0ae88ffca547bb97d17e7f1e3b87"
+    },
+    {
+      "path": "scripts/render-v9-evidence.mjs",
+      "gitBlob": "5327dd841a0adc20604d409a21ee38ed70561795"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "gitBlob": "c8d5c5ae595f742df5beb3037b6217ce3ef5fabd"
+    },
+    {
+      "path": "src/catalog-entries/taiwanfighter.json",
+      "gitBlob": "42056a39017f28e2eb8f25229edfb0fde53c30ec"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "gitBlob": "87a2235825fda70d03367993e33235cba38ecebc"
+    },
+    {
+      "path": "src/external-catalog.mjs",
+      "gitBlob": "1b4a01e611bd2b2f036040f38f7f81e215d7cb26"
+    },
+    {
+      "path": "src/render.mjs",
+      "gitBlob": "46db792d07020f067f24c250f04b9192c921f31e"
+    },
+    {
+      "path": "tests/build.test.mjs",
+      "gitBlob": "7b84811e643c1054fb879a91f3cf4e16b1c6261a"
+    },
+    {
+      "path": "tests/experiment-physics.test.mjs",
+      "gitBlob": "8ead78446d730d1945815a99182d8e50cd8d95dc"
+    },
+    {
+      "path": "tests/experiment-ui.test.mjs",
+      "gitBlob": "f4a57949c4d34432a0550ab097c389494edb7426"
+    },
+    {
+      "path": "tests/experiment-v2.test.mjs",
+      "gitBlob": "8a4b5d999cb5d6628d0dcb42c1a35a1c41bfe921"
+    },
+    {
+      "path": "tests/fast-hands-cooldown-backend.test.mjs",
+      "gitBlob": "752451113520020c47b33be8ccc3af07c975c8db"
+    },
+    {
+      "path": "tests/fast-hands-main-backend.test.mjs",
+      "gitBlob": "ef65036396bf09ce587f92aaef3ee738d9c208d5"
+    },
+    {
+      "path": "tests/fast-hands/app-3d.test.mjs",
+      "gitBlob": "fee222670e4730a4bcde9e9bd4ee8d381dcb0758"
+    },
+    {
+      "path": "tests/fast-hands/art-polish-presentation.test.mjs",
+      "gitBlob": "9f44fb6053fddb3001a3a7530671dde2872bef16"
+    },
+    {
+      "path": "tests/fast-hands/auto-input.test.mjs",
+      "gitBlob": "717aa1d26cd3dba5aa01e1a31c63ad14678067ad"
+    },
+    {
+      "path": "tests/fast-hands/challenge.test.mjs",
+      "gitBlob": "16594a299ffd147d6ea9aab4eff66407ed39fe5c"
+    },
+    {
+      "path": "tests/fast-hands/club-flow.test.mjs",
+      "gitBlob": "3109e40bb03321a95c328917de144a74aaa812df"
+    },
+    {
+      "path": "tests/fast-hands/club-layout.test.mjs",
+      "gitBlob": "d1e0f8a3d85b14ac3e14165e10a92bae76bdd0ed"
+    },
+    {
+      "path": "tests/fast-hands/club-navigation.test.mjs",
+      "gitBlob": "44b86307b1f76d88716b13a01846b92563ec1cae"
+    },
+    {
+      "path": "tests/fast-hands/club-results.test.mjs",
+      "gitBlob": "7c8c0bce1fe94add3e7a2d5ddee1453f4df65ee4"
+    },
+    {
+      "path": "tests/fast-hands/covers.test.mjs",
+      "gitBlob": "343ac2edf34f43e6ed6788807b98605500f9e522"
+    },
+    {
+      "path": "tests/fast-hands/demo-3d.test.mjs",
+      "gitBlob": "73a1a135a96a20cd05de4f82bc9c7d549faf0d72"
+    },
+    {
+      "path": "tests/fast-hands/desktop-layout.test.mjs",
+      "gitBlob": "1e55a88276d1cce04a1a4a2b16416eb37a354b16"
+    },
+    {
+      "path": "tests/fast-hands/dialog-navigation.test.mjs",
+      "gitBlob": "12b05bb311677582f4d530d3282520f4c7e87f28"
+    },
+    {
+      "path": "tests/fast-hands/duck-finale-image.test.mjs",
+      "gitBlob": "808ecbe2b692f86c77b328f3e3e84818813314b2"
+    },
+    {
+      "path": "tests/fast-hands/duck-room.test.mjs",
+      "gitBlob": "1afc8a7bff0e1349930ddc4f6ab194b461670805"
+    },
+    {
+      "path": "tests/fast-hands/duck-score-layout.test.mjs",
+      "gitBlob": "5dae12dd25f959148998939f376f52e9fe8fdafd"
+    },
+    {
+      "path": "tests/fast-hands/duck-startup.test.mjs",
+      "gitBlob": "096675be9390fcf1ce2de45153c607279522a7a6"
+    },
+    {
+      "path": "tests/fast-hands/duel-athlete-proportions.test.mjs",
+      "gitBlob": "f131e32da54eb47fb8650342d026b7152280ecc2"
+    },
+    {
+      "path": "tests/fast-hands/finale-css.test.mjs",
+      "gitBlob": "d31e1d598856a955326280bef6295bd7ff2d44c0"
+    },
+    {
+      "path": "tests/fast-hands/finale-image.test.mjs",
+      "gitBlob": "0df9e67b2832197a8c0a165d659afbffeaba2145"
+    },
+    {
+      "path": "tests/fast-hands/finale-layout.test.mjs",
+      "gitBlob": "5750978dabebd2deb8a5032cd3815f2de98c6f31"
+    },
+    {
+      "path": "tests/fast-hands/game-motion.test.mjs",
+      "gitBlob": "c4d663b93077c53c3e93af10c04e17928ec51a4d"
+    },
+    {
+      "path": "tests/fast-hands/generated-intro-covers.test.mjs",
+      "gitBlob": "2801b566cd7934bb408bbe751789b766b3508360"
+    },
+    {
+      "path": "tests/fast-hands/input-clock.test.mjs",
+      "gitBlob": "aa1fec020539a31f0716f23c257783b3a1bb092e"
+    },
+    {
+      "path": "tests/fast-hands/input.test.mjs",
+      "gitBlob": "418fc5655a0a99ccdb7f6a4f449fa13095a17ca9"
+    },
+    {
+      "path": "tests/fast-hands/intro-readable.test.mjs",
+      "gitBlob": "13224453a62d07765e44ae79e9f92a5262398ac3"
+    },
+    {
+      "path": "tests/fast-hands/king-trousers.test.mjs",
+      "gitBlob": "4eef4ba8265a6bfa688020499020429f3d4fd479"
+    },
+    {
+      "path": "tests/fast-hands/leaderboard-app.test.mjs",
+      "gitBlob": "03a462007569cc1250e82fe75369732aad6fe787"
+    },
+    {
+      "path": "tests/fast-hands/leaderboard.test.mjs",
+      "gitBlob": "8996bedab1e2bc89ad71082c014c1a997a1dcb4e"
+    },
+    {
+      "path": "tests/fast-hands/levels-art-rules.test.mjs",
+      "gitBlob": "436583cac5ef5613a25867d0a12f9851b249bc90"
+    },
+    {
+      "path": "tests/fast-hands/levels-art-ui.test.mjs",
+      "gitBlob": "21a43bceb35af77b189977220319455a6cc10618"
+    },
+    {
+      "path": "tests/fast-hands/levels-dart-shape.test.mjs",
+      "gitBlob": "f9d21d32bd5750573614cd0dcee119be1a8d7125"
+    },
+    {
+      "path": "tests/fast-hands/levels-finale-motion.test.mjs",
+      "gitBlob": "79cf3baa0f9ec1ccdf273d1f430e7e7cabe4565e"
+    },
+    {
+      "path": "tests/fast-hands/levels-finale-ui.test.mjs",
+      "gitBlob": "eb85767049bc32da8c6fa0c348bccc3222da5605"
+    },
+    {
+      "path": "tests/fast-hands/levels-leaderboard.test.mjs",
+      "gitBlob": "29223bd0564dd8eb206de1b70f2658ae3563080d"
+    },
+    {
+      "path": "tests/fast-hands/levels-motion.test.mjs",
+      "gitBlob": "e9746e639a65f80fb5b2b4a2135b205ae77e169e"
+    },
+    {
+      "path": "tests/fast-hands/levels-replay.test.mjs",
+      "gitBlob": "4601264b9b4601d8c8713e5eaad4c6092cb88ac3"
+    },
+    {
+      "path": "tests/fast-hands/levels-rules.test.mjs",
+      "gitBlob": "19b01730b2a4c1383dfdf40389f53bfe1e7a89c7"
+    },
+    {
+      "path": "tests/fast-hands/levels-score-image.test.mjs",
+      "gitBlob": "a0b52373ebe7a794c8ae339b2e23ce67693d3fcc"
+    },
+    {
+      "path": "tests/fast-hands/levels-sharing.test.mjs",
+      "gitBlob": "dd8203c8e84476c765c2d800d24f118fbdd9d5e3"
+    },
+    {
+      "path": "tests/fast-hands/levels-sound.test.mjs",
+      "gitBlob": "29510e810961e1b5e04c825ce1c1050486c7f36c"
+    },
+    {
+      "path": "tests/fast-hands/levels-stage-capture.test.mjs",
+      "gitBlob": "12af91b73380e71056fd462f4cdad5e3f50a7fa0"
+    },
+    {
+      "path": "tests/fast-hands/levels-ui.test.mjs",
+      "gitBlob": "3a00ed9f92cb7a6a72cf51bd5b973adb919edc3f"
+    },
+    {
+      "path": "tests/fast-hands/levels-world.test.mjs",
+      "gitBlob": "6ad8b65006ec13afeb0929ca05be486b2a3b02a6"
+    },
+    {
+      "path": "tests/fast-hands/name-refresh-ui.test.mjs",
+      "gitBlob": "c4de5ad6b0789a7e0091174888087930c476a055"
+    },
+    {
+      "path": "tests/fast-hands/navigation-level-integration.test.mjs",
+      "gitBlob": "827c697d94f646223a554ce284fdad8de6b8fddb"
+    },
+    {
+      "path": "tests/fast-hands/physics.test.mjs",
+      "gitBlob": "f2f183104f602394f27b56479b91240709e9c3b1"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-api.test.mjs",
+      "gitBlob": "dd4419f3e5140b24258ec16ecba09717cac01dbc"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-client.test.mjs",
+      "gitBlob": "a10af0a60f286da7cddc284d7363b2e5cf85b8a1"
+    },
+    {
+      "path": "tests/fast-hands/play-counts-gameplay.test.mjs",
+      "gitBlob": "856e3d9ed1214e059b7bd5d3295e61db48916359"
+    },
+    {
+      "path": "tests/fast-hands/practice-choice.test.mjs",
+      "gitBlob": "227f5a4702310d44ba8ef94ce3e399f772169600"
+    },
+    {
+      "path": "tests/fast-hands/records.test.mjs",
+      "gitBlob": "1d3a2f4bf3afae81707f3c32e40f289716bf6e8e"
+    },
+    {
+      "path": "tests/fast-hands/replay.test.mjs",
+      "gitBlob": "062379d95d48f99352685477edea29777469dbd1"
+    },
+    {
+      "path": "tests/fast-hands/result-button-layout.test.mjs",
+      "gitBlob": "cb18b54eb3446cc579fd7da1e9880b9c2426e601"
+    },
+    {
+      "path": "tests/fast-hands/result-copy.test.mjs",
+      "gitBlob": "52b70d529e42e4c34547ff991dc4be051b28622e"
+    },
+    {
+      "path": "tests/fast-hands/result-upload-controller.test.mjs",
+      "gitBlob": "c83b2ab773f6e5a95fa16f1e3b2608112ecf5463"
+    },
+    {
+      "path": "tests/fast-hands/result-upload-layout.test.mjs",
+      "gitBlob": "a3b064eef567483da9bd61cdbb6b6ed26c39ddb1"
+    },
+    {
+      "path": "tests/fast-hands/scene.test.mjs",
+      "gitBlob": "1f0fac7d5c523601161b4f140e5f57d8e21c3953"
+    },
+    {
+      "path": "tests/fast-hands/score-image.test.mjs",
+      "gitBlob": "bd6ef4aeb1396dd47e154324d033b5e08506cf81"
+    },
+    {
+      "path": "tests/fast-hands/screen-alpha-atlas.test.mjs",
+      "gitBlob": "7f1a2f087237dbef5544030cd6a97cebacfe2a61"
+    },
+    {
+      "path": "tests/fast-hands/screen-alpha-ui.test.mjs",
+      "gitBlob": "5be8c6c8e233ad74f662aba88e099c47fb20d7b2"
+    },
+    {
+      "path": "tests/fast-hands/selection-guards.test.mjs",
+      "gitBlob": "9c5cec93efd11b243034de5e97895107b519caf3"
+    },
+    {
+      "path": "tests/fast-hands/share-shell.test.mjs",
+      "gitBlob": "00e9753833c05a8a9953f3fe4e647fb4a441b302"
+    },
+    {
+      "path": "tests/fast-hands/share.test.mjs",
+      "gitBlob": "3710a7a3fee707908c92cf4fb87301b04c08f706"
+    },
+    {
+      "path": "tests/fast-hands/shuttle.test.mjs",
+      "gitBlob": "aed6c8f9b2680eeb6feebdaa2879c96376c7e254"
+    },
+    {
+      "path": "tests/fast-hands/sound.test.mjs",
+      "gitBlob": "442482aa95ca8a455b402a2f1adf1cbd0412f552"
+    },
+    {
+      "path": "tests/fast-hands/split-entries.test.mjs",
+      "gitBlob": "5f956e6fa5b10081e0cb689b8ab6e797c8983c06"
+    },
+    {
+      "path": "tests/fast-hands/stability-ui.test.mjs",
+      "gitBlob": "a6b850dfb7cb399ee774ce09aca8c92831b26e8f"
+    },
+    {
+      "path": "tests/fast-hands/stage.test.mjs",
+      "gitBlob": "a94c67b5041e7f156047ae4dd7813c47cf0629b0"
+    },
+    {
+      "path": "tests/fast-hands/toolbar-safety.test.mjs",
+      "gitBlob": "3576489445641a9cbeba11ff042b15bc54ae666b"
+    },
+    {
+      "path": "tests/fast-hands/ui-shell.test.mjs",
+      "gitBlob": "8301dea497713ccc518ab1dc559d391245307c6f"
+    },
+    {
+      "path": "tests/fixtures/fast-hands-main-baseline.json",
+      "gitBlob": "4780b7f7f2cf42a2bc177e53e19c4ac204fe65fe"
+    },
+    {
+      "path": "tests/fixtures/fast-hands-polish-baseline.json",
+      "gitBlob": "397106eef90c2c6278f6253e426c1043a780b43d"
+    },
+    {
+      "path": "tests/fixtures/mobile-gestures-main-baseline.json",
+      "gitBlob": "6954577e7f170bbbebaf3fa4149400cc63ef7cc9"
+    },
+    {
+      "path": "tests/helpers/entry-boundary.mjs",
+      "gitBlob": "a47f5263142d5682e0c78be15a0c15e6b19a0be3"
+    },
+    {
+      "path": "tests/helpers/fast-hands-main-provenance.mjs",
+      "gitBlob": "29a1620c540932ac9b8a38c6864dded652b51e6a"
+    },
+    {
+      "path": "tests/helpers/fast-hands-polish-provenance.mjs",
+      "gitBlob": "159143d0186cb8a4b9416554ae00db100a2f167d"
+    },
+    {
+      "path": "tests/helpers/leaderboard-sqlite.mjs",
+      "gitBlob": "107c0a29801b7c98786c5ff1e26fa89b23e2e399"
+    },
+    {
+      "path": "tests/helpers/loading-main-provenance.mjs",
+      "gitBlob": "ca8cef3fde3d202d7eba81bf212112306512d7ae"
+    },
+    {
+      "path": "tests/helpers/long-jump-main-provenance.mjs",
+      "gitBlob": "c812fd31d8ccabf85f57a541f998bb14a88b0af5"
+    },
+    {
+      "path": "tests/helpers/mobile-gestures-provenance.mjs",
+      "gitBlob": "dce96582ea5ad294566394bc5f28ab66d9c9dff7"
+    },
+    {
+      "path": "tests/helpers/rod-entry-boundary.mjs",
+      "gitBlob": "2d50869c6c8b3a7288515e1d4f18abbf5c683a39"
+    },
+    {
+      "path": "tests/helpers/rod-main-provenance.mjs",
+      "gitBlob": "fb75a7f554ea59e76da396f3e0f59a0e765f312d"
+    },
+    {
+      "path": "tests/helpers/studio-main-provenance.mjs",
+      "gitBlob": "51d176f8b10d0a67b44a70ff2733a9fc4aad057f"
+    },
+    {
+      "path": "tests/home-layout.browser.html",
+      "gitBlob": "b414090915f0324cef8e1b4e70ef285d960d4c77"
+    },
+    {
+      "path": "tests/home-layout.test.mjs",
+      "gitBlob": "574e1f6c4f9ef8741067c1e2d97b49e46f473832"
+    },
+    {
+      "path": "tests/home-views-api.test.mjs",
+      "gitBlob": "68ebdb1f437a01e2ff1f5b4181ec065fb7d9caff"
+    },
+    {
+      "path": "tests/home-views-client.test.mjs",
+      "gitBlob": "3a3386b3923ffe6ee3cf335779f73fceeddbd95f"
+    },
+    {
+      "path": "tests/honor-board-api.test.mjs",
+      "gitBlob": "29c7856fb594bea4b11bd52c5ed76e4a4fd410f4"
+    },
+    {
+      "path": "tests/honor-board-view.test.mjs",
+      "gitBlob": "8bbd72491296451c4e8b061e24d3f1c7f1575b30"
+    },
+    {
+      "path": "tests/hurdles-admission.test.mjs",
+      "gitBlob": "6bb36d75417feb37fcb1f49fce90379940ca2e5d"
+    },
+    {
+      "path": "tests/hurdles-platform.test.mjs",
+      "gitBlob": "f8b61e3c3de932f4395db90c450a4554bc6f391e"
+    },
+    {
+      "path": "tests/hurdles-release.test.mjs",
+      "gitBlob": "48aadf70d57a775906a157e0be1eefd4377fe8ef"
+    },
+    {
+      "path": "tests/hurdles/accessibility.test.mjs",
+      "gitBlob": "05c671e6ce36e869f66505bbc460f2d027aff418"
+    },
+    {
+      "path": "tests/hurdles/helpers/matched-race.mjs",
+      "gitBlob": "5265b022c3c7042cadfcedc47be481dd55abea19"
+    },
+    {
+      "path": "tests/hurdles/input.test.mjs",
+      "gitBlob": "8dd21c3bb0dc7209b1d1124cd17f09a00680fe4d"
+    },
+    {
+      "path": "tests/hurdles/pacing.test.mjs",
+      "gitBlob": "4e229103bea03899b99dd8b075b64b3bf186115f"
+    },
+    {
+      "path": "tests/hurdles/physics.test.mjs",
+      "gitBlob": "6042c48f5d2c31a3ef8f1982e558072e5c773a72"
+    },
+    {
+      "path": "tests/hurdles/platform-ui.test.mjs",
+      "gitBlob": "a7bf683b9e7b186cffc73106ceff824ad160888f"
+    },
+    {
+      "path": "tests/hurdles/play-surface.test.mjs",
+      "gitBlob": "8e98e889cd0fa97074e6f9dc0b49658442af7745"
+    },
+    {
+      "path": "tests/hurdles/replay.test.mjs",
+      "gitBlob": "01e155bf3967e6f2dc08309fc29b93ab3348bb9c"
+    },
+    {
+      "path": "tests/hurdles/result-fit.test.mjs",
+      "gitBlob": "a85e2993c034c897aacbae272422a578cb773d85"
+    },
+    {
+      "path": "tests/hurdles/result-guard.test.mjs",
+      "gitBlob": "438ae845b11b8277b7f25f32d19b201af5a1a694"
+    },
+    {
+      "path": "tests/hurdles/revision.test.mjs",
+      "gitBlob": "a61444b4329ed21e57f2c272ba211c1a03c029e7"
+    },
+    {
+      "path": "tests/hurdles/share.test.mjs",
+      "gitBlob": "8d70050fe39a35d275b7750fa4a01a31c95e158a"
+    },
+    {
+      "path": "tests/leaderboard-api.test.mjs",
+      "gitBlob": "002bafb27de45136d4d32eb38e3b5c63ddc5d14b"
+    },
+    {
+      "path": "tests/leaderboard-client.test.mjs",
+      "gitBlob": "056c3baee7c0d3551e361a22672db812ee969856"
+    },
+    {
+      "path": "tests/leaderboard-diagnostic-cost.test.mjs",
+      "gitBlob": "0ff0964280e48c7d584b0b74762902263526eb88"
+    },
+    {
+      "path": "tests/leaderboard-enabled-controller.test.mjs",
+      "gitBlob": "01c80a74a78de4ab701ce37ff70c3f2aca464c7e"
+    },
+    {
+      "path": "tests/leaderboard-repository.test.mjs",
+      "gitBlob": "f0265397ab6db788d314e78fa1a51abfcd3cf7ad"
+    },
+    {
+      "path": "tests/leaderboard-upload-cooldown.test.mjs",
+      "gitBlob": "3a434074cf2d6a3aa929565b3afb561804f67ca8"
+    },
+    {
+      "path": "tests/long-jump/audio.test.mjs",
+      "gitBlob": "a42fc0494bc6e832a0e4b7986900470c26d85d96"
+    },
+    {
+      "path": "tests/long-jump/browser-dom.html",
+      "gitBlob": "6e283af9c7bbe980083017b568b91b9c1f3c2b13"
+    },
+    {
+      "path": "tests/long-jump/browser-portrait-layout.html",
+      "gitBlob": "aa94b2cf80fc391358846d464c565a5ace261a8a"
+    },
+    {
+      "path": "tests/long-jump/browser-recovery.html",
+      "gitBlob": "4542ff3bd37531ae248940f72e8a7274339543d0"
+    },
+    {
+      "path": "tests/long-jump/browser-root-origin.html",
+      "gitBlob": "f4306d61b1a451291d69b568c45792e533a2d378"
+    },
+    {
+      "path": "tests/long-jump/capture.test.mjs",
+      "gitBlob": "61d33b1b7fbf4bae9e7eeb996216343e32cdd687"
+    },
+    {
+      "path": "tests/long-jump/character.test.mjs",
+      "gitBlob": "e108e04a248043f6f7b03a1c5324c4dbfb8e1b3a"
+    },
+    {
+      "path": "tests/long-jump/controls.test.mjs",
+      "gitBlob": "3452ae4f10b1dae166aa946663954d4d25419715"
+    },
+    {
+      "path": "tests/long-jump/cosmic-route.test.mjs",
+      "gitBlob": "c33676cc6d0cd91400d400d551cf0c92ce3dad46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-scenery.test.mjs",
+      "gitBlob": "2795e7bacd99eb6a258b4bb567d6f86168431d46"
+    },
+    {
+      "path": "tests/long-jump/cosmic-verdicts.test.mjs",
+      "gitBlob": "a5366cbea29003bc0f60f4095a6e64bbc1baead4"
+    },
+    {
+      "path": "tests/long-jump/dialogs.test.mjs",
+      "gitBlob": "b82f4aa78a63321b87bad3b10e894a5028ec1df6"
+    },
+    {
+      "path": "tests/long-jump/endless-multiverse.test.mjs",
+      "gitBlob": "a483e8d4cd4ef743481c2c7babda605fc668d54f"
+    },
+    {
+      "path": "tests/long-jump/fixtures/cosmic-legacy-route.json",
+      "gitBlob": "0af23c5eecd1590539bdd0c08125a0fc8a2ff450"
+    },
+    {
+      "path": "tests/long-jump/fixtures/v8-feel.json",
+      "gitBlob": "6a6b11e0534eeafee6363d72a295fdb7f7fe0eba"
+    },
+    {
+      "path": "tests/long-jump/flavour.test.mjs",
+      "gitBlob": "09eb5ade1e92b647819423dd6f37a59a508f656e"
+    },
+    {
+      "path": "tests/long-jump/game-lifecycle.test.mjs",
+      "gitBlob": "0c16a24ccb87305c374bc9db9859816d29d8fab6"
+    },
+    {
+      "path": "tests/long-jump/landing-preview.test.mjs",
+      "gitBlob": "ee578aab6ab5799917031e43644295c41a130b02"
+    },
+    {
+      "path": "tests/long-jump/layout.test.mjs",
+      "gitBlob": "2b8cdff77c207bf65ed38d5bc7ad4abecb8f4d80"
+    },
+    {
+      "path": "tests/long-jump/play-surface.test.mjs",
+      "gitBlob": "6f5908c67e483d70e762e1b511e69762fbad03a1"
+    },
+    {
+      "path": "tests/long-jump/polish.test.mjs",
+      "gitBlob": "0c617e91b1cf03e22a7cbe95b21b4f132998f659"
+    },
+    {
+      "path": "tests/long-jump/prepare-recovery-browser.mjs",
+      "gitBlob": "2516eebb90102719178205f6254ac79f11753cbe"
+    },
+    {
+      "path": "tests/long-jump/prepare-root-origin-browser.mjs",
+      "gitBlob": "bc22a75bba7bca0fa4a86769e15f07d1d5c850f1"
+    },
+    {
+      "path": "tests/long-jump/prepare-viewport-diagnostics-browser.mjs",
+      "gitBlob": "f97a00abc714de3af8286da410455fe95b17a5ae"
+    },
+    {
+      "path": "tests/long-jump/raw-result-preview.test.mjs",
+      "gitBlob": "56f14eff1fb2ee0e0355049dbd3c69043052e2cf"
+    },
+    {
+      "path": "tests/long-jump/replay-result-ui.test.mjs",
+      "gitBlob": "baf855c5d00db7f1373b61c87958ac756c64c4c6"
+    },
+    {
+      "path": "tests/long-jump/replay.test.mjs",
+      "gitBlob": "21ce3edbbd7a4889be79751edfbdc3abbb09a390"
+    },
+    {
+      "path": "tests/long-jump/result-ranking-width.test.mjs",
+      "gitBlob": "111520c1b829ac5039d931ec98ff8ee25f03f05d"
+    },
+    {
+      "path": "tests/long-jump/result-view.test.mjs",
+      "gitBlob": "905d03a6487871f17757cb6882b2d4237c41c2a9"
+    },
+    {
+      "path": "tests/long-jump/rotation-dialog.test.mjs",
+      "gitBlob": "24c3d0cef3c022cfc8b9dd2f7cb09b062b82350b"
+    },
+    {
+      "path": "tests/long-jump/rotation-input.test.mjs",
+      "gitBlob": "d106563ccdd507d667e7443c70305c0ba9641736"
+    },
+    {
+      "path": "tests/long-jump/sandpits.test.mjs",
+      "gitBlob": "7b2375ea33feb4ccb1473744b30d4101eae51aa8"
+    },
+    {
+      "path": "tests/long-jump/scenario-v06.mjs",
+      "gitBlob": "d13bd4cc8fd605c5275e8f192bd818f80c7696d0"
+    },
+    {
+      "path": "tests/long-jump/selected-audio.test.mjs",
+      "gitBlob": "822bee2d9c003392c5958cb39693e4574eb82848"
+    },
+    {
+      "path": "tests/long-jump/selected-dialog.test.mjs",
+      "gitBlob": "d077d6f069c2098b27901defbe45c72acb2923c8"
+    },
+    {
+      "path": "tests/long-jump/share-v04.test.mjs",
+      "gitBlob": "a14355d87793c5464d2c3b16a84edafe73f3a2f8"
+    },
+    {
+      "path": "tests/long-jump/share-v05.test.mjs",
+      "gitBlob": "8fe0f2ddeae825b247865b0ba76ae689bd6ab45c"
+    },
+    {
+      "path": "tests/long-jump/share.test.mjs",
+      "gitBlob": "14c62fbf9c434b5ffa9320fb2e11c82d06222a5d"
+    },
+    {
+      "path": "tests/long-jump/standalone-dialog.test.mjs",
+      "gitBlob": "d02fb1125fc63dc5855f874e1da38b82c14f8172"
+    },
+    {
+      "path": "tests/long-jump/v10-landmark-structure.test.mjs",
+      "gitBlob": "1a523bab55d2bde48c023fcc8ead034447db3811"
+    },
+    {
+      "path": "tests/long-jump/v10-scenery.test.mjs",
+      "gitBlob": "36711cd7f2ba8cef9674bf65246b9af88991bb36"
+    },
+    {
+      "path": "tests/long-jump/v8-motion.test.mjs",
+      "gitBlob": "0bcbb1f0e49c016a756cb0fcfcfb34f71031d465"
+    },
+    {
+      "path": "tests/long-jump/v8-presentation.test.mjs",
+      "gitBlob": "68ec7c513fb3aad16e4088f89203fbd233f457da"
+    },
+    {
+      "path": "tests/long-jump/v8-scenarios.mjs",
+      "gitBlob": "48314cbf34befa4a0d5d73d13c644e99578f2149"
+    },
+    {
+      "path": "tests/long-jump/v8-scenery.test.mjs",
+      "gitBlob": "301f2ae57080bb0e9988310c20bc90ede5ccc74c"
+    },
+    {
+      "path": "tests/long-jump/v8-verdicts.test.mjs",
+      "gitBlob": "f6a8c1fd5f3b9349fe89abb204f9454220d8a812"
+    },
+    {
+      "path": "tests/long-jump/v8-world.test.mjs",
+      "gitBlob": "20d04391cbe3ef986c35b18bd0fed20ebc9a2fda"
+    },
+    {
+      "path": "tests/long-jump/v9-feel.test.mjs",
+      "gitBlob": "3b47512ebc4b5a3b43c3bfc0ce765d908c03596b"
+    },
+    {
+      "path": "tests/long-jump/v9-presentation.test.mjs",
+      "gitBlob": "035662d9425b90129f2e55f4a1c31216aef6fda4"
+    },
+    {
+      "path": "tests/long-jump/v9-route.test.mjs",
+      "gitBlob": "08b8a75e96c00958870ef3976c81f55d3bf74b81"
+    },
+    {
+      "path": "tests/long-jump/v9-scenery.test.mjs",
+      "gitBlob": "7b9d27060fc506371c3944ea6c5ec06c0fb929ac"
+    },
+    {
+      "path": "tests/long-jump/verdicts.test.mjs",
+      "gitBlob": "71ab3e9126381626d3f4bfaf416442a164e9a612"
+    },
+    {
+      "path": "tests/long-jump/viewport-diagnostics.test.mjs",
+      "gitBlob": "aad7faf184d1a4836647a95b33cf5b9043918728"
+    },
+    {
+      "path": "tests/long-jump/viewport-root-origin.test.mjs",
+      "gitBlob": "e26344a726055c102a16d1ea28b51aeb6a584351"
+    },
+    {
+      "path": "tests/main-counts-fighter.test.mjs",
+      "gitBlob": "2116a0b209cb6869c190781b0b7c0ae27ae81a4d"
+    },
+    {
+      "path": "tests/main-fast-hands-polish-provenance.test.mjs",
+      "gitBlob": "cbc0204be886993d7cd00c4d82f92649bf0529b9"
+    },
+    {
+      "path": "tests/main-fast-hands-provenance.test.mjs",
+      "gitBlob": "ca5b53619aba6968c9ff9ffa722ac1b3ffb72f41"
+    },
+    {
+      "path": "tests/main-fast-hands.test.mjs",
+      "gitBlob": "110724ac11bde894a61a73df350d38fe348c4613"
+    },
+    {
+      "path": "tests/main-icons.test.mjs",
+      "gitBlob": "6a5845fe0192066c0d06a9976e90818f3e630e02"
+    },
+    {
+      "path": "tests/main-loading-provenance.test.mjs",
+      "gitBlob": "8789da96649ec466a7f4c02cad1314e802f382ce"
+    },
+    {
+      "path": "tests/main-loading.test.mjs",
+      "gitBlob": "85e7fef31d3044cb8d9f95c7580b0f0cdda108c0"
+    },
+    {
+      "path": "tests/main-long-jump-promotion.test.mjs",
+      "gitBlob": "0222890fe6792af5d22eaab36eb59957bafab6a1"
+    },
+    {
+      "path": "tests/main-nav-diagnostic.test.mjs",
+      "gitBlob": "17f6a5f6d0d507fa194c22296d819b4120576644"
+    },
+    {
+      "path": "tests/main-v2-scope.test.mjs",
+      "gitBlob": "e4f1e6f8c44e77468ccf98cd9e77f14b7d518a0d"
+    },
+    {
+      "path": "tests/mobile-gestures-provenance.test.mjs",
+      "gitBlob": "25b0ebcdfa31be1486c7e8a6525b5600e9a0cfa2"
+    },
+    {
+      "path": "tests/mobile-gestures.test.mjs",
+      "gitBlob": "5ad5332168216209c20e36eca7783180e0ad7745"
+    },
+    {
+      "path": "tests/play-counts-api.test.mjs",
+      "gitBlob": "c42e005a85ffc7694c72c81c1f7b141f09fb3c72"
+    },
+    {
+      "path": "tests/play-counts-client.test.mjs",
+      "gitBlob": "c121420e3b68d088191ac076d3d8ecdbf1b07936"
+    },
+    {
+      "path": "tests/play-counts-repository.test.mjs",
+      "gitBlob": "9f2e41221b3bebac51a8ed1a081ae92142a86582"
+    },
+    {
+      "path": "tests/production-jump-controller.test.mjs",
+      "gitBlob": "99042329d823808981c18eea2ecbc6ff40cc7156"
+    },
+    {
+      "path": "tests/production-jump-leaderboard.test.mjs",
+      "gitBlob": "8ab7a82301129fcf9c616f3e22aceef94f44d1b6"
+    },
+    {
+      "path": "tests/production-leaderboard.test.mjs",
+      "gitBlob": "12b65e5a022ed31ebf7d3f46886321eed5208490"
+    },
+    {
+      "path": "tests/ranking-refinement.test.mjs",
+      "gitBlob": "2d0dbfe6ae919fc5452d284a540f556e856b305e"
+    },
+    {
+      "path": "tests/reaction-rod-database.test.mjs",
+      "gitBlob": "4530404c9f133e2583902f9c5c0c729ae7c212f5"
+    },
+    {
+      "path": "tests/reaction-rod-main-integrity.test.mjs",
+      "gitBlob": "7f58fe16eac26620f0889d272eccf4aa86b3ecb0"
+    },
+    {
+      "path": "tests/reaction-rod-main.test.mjs",
+      "gitBlob": "1d107ef0ef3cb97c37d4cf6ee8890dc363fd5bc3"
+    },
+    {
+      "path": "tests/reaction-rod-upload-scroll.test.mjs",
+      "gitBlob": "38ce0ff3646723453832a2d581a4d6e0b5b15721"
+    },
+    {
+      "path": "tests/reaction-rod/art-v4-baseline.json",
+      "gitBlob": "639389d18929de809230e7b848865be4874d5fff"
+    },
+    {
+      "path": "tests/reaction-rod/art.test.mjs",
+      "gitBlob": "f35dea5e0f8fd691b3355bf4e968977cdeb974b6"
+    },
+    {
+      "path": "tests/reaction-rod/crouch.test.mjs",
+      "gitBlob": "c01e0bb434f58fbe67bc8220765bb26adc81f795"
+    },
+    {
+      "path": "tests/reaction-rod/difficulty.test.mjs",
+      "gitBlob": "ede7f009641de425bae7a012ac4e506135582ce8"
+    },
+    {
+      "path": "tests/reaction-rod/final-moment.test.mjs",
+      "gitBlob": "dc6db9abb3110187d2a79e8c0969dd3ca8f962b4"
+    },
+    {
+      "path": "tests/reaction-rod/final-photo.test.mjs",
+      "gitBlob": "c2fa8eae107796c5daf8985dc00d3dcf832fbfb5"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-result-base-physics.mjs",
+      "gitBlob": "087846f9432cfc622ac20f7f552b89f3011f9fae"
+    },
+    {
+      "path": "tests/reaction-rod/fixtures/source-v9-game.mjs",
+      "gitBlob": "a3ee98fbab23b9dce1fdc6b207f6640ebfc2c7f1"
+    },
+    {
+      "path": "tests/reaction-rod/framing-v7.test.mjs",
+      "gitBlob": "1f58cbe8cb24c7b2ee3982ecb246d8f0d02d0054"
+    },
+    {
+      "path": "tests/reaction-rod/model-crouch.test.mjs",
+      "gitBlob": "d00eafdc439c07b3c308bf2f3fb49b6778c5edfb"
+    },
+    {
+      "path": "tests/reaction-rod/physics.test.mjs",
+      "gitBlob": "9ceb250f770639df274ab1f3638f823727fc164c"
+    },
+    {
+      "path": "tests/reaction-rod/replay-integration.test.mjs",
+      "gitBlob": "c4d0712e89484f3ac5d77d66cc83ade9b1818a9a"
+    },
+    {
+      "path": "tests/reaction-rod/replay-layout.test.mjs",
+      "gitBlob": "2cec936b07dff5b8f4a0156c1fe8d841e679794e"
+    },
+    {
+      "path": "tests/reaction-rod/replay-scene.test.mjs",
+      "gitBlob": "38156f6d7fb50519003591d6f7c66661b0ae1259"
+    },
+    {
+      "path": "tests/reaction-rod/replay.test.mjs",
+      "gitBlob": "09bc89daafe8c3f32153fe3e3bff9e133703f70d"
+    },
+    {
+      "path": "tests/reaction-rod/result-layout.test.mjs",
+      "gitBlob": "fd19e0cf5779ad4f9c7f2cd315760de9af96ee31"
+    },
+    {
+      "path": "tests/reaction-rod/result-polish.test.mjs",
+      "gitBlob": "a552d6631c43f277ceb3111e0d2b7faf9218adc3"
+    },
+    {
+      "path": "tests/reaction-rod/share.test.mjs",
+      "gitBlob": "3f1f7d7f59aab500d8b8b1a1c6da672e34af69c7"
+    },
+    {
+      "path": "tests/reaction-rod/snapshot-v7.test.mjs",
+      "gitBlob": "25802c244dd546129d79e373843aa220c24d34e5"
+    },
+    {
+      "path": "tests/reaction-rod/standing.test.mjs",
+      "gitBlob": "d6de1b04d7caeb90b0f5789a1f794159c687e72d"
+    },
+    {
+      "path": "tests/reaction-rod/ui.test.mjs",
+      "gitBlob": "d1ed917f649e1d250a95a9f43fc9ee80a67a66ea"
+    },
+    {
+      "path": "tests/reaction-rod/viewport.test.mjs",
+      "gitBlob": "31d8bb8c69a04258bcbcb4215faa2a43fea3d94b"
+    },
+    {
+      "path": "tests/render.test.mjs",
+      "gitBlob": "5d8249d34e50ce0a84926ac0c3e191a923df4092"
+    },
+    {
+      "path": "tests/studio-main-provenance.test.mjs",
+      "gitBlob": "2f72a0332329a6a7d2fe4ba884292546d1b59d3e"
+    },
+    {
+      "path": "tests/studio-main.test.mjs",
+      "gitBlob": "b0af6057382971f5de8cf0a15399fed4ec69bee2"
+    },
+    {
+      "path": "tests/v2-menu-audio.test.mjs",
+      "gitBlob": "cf53cb89153542576a7f53b4369e4325ba180c66"
+    },
+    {
+      "path": "tests/v2-menu-style.test.mjs",
+      "gitBlob": "45d053c3178371fd319c9ef0e2e72791e5a4ee5d"
+    },
+    {
+      "path": "tests/v2-menu.test.mjs",
+      "gitBlob": "bb6d15d1b6fb634cdc72a4bad0631067b7b9857e"
+    },
+    {
+      "path": "worker/leaderboard/0001.sql",
+      "gitBlob": "7591f7c7c4957cfd923e835af91e9da421abedd7"
+    },
+    {
+      "path": "worker/leaderboard/003-reaction-rod-production.sql",
+      "gitBlob": "2d80f19145cf8ad0b15c735f5a79265daaa49fd8"
+    },
+    {
+      "path": "worker/leaderboard/DEPLOYMENT-NOTES.md",
+      "gitBlob": "6bfb50d2db990c0e9684d832776025c0acb95d77"
+    },
+    {
+      "path": "worker/leaderboard/README.md",
+      "gitBlob": "61e56935f1a09c167064a5a86c8ef616b3167dad"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "gitBlob": "1306946710a02253de791b63db72a9c057c858fa"
+    },
+    {
+      "path": "worker/leaderboard/reaction-rod-repository.mjs",
+      "gitBlob": "a67f5c16bf68bed283886b6b8cf490240073eeee"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "gitBlob": "787d41662fc34d20628ca8ceb11a7985b0e4b57f"
+    },
+    {
+      "path": "worker/play-counts/002.sql",
+      "gitBlob": "ceffcb74368ae33ab233899f506b88d361f0e875"
+    },
+    {
+      "path": "worker/play-counts/README.md",
+      "gitBlob": "9396e6dac0ee6d080947a92fc7a40cbdb01bdf91"
+    },
+    {
+      "path": "worker/play-counts/index.mjs",
+      "gitBlob": "939534ef4c751792efcf16aa58704fccadb2848d"
+    },
+    {
+      "path": "worker/play-counts/repository.mjs",
+      "gitBlob": "5376c0bd58cde1ce9546808013ca5c8422fd5196"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "gitBlob": "e99bdaed9a7e1635cd58aeaa2dc45c952d6b519b"
+    }
+  ],
+  "deletedPaths": []
+}

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs tests/reaction-rod/*.test.mjs tests/fast-hands/*.test.mjs",
+    "test": "node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs tests/reaction-rod/*.test.mjs tests/fast-hands/*.test.mjs tests/high-jump/*.test.mjs",
     "check": "npm test && npm run build && node scripts/verify.mjs"
   },
   "engines": {

@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readBeforeHighJump as readFileSync} from './high-jump-main-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
