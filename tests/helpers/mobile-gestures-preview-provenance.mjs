@@ -1,5 +1,5 @@
 // Strict outer boundary: preserve published history while verifying every admitted zoom byte.
-import {readFileSync} from 'node:fs';
+import {readBeforeFighter as readFileSync,inventoryBeforeFighter} from './fighter-entry-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -45,6 +45,7 @@ export function readBeforeGestures(file,options){
  const before=baseline.modifiedPaths.includes(path)?reverseGestures(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeGestures(paths,{read=p=>readFileSync(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeFighter(paths,{runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate gesture inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const additions=m.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));

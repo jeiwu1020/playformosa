@@ -47,19 +47,20 @@ The preview catalog, all other portal destinations, QA database configuration an
 local-game source remain unchanged. The generated homepage reverses byte-for-byte
 to the baseline by removing the Fighter label and restoring its old direct href.
 
-Local verification: 37 focused tests pass, including six new Fighter behavioral
-tests and 31 existing counter, portal and leaderboard tests with only affected expectations
-updated. Preview homepage build and release preflight pass. This is a partial
-source checkout, not a complete deployment directory: 806 unchanged baseline
-files were not retrieved. Full static validation stops on missing baseline game
-files; the complete preview test suite was not run. The baseline commit also
-reports two pre-existing nonterminating test files.
+The first preview publication exposed a missing provenance boundary: 47 historical
+source/hash/inventory assertions rejected the new feature files. The follow-up
+adds a separately pinned complete pre-feature preview tree and reversible Fighter
+boundary outside the existing mobile-gesture boundary. No historical manifest,
+baseline, game file, SQL schema or binding is rewritten. All original assertions
+remain enabled; the new tests also reject tampered current/preimage bytes, missing
+additions, unknown inventory and forged parent trees.
 
-No remote commit, branch update, D1 write or deployment was performed during this
-preparation. Publish the delta over the exact baseline tree and run CI on the
-resulting complete repository. Deploy the homepage and Worker together. Preview
-and production use separate existing D1 bindings and keep separate totals.
+Run `npm run check` on the complete repository before publication. The exact
+feature is independently integrated into main; do not merge preview-only games
+or historical ledgers into main. Preview and production retain their existing
+separate D1 bindings and totals. The existing 37 focused feature/portal/counter
+checks are supplemented by the entire preview suite and strict source inventory.
 
-Real-browser/physical iPhone acceptance remains unverified. This executor cannot
-launch Chromium (socket permission failure); mocked request headers do not prove
-physical-device coverage.
+Real-browser acceptance is verified against the deployed preview where available.
+Physical iPhone acceptance requires a physical-device check and is not implied by
+mocked mobile request headers.
