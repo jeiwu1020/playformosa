@@ -5,6 +5,28 @@ import {JSDOM} from 'jsdom';
 import postcss from 'postcss';
 import {mountLeaderboard} from '../../public/games/shared/leaderboard.mjs';
 
+for(const [width,height] of [[390,844],[844,390],[1366,768]])test(`departure clears both action shadows and replay restores them at ${width}×${height}`,t=>{
+ const p=page(t,width,height),controls=p.document.getElementById('controls');
+ const buttons=['offer','thanks'].map(id=>p.document.getElementById(id));
+ for(let round=0;round<2;round++){
+  controls.hidden=false;
+  for(const button of buttons){
+   button.disabled=false;
+   assert.notEqual(p.style(button).boxShadow,'none','ready button keeps its tactile shadow');
+   button.disabled=true;
+   assert.equal(p.style(button).boxShadow,'none','disabled button leaves no colored shadow');
+   assert.equal(p.style(button).transition,'none','shadow must not animate after hiding');
+  }
+  controls.hidden=true;
+  assert.equal(p.style(controls).display,'none');
+  for(const button of buttons){
+   button.disabled=false; // Hiding must not depend on attribute-update ordering.
+   assert.equal(p.style(button).boxShadow,'none','hidden container clears child shadow too');
+   assert.equal(p.style(button).transition,'none');
+  }
+ }
+});
+
 const root=new URL('../../public/games/',import.meta.url);
 const read=file=>readFileSync(new URL(file,root),'utf8');
 function matchesMedia(query,width,height){
@@ -97,3 +119,4 @@ test('375px landscape reserves enough vertical space to keep button shadows on s
  assert.ok(spacing<=24,`vertical app spacing uses ${spacing}px of its 24px budget`);
  assert.ok(parseFloat(p.style('#thanks').minHeight)>=44);
 });
+

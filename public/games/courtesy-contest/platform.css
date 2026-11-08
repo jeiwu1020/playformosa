@@ -1,4 +1,7 @@
 /* Game-local platform layout. Carriage and actor geometry stay source-owned. */
+/* Clear painted shadows immediately when controls stop accepting input.
+   Hidden descendants must not retain a transitioning shadow on mobile WebKit. */
+.pf-courtesy .action:disabled,.pf-courtesy #controls[hidden] .action{box-shadow:none;transition:none}
 .pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){width:100%;max-width:min(980px,max(460px,calc((100dvh - 265px)*2.65 + 48px)));min-height:100dvh;height:auto;display:flex;flex-direction:column;justify-content:center;padding:16px 20px;gap:14px}
 .pf-game.pf-courtesy .app .pf-header{margin:0;grid-template-columns:auto minmax(0,1fr) auto}
 .pf-game.pf-courtesy .app .pf-header h1{transform:none;text-shadow:none}
@@ -111,3 +114,4 @@
 @media(max-width:360px){
  .pf-game.pf-courtesy .app .pf-header nav button{padding:0 4px;font-size:12px}
 }
+
