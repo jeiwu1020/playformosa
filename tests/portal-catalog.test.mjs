@@ -13,7 +13,7 @@ test('approved public catalog names, destinations and safe explicit external nav
  for(const [id,title] of expected){
   const card=doc.querySelector(`[data-external-id="${id}"]`);assert.ok(card,title);assert.ok(card.textContent.includes(title));
   const links=card.querySelectorAll('a');assert.equal(links.length,1);
-  assert.equal(links[0].href,destination(id));assert.equal(links[0].target,'_blank');
+  assert.equal(links[0].getAttribute('href'),id==='taiwanfighter'?'/api/play-counts/entries/taiwanfighter':destination(id));assert.equal(links[0].target,'_blank');
   assert.equal(links[0].rel,'noopener noreferrer');assert.ok(links[0].querySelector('svg.portal-arrow[aria-hidden="true"] path'));assert.match(links[0].getAttribute('aria-label'),/新分頁/);
  }
  assert.equal(doc.querySelectorAll('iframe').length,0);

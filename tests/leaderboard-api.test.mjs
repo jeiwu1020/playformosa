@@ -21,7 +21,13 @@ test('unbounded legal journey preserves finite large values; prototype names rej
 test('Worker platform execution context is not used as submission clock',async()=>{
  const worker=(await import('../worker/leaderboard/index.mjs')).default;
  const response=await worker.fetch(new Request('https://qa.example/api/leaderboard?game=hurdles'),{}, {waitUntil(){}});assert.equal(response.status,503);
- assert.match(worker.fetch.toString(),/handleRequest\(request,env\)/);
+ const {database}=await import('./helpers/leaderboard-sqlite.mjs');const db=await database();
+ try{
+  const env={DB:db,LEADERBOARD_ENABLED:'true',LEADERBOARD_SCOPE:'qa',LEADERBOARD_ORIGIN:'https://qa.example'};
+  const before=Date.now();const r=await worker.fetch(new Request('https://qa.example/api/leaderboard/submissions',{method:'POST',headers:{Origin:'https://qa.example','Content-Type':'application/json'},body:JSON.stringify(base)}),env,{valueOf(){throw Error('execution context used as clock');},waitUntil(){}});
+  assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);
+  const stored=db.raw.exec('SELECT created_at FROM leaderboard_submissions')[0].values[0][0];assert.ok(stored>=before&&stored<=Date.now());
+ }finally{db.raw.close();}
 });
 test('IDs and board keys require strings, canonical payload independent of JSON key order',()=>{
  assert.throws(()=>validateSubmission({...base,deviceId:[base.deviceId]}));assert.throws(()=>validateSubmission({...base,game:['long-jump']}));
