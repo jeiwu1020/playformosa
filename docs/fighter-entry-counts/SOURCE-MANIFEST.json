@@ -7,8 +7,8 @@
       "beforeText": "export async function loadPlayCounts(document,{fetcher=(...args)=>document.defaultView.fetch(...args)}={}){\n const nodes=[...document.querySelectorAll('[data-play-count],[data-home-count]')];if(!nodes.length)return;\n const win=document.defaultView;let timer;\n try{const controller=new win.AbortController();timer=win.setTimeout(()=>controller.abort(),5000);const response=await fetcher('/api/play-counts',{signal:controller.signal});if(!response.ok)throw Error('unavailable');const data=await response.json();for(const n of nodes){const count=data.counts?.[n.hasAttribute('data-home-count')?'home':n.dataset.playCount]?.count;n.textContent=Number.isSafeInteger(count)&&count>=0?(n.hasAttribute('data-home-count')?'累積瀏覽 ':'已開玩 ')+count.toLocaleString()+' 次':'次數暫時讀不到';}}\n catch{for(const n of nodes)n.textContent='次數暫時讀不到';}finally{win.clearTimeout(timer)}\n}\n\nconst homeWindow=1800000,marker='pf-home-view-until-v1',uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\nexport async function recordHomeView(win,{fetcher=(...args)=>win.fetch(...args)}={}){\n try{\n const now=Date.now();let until,deviceId;try{until=Number(win.localStorage.getItem(marker));deviceId=win.localStorage.getItem('pf-leaderboard-device-v1')}catch{}\n if(uuid.test(deviceId||'')&&Number.isFinite(until)&&until>now&&until<=now+homeWindow)return;\n if(!uuid.test(deviceId||'')){deviceId=win.crypto.randomUUID();try{win.localStorage.setItem('pf-leaderboard-device-v1',deviceId)}catch{}}\n const body=JSON.stringify({game:'home',deviceId,runId:win.crypto.randomUUID(),startedAt:now});\n for(let attempt=0;attempt<2;attempt++){\n const controller=new win.AbortController(),timer=win.setTimeout(()=>controller.abort(),5000);let retry=false;\n try{const r=await fetcher('/api/play-counts/views',{method:'POST',headers:{'Content-Type':'application/json'},body,signal:controller.signal});if(r.ok){const result=await r.json(),expiry=result.nextEligibleAt;if(result.accepted===true&&Number.isSafeInteger(expiry)&&expiry>Date.now()&&expiry<=Date.now()+homeWindow){try{win.localStorage.setItem(marker,String(expiry))}catch{}}return;}retry=r.status===503||r.status===429;}catch{retry=true}finally{win.clearTimeout(timer)}\n if(!retry||attempt===1)return;await new Promise(resolve=>win.setTimeout(resolve,2500));\n }\n }catch{} // Storage, crypto, network and quota failure never blocks navigation.\n}\nconst initialized=new WeakMap();\nexport function initializeHomeCounts(document,options={}){\n if(initialized.has(document))return initialized.get(document);\n const task=(async()=>{\n if(document.visibilityState==='hidden'||document.prerendering)await new Promise(resolve=>{const ready=()=>{if(document.visibilityState!=='hidden'&&!document.prerendering){document.removeEventListener('visibilitychange',ready);document.removeEventListener('prerenderingchange',ready);resolve();}};document.addEventListener('visibilitychange',ready);document.addEventListener('prerenderingchange',ready);});\n if(document.querySelector('[data-home-count]'))await recordHomeView(document.defaultView,options);\n await loadPlayCounts(document,options);\n })();initialized.set(document,task);return task;\n}\nif(typeof document!=='undefined')void initializeHomeCounts(document);\n",
       "beforeGitBlob": "75fd926dffc5d294100ce28fc2e26a83c97927e1",
       "beforeSha256": "5a7c8bd84d8b89292c7aee4ec05c7dd3d902a95e86397487321952b8ee274a9d",
-      "sha256": "c3ee0b39ba1e70c2c02fa623fb15bd0b9e345e669e151f7f2536861b8378b906",
-      "gitBlob": "9a89dd4835d8ca6c659cad6bc9ed4d30ab0c813e"
+      "sha256": "5a7c8bd84d8b89292c7aee4ec05c7dd3d902a95e86397487321952b8ee274a9d",
+      "gitBlob": "75fd926dffc5d294100ce28fc2e26a83c97927e1"
     },
     {
       "path": "public/index.html",
@@ -124,13 +124,13 @@
     },
     {
       "path": "docs/fighter-entry-counts/README.md",
-      "sha256": "16bd6a88d1290346058b88e1c7f30a90407e1b98b09221ddb3f3859386b1679c",
-      "gitBlob": "d48a3177421d645367eff4a436fbd6f9e75ee498"
+      "sha256": "ce5d24267e3ad8e534b4ce66a6636de67102ff7bc7ac592578aecbad8e418edd",
+      "gitBlob": "df9b37b7e8297e605072cf61ec71ad0f6e291d82"
     },
     {
       "path": "tests/fighter-entry-count.test.mjs",
-      "sha256": "32cf5292c0445c956fe85286aeb441902ac2ed27315bedac3d0b0b57e4e926be",
-      "gitBlob": "a9ef66c8bffdc77203985e88209d446f183e0ff9"
+      "sha256": "d84580d57a21eedd3eb0167d5ce7e9e45aed96bb7545d4d13a309e3f4d7b666b",
+      "gitBlob": "b6e521dcfbcb3fccc54f177cda03929672da0ff8"
     },
     {
       "path": "tests/fighter-entry-preview-provenance.test.mjs",

@@ -3,7 +3,7 @@
 Base: PlayFormosa preview/hurdles `6723ba4c25dcae45fccb81dc2d8606098b2dab32`
 (tree `0cd186e16895467699d5b897df8517e129fdb68d`).
 
-The Taiwanfighter card displays **開玩次數**. This is the cumulative number of
+The Taiwanfighter card displays **已開玩 N 次**. This is the cumulative number of
 entry navigations received by the platform after enabling this feature, not
 unique visitors and not rounds started inside Taiwanfighter. Historical clicks
 are not fabricated or backfilled. The thirteen local game counters retain their existing
