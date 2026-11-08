@@ -2,7 +2,7 @@
 
 Base: PlayFormosa production main `79af5bedbbbc3eee5b03132fb5f693a97f27840b`.
 
-The Taiwanfighter card displays **開玩次數**. This is the cumulative number of
+The Taiwanfighter card displays **已開玩 N 次**. This is the cumulative number of
 entry navigations received by the platform after enabling this feature, not
 unique visitors and not rounds started inside Taiwanfighter. Historical clicks
 are not fabricated or backfilled. The seven local games retain their existing
