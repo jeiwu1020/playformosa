@@ -1,6 +1,6 @@
 // The only live->historical boundary for this touch/layout fix. Runtime tests
 // import actual files directly. Never repin any older baseline or manifest.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeInventoryRepair as actual,inventoryBeforeInventoryRepair} from './courtesy-touch-inventory-repair.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -46,6 +46,7 @@ export function readBeforeTapCoverage(file,options){
  const before=reverseTapCoverage(path,bytes);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeTapCoverage(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeInventoryRepair(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate touch coverage inventory');const m=validate(manifest());
  if(!paths.some(p=>added.includes(p)))return paths;
  for(const path of added)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear once');

@@ -1,6 +1,6 @@
 // Two independently pinned historical views of the merge. Live physics tests
 // keep importing the working runtime directly; only provenance uses these views.
-import {readBeforeTapCoverage as actual} from './courtesy-touch-coverage-provenance.mjs';
+import {readBeforeTapCoverage as actual,inventoryBeforeTapCoverage} from './courtesy-touch-coverage-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -42,6 +42,7 @@ function readView(file,options,key){
  const before=baselines[key].modifiedPaths.includes(path)?reverse(path,bytes,key):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventory(paths,key,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeTapCoverage(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate merged inventory');const v=validate(manifest(),key);
  if(!paths.some(p=>v.addedPaths.includes(p)))return paths;
  const additions=v.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
