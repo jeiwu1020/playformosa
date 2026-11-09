@@ -34,6 +34,7 @@ function say(s,message,duration=1.8){s.cue=message;s.cueUntil=s.t+duration;}
 // the pole can launch again, and discard the old stored charge safely.
 export function cancelMotion(s){
   s.held.fill(false);s.kick.fill(0);s.releaseArmed=false;s.finishHold=0;s.finishArmed=false;
+  if(s.balanceEdges)s.balanceEdges.length=0;
   if(s.phase==='plant'){s.charge=0;s.load=0;s.resumeLock=true;s.plantTime=0;say(s,'重新按住 J＋K 蓄力；綠區再放開。');}
 }
 const link=(p,length,angle)=>({x:p.x+length*Math.sin(angle),y:p.y-length*Math.cos(angle),z:p.z||0});
@@ -151,7 +152,26 @@ function runStep(s,input,pressed){
 }
 // Borrowed control principle from current PlayFormosa long-jump main:
  // real smoothed limb motion earns work; held keys stop earning when motion stops.
-function airWork(s,velocity,dt){
+// Match opposite hand/foot edges with room for ordinary keyboard timing.
+// Pair each edge once; held keys and tiny eased-motion tails earn no credit.
+function airCoordination(s,prior){
+ const window=.075,decay=Math.exp(-.06);
+ s.balanceEdges??=[];s.balanceCoordination??=1;
+ // Expire old unmatched edges before matching this frame's new edges.
+ s.balanceEdges=s.balanceEdges.filter(edge=>{
+  if(s.airTime-edge.time<=window+1e-9)return true;
+  // Forgive a pair whose first edge may have occurred during launch grace.
+  if(edge.time>=.32+window)s.balanceCoordination*=decay;
+  return false;
+ });
+ for(let i=0;i<4;i++)if(s.held[i]!==prior[i]){
+  const match=s.balanceEdges.findIndex(edge=>edge.limb===3-i&&edge.held===s.held[i]);
+  if(match<0)s.balanceEdges.push({limb:i,held:s.held[i],time:s.airTime});
+  else{s.balanceEdges.splice(match,1);s.balanceCoordination=1-(1-s.balanceCoordination)*decay*decay;}
+ }
+ return smooth((.75-s.balanceCoordination)/.45);
+}
+function airWork(s,velocity,dt,prior){
  const magnitude=velocity.reduce((n,v)=>n+Math.abs(v),0);
  const flow=clamp((Math.abs(velocity[0]-velocity[1])+Math.abs(velocity[2]-velocity[3]))*.15,0,3.5);
  const torque=(velocity[0]+velocity[2]-velocity[1]-velocity[3]);
@@ -167,7 +187,8 @@ function airWork(s,velocity,dt){
  s.difficulty=clamp(Math.log1p(Math.max(0,s.altitude)/100)/Math.log(101));
  s.wind=(.04+.06*s.difficulty)*Math.sin(s.airTime*.27+.4)+.025*Math.sin(s.airTime*.63+.7);
  const balance=smooth((s.airTime-.32)/3.68);
- s.momentum+=dt*(torque*(.48+.32*balance)+(s.j[0]+s.j[2]-s.j[1]-s.j[3])*(.30+.15*balance)+s.wind+s.lean*(.08+.08*balance));
+ const imbalance=s.airTime>=.32?airCoordination(s,prior):0;
+ s.momentum+=dt*(torque*(.48+.32*balance)+(s.j[0]+s.j[2]-s.j[1]-s.j[3])*(.30+.15*balance)+s.wind+s.lean*(.08+balance*(.16+4*imbalance)));
  s.momentum=clamp(s.momentum*Math.exp(-dt*(.65-.25*balance)),-5,5);
  s.spin=s.momentum;s.lean+=s.spin*dt;
  const cosmic=clamp(Math.log10(Math.max(1,s.altitude/100000))/3);
@@ -278,7 +299,7 @@ export function step(s,raw=[],dt=DT){
     else if(s.load>1.14||s.plantTime>3.2)land(s,s.load>1.14?'竿子彎了，決心還沒放手。':'竿子等到忘記自己的工作。');
   }else if(s.phase==='air'){
     s.airTime+=dt;
-    airWork(s,velocity,dt);
+    airWork(s,velocity,dt,prior);
     if(s.airTime<.32){const p=smooth(s.airTime/.32);s.x=s.launchX+.35*p;s.y=s.launchY+.95*p;s.vy=s.launchSpeed;s.lean=s.launchLean+(.10-s.launchLean)*p;s.momentum=0;s.spin=0;}
     // vy remains earned lift velocity. Only travelled metres are paced; no
     // additive lift, free energy, or change to work/balance/failure conditions.
