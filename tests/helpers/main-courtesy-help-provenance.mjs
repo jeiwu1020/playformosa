@@ -1,6 +1,6 @@
 // Reconstruct the exact published parent before historical provenance checks.
 // Live behavior tests read node:fs directly, never this historical view.
-import {readBeforeTapCoverage as actual} from './courtesy-touch-coverage-provenance.mjs';
+import {readBeforeTapCoverage as actual,inventoryBeforeTapCoverage} from './courtesy-touch-coverage-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -44,6 +44,7 @@ export function readBeforeMainCourtesy(file,options){
  const before=baseline.modifiedPaths.includes(path)?reverseMainCourtesy(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeMainCourtesy(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeTapCoverage(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate main-courtesy-help inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const additions=m.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeInventoryRepair as readFileSync} from '../helpers/courtesy-touch-inventory-repair.mjs';
 let p;try{p=await import('../helpers/courtesy-touch-coverage-provenance.mjs');}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;}
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url));
 test('touch coverage admits exactly the reviewed change and reverses all six parent files',()=>{
