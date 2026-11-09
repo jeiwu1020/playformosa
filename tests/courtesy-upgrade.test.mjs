@@ -39,4 +39,4 @@ test('download card follows platform hierarchy with a content-fitted height and 
  assert.ok(text.every(x=>x.y>0&&x.y<out.height));
 });
 
-test('entry explains the 30 second mutual-offer goal and safe-seating risk concisely',()=>{const source=read('public/games/courtesy-contest/platform.mjs');assert.match(source,/30 秒內和對方客氣互讓，次數越多越好；發車前有效按下謝謝就確認成功並記錄時間，沒按會跌倒！/);assert.doesNotMatch(source,/0\.3 秒/);});
+test('entry explains the 30 second mutual-offer goal and safe-seating risk concisely',()=>{const source=read('public/games/courtesy-contest/platform.mjs');assert.match(source,/每局 30 秒，互讓越多次分數越高/);assert.match(source,/發車前按下「謝謝，我坐了！」/);assert.match(source,/沒按會跌倒/);assert.doesNotMatch(source,/0\.3 秒/);});

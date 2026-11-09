@@ -4,6 +4,7 @@ export function resultFor(count,seated,reason){if(reason==='stolen')return{grade
 export function seatedAtDeparture(pose,busy,accepted=false){return accepted===true&&pose===4&&!busy;}
 export function seatProgress(){return 0;}
 export function countdownVisible(remaining){return Number.isFinite(remaining)&&remaining>19;}
+export function countdownWarningVisible(remaining){return countdownVisible(remaining)&&Math.ceil(remaining)<=22;}
 export const THREAT_SECONDS=3;
 export const THREAT_WINDUP=.8;
 export function canStartThreat({count,remaining,active,busy,cooldown,occupied=false}){return count>=4&&remaining>=4.8&&!active&&!busy&&!occupied&&cooldown<=0;}

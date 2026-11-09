@@ -5,7 +5,7 @@ import {JSDOM} from 'jsdom';
 import {BOARD_METRICS,resultToSubmission} from '../../public/games/shared/leaderboard-metrics.mjs';
 import {validateSubmission,handleRequest} from '../../worker/leaderboard/index.mjs';
 import {database} from '../helpers/leaderboard-sqlite.mjs';
-const specs=[['run-400m','400m-prototype-v3','四肢各有想法｜400公尺'],['run-1500m','1500m-ccw-tactics-v3','四肢各有想法｜1500公尺戰術賽']];
+const specs=[['run-400m','400m-prototype-v3','四肢各有想法｜400公尺'],['run-1500m','1500m-ccw-tactics-v3','四肢各有想法｜1500公尺']];
 const uuid=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
 for(const [game,rules,title]of specs){
  test(game+' requires matching fresh finished result and snapshot rules',()=>{

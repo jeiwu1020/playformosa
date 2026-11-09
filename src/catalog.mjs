@@ -9,9 +9,9 @@ export const catalog = {
     {id:'pole-vault',title:'四肢各有想法｜撐竿跳',event:'撐竿跳高',href:'/games/pole-vault/',status:'available',image:'/assets/pole-vault-card.png',imageStyle:'illustration',kicker:'你能跳得比什麼還高？'},
     {id:'shot-put',title:'四肢各有想法｜鉛球',event:'鉛球',href:'/games/shot-put/',status:'available',image:'/assets/shot-put-card.png',imageStyle:'illustration',kicker:'短蓄力，準出手，空中接力。'},
     {id:'discus',title:'四肢各有想法｜鐵餅',event:'鐵餅',href:'/games/discus/',status:'available',image:'/assets/discus-card.png',imageStyle:'illustration',kicker:'旋轉出手，順風遠行。'}
-    ,{id:'sprint-100m',title:'四肢各有想法｜100公尺衝刺',event:'100 公尺',href:'/games/sprint-100m/',status:'available',image:'/assets/sprint-100m-card.png',imageStyle:'illustration',kicker:'蹲好起跑，挺胸搶線。'}
+    ,{id:'sprint-100m',title:'四肢各有想法｜100公尺',event:'100 公尺',href:'/games/sprint-100m/',status:'available',image:'/assets/sprint-100m-card.png',imageStyle:'illustration',kicker:'蹲好起跑，挺胸搶線。'}
     ,{id:'run-400m',title:'四肢各有想法｜400公尺',event:'400 公尺',href:'/games/run-400m/',status:'available',image:'/assets/run-400m-card.png',imageStyle:'illustration',kicker:'腿先不要下班，留力給最後。'}
-    ,{id:'run-1500m',title:'四肢各有想法｜1500公尺戰術賽',event:'1500 公尺',href:'/games/run-1500m/',status:'available',image:'/assets/run-1500m-card.png',imageStyle:'illustration',kicker:'跟跑、搶位，最後一圈見真章。'}
+    ,{id:'run-1500m',title:'四肢各有想法｜1500公尺',event:'1500 公尺',href:'/games/run-1500m/',status:'available',image:'/assets/run-1500m-card.png',imageStyle:'illustration',kicker:'跟跑、搶位，最後一圈見真章。'}
     ,{id:'javelin',title:'四肢各有想法｜標槍',event:'標槍',href:'/games/javelin/',status:'available',image:'/assets/javelin-card.png',imageStyle:'illustration',kicker:'助跑送力，出手還要煞得住。'}
   ],
   minigames: [

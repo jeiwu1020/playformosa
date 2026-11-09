@@ -115,3 +115,12 @@
  .pf-game.pf-courtesy .app .pf-header nav button{padding:0 4px;font-size:12px}
 }
 
+
+/* Borrow the existing status area for the reminder, retaining its layout. */
+.pf-courtesy .status-row{position:relative}
+.pf-courtesy .countdown-warning{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:72%;margin:0;font-size:14px;line-height:1.5;font-weight:700;color:#9a472d}
+.pf-courtesy .countdown-warning:not(:empty)~#status{visibility:hidden}
+/* Desktop content begins at the top; narrow portrait keeps its centered layout. */
+@media(min-width:651px),(orientation:landscape){
+ .pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){justify-content:flex-start}
+}

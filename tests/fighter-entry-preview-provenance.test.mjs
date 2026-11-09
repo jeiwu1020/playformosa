@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeCopy as readFileSync} from './helpers/courtesy-copy-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {manifest as fighterManifest,validate as validateFighterManifest,verifyBase,baseline,readBeforeFighter,inventoryBeforeFighter,reverseFighter} from './helpers/fighter-entry-preview-provenance.mjs';
 const root=new URL('../',import.meta.url),blob=b=>createHash('sha1').update(Buffer.concat([Buffer.from('blob '+b.length+'\0'),b])).digest('hex');

@@ -1,5 +1,5 @@
 // Strict Fighter entry boundary: verify this feature before reconstructing the published preview parent.
-import {readFileSync} from 'node:fs';
+import {readBeforeCopy as readFileSync,copyParentBytes,inventoryBeforeCopy} from './courtesy-copy-preview-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -31,7 +31,7 @@ export function validate(m){
  if(m===cachedManifest)validated.add(m);return m;
 }
 export function reverseFighter(path,bytes,m=manifest()){
- validate(m);assert.ok(!m.addedPaths.includes(path),path+' is a new Fighter file');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ validate(m);bytes=copyParentBytes(path,bytes);assert.ok(!m.addedPaths.includes(path),path+' is a new Fighter file');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' current Git blob');return Buffer.from(f.beforeText);
 }
 export function fighterParentBytes(path,bytes,m=manifest()){
@@ -45,6 +45,7 @@ export function readBeforeFighter(file,options){
  const before=baseline.modifiedPaths.includes(path)?reverseFighter(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeFighter(paths,{read=p=>readFileSync(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeCopy(paths,{runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate Fighter inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const additions=m.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));

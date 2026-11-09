@@ -21,7 +21,7 @@ export function courtesyAudio(audio,music,prefs=audioPreferences()){
 export function installCourtesyPlatform(scene,audio,music){
  const sharing=createCourtesySharing(document),result=createResultDialog($('result'),{focusTarget:()=>$('restart'),returnFocus:()=>$('toolbar-restart')});
  const advanced=$('instructions').querySelector('.help-body');advanced.removeAttribute('tabindex');
- const entry=createEntryShell({document,title:'客氣大賽',goal:'30 秒內和對方客氣互讓，次數越多越好；發車前有效按下謝謝就確認成功並記錄時間，沒按會跌倒！',operations:['←／你請坐：相同站立互讓姿勢，完成才計次。','→／謝謝：發車前有效按下即確認成功並記錄時間。','點搶座乘客／空白鍵趕人；倒數 30→20 後隱藏。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
+ const entry=createEntryShell({document,title:'客氣大賽',goal:'每局 30 秒，互讓越多次分數越高；記得在發車前按下「謝謝，我坐了！」，才算成功，沒按會跌倒！',operations:['←／你請坐：每完成一次互讓就計次。','→／謝謝：按下即確認入座；有人搶位就點他，或按空白鍵趕走。','倒數顯示完 20 秒就會隱藏，剩餘時間請自己默數。'],advanced,canStart:()=>scene.ready,onStart:()=>scene.start(),onHelpEnter:()=>{if(active(scene)&&!scene.tabPaused)scene.pauseRound();}});
  const originalStart=scene.start.bind(scene),originalPause=scene.pauseRound.bind(scene),originalResume=scene.resumeRound.bind(scene);
  let captureSerial=0;
  scene.start=()=>{if(document.hidden||scene.starting)return;captureSerial++;sharing.reset();leaderboard?.reset();result.close();entry.close({restoreView:false});if(scene.tabPaused){scene.tabPaused=false;scene.scene.resume();$('pause-overlay').classList.add('hidden');}originalStart();sync();};

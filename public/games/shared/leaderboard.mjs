@@ -12,7 +12,7 @@ const boardLabels={
  'shot-put':['鉛球','有效距離，重物也想去旅行。'],discus:['鐵餅','有效距離，跟著風去兜一圈。'],
  'reaction-rod':['接棒啦！','先比接住根數，再比評分。'],'beer-slide':['別灑啊！','準度與留酒率，一杯決勝負。'],
  'run-400m':['400公尺','固定跑道一圈，秒數越短越前面。'],
- 'run-1500m':['1500公尺戰術賽','街機實際遊戲用時，非真實田徑紀錄。'],
+ 'run-1500m':['1500公尺','街機實際遊戲用時，非真實田徑紀錄。'],
  'tower-climb':['上樓不容易','十層完成時間，越短越前面。']
 };
 export function mountLeaderboard({document,game,entry,result,resultActionContainer=result,resultUploadContainer=result,resultActionLabel='查看榮譽榜',shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
