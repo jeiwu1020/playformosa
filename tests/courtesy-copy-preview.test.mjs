@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeAirBalance as readFileSync} from './helpers/vault-air-balance-provenance.mjs';
 import {JSDOM} from 'jsdom';
 import {harness} from './courtesy-contest/helpers/scene-harness.mjs';
 import {countdownVisible,countdownWarningVisible} from '../public/games/courtesy-contest/rules.js';

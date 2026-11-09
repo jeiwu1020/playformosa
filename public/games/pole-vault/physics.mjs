@@ -166,8 +166,9 @@ function airWork(s,velocity,dt){
  s.energy=clamp(s.energy+dt*(work*.12+.1*paired*paired*stable-flow*.065-.035-Math.abs(s.spin)*.015));
  s.difficulty=clamp(Math.log1p(Math.max(0,s.altitude)/100)/Math.log(101));
  s.wind=(.04+.06*s.difficulty)*Math.sin(s.airTime*.27+.4)+.025*Math.sin(s.airTime*.63+.7);
- s.momentum+=dt*(torque*.48+(s.j[0]+s.j[2]-s.j[1]-s.j[3])*.30+s.wind+s.lean*.08);
- s.momentum=clamp(s.momentum*Math.exp(-dt*.65),-5,5);
+ const balance=smooth((s.airTime-.32)/3.68);
+ s.momentum+=dt*(torque*(.48+.32*balance)+(s.j[0]+s.j[2]-s.j[1]-s.j[3])*(.30+.15*balance)+s.wind+s.lean*(.08+.08*balance));
+ s.momentum=clamp(s.momentum*Math.exp(-dt*(.65-.25*balance)),-5,5);
  s.spin=s.momentum;s.lean+=s.spin*dt;
  const cosmic=clamp(Math.log10(Math.max(1,s.altitude/100000))/3);
  s.vy+=dt*(-6.2+work*(9.6+s.vy*.04)*(1+cosmic*.8));
