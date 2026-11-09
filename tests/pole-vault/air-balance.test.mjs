@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readBeforeCoordination as readFileSync} from '../helpers/vault-air-coordination-provenance.mjs';
 import * as P from '../../public/games/pole-vault/physics.mjs';
 import * as audit from '../helpers/vault-air-balance-provenance.mjs';
 import {JOURNEY_STAGES} from '../../public/games/pole-vault/sky-journey.mjs';
@@ -33,7 +33,9 @@ for(let mask=0;mask<16;mask++)test(`limb state ${mask.toString(2).padStart(4,'0'
  for(const dt of dts){
   for(const time of [0,.12,.25,.32-dt]){
    const a=airborne({time,j:[.2,.8,.7,.1],lean:.2,momentum:-.4}),b=structuredClone(a);
-   P.step(a,keys(mask),dt);before.step(b,keys(mask),dt);assert.deepEqual(a,b,'launch protection remains identical');
+   P.step(a,keys(mask),dt);before.step(b,keys(mask),dt);
+   // At exactly .32s only the new coordination tracker starts; original state stays identical.
+   const {balanceEdges,balanceCoordination,...original}=a;assert.deepEqual(original,b,'launch protection remains identical');
   }
   for(const time of [.5,1,2,4,10])for(let prior=0;prior<16;prior++){
    const a=airborne({time,j:keys(prior).map(Number),lean:.2,momentum:.4}),b=structuredClone(a);
