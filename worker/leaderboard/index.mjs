@@ -2,6 +2,7 @@ import {handlePlayCounts} from '../play-counts/index.mjs';
 import {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';
 import {LeaderboardRepository} from './repository.mjs';
 import {ReactionRodRepository} from './reaction-rod-repository.mjs';
+import {CourtesyRepository} from './courtesy-repository.mjs';
 import {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';
 export const BOARDS=Object.freeze({
  'high-jump':Object.freeze({rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE}),
@@ -9,6 +10,8 @@ export const BOARDS=Object.freeze({
  hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),
  'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true})
 });
+// Courtesy alone offsets zero for the existing score>0 schema; no migration or legacy rewrites.
+export const COURTESY_BOARD=Object.freeze({rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,secondary:true,secondaryDirection:'asc',secondaryMax:30,primaryMetric:'courtesies',secondaryMetric:'remaining'});
 // Fast Hands boards share the existing single-score repository, isolated by rules.
 export const FAST_HANDS_BOARDS=Object.freeze({
  mouse:Object.freeze({rules:'shuttle-v3-mouse',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true}),
@@ -20,30 +23,36 @@ export const LEVEL_BOARDS=Object.freeze({
 });
 const isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);
 const isFast=game=>game==='fast-hands'||isLevel(game);
-function resolveBoard(game,rules){
+function resolveBoard(game,rules,scope='production'){
+ if(game==='courtesy-contest')return scope==='production'?COURTESY_BOARD:null;
  if(isLevel(game))return LEVEL_BOARDS[game];
  if(game==='fast-hands')return Object.values(FAST_HANDS_BOARDS).find(board=>board.rules===rules)??null;
  return typeof game==='string'&&Object.hasOwn(BOARDS,game)?BOARDS[game]:null;
 }
 const fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-function validateBaseSubmission(value){
+function validateBaseSubmission(value,scope){
  if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');
- const b=resolveBoard(value.game,value.rules);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
- if(typeof value.score!=='number'||!Number.isFinite(value.score)||value.score<=0||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
+ const b=resolveBoard(value.game,value.rules,scope);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
+ if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
  if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\p{Cc}\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');
  if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');
  return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));
 }
-export function validateSubmission(value){
- if(value?.game!=='reaction-rod')return validateBaseSubmission(value);
+export function validateSubmission(value,scope='production'){
+ if(value?.game==='courtesy-contest'){
+  const {secondaryScore,...base}=value;
+  if(typeof secondaryScore!=='number'||!Number.isFinite(secondaryScore)||secondaryScore<.01||secondaryScore>30||Math.abs(secondaryScore*100-Math.round(secondaryScore*100))>1e-9)throw Error('invalid_secondary');
+  return {...validateBaseSubmission(base,scope),secondaryScore};
+ }
+ if(value?.game!=='reaction-rod')return validateBaseSubmission(value,scope);
  if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>10)throw Error('invalid_secondary');
  const {secondaryScore,...base}=value;
- return {...validateBaseSubmission(base),secondaryScore};
+ return {...validateBaseSubmission(base,scope),secondaryScore};
 }
-function parseSubmission(text){
+function parseSubmission(text,scope){
  const value=JSON.parse(text);
- if(isFast(value?.game)){
+ if(isFast(value?.game)||value?.game==='courtesy-contest'){
   // JSON.parse alone silently keeps the last duplicate key. Scan complete string tokens
   // so escaped property names are compared correctly and quoted nickname text is ignored.
   const keys=new Set();
@@ -52,7 +61,7 @@ function parseSubmission(text){
    const key=JSON.parse(token[0]);if(keys.has(key))throw Error('invalid_fields');keys.add(key);
   }
  }
- return validateSubmission(value);
+ return validateSubmission(value,scope);
 }
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
 export async function handleRequest(request,env,now=Date.now(),context){
@@ -61,14 +70,14 @@ export async function handleRequest(request,env,now=Date.now(),context){
  if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});
  if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);
- const repository=game=>game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);
+ const repository=game=>game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):game==='courtesy-contest'?new CourtesyRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);
  try{
   if(request.method==='GET'&&url.pathname==='/api/leaderboard'){
    const game=url.searchParams.get('game'),fast=game==='fast-hands',mode=url.searchParams.get('mode');
-   const board=fast?(Object.hasOwn(FAST_HANDS_BOARDS,mode)?FAST_HANDS_BOARDS[mode]:null):resolveBoard(game);
+   const board=fast?(Object.hasOwn(FAST_HANDS_BOARDS,mode)?FAST_HANDS_BOARDS[mode]:null):resolveBoard(game,undefined,env.LEADERBOARD_SCOPE);
    const invalidQuery=fast
     ?url.searchParams.getAll('game').length!==1||url.searchParams.getAll('mode').length!==1||[...url.searchParams.keys()].some(k=>k!=='game'&&k!=='mode')
-    :(isLevel(game)&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');
+    :((isLevel(game)||game==='courtesy-contest')&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');
    if(!board||invalidQuery)return json({error:'invalid_board'},400);
    const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);
    return json({game,rules:board.rules,unit:board.unit,...await repository(game).board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});
@@ -80,9 +89,9 @@ export async function handleRequest(request,env,now=Date.now(),context){
   const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);
   let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}
   const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}
-  let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{return json({error:'invalid_submission'},400);}
-  if(isFast(data.game)&&url.search)return json({error:'invalid_submission'},400);
-  const result=await repository(data.game).submit(data,resolveBoard(data.game,data.rules),now);
+  let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes),env.LEADERBOARD_SCOPE);}catch{return json({error:'invalid_submission'},400);}
+  if((isFast(data.game)||data.game==='courtesy-contest')&&url.search)return json({error:'invalid_submission'},400);
+  const result=await repository(data.game).submit(data,resolveBoard(data.game,data.rules,env.LEADERBOARD_SCOPE),now);
   const retryHeaders=result.error==='limited'&&result.reason==='cooldown'?{'Retry-After':String(result.retryAfterSeconds)}:{};
   return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);
  }catch{return json({error:'temporarily_unavailable'},503);}

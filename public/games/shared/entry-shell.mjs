@@ -4,8 +4,10 @@ import{createDialogController}from'../long-jump/dialogs.mjs';
 import{entryContent}from'./entry-content.mjs';
 import{createPauseContent}from'./menu-content.mjs';
 import{createMenuAudio}from'./menu-audio.mjs';
+import{createSportsHelp}from'./sports-help.mjs';
 // Shared presentation only: original game callbacks own all clocks, input and audio.
 export function createEntryShell({document,title,goal,operations,gameId=null,advanced=null,onStart,onEnter=()=>{},onHelpEnter=null,canStart=()=>true,forceFallback=false}){
+ advanced=createSportsHelp(document,gameId)||advanced;
  const win=document.defaultView,dialog=document.createElement('dialog');dialog.className='pf-entry';dialog.setAttribute('aria-label',title);dialog.setAttribute('data-pf-entry','');
  const brand=document.createElement('p');brand.className='pf-entry-brand';brand.textContent='島遊無界工作室 | PLAYFORMOSA STUDIO';const heading=document.createElement('h2');heading.textContent=title;
  const aim=document.createElement('p');aim.className='pf-entry-goal';aim.textContent=goal;const core=document.createElement('div');core.className='pf-entry-operations';

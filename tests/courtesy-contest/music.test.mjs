@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import * as r from '../../public/games/courtesy-contest/rules.js';
+test('Music speed increases smoothly as the hidden countdown approaches zero',()=>{assert.equal(typeof r.musicRate,'function');assert.equal(r.musicRate(30),1);assert.equal(r.musicRate(0),1.5);let previous=1;for(let remaining=29.9;remaining>=0;remaining-=.1){const rate=r.musicRate(remaining);assert.ok(rate>=previous);assert.ok(rate-previous<.01);previous=rate;}assert.equal(r.musicRate(-3),1.5);assert.equal(r.musicRate(34),1);});

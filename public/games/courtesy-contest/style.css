@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap');
+:root{--ink:#203f35;--green:#245b47;--cream:#f6f2e6;--orange:#dc744f;--line:#dcdaca}*{box-sizing:border-box}html,body{margin:0;background:var(--cream);color:var(--ink);font-family:'Noto Sans TC',system-ui,sans-serif}body{min-height:100dvh}.app{max-width:1110px;min-height:100dvh;margin:auto;padding:25px 30px 16px;display:flex;flex-direction:column;justify-content:center}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.eyebrow{font-size:10px;letter-spacing:2.8px;font-weight:700;opacity:.65}.titleline{display:flex;align-items:end;gap:20px}h1{font-size:43px;letter-spacing:-2px;line-height:1.2;margin:5px 0 0;font-weight:900}h1>span{color:var(--orange)}.episode{font-size:13px;letter-spacing:1px;margin-bottom:6px}.icon-button{display:flex;gap:7px;align-items:center;background:none;border:1px solid #cad0c0;border-radius:30px;padding:10px 14px;font-size:20px;color:var(--ink);cursor:pointer}.icon-button span{font-size:11px}.game-wrap{position:relative;overflow:hidden;border:1px solid #bcbba6;border-radius:18px;background:#e5dcc8;box-shadow:0 5px 0 #d8d7c9}#game{width:100%;aspect-ratio:1.92;max-height:52vh}#game canvas{display:block;width:100%;height:100%;object-fit:contain}.hud{position:absolute;z-index:2;left:20px;right:20px;top:15px;display:flex;justify-content:space-between;align-items:start;pointer-events:none}.line-label{padding:8px 12px;border-radius:20px;font-size:12px;letter-spacing:.4px;background:#fff8e7ed;box-shadow:0 1px 6px #58352115}.station-dot{display:inline-block;width:7px;height:7px;background:#428b68;border-radius:50%;margin-right:7px}.time{display:flex;align-items:baseline;gap:5px;background:#244a3e;color:#fff8e7;border:1px solid #ffffff60;border-radius:13px;padding:5px 12px;box-shadow:0 2px 9px #20382c26}.time span{font-size:11px;margin-right:4px}.time strong{font-size:26px;font-variant-numeric:tabular-nums}.time small{font-size:11px}.time.urgent{background:#ae462c;animation:pulse .5s infinite alternate}@keyframes pulse{to{transform:scale(1.04)}}.scene-caption{position:absolute;bottom:11px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#fff9e8df;border:1px solid #fdf7e7;border-radius:20px;padding:7px 13px;font-size:11px;color:#3c4d40;box-shadow:0 1px 7px #3d351323}.you-dot,.aunt-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#498371;margin:0 6px 1px 0}.aunt-dot{background:#db7958}.vs{opacity:.5;font-size:9px;margin:0 12px}.controls{padding-top:20px}.status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}.status-row p{margin:0;font-size:18px;font-weight:700}.combo{white-space:nowrap;display:flex;gap:7px;align-items:baseline}.combo strong{font-size:26px;line-height:1;color:var(--orange)}.combo span{font-size:12px;opacity:.65}.buttons{display:grid;grid-template-columns:1.12fr 1fr;gap:12px}.action{min-height:85px;display:flex;gap:13px;align-items:center;justify-content:space-between;border:0;border-radius:13px;padding:13px 19px;cursor:pointer;text-align:left;transition:transform .12s,box-shadow .12s;font-family:inherit}.action:hover:not(:disabled){transform:translateY(-2px)}.action:active:not(:disabled){transform:translateY(3px);box-shadow:none}.action:disabled{cursor:default;opacity:.55}.offer{background:#245b47;color:#fffbed;box-shadow:0 4px 0 #153b2d}.thanks{background:#e8a681;color:#45362a;box-shadow:0 4px 0 #bc7f5f}.action b{display:block;font-size:21px;font-weight:800;letter-spacing:.4px}.action small{display:block;font-size:12px;margin-top:5px;opacity:.75}.key{font-size:20px;border:1px solid #ffffff30;border-radius:6px;padding:3px 8px}.btn-icon{font-size:26px;opacity:.85}.risk{display:flex;align-items:center;gap:11px;margin-top:16px}.risk-track{height:6px;border-radius:4px;background:#dcded0;flex:1;overflow:hidden}.risk-track span{display:block;background:#6f9c69;width:0%;height:100%;transition:width .45s}.risk>span{font-size:11px;min-width:140px;text-align:right;opacity:.65}footer{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.5px;opacity:.48;padding-top:17px}.version{font-size:9px}.overlay{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#f3eddbf5,#f3eddbc7 60%,#f3eddb30);padding:20px}.intro{justify-content:flex-start;padding-left:6%}.intro-card{max-width:470px}.ticket-label{font-size:11px;letter-spacing:2px;color:#9a5a39;font-weight:700}.intro h2{font-size:49px;font-weight:900;letter-spacing:-1.5px;line-height:1.18;margin:13px 0}.intro h2 span{color:#be6348}.intro p{font-size:15px;line-height:1.8;margin:13px 0 20px}.start{display:flex;align-items:center;justify-content:space-between;gap:45px;min-width:210px;background:var(--green);color:#fffbed;font-family:inherit;font-size:18px;font-weight:700;letter-spacing:1px;border:0;border-radius:9px;padding:14px 20px;box-shadow:0 4px 0 #173f2e;cursor:pointer}.start:hover{background:#327253}.intro-card>small{display:block;font-size:10px;margin-top:12px;opacity:.6}.hidden{display:none!important}.result{background:#f4eedbd9;backdrop-filter:blur(5px)}.result-card{text-align:center;width:min(410px,100%)}.rank{font-size:73px;line-height:1;font-weight:900;color:#cb724e;text-shadow:2px 3px 0 #f8dac2;margin:10px 0 4px}.result h2{font-size:29px;margin:7px 0}.result p{font-size:14px;line-height:1.7;margin:8px 0}.result-stats{display:flex;justify-content:center;margin:15px 0;gap:40px}.result-stats>div{display:flex;flex-direction:column;gap:3px}.result-stats strong{font-size:26px}.result-stats span{font-size:11px;opacity:.65}.result .start{margin:auto;font-size:16px;padding:10px 18px}.action:focus-visible,.start:focus-visible,.icon-button:focus-visible{outline:3px solid #f2a521;outline-offset:4px}
+@media(min-width:1300px) and (min-height:850px){.app{max-width:1200px}#game{max-height:60vh}.action{min-height:90px}}
+@media(max-width:650px){.app{padding:15px 14px 12px;justify-content:flex-start}header{margin-bottom:13px}.eyebrow{font-size:8px;letter-spacing:1.9px}.titleline{gap:10px;align-items:center}h1{font-size:32px}.episode{font-size:10px;letter-spacing:0;margin:7px 0 0}.icon-button{padding:8px 10px;font-size:17px}.icon-button span{display:none}.game-wrap{border-radius:13px}#game{aspect-ratio:1.05;max-height:none}.hud{left:10px;right:10px;top:10px;gap:5px}.line-label{font-size:9px;padding:7px 8px}.time{padding:4px 8px;border-radius:8px;gap:3px}.time span{font-size:9px;margin-right:0}.time strong{font-size:20px}.time small{font-size:9px}.scene-caption{font-size:9px;padding:6px 10px;bottom:10px}.vs{margin:0 9px}.controls{padding-top:18px}.status-row{margin-bottom:11px}.status-row p{font-size:14px;line-height:1.5}.combo strong{font-size:23px}.combo span{font-size:10px}.buttons{gap:9px;grid-template-columns:1.05fr 1fr}.action{min-height:83px;padding:10px 10px;gap:4px}.action b{font-size:16px;letter-spacing:0;white-space:nowrap}.action small{font-size:10px;margin-top:6px}.key,.btn-icon{display:none}.risk{gap:7px;margin-top:14px}.risk>span{font-size:10px;min-width:125px}footer{font-size:9px;padding-top:15px}.version{font-size:8px}.overlay{padding:17px}.intro{padding-left:7%;align-items:center;background:linear-gradient(90deg,#f3eddbf2,#f3eddbcb 70%,#f3eddb60)}.intro h2{font-size:37px;margin:12px 0}.intro p{font-size:12px;line-height:1.7;margin:10px 0 17px}.ticket-label{font-size:9px;letter-spacing:1.5px}.start{font-size:16px;padding:12px 17px;min-width:190px}.intro-card>small{font-size:9px}.rank{font-size:54px}.result h2{font-size:24px}.result p{font-size:12px}.result-stats{margin:12px 0}.result-stats strong{font-size:23px}.result .start{font-size:14px;min-width:180px}.result-stats span{font-size:10px}}
+@media(max-height:720px) and (max-width:650px){.app{padding-top:10px}header{margin-bottom:9px}#game{aspect-ratio:1.21}.controls{padding-top:14px}.action{min-height:74px}.intro h2{font-size:32px}.intro p{margin:8px 0 12px}.intro-card>small{margin-top:10px}}
+@media(prefers-reduced-motion:reduce){.time.urgent{animation:none}button{transition:none}}
+/* A cheeky manga cover, with tactile comic panels and oversized punch lines. */
+h1{transform:rotate(-2deg);text-shadow:2px 2px 0 #e9d1a0}.game-wrap{border:3px solid #354e3d;box-shadow:5px 6px 0 #c7c9b5}.action{border:2px solid #294e3e}.thanks{border-color:#7d513e}.intro h2{text-shadow:2px 2px 0 #f2cf9e;transform:rotate(-2deg)}.rank{transform:rotate(-7deg)}.ticket-label{display:inline-block;background:#edc875;border:1px solid #926745;border-radius:3px;padding:4px 8px;transform:rotate(-3deg)}
+/* v2: only essential, legible copy; no decorative small print. */
+[hidden]{display:none!important}.app{padding:24px 30px;gap:0}header{margin-bottom:20px}.titleline{align-items:center}.episode{font-size:20px;font-weight:700;letter-spacing:0;margin-top:9px}.icon-button span{font-size:16px}.hud{justify-content:flex-end}.time{align-items:center;gap:7px;padding:7px 14px}.time span,.time small{font-size:18px}.time strong{font-size:32px}.timer-hidden{visibility:hidden;opacity:0;pointer-events:none}.controls{padding-top:22px}.status-row{min-height:34px;margin-bottom:14px}.status-row p{font-size:22px}.combo span{font-size:18px}.combo strong{font-size:32px}.buttons{grid-template-columns:1fr 1fr;gap:14px}.action{min-height:88px;padding:17px 25px;justify-content:center;gap:22px}.action b{font-size:28px}.btn-icon{font-size:30px}.intro h2{font-size:55px}.intro p{font-size:20px;line-height:1.7}.start{font-size:23px;padding:16px 24px}.ticket-label{font-size:18px;letter-spacing:1px}.result p{font-size:19px}.result-stats span{font-size:18px}.result .start{font-size:22px;padding:12px 24px}.result h2{font-size:32px}#game{max-height:61vh}
+@media(max-width:650px){.app{padding:16px 14px;justify-content:center}header{margin-bottom:14px}.titleline{gap:8px;align-items:center}h1{font-size:31px;letter-spacing:-1.5px}.episode{font-size:16px;line-height:1.3;max-width:64px;margin:5px 0 0}.icon-button{font-size:21px;min-width:43px;min-height:43px;padding:7px 10px}.icon-button span{display:none}#game{aspect-ratio:1.05;max-height:none}.hud{top:10px;right:10px}.time{padding:5px 10px;gap:5px}.time span,.time small{font-size:16px}.time strong{font-size:27px}.controls{padding-top:18px}.status-row{gap:7px;margin-bottom:12px;min-height:29px}.status-row p{font-size:17px;line-height:1.5}.combo strong{font-size:27px}.combo span{font-size:16px}.combo{gap:5px}.buttons{gap:10px}.action{padding:14px 5px;min-height:78px}.action b{font-size:21px;letter-spacing:0}.btn-icon{display:none}.intro h2{font-size:40px;line-height:1.2;margin:8px 0 16px}.intro p{font-size:17px;margin:12px 0 20px;line-height:1.6}.start{font-size:22px;padding:13px 22px}.ticket-label{font-size:16px}.rank{font-size:48px;margin:7px 0 3px}.result h2{font-size:24px;margin:6px 0}.result p{font-size:17px;margin:8px 0}.result-stats{margin:10px 0;gap:32px}.result-stats span{font-size:16px}.result-stats strong{font-size:25px}.result .start{font-size:20px;padding:10px 22px}}
+@media(max-height:720px) and (max-width:650px){.app{padding:10px 12px;justify-content:center}header{margin-bottom:10px}#game{aspect-ratio:1.15}.intro h2{font-size:36px;margin:6px 0 12px}.intro p{font-size:16px;margin:10px 0 15px}.intro .start{font-size:21px;padding:11px 20px}.controls{padding-top:14px}.action{min-height:74px}.result-card .rank{font-size:38px}.result h2{font-size:22px}.result p{font-size:16px;margin:5px 0}.result-stats{margin:7px 0}.result-stats strong{font-size:23px}.result .start{padding:9px 18px;font-size:18px}}
+@media(min-width:651px) and (max-height:780px){.app{padding-top:17px;padding-bottom:17px}#game{max-height:56vh}.action{min-height:78px}.controls{padding-top:16px}.status-row{margin-bottom:10px}}
+@media(max-width:650px){.episode{max-width:none;white-space:nowrap}}
+/* v3: large, direct character target and optional instructions. */
+.header-actions{display:flex;gap:8px;align-items:center}.help-button{font-weight:900;min-width:44px;justify-content:center}.icon-button:disabled{opacity:.35;cursor:default}.event-notice{position:absolute;z-index:4;top:12px;left:50%;transform:translateX(-50%) rotate(-1deg);width:max-content;max-width:calc(100% - 20px);background:#ffe09a;border:3px solid #65482e;border-radius:9px;box-shadow:3px 4px 0 #6f4f363d;padding:9px 14px;font-size:22px;font-weight:900;text-align:center;pointer-events:none}.intruder-hit{position:absolute;z-index:4;background:transparent;border:0;border-radius:50%;padding:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.intruder-hit span{position:absolute;bottom:2px;left:50%;transform:translateX(-50%) rotate(-4deg);border:2px solid #65482e;border-radius:7px;padding:4px 9px;background:#ffe09a;color:#493322;font-size:21px;font-weight:900;white-space:nowrap;box-shadow:2px 3px 0 #573b2740}.intruder-hit:focus-visible{outline:4px dashed #b63d23;outline-offset:2px}.intro p{line-height:1.6}dialog{width:min(640px,calc(100% - 28px));max-height:85dvh;background:#fff8e8;color:var(--ink);border:3px solid #354e3d;border-radius:18px;padding:22px 26px;box-shadow:7px 8px 0 #122b2860;font-size:18px;line-height:1.7}dialog::backdrop{background:#243d3299;backdrop-filter:blur(3px)}.help-heading{display:flex;align-items:center;justify-content:space-between}.help-heading h2{font-size:29px;margin:0}dialog ul{padding-left:22px}dialog li{margin:9px 0}dialog h3{font-size:23px;margin-bottom:7px}dialog p{margin:12px 0}dialog a{color:#a64f30;text-underline-offset:3px}button{touch-action:manipulation}
+@media(max-width:650px){.header-actions{gap:5px}.icon-button{min-width:40px;min-height:42px;padding:7px 9px}.episode{display:none}.event-notice{top:10px;font-size:18px;padding:7px 8px}.intruder-hit span{font-size:20px}.intro p{font-size:16px;line-height:1.6}.intro h2{margin-bottom:12px}dialog{padding:17px 20px;font-size:16px}.help-heading h2{font-size:25px}dialog h3{font-size:21px}.status-row p{max-width:72%;font-size:16px}.status-row{min-height:48px}.combo{align-self:center}}
+
+.pause{z-index:10;background:#f5efdfe8;backdrop-filter:blur(4px);text-align:center}.pause-card h2{font-size:32px;margin:0 0 16px}.pause-card p{font-size:20px;line-height:1.6}.pause-card .start{margin:20px auto 0}@media(max-width:650px){.pause-card h2{font-size:26px}.pause-card p{font-size:17px;line-height:1.7}.pause-card .start{font-size:21px}}
+
+/* v5: zoom and short windows must scroll content, never crop it. Auto margins
+   center only when space exists; overflowing cards start at reachable scroll 0. */
+.overlay{align-items:flex-start;overflow-y:auto;overflow-x:hidden;overscroll-behavior:auto;scrollbar-gutter:stable;scroll-padding-block:20px}
+.overlay > *{flex-shrink:0;margin-block:auto;min-width:0;max-width:100%}
+.overlay:focus-visible,.help-body:focus-visible{outline:3px solid #dc744f;outline-offset:-4px}
+dialog{max-height:calc(100dvh - 24px);overflow:hidden;padding:0}
+dialog[open]{display:flex;flex-direction:column}
+.help-heading{flex-shrink:0;gap:12px;padding:16px 24px 12px;border-bottom:1px solid #dcdaca;background:#fff8e8}
+.help-heading h2{min-width:0;line-height:1.3}
+#close-help,#close-rank{flex-shrink:0;min-width:44px;min-height:44px;justify-content:center;font-size:26px}
+.help-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:0 24px 20px;overflow-wrap:anywhere}
+@media(max-width:650px){.help-heading{padding:12px 16px 10px}.help-body{padding:0 16px 16px}}
+
+/* v6: the ending owns the page, not the clipped carriage. */
+.round-layout{min-width:0}
+.result-panel{min-width:0;display:flex;align-items:center}
+.result-panel .result-card{width:100%;max-width:540px;text-align:left;margin:auto}
+.result-heading{display:flex;align-items:center;gap:18px}
+.result-panel .rank{font-size:clamp(64px,10vh,100px);line-height:1;margin:0;flex-shrink:0}
+.result-panel h2{font-size:clamp(24px,3.8vh,34px);line-height:1.28;margin:0;overflow-wrap:anywhere}
+.result-panel p{font-size:clamp(18px,2.7vh,22px);line-height:1.55;margin:22px 0;overflow-wrap:anywhere}
+.result-panel .result-stats{justify-content:flex-start;gap:24px;margin:20px 0;flex-wrap:wrap}
+.result-panel .result-stats>div{flex-direction:row;align-items:baseline;gap:7px}
+.result-panel .result-stats strong{font-size:25px;line-height:1.2}
+.result-panel .result-stats span{font-size:18px;opacity:1}
+.result-panel .start{font-size:24px;min-height:56px;min-width:0;width:100%;padding:12px 22px;margin:24px 0 4px}
+.app.is-result{height:100dvh;min-height:0;max-width:1440px;justify-content:flex-start;padding:clamp(12px,2vh,24px) clamp(14px,2.5vw,36px);gap:18px}
+.app.is-result header{margin:0;flex-shrink:0}
+.app.is-result .round-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);flex:1;min-height:0;align-items:center}
+.app.is-result .game-wrap{width:100%;height:100%;max-height:620px;min-height:0}
+.app.is-result #game{width:100%;height:100%;aspect-ratio:auto;max-height:none}
+.app.is-result .hud{display:none}
+@media(max-height:600px) and (min-width:651px){
+ .app.is-result{gap:12px}.app.is-result h1{font-size:32px}.app.is-result .episode{font-size:17px}
+ .result-panel .rank{font-size:64px}.result-panel h2{font-size:25px}.result-panel p{font-size:18px;margin:14px 0}
+ .result-panel .result-stats{margin:14px 0;gap:16px}.result-panel .start{font-size:22px;margin-top:18px;min-height:52px}
+}
+@media(max-width:650px){
+ .app.is-result{padding:12px 14px;gap:12px;min-height:540px}
+ .app.is-result .round-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(140px,1fr) auto;gap:14px;align-items:stretch}
+ .app.is-result .game-wrap{max-height:none;min-height:140px}
+ .result-panel .result-card{max-width:none}
+ .result-heading{gap:14px}.result-panel .rank{font-size:58px}.result-panel h2{font-size:25px;line-height:1.2}
+ .result-panel p{font-size:18px;line-height:1.45;margin:12px 0}
+ .result-panel .result-stats{margin:12px 0;gap:20px}.result-panel .result-stats strong{font-size:23px}.result-panel .result-stats span{font-size:17px}
+ .result-panel .start{font-size:22px;min-height:52px;margin:14px 0 4px;padding:10px 20px}
+}
+@media(max-width:360px){.result-panel .rank{font-size:48px}.result-panel h2{font-size:23px}.result-panel .result-stats{gap:14px}}
+/* v7: the cover owns its content height; the carriage is not a scroll container. */
+.app.is-intro{height:100dvh;min-height:430px;max-width:1360px;justify-content:flex-start;gap:20px;padding:20px 28px}
+.app.is-intro header{flex-shrink:0;margin:0}
+.app.is-intro .round-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:30px;flex:1;min-height:0;align-items:center}
+.app.is-intro .game-wrap{grid-column:2;grid-row:1;width:100%;height:100%;max-height:620px;min-height:0}
+.app.is-intro #game{height:100%;width:100%;max-height:none;aspect-ratio:auto}
+.app.is-intro .hud{display:none}
+.app.is-intro .intro{position:static;grid-column:1;grid-row:1;display:flex;padding:0;background:none;overflow:visible;scrollbar-gutter:auto;border:0}
+.app.is-intro .intro-card{max-width:none;width:100%;margin:0}
+.app.is-intro .intro h2{font-size:clamp(34px,5.2vw,58px);margin:0 0 20px;line-height:1.22}
+.app.is-intro .intro p{font-size:clamp(18px,2vw,22px);line-height:1.6;margin:18px 0 24px}
+.app.is-intro .start{width:100%;min-width:0;font-size:24px;min-height:58px;gap:14px}
+.intruder-hit{border-radius:12px}.intruder-hit span{display:none}.event-notice{border:0;box-shadow:none;background:#fff3cced;padding:5px 10px;font-size:22px}
+#result-bonus{font-weight:800;color:#ad5838;font-size:18px;align-self:center}
+@media(min-width:651px) and (max-height:600px){.app.is-intro{padding:12px 24px;gap:14px}.app.is-intro h1{font-size:32px}.app.is-intro .episode{font-size:17px}.app.is-intro .intro h2{font-size:36px;margin-bottom:14px}.app.is-intro .intro p{font-size:18px;margin:14px 0 18px}.app.is-intro .start{font-size:22px;min-height:52px}}
+@media(max-width:650px){
+ .app.is-intro{min-height:560px;padding:12px 14px;gap:12px}
+ .app.is-intro .round-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(150px,1fr) auto;gap:16px;align-items:stretch}
+ .app.is-intro .game-wrap{grid-column:1;grid-row:1;max-height:none;min-height:150px}
+ .app.is-intro .intro{grid-column:1;grid-row:2;align-items:start}
+ .app.is-intro .intro h2{font-size:32px;margin:0 0 10px;line-height:1.18}
+ .app.is-intro .intro p{font-size:17px;margin:10px 0 14px;line-height:1.5}
+ .app.is-intro .start{font-size:22px;min-height:52px;padding:11px 20px}
+ .event-notice{font-size:19px}
+}
+@media(max-width:650px) and (max-height:620px){.app.is-intro{min-height:520px}.app.is-intro .intro h2{font-size:28px}.app.is-intro .intro p{font-size:16px}.app.is-intro .round-layout{gap:12px}}
+
+/* Keep rapid taps inside the stable play regions from becoming double-tap zoom.
+   The containers still apply while an action button is disabled or a tap lands
+   in its gap. manipulation preserves browser panning and two-finger pinch zoom;
+   do not replace it with none or put a restrictive policy on the whole page. */
+.game-wrap,.controls,#game canvas{touch-action:manipulation}
+
+/* v9: ranking stays outside play, with a fixed reachable dialog close button. */
+.app:not(.is-intro):not(.is-result) #leaderboard{display:none}
+#leaderboard{min-width:44px;justify-content:center;font-weight:900}
+#rank-dialog{width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 24px)}
+.rank-body p{font-size:17px;line-height:1.6;margin:10px 0}
+.rank-private{color:#53715e}.rank-body .rank-rules{font-weight:700}
+#rank-list{padding:0;list-style:none;margin:18px 0}
+#rank-list li{display:flex;gap:18px;align-items:center;padding:15px 5px;border-top:1px solid #cbd1c2}
+#rank-list li>strong{font-size:28px;min-width:38px;color:#b86143}
+#rank-list li div{display:flex;justify-content:space-between;gap:16px;flex:1;flex-wrap:wrap}
+#rank-list b,#rank-list span{font-size:20px}#rank-list .rank-empty{font-size:18px}
+#rank-refresh{width:100%;font-size:20px;min-height:48px;justify-content:center}
+.result-panel .result-remaining{font-size:20px;font-weight:800;margin:10px 0 4px}
+.result-panel .rank-save-status{font-size:16px;line-height:1.35;margin:6px 0;color:#45624e}
+.rank-save-status:empty,.result-remaining:empty{display:none}
+.rank-retry{background:#fff7df;border:1px solid #6a7c62;border-radius:7px;color:#254b3a;padding:9px 15px;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer}
+@media(max-width:650px){.header-actions{gap:6px}.result-panel .result-remaining{font-size:18px;margin:7px 0 3px}.result-panel .rank-save-status{font-size:16px}.app.is-result .round-layout{grid-template-rows:minmax(140px,1fr) auto}.result-panel .start{margin-top:10px}.rank-body p{font-size:17px}#rank-list b,#rank-list span{font-size:19px}}
+
+/* v11: one carriage composition in cover, play and ending. Do not stretch
+   the train into a tall poster, or shrink adults independently of their seats. */
+#game{aspect-ratio:2.2;max-height:none}
+.app.is-intro .game-wrap,.app.is-result .game-wrap{height:auto;max-height:none;align-self:center}
+.app.is-intro #game,.app.is-result #game{height:auto;aspect-ratio:2.2}
+/* The clock owns a separate strip above the canvas. Speech, combo captions
+   and incoming-passenger notices can never be covered by the countdown. */
+.game-wrap{padding-top:64px;background:#eee8d8}
+.hud{top:7px;right:12px;left:12px;height:50px;align-items:center}
+.time{box-shadow:none}
+.event-notice{top:76px}
+.app.is-intro .game-wrap,.app.is-result .game-wrap{padding-top:0}
+@media(max-width:650px){
+ #game,.app.is-intro #game,.app.is-result #game{aspect-ratio:1.6;max-height:none}
+ .app.is-intro .round-layout{grid-template-rows:auto auto;align-content:start;align-content:safe center}
+ .app.is-result .round-layout{grid-template-rows:auto auto;align-content:start;align-content:safe center}
+ .app.is-intro .game-wrap,.app.is-result .game-wrap{min-height:0}
+ .event-notice{top:74px;font-size:17px;line-height:1.3;max-width:calc(100% - 16px)}
+ .time span,.time small{font-size:15px}.time strong{font-size:26px}
+}
+/* v12: the row, standing aisle and original strap share one geometry.
+   All phases use the viewport mode, never the narrower intro/result panel.
+   A short window scrolls the page instead of compressing only the backdrop. */
+:root{--carriage-ratio:2.65}
+#game,.app.is-intro #game,.app.is-result #game{aspect-ratio:var(--carriage-ratio);height:auto;max-height:none}
+@media(max-width:650px){:root{--carriage-ratio:1.8}}
+@media(min-width:651px) and (max-width:900px){
+ .app.is-intro .round-layout,.app.is-result .round-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;align-content:safe center}
+ .app.is-intro .game-wrap,.app.is-result .game-wrap{min-height:0}
+ .app.is-intro .game-wrap{grid-column:1;grid-row:1}
+ .app.is-intro .intro{grid-column:1;grid-row:2}
+}
+
+/* v13: keep fast taps and long presses inside the game UI.
+   Apply manipulation on stable surfaces, not only buttons: a button may become
+   disabled between taps. This still permits page panning and pinch zoom.
+   No body-wide gesture cancellation or viewport zoom limit is used. */
+:where(.app, #instructions, #rank-dialog){
+ touch-action:manipulation;
+ -webkit-user-select:none;
+ user-select:none;
+ -webkit-touch-callout:none;
+}
+/* Preserve native editing/copying if a form or explicitly copyable text is
+   added inside these surfaces. Include rich-text children for WebKit. */
+:where(.app, #instructions, #rank-dialog) :is(input, textarea, [contenteditable]:not([contenteditable="false"]), [contenteditable]:not([contenteditable="false"]) *, [data-selectable], [data-selectable] *){
+ -webkit-user-select:text;
+ user-select:text;
+ -webkit-touch-callout:default;
+}
+
+
+/* v14: a compact desktop cover, with the carriage above the start button.
+   Height limits narrow the whole scene instead of flattening its backdrop. */
+@media(min-width:651px){
+ .app,.app.is-intro,.app.is-result{width:100%;height:auto;min-height:100dvh;padding:14px 24px;justify-content:center}
+ header{margin-bottom:12px}h1{font-size:32px}.episode{font-size:17px;margin:0}
+ .header-actions{gap:6px}.icon-button{min-height:44px;padding:8px 12px;font-size:20px}.icon-button span{font-size:14px}
+ .app.is-intro{max-width:min(860px,max(460px,calc((100dvh - 225px)*2.65 + 48px)));gap:12px}
+ .app.is-intro .round-layout{display:flex;flex-direction:column;flex:none;gap:12px;width:100%;min-height:0}
+ .app.is-intro .game-wrap{width:100%;min-height:0;align-self:stretch}
+ .app.is-intro .intro{width:100%;display:block}
+ .app.is-intro .intro-card{display:grid;grid-template-columns:1fr 1.4fr;gap:10px 16px;align-items:center}
+ .app.is-intro .intro h2{font-size:26px;line-height:1.16;margin:0}
+ .app.is-intro .intro p{font-size:16px;line-height:1.5;margin:0}
+ .app.is-intro .start{grid-column:1/-1;font-size:22px;min-height:50px;padding:10px 20px}
+ .app:not(.is-intro):not(.is-result){max-width:min(980px,max(460px,calc((100dvh - 265px)*2.65 + 48px)))}
+ .game-wrap{padding-top:48px}.hud{height:36px;top:6px}.time{padding:4px 10px}.time strong{font-size:25px}.time span,.time small{font-size:14px}
+ .event-notice{top:58px}
+ .controls{padding-top:12px}.status-row{min-height:28px;margin-bottom:8px}.status-row p{font-size:18px}.combo strong{font-size:26px}.combo span{font-size:16px}
+ .action{min-height:64px;padding:10px 15px}.action b{font-size:22px}.btn-icon{font-size:24px}
+ .app.is-result{max-width:980px;gap:14px}
+ .app.is-result .round-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:auto;flex:none;gap:24px;align-items:center}
+ .result-panel .rank{font-size:58px}.result-panel h2{font-size:25px}.result-heading{gap:12px}
+ .result-panel p{font-size:18px;margin:12px 0}.result-panel .result-stats{margin:12px 0;gap:12px}.result-panel .result-stats strong{font-size:23px}.result-panel .result-stats span{font-size:16px}
+ .result-panel .result-remaining{font-size:18px;margin:8px 0 3px}.result-panel .rank-save-status{font-size:14px;margin:6px 0}
+ .result-panel .start{min-height:48px;font-size:22px;margin:12px 0 4px;padding:10px 18px}
+}
+@media(min-width:651px) and (max-height:520px){
+ .episode{display:none}.app,.app.is-intro,.app.is-result{padding:10px 20px}
+ .app.is-intro{max-width:min(860px,max(460px,calc((100dvh - 210px)*2.65 + 40px)));gap:10px}
+ .app.is-intro .round-layout{gap:10px}.app.is-intro .intro h2{font-size:24px}.app.is-intro .intro p{font-size:15px}
+ .app:not(.is-intro):not(.is-result){max-width:min(900px,max(460px,calc((100dvh - 245px)*2.65 + 40px)))}
+ .action{min-height:58px}.app.is-result{max-width:900px}.result-panel p{font-size:16px;margin:8px 0}
+}
+
+/* v15: the clock borrows the disabled Help slot while playing. Its tiny
+   fixed box remains when numbers hide, so the scene never jumps at 20→19.
+   No countdown strip is reserved inside the carriage. */
+.game-wrap{padding-top:0}
+.header-actions .hud{position:static;inset:auto;flex:0 0 52px;width:52px;height:44px;display:flex;align-items:center;justify-content:center}
+.header-actions .time{width:52px;height:42px;padding:4px;gap:2px;justify-content:center;border-radius:12px}
+.header-actions .time strong{font-size:22px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.header-actions .time small{font-size:11px}
+.header-actions #time-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.app.is-intro .header-actions .hud,.app.is-result .header-actions .hud{display:none}
+.app:not(.is-intro):not(.is-result) #help{display:none}
+.event-notice{top:10px}

@@ -1,4 +1,4 @@
-import {readFileSync} from 'node:fs';
+import {readBeforeMainCourtesy as readFileSync,inventoryBeforeMainCourtesy} from './main-courtesy-help-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -37,6 +37,7 @@ export function readBeforeFighter(file,encoding){
  return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeFighter(actual){
+ actual=inventoryBeforeMainCourtesy(actual);
  for(const p of manifest.addedPaths){
   assert.ok(actual.includes(p),p+' required Fighter addition');
   if(p==='docs/fighter-entry-counts/SOURCE-MANIFEST.json')continue;

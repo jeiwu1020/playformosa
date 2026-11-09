@@ -41,5 +41,5 @@ export function inventoryBeforeHighJump(actual){
 export function readGameDirsBeforeHighJump(){
  const paths=[];function walk(dir){for(const e of readdirSync(path.join(root,dir),{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory())walk(p);else paths.push(p);}}
  walk('public/games/high-jump');const m=highJumpManifest();assert.deepEqual(paths.sort(),m.addedPaths.filter(p=>p.startsWith('public/games/high-jump/')).sort());for(const p of paths)assert.equal(blob(readFileSync(path.join(root,p))),m.files.find(f=>f.path===p).gitBlob);
- return readdirSync(path.join(root,'public/games')).filter(p=>p!=='high-jump').sort();
+ return readdirSync(path.join(root,'public/games')).filter(p=>p!=='high-jump'&&p!=='courtesy-contest').sort();
 }

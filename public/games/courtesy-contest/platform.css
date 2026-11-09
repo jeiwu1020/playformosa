@@ -1,0 +1,130 @@
+/* Game-local platform layout. Carriage and actor geometry stay source-owned. */
+/* Clear painted shadows immediately when controls stop accepting input.
+   Hidden descendants must not retain a transitioning shadow on mobile WebKit. */
+.pf-courtesy .action:disabled,.pf-courtesy #controls[hidden] .action{box-shadow:none;transition:none}
+.pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){width:100%;max-width:min(980px,max(460px,calc((100dvh - 265px)*2.65 + 48px)));min-height:100dvh;height:auto;display:flex;flex-direction:column;justify-content:center;padding:16px 20px;gap:14px}
+.pf-game.pf-courtesy .app .pf-header{margin:0;grid-template-columns:auto minmax(0,1fr) auto}
+.pf-game.pf-courtesy .app .pf-header h1{transform:none;text-shadow:none}
+.pf-game.pf-courtesy .app .pf-header .header-actions{grid-column:2;grid-row:2;justify-self:end;height:44px}
+.pf-courtesy .app .header-actions .hud{display:flex}
+.pf-courtesy .app.is-intro .header-actions,.pf-courtesy .app.is-result .header-actions{visibility:hidden}
+.pf-courtesy .app .round-layout{display:block;width:100%;flex:none;min-height:0}
+.pf-courtesy .app .game-wrap{width:100%;height:auto;max-height:none;min-height:0;padding-top:0;align-self:auto}
+.pf-courtesy .app #game{width:100%;height:auto;aspect-ratio:var(--carriage-ratio);max-height:none}
+.pf-courtesy .controls{width:100%;padding-top:0}
+.pf-courtesy #intro,.pf-courtesy #pause-overlay{display:none!important}
+.pf-courtesy #result{padding:22px;display:block;text-align:left}
+.pf-courtesy #result .result-card{width:100%;max-width:none}
+.pf-courtesy #result .rank{font-size:62px;flex-shrink:0}
+.pf-courtesy #result .result-heading{align-items:center}
+.pf-courtesy #result .start{width:100%;min-height:48px;margin:16px 0;font-size:20px}
+.pf-courtesy #result-photo{display:block;width:100%;height:auto;margin-top:16px;border-radius:12px}
+.pf-courtesy #share-preview{width:100%;height:auto;user-select:auto;-webkit-touch-callout:default}
+.pf-courtesy #share-text{user-select:text;-webkit-user-select:text;touch-action:pan-y}
+.pf-courtesy .platform-ranking-note,.pf-courtesy .share-note{font-size:14px!important;color:#526c5b;line-height:1.5}
+.pf-courtesy .pf-entry .help-body{overflow:visible;padding:0;scrollbar-gutter:auto}
+.pf-courtesy .pf-entry :is(button,input),.pf-courtesy #result button{touch-action:manipulation}
+@media(max-width:650px){
+ .pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){max-width:100%;padding:12px;gap:12px;justify-content:center}
+ .pf-game.pf-courtesy .app .pf-header{grid-template-columns:auto minmax(52px,1fr) auto;gap:4px 6px}
+ .pf-game.pf-courtesy .app .pf-header>.pf-studio-heading{grid-column:1/-1;grid-row:2;padding-right:0}
+ .pf-game.pf-courtesy .app .pf-header nav{grid-column:3;grid-row:1;display:flex;width:auto;gap:4px}
+ .pf-game.pf-courtesy .app .pf-header nav button{width:auto;min-width:44px;padding:0 7px}
+ .pf-game.pf-courtesy .app .pf-header .header-actions{grid-column:2;grid-row:1;justify-self:end}
+ .pf-game.pf-courtesy .app .pf-header h1{font-size:20px;padding:0}
+ .pf-game.pf-courtesy .app .pf-header .pf-studio-live{font-size:9px}
+ .pf-courtesy .action{min-height:72px}.pf-courtesy .action b{font-size:19px}
+ .pf-courtesy .status-row p{font-size:16px}
+}
+@media(min-width:651px){.pf-game.pf-courtesy .app .pf-header{grid-template-columns:auto minmax(0,1fr) auto auto}.pf-game.pf-courtesy .app .pf-header nav{grid-column:4;grid-row:1}.pf-game.pf-courtesy .app .pf-header .header-actions{grid-column:3;grid-row:1}}
+@media(max-height:480px){.pf-courtesy .pf-result-dialog{max-height:calc(100dvh - 24px)}}
+
+/* Result is one compact desktop sheet, independent of the carriage canvas. */
+.pf-courtesy #result{width:min(880px,calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));padding:16px 20px;overflow:auto}
+.pf-courtesy #result .result-card{display:flex;flex-direction:column;gap:8px}
+.pf-courtesy #result-photo{width:100%;height:auto;max-height:none;object-fit:contain;margin:0;border:1px solid #c8d4c5;background:#e9eddf;border-radius:12px}
+.pf-courtesy #result .result-heading{gap:12px}
+.pf-courtesy #result .rank{font-size:46px;line-height:1}
+.pf-courtesy #result h2{font-size:26px;line-height:1.2;margin:0}
+.pf-courtesy #result p{margin:0;font-size:14px;line-height:1.4}
+.pf-courtesy #result .result-stats{margin:0;gap:20px}
+.pf-courtesy #result .result-stats strong{font-size:26px}
+.pf-courtesy #result .result-stats span{font-size:15px}
+.pf-courtesy #result .result-remaining{font-size:17px;font-weight:800}
+.pf-courtesy #result .pf-result-play{display:grid;grid-template-columns:1fr 1fr;margin:2px 0;gap:10px}
+.pf-courtesy #result .pf-result-play button{width:100%;min-height:46px;margin:0;padding:8px 12px;font-size:17px}
+.pf-courtesy #result-upload:empty{display:none}
+.pf-courtesy #result-upload .pf-leaderboard{margin:0}
+.pf-courtesy #result-upload .pf-leaderboard>summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px;font-size:14px;cursor:pointer;list-style:none}
+.pf-courtesy #result-upload .pf-leaderboard>summary::after{content:'›';font-size:25px;font-weight:400;line-height:1;flex:none}
+.pf-courtesy #result-upload .pf-leaderboard[open]>summary::after{transform:rotate(90deg)}
+.pf-courtesy #result-upload .pf-leaderboard>summary::-webkit-details-marker{display:none}
+.pf-courtesy #result .pf-share-actions button:enabled{cursor:pointer}
+.pf-courtesy #result #share-status:empty{display:none}
+.pf-courtesy #result .share-note,.pf-courtesy #result .pf-studio-result{font-size:11px;line-height:1.3}
+.pf-courtesy #result .pf-studio-result{margin:0;padding:0}
+/* Short viewports use the width for photo + summary, with actions below. */
+@media(min-width:651px) and (max-height:600px){
+ .pf-courtesy #result{width:min(980px,calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));padding:10px 16px}
+ .pf-courtesy #result .result-card{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:4px 16px;align-items:center}
+ .pf-courtesy #result-photo{grid-column:1;grid-row:1 / span 4;align-self:center}
+ .pf-courtesy #result .result-card> :is(.result-heading,#result-comment,.result-stats,.result-remaining){grid-column:2}
+ .pf-courtesy #result .result-card> :where(.pf-result-play,#result-upload,.pf-share-actions,#share-status,.share-note,.pf-studio-result){grid-column:1 / -1}
+ .pf-courtesy #result .result-heading{gap:8px}
+ .pf-courtesy #result .rank{font-size:38px;margin:0}
+ .pf-courtesy #result h2{font-size:22px}
+ .pf-courtesy #result .result-stats{flex-wrap:wrap;gap:4px 12px}
+ .pf-courtesy #result .result-stats strong{font-size:23px}
+ .pf-courtesy #result .result-stats span{font-size:13px}
+ .pf-courtesy #result .result-remaining{font-size:15px}
+ .pf-courtesy #result-upload .pf-leaderboard:not([open]){padding:0}
+ .pf-courtesy #result-upload .pf-leaderboard>summary{min-height:44px;display:flex;align-items:center}
+ .pf-courtesy #result .share-note{grid-column:1}
+ .pf-courtesy #result .pf-studio-result{grid-column:2;text-align:right}
+}
+@media(max-width:650px){
+ .pf-courtesy #result{width:calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right));padding:14px}
+ .pf-courtesy #result-photo{height:auto;max-height:none}
+ .pf-courtesy #result .pf-result-play button{font-size:16px}
+ .pf-courtesy #result .result-stats{gap:10px 18px}
+ .pf-courtesy #result .result-card{gap:10px}
+}
+
+/* Pointer/touch focus stays quiet; keyboard focus remains clearly visible. */
+.pf-courtesy #result :is(button,a,summary):focus:not(:focus-visible){outline:none}
+.pf-courtesy #result :is(button,a,summary):focus-visible{outline:3px solid #dc683e;outline-offset:2px}
+
+/* Short landscape keeps the same carriage ratio, with room for both labels.
+   A compact single-row toolbar frees the height gained by the wider scene. */
+@media(min-width:651px) and (max-height:480px){
+ .pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){max-width:min(980px,max(600px,calc((100dvh - 195px)*2.65 + 24px)));padding:6px 12px;gap:6px;justify-content:center}
+ .pf-game.pf-courtesy .app .pf-header{grid-template-columns:auto minmax(0,1fr) auto auto;gap:6px}
+ .pf-game.pf-courtesy .app .pf-header>.pf-studio-heading{grid-column:2;grid-row:1}
+ .pf-game.pf-courtesy .app .pf-header h1{font-size:18px}
+ .pf-game.pf-courtesy .app .pf-header .pf-studio-live{font-size:9px}
+ .pf-game.pf-courtesy .app .pf-header nav{grid-column:4;grid-row:1;gap:4px}
+ .pf-game.pf-courtesy .app .pf-header nav button{padding:0 7px}
+ .pf-game.pf-courtesy .app .pf-header .header-actions{grid-column:3;grid-row:1}
+ .pf-courtesy .status-row{margin-bottom:4px}
+ .pf-courtesy .action{min-height:44px;padding:8px 10px;gap:8px}
+ .pf-courtesy .action b{font-size:20px;white-space:nowrap}
+ .pf-courtesy .action .btn-icon{display:none}
+}
+
+@media(max-width:360px){
+ .pf-game.pf-courtesy .app .pf-header nav button{padding:0 4px;font-size:12px}
+}
+
+
+/* Borrow the existing status area for the reminder, retaining its layout. */
+.pf-courtesy .status-row{position:relative}
+.pf-courtesy .countdown-warning{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:72%;margin:0;font-size:14px;line-height:1.5;font-weight:700;color:#9a472d}
+.pf-courtesy .countdown-warning:not(:empty)~#status{visibility:hidden}
+/* Desktop content begins at the top; narrow portrait keeps its centered layout. */
+@media(min-width:651px),(orientation:landscape){
+ .pf-courtesy .app,.pf-courtesy .app.is-intro,.pf-courtesy .app.is-result,.pf-courtesy .app:not(.is-intro):not(.is-result){justify-content:flex-start}
+}
+
+/* Hidden pause panels must not turn the live play surface into a reading panel. */
+.pf-courtesy [data-game-gesture-surface][data-game-gesture-overlays]:not(:has(dialog[open], [data-game-gesture-reading]:not([hidden]):not(.hidden))){touch-action:none}
+.pf-courtesy .pf-rank-secondary{display:block;font-size:12px;line-height:1.5}

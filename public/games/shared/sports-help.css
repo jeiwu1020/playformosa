@@ -1,0 +1,14 @@
+/* One compact advanced-help layout for the ten sports, independent of game art. */
+.pf-game .pf-entry .pf-sports-help{font:400 16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:left}
+.pf-game .pf-entry .pf-sports-help section{margin:16px 0!important;padding:0!important;border:0!important;background:none!important}
+.pf-game .pf-entry .pf-sports-help h3{margin:0 0 8px!important;font-size:18px!important;line-height:1.4!important;font-weight:700!important;color:#173f39!important}
+.pf-game .pf-entry .pf-sports-help ul{margin:0!important;padding:0 0 0 22px!important;list-style:disc!important}
+.pf-game .pf-entry .pf-sports-help li{margin:6px 0!important;font-size:16px!important;line-height:1.6!important;color:#243e38!important}
+.pf-game .pf-entry .pf-sports-help p{margin:0 0 8px!important;font-size:16px!important;line-height:1.6!important;color:#243e38!important}
+.pf-game .pf-entry .pf-sports-help a{display:inline-flex;align-items:center;min-height:44px;font-size:16px;line-height:1.5;font-weight:700;text-underline-offset:3px}
+/* Standalone attribution remains readable with JavaScript disabled. */
+.pf-sports-credits{box-sizing:border-box;max-width:900px;margin:0 auto;padding:24px;font:400 16px/1.7 Arial,'Noto Sans TC',system-ui,sans-serif;color:#173f39;background:#fff9e9;overflow-wrap:anywhere}
+.pf-sports-credits h1{font-size:28px;line-height:1.4}.pf-sports-credits h2{font-size:23px;line-height:1.4}.pf-sports-credits h3{font-size:18px;line-height:1.5}
+.pf-sports-credits nav{display:flex;flex-wrap:wrap;gap:4px 16px}.pf-sports-credits a{color:inherit;text-underline-offset:3px}.pf-sports-credits nav a,.pf-sports-credits .pf-credit-return{display:inline-flex;align-items:center;min-height:44px}
+.pf-sports-credits>main>section{padding:20px 0;border-top:1px solid #bdc9b8;scroll-margin-top:12px}.pf-sports-credits pre{white-space:pre-wrap;font:inherit;overflow-wrap:anywhere}
+@media(max-width:480px){.pf-sports-credits{padding:16px}.pf-sports-credits h1{font-size:24px}}

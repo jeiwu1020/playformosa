@@ -203,7 +203,7 @@ export function mountLevel({document,window,clock=()=>window.performance.now(),r
  function chooseRenderer(choice){
   if(disposed||rendererState==='fallback'&&choice==='3d')return;
   rendererState=choice;document.body.dataset.renderer=choice;window.clearTimeout(startupTimer);
-  $('stage').classList.toggle('has-3d',choice==='3d');$('renderMode').textContent=choice==='3d'?'3D 角色演出':'2D 相容模式 · 同模型畫面';
+  $('stage').classList.toggle('has-3d',choice==='3d');$('renderMode').textContent=choice==='3d'?'3D 角色演出':'2D 相容模式';
   $('actionButton').disabled=artError;$('roundButton').disabled=artError;
  }
  const unavailable=message=>{if(disposed)return;chooseRenderer('fallback');if(/atlas/i.test(message||''))artFailed();};
