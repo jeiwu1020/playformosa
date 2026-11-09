@@ -128,3 +128,21 @@
 /* Hidden pause panels must not turn the live play surface into a reading panel. */
 .pf-courtesy [data-game-gesture-surface][data-game-gesture-overlays]:not(:has(dialog[open], [data-game-gesture-reading]:not([hidden]):not(.hidden))){touch-action:none}
 .pf-courtesy .pf-rank-secondary{display:block;font-size:12px;line-height:1.5}
+
+/* Cover the actual scroll containers, modal backdrops and page gaps, not only
+   buttons. Safari supports manipulation more broadly than individual pan-*
+   values; it suppresses double-tap zoom while keeping scrolling and pinch zoom.
+   Do not alter the viewport or the shared games' gesture policy. */
+body.pf-courtesy,
+.pf-game.pf-courtesy dialog,
+.pf-game.pf-courtesy dialog::backdrop,
+.pf-courtesy .dialog-backdrop,
+.pf-courtesy .help-body,
+.pf-courtesy .pf-leaderboard ol{touch-action:manipulation}
+
+/* Retiring controls must not shrink/recenter the portrait game behind the
+   departure animation or result dialog. Hidden + visibility keeps them out of
+   focus/accessibility; disabled buttons and pointer-events prevent activation. */
+@media(max-width:650px) and (orientation:portrait){
+ .pf-courtesy .app.is-departing #controls[hidden]{display:block!important;visibility:hidden;pointer-events:none}
+}

@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeTapCoverage as readFileSync,inventoryBeforeTapCoverage} from './helpers/courtesy-touch-coverage-provenance.mjs';
 import {JSDOM} from 'jsdom';
 import * as p from './helpers/main-courtesy-help-provenance.mjs';
 import {catalog} from '../src/catalog.mjs';
 import {releasedGameIds,assertReleasedGames} from '../scripts/release-policy.mjs';
 const root=new URL('../',import.meta.url),read=path=>readFileSync(new URL(path,root));
-function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else result.push(path);}}walk();return result;}
+function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else result.push(path);}}walk();return inventoryBeforeTapCoverage(result);}
 test('Courtesy promotion exactly reconstructs remote main and preserves all existing production repositories, bindings and ledgers',()=>{
  const m=p.validate(p.manifest()),current=paths();assert.equal(p.verifyBase(p.baseline),true);
  assert.deepEqual(p.inventoryBeforeMainCourtesy(current).sort(),p.baseline.files.map(f=>f.path).sort());

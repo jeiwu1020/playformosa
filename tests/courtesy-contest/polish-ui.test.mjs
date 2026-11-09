@@ -120,3 +120,13 @@ test('375px landscape reserves enough vertical space to keep button shadows on s
  assert.ok(parseFloat(p.style('#thanks').minHeight)>=44);
 });
 
+
+for(const [width,height] of [[390,844],[375,667],[320,480]])test(`portrait ${width}×${height} retains an inert controls spacer during departure and results`,t=>{
+ const p=page(t,width,height),controls=p.document.getElementById('controls'),app=p.document.getElementById('app');
+ controls.style.height='152px';controls.hidden=true;app.classList.add('is-departing');
+ for(const result of [false,true]){
+  app.classList.toggle('is-result',result);
+  assert.equal(p.style(controls).display,'block');assert.equal(p.style(controls).height,'152px');assert.equal(p.style(controls).visibility,'hidden');assert.equal(p.style(controls).pointerEvents,'none');
+ }
+ app.classList.remove('is-departing');assert.equal(p.style(controls).display,'none','entry/non-departure hidden semantics remain unchanged');
+});

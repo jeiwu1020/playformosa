@@ -1,6 +1,6 @@
 // Reconstruct the exact published parent before historical provenance checks.
 // Live behavior tests read node:fs directly, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeTapCoverage as actual} from './courtesy-touch-coverage-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
