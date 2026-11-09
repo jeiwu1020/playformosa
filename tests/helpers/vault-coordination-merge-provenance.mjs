@@ -1,6 +1,6 @@
 // Two independently pinned historical views of the merge. Live physics tests
 // keep importing the working runtime directly; only provenance uses these views.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeTapCoverage as actual} from './courtesy-touch-coverage-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';

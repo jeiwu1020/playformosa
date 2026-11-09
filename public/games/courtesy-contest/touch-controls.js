@@ -2,13 +2,17 @@
 // CSS manipulation is the primary policy. Keep the first tap native and only
 // cancel the zoom default of a quick second tap; forward one click only when
 // that tap ends on a button. Canvas/empty-space taps do not synthesize actions.
-// Never cancel a drag, long press, multi-touch gesture, editable or link interaction.
+// Never cancel a drag, long press, multi-touch gesture, editable, link or native share interaction.
 export function installButtonTapGuard(doc,now=()=>performance.now()){
  const surface='.app, #instructions, #rank-dialog';
  let gesture=null,previous=null,multiTouch=false;
  const targetAt=target=>{
-  if(target?.closest?.('input, textarea, select, label, [contenteditable]:not([contenteditable="false"]), [data-selectable], a[href], summary'))return null;
-  const root=target?.closest?.(surface),button=target?.closest?.('button');
+  if(target?.closest?.('input, textarea, select, label, [contenteditable]:not([contenteditable="false"]), [data-selectable], [data-share], a[href], summary'))return null;
+  // The platform appends entry/pause/ranking, results and share dialogs to body,
+  // outside .app. Keep each dialog its own gesture boundary; also protect page
+  // gaps and fallback backdrops, scoped to this game only.
+  const root=target?.closest?.(surface)||target?.closest?.('body.pf-courtesy dialog, body.pf-courtesy');
+  const button=target?.closest?.('button');
   if(!root||root.isConnected===false||button?.isConnected===false)return null;
   return {root,button:button||null};
  };

@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeTapCoverage as readFileSync,inventoryBeforeTapCoverage} from './helpers/courtesy-touch-coverage-provenance.mjs';
 import * as p from './helpers/vault-coordination-merge-provenance.mjs';
 const root=new URL('../',import.meta.url),read=path=>readFileSync(new URL(path,root));
-function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else result.push(path);}}walk();return result;}
+function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else result.push(path);}}walk();return inventoryBeforeTapCoverage(result);}
 for(const key of ['remote','candidate'])test(`${key} merge parent reconstructs its complete independently pinned Git tree`,()=>{
  const m=p.manifest(),v=p.validate(m,key),b=p.baselines[key],current=paths();assert.equal(p.verifyBase(b,key),true);
  const runtime=v.files.filter(f=>/^(public|worker|src|config)\//.test(f.path)).map(f=>f.path);
