@@ -1,6 +1,6 @@
 // Reconstruct the exact published parent before historical provenance checks.
 // Live behavior tests read node:fs directly, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforePlayerHelp as actual,playerHelpParentBytes,inventoryBeforePlayerHelp} from './player-help-cleanup-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -30,6 +30,7 @@ export function validate(m){
  return m;
 }
 export function reverseSports(path,bytes,m=manifest()){
+ bytes=playerHelpParentBytes(path,bytes);
  validate(m);assert.ok(!m.addedPaths.includes(path),path+' is new sports-help scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' current Git blob');return Buffer.from(f.beforeText);
 }
@@ -44,6 +45,7 @@ export function readBeforeSports(file,options){
  const before=baseline.modifiedPaths.includes(path)?reverseSports(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeSports(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePlayerHelp(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate sports-help inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const additions=m.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));

@@ -96,7 +96,7 @@ function syncVideo(){
  if(rendererMode==='fallback'&&demo&&!blocked()&&!document.hidden&&document.body.dataset.video!=='failed'){if(offline.paused)void offline.play().catch(()=>{});}
  else offline.pause();
 }
-function fallback(){if(disposed)return;window.clearTimeout(startupTimer);stage=null;rendererMode='fallback';document.body.dataset.renderer='fallback';document.body.dataset.ready='true';$('sceneCaption').textContent=document.body.dataset.video==='failed'?'3D未啟用，目前以2D玩法與示範顯示。':'3D未啟用：示範為離線影片，挑戰保留2D玩法。';syncVideo();}
+function fallback(){if(disposed)return;window.clearTimeout(startupTimer);stage=null;rendererMode='fallback';document.body.dataset.renderer='fallback';document.body.dataset.ready='true';$('sceneCaption').textContent=document.body.dataset.video==='failed'?'3D未啟用，目前以2D玩法與示範顯示。':'3D未啟用：示範為預錄影片，挑戰保留2D玩法。';syncVideo();}
 document.body.dataset.renderer='loading';document.body.dataset.view='front';
 startupTimer=window.setTimeout(()=>{if(rendererMode==='loading')fallback();},5000);
 loadGameStage($('scene3d'),{onUnavailable:fallback}).then(result=>{
