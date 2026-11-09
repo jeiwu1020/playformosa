@@ -34,7 +34,7 @@ export function createRunnerPlatform({document,adapter:a}){
   $('again').onclick=restart;$('finishReplay').onclick=startReplay;
   share=bindShare({imageButton:$('image'),threads:$('threads'),copyButton:$('copy'),status:$('share-status'),resultImage:$('resultPhoto'),fallback:$('fallback'),fallbackImage:$('fallback-image'),fallbackText:$('fallback-text')});
   try{share.prepare(frozenScene,{...s,gameId:a.gameId,title:a.title,cardTitle:a.gameId==='run-400m'?'400公尺':'1500公尺'});}catch{$('share-status').textContent='本次畫面無法擷取，仍可分享秒數與網址。';}
-  board?.destroy();board=mountLeaderboard({document,game:a.gameId,entry:entry.dialog.querySelector('details'),result:$('resultBody'),resultActionContainer:$('resultPrimary'),resultUploadContainer:$('uploadSlot'),shell:entry,enabled:a.leaderboardEnabled});board?.setResult(s);resultRendered=true;
+  board?.destroy();board=mountLeaderboard({document,game:a.gameId,entry:entry.dialog,result:$('resultBody'),resultActionContainer:$('resultPrimary'),resultUploadContainer:$('uploadSlot'),shell:entry,enabled:a.leaderboardEnabled});board?.setResult(s);resultRendered=true;
  }
  const clip=recorder.clip();$('finishReplay').disabled=!clip||postUntil!==null;resultUI.open();sync();}
  let frozenScene=null;
@@ -57,7 +57,7 @@ export function createRunnerPlatform({document,adapter:a}){
  $('restart').onclick=restart;$('pause').onclick=()=>race.paused&&!replay?resume():pause();
  $('records').onclick=()=>board?.showRanking();$('fallback-close').onclick=()=>{$('fallback').close();$('image')?.focus({preventScroll:true});};$('fallback').addEventListener('cancel',()=>queueMicrotask(()=>$('image')?.focus({preventScroll:true})));
  // Header and entry can view the existing anonymous board even before the first round.
- board=mountLeaderboard({document,game:a.gameId,entry:entry.dialog.querySelector('details'),shell:entry,enabled:a.leaderboardEnabled});
+ board=mountLeaderboard({document,game:a.gameId,entry:entry.dialog,shell:entry,enabled:a.leaderboardEnabled});
  function frame(now){const dt=Math.max(0,(now-last)/1000||0);last=now;
   if(replay){if(!replay.paused&&!entry.active){replay.time=Math.min(replay.clip.end,replay.time+Math.min(dt,.1)*.5);if(replay.time>=replay.clip.end)replay.paused=true;}const recorded=sampleFinishClip(replay.clip,replay.time);a.hud(recorded);a.render(recorded,true);$('replaySeek').value=String((replay.time-replay.clip.start)/Math.max(.001,replay.clip.end-replay.clip.start)*1000);$('replayPlay').textContent=replay.paused?'播放':'暫停';}
   else{

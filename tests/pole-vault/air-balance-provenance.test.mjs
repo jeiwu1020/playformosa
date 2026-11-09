@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
+import {readBeforeSports as readFileSync} from '../helpers/sports-help-provenance.mjs';
 import * as p from '../helpers/vault-air-balance-provenance.mjs';
 const root=new URL('../../',import.meta.url),read=path=>readFileSync(new URL(path,root));
 function paths(){const result=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const path=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(path);else result.push(path);}}walk();return result;}

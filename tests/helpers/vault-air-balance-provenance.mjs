@@ -1,6 +1,6 @@
 // Reconstruct the exact published parent before historical provenance checks.
 // Live behavior tests read node:fs directly, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeSports as actual,sportsParentBytes,inventoryBeforeSports} from './sports-help-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -30,7 +30,7 @@ export function validate(m){
  return m;
 }
 export function reverseAirBalance(path,bytes,m=manifest()){
- validate(m);assert.ok(!m.addedPaths.includes(path),path+' is new vault-air-balance scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
+ validate(m);bytes=sportsParentBytes(path,bytes);assert.ok(!m.addedPaths.includes(path),path+' is new vault-air-balance scope');const f=m.files.find(f=>f.path===path);if(!f)return Buffer.from(bytes);
  assert.equal(sha256(bytes),f.sha256,path+' current SHA256');assert.equal(gitBlob(bytes),f.gitBlob,path+' current Git blob');return Buffer.from(f.beforeText);
 }
 export function airBalanceParentBytes(path,bytes,m=manifest()){
@@ -44,6 +44,7 @@ export function readBeforeAirBalance(file,options){
  const before=baseline.modifiedPaths.includes(path)?reverseAirBalance(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeAirBalance(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeSports(paths,{runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate vault-air-balance inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const additions=m.addedPaths.filter(p=>!runtimeOnly||/^(public|worker|src|config)\//.test(p));
