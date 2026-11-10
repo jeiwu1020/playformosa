@@ -1,6 +1,7 @@
 import {readGameDirsBeforeHighJump} from './high-jump-main-provenance.mjs';
 import {readBeforePolish} from './fast-hands-polish-provenance.mjs';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
+import {readdirBeforeIcons as readdirSync} from './app-icons-completion-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';

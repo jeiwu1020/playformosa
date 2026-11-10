@@ -1,7 +1,8 @@
+import {readdirBeforeIcons as readdirSync} from './helpers/app-icons-completion-provenance.mjs';
 import {readBeforeRod} from './helpers/rod-main-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {catalog} from '../src/catalog.mjs';
 import {eligibleResult} from '../public/games/shared/leaderboard.mjs';

@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "0b357ad7474687a543533412d8b5f5c3f218fe80",
+  "generationMethod": "Built-in image_gen; no paid plugin or external API fallback.",
+  "exportMethod": "Opaque RGB PNG, LANCZOS size-only resampling. Existing game cover art and all original app-icon files remain unchanged.",
+  "icons": [
+    {
+      "id": "courtesy-contest",
+      "masterFile": "generated/courtesy-contest.png",
+      "sourceReferences": [
+        {
+          "path": "public/assets/courtesy-contest-card.jpg",
+          "gitBlob": "61dd90d0fdaca2ab6678d52c53eb9ceec261ec18"
+        }
+      ],
+      "prompt": "Create one polished square mobile app icon for the existing Taiwanese mini-game 客氣大賽, a playful contest where two subway passengers insist that the other person take the seat. Use the provided image only as the character and illustrated-game art reference. Recompose as a clean, readable square app icon: the same curly-haired young man in a green cardigan on the left and the same smiling woman in a coral blouse on the right both courteously offer a single empty green subway seat centered between them. Warm hand-drawn picture-book style, tidy expressive shapes, golden metro interior, one orange triangular hanging strap near the top. Their faces, the empty seat, and offering gestures must all stay clearly within the central circular safe area (radius 40% of the square); outer area is matching background. Strong recognizable silhouette at 32px. Full-bleed opaque artwork, no rounded-square border, no text, no numbers, no watermark, no montage. Produce a single 1024x1024 square image."
+    },
+    {
+      "id": "fast-hands",
+      "masterFile": "generated/fast-hands.png",
+      "sourceReferences": [
+        {
+          "path": "public/assets/fast-hands-card-v2.webp",
+          "gitBlob": "63dfaffe91b4ab5c96b6948ca3874c1eb7abcb59"
+        }
+      ],
+      "prompt": "Create one square mobile app icon for the existing mini-game 快手王｜鴨沒漏補. Use the reference for exact game character: a friendly exaggerated 3D cartoon adult man with swept black hair, thick eyebrows, short mustache and tiny goatee, wearing a tan short-sleeve shirt. Recompose to an iconic close-up: his expressive face in the upper center, one hand catching a floating green toy banknote on the left and the other gripping a bright yellow rubber duck on the right. Green felt tabletop, simplified glowing Taiwanese amusement arcade background in warm amber with a subtle teal motion swirl. Make the yellow duck and banknote unmistakable. Keep face, hands, duck and note within the central circle of radius 40% for safe app masking. High contrast at 32px, no tiny clutter. Match reference polished soft 3D rendering. Full bleed opaque square image, no text, no numbers, no logos or rounded-square border, not a contact sheet. Single 1024x1024 icon."
+    },
+    {
+      "id": "fast-hands-catch",
+      "masterFile": "generated/fast-hands-catch.png",
+      "sourceReferences": [
+        {
+          "path": "public/games/fast-hands/assets/intro-catch-generated.webp",
+          "gitBlob": "da515e5321fe7194f48092a3484551588d2f9208"
+        }
+      ],
+      "prompt": "Create one square mobile app icon for the existing mini-game 快手王｜彈無虛接. Use the reference for exact cartoon man identity, tan short-sleeved shirt, swept black hair, thick eyebrows, short moustache and small goatee. Recompose as a bold close-up icon: smiling focused man in upper center, his large open hand in lower center about to catch one clearly harmless blue foam cylinder with a yellow tip flying toward the palm. A tiny simplified teal toy dart launcher may be visible on the left, clearly a toy. Simplify the warm amber arcade background with a teal swoosh. Keep face, palm and foam projectile inside the central circular area of radius 40%; surrounding edges background only. Make it visually different from duck and duel icons by emphasizing the blue/yellow foam dart and open palm. Polished soft 3D game art matching reference, readable at 32px. Full bleed opaque square, no text or numerals, no logo, no rounded-square border, no real weapons, no montage. One 1024x1024 icon."
+    },
+    {
+      "id": "fast-hands-duel",
+      "masterFile": "generated/fast-hands-duel.png",
+      "sourceReferences": [
+        {
+          "path": "public/games/fast-hands/assets/intro-duel-generated.webp",
+          "gitBlob": "38e526d4d88b251d3967ff275137e72f52cb4471"
+        }
+      ],
+      "prompt": "Create one square mobile app icon for the existing mini-game 快手王｜快手對決. Use the reference for exact two cartoon characters: young curly-haired athlete in orange tank top on left, adult dark swept-haired man with moustache, goatee and tan shirt on right. Recompose into a simple strong icon showing their two expressive competitive faces close together at top-center and their two reaching hands around ONE bright yellow rubber duck centered beneath them on green felt. A small teal spark between the hands suggests a fast friendly reaction duel. Warm amber arcade blur background. Both faces, the reaching fingertips and rubber duck all within the central 80% circular safe area (radius 40%). Clearly a friendly game, no aggression or weapons. Polished rounded 3D cartoon rendering matching reference, strong clean silhouettes for 32px. Full bleed opaque square, no text, no numbers, no logo, no border, no montage. Single 1024x1024 app icon."
+    }
+  ],
+  "verification": "All six exported families inspected at 180/48/32px and a central radius-40% circular mask. Actual physical iOS/Android installation and old-install cache refresh not tested."
+}

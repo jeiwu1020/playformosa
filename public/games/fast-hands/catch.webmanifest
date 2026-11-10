@@ -1,0 +1,31 @@
+{
+  "name": "快手王｜彈無虛接",
+  "short_name": "彈無虛接",
+  "id": "/games/fast-hands/catch.html",
+  "start_url": "./catch.html?intro=1",
+  "scope": "./",
+  "display": "standalone",
+  "lang": "zh-Hant",
+  "background_color": "#102b36",
+  "theme_color": "#102b36",
+  "icons": [
+    {
+      "src": "../../assets/app-icons/fast-hands-catch/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../../assets/app-icons/fast-hands-catch/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../../assets/app-icons/fast-hands-catch/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "客氣大賽",
+  "short_name": "客氣大賽",
+  "id": "/games/courtesy-contest/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "lang": "zh-Hant",
+  "background_color": "#102b36",
+  "theme_color": "#102b36",
+  "icons": [
+    {
+      "src": "../../assets/app-icons/courtesy-contest/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../../assets/app-icons/courtesy-contest/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../../assets/app-icons/courtesy-contest/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

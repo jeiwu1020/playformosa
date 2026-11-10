@@ -1,7 +1,8 @@
 import {readBeforePolish} from './helpers/fast-hands-polish-provenance.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
+import {readdirBeforeIcons as readdirSync} from './helpers/app-icons-completion-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fastHandsManifest,reverseFastHands,readBeforeFastHands,readGamesBeforeFastHands} from './helpers/fast-hands-main-provenance.mjs';
 const root=new URL('../',import.meta.url),read=p=>readBeforePolish(new URL(p,root));

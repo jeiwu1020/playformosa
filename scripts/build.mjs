@@ -12,8 +12,9 @@ const jump=JSON.parse(await readFile(new URL('docs/long-jump-main/SOURCE-MANIFES
 const fastHands=JSON.parse(await readFile(new URL('docs/fast-hands-main/SOURCE-MANIFEST.json',root),'utf8'));
 const polish=JSON.parse(await readFile(new URL('docs/fast-hands-polish/SOURCE-MANIFEST.json',root),'utf8'));
 const gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MANIFEST.json',root),'utf8'));
+const completedIcons=JSON.parse(await readFile(new URL('docs/app-icons-completion/MANIFEST.json',root),'utf8'));
 const courtesy=JSON.parse(await readFile(new URL('docs/main-courtesy-help/MANIFEST.json',root),'utf8'));
-const allowedPublicPaths=[...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
+const allowedPublicPaths=[...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);
