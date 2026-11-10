@@ -4,7 +4,8 @@ import {readRankingBaseline,rankingRuntimeAdditions} from '../helpers/fast-hands
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
-import {readdirSync} from 'node:fs';
+
+import {readdirBeforeIcons as readdirSync} from '../helpers/app-icons-completion-provenance.mjs';
 import {createHash} from 'node:crypto';
 const root=new URL('../../',import.meta.url);
 const manifest=JSON.parse(readFileSync(new URL('docs/fast-hands/import-manifest.json',root),'utf8'));

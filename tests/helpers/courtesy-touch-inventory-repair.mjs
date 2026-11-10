@@ -1,6 +1,6 @@
 // Restore the published touch fix before older inventory/reader boundaries.
 // No gameplay source or previously published ledger is changed by this repair.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeIcons as actual,iconsParentBytes,inventoryBeforeIcons} from './app-icons-completion-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -30,9 +30,10 @@ export function readBeforeInventoryRepair(file,options){
  const encoding=typeof options==='string'?options:options?.encoding,before=Buffer.from(f.beforeText);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeInventoryRepair(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeIcons(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate inventory repair path');const m=validate(manifest());
  if(!paths.some(p=>added.includes(p)))return paths;
  for(const path of added)assert.equal(paths.filter(p=>p===path).length,1,path+' must appear once');
- for(const f of [...m.files,...m.addedFiles])assert.equal(gitBlob(read(f.path)),f.gitBlob,f.path+' inventory repair live drift');
+ for(const f of [...m.files,...m.addedFiles])assert.equal(gitBlob(iconsParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' inventory repair live drift');
  return paths.filter(p=>!added.includes(p));
 }

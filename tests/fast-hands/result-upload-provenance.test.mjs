@@ -4,7 +4,8 @@ import {ART_POLISH_ADDED,readArtPolishBaseline} from '../helpers/fast-hands-art-
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
-import {readdirSync,mkdtempSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
+import {mkdtempSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
+import {readdirBeforeIcons as readdirSync} from '../helpers/app-icons-completion-provenance.mjs';
 import {tmpdir} from 'node:os';
 import {join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';

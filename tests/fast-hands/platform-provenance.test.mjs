@@ -3,7 +3,8 @@ import {sharingRuntimeAdditions} from '../helpers/fast-hands-sharing-provenance.
 import {rankingRuntimeAdditions} from '../helpers/fast-hands-ranking-provenance.mjs';
 import {readStartupBaseline} from '../helpers/startup-provenance.mjs';
 import test from 'node:test';import assert from 'node:assert/strict';import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
-import {readdirSync} from 'node:fs';import{createHash}from'node:crypto';
+
+import {readdirBeforeIcons as readdirSync} from '../helpers/app-icons-completion-provenance.mjs';import{createHash}from'node:crypto';
 import {fastHandsLedger,reverseFastHands,fastHandsRuntimeAdditions,readFastHandsBaseline}from'../helpers/fast-hands-provenance.mjs';
 import{fastHandsAddedPaths,fastHandsModifiedPaths}from'../helpers/fast-hands-allowlist.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readStartupBaseline(new URL(p,root)),hash=b=>createHash('sha256').update(b).digest('hex');

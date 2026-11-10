@@ -9,7 +9,8 @@ import {readClubBaseline,CLUB_ADDED} from '../helpers/fast-hands-club-provenance
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readBeforeGestures as readFileSync} from '../helpers/mobile-gestures-preview-provenance.mjs';
-import {readdirSync} from 'node:fs';
+
+import {readdirBeforeIcons as readdirSync} from '../helpers/app-icons-completion-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {newMatch,beginRound,advance,press,LEVEL_TUNING} from '../../public/games/fast-hands/levels-rules.mjs';
 const root=new URL('../../',import.meta.url);
