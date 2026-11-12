@@ -1,0 +1,15 @@
+{
+  "id": "taiwankart",
+  "title": "台灣小島疾走",
+  "description": "兩條島嶼路線，和四位好朋友轉個彎出發。",
+  "genre": "島嶼卡丁車",
+  "image": "/assets/portal-taiwankart.webp",
+  "eyebrow": "TAIWAN KART",
+  "order": 30,
+  "kind": "game",
+  "href": "https://taiwankart.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": true
+  }
+}

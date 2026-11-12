@@ -1,6 +1,6 @@
 // Historical views reverse only this exact, independently pinned installation patch.
 // Runtime and behavior tests continue to read live files directly.
-import {readdirSync as actualDirectory} from 'node:fs';
+import {readdirBeforeExpansion as actualDirectory} from './main-expansion-provenance.mjs';
 import {readBeforePage as actual,pageParentBytes,inventoryBeforePage} from './mobile-gesture-page-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';

@@ -1,6 +1,6 @@
 // Exact reversible boundary for the authorised game-page gesture/focus repair.
 // Behaviour tests import live modules; only historical inventories use this view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeExpansion as actual,expansionParentBytes,inventoryBeforeExpansion} from './main-expansion-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -30,7 +30,7 @@ export function validate(m){
  return m;
 }
 export function pageParentBytes(path,bytes){
- const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);if(!f)return bytes;
+ const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=expansionParentBytes(path,Buffer.from(bytes));if(!f)return bytes;
  const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;
 }
@@ -41,6 +41,7 @@ export function readBeforePage(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),before=pageParentBytes(path,bytes);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforePage(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeExpansion(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate gesture repair inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  for(const p of m.addedPaths)assert.equal(paths.filter(x=>x===p).length,1,p+' missing repair evidence');

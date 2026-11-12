@@ -1,4 +1,4 @@
-import {readdirSync} from 'node:fs';
+import {readdirBeforeExpansion as readdirSync} from './main-expansion-provenance.mjs';
 import {readBeforeFighter as readFileSync,inventoryBeforeFighter} from './fighter-entry-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';

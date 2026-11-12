@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readdirSync} from 'node:fs';
+import {readdirSync,readFileSync as readLive} from 'node:fs';
 import {readBeforeTapCoverage as readFileSync,inventoryBeforeTapCoverage} from './helpers/courtesy-touch-coverage-provenance.mjs';
 import {JSDOM} from 'jsdom';
 import * as p from './helpers/main-courtesy-help-provenance.mjs';
@@ -26,10 +26,12 @@ test('promotion restoration rejects drift, missing/tampered additions, duplicate
  assert.throws(()=>p.inventoryBeforeMainCourtesy([...current,current[0]]));
  for(const mutate of [x=>x.files.pop(),x=>x.files[0].beforeText+='tamper',x=>x.addedPaths.pop(),x=>x.addedFiles.pop()]){const bad=structuredClone(m);mutate(bad);assert.throws(()=>p.validate(bad));}
 });
-test('production releases only its original seven games plus Courtesy, with credits for only the three released sports',async()=>{
- assert.deepEqual(catalog.games.map(x=>x.id),['long-jump','hurdles','high-jump']);assert.deepEqual(catalog.minigames.map(x=>x.id),['courtesy-contest','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel']);
- assert.deepEqual([...releasedGameIds].sort(),['long-jump','hurdles','high-jump','courtesy-contest','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel'].sort());await assertReleasedGames(new URL('public/',root));
- const d=new JSDOM(read('public/games/shared/sports-credits.html')).window.document;assert.deepEqual([...d.querySelectorAll('main>section')].map(e=>e.id),['long-jump','hurdles','high-jump']);
- for(const a of d.querySelectorAll('a[href]'))assert.doesNotMatch(a.getAttribute('href'),/pole-vault|shot-put|discus|sprint-100m|run-400m|run-1500m|javelin/);
- const rod=new JSDOM(read('public/games/reaction-rod/index.html')).window.document;assert.ok(rod.querySelector('a[href="./licenses/Not-Jam-License.txt"]'));assert.doesNotMatch(rod.documentElement.outerHTML,/\.\.\/beer-slide/);
+test('expanded production retains Courtesy and original sports credits while admitting the requested games',async()=>{
+ const sports=['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','sprint-100m','run-400m','run-1500m','javelin'];
+ const mini=['courtesy-contest','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','beer-slide','tower-climb'];
+ assert.deepEqual(catalog.games.map(x=>x.id),sports);assert.deepEqual(catalog.minigames.map(x=>x.id),mini);
+ assert.deepEqual([...releasedGameIds].sort(),[...sports,...mini].sort());await assertReleasedGames(new URL('public/',root));
+ const d=new JSDOM(readLive(new URL('public/games/shared/sports-credits.html',root))).window.document;assert.deepEqual([...d.querySelectorAll('main>section')].map(e=>e.id),sports);
+ const historical=new JSDOM(read('public/games/shared/sports-credits.html')).window.document;for(const id of ['long-jump','hurdles','high-jump'])assert.equal(d.getElementById(id).outerHTML,historical.getElementById(id).outerHTML);
+ const rod=new JSDOM(readLive(new URL('public/games/reaction-rod/index.html',root))).window.document;assert.ok(rod.querySelector('a[href="./licenses/Not-Jam-License.txt"]'));assert.doesNotMatch(rod.documentElement.outerHTML,/\.\.\/beer-slide/);
 });

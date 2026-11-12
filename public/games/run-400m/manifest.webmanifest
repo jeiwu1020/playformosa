@@ -1,0 +1,21 @@
+{
+  "name": "四肢400公尺｜PlayFormosa",
+  "short_name": "四肢400公尺",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f3e8",
+  "theme_color": "#224c40",
+  "icons": [
+    {
+      "src": "/assets/app-icons/run-400m/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/app-icons/run-400m/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

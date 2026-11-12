@@ -1,0 +1,13 @@
+{
+  "id": "arcadeplatform",
+  "title": "play. one more.",
+  "description": "另一個小遊戲宇宙。從熟悉的經典到創意玩法，挑一款，現在就玩。",
+  "brand": "Arcade Lab",
+  "order": 50,
+  "kind": "platform",
+  "href": "https://arcadeplatform.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": true
+  }
+}

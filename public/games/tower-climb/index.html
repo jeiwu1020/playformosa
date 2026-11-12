@@ -1,0 +1,64 @@
+<!doctype html><html data-pf-startup="pending" lang="zh-Hant"><head><meta charset="utf-8"><style id="pf-startup-style">html[data-pf-startup]:not([data-pf-startup="ready"]) body>:not(#pf-startup):not(script):not(style){visibility:hidden!important}
+#pf-startup{position:fixed;inset:0;z-index:2147483647;display:flex;overflow:auto;box-sizing:border-box;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));background:#f6f1df;color:#243e38;font:16px/1.6 Arial,'Noto Sans TC',system-ui,sans-serif;text-align:center}
+#pf-startup .pf-loading-card{box-sizing:border-box;width:min(100%,440px);flex:none;margin:auto;padding:22px 22px 16px;border:2px solid #294c40;border-radius:24px;background:#fff9e8;box-shadow:0 7px 0 #d7dfc8}
+#pf-startup .pf-loading-brand{margin:0;color:#667969;font-size:11px;font-weight:700;letter-spacing:2px}
+#pf-startup .pf-loading-art{display:block;width:170px;height:132px;margin:12px auto 4px;overflow:visible}
+#pf-startup .pf-loading-person{transform-origin:90px 112px;animation:pf-loading-warmup 1.6s ease-in-out infinite}
+#pf-startup .pf-loading-badge{display:inline-block;margin:0 0 9px;padding:2px 11px;border:1px solid #b3c3ab;border-radius:999px;background:#e6efd6;font-size:12px;font-weight:700;letter-spacing:1px}
+#pf-startup #pf-startup-status{margin:0;font-size:21px;line-height:1.45;font-weight:800}
+#pf-startup .pf-loading-joke{margin:9px 0 18px;color:#526c5b;font-size:15px;line-height:1.7;overflow-wrap:anywhere}
+#pf-startup nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;border-top:1px dashed #bdc9b8;padding-top:12px;margin-top:16px}
+#pf-startup nav a{display:inline-flex;box-sizing:border-box;align-items:center;justify-content:center;min-height:44px;padding:5px 12px;color:#294c40;font-size:13px;text-underline-offset:4px;border-radius:10px}
+#pf-startup a:focus-visible{outline:3px solid #dc683e;outline-offset:2px}
+#pf-startup noscript p{margin:8px 0 0;font-size:14px}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-person{animation:none}
+html[data-pf-startup="waiting"] #pf-startup .pf-loading-joke,html[data-pf-startup="waiting"] #pf-startup .pf-loading-badge{display:none}
+html[data-pf-startup="waiting"] #pf-startup #pf-startup-status{font-size:18px}
+@keyframes pf-loading-warmup{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){#pf-startup .pf-loading-person{animation:none}}
+@media(max-height:450px){#pf-startup{padding:12px 16px}#pf-startup .pf-loading-card{padding:14px 18px 10px}#pf-startup .pf-loading-art{width:110px;height:85px;margin:4px auto 0}#pf-startup .pf-loading-joke{margin-bottom:8px}#pf-startup nav{margin-top:8px;padding-top:6px}}
+</style><link rel="modulepreload" href="game.mjs"><link rel="modulepreload" href="../shared/entry-shell.mjs"><link rel="modulepreload" href="vendor/three.core.min.js"><link rel="modulepreload" href="vendor/three.module.min.js"><script id="pf-startup-script">/* Presentation-only bootstrap. Keep game dimensions, input and audio ownership unchanged. */
+(()=>{
+ const doc=document,root=doc.documentElement;
+ if(root.dataset.pfStartup!=='pending')return;
+ let done=false,timer;
+ const selector='dialog[data-pf-entry][open],dialog#entryDialog[open]';
+ function ready(){
+  const entry=doc.querySelector(selector);
+  if(done||!entry||entry.hidden)return false;
+  done=true;clearTimeout(timer);observer.disconnect();
+  window.removeEventListener('error',failed,true);
+  window.removeEventListener('unhandledrejection',failed);
+  root.dataset.pfStartup='ready';
+  doc.getElementById('pf-startup')?.remove();
+  // Native/fallback modal focus may have been attempted while visually gated.
+  if(!entry.contains(doc.activeElement)){
+   const candidates=[entry.querySelector('[autofocus]'),...entry.querySelectorAll('button,a[href],summary,input,select,textarea,[tabindex]')];
+   const target=candidates.find(el=>el&&!el.disabled&&!el.closest('[hidden],[inert]')&&el.getClientRects().length);
+   (target||entry).focus({preventScroll:true});
+  }
+  return true;
+ }
+ function failed(){
+  if(ready()||done)return;
+  const status=doc.getElementById('pf-startup-status');
+  if(status)status.textContent='準備時間較久，或遊戲未能載入。你可以重新載入，或返回首頁。';
+  root.dataset.pfStartup='waiting';
+  // Keep observing: a slow connection can still finish without a forced reload.
+ }
+ const observer=new MutationObserver(ready);
+ observer.observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['open','hidden']});
+ window.addEventListener('error',failed,true);
+ window.addEventListener('unhandledrejection',failed);
+ timer=setTimeout(failed,15000);
+ ready();
+})();
+</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#172c3b"><title>上樓不容易｜PlayFormosa</title><meta name="description" content="四肢各有想法。60 秒，挑戰十層樓。"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="layout-v3.css"><link rel="stylesheet" href="../shared/game-ui.css"><link rel="stylesheet" href="platform.css"><link rel="stylesheet" href="../shared/entry-shell.css"><link rel="stylesheet" href="../shared/controls-shell.css"><link rel="icon" type="image/png" sizes="32x32" href="../../assets/app-icons/tower-climb/favicon-32.png"><link rel="icon" type="image/png" sizes="48x48" href="../../assets/app-icons/tower-climb/favicon-48.png"><link rel="apple-touch-icon" sizes="180x180" href="../../assets/app-icons/tower-climb/apple-touch-icon.png"><link rel="manifest" href="./manifest.webmanifest"><meta name="application-name" content="上樓不容易"><meta name="apple-mobile-web-app-title" content="上樓不容易"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="../shared/studio-brand.css"><link rel="stylesheet" href="../shared/mobile-gestures.css"><script type="module" src="../shared/mobile-gestures.mjs"></script></head><body class="pf-game indoor pf-tower-climb"><section id="pf-startup" aria-label="遊戲載入"><div class="pf-loading-card"><p class="pf-loading-brand">PLAYFORMOSA STUDIO</p><svg class="pf-loading-art" viewBox="0 0 180 140" aria-hidden="true" focusable="false"><ellipse cx="90" cy="126" rx="48" ry="6" fill="#dce5cf"/><path d="M25 107l-7 4m137-26 8-5M34 44l-7-3" stroke="#c1d1b5" stroke-width="4" stroke-linecap="round"/><g class="pf-loading-person" stroke="#294c40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M75 98l-10 21-15-2M104 97l15 15 13-9" fill="none"/><path d="M71 82l4 19 31-1 3-19" fill="#334c59"/><path d="M71 59c-4 9-7 18-4 29 13 6 31 6 45-1l-6-29" fill="#f39453"/><path d="M71 64 53 78 43 61M107 64l17 12 10-16" fill="none"/><path d="m40 60 3-6 5 5m83 0 4-6 4 5" fill="none"/><path d="M68 41c0-16 12-24 25-23 14 1 23 11 21 25-1 14-12 23-26 21-12-1-21-10-20-23Z" fill="#fff4d9"/><path d="m82 20 2-10 8 9 5-9 5 12" fill="#334c59"/><path d="M80 39v2m21-2v2"/><path d="m86 50 9 2 4-3" fill="none" stroke-width="3"/><path d="m74 46 6 1m22 0 5-1" stroke="#efa37f" stroke-width="3"/></g><path d="M127 32c0 0-6 8-4 11 3 4 8 1 7-3Z" fill="#87b5a1"/></svg><p class="pf-loading-badge" aria-hidden="true">四肢暖身中</p><p id="pf-startup-status" role="status">正在準備遊戲…</p><p class="pf-loading-joke">樓梯沒長腳，放心，它不會先跑。</p><nav aria-label="載入協助"><a href="">重新載入</a><a href="/">返回首頁</a></nav><noscript><p>請開啟 JavaScript 後重新載入遊戲。</p></noscript></div></section>
+<header class="pf-header"><a class="pf-home" aria-label="遊戲首頁" href="/">首頁</a><div class="pf-studio-heading"><h1>上樓不容易</h1><span class="pf-studio-live">島遊無界工作室 | PLAYFORMOSA STUDIO</span></div><nav aria-label="遊戲操作"><button id="music" data-game-action="music" aria-label="開啟音樂" aria-pressed="false">♫ 音樂</button><button id="restart" data-game-action="restart" aria-label="重新開始">↻ 重來</button><button id="pause" data-game-action="pause" aria-label="暫停" disabled>Ⅱ 暫停</button></nav></header>
+<main data-game-gesture-surface data-game-gesture-overlays><section class="stage" id="stage" aria-label="登高遊戲"><canvas id="scene" tabindex="0" aria-label="A S 控左右腳，J K 控左右手，60 秒挑戰十層"></canvas><div class="hud"><strong id="floor">0 / 10 層</strong><strong id="time" aria-label="剩餘時間">60.0s</strong></div><div class="stamina"><label for="energy">體力</label><meter id="energy" min="0" max="100" low="25" value="100"></meter></div><p id="message" class="scene-cue" role="status"></p><div id="countdown" class="countdown" hidden>3</div><div id="launch" class="launch"><h2>上樓不容易</h2><p>60 秒，衝上十層。</p><p class="basic-rule"><b>A／S</b> 提膝、放開踩穩<br><b>J／K</b> 擺臂、靠近扶手抓穩</p><small>最佳 <span id="record">—</span></small><button id="start">開始 ↗</button></div><div id="error" data-game-gesture-reading role="alert" hidden></div></section>
+<section class="play-panel" aria-label="四肢控制"><div class="feet"><button id="left-foot" data-input="a" aria-pressed="false"><kbd>A</kbd><b>左腳</b><small>提膝／踩穩</small></button><button id="right-foot" data-input="s" aria-pressed="false"><kbd>S</kbd><b>右腳</b><small>提膝／踩穩</small></button><button id="left-arm" data-input="j" aria-pressed="false"><kbd>J</kbd><b>左手</b><small>擺臂／平衡</small></button><button id="right-arm" data-input="k" aria-pressed="false"><kbd>K</kbd><b>右手</b><small>擺臂／扶手</small></button></div></section></main>
+<p id="audio-status" class="sr-only" role="status"></p>
+<dialog id="help-dialog" class="help-dialog"><h2>讓四肢先談好。</h2><div id="rules"><p><b>A／S</b> 按住提膝、放開踩穩；<b>J／K</b> 擺臂平衡。交叉配合能跨兩階，平台轉角先收勢。</p><p>體力低會變慢，太低不能跨兩階；踩穩休息會恢復，歸零不會提早結束。亂抬雙腳、太快亂點或一直不放，可能踉蹌、倒退；硬衝轉角可能摔下幾階。</p><p>平台兩腳站穩，按住靠扶手的手（通常 K）可抓穩救回重心，但會慢下來。綠圈才是真的抓到。</p><p>十層完成比時間；60 秒到了就記當下樓層。P／Esc 暫停；手機直接按四個按鈕，不用滑動。</p></div><button id="help-close">知道了</button><section class="audio-credits"><h3>音樂與素材授權</h3><p>背景音樂：〈Funin and Sunin〉— Kevin MacLeod (incompetech.com)，ISRC USUAN1700011，<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>。<a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700011">官方曲目</a>。使用完整曲目，經低通 6.5kHz、-26LUFS 響度、0.35 秒淡入、1 秒淡出與網頁編碼，無藝術家背書。<a href="./audio/CC-BY-4.0-legalcode.txt">完整授權</a>。<a href="./audio/NotJam-CC0-source-statement.txt">NotJam CC0 來源聲明</a>。</p><p>Three.js：MIT，<a href="./vendor/THREE-LICENSE.txt">完整授權</a>。角色、樓梯與場景為遊戲程序幾何。</p></section></dialog>
+<dialog id="pause-dialog" class="pause-dialog"><h2>先喘一口氣。</h2><button id="resume">繼續 ↗</button><button id="pause-restart">重新挑戰</button><button id="help-button" hidden>玩法說明</button><button id="pause-menu">回到準備</button></dialog>
+<dialog id="result" class="result" hidden><div class="result-inner"><h2 id="result-title" tabindex="-1">十層到手</h2><div id="result-score" class="result-score"></div><p id="verdict"></p><figure class="result-photo"><canvas id="result-photo" role="img" aria-label="本局結束時的實際場景"></canvas></figure><img id="result-image" hidden aria-hidden="true" alt="本局成績圖片"><div class="result-actions"><button id="again">再試一次 ↗</button><button id="view-final">重播最後 5 秒</button></div><div class="pf-share-actions"><a id="threads" data-share="threads" target="_blank" rel="noopener">分享至Threads</a><button id="image" data-share="image" disabled>成績圖片</button><button id="copy" data-share="copy">複製成績與網址</button></div><p id="share-status" role="status"></p></div><p class="pf-studio-result">島遊無界工作室 | PLAYFORMOSA STUDIO</p></dialog>
+<div id="replay-controls" hidden><span id="replay-status" role="status">最後 5 秒重播</span><button id="replay-pause">暫停</button></div><button id="return-result" class="return-result" hidden>回到成績</button><dialog id="fallback" class="fallback"><h2>儲存／複製成績</h2><img id="fallback-image" alt="本局成績圖片"><textarea id="fallback-text" readonly rows="6" aria-label="可手動複製的成績文字"></textarea><button id="fallback-close">回到成績</button></dialog><script type="module" src="game.mjs"></script></body></html>

@@ -1,0 +1,348 @@
+import {sceneAltitude,heightAtSceneAltitude,vaultOffsetX} from './altitude.mjs';
+import {ascentVelocity,RULESET} from './flight-profile.mjs';
+// Deterministic arcade pole vault. Metres are real score units; the renderer may
+// compress altitude, but must preserve this rig's limb sizes and measured feet.
+export const DT=1/120, PLANT_X=18, PLANT_WINDOW=2, FINISH_HOLD=1.15;
+export const MILESTONES=Object.freeze([
+  {height:10,label:'屋頂打卡'}, {height:100,label:'樓上沒有人'},
+  {height:1000,label:'雲端辦公'}, {height:10000,label:'飛機請借過'},
+  {height:100000,label:'宇宙彈簧'}, {height:1000000,label:'地球暫時離線'}
+]);
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const smooth=v=>{v=clamp(v);return v*v*(3-2*v);};
+const GROUND_HIP=1.18, FOOT_FLOOR=.08;
+export const PAD_TOP=.685, PAD_X=PLANT_X+3.7;
+
+export function fresh(){
+  return {ruleset:RULESET,t:0,phase:'run',x:0,y:GROUND_HIP,vx:0,vy:0,maxHeight:0,altitude:0,
+    lean:0,energy:1,charge:0,plantQuality:0,releaseQuality:0,grip:0,
+    combo:0,cue:'按住 J＋K 握穩，A／S 交替助跑。',cueUntil:3,
+    events:[],reason:'',progress:0,
+    held:[false,false,false,false],j:[0,0,0,0],kick:[0,0],
+    airTime:0,launchTime:0,rising:false,falling:false,spring:1,
+    plantTime:0,load:0,releaseArmed:false,resumeLock:false,
+    lastRunLeg:-1,lastRunStep:-10,
+    airWork:0,airEffort:0,airLift:0,spin:0,momentum:0,lastWorkTime:0,workUnits:0,wind:0,efficiency:1,difficulty:0,balanceTime:0,fallTime:0,fallStart:0,fallDuration:0,
+    scoreLocked:false,scoreLockCount:0,scoreSnapshot:null,endReason:'',clearanceCaptured:false,crossingCaptured:false,padContact:false,dropTime:0,dropDuration:0,
+    landTime:0,cosmicDecade:8,milestones:[],barHeight:1.3,barX:PLANT_X+2,finishHold:0,finishArmed:false,finishAttempted:false,finishTime:0,cleared:false,hitBar:false,
+    plantX:0,plantLean:0,plantJ:[0,0,0,0],plantKick:[0,0],launchX:0,launchY:0,launchLean:0,launchCharge:0,
+    stats:{steps:0,goodSteps:0,beats:0,misses:0,bestCombo:0,maxSpeed:0,perfect:0}
+  };
+}
+function say(s,message,duration=1.8){s.cue=message;s.cueUntil=s.t+duration;}
+// Losing focus is not a voluntary release. Require a fresh two-hand hold before
+// the pole can launch again, and discard the old stored charge safely.
+export function cancelMotion(s){
+  s.held.fill(false);s.kick.fill(0);s.releaseArmed=false;s.finishHold=0;s.finishArmed=false;
+  if(s.balanceEdges)s.balanceEdges.length=0;
+  if(s.phase==='plant'){s.charge=0;s.load=0;s.resumeLock=true;s.plantTime=0;say(s,'重新按住 J＋K 蓄力；綠區再放開。');}
+}
+const link=(p,length,angle)=>({x:p.x+length*Math.sin(angle),y:p.y-length*Math.cos(angle),z:p.z||0});
+function limbAngles(s,i){
+  const airborne=s.phase==='air'||s.phase==='finish'||s.phase==='drop',landing=s.phase==='land'||s.phase==='done';
+  const sign=i===0?1:-1, arm=(s.phase==='finish'?s.finishJ?.[i]:s.j[i])||0,leg=s.j[i+2]||0,kick=s.kick[i]||0;
+  let a=-.3+arm*1.8,elbow=.35+arm*.65;
+  let hip=leg*.95-kick*.42,knee=.12+leg*.85;
+  if(s.phase==='plant'){
+    const u=smooth(s.charge);const old=s.plantJ[i+2]||0;
+    hip=(old*.95-(s.plantKick[i]||0)*.42)*(1-u)+(.25+s.charge*.45+sign*.12)*u;knee=(.12+old*.85)*(1-u)+(.5+s.charge*.55)*u;
+  }
+  if(airborne){
+    const wave=Math.sin(s.airTime*5+i*Math.PI);
+    a=-.7+arm*2.5+wave*.18;elbow=.5+arm*.9;
+    hip=.35+leg*.9+wave*.2;knee=.65+leg*.8;
+    if(s.held[0]&&s.held[1]){hip+=.18;knee+=.18;}
+    if(s.phase==='finish'){const u=smooth(s.finishTime/.22),start=s.finishStartLegs?.[i]||{hip,knee};hip=start.hip*(1-u)+.5*u;knee=start.knee*(1-u)+1.2*u;}
+    if(s.phase==='air'&&s.airTime<.34){const u=smooth(s.airTime/.34),c=s.launchCharge;hip=(.25+c*.45+sign*.12)*(1-u)+hip*u;knee=(.5+c*.55)*(1-u)+knee*u;}
+    if(s.falling){a=-1.3+wave*.35+arm*1.2;hip=.12+sign*.18;knee=.35+Math.abs(wave)*.25;}
+  }
+  if(landing){const bounce=Math.sin(Math.min(s.landTime,1)*Math.PI);a=-.9+sign*.3+bounce*.8;elbow=.7;hip=.42+bounce*.25;knee=.85+bounce*.35;}
+  if(s.phase==='drop'){
+    const wave=Math.sin((s.airTime+s.dropTime)*5+i*Math.PI),u=smooth(s.dropTime/.25),start=s.dropStartAngles[i];
+    a=start.a*(1-u)+(-1.3+wave*.35+arm*1.8)*u;elbow=start.elbow*(1-u)+(.5+arm*.9)*u;
+    hip=start.hip*(1-u)+(.15+sign*.18+leg*.95)*u;knee=start.knee*(1-u)+(.35+leg*.9+Math.abs(wave)*.25)*u;
+  }
+  if(landing&&s.padContact){const u=smooth(s.landTime/.4),start=s.landStartAngles[i];a=start.a*(1-u)-.7*u;elbow=start.elbow*(1-u)+.7*u;hip=start.hip*(1-u)+.4*u;knee=start.knee*(1-u)+.9*u;}
+  return{a,elbow,hip,knee};
+}
+export function pose(s){
+  const local={hip:{x:0,y:0,z:0},shoulder:{x:0,y:.65,z:0},head:{x:0,y:1.01,z:0}};
+  for(let i=0;i<2;i++){
+    const {a,elbow,hip,knee}=limbAngles(s,i);
+    local['elbow'+i]=link(local.shoulder,.34,a);
+    local['hand'+i]=link(local['elbow'+i],.32,a+elbow);
+    local['knee'+i]=link(local.hip,.55,hip);
+    local['foot'+i]=link(local['knee'+i],.55,hip-knee);
+  }
+  const ca=Math.cos(s.lean),sa=Math.sin(s.lean);
+  const result=Object.fromEntries(Object.entries(local).map(([key,p])=>[key,{x:s.x+p.x*ca+p.y*sa,y:s.y+p.y*ca-p.x*sa,z:p.z||0}]));
+  const attach=s.phase==='run'||s.phase==='plant'?1:s.phase==='air'?1-smooth((s.airTime-.18)/.16):0;
+  if(attach>0){const rig=poleRig(s);for(let i=0;i<2;i++){
+    const z=i===0?.205:-.205,g=rig.grips[i],free=result['hand'+i],target={x:free.x+(g.x-free.x)*attach,y:free.y+(g.y-free.y)*attach,z:free.z+(g.z-z-free.z)*attach};
+    const solved=armIK(result.shoulder,target);result['elbow'+i]=solved.elbow;result['hand'+i]=solved.hand;
+  }}
+  return result;
+}
+// One analytic C-infinity shaft for carry, planting and elastic recoil. The
+// rendered hands include the original model's +/- .205 depth offset.
+export function poleRig(s){
+  const ca=Math.cos(s.lean),sa=Math.sin(s.lean),shoulder={x:s.x+.65*sa,y:s.y+.65*ca};
+  const charge=s.phase==='plant'?s.charge:s.phase==='air'?s.launchCharge*(1-smooth(s.airTime/.32)):0;
+  const tip={x:s.phase==='run'?s.x+4.25:PLANT_X+.25,y:.14,z:.12};
+  const top={x:shoulder.x+.10,y:shoulder.y+.03,z:.12},bow={x:charge*2.4,y:charge*.65,z:0};
+  if(s.phase==='run'){
+    // The hands must drive the SAME shaft that drives attached-arm IK. Use the
+    // already eased input channels, not raw held edges or a second free-arm pose.
+    // J lifts the front grip; K draws the rear grip up/back; together they raise
+    // a stable carry. The last five metres smoothly lower it into the exact
+    // existing planted rig. Horizontal reach/tip trigger and scoring stay fixed.
+    const j=clamp(s.j[0]),k=clamp(s.j[1]),carry=1-smooth((s.x-9)/5);
+    // Keep the rear grip slightly ahead of the shoulder: crossing directly
+    // through its depth axis would make the IK elbow's bend plane flip.
+    top.x+=(-.02-.02*j+.04*k)*carry;
+    top.y+=(-.31+.18*j+.28*k)*carry;
+    tip.y+=(shoulder.y-.55+.95*j+1.05*k+.5*j*k-.14)*carry;
+  }
+  const at=t=>({x:tip.x+(top.x-tip.x)*t+bow.x*t*(1-t),y:tip.y+(top.y-tip.y)*t+bow.y*t*(1-t),z:.12});
+  const samples=[...Array.from({length:31},(_,i)=>i/30*1.09),.91,1].sort((a,b)=>a-b);
+  return{tip,grips:[at(.91),at(1)],path:samples.map(at),at};
+}
+function armIK(a,target){
+  let dx=target.x-a.x,dy=target.y-a.y,dz=(target.z||0)-(a.z||0),d=Math.hypot(dx,dy,dz),reach=clamp(d,.025,.659999);
+  const nx=dx/(d||1),ny=dy/(d||1),nz=dz/(d||1),along=(.34*.34-.32*.32+reach*reach)/(2*reach),lift=Math.sqrt(Math.max(0,.34*.34-along*along)),plane=Math.hypot(nx,ny)||1;
+  return{elbow:{x:a.x+nx*along+ny/plane*lift,y:a.y+ny*along-nx/plane*lift,z:(a.z||0)+nz*along},hand:{x:a.x+nx*reach,y:a.y+ny*reach,z:(a.z||0)+nz*reach}};
+}
+function floorFeet(s){const p=pose(s);s.y+=FOOT_FLOOR-Math.min(p.foot0.y,p.foot1.y);s.altitude=0;}
+function updateHeight(s){
+  const p=pose(s);s.altitude=Math.max(0,Math.min(p.foot0.y,p.foot1.y)-FOOT_FLOOR);
+  if(s.scoreLocked)return;
+  s.maxHeight=Math.max(s.maxHeight,s.altitude);
+  for(const milestone of MILESTONES)if(s.maxHeight>=milestone.height&&!s.milestones.includes(milestone.height)){
+    s.milestones.push(milestone.height);s.events.push('milestone');say(s,milestone.label+'！腳還在，放心。',2.3);
+  }
+  const decade=Math.floor(Math.log10(Math.max(1,s.maxHeight)));if(decade>=9&&decade>s.cosmicDecade){s.cosmicDecade=decade;s.events.push('milestone');say(s,['宇宙客服：請不要再往上了。','導航正在第八次重新計算。','樓管：這個樓層我沒鑰匙。'][decade%3],2.3);}
+}
+function land(s,reason){
+  s.phase='land';s.reason=reason||s.reason;s.landTime=0;s.vx=0;s.vy=0;s.rising=false;s.falling=false;
+  s.energy=clamp(s.energy);s.charge=0;s.events.push('land');s.y=GROUND_HIP;floorFeet(s);
+  say(s,s.maxHeight>=100000?'軟墊收到一份宇宙快遞。':s.maxHeight>0?'軟墊：好，這位我接住了。':'撐竿沒有起飛，氣氛有。',2);
+}
+function launch(s){
+  const c=s.charge;
+  s.releaseQuality=c>=.70&&c<=.95?1:clamp(1-Math.abs(c-.825)/.70,.04,.9);
+  const quality=s.plantQuality*s.releaseQuality;
+  s.phase='air';s.vy=4+19*quality;s.vx*=.35;s.airTime=0;s.launchTime=s.t;
+  s.energy=clamp(.45+.55*quality);s.rising=true;s.releaseArmed=false;
+  s.launchX=s.x;s.launchY=s.y;s.launchLean=s.lean;s.launchCharge=c;s.launchSpeed=s.vy;
+  s.finishHold=0;s.finishArmed=false;
+  s.events.push('jump','flight');
+  s.lastWorkTime=0;s.momentum=0;s.spin=0;
+  say(s,'起飛！四肢各有想法，身體還得一起往上。',2);
+}
+function runStep(s,input,pressed){
+  const legs=Number(pressed[2])+Number(pressed[3]);
+  if(legs!==1)return;const leg=pressed[2]?0:1,interval=s.t-s.lastRunStep;
+  const alternating=s.lastRunLeg!==leg&&s.lastRunLeg!==-1;
+  const timed=interval>=.16&&interval<=.60;
+  const quality=alternating&&timed?clamp(1-Math.abs(interval-.28)*1.15,.6,1):s.lastRunLeg===-1?.6:.12;
+  if(interval<.12){s.vx*=.98;return;}
+  s.vx=clamp(s.vx+1.22*quality,0,7.2);s.kick[leg]=1;s.lastRunLeg=leg;s.lastRunStep=s.t;
+  s.stats.steps++;s.stats.goodSteps+=Number(alternating&&timed);s.events.push('step');
+  if(!timed&&s.stats.steps>2)say(s,'A、S 輪流點；不是越快越好。',1.1);
+}
+// Borrowed control principle from current PlayFormosa long-jump main:
+ // real smoothed limb motion earns work; held keys stop earning when motion stops.
+// Match opposite hand/foot edges with room for ordinary keyboard timing.
+// Pair each edge once; held keys and tiny eased-motion tails earn no credit.
+function airCoordination(s,prior){
+ const window=.075,decay=Math.exp(-.06);
+ s.balanceEdges??=[];s.balanceCoordination??=1;
+ // Expire old unmatched edges before matching this frame's new edges.
+ s.balanceEdges=s.balanceEdges.filter(edge=>{
+  if(s.airTime-edge.time<=window+1e-9)return true;
+  // Forgive a pair whose first edge may have occurred during launch grace.
+  if(edge.time>=.32+window)s.balanceCoordination*=decay;
+  return false;
+ });
+ for(let i=0;i<4;i++)if(s.held[i]!==prior[i]){
+  const match=s.balanceEdges.findIndex(edge=>edge.limb===3-i&&edge.held===s.held[i]);
+  if(match<0)s.balanceEdges.push({limb:i,held:s.held[i],time:s.airTime});
+  else{s.balanceEdges.splice(match,1);s.balanceCoordination=1-(1-s.balanceCoordination)*decay*decay;}
+ }
+ return smooth((.75-s.balanceCoordination)/.45);
+}
+function airWork(s,velocity,dt,prior){
+ const magnitude=velocity.reduce((n,v)=>n+Math.abs(v),0);
+ const flow=clamp((Math.abs(velocity[0]-velocity[1])+Math.abs(velocity[2]-velocity[3]))*.15,0,3.5);
+ const torque=(velocity[0]+velocity[2]-velocity[1]-velocity[3]);
+ const paired=clamp(1-(Math.abs(s.j[0]-s.j[3])+Math.abs(s.j[1]-s.j[2]))*.7);
+ const coordination=.35*clamp(1-Math.abs(torque)/Math.max(.01,magnitude))+.65*paired;
+ const upright=Math.max(0,Math.cos(s.lean));
+ const stable=upright*upright*clamp(1-Math.abs(s.spin)/5);
+ const effort=flow*(.25+.75*coordination),work=effort*stable*(.4+.6*s.energy);
+ s.airEffort=effort;s.efficiency=coordination*stable;s.airWork+=work*dt;s.workUnits+=work*dt;
+ s.airLift=work;
+ if(work>.25)s.lastWorkTime=s.airTime;
+ s.energy=clamp(s.energy+dt*(work*.12+.1*paired*paired*stable-flow*.065-.035-Math.abs(s.spin)*.015));
+ s.difficulty=clamp(Math.log1p(Math.max(0,s.altitude)/100)/Math.log(101));
+ s.wind=(.04+.06*s.difficulty)*Math.sin(s.airTime*.27+.4)+.025*Math.sin(s.airTime*.63+.7);
+ const balance=smooth((s.airTime-.32)/3.68);
+ const imbalance=s.airTime>=.32?airCoordination(s,prior):0;
+ s.momentum+=dt*(torque*(.48+.32*balance)+(s.j[0]+s.j[2]-s.j[1]-s.j[3])*(.30+.15*balance)+s.wind+s.lean*(.08+balance*(.16+4*imbalance)));
+ s.momentum=clamp(s.momentum*Math.exp(-dt*(.65-.25*balance)),-5,5);
+ s.spin=s.momentum;s.lean+=s.spin*dt;
+ const cosmic=clamp(Math.log10(Math.max(1,s.altitude/100000))/3);
+ s.vy+=dt*(-6.2+work*(9.6+s.vy*.04)*(1+cosmic*.8));
+ if(s.workUnits>=1){s.workUnits-=1;s.stats.beats++;s.combo++;s.stats.bestCombo=Math.max(s.stats.bestCombo,s.combo);s.events.push('flex');}
+}
+export function requestFinish(s){
+  if(s.phase!=='air'||s.scoreLocked||s.falling)return false;
+  beginFinish(s,'你按下收工過竿，成績已鎖定。');return true;
+}
+function beginFinish(s,reason='主動收工。'){
+  if(s.scoreLocked)return;
+  s.scoreLocked=true;s.scoreLockCount++;s.endReason=reason;
+  s.scoreSnapshot={ruleset:s.ruleset,height:s.maxHeight,stats:{...s.stats},energy:s.energy,combo:s.combo,time:s.t};s.events.push('score-lock');
+  s.finishStartLegs=[0,1].map(i=>limbAngles(s,i));s.finishJ=[...s.j];
+  const local=pose({...s,y:0});s.finishHipHeight=.08-Math.min(local.foot0.y,local.foot1.y);s.finishAltitude=s.altitude;
+  s.phase='finish';s.finishAttempted=true;s.finishTime=0;s.finishX=s.x;s.finishY=s.y;s.finishLean=s.lean;s.finishEnergy=s.energy;s.finishHold=FINISH_HOLD;
+  s.barHeight=Math.max(.3,s.altitude+.18);s.barX=s.x+1.55;s.finishBarY=s.barHeight+FOOT_FLOOR;s.finishArc=.12+s.energy*1.22-Math.abs(s.lean)*.45;
+  s.finishPrevious=pose({...s,x:0,y:s.finishHipHeight});s.hitBar=false;s.rising=false;s.events.push('finish');say(s,'成績鎖定！自動背滾過桿，再回護墊。',1.8);
+}
+// Clearance uses a conservative envelope of the ORIGINAL model, not just the
+// skeleton points: hair/head, toe/sole reach, hands, torso and thick limb spans.
+// Keep this separate from the orientation-specific pad-contact approximation.
+const BAR_RADIUS=.047;
+const clearanceRadius=name=>name==='head'?.50:name==='hip'||name==='shoulder'?.26:name.startsWith('foot')?.23:name.startsWith('hand')?.16:name.startsWith('knee')?.13:.10;
+const clearanceSegments=[['hip','shoulder',.26],['shoulder','head',.12],...[0,1].flatMap(i=>[['shoulder','elbow'+i,.08],['elbow'+i,'hand'+i,.08],['hip','knee'+i,.13],['knee'+i,'foot'+i,.10]])];
+function finishPoseAt(s,time){const p=clamp(time/1.6),u=smooth(p);return pose({...s,finishTime:time,x:3.15*u,y:s.finishHipHeight+s.finishArc*Math.sin(Math.PI*p),lean:s.finishLean*(1-u)-Math.PI*2*u});}
+function hitsClearanceEnvelope(points){
+  for(const[name,p]of Object.entries(points))if(Math.hypot(p.x-1.55,p.y-.26)<=clearanceRadius(name)+BAR_RADIUS)return true;
+  for(const[a,b,r]of clearanceSegments){const u=points[a],v=points[b],dx=v.x-u.x,dy=v.y-u.y,t=clamp(((1.55-u.x)*dx+(.26-u.y)*dy)/(dx*dx+dy*dy||1));if(Math.hypot(u.x+t*dx-1.55,u.y+t*dy-.26)<=r+BAR_RADIUS)return true;}
+  return false;
+}
+function crossesBelowBar(before,after){
+  // No contact is not sufficient: flying UNDER the bar is still a failed jump.
+  for(const[name,b]of Object.entries(after)){const a=before[name];if((a.x-1.55)*(b.x-1.55)<=0&&Math.abs(b.x-a.x)>1e-9){const t=(1.55-a.x)/(b.x-a.x);if(a.y+(b.y-a.y)*t-clearanceRadius(name)<=.26+BAR_RADIUS)return true;}}
+  return false;
+}
+function finishStep(s,dt){
+  const before=s.finishTime;s.finishTime+=dt;const p=clamp(s.finishTime/1.6),u=smooth(p);s.x=s.finishX+3.15*u;s.y=s.finishY+s.finishArc*Math.sin(Math.PI*p);
+  s.lean=s.finishLean*(1-u)-Math.PI*2*u;s.vy=0;
+  // At most eight samples per supported frame; bounded and independent of height.
+  const samples=Math.max(1,Math.ceil(dt*240));let previous=finishPoseAt(s,before);for(let i=1;i<=samples&&!s.hitBar;i++){const next=finishPoseAt(s,before+dt*i/samples);if(hitsClearanceEnvelope(next)||crossesBelowBar(previous,next))s.hitBar=true;previous=next;}
+  const current=finishPoseAt(s,s.finishTime);s.finishPrevious=current;updateHeight(s);
+  if(!s.crossingCaptured&&current.hip.x>=1.55){s.crossingCaptured=true;s.events.push('crossing-frame');}
+  if(!s.clearanceCaptured&&!s.hitBar&&Object.entries(current).every(([name,p])=>p.x-clearanceRadius(name)>1.55+BAR_RADIUS)){
+    s.clearanceCaptured=true;s.cleared=true;s.events.push('clearance');
+  }
+  if(p>=1){s.cleared=s.clearanceCaptured&&!s.hitBar;s.events.push(s.cleared?'clear':'bar-hit');beginDrop(s);}
+}
+const bodyRadius=name=>name==='head'?.30:name==='hip'?.235:name.startsWith('hand')?.14:name.startsWith('foot')?.10:.10;
+export function bodyBottom(points){return Math.min(...Object.entries(points).map(([name,p])=>p.y-bodyRadius(name)));}
+function beginDrop(s){
+  s.dropStartAngles=[0,1].map(i=>limbAngles(s,i));s.dropStartX=s.x;s.dropTime=0;
+  s.y=sceneAltitude(s.finishAltitude)+s.finishHipHeight;s.dropStartBottom=bodyBottom(pose(s));
+  s.dropDuration=clamp(1.8+Math.log1p(Math.max(0,s.finishAltitude))*.12,2,4);
+  s.padX=PAD_X-vaultOffsetX(s,PLANT_X);s.dropSettle=null;s.phase='drop';s.falling=true;s.rising=false;s.vx=0;s.vy=0;
+  s.reason=s.cleared?'過桿成功！四肢一致通過收工案。':'橫桿：你剛才是來拆我的嗎？';
+  say(s,'成績已鎖定！J／K 轉圈、A／S 伸腿，亂按不扣分。',s.dropDuration);
+}
+function dropStep(s,input,dt){
+  s.dropTime+=dt;const p=clamp(s.dropTime/s.dropDuration),u=smooth(p),remaining=s.dropDuration-s.dropTime;
+  if(remaining<=.55&&!s.dropSettle)s.dropSettle={time:s.dropTime,lean:s.lean,target:-Math.PI/2+2*Math.PI*Math.round((s.lean+Math.PI/2)/(2*Math.PI))};
+  if(s.dropSettle){const k=smooth((s.dropTime-s.dropSettle.time)/Math.max(.001,s.dropDuration-s.dropSettle.time));s.lean=s.dropSettle.lean+(s.dropSettle.target-s.dropSettle.lean)*k;}
+  else s.lean+=(.55+(Number(input[1])-Number(input[0]))*4+(input[0]&&input[1]?4:0))*dt;
+  const start=Math.max(0,s.dropStartBottom-PAD_TOP),near=Math.min(7,start),duration=s.dropDuration-1;
+  // Limit the joining tangent so a modest drop cannot overshoot upward before
+  // its last-second approach. Both Hermite pieces share the same velocity.
+  const speed=Math.min(2*near,3*Math.max(0,start-near)/duration);let gap;
+  if(start<=7)gap=start*(1-u);
+  else if(remaining<=1){const t=clamp(1-remaining),t2=t*t,t3=t2*t;gap=(2*t3-3*t2+1)*near-(t3-2*t2+t)*speed;}
+  else{const t=clamp(s.dropTime/duration),t2=t*t,t3=t2*t;gap=(2*t3-3*t2+1)*start+(-2*t3+3*t2)*near-(t3-t2)*speed*duration;}
+  s.x=s.dropStartX+(s.padX-s.dropStartX)*u;
+  const local=pose({...s,y:0});s.y=PAD_TOP+gap-bodyBottom(local);s.altitude=heightAtSceneAltitude(Math.max(0,s.y-s.finishHipHeight));
+  if(p>=1){s.landStartAngles=[0,1].map(i=>limbAngles(s,i));s.landLean=s.lean;s.phase='land';s.landTime=0;s.padContact=true;s.falling=false;s.altitude=0;s.events.push('pad-contact','land');say(s,'護墊簽收！成績沒有被你的落地表演改掉。',1.4);}
+
+}
+
+export function step(s,raw=[],dt=DT){
+  if(s.phase==='done')return;
+  dt=clamp(Number.isFinite(dt)?dt:DT,0,1/30);if(!dt)return;
+  const input=[0,1,2,3].map(i=>!!raw[i]);const pressed=input.map((held,i)=>held&&!s.held[i]);
+  const prior=s.held,oldJ=[...s.j];s.events=[];s.t+=dt;
+  for(let i=0;i<4;i++)s.j[i]+=(Number(input[i])-s.j[i])*Math.min(1,dt*14);
+  const velocity=s.j.map((v,i)=>(v-oldJ[i])/dt);
+  for(let i=0;i<2;i++)s.kick[i]*=Math.exp(-dt*7);
+  s.held=input;
+  if(s.phase==='run'){
+    s.grip=clamp(s.grip+(input[0]&&input[1]?1.8:-1.0)*dt);
+    runStep(s,input,pressed);
+    s.vx=Math.max(0,s.vx-(.32+.023*s.vx*s.vx)*dt);s.x+=s.vx*dt;
+    s.progress=clamp((s.x+4.25)/(PLANT_X+.25));s.stats.maxSpeed=Math.max(s.stats.maxSpeed,s.vx);
+    const target=.03+s.vx*.018+(s.j[0]-s.j[1])*.15;s.lean+=(target-s.lean)*dt*6;
+    floorFeet(s);
+    if(s.x+4.25>=PLANT_X+.25&&s.x+4.25<=PLANT_X+.25+.12&&input[0]&&input[1]){
+      s.x=PLANT_X+.25-4.25;s.plantX=s.x;s.plantLean=s.lean;s.plantJ=[...s.j];s.plantKick=[...s.kick];s.phase='plant';s.plantQuality=clamp((s.vx/7.2)*.7+s.grip*.3);s.plantTime=0;
+      s.releaseArmed=true;s.events.push('plant');say(s,'繼續按住 J＋K；蓄力到綠區，兩手放開！',2.4);
+    }else if(s.x>PLANT_X+PLANT_WINDOW/2)land(s,'竿子還沒插好，跑道先下班。');
+    else if(s.t>=8)land(s,s.stats.steps?'助跑節奏還在找路。':'選手與地板達成長期合作。');
+    else if(s.progress>.75&&s.cueUntil<s.t)say(s,'插竿區到了！按住 J＋K。',1.5);
+  }else if(s.phase==='plant'){
+    s.plantTime+=dt;s.vx*=Math.exp(-dt*8);s.x=s.plantX+.85*smooth(s.charge);
+    if(input[0]&&input[1]){
+      s.resumeLock=false;s.releaseArmed=true;s.load+=dt/.98;s.charge=clamp(s.load);
+      if(s.load>=.70&&s.load-dt/.98<.70){s.events.push('flex');say(s,'就是現在，兩手放開！',.6);}
+    }
+    s.lean=s.plantLean+(-.12-s.plantLean)*smooth(s.charge);floorFeet(s);
+    if(!input[0]&&!input[1]&&s.releaseArmed&&!s.resumeLock&&(prior[0]||prior[1]))launch(s);
+    else if(s.load>1.14||s.plantTime>3.2)land(s,s.load>1.14?'竿子彎了，決心還沒放手。':'竿子等到忘記自己的工作。');
+  }else if(s.phase==='air'){
+    s.airTime+=dt;
+    airWork(s,velocity,dt,prior);
+    if(s.airTime<.32){const p=smooth(s.airTime/.32);s.x=s.launchX+.35*p;s.y=s.launchY+.95*p;s.vy=s.launchSpeed;s.lean=s.launchLean+(.10-s.launchLean)*p;s.momentum=0;s.spin=0;}
+    // vy remains earned lift velocity. Only travelled metres are paced; no
+    // additive lift, free energy, or change to work/balance/failure conditions.
+    else{s.vy=Math.min(airSpeedLimit(s),s.vy);s.y=Math.min(1e150,s.y+ascentVelocity(s.vy,s.maxHeight)*dt);s.x+=Math.min(1.1,s.vx)*dt;}
+    s.rising=s.vy>0;updateHeight(s);s.barHeight=Math.max(1.3,s.altitude+.35);s.barX=s.x+1.55;
+    s.balanceTime=Math.abs(s.lean)>.95?s.balanceTime+dt:Math.max(0,s.balanceTime-dt*.8);
+    if(s.energy<=0)beginFinish(s,'四肢忙著吵架，力氣先用完了。');
+    else if(s.balanceTime>1.4)beginFinish(s,'持續失衡，四肢決定先回護墊。');
+    else if(s.airTime-s.lastWorkTime>2.8)beginFinish(s,'四肢停住太久，升力休息了。');
+    else if(s.airTime>.34&&s.vy<=0)beginFinish(s,'升力慢慢用完了，護墊接手。');
+    // Paced astronomical travel can now reach the existing numeric safety cap.
+    // Lock this earned height and use the normal finish, never freeze in air.
+    else if(s.y>=1e150)beginFinish(s,'已達本局可計算高度上限，成績鎖定，準備回護墊。');
+  }else if(s.phase==='finish'){
+    finishStep(s,dt);
+  }else if(s.phase==='drop'){
+    dropStep(s,input,dt);
+  }else if(s.phase==='land'){
+    s.landTime+=dt;s.lean=s.padContact?s.landLean+Math.sin(Math.min(1,s.landTime/.9)*Math.PI)*.10:Math.sin(Math.min(1,s.landTime/.9)*Math.PI)*.45;
+    if(s.padContact)s.y=PAD_TOP-bodyBottom(pose({...s,y:0}));else floorFeet(s);if(s.landTime>=.95){s.phase='done';s.held.fill(false);s.vx=0;s.vy=0;}
+  }
+
+}
+export function formatHeight(height){
+  const h=Math.max(0,Number.isFinite(height)?height:0);
+  return h>=1e12?(h/1000).toExponential(2)+' km':h>=1000?(h/1000).toLocaleString('en-US',{maximumFractionDigits:h>=100000?1:2})+' km':h.toFixed(h<10?2:1)+' m';
+}
+export function verdict(s){
+  const h=s.maxHeight;let title,subtitle,badge;
+  if(h>=100000){title='宇宙彈簧，正式上工。';subtitle='別人是撐竿跳，你是地球暫時登出。';badge='宇宙出差';}
+  else if(h>=10000){title='飛機窗外，那是你的鞋嗎？';subtitle='節奏非常好，航空公司有點困惑。';badge='高空常客';}
+  else if(h>=1000){title='這次真的上雲端了。';subtitle='沒有網路，但有兩隻很忙的腳。';badge='雲端選手';}
+  else if(h>=100){title='屋頂已讀不回。';subtitle='四肢合作了一下，城市忽然變小。';badge='天際線挑戰者';}
+  else if(h>=10){title='有高度，也有一點離譜。';subtitle='跟著亮拍交替踩，宇宙還在樓上。';badge='彈簧實習生';}
+  else if(h>0){title='有離地，就是有進度。';subtitle='下次綠區放手，再讓兩腳輪流開會。';badge='起飛練習中';}
+  else if(s.reason.includes('還沒插好')){title='人到了，竿子還在排隊。';subtitle='跑進綠色插竿區前，記得按住 J＋K 握好竿子。';badge='插竿待辦中';}
+  else if(s.reason.includes('決心還沒放手')||s.reason.includes('等到忘記')){title='竿子很努力，你握得太客氣。';subtitle='下次蓄力進綠區，就把 J＋K 兩手放開；不用握到下班。';badge='握竿不放俱樂部';}
+  else if(s.reason.includes('助跑節奏')){title='助跑有出席，速度還在路上。';subtitle='A／S 輪流輕點，找個穩定節奏；同一隻腳不必包辦全場。';badge='節奏暖身中';}
+  else{title='地板獲得本日 MVP。';subtitle='先讓 A／S 輪流跑起來，再按住 J＋K；選手不能只靠眼神助跑。';badge='重力好朋友';}
+  if(s.finishAttempted){title=s.cleared?'過桿成功！宇宙准你下班。':'高度有了，橫桿也被你帶走了。';subtitle=s.cleared?'樓管正在找你的樓層，軟墊先替你簽收。':'下次存點能量再收工，別讓後空翻變成拆遷。';badge=s.cleared?'漂亮收工':'搞笑拆桿';}
+  const landing=s.finishAttempted?(s.cleared?(s.finishEnergy>.65?'S・軟墊外交官':'A・安全簽收'):'C・橫桿拆遷隊'):'D・重力召回';
+  const rhythm=s.stats.bestCombo>=50?'S・四肢同事':s.stats.bestCombo>=12?'A・四肢合夥人':s.stats.beats>0?'B・左右腳協商中':'C・腳還在想';
+  return {title,subtitle,badge,detail:`最高 ${formatHeight(h)} ／ 協調 ${s.stats.beats} 次 ／ 最長 ${s.stats.bestCombo} 協調 ／ ${rhythm} ／ 落地 ${landing} ／ ${s.endReason||s.reason}`,height:formatHeight(h),time:(s.scoreSnapshot?.time??s.t).toFixed(2),reason:s.reason};
+}
+
+function airSpeedLimit(s){return Math.min(2e7,6000*(1+Math.max(0,s.altitude/100000-1)*.8));}

@@ -6,9 +6,9 @@ import {validateStart} from '../worker/play-counts/index.mjs';
 import {releasedGameIds} from '../scripts/release-policy.mjs';
 const deviceId='11111111-1111-4111-8111-111111111111';
 test('production explicitly admits high jump alongside unchanged released games',()=>{
- assert.deepEqual(catalog.games.map(x=>x.id),['long-jump','hurdles','high-jump']);
- assert.equal(catalog.games.at(-1).href,'/games/high-jump/');
- assert.deepEqual(releasedGameIds,['long-jump','hurdles','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','high-jump','courtesy-contest']);
+ assert.deepEqual(catalog.games.map(x=>x.id),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin']);
+ assert.equal(catalog.games.find(g=>g.id==='high-jump').href,'/games/high-jump/');
+ assert.deepEqual([...releasedGameIds].sort(),['beer-slide', 'courtesy-contest', 'discus', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'high-jump', 'hurdles', 'javelin', 'long-jump', 'pole-vault', 'reaction-rod', 'run-1500m', 'run-400m', 'shot-put', 'sprint-100m', 'tower-climb']);
 });
 test('production high-jump board accepts only positive cleared-height scores',()=>{
  assert.deepEqual(BOARDS['high-jump'],{rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE});
@@ -17,14 +17,15 @@ test('production high-jump board accepts only positive cleared-height scores',()
  for(const patch of [{status:'hit'},{score:0},{score:Infinity},{rules:'qa'},{unit:'km'}])assert.throws(()=>validateSubmission({...good,...patch}));
  for(const game of ['pole-vault','shot-put','discus','courtesy-contest'])assert.throws(()=>validateSubmission({...good,game}));
 });
-test('production play counts accept high jump without admitting preview games',()=>{
+test('production play counts accept high jump alongside supported promoted counters, not uninstrumented games',()=>{
  const v={game:'high-jump',deviceId,runId:deviceId,startedAt:1000000};
  assert.equal(validateStart(v,1000000).game,'high-jump');
- for(const game of ['pole-vault','shot-put','discus','sprint-100m','run-400m','run-1500m','beer-slide','tower-climb'])assert.throws(()=>validateStart({...v,game},1000000));
+ for(const game of ['pole-vault','shot-put','discus','beer-slide','tower-climb'])assert.equal(validateStart({...v,game},1000000).game,game);
+ for(const game of ['sprint-100m','run-400m','run-1500m','javelin','pinball'])assert.throws(()=>validateStart({...v,game},1000000));
 });
 
 test('homepage renders the authorized jump card and rejects other artwork',async()=>{
  const {renderPage}=await import('../src/render.mjs');
  assert.match(renderPage(catalog),/data-play-count="high-jump"/);
- assert.throws(()=>renderPage({...catalog,games:[{...catalog.games.at(-1),image:'/assets/other.png'}]}));
+ assert.throws(()=>renderPage({...catalog,games:[{...catalog.games.find(g=>g.id==='high-jump'),image:'/assets/other.png'}]}));
 });

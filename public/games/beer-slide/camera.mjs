@@ -1,0 +1,1 @@
+export function cameraProfile(width,height){const aspect=width/height;if(aspect<1.1){return {position:[1.3,5.2,8.7],lookAt:[0,.15,.35],fov:2*Math.atan(Math.tan(22*Math.PI/180)*Math.max(1,(height/width)/1.56))*180/Math.PI};}if(aspect>2.2)return {position:[8,4.5,4.5],lookAt:[0,.25,.4],fov:26};return {position:[7.5,6,7.5],lookAt:[0,.25,.4],fov:32};}

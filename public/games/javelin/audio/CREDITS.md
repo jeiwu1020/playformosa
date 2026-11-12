@@ -1,0 +1,11 @@
+# Javelin audio credits
+
+These are the exact processed assets already used in PlayFormosa Long Jump and Hurdles; no new external downloads.
+
+- `bgm.mp3`: “Funin and Sunin” by Kevin MacLeod (incompetech.com), Creative Commons Attribution 4.0. Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700011 . License: https://creativecommons.org/licenses/by/4.0/ . Existing PlayFormosa EQ, level and fade treatment retained; played as a loop with live ducking. No author endorsement implied.
+- `step.mp3`: `footstep04`, Kenney RPG Audio, CC0. Source: https://kenney.nl/assets/rpg-audio . Existing EQ, gain and fades retained.
+- `land.mp3`: Kenney RPG Audio landing/impact cue, CC0. Same package and existing processed file; conservative runtime level.
+- `result.mp3`: “Crowd Cheer” by FoolBoyMedia, CC0. Source: https://freesound.org/people/FoolBoyMedia/sounds/397434/ . Existing first 3 seconds of public HQ MP3 (not original WAV), EQ, gain and fades retained.
+No added external audio assets.
+
+CC0: https://creativecommons.org/publicdomain/zero/1.0/ . CC BY requires keeping the above attribution and modification notice. Material copied from the existing project's `public/games/hurdles/audio/` on 2026-11-03 UTC. Source-file SHA-256 identity is checked by audio.test.mjs.

@@ -1,0 +1,17 @@
+/* Platform integration: scene keeps the viewport budget; common chrome owns toolbar targets. */
+.pf-game.pf-sprint{padding:calc(8px + env(safe-area-inset-top)) calc(8px + env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) calc(8px + env(safe-area-inset-left));min-height:0;overflow:hidden;max-width:100vw}
+.pf-game.pf-sprint main{display:flex;min-height:0;min-width:0;width:100%;overflow:hidden}.pf-game.pf-sprint .pf-controls-frame{height:100%;flex:1;min-height:0;min-width:0;grid-template-rows:minmax(0,1fr) auto}
+.pf-game.pf-sprint .pf-header .pf-home{font-size:14px;padding:0 8px}.pf-game.pf-sprint .pf-header nav{gap:6px}
+.pf-game.pf-sprint .pf-header nav button{min-width:44px;min-height:44px;font-size:14px;padding:0 8px}
+.pf-sprint dialog input,.pf-sprint dialog textarea,.pf-sprint dialog p{user-select:text;-webkit-user-select:text}
+.pf-sprint .pf-entry .pf-menu-note{font-size:14px}.pf-sprint .pf-result-dialog #resultPhoto{max-height:260px;object-fit:contain}
+#fallback-image{display:block;width:100%;height:auto;max-height:65dvh;object-fit:contain;user-select:auto;-webkit-user-select:auto;-webkit-touch-callout:default}
+.pf-game.pf-sprint #renderMode:empty{display:none}.pf-game.pf-sprint #renderMode{top:82px;font-size:11px}
+.pf-sprint footer button{min-height:44px}.pf-sprint footer{flex:none;min-height:0}
+@media(max-width:640px){.pf-game.pf-sprint .pf-header nav button{font-size:12px;padding:0 5px}.pf-game.pf-sprint .pf-header .pf-home{font-size:13px;padding:0 5px}.pf-sprint footer{display:none}}
+@media(orientation:landscape) and (max-height:600px){.pf-game.pf-sprint .pf-controls-frame{grid-template-columns:82px minmax(0,1fr) 82px;grid-template-rows:minmax(0,1fr);min-height:0;gap:6px}.pf-game.pf-sprint .pf-controls-frame>[data-pf-controls-scene]{grid-column:2!important}.pf-game.pf-sprint .pf-controls-frame .pf-controls-left,.pf-game.pf-sprint .pf-controls-frame .pf-controls-right{grid-row:1;flex-direction:column;align-self:center;gap:6px}.pf-game.pf-sprint .pf-controls-frame .pf-controls-left{grid-column:1}.pf-game.pf-sprint .pf-controls-frame .pf-controls-right{grid-column:3}.pf-game.pf-sprint .pf-controls-frame [data-pf-key]{min-height:76px;flex:none}.pf-game.pf-sprint.replaying .pf-controls-frame{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(120px,1fr) auto}.pf-game.pf-sprint.replaying .pf-controls-frame>[data-pf-controls-scene]{grid-column:1!important}.pf-game.pf-sprint #replayControls button{min-height:44px}.pf-game.pf-sprint #renderMode{top:56px}.pf-game.pf-sprint #viewResult{top:76px}.pf-game.pf-sprint .hud{top:5px}.pf-game.pf-sprint .cue{font-size:12px;padding:5px;bottom:19px}.pf-game.pf-sprint .meters{bottom:55px}}
+
+@media(min-width:900px) and (min-height:601px){.pf-game.pf-sprint .pf-controls-frame{grid-template-rows:minmax(0,1fr)}}
+.pf-game.pf-sprint .pf-controls-frame [data-pf-key]{min-width:44px}
+.pf-game.pf-sprint.replaying .pf-controls-frame{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;min-height:0}
+.pf-game.pf-sprint.replaying .pf-controls-frame>[data-pf-controls-scene]{grid-column:1!important}

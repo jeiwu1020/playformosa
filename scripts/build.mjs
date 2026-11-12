@@ -14,7 +14,8 @@ const polish=JSON.parse(await readFile(new URL('docs/fast-hands-polish/SOURCE-MA
 const gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MANIFEST.json',root),'utf8'));
 const completedIcons=JSON.parse(await readFile(new URL('docs/app-icons-completion/MANIFEST.json',root),'utf8'));
 const courtesy=JSON.parse(await readFile(new URL('docs/main-courtesy-help/MANIFEST.json',root),'utf8'));
-const allowedPublicPaths=[...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
+const expansion=JSON.parse(await readFile(new URL('docs/main-expansion/ADMISSION.json',root),'utf8'));
+const allowedPublicPaths=[...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);

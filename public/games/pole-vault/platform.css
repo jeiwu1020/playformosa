@@ -1,0 +1,36 @@
+/* Platform chrome only; original scene, character, camera and play area are unchanged. */
+body.pf-game.pf-pole-vault{grid-template-rows:auto minmax(0,1fr) 24px;}
+.pf-pole-vault .pf-header #sound{width:44px;}
+.pf-pole-vault #overlay{max-height:calc(100dvh - 24px);overscroll-behavior:contain;touch-action:pan-y;}
+.pf-pole-vault #overlay .pf-share-actions{grid-column:1/-1;}
+.pf-pole-vault #overlay .pf-share-actions button{min-height:44px;}
+.pf-pole-vault #share-status{user-select:text;}
+
+/* Compact phone HUD: actual height and energy plus one phase-aware cue. */
+.pf-pole-vault #mobile-hint,.pf-pole-vault #mobile-energy{display:none;}
+.pf-pole-vault .vault-help{margin:12px 0;text-align:left;}
+.pf-pole-vault .vault-help summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700;}
+.pf-pole-vault .vault-help p{font-size:14px;line-height:1.6;}
+@media(max-width:640px){
+ .pf-pole-vault .race-info,.pf-pole-vault #height-rail,.pf-pole-vault #peak,.pf-pole-vault .tech-top,.pf-pole-vault #flight-display,.pf-pole-vault #action-meter,.pf-pole-vault #balance-meter,.pf-pole-vault #combo,.pf-pole-vault .event-wrap,.pf-pole-vault #state-label,.pf-pole-vault #best-label{display:none!important;}
+ .pf-pole-vault .technique,.pf-pole-vault .technique:has(#flight-display:not([hidden])){left:auto;right:10px;top:12px;bottom:auto;transform:none;width:126px;max-width:none;padding:10px;background:#fffdf4;box-shadow:0 2px 8px #233f3420;}
+ .pf-pole-vault .technique .energy-row{display:grid;grid-template-columns:1fr auto;gap:6px;margin:0;font-size:13px;}
+ .pf-pole-vault .energy-row>div{grid-column:1/-1;grid-row:2;height:7px;}
+ .pf-pole-vault #mobile-energy{display:block;font-size:16px;}
+ .pf-pole-vault .hud{left:10px;top:12px;right:auto;}
+ .pf-pole-vault .timer{background:#fffdf4;padding:8px 10px;border-radius:12px;}
+ .pf-pole-vault .arena-bottom{bottom:10px;left:10px;right:10px;justify-content:center;padding:0;background:none;}
+ .pf-pole-vault #mobile-hint{display:block;max-width:100%;padding:9px 12px;border-radius:12px;background:#fffdf4ed;color:#243f4b;font-size:14px;line-height:1.4;text-align:center;white-space:normal;}
+}
+
+.pf-pole-vault .mobile-energy-label{display:none;}
+@media(max-width:640px){
+ .pf-pole-vault #scene>canvas[aria-hidden="true"],.pf-pole-vault #energy-label{display:none;}
+ .pf-pole-vault .mobile-energy-label{display:block;}
+}
+
+@media(max-width:640px){
+ .pf-pole-vault .hud{max-width:calc(100% - 156px);}
+ .pf-pole-vault .timer{max-width:100%;min-width:0;box-sizing:border-box;grid-template-columns:minmax(0,1fr) 24px;}
+ .pf-pole-vault .timer strong{max-width:100%;overflow-wrap:anywhere;word-break:break-word;white-space:normal;}
+}

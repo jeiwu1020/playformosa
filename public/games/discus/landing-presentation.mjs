@@ -1,0 +1,2 @@
+// Presentation only: no timers, source-state mutation or delayed callback survives restart.
+export function createLandingPresentation(){let elapsed=0,active=false;return{get active(){return active;},get progress(){return Math.min(1,elapsed/.5);},begin(){elapsed=0;active=true;},cancel(){elapsed=0;active=false;},tick(dt){if(!active)return false;elapsed+=Math.max(0,dt);if(elapsed>=.5-1e-9){elapsed=.5;active=false;return true;}return false;}};}

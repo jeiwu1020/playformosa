@@ -48,6 +48,7 @@ export function createGameEntry(options){const{document,gameId}=options,content=
  if(content.existingHelp)content.existingHelp.hidden=true;
  const help=document.createElement('button');help.type='button';help.className='pf-entry-help';help.textContent='說明';help.setAttribute('aria-label','操作說明與素材授權');help.addEventListener('click',()=>shell.open({help:true}));document.addEventListener('pf-help-request',()=>shell.open({help:true}));(document.querySelector('.pf-header nav')||document.body).append(help);
  // Keep actual audio controls and their trusted-gesture listeners; clones would be inert.
- if(gameId==='hurdles'){const settings=document.querySelector('#settings'),audio=document.createElement('section');audio.className='audio-settings';audio.setAttribute('aria-label','聲音設定');for(const node of settings?.querySelectorAll(':scope > label, :scope > #audio-status, :scope > #toggle-sound')||[])audio.append(node);shell.dialog.querySelector('details').append(audio);}
+ if(gameId==='beer-slide'){const audio=document.querySelector('#aboutDialog .audio-settings');if(audio){shell.dialog.querySelector('.audio-settings')?.remove();shell.dialog.querySelector('details').append(audio);}}
+ if(gameId==='hurdles'||gameId==='pole-vault'){const settings=document.querySelector('#settings'),audio=document.createElement('section');audio.className='audio-settings';audio.setAttribute('aria-label','聲音設定');for(const node of settings?.querySelectorAll(':scope > label, :scope > #audio-status, :scope > #toggle-sound')||[])audio.append(node);shell.dialog.querySelector('details').append(audio);}
  return shell;
 }

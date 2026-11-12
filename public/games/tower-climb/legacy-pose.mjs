@@ -1,0 +1,5 @@
+// Inactive historical outdoor pose helpers, retained for regression coverage.
+export function posePoints(cycle,outdoor,done,brace){const c=cycle*.22;let p={hip:{x:0,y:1.12},head:{x:.06,y:2.16},shoulder:{x:.02,y:1.72},elbow0:{x:.27,y:1.54+c},hand0:{x:.46,y:1.34+c},elbow1:{x:-.25,y:1.54-c},hand1:{x:-.44,y:1.34-c},knee0:{x:.2+c,y:.63},foot0:{x:.3+c,y:.17+Math.max(0,cycle)*.22},knee1:{x:-.18-c,y:.65},foot1:{x:-.28-c,y:.17+Math.max(0,-cycle)*.22}};if(outdoor){p.elbow0={x:.3,y:1.95+c};p.hand0={x:.4,y:2.2+c};p.elbow1={x:-.3,y:1.95-c};p.hand1={x:-.45,y:2.2-c};}if(done){p.elbow0={x:.35,y:1.98};p.hand0={x:.6,y:2.2};p.elbow1={x:-.32,y:1.95};p.hand1={x:-.55,y:2.22};}if(brace){p.hand0={x:.25,y:1.8};p.hand1={x:-.25,y:1.8};}return p;}
+
+export function roofHeight(mode){return mode==='outdoor'?9.225:9.21;}
+export function placeOnRoof(hero,mode,x){hero.group.position.set(x,0,0);hero.group.updateMatrixWorld(true);const bottom=hero.bounds().min.y;hero.group.position.y=roofHeight(mode)-bottom;hero.group.updateMatrixWorld(true);return hero.group.position.y;}

@@ -1,0 +1,76 @@
+import {mountLeaderboard} from '../shared/leaderboard.mjs';
+import {recordPlayStart} from '../shared/play-counts.mjs';
+let leaderboard=null;
+import {mountControlsFrame} from '../shared/controls-shell.mjs';
+mountControlsFrame({document,game:"pole-vault",scene:document.querySelector(".arena"),controls:document.querySelector(".controls"),keys:{a:document.querySelector("[data-limb=\"2\"]"),s:document.querySelector("[data-limb=\"3\"]"),j:document.querySelector("[data-limb=\"0\"]"),k:document.querySelector("[data-limb=\"1\"]")}});
+import {createGameEntry,helpIsOpen,suspendHelpPresentation,ensurePauseHelp} from '../shared/entry-shell.mjs';
+import{syncPauseButton}from'../shared/game-ui.mjs';
+import{loadBest,storeBest}from'./flight-profile.mjs';
+import{createResultFrame}from'./result-frame.mjs';
+import{createResultGuard,bindResultGuard}from'./result-guard.mjs';
+import{fresh,step,pose,cancelMotion,DT,verdict}from'./physics.mjs';
+import{createInput,KEY_MAP,bindAccessibleLimb}from'./input.mjs';
+import{createWorld}from'./render.mjs';
+import{createGameAudio}from'./audio.mjs';
+import{heightText,shareText,saveImage,drawResult}from'./share.mjs';
+import{flightCue,mobileCue}from'./ui-state.mjs';
+import{milestones,milestoneFor,nextMilestone,cosmicMilestone}from'./milestones.mjs';
+const $=id=>document.getElementById(id),buttons=[...document.querySelectorAll('[data-limb]')],input=createInput();
+let s=fresh(),playing=false,paused=false,best=0,acc=0,prev=performance.now(),lastDraw=0,runId=0,resultFile=null,frozen=null,resultFrame=createResultFrame(),settingsWasRunning=false;
+best=loadBest();
+const resultGuard=createResultGuard();
+const resultActions=[$('start'),$('save-image'),$('threads'),$('copy')];
+bindResultGuard(document,resultGuard,target=>{const b=target?.closest?.('button');return resultActions.includes(b)||b?.matches?.('.pf-leaderboard [data-submit], .pf-result-ranking')?b:null;});
+function guardUI(){const active=resultGuard.active;for(const b of resultActions){const value=String(!resultGuard.usable||b.disabled);if(active&&b.getAttribute('aria-disabled')!==value)b.setAttribute('aria-disabled',value);else if(!active)b.removeAttribute('aria-disabled');}const label=active&&!resultGuard.usable?'先放開所有按鍵，再選擇操作':'PLAYFORMOSA · 四肢運動會';if($('card-label').textContent!==label)$('card-label').textContent=label;}
+const sound=createGameAudio({notify:t=>{$('audio-status').textContent=t;$('sound').title=t;const status=$('platform-audio-status');status.textContent=t;status.hidden=!t;}});
+const world=createWorld($('scene'));if(world.software)$('render-note').hidden=true;
+$('height-rail').innerHTML=milestones.map(m=>`<i title="${m.label}"></i>`).join('');
+const marks=[...$('height-rail').children];
+let orientation=innerWidth>innerHeight;
+function layout(){const v=visualViewport,width=v&&v.scale===1?v.width:innerWidth,height=v&&v.scale===1?v.height:innerHeight;document.documentElement.style.setProperty('--vh',height+'px');document.documentElement.dataset.layout=width>=640&&width>height?'side':'bottom';const next=width>height;if(next!==orientation){orientation=next;resultGuard.interrupt();pause();}world.resize();lastDraw=0;}
+window.addEventListener('resize',layout);visualViewport?.addEventListener('resize',layout);window.addEventListener('orientationchange',()=>{resultGuard.interrupt();pause();requestAnimationFrame(layout);});
+function clear(){const ids=[...input.pointers.keys()];input.clear();cancelMotion(s);for(const id of ids)for(const b of buttons)try{if(b.hasPointerCapture(id))b.releasePointerCapture(id);}catch{}sync();}
+function sync(){buttons.forEach(b=>{const i=Number(b.dataset.limb);b.classList.toggle('active',input.values[i]);b.setAttribute('aria-pressed',String(input.values[i]));b.classList.toggle('armed',i<2&&s.phase==='plant'&&s.charge>=.70&&s.charge<=.95);});}
+function openOverlay(type){if(type==='pause'){entry.openPause();return;}$('overlay').insertBefore($('start'),type==='result'?$('result'):$('intro-note'));guardUI();$('intro').hidden=type!=='intro';$('result').hidden=type!=='result';$('paused').hidden=type!=='pause';$('intro-note').hidden=type!=='intro';$('overlay').classList.toggle('result',type==='result');$('overlay').setAttribute('aria-labelledby',type==='result'?'verdict':type==='pause'?'paused':'card-title');$('start').textContent=type==='pause'?'四肢集合，繼續跳 ↗':type==='result'?'再高一點，再跳一次 ↻':'借我一根竿子 ↗';if(!$('overlay').open)$('overlay').showModal();}
+function start(){leaderboard?.reset();entry.close({restoreView:false});resultGuard.end();guardUI();runId++;resultFile=null;frozen=null;resultFrame=createResultFrame();$('finish-frame').replaceChildren();$('share-status').textContent='';clear();s=fresh();playing=true;paused=false;acc=0;prev=performance.now();$('overlay').close();$('settings').close();sound.setPlaying(true);sound.unlock({preview:false});lastDraw=0;ui();void recordPlayStart(window,'pole-vault');}
+function pause(){if(!playing||paused)return;paused=true;clear();acc=0;sound.setPlaying(false);if(!helpIsOpen(document))openOverlay('pause');platformControls();}
+function resume(){entry.close({restoreView:false});if(!playing||!paused)return;clear();paused=false;acc=0;prev=performance.now();$('overlay').close();sound.setPlaying(true);sound.unlock({preview:false});platformControls();}
+$('start').onclick=()=>{if(!$('overlay').open)return;paused?resume():start();};$('reset').onclick=()=>{if(!resultGuard.active)start();};$('pause').onclick=()=>paused?resume():pause();
+$('overlay').addEventListener('cancel',e=>{e.preventDefault();if(paused)resume();});
+buttons.forEach(b=>{const i=+b.dataset.limb;bindAccessibleLimb(b,i,input,{active:()=>playing&&!paused,sync});b.addEventListener('pointerdown',e=>{if(!playing||paused)return;e.preventDefault();b.setPointerCapture(e.pointerId);input.pointer(e.pointerId,i);sync();});for(const type of['pointerup','pointercancel','lostpointercapture'])b.addEventListener(type,e=>{if(input.endPointer(e.pointerId,type))pause();sync();});b.addEventListener('contextmenu',e=>e.preventDefault());});
+window.addEventListener('keydown',e=>{if(e.code==='Escape'){if(playing&&!paused){e.preventDefault();pause();}return;}if(!playing||paused||e.repeat)return;if(input.key(e.code,true)){e.preventDefault();sync();}});window.addEventListener('keyup',e=>{if(input.key(e.code,false)){if(playing&&!paused)e.preventDefault();sync();}});window.addEventListener('blur',()=>{resultGuard.interrupt({clearPhysical:true});pause();});window.addEventListener('focus',()=>resultGuard.interrupt({clearPhysical:true}));document.addEventListener('visibilitychange',()=>{resultGuard.interrupt({clearPhysical:true});if(document.hidden)pause();});
+function settings(credits=false){settingsWasRunning=playing&&!paused;pause();$('credits').open=credits;$('settings').showModal();$('sound').setAttribute('aria-expanded','true');}
+$('sound').onclick=()=>{const enabled=sound.setEnabled(!sound.enabled);$('toggle-sound').textContent=enabled?'關閉音效':'開啟音效';if(enabled)sound.unlock();platformControls();};$('credits-button').onclick=()=>settings(true);$('close-settings').onclick=()=>$('settings').close();$('settings').addEventListener('close',()=>{$('sound').setAttribute('aria-expanded','false');});
+$('music-volume').oninput=e=>sound.setVolume('bgm',e.target.value/100);$('effect-volume').oninput=e=>sound.setVolume('effects',e.target.value/100);$('toggle-sound').onclick=()=>{const enabled=sound.setEnabled(!sound.enabled);$('toggle-sound').textContent=enabled?'關閉音效':'開啟音效';if(enabled)sound.unlock();platformControls();};
+function platformControls(){syncPauseButton($('pause'),{paused,available:playing});$('sound').setAttribute('aria-pressed',String(sound.enabled&&sound.ready));$('sound').setAttribute('aria-label',sound.enabled?'關閉音樂':'開啟音樂');}
+function ui(){platformControls();
+ const h=Math.max(0,s.scoreSnapshot?.height??s.altitude??s.y-1.18),disp=heightText(h).split(' ');$('height-label').textContent=s.scoreLocked?'成績已鎖定':'目前高度';$('height').textContent=disp[0];$('height-unit').textContent=disp[1];$('peak').textContent='最高 '+heightText(s.maxHeight);$('best-label').textContent=best?'最佳 '+heightText(best):'最佳 —';
+ const reached=milestoneFor(s.maxHeight),next=nextMilestone(s.maxHeight)??cosmicMilestone(s.maxHeight);$('world-label').textContent=reached?'已超過 · '+reached.label:'從地板開始偉大';$('next').textContent=next?(next.id==='moon'?'遠方參考 · ':'下一站 · ')+next.label:'宇宙沒有天花板';$('next-height').textContent=next?heightText(next.height):'宇宙彈簧 · 想像力限定';
+ let label='助跑速度',value=(s.vx*3.6).toFixed(1)+' km/h',fill=Math.min(100,s.progress*100),state='A / S 交替跑 · J + K 握竿';
+ if(s.phase==='plant'){label='彎竿蓄力';value=s.charge>=.70&&s.charge<=.95?'放開雙手！':s.charge>.95?'太滿了！快放手':'保持 J + K';fill=s.charge*100;state='綠區 .70–.95 · 放開 J + K 彈起';}
+ if(s.phase==='air'){label='四肢協調';value=flightCue(s).label;fill=flightCue(s).progress*100;state=Math.abs(s.lean)>.45?'姿態偏斜':'身體穩定 · 升力持續';}
+ if(s.phase==='finish'){label='成績鎖定';value=s.hitBar?'碰桿了！':'自動背滾過桿';state='正在拍最後過桿瞬間 · 之後回護墊';fill=100;}
+ if(s.falling){label='返回軟墊';value='最高 '+heightText(s.maxHeight);state='成績鎖定 · J / K 轉圈，A / S 伸腿，不扣分';fill=100;}
+ if(s.phase==='land'){label='準備下班';value='最高 '+heightText(s.maxHeight);state=s.padContact?'護墊已簽收 · 即將顯示過桿定格':'軟墊已準備好接住你的想法';fill=100;}
+ if(s.phase==='done'){label='本次最高';value=heightText(s.maxHeight);state='挑戰完成 · 再高一點？';}
+ const flight=flightCue(s),showFlight=s.phase==='air'&&!s.falling;$('flight-display').hidden=!showFlight;$('next-foot-key').textContent=flight.label;$('beat-countdown').textContent=flight.prompt||'';$('beat-feedback').textContent=flight.feedback||'觀察姿態與體力';$('flight-display').classList.toggle('ready',!!flight.ready);$('beat-feedback').dataset.feedback=flight.feedbackType||'';$('finish-hint').textContent=flight.finish||'';$('finish-progress').style.width=Math.max(0,Math.min(100,Math.abs(s.spin||0)/3*100))+'%';
+ $('tech-label').textContent=label;$('tech-value').textContent=value;$('action-fill').style.width=Math.max(0,Math.min(100,fill))+'%';$('action-meter').className='meter '+s.phase+(s.phase==='air'&&flightCue(s).ready?' ready':'');$('balance-meter').hidden=s.phase!=='air'||s.falling;$('balance-pin').style.left=(50+Math.max(-1,Math.min(1,s.lean))*45)+'%';$('energy-fill').style.width=Math.max(0,Math.min(100,s.energy*100))+'%';$('combo').textContent=s.phase==='run'?'握穩 '+Math.round(s.grip*100)+'%':s.combo?'協調 ×'+s.combo:'協調省力';$('energy-label').textContent=s.phase==='run'?'起飛準備':'彈簧能量';
+ $('state-label').textContent=state;$('mobile-hint').textContent=mobileCue(s);$('mobile-energy').textContent=Math.round(Math.max(0,Math.min(1,s.energy))*100)+'%';$('cue').textContent=s.cue||'';$('cue').classList.toggle('show',s.t<s.cueUntil);marks.forEach((m,i)=>{m.className=s.maxHeight>=milestones[i].height?'passed':next===milestones[i]?'current':'';});sync();
+ $('scene').dataset.renderer=world.software?'software-same-mesh':'webgl';$('scene').dataset.audioDecoded=String(sound.decoded);$('scene').dataset.audioReady=String(sound.ready);$('scene').dataset.phase=s.phase;$('scene').dataset.time=s.t.toFixed(3);$('scene').dataset.altitude=String(h);$('scene').dataset.charge=s.charge.toFixed(3);$('scene').dataset.lean=s.lean.toFixed(3);
+}
+function finish(){leaderboard?.setResult({...s,phase:'done'});playing=false;resultGuard.begin();clear();sound.setPlaying(false);sound.play('result');if(s.maxHeight>best){best=s.maxHeight;storeBest(best);}world.render(s);frozen=world.capture(resultFrame.state??s);const v=verdict(s),height=heightText(s.maxHeight).split(' ');$('result-time').textContent=height[0];$('result-unit').textContent=height[1];$('result-badge').textContent=v.badge;$('verdict').textContent=v.title;$('result-subtitle').textContent=v.subtitle;$('result-detail').textContent=v.detail;$('finish-frame').append(frozen);frozen.setAttribute('role','img');frozen.setAttribute('aria-label',resultFrame.kind==='clearance'?'最後成功過桿瞬間與背景':resultFrame.kind==='attempt'?'過桿嘗試瞬間與背景（未成功）':'未起飛的助跑定格');$('save-image').textContent=mobile()?'分享成績圖片':'下載成績圖片';$('save-image').disabled=true;$('threads').disabled=false;$('copy').disabled=false;openOverlay('result');const token=runId;const card=drawResult(frozen,s,v);card.toBlob(blob=>{if(token!==runId||!blob)return;resultFile=new File([blob],'playformosa-pole-vault-'+s.maxHeight.toFixed(2)+'m.png',{type:'image/png'});$('save-image').disabled=false;},'image/png');ui();}
+function mobile(){return matchMedia('(pointer:coarse)').matches||(navigator.maxTouchPoints>0&&!matchMedia('(hover:hover)').matches);}
+function download(file){const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);}
+$('save-image').onclick=async()=>{const token=runId;const out=await saveImage(resultFile,{mobile:mobile(),download});if(token!==runId)return;$('share-status').textContent={shared:'圖片已交給系統分享；發布前請自行確認。',downloaded:'已送出圖片下載要求。',cancelled:'已取消分享。',error:'圖片分享未完成，可再試一次或使用系統瀏覽器。'}[out];};
+$('threads').onclick=()=>{const intent=new URL('https://www.threads.com/intent/post');intent.searchParams.set('text',shareText(s,location.origin+'/games/pole-vault/'));const w=window.open(intent.href,'_blank');if(w)w.opener=null;$('share-status').textContent=w?'請在 Threads 確認文字後發布；圖片需手動附上。':'視窗未開啟，請允許彈出視窗，或複製成績。';};
+$('copy').onclick=async()=>{const text=shareText(s,location.origin+'/games/pole-vault/'),token=runId;try{await navigator.clipboard.writeText(text);if(token===runId)$('share-status').textContent='已複製成績與網址。';}catch{if(token===runId)$('share-status').textContent='請手動複製：'+text;}};
+function frame(now){requestAnimationFrame(frame);if(resultGuard.active)guardUI();const elapsed=Math.max(0,Math.min(.1,(now-prev)/1000));prev=now;if(playing&&!paused){acc+=elapsed;let count=0;while(acc>=DT&&count++<16){step(s,input.values,DT);resultFrame.observe(s);for(const event of s.events){const soundName={step:'step',plant:'land',flex:'jump',jump:'jump',flight:'flight',land:'land',milestone:'flight',finish:'jump',clear:'result','bar-hit':'land'}[event];if(soundName)sound.play(soundName);}acc-=DT;if(s.phase==='done'){finish();break;}}ui();}
+ if(now-lastDraw>(world.software?(playing&&!paused?66:350):16)){world.render(s);lastDraw=now;}}
+function helpVisit(){leaderboard?.suspend();return suspendHelpPresentation(document,{pause:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},dialogs:['overlay','settings'],after:({restoredDialog})=>{if(!restoredDialog&&playing&&paused)openOverlay('pause');}});}
+const entry=createGameEntry({document,gameId:'pole-vault',onHelpEnter:helpVisit,onStart:()=>start(),onEnter:()=>{pause();clear();resultGuard.interrupt({clearPhysical:true});},canStart:()=>Boolean(world)});layout();world.render(s);ui();entry.open();requestAnimationFrame(frame);
+
+entry.setAudio(sound);
+
+entry.configurePause({onContinue:()=>resume(),onRestart:()=>start(),canContinue:()=>playing&&paused});
+
+leaderboard=mountLeaderboard({document,game:'pole-vault',entry:entry.dialog,shell:entry,result:$('result')});

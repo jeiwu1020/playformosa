@@ -1,6 +1,7 @@
 import {handlePlayCounts} from '../play-counts/index.mjs';
 import {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';
 import {LeaderboardRepository} from './repository.mjs';
+import {ExpandedSportsRepository} from './expanded-sports-repository.mjs';
 import {ReactionRodRepository} from './reaction-rod-repository.mjs';
 import {CourtesyRepository} from './courtesy-repository.mjs';
 import {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';
@@ -10,6 +11,17 @@ export const BOARDS=Object.freeze({
  hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),
  'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true})
 });
+// Newly promoted boards use existing preview contracts, only in production.
+export const EXPANDED_SPORTS_BOARDS=Object.freeze({
+ 'pole-vault':Object.freeze({rules:'real-altitude-v3',unit:'m',status:'done',direction:'desc',max:Number.MAX_VALUE}),
+ 'shot-put':Object.freeze({rules:'relay-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
+ discus:Object.freeze({rules:'wind-ufo-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
+ 'beer-slide':Object.freeze({rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc',max:10}),
+ 'tower-climb':Object.freeze({rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc',max:60}),
+ 'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
+ 'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
+});
+const isExpandedSport=game=>typeof game==='string'&&Object.hasOwn(EXPANDED_SPORTS_BOARDS,game);
 // Courtesy alone offsets zero for the existing score>0 schema; no migration or legacy rewrites.
 export const COURTESY_BOARD=Object.freeze({rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,secondary:true,secondaryDirection:'asc',secondaryMax:30,primaryMetric:'courtesies',secondaryMetric:'remaining'});
 // Fast Hands boards share the existing single-score repository, isolated by rules.
@@ -24,6 +36,7 @@ export const LEVEL_BOARDS=Object.freeze({
 const isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);
 const isFast=game=>game==='fast-hands'||isLevel(game);
 function resolveBoard(game,rules,scope='production'){
+ if(isExpandedSport(game))return scope==='production'?EXPANDED_SPORTS_BOARDS[game]:null;
  if(game==='courtesy-contest')return scope==='production'?COURTESY_BOARD:null;
  if(isLevel(game))return LEVEL_BOARDS[game];
  if(game==='fast-hands')return Object.values(FAST_HANDS_BOARDS).find(board=>board.rules===rules)??null;
@@ -34,7 +47,7 @@ const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}
 function validateBaseSubmission(value,scope){
  if(!value||Array.isArray(value)||typeof value!=='object'||Object.keys(value).length!==fields.length||Object.keys(value).some(k=>!fields.includes(k)))throw Error('invalid_fields');
  const b=resolveBoard(value.game,value.rules,scope);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
- if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
+ if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||(b.min!==undefined&&value.score<b.min)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
  if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\p{Cc}\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');
  if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');
  return Object.fromEntries(fields.map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));
@@ -70,7 +83,7 @@ export async function handleRequest(request,env,now=Date.now(),context){
  if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});
  if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);
- const repository=game=>game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):game==='courtesy-contest'?new CourtesyRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);
+ const repository=game=>isExpandedSport(game)?new ExpandedSportsRepository(env.DB,env.LEADERBOARD_SCOPE):game==='reaction-rod'?new ReactionRodRepository(env.DB,env.LEADERBOARD_SCOPE):game==='courtesy-contest'?new CourtesyRepository(env.DB,env.LEADERBOARD_SCOPE):new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);
  try{
   if(request.method==='GET'&&url.pathname==='/api/leaderboard'){
    const game=url.searchParams.get('game'),fast=game==='fast-hands',mode=url.searchParams.get('mode');

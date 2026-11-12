@@ -1,0 +1,79 @@
+/* Shared game material, extending the original Long Jump result scrollbar.
+   Only scrollbar painting changes: overflow, focus, wheel and touch stay native.
+   Low specificity preserves each game's existing result-specific artwork. */
+:root {
+  --pf-scrollbar-track: #e4e9df;
+  --pf-scrollbar-thumb: #527d6d;
+  --pf-scrollbar-hover: #174941;
+  --pf-scrollbar-edge: #fffdf4;
+}
+
+:where(html, body, body *) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-scrollbar-thumb) var(--pf-scrollbar-track);
+}
+
+/* Chromium supports both APIs. Let its detailed WebKit painting win instead
+   of the simplified standard-property scrollbar, even when an older game
+   explicitly requests thin width. Existing WebKit artwork still wins by its
+   selector specificity; Firefox keeps the standard fallback. */
+@supports selector(::-webkit-scrollbar) {
+  :where(html, body, body *) {
+    scrollbar-width: auto !important;
+    scrollbar-color: auto !important;
+  }
+}
+
+:where(html, body, body *)::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+:where(html, body, body *)::-webkit-scrollbar-track {
+  background: var(--pf-scrollbar-track);
+  border: 2px solid var(--pf-scrollbar-edge);
+  border-radius: 12px;
+}
+
+:where(html, body, body *)::-webkit-scrollbar-thumb {
+  min-height: 28px;
+  min-width: 28px;
+  background: var(--pf-scrollbar-thumb);
+  border: 2px solid var(--pf-scrollbar-edge);
+  border-radius: 12px;
+}
+
+:where(html, body, body *)::-webkit-scrollbar-thumb:hover {
+  background: var(--pf-scrollbar-hover);
+}
+
+:where(html, body, body *)::-webkit-scrollbar-thumb:active {
+  background: var(--pf-scrollbar-hover);
+}
+
+:where(html, body, body *)::-webkit-scrollbar-corner {
+  background: var(--pf-scrollbar-track);
+}
+
+:where(html, body, body *)::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Respect Windows High Contrast instead of forcing the game's light palette. */
+@media (forced-colors: active) {
+  :where(html, body, body *) {
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+  :where(html, body, body *)::-webkit-scrollbar-track,
+  :where(html, body, body *)::-webkit-scrollbar-corner {
+    background: Canvas;
+    border-color: Canvas;
+  }
+  :where(html, body, body *)::-webkit-scrollbar-thumb,
+  :where(html, body, body *)::-webkit-scrollbar-thumb:hover,
+  :where(html, body, body *)::-webkit-scrollbar-thumb:active {
+    background: CanvasText;
+    border-color: Canvas;
+  }
+}

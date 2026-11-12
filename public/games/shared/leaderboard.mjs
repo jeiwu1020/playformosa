@@ -1,15 +1,19 @@
+import {mountLeaderboard as mountExpandedSports,eligibleResult as expandedResult} from './expanded-sports-leaderboard.mjs';
+const expandedSports=new Set(['pole-vault','shot-put','discus','beer-slide','tower-climb','run-400m','run-1500m']);
+export function mountLeaderboard(options){return expandedSports.has(options.game)?mountExpandedSports(options):mountLegacyLeaderboard(options);}
 import {createUploadCooldown} from './upload-cooldown.mjs';
 import {LEADERBOARD_ENABLED} from './leaderboard-config.mjs';
 export const formatLeaderboardScore=n=>n>0&&n<.001?'<0.001':n.toLocaleString(undefined,{maximumFractionDigits:3});
 const boards={ 'long-jump':{rules:'journey-km-v1',unit:'km'},hurdles:{rules:'110m-8h-v1',unit:'s'}};
 export function eligibleResult(game,r){
+ if(expandedSports.has(game))return expandedResult(game,r);
  if(!r||r.phase!=='done')return null;
  const score=game==='long-jump'&&r.valid?r.legalAdventureKm:game==='hurdles'?r.t:null;
  return typeof score==='number'&&Number.isFinite(score)&&score>0&&(game!=='hurdles'||score<=180)?{score,status:game==='long-jump'?'valid':'done'}:null;
 }
 const displayUnits={km:'公里',s:'秒'};
 const boardLabels={'long-jump':['跳遠','合法落地，越遠越好。'],hurdles:['110公尺跨欄','越快越好，欄杆不是扶手。']};
-export function mountLeaderboard({document,game,entry,result,shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
+function mountLegacyLeaderboard({document,game,entry,result,shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){
  if(!enabled||!Object.hasOwn(boards,game))return null;
  const win=document.defaultView,b=boards[game],make=(tag,text)=>{const n=document.createElement(tag);if(text)n.textContent=text;return n;};
  if(!document.querySelector('link[data-leaderboard-style]')){const l=make('link');l.rel='stylesheet';l.href='/games/shared/leaderboard.css';l.dataset.leaderboardStyle='';document.head.append(l);}

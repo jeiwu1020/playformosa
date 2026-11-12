@@ -1,0 +1,2 @@
+export const LIMBS=['a','s','j','k'];
+export function createInput(){const sources=new Map(),values=[false,false,false,false];return{sources,values,set(source,key){const before=values.slice();if(LIMBS.includes(key))sources.set(source,key);else sources.delete(source);for(let i=0;i<4;i++)values[i]=[...sources.values()].includes(LIMBS[i]);return LIMBS.flatMap((k,i)=>before[i]===values[i]?[]:[[k,values[i]]]);},clear(){sources.clear();values.fill(false);}};}
