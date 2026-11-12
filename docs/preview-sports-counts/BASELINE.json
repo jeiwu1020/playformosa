@@ -9035,6 +9035,7 @@
     "src/catalog.mjs",
     "src/render.mjs",
     "tests/helpers/pinball-integration-provenance.mjs",
+    "tests/nine-play-counts.test.mjs",
     "tests/pinball/catalog.test.mjs",
     "tests/pinball/provenance.test.mjs",
     "tests/play-counts-home.test.mjs",

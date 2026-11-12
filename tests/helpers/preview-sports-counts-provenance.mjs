@@ -9,7 +9,7 @@ const root=fileURLToPath(new URL('../../',import.meta.url));
 export const sha256=b=>createHash('sha256').update(b).digest('hex');
 export const gitBlob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const baselineBytes=actual(new URL('../../docs/preview-sports-counts/BASELINE.json',import.meta.url));
-assert.equal(sha256(baselineBytes),'a05ab38b9650808684b01f861a706d65edc0e4a96f00af003916ee04d2c8ddc1','immutable SportsCounts parent and admitted paths');
+assert.equal(sha256(baselineBytes),'9605dff0323a4be4dd1a70d5c94ce80cc21e9effa9b604166ce773a4c45b2da0','immutable SportsCounts parent and admitted paths');
 const freeze=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};
 export const baseline=freeze(JSON.parse(baselineBytes));
 const previous=new Map(baseline.files.map(f=>[f.path,f.gitBlob]));

@@ -131,6 +131,14 @@
       "beforeSha256": "982d56eaf392b3b535ad25a754858d63c0143ad0bb14d139a1a4eaf9e5244f52"
     },
     {
+      "path": "tests/nine-play-counts.test.mjs",
+      "gitBlob": "e314122f549488ae284c0132398498ea95129e2c",
+      "sha256": "ea748bf6f972ef25cd65f1ba1f4bac97302752f7033e03c04f41c098542e03ea",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{validateStart}from'../worker/play-counts/index.mjs';import{PlayCountsRepository}from'../worker/play-counts/repository.mjs';import{database}from'./helpers/leaderboard-sqlite.mjs';import{readFile}from'node:fs/promises';\nconst games=['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'];\ntest('all nine count keys accepted; no external game keys',()=>{const p={deviceId:'00000000-0000-4000-8000-000000000001',runId:'00000000-0000-4000-8000-000000000002',startedAt:1000};for(const game of games)assert.equal(validateStart({...p,game},1000).game,game);assert.throws(()=>validateStart({...p,game:'taiwanfighter'},1000));assert.throws(()=>validateStart({...p,game:'home'},1000));});\ntest('combined GET retains nine older game totals plus Fast Hands and home, no invented historical rows',async()=>{const d=await database();d.raw.run(await readFile(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));const r=new PlayCountsRepository(d,'qa'),counts=await r.totals();assert.deepEqual(Object.keys(counts).sort(),[...games,'fast-hands','fast-hands-catch','fast-hands-duel','courtesy-contest','taiwanfighter','home'].sort());for(const c of Object.values(counts))assert.deepEqual(c,{count:0,since:null});});\ntest('every admitted local game increments its own key; pause/replay keys never accepted',async()=>{const d=await database();d.raw.run(await readFile(new URL('../worker/play-counts/002.sql',import.meta.url),'utf8'));const r=new PlayCountsRepository(d,'qa'),deviceId='00000000-0000-4000-8000-000000000001';for(let i=0;i<games.length;i++){const runId=`00000000-0000-4000-8000-${String(i+2).padStart(12,'0')}`,startedAt=1000+i*3000;const p=validateStart({game:games[i],deviceId,runId,startedAt},startedAt);assert.equal((await r.start(p,startedAt)).accepted,true);assert.equal((await r.start(p,startedAt)).duplicate,true);}const c=await r.totals();for(const g of games)assert.equal(c[g].count,1);assert.equal(c.home.count,0);for(const game of['replay','pause','help'])assert.throws(()=>validateStart({game,deviceId,runId:deviceId,startedAt:1},1));});\n",
+      "beforeGitBlob": "574fbd870cfa93ead166ffd0024455b8fb483498",
+      "beforeSha256": "bd3ba5391b19265d2fa8789f0c27e815515cfc7cf1af11393b70293655f9adbc"
+    },
+    {
       "path": "tests/pinball/catalog.test.mjs",
       "gitBlob": "f1a84123ba2a039e2bd5b992b7ea4e9f7af40320",
       "sha256": "7242df81df95b39ae6ee94d253a5bd1129ed90c39dc89c82ab666f44c4abc77c",
@@ -198,8 +206,8 @@
   "addedFiles": [
     {
       "path": "docs/preview-sports-counts/BASELINE.json",
-      "gitBlob": "a02e4209483f11966c71ee697c023faf17a9f735",
-      "sha256": "a05ab38b9650808684b01f861a706d65edc0e4a96f00af003916ee04d2c8ddc1"
+      "gitBlob": "66866e9b68fab3ad5eb5e285cf3c425b3941765b",
+      "sha256": "9605dff0323a4be4dd1a70d5c94ce80cc21e9effa9b604166ce773a4c45b2da0"
     },
     {
       "path": "public/assets/overtime-pinball-card-v2.png",
@@ -208,8 +216,8 @@
     },
     {
       "path": "tests/helpers/preview-sports-counts-provenance.mjs",
-      "gitBlob": "d434754bf67046c5a8ceb9b4105d978c8c5a488a",
-      "sha256": "db65453520d088d8db6361f2542de03c62293e81736952340f5bef8da5acee9b"
+      "gitBlob": "718528a709152a00d82db4a9193bfc861b01c2a2",
+      "sha256": "c61943e19f2001a36149ee5776ff7d1e40655ef62e2b85a296dd42e68e54224a"
     },
     {
       "path": "tests/pinball-play-counts.test.mjs",
