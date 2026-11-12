@@ -226,8 +226,8 @@
     },
     {
       "path": "tests/fast-hands/duck-completion-regression.test.mjs",
-      "gitBlob": "23413c912578dce0b9700a2ffc01934681ba15b1",
-      "sha256": "205374a978f7e28336426c7d14c5d7ccc1dd14cf615bac2aad3da63ffffafbb1"
+      "gitBlob": "f930bbaf08c3eb2f088dbb66405bc921d9fb63cc",
+      "sha256": "49a88836fe002882cc7de9ea55be0b6ba791eb90c46000f4f3708b1dda8c8368"
     },
     {
       "path": "tests/fast-hands/duck-pointerup-regression.test.mjs",
