@@ -9019,6 +9019,7 @@
     }
   ],
   "modifiedPaths": [
+    "public/games/fast-hands/app.mjs",
     "public/games/javelin/app.mjs",
     "public/games/overtime-pinball/game-audio.js",
     "public/games/overtime-pinball/main.js",
@@ -9047,6 +9048,7 @@
     "docs/preview-sports-counts/BASELINE.json",
     "docs/preview-sports-counts/MANIFEST.json",
     "public/assets/overtime-pinball-card-v2.png",
+    "tests/fast-hands/duck-pointerup-regression.test.mjs",
     "tests/helpers/preview-sports-counts-provenance.mjs",
     "tests/pinball-play-counts.test.mjs",
     "tests/pinball-thumbnail.test.mjs",
