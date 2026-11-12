@@ -30,8 +30,10 @@ export function validate(m){
  return m;
 }
 export function pageParentBytes(path,bytes){
- const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=variationParentBytes(path,bytes);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
+ const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);
+ // Repeated historical readers may already hold this exact pinned parent.
+ const before=f&&Buffer.from(f.beforeText);if(before&&bytes.equals(before))return before;
+ bytes=variationParentBytes(path,bytes);if(!f)return bytes;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;
 }
 export function readBeforePage(file,options){

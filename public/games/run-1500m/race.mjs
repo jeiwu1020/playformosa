@@ -1,8 +1,8 @@
 // A standalone fixed-step 1500m prototype. One world unit is one metre.
-export const RULES='1500m-bounded-plans-v4';
+export const RULES='1500m-rival-tiers-v5';
 // Four complete schedules, selected once at the start; no mid-race difficulty roll.
 export const RACE_PLANS=Object.freeze([
- [0,-18,18],[0,18,-18],[18,-18,0],[18,0,-18]
+ [0,0,0],[6,0,0],[12,0,0],[18,0,0]
 ].map((offsets,id)=>Object.freeze({id,seed:150015+(id+2)*101,offsets:Object.freeze(offsets)})));
 export function randomRacePlan(){return Math.min(RACE_PLANS.length-1,Math.floor(Math.random()*RACE_PLANS.length))}
 export const ARCADE_SCALE=1.9;
@@ -22,7 +22,7 @@ export function trackPoint(s,lane=0){
 export function pathScale(s,lane){return trackPoint(s).curve?1+lane*TRACK.laneWidth/TRACK.radius:1}
 function random(r){r.seed|=0;r.seed=r.seed+0x6D2B79F5|0;let t=Math.imul(r.seed^r.seed>>>15,1|r.seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
 function runner(id){return{id,name:['你','爆衝阿火','穩穩阿青','尾速阿紫'][id],color:['#ed782e','#db5a5e','#258d7b','#9471bb'][id],s:0,v:0,lane:[1,0,2,3][id],targetLane:[1,0,2,3][id],energy:100,cadence:.48,lastStep:-10,lastLeg:-1,steps:0,started:false,reaction:null,held:{a:false,s:false,j:false,k:false},handChord:false,tucking:false,lean:0,wobble:0,slip:0,slipSeconds:0,laneChanges:0,blocked:0,finished:null,finishRaceTime:null,penalty:0,aiNext:.28+id*.06,aiLook:1.2,aiRecover:false,aiPassUntil:0,tactic:'就位',splits:[],lastSplit:0,pose:0,cansCollected:[],splash:0};}
-export function createRace(planId=0){if(!Number.isInteger(planId)||!RACE_PLANS[planId])throw new RangeError('Unknown race plan');const plan=RACE_PLANS[planId];return{rules:RULES,planId,initialSeed:plan.seed,distance:1500,startStyle:'standing',seed:plan.seed,phase:'ready',time:0,clock:0,countdown:3.35,paused:false,falseStarts:0,accumulator:0,event:'站好，留一點力氣給最後一圈。',eventUntil:0,runners:[0,1,2,3].map(runner),supplies:SUPPLIES,inputs:[]}}
+export function createRace(planId=0){if(!Number.isInteger(planId)||!RACE_PLANS[planId])throw new RangeError('Unknown race plan');const plan=RACE_PLANS[planId];return{rules:RULES,planId,initialSeed:plan.seed,distance:1500,startStyle:'standing',seed:plan.seed,phase:'ready',time:0,clock:0,countdown:3.35,paused:false,falseStarts:0,accumulator:0,event:'站好，留一點力氣給最後一圈。',eventUntil:0,runners:[0,1,2,3].map(id=>{const p=runner(id);if(id)p.seed=id===1?plan.seed:150015+id*101;return p}),supplies:SUPPLIES,inputs:[]}}
 export function startRace(r){if(r.phase!=='ready')return;r.phase='countdown';r.event='站姿就位。槍響後 A／S 交替邁步。';}
 function announce(r,text,duration=2){r.event=text;r.eventUntil=r.time+duration}
 export function cancelInput(r){for(const p of r.runners){for(const k of Object.keys(p.held))p.held[k]=false;p.handChord=false;p.tucking=false}}
@@ -65,20 +65,20 @@ export function aiPlan(r,p){
  if(p.energy>49)p.aiRecover=false;
  const offset=RACE_PLANS[r.planId].offsets[p.id-1],distance=p.s+offset;
  let interval=p.id===1?(distance<220?.33:distance<650?.395:distance<790?.34:distance<1180?.405:.34)
-  :p.id===2?(distance<1080?.38:distance<1320?.365:.335)
-  :(distance<850?.415:distance<1230?.37:.325);
+  :p.id===2?(distance<1080?.45:distance<1320?.43:.40)
+  :(distance<850?.54:distance<1230?.50:.46);
  let tactic=interval<.36?'加速進攻':'巡航蓄力';
  if(p.aiRecover){interval=.59;tactic='慢跑回氣'}
- else if(r.time<p.aiPassUntil&&p.energy>35){interval=Math.min(interval,.335);tactic='外線超車'}
+ else if(r.time<p.aiPassUntil&&p.energy>35){interval=Math.min(interval,[0,.335,.405,.46][p.id]);tactic='外線超車'}
  else if(p.slip>.3&&p.s<1180&&p.energy<76){interval=Math.max(interval,.40);tactic='跟跑省力'}
  if(r.time<1)interval=.43;
  return{interval,tactic};
 }
 function ai(r,p){
  const plan=aiPlan(r,p);p.tactic=plan.tactic;
- if(r.time>=p.aiNext){const key=p.lastLeg===0?'s':'a';input(r,key,true,p.id);input(r,key,false,p.id);p.aiNext=r.time+plan.interval+(random(r)-.5)*.012;}
+ if(r.time>=p.aiNext){const key=p.lastLeg===0?'s':'a';input(r,key,true,p.id);input(r,key,false,p.id);p.aiNext=r.time+plan.interval+(random(p)-.5)*.012;}
  if(r.time>=p.aiLook){
-  p.aiLook=r.time+.48+random(r)*.18;
+  p.aiLook=r.time+.48+random(p)*.18;
   const can=nextSupply(r,p),wantCan=can&&can.s-p.s<48&&p.energy<74;
   const ahead=r.runners.filter(q=>q!==p&&q.finished===null&&q.s>p.s&&q.s-p.s<6&&Math.abs(q.lane-p.lane)<.48).sort((a,b)=>a.s-b.s)[0];
   if(wantCan&&p.targetLane!==can.lane)requestLane(r,p,p.targetLane<can.lane?1:-1);

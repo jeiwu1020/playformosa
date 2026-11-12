@@ -20,7 +20,7 @@ export const QA_COURTESY_BOARD=Object.freeze({rules:'press-courtesy-v2',unit:'co
 const QA_POLE_VAULT_BOARD=Object.freeze({...BOARDS['pole-vault'],rules:'real-altitude-v3'});
 export const QA_RUNNER_BOARDS=Object.freeze({
  'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
- 'run-1500m':Object.freeze({rules:'1500m-bounded-plans-v4',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
+ 'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
 });
 // Fast Hands rules isolate the two input modes without changing the nine legacy boards.
 export const FAST_HANDS_BOARDS=Object.freeze({

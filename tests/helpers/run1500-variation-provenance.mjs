@@ -1,6 +1,6 @@
 // Exact reversible boundary for the authorised bounded AI plan change.
 // Behaviour tests import live modules; only historical inventories use this view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeTiers as actual,tierParentBytes,inventoryBeforeTiers} from './run1500-tiers-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -30,8 +30,10 @@ export function validate(m){
  return m;
 }
 export function variationParentBytes(path,bytes){
- const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
+ const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);
+ // Repeated historical readers may already hold this exact pinned parent.
+ const before=f&&Buffer.from(f.beforeText);if(before&&bytes.equals(before))return before;
+ bytes=tierParentBytes(path,bytes);if(!f)return bytes;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;
 }
 export function readBeforeVariation(file,options){
@@ -41,6 +43,7 @@ export function readBeforeVariation(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),before=variationParentBytes(path,bytes);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeVariation(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeTiers(paths);const priorRead=read;read=p=>tierParentBytes(p,priorRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate 1500m variation inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  for(const p of m.addedPaths)assert.equal(paths.filter(x=>x===p).length,1,p+' missing repair evidence');

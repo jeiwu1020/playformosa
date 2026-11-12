@@ -1,5 +1,5 @@
 import{copyRace}from'./runner-replay.mjs';
-export const RUNNER_RULES=Object.freeze({'run-400m':'400m-prototype-v3','run-1500m':'1500m-bounded-plans-v4'});
+export const RUNNER_RULES=Object.freeze({'run-400m':'400m-prototype-v3','run-1500m':'1500m-rival-tiers-v5'});
 export function runnerVerdict(game,m){
  if(game==='run-400m'){
   if(m.falls>=3)return'四肢開了三次以上離職會議，最後還是全員到齊。';
@@ -30,5 +30,5 @@ export function freezeRunnerResult(game,race,ruleset){
  const p=race.runners[0];if(p.finished===null||!Number.isFinite(p.finished)||p.finished<=0||ruleset!==RUNNER_RULES[game])return null;
  const rank=1+race.runners.filter(q=>q!==p&&q.finished!==null&&q.finished<p.finished).length;
  const metrics=copyRace({...p,falseStarts:race.falseStarts??0,rank,...(game==='run-1500m'?{raceSeed:race.initialSeed,racePlanId:race.planId}:{})});
- return freeze({game,ruleset,phase:'done',finished:true,seconds:p.finished,rank,metrics,verdict:runnerVerdict(game,metrics),scoreSnapshot:{ruleset,seconds:p.finished},runners:copyRace(race.runners),timeBasis:game==='run-1500m'?'街機版實際遊戲用時，非真實田徑紀錄':'實際遊戲用時'});
+ return freeze({game,ruleset,phase:'done',finished:true,seconds:p.finished,rank,metrics,verdict:runnerVerdict(game,metrics),scoreSnapshot:{ruleset,seconds:p.finished},runners:copyRace(race.runners),timeBasis:game==='run-1500m'?'':'實際遊戲用時'});
 }
