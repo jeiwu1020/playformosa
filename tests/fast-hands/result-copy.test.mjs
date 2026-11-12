@@ -86,7 +86,7 @@ test('timeout before pickup explains the duck was not reached', () => {
   const result = describeResult({phase: 'failed', reason: 'note-floor', pickupAt: null, elapsedMs: NOTE_FLOOR_MS});
   assert.equal(result.success, false);
   assert.equal(result.timeText, '未完成');
-  assert.equal(result.comment, '鴨還沒抓到，鈔票已經先下班。');
+  assert.equal(result.comment, 'Time up. No duck-zone entry detected.');
 });
 
 test('timeout after pickup explains the unfinished return instead of missing the duck', () => {
@@ -95,13 +95,13 @@ test('timeout after pickup explains the unfinished return instead of missing the
     assert.equal(result.success, false);
     assert.equal(result.newRecord, false);
     assert.equal(result.timeText, '未完成');
-    assert.equal(result.comment, '鴨抓到了，鈔票卻等不到你回家。');
+    assert.equal(result.comment, 'Time up. Return to bill zone not detected.');
   }
 });
 
-test('released input gives a hold-through-the-round instruction', () => {
+test('released input describes the missing observed zone', () => {
   const result = describeResult({phase: 'cancelled', reason: 'released', elapsedMs: 200}, {best: 400});
-  assert.equal(result.comment, '手先下班了。下一輪全程按住。');
+  assert.equal(result.comment, 'No duck-zone entry detected before release.');
   assert.equal(result.timeText, '未完成');
   assert.equal(result.bestText, '0.400 秒');
   assert.equal(result.deltaText, '本輪不列入紀錄');
@@ -113,7 +113,7 @@ test('interruptions never turn a partial time into a success or overwrite the di
     assert.equal(result.success, false, reason);
     assert.equal(result.newRecord, false, reason);
     assert.equal(result.timeText, '未完成', reason);
-    assert.equal(result.comment, '這輪先不算，準備好再來。', reason);
+    assert.equal(result.comment, ({blur:'Game window inactive. Round interrupted.',hidden:'Game window inactive. Round interrupted.',resize:'Screen size changed. Round interrupted.',pointercancel:'Input interrupted. Please try again.',lostpointercapture:'Input interrupted. Please try again.'})[reason] || 'Round incomplete. Please try again.', reason);
     assert.equal(result.bestText, '0.400 秒', reason);
   }
 });
@@ -148,7 +148,7 @@ test('absent and nonterminal states cannot produce a numeric success', () => {
     const result = describeResult(state);
     assert.equal(result.success, false);
     assert.equal(result.timeText, '未完成');
-    assert.equal(result.comment, '這輪先不算，準備好再來。');
+    assert.equal(result.comment, 'Round incomplete. Please try again.');
   }
 });
 

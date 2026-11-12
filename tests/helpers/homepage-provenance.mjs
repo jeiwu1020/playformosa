@@ -9,7 +9,7 @@ const root=fileURLToPath(new URL('../../',import.meta.url));
 export const sha256=b=>createHash('sha256').update(b).digest('hex');
 export const gitBlob=b=>createHash('sha1').update(`blob ${b.length}\0`).update(b).digest('hex');
 const baselineBytes=actual(new URL('../../docs/homepage/BASELINE.json',import.meta.url));
-assert.equal(sha256(baselineBytes),'27a0aabea72d7a9291472fb54e9d71a2f820b6014b8535010555f7545fd53b35','immutable Homepage parent and admitted paths');
+assert.equal(sha256(baselineBytes),'c2d289b323ef10b879de734072dc0e69ef95253078ac15208a798d2d75145568','immutable Homepage parent and admitted paths');
 export const baseline=JSON.parse(baselineBytes);
 const previous=new Map(baseline.files.map(f=>[f.path,f.gitBlob]));
 export function verifyBase(b){

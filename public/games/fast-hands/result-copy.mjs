@@ -11,7 +11,7 @@ export function describeResult(state, {previousBest = null, best = null, mode = 
   const elapsedMs = state?.elapsedMs;
   const newRecord = success && !saveFailed && currentBest === elapsedMs && (oldBest === null || elapsedMs < oldBest);
   let title = '這輪未完成';
-  let comment = '這輪先不算，準備好再來。';
+  let comment = 'Round incomplete. Please try again.';
   let deltaText = '本輪不列入紀錄';
 
   if (success) {
@@ -30,10 +30,20 @@ export function describeResult(state, {previousBest = null, best = null, mode = 
   } else if (state?.reason === 'note-floor') {
     title = '鈔票先下班了';
     comment = Number.isFinite(state.pickupAt)
-      ? '鴨抓到了，鈔票卻等不到你回家。'
-      : '鴨還沒抓到，鈔票已經先下班。';
+      ? 'Time up. Return to bill zone not detected.'
+      : 'Time up. No duck-zone entry detected.';
   } else if (state?.reason === 'released') {
-    comment = '手先下班了。下一輪全程按住。';
+    comment = Number.isFinite(state.pickupAt)
+      ? 'Duck zone detected. Return to bill zone not detected.'
+      : 'No duck-zone entry detected before release.';
+  } else if (['pointercancel', 'lost-capture', 'lostpointercapture'].includes(state?.reason)) {
+    comment = 'Input interrupted. Please try again.';
+  } else if (['blur', 'hidden'].includes(state?.reason)) {
+    comment = 'Game window inactive. Round interrupted.';
+  } else if (state?.reason === 'resize') {
+    comment = 'Screen size changed. Round interrupted.';
+  } else if (['help', 'ranking', 'intro', 'settings', 'mode-change'].includes(state?.reason)) {
+    comment = 'Menu opened or mode changed. Round interrupted.';
   }
 
   return {

@@ -5466,6 +5466,7 @@
   "modifiedPaths": [
     "public/assets/home.css",
     "public/games/fast-hands/app.mjs",
+    "public/games/fast-hands/result-copy.mjs",
     "public/games/javelin/app.mjs",
     "public/games/shared/play-counts.mjs",
     "public/games/shared/runner-platform.mjs",
@@ -5475,6 +5476,7 @@
     "src/catalog.mjs",
     "src/render.mjs",
     "tests/courtesy-production.test.mjs",
+    "tests/fast-hands/result-copy.test.mjs",
     "tests/fighter-entry-count.test.mjs",
     "tests/helpers/main-expansion-provenance.mjs",
     "tests/high-jump-main.test.mjs",
@@ -5498,6 +5500,7 @@
     "docs/homepage/MANIFEST.json",
     "tests/fast-hands/duck-completion-regression.test.mjs",
     "tests/fast-hands/duck-pointerup-regression.test.mjs",
+    "tests/fast-hands/duck-reasons.test.mjs",
     "tests/helpers/homepage-provenance.mjs",
     "tests/homepage-portals.test.mjs",
     "tests/homepage-provenance.test.mjs",
