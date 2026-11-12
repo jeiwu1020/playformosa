@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createHash} from 'node:crypto';import {JSDOM} from 'jsdom';import {catalog} from '../src/catalog.mjs';import {renderPage} from '../src/render.mjs';
+test('pinball home card uses original undistorted generated asset and keeps counter',()=>{
+ const d=new JSDOM(renderPage(catalog)).window.document;const count=d.querySelector('[data-play-count="overtime-pinball"]');const card=count.closest('.game-card');const img=card.querySelector('img');assert.equal(img.getAttribute('src'),'/assets/overtime-pinball-card-v2.png');assert.equal(img.className,'game-scene');
+ const b=readFileSync(new URL('../public'+img.getAttribute('src'),import.meta.url));assert.equal(b.readUInt32BE(16),1672);assert.equal(b.readUInt32BE(20),941);assert.equal(createHash('sha256').update(b).digest('hex'),'c4e64f84285985a36a0fc057960df7936de140b1d92e3515567325f4fbb0cabb');
+ const css=readFileSync(new URL('../public/assets/home.css',import.meta.url),'utf8');assert.match(css,/\.game-thumbnail img\.game-scene\{object-fit:cover;[^}]*transform:none/);assert.equal(card.querySelectorAll('[data-play-count]').length,1);
+});

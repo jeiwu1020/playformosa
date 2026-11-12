@@ -7,8 +7,8 @@ test('platform catalog admits the pinball game once with three-mode copy and loc
  const matches=source.match(/\{id:'overtime-pinball'[^\n]+/g)||[];
  assert.equal(matches.length,1);
  assert.match(matches[0],/href:'\/games\/overtime-pinball\/'/);
- assert.match(matches[0],/image:'\/assets\/overtime-pinball-card\.png'/);
+ assert.match(matches[0],/image:'\/assets\/overtime-pinball-card-v2\.png'/);
  assert.match(matches[0],/1 分鐘、3 分鐘或不限時/);
- const art=await readFile(new URL('../../public/assets/overtime-pinball-card.png',import.meta.url));
+ const art=await readFile(new URL('../../public/assets/overtime-pinball-card-v2.png',import.meta.url));
  assert.equal(art.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
 });

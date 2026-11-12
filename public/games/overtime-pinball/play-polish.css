@@ -14,7 +14,7 @@ body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw
 @media(max-height:420px){body.playing #comic,body.playing #comic[data-tier="3"]{font-size:16px}}
 /* Fixed-size station names; only their backing softens when the actor passes. */
 .station-tag{transition:background-color .18s,border-color .18s,box-shadow .18s;text-shadow:0 1px 2px #102d31,1px 0 2px #102d31,-1px 0 2px #102d31}
-.station-tag.actor-near{background:#193c4214;border-color:#f1d98a26;box-shadow:none}
+
 #stationHint{height:22px;line-height:22px;white-space:nowrap;font-size:13px;font-weight:700;color:#fff0bd;text-align:left;grid-column:1/-1;overflow:visible}
 @media(orientation:landscape){#bossStatus{left:auto;right:12px;top:64px;transform:none;max-width:190px;font-size:13px}}
 @media(orientation:portrait){#bossStatus{top:130px}}
@@ -23,3 +23,6 @@ body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw
 .station-tag{transform:translate(-50%,-100%);transition:background-color .18s,border-color .18s,box-shadow .18s}.station-tag.is-current{outline:2px solid #ffe17c;box-shadow:0 0 0 2px #173b4077;color:#fff2b2}
 
 @media(orientation:portrait){body.playing #payStatus.frozen.reentry:after{content:'重返不計費'}}
+
+/* Only an occluded actor receives a position cue; scenery never fades. */
+.actor-location{position:absolute;transform:translate(-50%,-50%);z-index:2;width:18px;height:18px;display:grid;place-items:center;border:2px solid #fff7dc;border-radius:50%;background:#193c42;color:#ffe17c;font:900 12px/1 system-ui;box-shadow:0 0 0 2px #193c42;pointer-events:none}.actor-location[hidden]{display:none}

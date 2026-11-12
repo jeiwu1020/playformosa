@@ -1,5 +1,7 @@
 import {WINDOWS,LAMPS,SOLID_PROPS} from './board-features.js';
-export function buildOfficeFeatures({T,office,box,cylinder,label,C,view}){
+// Fixed glazing keeps the room stable. Only glass is translucent; frames stay solid.
+export function stableWindow(mesh,opacity=1,enabled=true){if(!enabled)return mesh;mesh.userData.occlusionMode='keep';if(opacity<1){mesh.material.transparent=true;mesh.material.opacity=opacity;mesh.material.depthWrite=false;}return mesh;}
+export function buildOfficeFeatures({T,office,box,cylinder,label,C,view,stableWindows=false}){
  const windows=new Map(),lights=[];let lastTime=0;
  const flat=(geometry,color,y=.043)=>{const m=new T.Mesh(geometry,new T.MeshBasicMaterial({color,side:T.DoubleSide,transparent:true,opacity:.6,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.y=y;office.add(m);return m;};
  // Broad floor bands and lit corridors create office routes without invisible rails.
@@ -9,8 +11,10 @@ export function buildOfficeFeatures({T,office,box,cylinder,label,C,view}){
   const line=new T.Line(new T.BufferGeometry().setFromPoints(route.getPoints(90)),new T.LineDashedMaterial({color:0xffeaa3,dashSize:.6,gapSize:.6,transparent:true,opacity:.7}));line.computeLineDistances();office.add(line);
   const dots=new T.InstancedMesh(new T.SphereGeometry(.1,6,4),new T.MeshBasicMaterial({color:0xffe69b}),65);const matrix=new T.Matrix4();for(let n=0;n<65;n++){const p=route.getPoint(n/64);matrix.makeTranslation(p.x,p.y,p.z);dots.setMatrixAt(n,matrix);}office.add(dots);
  }
- for(const w of WINDOWS){const g=new T.Group();g.name=w.id;g.userData.stationId=w.id;g.position.set(-w.side*17.7,0,w.z);office.add(g);
-  const frame=box(.25,2.8,6.8,C.yellow,g,0,2.5,0);const glass=box(.28,2.4,6.3,C.blue,g,-w.side*.08,2.5,0);glass.material=new T.MeshBasicMaterial({color:0x7fbabf,transparent:true,opacity:.65});
+ for(const w of WINDOWS){const g=new T.Group();g.name=w.id;g.userData.stationId=w.id;if(stableWindows)g.userData.occlusionMode='keep';g.position.set(-w.side*17.7,0,w.z);office.add(g);
+  const frame=box(.25,2.8,6.8,C.yellow,g,0,2.5,0);
+  if(stableWindows){const outer=new T.Shape();outer.moveTo(-3.4,-1.4);outer.lineTo(3.4,-1.4);outer.lineTo(3.4,1.4);outer.lineTo(-3.4,1.4);outer.closePath();const hole=new T.Path();hole.moveTo(-3.2,-1.2);hole.lineTo(-3.2,1.2);hole.lineTo(3.2,1.2);hole.lineTo(3.2,-1.2);hole.closePath();outer.holes.push(hole);const geometry=new T.ExtrudeGeometry(outer,{depth:.25,bevelEnabled:false,steps:1});geometry.translate(0,0,-.125);geometry.rotateY(Math.PI/2);frame.geometry.dispose();frame.geometry=geometry;for(const child of frame.children)if(child.isLineSegments){child.geometry.dispose();child.geometry=new T.EdgesGeometry(geometry,28);}}
+  const glass=box(.28,2.4,6.3,C.blue,g,-w.side*.08,2.5,0);glass.material=new T.MeshBasicMaterial({color:0x7fbabf,transparent:true,opacity:.65});stableWindow(glass,.28,stableWindows);
   for(const z of [-2,0,2])box(.32,2.5,.11,C.cream,g,-w.side*.12,2.5,z);
   const badge=label('窗 +20',3.3,1.15);badge.rotation.y=view==='original'?Math.PI:0;badge.position.set(-w.side*1.2,4.25,0);g.add(badge);g.userData.pulse=0;windows.set(w.id,{g,glass,frame});
  }

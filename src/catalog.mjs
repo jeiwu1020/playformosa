@@ -15,7 +15,7 @@ export const catalog = {
     ,{id:'javelin',title:'四肢各有想法｜標槍',event:'標槍',href:'/games/javelin/',status:'available',image:'/assets/javelin-card.png',imageStyle:'illustration',kicker:'助跑送力，出手還要煞得住。'}
   ],
   minigames: [
-    {id:'overtime-pinball',title:'不准加班公司',event:'辦公室人體彈珠台',href:'/games/overtime-pinball/',status:'available',image:'/assets/overtime-pinball-card.png',imageStyle:'scene',kicker:'1 分鐘、3 分鐘或不限時，守住你的加班費。',input:'鍵盤／觸控'},
+    {id:'overtime-pinball',title:'不准加班公司',event:'辦公室人體彈珠台',href:'/games/overtime-pinball/',status:'available',image:'/assets/overtime-pinball-card-v2.png',imageStyle:'scene',kicker:'1 分鐘、3 分鐘或不限時，守住你的加班費。',input:'鍵盤／觸控'},
     {id:'courtesy-contest',title:'客氣大賽',event:'捷運互讓座',href:'/games/courtesy-contest/',status:'available',image:'/assets/courtesy-contest-card.jpg',imageStyle:'scene',kicker:'你先坐！不，你先坐！',input:'滑鼠／觸控／方向鍵'},
     {id:'reaction-rod', title:'接棒啦！', event:'夜市反應力', href:'/games/reaction-rod/', status:'available', image:'/assets/reaction-rod-card.png', imageStyle:'illustration', kicker:'十根棒子，手腦各憑本事。', input:'滑鼠／觸控／鍵盤'},
     {id:'beer-slide', title:'別灑啊！', event:'啤酒精準推杯', href:'/games/beer-slide/', status:'available', image:'/assets/beer-slide-card-v2.webp', imageStyle:'illustration', kicker:'杯子要到站，啤酒別下班。', input:'滑鼠／觸控／空白鍵'},

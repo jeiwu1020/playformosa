@@ -15,10 +15,12 @@ export function startReentry(g){
 export function updateReentry(g,dt){
  const r=g.round.reentry;if(!r)return;
  r.elapsed=Math.min(r.duration,r.elapsed+dt);const t=r.elapsed/r.duration,u=t*t*(3-2*t);
- // Visible return along the outside, with no collision, lamp or reward checks.
- g.ball.x=r.from.x*(1-u)+r.side*(6*u+12*Math.sin(Math.PI*u));g.ball.z=r.from.z+(38-r.from.z)*u;g.hop=Math.sin(Math.PI*t)*.8;
+ // Return around the outside to the clear upper-office aisle, away from the exit.
+ // A controlled side launch avoids a direct copier hit; no new invulnerability,
+ // collision, lamp or reward checks are introduced during the return animation.
+ g.ball.x=r.from.x*(1-u)+r.side*14*Math.sin(Math.PI*u);g.ball.z=r.from.z+(-11.3-r.from.z)*u;g.hop=Math.sin(Math.PI*t)*.8;
  g.tapQueue.length=0;g.pendingTap=null;
- if(r.elapsed>=r.duration-1e-8){Object.assign(g.ball,{x:r.side*6,z:38,vx:r.side*4,vz:-28});g.round.reentry=null;g.hop=.3;g.cancelInput();g.interactionReady=Math.max(g.interactionReady,g.time+.6);g.bossPatrol.kickReady=Math.max(g.bossPatrol.kickReady,g.time+.6);g.emit('reentryEnd');}
+ if(r.elapsed>=r.duration-1e-8){Object.assign(g.ball,{x:0,z:-11.3,vx:r.side*10,vz:12});g.round.reentry=null;g.hop=.3;g.cancelInput();g.interactionReady=Math.max(g.interactionReady,g.time+.6);g.bossPatrol.kickReady=Math.max(g.bossPatrol.kickReady,g.time+.6);g.emit('reentryEnd');}
 }
 export function startTimedEnding(g){
  const r=g.round;if(r.ending)return;r.remaining=0;r.reason='time';

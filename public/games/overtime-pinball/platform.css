@@ -25,3 +25,7 @@ body.pf-game.playing #rankDialog header{height:auto;min-height:0;pointer-events:
  body.pf-game.playing.mail-active[data-view="original"] #mailStatus{top:calc(var(--pf-header-height) + var(--status-height,70px) + 16px);bottom:auto}
  body.pf-game #bossStatus{top:calc(var(--pf-header-height) + var(--status-height,70px) + 16px)}
 }
+
+/* Announce the result via heading focus without framing its noninteractive title.
+   Keep all keyboard focus-visible rings on buttons, links and other controls. */
+.pf-game #results h2[tabindex="-1"]:focus{outline:none}
