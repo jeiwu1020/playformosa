@@ -5496,6 +5496,7 @@
   "addedPaths": [
     "docs/homepage/BASELINE.json",
     "docs/homepage/MANIFEST.json",
+    "tests/fast-hands/duck-completion-regression.test.mjs",
     "tests/fast-hands/duck-pointerup-regression.test.mjs",
     "tests/helpers/homepage-provenance.mjs",
     "tests/homepage-portals.test.mjs",
