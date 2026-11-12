@@ -17,9 +17,10 @@ test('all preview game entries load the shared guard and stylesheet without view
  for(const dialog of d.querySelectorAll('dialog')){const ancestor=dialog.closest('[data-game-gesture-surface]');if(ancestor)assert.ok(ancestor.hasAttribute('data-game-gesture-overlays'),`${entry}: nested dialog must release the ancestor gesture lock`);}
  assert.ok(d.querySelector('main[data-game-gesture-surface]'),`${entry}: protect gaps between scene and controls`);
  for(const el of d.querySelectorAll('[data-game-gesture-surface]'))assert.ok(!['HTML','BODY'].includes(el.tagName),entry);
+ const disposers=api.installGameGestures(d);assert.ok(d.documentElement.hasAttribute('data-game-gesture-page'),entry+' page opt-in');for(const target of [d.body,...d.querySelectorAll('dialog')]){const event=new d.defaultView.Event('gesturestart',{bubbles:true,cancelable:true});target.dispatchEvent(event);assert.equal(event.defaultPrevented,true,entry+' whole-page zoom fallback');}disposers.forEach(fn=>fn());d.defaultView.close();
  }
 });
-test('native double tap and Safari pinch defaults cancel only on gameplay, not reading dialogs',()=>{
+test('surface guards cancel game gestures; page installation separately covers dialogs',()=>{
  const ctx=setup();for(const type of ['dblclick','gesturestart','gesturechange']){assert.equal(send(ctx.dom,ctx.canvas,type).defaultPrevented,true,type);assert.equal(send(ctx.dom,ctx.d.querySelector('dialog p'),type).defaultPrevented,false,type);}
  const a=touch(ctx.canvas),b=touch(ctx.canvas,60,20,2);
  assert.equal(send(ctx.dom,ctx.canvas,'touchstart',{touches:[a,b],changedTouches:[b]}).defaultPrevented,true);
@@ -43,13 +44,13 @@ test('game pointer movement, four simultaneous limb inputs, release/cancel, and 
 test('installation is idempotent and cleanup restores defaults after remount',()=>{
  const ctx=setup();assert.equal(api.protectGameGestures(ctx.surface),ctx.dispose);ctx.dispose();assert.equal(send(ctx.dom,ctx.canvas,'gesturestart').defaultPrevented,false);api.protectGameGestures(ctx.surface);assert.equal(send(ctx.dom,ctx.canvas,'gesturestart').defaultPrevented,true);
 });
-test('CSS protects marked gameplay surfaces only and never disables reading zoom globally',async()=>{
+test('CSS protects live controls and blocks touch zoom without restricting viewport scaling',async()=>{
  const css=await readFile(new URL('../public/games/shared/mobile-gestures.css',import.meta.url),'utf8');assert.match(css,/\[data-game-gesture-surface\][^{]*\{[^}]*touch-action:\s*none/);assert.doesNotMatch(css,/(?:^|\})\s*(?:html|body|\*)\s*\{/);assert.doesNotMatch(css,/-webkit-text-size-adjust:\s*none/);
 });
 
-test('nested reading dialogs and inline pause panels bypass every native-gesture fallback',()=>{
+test('nested reading dialogs and inline pause panels also cancel native zoom defaults',()=>{
  const ctx=setup();ctx.surface.append(ctx.d.querySelector('dialog'));const panel=ctx.d.createElement('div');panel.setAttribute('data-game-gesture-reading','');ctx.surface.append(panel);
- for(const target of [ctx.d.querySelector('dialog p'),panel])for(const type of ['gesturestart','gesturechange','dblclick','touchstart','touchmove','touchend'])assert.equal(send(ctx.dom,target,type,{touches:[touch(target),touch(target,60,20,2)]}).defaultPrevented,false,type);
+ for(const target of [ctx.d.querySelector('dialog p'),panel])for(const type of ['gesturestart','gesturechange','dblclick','touchstart','touchmove'])assert.equal(send(ctx.dom,target,type,{touches:[touch(target),touch(target,60,20,2)]}).defaultPrevented,true,type);
 });
 
 

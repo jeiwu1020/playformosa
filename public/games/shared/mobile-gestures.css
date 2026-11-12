@@ -1,11 +1,21 @@
-/* Browser gestures must not cancel pointer-driven gameplay. Keep this off
-   html/body and reading dialogs: users can still zoom instructions and results. */
-[data-game-gesture-surface]:not([data-game-gesture-overlays]) {
-  touch-action: none;
+/* No touch zoom anywhere in an opted-in game, including dialogs and backdrops.
+   Keep ordinary one-finger pan/scroll, keyboard zoom, text editing and image
+   long-press saving. Do not restrict viewport scaling or change layout overflow. */
+html[data-game-gesture-page],
+[data-game-gesture-page] body,
+[data-game-gesture-page] body dialog,
+[data-game-gesture-page] body dialog::backdrop,
+[data-game-gesture-page] body [data-game-gesture-reading] {
+  touch-action: pan-x pan-y !important;
 }
-/* Games may have nested results dialogs or inline pause/help panels. When open, the parent
-   must also allow zoom, since a child's touch-action cannot override an ancestor. */
+/* The live control surface still owns its gestures. A reading panel releases
+   this stronger lock for scrolling, but retains the page-wide no-pinch policy. */
+[data-game-gesture-surface]:not([data-game-gesture-overlays]),
 [data-game-gesture-surface][data-game-gesture-overlays]:not(:has(dialog[open], [data-game-gesture-reading]:not([hidden]):not(.hidden))) {
   touch-action: none;
 }
-
+/* Programmatic heading focus announces the result without drawing a green box.
+   Only noninteractive headings are affected; keyboard action rings stay intact. */
+[data-game-gesture-page] body :is(dialog, .card.result, #overlay.result) :is(h1,h2,h3)[tabindex="-1"]:focus {
+  outline: none !important;
+}

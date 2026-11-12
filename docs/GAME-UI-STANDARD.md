@@ -71,3 +71,11 @@ If a browser/tool is blocked, record the exact boundary, distinguish never-run f
 The shared layer must stay small: chrome, action layout, truthful state helpers and modal focus. Keep per-game simulation out of it. Extend the shared contract/tests before admitting a novel game, rather than copying a different header and hoping it matches.
 
 This UI candidate preserves the original `docs/minigames/SOURCE-MANIFEST.json`. Named approved controller/markup deltas are separately traced in `UI-STANDARD-MANIFEST.json`; unchanged physics, character/scene, camera, vendor, music and license bytes still match the imported originals. Long Jump cosmic, diagnostics and root-origin modules are untouched. Integrate the independent sandpit patch as explicit additive game hooks, never by replacing the whole game file.
+
+## Touch zoom and result-heading focus
+
+All local game entry pages load shared mobile-gestures CSS and JS. The policy covers gameplay, headers, page gaps, pause/help/result/ranking dialogs, native backdrops, and dialogs mounted after startup. Prevent double-tap and pinch zoom without synthesizing clicks, stopping pointer propagation, changing viewport scale metadata, or changing game physics. Preserve one-finger scrolling, native button activation/user gestures for sharing, text input/copy, long-press image saving, multi-pointer controls, and keyboard focus. External games require their own integration.
+
+A result heading may still receive programmatic focus for announcement and scroll positioning, but must not draw a decorative focus outline. Buttons, links, summary controls and inputs retain visible keyboard focus. The shared mobile stylesheet applies this only to noninteractive headings, including older per-game result styles.
+
+Verification must distinguish source/event/CSS tests from real mobile browser behavior. Test Safari and installed iOS Web App in both orientations, including modal edges, page gaps, text fields, copy/image fallback and simultaneous controls; do not report emulation as physical-device verification.

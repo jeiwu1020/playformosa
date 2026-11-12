@@ -1,9 +1,9 @@
-// Keep browser zoom gestures out of the play surface without owning game input.
+// Keep browser zoom gestures out of the whole game page without owning game input.
 // Pointer Events, click activation, keyboard input and multi-finger controls remain
 // with each game. Never synthesize clicks or stop event propagation here.
 const installed = new WeakMap();
 const nativeControl = 'button,a,input,textarea,select,summary,label,[contenteditable],[role="button"]';
-const readingRegion = 'dialog,[data-game-gesture-reading]';
+const editableControl = 'input,textarea,[contenteditable]';
 const prevent = event => { if (event.cancelable) event.preventDefault(); };
 
 export function protectGameGestures(surface) {
@@ -11,25 +11,25 @@ export function protectGameGestures(surface) {
   const listeners = [];
   let start = null;
   let lastTap = null;
-  const isReading = target => Boolean(target?.closest?.(readingRegion));
   const listen = (type, handler) => {
-    surface.addEventListener(type, handler, {passive: false});
+    surface.addEventListener(type, handler, {passive: false, capture: true});
     listeners.push([type, handler]);
   };
   const reset = () => { start = null; lastTap = null; };
   const guardGesture = event => {
-    if (!isReading(event.target)) prevent(event);
+    // Keep desktop double-click text selection inside editable fields. Safari
+    // pinch GestureEvents are still cancelled there; typing/paste/select are not.
+    if (event.type === 'dblclick' && event.target?.closest?.(editableControl)) return;
+    prevent(event);
   };
   // Safari's GestureEvents need an explicit fallback as well as touch-action.
   for (const type of ['gesturestart', 'gesturechange', 'dblclick']) listen(type, guardGesture);
   listen('touchstart', event => {
-    if (isReading(event.target)) { reset(); return; }
     if (event.touches?.length > 1) { reset(); prevent(event); return; }
     const finger = event.touches?.[0];
     start = finger ? {x: finger.clientX, y: finger.clientY, at: event.timeStamp} : null;
   });
   listen('touchmove', event => {
-    if (isReading(event.target)) return;
     if (event.touches?.length > 1) { reset(); prevent(event); return; }
     const finger = event.touches?.[0];
     if (start && finger && Math.hypot(finger.clientX - start.x, finger.clientY - start.y) > 24) reset();
@@ -38,7 +38,7 @@ export function protectGameGestures(surface) {
     const finger = event.changedTouches?.[0];
     // Preserve real native clicks on buttons/links, including user activation for
     // sharing. CSS handles their zoom policy; this fallback is for scenery taps.
-    if (isReading(event.target) || event.target?.closest?.(nativeControl) ||
+    if (event.target?.closest?.(nativeControl) ||
         event.touches?.length || !start || !finger || event.timeStamp - start.at > 300) {
       reset(); return;
     }
@@ -51,7 +51,7 @@ export function protectGameGestures(surface) {
   });
   listen('touchcancel', reset);
   const dispose = () => {
-    for (const [type, handler] of listeners) surface.removeEventListener(type, handler);
+    for (const [type, handler] of listeners) surface.removeEventListener(type, handler, true);
     reset();
     installed.delete(surface);
   };
@@ -60,7 +60,14 @@ export function protectGameGestures(surface) {
 }
 
 export function installGameGestures(root = document) {
-  return [...root.querySelectorAll('[data-game-gesture-surface]')].map(protectGameGestures);
+  const surfaces = [...root.querySelectorAll('[data-game-gesture-surface]')];
+  // One capture listener set covers headers, body gaps, native dialog backdrops
+  // and dialogs mounted later. Do not opt the platform landing page into this.
+  if (surfaces.length && root.nodeType === 9) {
+    root.documentElement.setAttribute('data-game-gesture-page', '');
+    return [protectGameGestures(root)];
+  }
+  return surfaces.map(protectGameGestures);
 }
 if (typeof document !== 'undefined') installGameGestures(document);
 
