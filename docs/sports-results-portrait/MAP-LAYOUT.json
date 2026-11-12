@@ -1,0 +1,2010 @@
+{
+  "kind": "Chromium DOM measurement with CDP safe-area emulation; no physical device",
+  "baseline": null,
+  "rows": [
+    {
+      "width": 320,
+      "height": 568,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 144,
+        "y": 104.375,
+        "width": 160,
+        "height": 94,
+        "right": 304,
+        "bottom": 198.375
+      },
+      "header": {
+        "x": 152,
+        "y": 112.375,
+        "width": 144,
+        "height": 13,
+        "right": 296,
+        "bottom": 125.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 152,
+          "y": 114.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 254.96875,
+          "y": 114.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 96.375,
+          "width": 304,
+          "height": 379.625,
+          "right": 312,
+          "bottom": 476
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 107.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 200.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 328.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 425
+        },
+        ".cue": {
+          "x": 73,
+          "y": 434,
+          "width": 174,
+          "height": 30,
+          "right": 247,
+          "bottom": 464
+        },
+        "#signal": {
+          "x": 160,
+          "y": 207.296875,
+          "width": 0,
+          "height": 0,
+          "right": 160,
+          "bottom": 207.296875
+        }
+      },
+      "scrollWidth": 320,
+      "viewportWidth": 320,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 47,
+        "left": 0,
+        "right": 0,
+        "bottom": 34
+      },
+      "panel": {
+        "x": 144,
+        "y": 151.375,
+        "width": 160,
+        "height": 94,
+        "right": 304,
+        "bottom": 245.375
+      },
+      "header": {
+        "x": 152,
+        "y": 159.375,
+        "width": 144,
+        "height": 13,
+        "right": 296,
+        "bottom": 172.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 152,
+          "y": 161.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 254.96875,
+          "y": 161.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 143.375,
+          "width": 304,
+          "height": 298.625,
+          "right": 312,
+          "bottom": 442
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 154.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 247.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 294.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 391
+        },
+        ".cue": {
+          "x": 73,
+          "y": 400,
+          "width": 174,
+          "height": 30,
+          "right": 247,
+          "bottom": 430
+        },
+        "#signal": {
+          "x": 160,
+          "y": 230.8125,
+          "width": 0,
+          "height": 0,
+          "right": 160,
+          "bottom": 230.8125
+        }
+      },
+      "scrollWidth": 320,
+      "viewportWidth": 320,
+      "bodyPadding": "53px 8px 40px"
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 184,
+        "y": 104.375,
+        "width": 160,
+        "height": 94,
+        "right": 344,
+        "bottom": 198.375
+      },
+      "header": {
+        "x": 192,
+        "y": 112.375,
+        "width": 144,
+        "height": 13,
+        "right": 336,
+        "bottom": 125.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 192,
+          "y": 114.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 294.96875,
+          "y": 114.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 96.375,
+          "width": 344,
+          "height": 451.625,
+          "right": 352,
+          "bottom": 548
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 107.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 200.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 400.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 497
+        },
+        ".cue": {
+          "x": 93,
+          "y": 506,
+          "width": 174,
+          "height": 30,
+          "right": 267,
+          "bottom": 536
+        },
+        "#signal": {
+          "x": 180,
+          "y": 228.171875,
+          "width": 0,
+          "height": 0,
+          "right": 180,
+          "bottom": 228.171875
+        }
+      },
+      "scrollWidth": 360,
+      "viewportWidth": 360,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 47,
+        "left": 0,
+        "right": 0,
+        "bottom": 34
+      },
+      "panel": {
+        "x": 184,
+        "y": 151.375,
+        "width": 160,
+        "height": 94,
+        "right": 344,
+        "bottom": 245.375
+      },
+      "header": {
+        "x": 192,
+        "y": 159.375,
+        "width": 144,
+        "height": 13,
+        "right": 336,
+        "bottom": 172.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 192,
+          "y": 161.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 294.96875,
+          "y": 161.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 143.375,
+          "width": 344,
+          "height": 370.625,
+          "right": 352,
+          "bottom": 514
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 154.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 247.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 366.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 463
+        },
+        ".cue": {
+          "x": 93,
+          "y": 472,
+          "width": 174,
+          "height": 30,
+          "right": 267,
+          "bottom": 502
+        },
+        "#signal": {
+          "x": 180,
+          "y": 251.6875,
+          "width": 0,
+          "height": 0,
+          "right": 180,
+          "bottom": 251.6875
+        }
+      },
+      "scrollWidth": 360,
+      "viewportWidth": 360,
+      "bodyPadding": "53px 8px 40px"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 214,
+        "y": 104.375,
+        "width": 160,
+        "height": 94,
+        "right": 374,
+        "bottom": 198.375
+      },
+      "header": {
+        "x": 222,
+        "y": 112.375,
+        "width": 144,
+        "height": 13,
+        "right": 366,
+        "bottom": 125.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 222,
+          "y": 114.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 324.96875,
+          "y": 114.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 96.375,
+          "width": 374,
+          "height": 655.625,
+          "right": 382,
+          "bottom": 752
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 107.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 200.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 604.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 701
+        },
+        ".cue": {
+          "x": 108,
+          "y": 710,
+          "width": 174,
+          "height": 30,
+          "right": 282,
+          "bottom": 740
+        },
+        "#signal": {
+          "x": 195,
+          "y": 287.34375,
+          "width": 0,
+          "height": 0,
+          "right": 195,
+          "bottom": 287.34375
+        }
+      },
+      "scrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 47,
+        "left": 0,
+        "right": 0,
+        "bottom": 34
+      },
+      "panel": {
+        "x": 214,
+        "y": 151.375,
+        "width": 160,
+        "height": 94,
+        "right": 374,
+        "bottom": 245.375
+      },
+      "header": {
+        "x": 222,
+        "y": 159.375,
+        "width": 144,
+        "height": 13,
+        "right": 366,
+        "bottom": 172.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 222,
+          "y": 161.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 324.96875,
+          "y": 161.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 143.375,
+          "width": 374,
+          "height": 574.625,
+          "right": 382,
+          "bottom": 718
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 154.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 247.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 570.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 667
+        },
+        ".cue": {
+          "x": 108,
+          "y": 676,
+          "width": 174,
+          "height": 30,
+          "right": 282,
+          "bottom": 706
+        },
+        "#signal": {
+          "x": 195,
+          "y": 310.84375,
+          "width": 0,
+          "height": 0,
+          "right": 195,
+          "bottom": 310.84375
+        }
+      },
+      "scrollWidth": 390,
+      "viewportWidth": 390,
+      "bodyPadding": "53px 8px 40px"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 254,
+        "y": 104.375,
+        "width": 160,
+        "height": 94,
+        "right": 414,
+        "bottom": 198.375
+      },
+      "header": {
+        "x": 262,
+        "y": 112.375,
+        "width": 144,
+        "height": 13,
+        "right": 406,
+        "bottom": 125.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 262,
+          "y": 114.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 364.96875,
+          "y": 114.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 96.375,
+          "width": 414,
+          "height": 743.625,
+          "right": 422,
+          "bottom": 840
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 107.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 200.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 692.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 789
+        },
+        ".cue": {
+          "x": 128,
+          "y": 798,
+          "width": 174,
+          "height": 30,
+          "right": 302,
+          "bottom": 828
+        },
+        "#signal": {
+          "x": 215,
+          "y": 312.859375,
+          "width": 0,
+          "height": 0,
+          "right": 215,
+          "bottom": 312.859375
+        }
+      },
+      "scrollWidth": 430,
+      "viewportWidth": 430,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 47,
+        "left": 0,
+        "right": 0,
+        "bottom": 34
+      },
+      "panel": {
+        "x": 254,
+        "y": 151.375,
+        "width": 160,
+        "height": 94,
+        "right": 414,
+        "bottom": 245.375
+      },
+      "header": {
+        "x": 262,
+        "y": 159.375,
+        "width": 144,
+        "height": 13,
+        "right": 406,
+        "bottom": 172.375
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 262,
+          "y": 161.375,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 364.96875,
+          "y": 161.375,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 8,
+          "y": 143.375,
+          "width": 414,
+          "height": 662.625,
+          "right": 422,
+          "bottom": 806
+        },
+        ".hud-left": {
+          "x": 17,
+          "y": 154.375,
+          "width": 94.578125,
+          "height": 92.6875,
+          "right": 111.578125,
+          "bottom": 247.0625
+        },
+        ".meters": {
+          "x": 17,
+          "y": 658.40625,
+          "width": 155,
+          "height": 96.59375,
+          "right": 172,
+          "bottom": 755
+        },
+        ".cue": {
+          "x": 128,
+          "y": 764,
+          "width": 174,
+          "height": 30,
+          "right": 302,
+          "bottom": 794
+        },
+        "#signal": {
+          "x": 215,
+          "y": 336.375,
+          "width": 0,
+          "height": 0,
+          "right": 215,
+          "bottom": 336.375
+        }
+      },
+      "scrollWidth": 430,
+      "viewportWidth": 430,
+      "bodyPadding": "53px 8px 40px"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 310,
+        "y": 172.015625,
+        "width": 160,
+        "height": 86,
+        "right": 470,
+        "bottom": 258.015625
+      },
+      "header": {
+        "x": 316,
+        "y": 179.015625,
+        "width": 148,
+        "height": 12,
+        "right": 464,
+        "bottom": 191.015625
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 316,
+          "y": 181.015625,
+          "width": 67.0625,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 425.25,
+          "y": 181.015625,
+          "width": 38.75,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 90,
+          "y": 164.015625,
+          "width": 388,
+          "height": 149.984375,
+          "right": 478,
+          "bottom": 314
+        },
+        ".hud-left": {
+          "x": 99,
+          "y": 175.015625,
+          "width": 116.046875,
+          "height": 68.5,
+          "right": 215.046875,
+          "bottom": 243.515625
+        },
+        ".meters": {
+          "x": 99,
+          "y": 178.40625,
+          "width": 155,
+          "height": 97.59375,
+          "right": 254,
+          "bottom": 276
+        },
+        ".cue": {
+          "x": 207,
+          "y": 284,
+          "width": 154,
+          "height": 23,
+          "right": 361,
+          "bottom": 307
+        },
+        "#signal": {
+          "x": 284,
+          "y": 202.5,
+          "width": 0,
+          "height": 0,
+          "right": 284,
+          "bottom": 202.5
+        }
+      },
+      "scrollWidth": 568,
+      "viewportWidth": 568,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 300,
+        "y": 172.015625,
+        "width": 126,
+        "height": 86,
+        "right": 426,
+        "bottom": 258.015625
+      },
+      "header": {
+        "x": 306,
+        "y": 179.015625,
+        "width": 114,
+        "height": 12,
+        "right": 420,
+        "bottom": 191.015625
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 306,
+          "y": 181.015625,
+          "width": 67.0625,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 381.25,
+          "y": 181.015625,
+          "width": 38.75,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 134,
+          "y": 164.015625,
+          "width": 300,
+          "height": 128.984375,
+          "right": 434,
+          "bottom": 293
+        },
+        ".hud-left": {
+          "x": 143,
+          "y": 175.015625,
+          "width": 116.046875,
+          "height": 68.5,
+          "right": 259.046875,
+          "bottom": 243.515625
+        },
+        ".meters": {
+          "x": 143,
+          "y": 157.40625,
+          "width": 155,
+          "height": 97.59375,
+          "right": 298,
+          "bottom": 255
+        },
+        ".cue": {
+          "x": 207,
+          "y": 263,
+          "width": 154,
+          "height": 23,
+          "right": 361,
+          "bottom": 286
+        },
+        "#signal": {
+          "x": 284,
+          "y": 197.25,
+          "width": 0,
+          "height": 0,
+          "right": 284,
+          "bottom": 197.25
+        }
+      },
+      "scrollWidth": 568,
+      "viewportWidth": 568,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 640,
+      "height": 360,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 382,
+        "y": 172.015625,
+        "width": 160,
+        "height": 87,
+        "right": 542,
+        "bottom": 259.015625
+      },
+      "header": {
+        "x": 390,
+        "y": 179.015625,
+        "width": 144,
+        "height": 13,
+        "right": 534,
+        "bottom": 192.015625
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 390,
+          "y": 181.015625,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 492.96875,
+          "y": 181.015625,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 90,
+          "y": 164.015625,
+          "width": 460,
+          "height": 189.984375,
+          "right": 550,
+          "bottom": 354
+        },
+        ".hud-left": {
+          "x": 99,
+          "y": 175.015625,
+          "width": 116.046875,
+          "height": 68.5,
+          "right": 215.046875,
+          "bottom": 243.515625
+        },
+        ".meters": {
+          "x": 99,
+          "y": 218.40625,
+          "width": 155,
+          "height": 97.59375,
+          "right": 254,
+          "bottom": 316
+        },
+        ".cue": {
+          "x": 243,
+          "y": 324,
+          "width": 154,
+          "height": 23,
+          "right": 397,
+          "bottom": 347
+        },
+        "#signal": {
+          "x": 320,
+          "y": 212.5,
+          "width": 0,
+          "height": 0,
+          "right": 320,
+          "bottom": 212.5
+        }
+      },
+      "scrollWidth": 640,
+      "viewportWidth": 640,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 640,
+      "height": 360,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 338,
+        "y": 172.015625,
+        "width": 160,
+        "height": 87,
+        "right": 498,
+        "bottom": 259.015625
+      },
+      "header": {
+        "x": 346,
+        "y": 179.015625,
+        "width": 144,
+        "height": 13,
+        "right": 490,
+        "bottom": 192.015625
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 346,
+          "y": 181.015625,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 448.96875,
+          "y": 181.015625,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 134,
+          "y": 164.015625,
+          "width": 372,
+          "height": 168.984375,
+          "right": 506,
+          "bottom": 333
+        },
+        ".hud-left": {
+          "x": 143,
+          "y": 175.015625,
+          "width": 116.046875,
+          "height": 68.5,
+          "right": 259.046875,
+          "bottom": 243.515625
+        },
+        ".meters": {
+          "x": 143,
+          "y": 197.40625,
+          "width": 155,
+          "height": 97.59375,
+          "right": 298,
+          "bottom": 295
+        },
+        ".cue": {
+          "x": 243,
+          "y": 303,
+          "width": 154,
+          "height": 23,
+          "right": 397,
+          "bottom": 326
+        },
+        "#signal": {
+          "x": 320,
+          "y": 207.25,
+          "width": 0,
+          "height": 0,
+          "right": 320,
+          "bottom": 207.25
+        }
+      },
+      "scrollWidth": 640,
+      "viewportWidth": 640,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 580,
+        "y": 68,
+        "width": 160,
+        "height": 87,
+        "right": 740,
+        "bottom": 155
+      },
+      "header": {
+        "x": 588,
+        "y": 75,
+        "width": 144,
+        "height": 13,
+        "right": 732,
+        "bottom": 88
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 588,
+          "y": 77,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 690.96875,
+          "y": 77,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 90,
+          "y": 60,
+          "width": 664,
+          "height": 324,
+          "right": 754,
+          "bottom": 384
+        },
+        ".hud-left": {
+          "x": 102,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 224.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 107,
+          "y": 247,
+          "width": 163,
+          "height": 99,
+          "right": 270,
+          "bottom": 346
+        },
+        ".cue": {
+          "x": 345,
+          "y": 354,
+          "width": 154,
+          "height": 23,
+          "right": 499,
+          "bottom": 377
+        },
+        "#signal": {
+          "x": 422,
+          "y": 142,
+          "width": 0,
+          "height": 0,
+          "right": 422,
+          "bottom": 142
+        }
+      },
+      "scrollWidth": 844,
+      "viewportWidth": 844,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 536,
+        "y": 68,
+        "width": 160,
+        "height": 87,
+        "right": 696,
+        "bottom": 155
+      },
+      "header": {
+        "x": 544,
+        "y": 75,
+        "width": 144,
+        "height": 13,
+        "right": 688,
+        "bottom": 88
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 544,
+          "y": 77,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 646.96875,
+          "y": 77,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 134,
+          "y": 60,
+          "width": 576,
+          "height": 303,
+          "right": 710,
+          "bottom": 363
+        },
+        ".hud-left": {
+          "x": 146,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 268.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 151,
+          "y": 226,
+          "width": 163,
+          "height": 99,
+          "right": 314,
+          "bottom": 325
+        },
+        ".cue": {
+          "x": 345,
+          "y": 333,
+          "width": 154,
+          "height": 23,
+          "right": 499,
+          "bottom": 356
+        },
+        "#signal": {
+          "x": 422,
+          "y": 136.75,
+          "width": 0,
+          "height": 0,
+          "right": 422,
+          "bottom": 136.75
+        }
+      },
+      "scrollWidth": 844,
+      "viewportWidth": 844,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 932,
+      "height": 430,
+      "phone": true,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 668,
+        "y": 68,
+        "width": 160,
+        "height": 87,
+        "right": 828,
+        "bottom": 155
+      },
+      "header": {
+        "x": 676,
+        "y": 75,
+        "width": 144,
+        "height": 13,
+        "right": 820,
+        "bottom": 88
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 676,
+          "y": 77,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 778.96875,
+          "y": 77,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 90,
+          "y": 60,
+          "width": 752,
+          "height": 364,
+          "right": 842,
+          "bottom": 424
+        },
+        ".hud-left": {
+          "x": 102,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 224.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 107,
+          "y": 287,
+          "width": 163,
+          "height": 99,
+          "right": 270,
+          "bottom": 386
+        },
+        ".cue": {
+          "x": 389,
+          "y": 394,
+          "width": 154,
+          "height": 23,
+          "right": 543,
+          "bottom": 417
+        },
+        "#signal": {
+          "x": 466,
+          "y": 152,
+          "width": 0,
+          "height": 0,
+          "right": 466,
+          "bottom": 152
+        }
+      },
+      "scrollWidth": 932,
+      "viewportWidth": 932,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 932,
+      "height": 430,
+      "phone": true,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 624,
+        "y": 68,
+        "width": 160,
+        "height": 87,
+        "right": 784,
+        "bottom": 155
+      },
+      "header": {
+        "x": 632,
+        "y": 75,
+        "width": 144,
+        "height": 13,
+        "right": 776,
+        "bottom": 88
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 632,
+          "y": 77,
+          "width": 71,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 734.96875,
+          "y": 77,
+          "width": 41.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 134,
+          "y": 60,
+          "width": 664,
+          "height": 343,
+          "right": 798,
+          "bottom": 403
+        },
+        ".hud-left": {
+          "x": 146,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 268.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 151,
+          "y": 266,
+          "width": 163,
+          "height": 99,
+          "right": 314,
+          "bottom": 365
+        },
+        ".cue": {
+          "x": 389,
+          "y": 373,
+          "width": 154,
+          "height": 23,
+          "right": 543,
+          "bottom": 396
+        },
+        "#signal": {
+          "x": 466,
+          "y": 146.75,
+          "width": 0,
+          "height": 0,
+          "right": 466,
+          "bottom": 146.75
+        }
+      },
+      "scrollWidth": 932,
+      "viewportWidth": 932,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "phone": false,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 702,
+        "y": 74,
+        "width": 180,
+        "height": 129,
+        "right": 882,
+        "bottom": 203
+      },
+      "header": {
+        "x": 713,
+        "y": 84,
+        "width": 158,
+        "height": 15,
+        "right": 871,
+        "bottom": 99
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 713,
+          "y": 87,
+          "width": 78.890625,
+          "height": 11
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 825.421875,
+          "y": 87,
+          "width": 45.578125,
+          "height": 11
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 128,
+          "y": 60,
+          "width": 768,
+          "height": 702,
+          "right": 896,
+          "bottom": 762
+        },
+        ".hud-left": {
+          "x": 148,
+          "y": 78,
+          "width": 150.046875,
+          "height": 92,
+          "right": 298.046875,
+          "bottom": 170
+        },
+        ".meters": {
+          "x": 145,
+          "y": 598,
+          "width": 210,
+          "height": 109,
+          "right": 355,
+          "bottom": 707
+        },
+        ".cue": {
+          "x": 406.9921875,
+          "y": 713,
+          "width": 210.015625,
+          "height": 35,
+          "right": 617.0078125,
+          "bottom": 748
+        },
+        "#signal": {
+          "x": 512,
+          "y": 236.5,
+          "width": 0,
+          "height": 0,
+          "right": 512,
+          "bottom": 236.5
+        }
+      },
+      "scrollWidth": 1024,
+      "viewportWidth": 1024,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "phone": false,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 658,
+        "y": 74,
+        "width": 180,
+        "height": 129,
+        "right": 838,
+        "bottom": 203
+      },
+      "header": {
+        "x": 669,
+        "y": 84,
+        "width": 158,
+        "height": 15,
+        "right": 827,
+        "bottom": 99
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 669,
+          "y": 87,
+          "width": 78.890625,
+          "height": 11
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 781.421875,
+          "y": 87,
+          "width": 45.578125,
+          "height": 11
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 172,
+          "y": 60,
+          "width": 680,
+          "height": 681,
+          "right": 852,
+          "bottom": 741
+        },
+        ".hud-left": {
+          "x": 192,
+          "y": 78,
+          "width": 150.046875,
+          "height": 92,
+          "right": 342.046875,
+          "bottom": 170
+        },
+        ".meters": {
+          "x": 189,
+          "y": 577,
+          "width": 210,
+          "height": 109,
+          "right": 399,
+          "bottom": 686
+        },
+        ".cue": {
+          "x": 406.9921875,
+          "y": 692,
+          "width": 210.015625,
+          "height": 35,
+          "right": 617.0078125,
+          "bottom": 727
+        },
+        "#signal": {
+          "x": 512,
+          "y": 231.25,
+          "width": 0,
+          "height": 0,
+          "right": 512,
+          "bottom": 231.25
+        }
+      },
+      "scrollWidth": 1024,
+      "viewportWidth": 1024,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "phone": false,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 1118,
+        "y": 74,
+        "width": 180,
+        "height": 129,
+        "right": 1298,
+        "bottom": 203
+      },
+      "header": {
+        "x": 1129,
+        "y": 84,
+        "width": 158,
+        "height": 15,
+        "right": 1287,
+        "bottom": 99
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 1129,
+          "y": 87,
+          "width": 78.890625,
+          "height": 11
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 1241.421875,
+          "y": 87,
+          "width": 45.578125,
+          "height": 11
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 128,
+          "y": 60,
+          "width": 1184,
+          "height": 834,
+          "right": 1312,
+          "bottom": 894
+        },
+        ".hud-left": {
+          "x": 148,
+          "y": 78,
+          "width": 150.046875,
+          "height": 92,
+          "right": 298.046875,
+          "bottom": 170
+        },
+        ".meters": {
+          "x": 145,
+          "y": 730,
+          "width": 210,
+          "height": 109,
+          "right": 355,
+          "bottom": 839
+        },
+        ".cue": {
+          "x": 614.9921875,
+          "y": 845,
+          "width": 210.015625,
+          "height": 35,
+          "right": 825.0078125,
+          "bottom": 880
+        },
+        "#signal": {
+          "x": 720,
+          "y": 269.5,
+          "width": 0,
+          "height": 0,
+          "right": 720,
+          "bottom": 269.5
+        }
+      },
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "phone": false,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 1074,
+        "y": 74,
+        "width": 180,
+        "height": 129,
+        "right": 1254,
+        "bottom": 203
+      },
+      "header": {
+        "x": 1085,
+        "y": 84,
+        "width": 158,
+        "height": 15,
+        "right": 1243,
+        "bottom": 99
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 1085,
+          "y": 87,
+          "width": 78.890625,
+          "height": 11
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 1197.421875,
+          "y": 87,
+          "width": 45.578125,
+          "height": 11
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 172,
+          "y": 60,
+          "width": 1096,
+          "height": 813,
+          "right": 1268,
+          "bottom": 873
+        },
+        ".hud-left": {
+          "x": 192,
+          "y": 78,
+          "width": 150.046875,
+          "height": 92,
+          "right": 342.046875,
+          "bottom": 170
+        },
+        ".meters": {
+          "x": 189,
+          "y": 709,
+          "width": 210,
+          "height": 109,
+          "right": 399,
+          "bottom": 818
+        },
+        ".cue": {
+          "x": 614.9921875,
+          "y": 824,
+          "width": 210.015625,
+          "height": 35,
+          "right": 825.0078125,
+          "bottom": 859
+        },
+        "#signal": {
+          "x": 720,
+          "y": 264.25,
+          "width": 0,
+          "height": 0,
+          "right": 720,
+          "bottom": 264.25
+        }
+      },
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "bodyPadding": "6px 52px 27px"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phone": false,
+      "safe": false,
+      "insets": {
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "panel": {
+        "x": 625,
+        "y": 68,
+        "width": 115,
+        "height": 100,
+        "right": 740,
+        "bottom": 168
+      },
+      "header": {
+        "x": 633,
+        "y": 75,
+        "width": 99,
+        "height": 26,
+        "right": 732,
+        "bottom": 101
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 633,
+          "y": 77,
+          "width": 62,
+          "height": 10
+        },
+        {
+          "x": 633,
+          "y": 90,
+          "width": 9.015625,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 695.734375,
+          "y": 77,
+          "width": 18.015625,
+          "height": 10
+        },
+        {
+          "x": 695.734375,
+          "y": 88,
+          "width": 23.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 90,
+          "y": 60,
+          "width": 664,
+          "height": 324,
+          "right": 754,
+          "bottom": 384
+        },
+        ".hud-left": {
+          "x": 102,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 224.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 107,
+          "y": 247,
+          "width": 163,
+          "height": 99,
+          "right": 270,
+          "bottom": 346
+        },
+        ".cue": {
+          "x": 345,
+          "y": 354,
+          "width": 154,
+          "height": 23,
+          "right": 499,
+          "bottom": 377
+        },
+        "#signal": {
+          "x": 422,
+          "y": 142,
+          "width": 0,
+          "height": 0,
+          "right": 422,
+          "bottom": 142
+        }
+      },
+      "scrollWidth": 844,
+      "viewportWidth": 844,
+      "bodyPadding": "6px 8px"
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phone": false,
+      "safe": true,
+      "insets": {
+        "top": 0,
+        "left": 44,
+        "right": 44,
+        "bottom": 21
+      },
+      "panel": {
+        "x": 581,
+        "y": 68,
+        "width": 115,
+        "height": 100,
+        "right": 696,
+        "bottom": 168
+      },
+      "header": {
+        "x": 589,
+        "y": 75,
+        "width": 99,
+        "height": 26,
+        "right": 688,
+        "bottom": 101
+      },
+      "headingText": "逆時針 · 全場位置最後300m",
+      "titleLines": [
+        {
+          "x": 589,
+          "y": 77,
+          "width": 62,
+          "height": 10
+        },
+        {
+          "x": 589,
+          "y": 90,
+          "width": 9.015625,
+          "height": 10
+        }
+      ],
+      "lapLines": [
+        {
+          "x": 651.734375,
+          "y": 77,
+          "width": 18.015625,
+          "height": 10
+        },
+        {
+          "x": 651.734375,
+          "y": 88,
+          "width": 23.03125,
+          "height": 10
+        }
+      ],
+      "targets": {
+        ".arena": {
+          "x": 134,
+          "y": 60,
+          "width": 576,
+          "height": 303,
+          "right": 710,
+          "bottom": 363
+        },
+        ".hud-left": {
+          "x": 146,
+          "y": 70,
+          "width": 122.046875,
+          "height": 68.5,
+          "right": 268.046875,
+          "bottom": 138.5
+        },
+        ".meters": {
+          "x": 151,
+          "y": 226,
+          "width": 163,
+          "height": 99,
+          "right": 314,
+          "bottom": 325
+        },
+        ".cue": {
+          "x": 345,
+          "y": 333,
+          "width": 154,
+          "height": 23,
+          "right": 499,
+          "bottom": 356
+        },
+        "#signal": {
+          "x": 422,
+          "y": 136.75,
+          "width": 0,
+          "height": 0,
+          "right": 422,
+          "bottom": 136.75
+        }
+      },
+      "scrollWidth": 844,
+      "viewportWidth": 844,
+      "bodyPadding": "6px 52px 27px"
+    }
+  ]
+}

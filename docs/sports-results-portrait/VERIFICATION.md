@@ -1,0 +1,25 @@
+# Sports layout: portrait results and phone 1500m map
+
+Parent: preview/hurdles `5a1865d5a258030278df26e66ef7bd859273c58f`. The supplied result patch changes only pole-vault, shot-put, discus and javelin style.css. A later explicit user request also changes run-1500m/style.css to widen the phone map heading in both orientations, while keeping desktop unchanged. Existing AI engines, gesture policy, other games, leaderboard data/rules and exported-image code remain byte-exact.
+
+The parent supplied an exact text patch after official Library materialization failed. The received patch is retained as sports-results-portrait.patch and its SHA-256 matches `b0ffb67b1d253f616eff0a267ceca7bd9e655506751429e6929f2104f30a04dd`. Initial git apply --check failed on all four hunks because each expected an extra blank context line after the actual file's final newline. All four CSS blobs were independently verified identical between 182b24a and 5a1865d. The context-only variant removes that nonexistent context line and reduces old/new hunk counts by one; all added CSS bytes are unchanged. Its SHA-256 is `4e4a6914a3cb9f033e87c13f8a13fcaedf9abba701d2cb72925c72e824b6be02`. That variant passed git apply --check before application. Both patches are retained; no old history/hash has been rewritten.
+
+The CSS limits changes to portrait screens <=600px: compact spacing, a 120–180px-tall cropped preview, three-column sharing controls, and side-by-side ranking/upload entries where present. Original frozen image dimensions and downloads are unchanged. Expanded details remain scrollable. Wide/landscape rules retain the previous presentation.
+
+Browser verification uses current HTML/CSS, the current javelin result template, and real shared ranking/upload controls. It injects representative result data and a 1600x900 preview; it does not play complete rounds. Seven viewports per game (320x568, 360x640, 390x844, 430x932, 844x390, 1024x768, 1440x900) cover 28 fixtures, including 16 phone portraits. Assertions check portrait fit, horizontal overflow, 44px controls, preview size, download presence and expanded-content scrolling. No iPhone or other physical-device validation is claimed; safe-area values in desktop Chromium are zero.
+
+A new exact reversible provenance boundary pins the full parent tree, changes, added evidence, and before bytes. Existing historical assertions use that boundary while runtime tests continue importing live code. Full test/build results and an independently reviewed patch roundtrip are retained in the release backup.
+
+Browser result: all 28 candidate fixtures passed. All 16 phone portraits fit without normal-dialog scrolling, controls are >=44px, previews are 120–180px, and long expanded content remains scrollable. All 12 landscape/desktop metric objects match the baseline CSS exactly. Before/after metrics are retained as LAYOUT-BEFORE.json and LAYOUT.json.
+
+## Additional 1500m phone map request
+
+The shared phone stylesheet previously forces a 115px map. Game-scoped, coarse-pointer/no-hover media rules now allow 160px in portrait and most phone landscapes. Narrow landscape uses 126–160px based on arena width to avoid the energy panel. At <=600px landscape, 5px horizontal padding and 8.5px header text accommodate the longest `最後300m` label even with 44px left/right safe-area insets. Desktop/fine-pointer layouts are unaffected, including a small desktop window.
+
+The map browser check loads the actual app (so its dynamic controls-frame adapter runs), pauses it, and measures heading line boxes, horizontal overflow, map bounds and separation from clock/energy/cue. It emulates phone touch input and safe-area insets via Chromium CDP; it is not an iPhone hardware test. Zero and nonzero inset cases cover four portrait and four landscape phone sizes plus three desktop sizes. Desktop before/after metric equality is required. The world renderer and AI behavior are not altered.
+
+Map result: all 16 phone cases render the full longest heading on one line with no clock/energy/cue overlap or horizontal overflow, including emulated safe areas. All 6 desktop cases have exactly equal complete metrics before/after (1024x768, 1440x900 and 844x390, each with zero/nonzero insets). Both reports are retained.
+
+### Known transient start-signal limitation
+
+The steady-HUD check does not assert separation from the transient start signal. Independent review explicitly placed the actual `砰！` text after the final animation frame, finding geometric overlap with the map on some small viewports. At 568x320 without safe-area insets, baseline had no overlap and the wider map overlaps approximately 18x56px; at 568x320 with 44px side insets, overlap grows from about 17x64px to 28x61px. Signal z-index 4 remains above map z-index 3, and its existing lifetime is about 0.7s. Timing, energy and steady cue remain separate. This known visual limitation is retained in MAP-START-SIGNAL*.json, not represented as a fully overlap-free game or hardware validation. No extra runtime change was made to hide the map or alter signals.

@@ -7,3 +7,18 @@
 @media(orientation:portrait) and (max-width:420px){.header .brand{display:none}.header nav button{min-width:44px;min-height:44px}.header nav{gap:3px}.heading{min-width:0}.heading h1 span{font-size:13px}.heading p{font-size:7px}}
 
 #supply{font-size:10px;font-weight:700;color:#79611d;margin-top:5px;line-height:1.4}@media(max-width:700px){#supply{font-size:9px}}
+
+/* Phone map headings share one line; desktop map sizing remains unchanged. */
+@media(hover:none) and (pointer:coarse) and (orientation:portrait) and (max-width:700px), (hover:none) and (pointer:coarse) and (orientation:landscape) and (max-width:1000px) and (max-height:600px){
+ .pf-game.pf-runner .map-panel{width:160px;}
+ .pf-game.pf-runner .map-panel>div{gap:6px;white-space:nowrap;}
+ .pf-game.pf-runner .map-panel>div>*{flex-shrink:0;}
+}
+
+@media(hover:none) and (pointer:coarse) and (orientation:landscape) and (max-width:1000px) and (max-height:600px){
+ .pf-game.pf-runner .map-panel{width:clamp(126px,calc(100% - 176px),160px);}
+}
+@media(hover:none) and (pointer:coarse) and (orientation:landscape) and (max-width:600px) and (max-height:600px){
+ .pf-game.pf-runner .map-panel{padding-left:5px;padding-right:5px;}
+ .pf-game.pf-runner .map-panel>div{font-size:8.5px;gap:4px;}
+}

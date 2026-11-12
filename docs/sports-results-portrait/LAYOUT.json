@@ -1,0 +1,1889 @@
+{
+  "kind": "Chromium DOM layout fixtures; not completed gameplay rounds or physical-device QA",
+  "baseline": null,
+  "rows": [
+    {
+      "game": "pole-vault",
+      "width": 320,
+      "height": 568,
+      "rect": {
+        "x": 8,
+        "y": 15.9375,
+        "width": 304,
+        "height": 536.125,
+        "bottom": 552.0625
+      },
+      "clientHeight": 532,
+      "scrollHeight": 532,
+      "clientWidth": 300,
+      "scrollWidth": 300,
+      "photoHeight": 120,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 254
+        },
+        {
+          "text": "分享至Threads",
+          "height": 47.78125,
+          "width": 88
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 47.78125,
+          "width": 88
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 47.78125,
+          "width": 88
+        },
+        {
+          "text": "再跳一次",
+          "height": 48,
+          "width": 276
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 135
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 121
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1568,
+        "clientHeight": 548,
+        "scrollTop": 1020,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 360,
+      "height": 640,
+      "rect": {
+        "x": 8,
+        "y": 49.828125,
+        "width": 344,
+        "height": 540.34375,
+        "bottom": 590.171875
+      },
+      "clientHeight": 536,
+      "scrollHeight": 536,
+      "clientWidth": 340,
+      "scrollWidth": 340,
+      "photoHeight": 128,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 294
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 101.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 101.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 101.34375
+        },
+        {
+          "text": "再跳一次",
+          "height": 48,
+          "width": 316
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 155
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 141
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1419,
+        "clientHeight": 620,
+        "scrollTop": 799,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 390,
+      "height": 844,
+      "rect": {
+        "x": 8,
+        "y": 131.421875,
+        "width": 374,
+        "height": 581.140625,
+        "bottom": 712.5625
+      },
+      "clientHeight": 577,
+      "scrollHeight": 577,
+      "clientWidth": 370,
+      "scrollWidth": 370,
+      "photoHeight": 168.796875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 324
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 111.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 111.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 111.34375
+        },
+        {
+          "text": "再跳一次",
+          "height": 48,
+          "width": 346
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 170
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 156
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1389,
+        "clientHeight": 824,
+        "scrollTop": 565,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 430,
+      "height": 932,
+      "rect": {
+        "x": 8,
+        "y": 169.828125,
+        "width": 414,
+        "height": 592.34375,
+        "bottom": 762.171875
+      },
+      "clientHeight": 588,
+      "scrollHeight": 588,
+      "clientWidth": 410,
+      "scrollWidth": 410,
+      "photoHeight": 180,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 364
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 124.65625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 124.671875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 124.65625
+        },
+        {
+          "text": "再跳一次",
+          "height": 48,
+          "width": 386
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 190
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 176
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1288,
+        "clientHeight": 912,
+        "scrollTop": 376,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 844,
+      "height": 390,
+      "rect": {
+        "x": 42,
+        "y": 12,
+        "width": 760,
+        "height": 366,
+        "bottom": 378
+      },
+      "clientHeight": 362,
+      "scrollHeight": 599,
+      "clientWidth": 746,
+      "scrollWidth": 746,
+      "photoHeight": 147,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 678
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 229.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 229.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 229.328125
+        },
+        {
+          "text": "再跳一次",
+          "height": 48,
+          "width": 704
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 48,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 678
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 985,
+        "clientHeight": 362,
+        "scrollTop": 623,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 1024,
+      "height": 768,
+      "rect": {
+        "x": 242,
+        "y": 12,
+        "width": 540,
+        "height": 744,
+        "bottom": 756
+      },
+      "clientHeight": 740,
+      "scrollHeight": 812,
+      "clientWidth": 526,
+      "scrollWidth": 526,
+      "photoHeight": 210,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 456
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 155.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 155.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 155.328125
+        },
+        {
+          "text": "再跳一次",
+          "height": 52,
+          "width": 482
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 48,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 456
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1377,
+        "clientHeight": 740,
+        "scrollTop": 637,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "pole-vault",
+      "width": 1440,
+      "height": 900,
+      "rect": {
+        "x": 450,
+        "y": 42.203125,
+        "width": 540,
+        "height": 815.578125,
+        "bottom": 857.78125
+      },
+      "clientHeight": 812,
+      "scrollHeight": 812,
+      "clientWidth": 536,
+      "scrollWidth": 536,
+      "photoHeight": 210,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "查看這一場的細節",
+          "height": 44,
+          "width": 466
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 158.65625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 158.671875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 158.671875
+        },
+        {
+          "text": "再跳一次",
+          "height": 52,
+          "width": 492
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 48,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 466
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1377,
+        "clientHeight": 872,
+        "scrollTop": 505,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 320,
+      "height": 568,
+      "rect": {
+        "x": 8,
+        "y": 21.25,
+        "width": 304,
+        "height": 525.5,
+        "bottom": 546.75
+      },
+      "clientHeight": 524,
+      "scrollHeight": 524,
+      "clientWidth": 302,
+      "scrollWidth": 302,
+      "photoHeight": 120,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 50.375,
+          "width": 88.65625
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 50.375,
+          "width": 88.671875
+        },
+        {
+          "text": "換新路線",
+          "height": 50.375,
+          "width": 88.65625
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 276
+        },
+        {
+          "text": "分享至Threads",
+          "height": 47.78125,
+          "width": 88.65625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 47.78125,
+          "width": 88.671875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 47.78125,
+          "width": 88.65625
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 136
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 122
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1393,
+        "clientHeight": 550,
+        "scrollTop": 843,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 360,
+      "height": 640,
+      "rect": {
+        "x": 8,
+        "y": 56.34375,
+        "width": 344,
+        "height": 527.3125,
+        "bottom": 583.65625
+      },
+      "clientHeight": 525,
+      "scrollHeight": 525,
+      "clientWidth": 342,
+      "scrollWidth": 342,
+      "photoHeight": 128,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "換新路線",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 316
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 156
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 142
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1278,
+        "clientHeight": 622,
+        "scrollTop": 656,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 390,
+      "height": 844,
+      "rect": {
+        "x": 8,
+        "y": 143.890625,
+        "width": 374,
+        "height": 556.21875,
+        "bottom": 700.109375
+      },
+      "clientHeight": 554,
+      "scrollHeight": 554,
+      "clientWidth": 372,
+      "scrollWidth": 372,
+      "photoHeight": 168.796875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "換新路線",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 346
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 171
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 157
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1223,
+        "clientHeight": 826,
+        "scrollTop": 397,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 430,
+      "height": 932,
+      "rect": {
+        "x": 8,
+        "y": 180.6875,
+        "width": 414,
+        "height": 570.625,
+        "bottom": 751.3125
+      },
+      "clientHeight": 569,
+      "scrollHeight": 569,
+      "clientWidth": 412,
+      "scrollWidth": 412,
+      "photoHeight": 180,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "換新路線",
+          "height": 44,
+          "width": 125.34375
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 386
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 125.34375
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 191
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 177
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1157,
+        "clientHeight": 914,
+        "scrollTop": 243,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 844,
+      "height": 390,
+      "rect": {
+        "x": 16,
+        "y": 16,
+        "width": 812,
+        "height": 358,
+        "bottom": 374
+      },
+      "clientHeight": 356,
+      "scrollHeight": 692,
+      "clientWidth": 800,
+      "scrollWidth": 800,
+      "photoHeight": 198,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 48,
+          "width": 171
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 48,
+          "width": 171
+        },
+        {
+          "text": "換新路線",
+          "height": 48,
+          "width": 171
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 348
+        },
+        {
+          "text": "分享至Threads",
+          "height": 58.375,
+          "width": 111.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 58.375,
+          "width": 111.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 58.375,
+          "width": 111.34375
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 726
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1360,
+        "clientHeight": 356,
+        "scrollTop": 1004,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 1024,
+      "height": 768,
+      "rect": {
+        "x": 16,
+        "y": 39.8125,
+        "width": 992,
+        "height": 688.359375,
+        "bottom": 728.171875
+      },
+      "clientHeight": 686,
+      "scrollHeight": 686,
+      "clientWidth": 990,
+      "scrollWidth": 990,
+      "photoHeight": 253.484375,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 48,
+          "width": 216.671875
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 48,
+          "width": 216.6875
+        },
+        {
+          "text": "換新路線",
+          "height": 48,
+          "width": 216.671875
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 439.359375
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 916
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1214,
+        "clientHeight": 734,
+        "scrollTop": 480,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "shot-put",
+      "width": 1440,
+      "height": 900,
+      "rect": {
+        "x": 180,
+        "y": 100.359375,
+        "width": 1080,
+        "height": 699.28125,
+        "bottom": 799.640625
+      },
+      "clientHeight": 697,
+      "scrollHeight": 697,
+      "clientWidth": 1078,
+      "scrollWidth": 1078,
+      "photoHeight": 279.1875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "同路線再試",
+          "height": 48,
+          "width": 237.828125
+        },
+        {
+          "text": "▶ 重看這一球",
+          "height": 48,
+          "width": 237.828125
+        },
+        {
+          "text": "換新路線",
+          "height": 48,
+          "width": 237.828125
+        },
+        {
+          "text": "查看這一球的細節",
+          "height": 44,
+          "width": 481.65625
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 155.875
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 155.890625
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 155.890625
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 1004
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1185,
+        "clientHeight": 866,
+        "scrollTop": 319,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 320,
+      "height": 568,
+      "rect": {
+        "x": 8,
+        "y": 36.046875,
+        "width": 304,
+        "height": 495.90625,
+        "bottom": 531.953125
+      },
+      "clientHeight": 494,
+      "scrollHeight": 494,
+      "clientWidth": 302,
+      "scrollWidth": 302,
+      "photoHeight": 120,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 44,
+          "width": 136
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 44,
+          "width": 136
+        },
+        {
+          "text": "分享至Threads",
+          "height": 47.78125,
+          "width": 88.65625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 47.78125,
+          "width": 88.671875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 47.78125,
+          "width": 88.65625
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 136
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 122
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 2161,
+        "clientHeight": 550,
+        "scrollTop": 1611,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 360,
+      "height": 640,
+      "rect": {
+        "x": 8,
+        "y": 69.9375,
+        "width": 344,
+        "height": 500.125,
+        "bottom": 570.0625
+      },
+      "clientHeight": 498,
+      "scrollHeight": 498,
+      "clientWidth": 342,
+      "scrollWidth": 342,
+      "photoHeight": 128,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 44,
+          "width": 156
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 44,
+          "width": 156
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 102
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 156
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 142
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1939,
+        "clientHeight": 622,
+        "scrollTop": 1317,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 390,
+      "height": 844,
+      "rect": {
+        "x": 8,
+        "y": 151.53125,
+        "width": 374,
+        "height": 540.921875,
+        "bottom": 692.453125
+      },
+      "clientHeight": 539,
+      "scrollHeight": 539,
+      "clientWidth": 372,
+      "scrollWidth": 372,
+      "photoHeight": 168.796875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 44,
+          "width": 171
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 44,
+          "width": 171
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 112
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 171
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 157
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1873,
+        "clientHeight": 826,
+        "scrollTop": 1047,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 430,
+      "height": 932,
+      "rect": {
+        "x": 8,
+        "y": 189.9375,
+        "width": 414,
+        "height": 552.125,
+        "bottom": 742.0625
+      },
+      "clientHeight": 550,
+      "scrollHeight": 550,
+      "clientWidth": 412,
+      "scrollWidth": 412,
+      "photoHeight": 180,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 44,
+          "width": 191
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 44,
+          "width": 191
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 125.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 125.34375
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 46,
+          "width": 191
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 177
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1808,
+        "clientHeight": 914,
+        "scrollTop": 894,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 844,
+      "height": 390,
+      "rect": {
+        "x": 16,
+        "y": 16,
+        "width": 812,
+        "height": 358,
+        "bottom": 374
+      },
+      "clientHeight": 356,
+      "scrollHeight": 580,
+      "clientWidth": 800,
+      "scrollWidth": 800,
+      "photoHeight": 198,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 48,
+          "width": 171
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 48,
+          "width": 171
+        },
+        {
+          "text": "分享至Threads",
+          "height": 58.375,
+          "width": 111.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 58.375,
+          "width": 111.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 58.375,
+          "width": 111.34375
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 726
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1297,
+        "clientHeight": 356,
+        "scrollTop": 941,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 1024,
+      "height": 768,
+      "rect": {
+        "x": 16,
+        "y": 95.8125,
+        "width": 992,
+        "height": 576.359375,
+        "bottom": 672.171875
+      },
+      "clientHeight": 574,
+      "scrollHeight": 574,
+      "clientWidth": 990,
+      "scrollWidth": 990,
+      "photoHeight": 253.484375,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 48,
+          "width": 216.671875
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 48,
+          "width": 216.6875
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 141.78125
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 916
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1189,
+        "clientHeight": 734,
+        "scrollTop": 455,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "discus",
+      "width": 1440,
+      "height": 900,
+      "rect": {
+        "x": 180,
+        "y": 156.359375,
+        "width": 1080,
+        "height": 587.28125,
+        "bottom": 743.640625
+      },
+      "clientHeight": 585,
+      "scrollHeight": 585,
+      "clientWidth": 1078,
+      "scrollWidth": 1078,
+      "photoHeight": 279.1875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "再擲一次 →",
+          "height": 48,
+          "width": 237.828125
+        },
+        {
+          "text": "↺ 看這次飛行",
+          "height": 48,
+          "width": 237.828125
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 155.875
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 155.890625
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 155.890625
+        },
+        {
+          "text": "查看榮譽榜",
+          "height": 49,
+          "width": 120
+        },
+        {
+          "text": "手動上傳本次成績",
+          "height": 44,
+          "width": 1004
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1175,
+        "clientHeight": 866,
+        "scrollTop": 309,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 320,
+      "height": 568,
+      "rect": {
+        "x": 12,
+        "y": 18.9375,
+        "width": 304,
+        "height": 530.109375,
+        "bottom": 549.046875
+      },
+      "clientHeight": 526,
+      "scrollHeight": 526,
+      "clientWidth": 300,
+      "scrollWidth": 300,
+      "photoHeight": 120,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 135
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 135
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 276
+        },
+        {
+          "text": "分享至Threads",
+          "height": 47.78125,
+          "width": 88
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 47.78125,
+          "width": 88
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 47.78125,
+          "width": 88
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1422,
+        "clientHeight": 548,
+        "scrollTop": 874,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 360,
+      "height": 640,
+      "rect": {
+        "x": 12,
+        "y": 38.578125,
+        "width": 344,
+        "height": 562.828125,
+        "bottom": 601.40625
+      },
+      "clientHeight": 559,
+      "scrollHeight": 559,
+      "clientWidth": 340,
+      "scrollWidth": 340,
+      "photoHeight": 128,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 155
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 155
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 316
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 101.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 101.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 101.34375
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1371,
+        "clientHeight": 620,
+        "scrollTop": 751,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 390,
+      "height": 844,
+      "rect": {
+        "x": 12,
+        "y": 120.1875,
+        "width": 374,
+        "height": 603.625,
+        "bottom": 723.8125
+      },
+      "clientHeight": 600,
+      "scrollHeight": 600,
+      "clientWidth": 370,
+      "scrollWidth": 370,
+      "photoHeight": 168.796875,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 170
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 170
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 346
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 111.328125
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 111.328125
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 111.34375
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1322,
+        "clientHeight": 824,
+        "scrollTop": 498,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 430,
+      "height": 932,
+      "rect": {
+        "x": 12,
+        "y": 167.359375,
+        "width": 414,
+        "height": 597.28125,
+        "bottom": 764.640625
+      },
+      "clientHeight": 593,
+      "scrollHeight": 593,
+      "clientWidth": 410,
+      "scrollWidth": 410,
+      "photoHeight": 180,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 190
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 190
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 386
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 124.65625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 124.671875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 124.65625
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 1250,
+        "clientHeight": 912,
+        "scrollTop": 338,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 844,
+      "height": 390,
+      "rect": {
+        "x": 16.875,
+        "y": 12,
+        "width": 810.234375,
+        "height": 366,
+        "bottom": 378
+      },
+      "clientHeight": 362,
+      "scrollHeight": 499,
+      "clientWidth": 796,
+      "scrollWidth": 796,
+      "photoHeight": 211.25,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 174.09375
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 174.109375
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 356.203125
+        },
+        {
+          "text": "分享至Threads",
+          "height": 58.375,
+          "width": 113.390625
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 58.375,
+          "width": 113.40625
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 58.375,
+          "width": 113.390625
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 852,
+        "clientHeight": 362,
+        "scrollTop": 490,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 1024,
+      "height": 768,
+      "rect": {
+        "x": 20.484375,
+        "y": 139.015625,
+        "width": 983.03125,
+        "height": 489.96875,
+        "bottom": 628.984375
+      },
+      "clientHeight": 486,
+      "scrollHeight": 486,
+      "clientWidth": 979,
+      "scrollWidth": 979,
+      "photoHeight": 275.5625,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 208.328125
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 208.328125
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 424.65625
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 136.21875
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 136.21875
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 136.21875
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 774,
+        "clientHeight": 740,
+        "scrollTop": 34,
+        "overflow": "auto"
+      }
+    },
+    {
+      "game": "javelin",
+      "width": 1440,
+      "height": 900,
+      "rect": {
+        "x": 180,
+        "y": 205.015625,
+        "width": 1080,
+        "height": 489.96875,
+        "bottom": 694.984375
+      },
+      "clientHeight": 486,
+      "scrollHeight": 486,
+      "clientWidth": 1076,
+      "scrollWidth": 1076,
+      "photoHeight": 304.734375,
+      "photoSource": [
+        1600,
+        900
+      ],
+      "buttons": [
+        {
+          "text": "↺ 動作重播",
+          "height": 44,
+          "width": 230.875
+        },
+        {
+          "text": "看落點",
+          "height": 44,
+          "width": 230.890625
+        },
+        {
+          "text": "再挑戰一投",
+          "height": 48,
+          "width": 469.765625
+        },
+        {
+          "text": "分享至Threads",
+          "height": 44,
+          "width": 151.25
+        },
+        {
+          "text": "下載成績圖片",
+          "height": 44,
+          "width": 151.25
+        },
+        {
+          "text": "複製成績與網址",
+          "height": 44,
+          "width": 151.25
+        }
+      ],
+      "downloadPresent": true,
+      "overflow": "auto",
+      "expanded": {
+        "scrollHeight": 753,
+        "clientHeight": 753,
+        "scrollTop": 0,
+        "overflow": "auto"
+      }
+    }
+  ]
+}
