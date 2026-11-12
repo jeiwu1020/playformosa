@@ -61,12 +61,13 @@ export function input(race,id,limb,down){
 }
 export function targetBank(r){const p=trackPoint(r.distance,r.lane);return p.curve?Math.atan(r.v*r.v/(9.81*p.radius)):0;}
 function fall(r){r.fall=1.25;r.falls++;r.v*=.25;r.imbalance=.22;r.bank=.05;r.stamina=Math.max(0,r.stamina-3);}
+// AI-only timing tiers with at most one wrong-foot input per opponent.
 function ai(race,r){
  if(!r.started&&race.time>=r.nextStep){r.held[2]=true;input(race,r.id,2,false);r.nextStep=race.time+.3;}
  if(!r.started)return;
- if(race.time>=r.nextStep){let gap=r.beatTarget*(r.id===1?.96:r.id===2?1.02:r.distance<290?1.08:.98);
+ if(race.time>=r.nextStep){let gap=r.beatTarget*(r.id===1?1:r.id===2?1.28:r.distance<290?1.36:1.30);
   if(r.stamina<20)gap*=1.08;
-  const bad=race.random()<(r.id===1?.035:.008),side=bad&&r.lastLeg>=0?r.lastLeg:r.aiSide;
+  const bad=(r.aiErrors??0)<1&&race.random()<(r.id===1?.003:r.id===2?.008:.012);if(bad)r.aiErrors=(r.aiErrors??0)+1;const side=bad&&r.lastLeg>=0?r.lastLeg:r.aiSide;
   input(race,r.id,2+side,true);input(race,r.id,2+side,false);r.aiSide=1-side;r.nextStep=race.time+gap+(race.random()-.5)*.016;
  }
  if(race.time>=r.aiBankAt){const delta=targetBank(r)-r.bank;if(Math.abs(delta)>.055){const key=delta>0?0:1;input(race,r.id,key,true);input(race,r.id,key,false);}r.aiBankAt=race.time+(r.id===1?.48:.3);}

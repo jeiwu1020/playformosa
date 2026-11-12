@@ -1,8 +1,9 @@
+// AI-only pace tiers; personal time and movement use the original player rules.
 export const START_X=-1.35;
 export const KEYS=['j','k','a','s'];
 export function rng(seed=1){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 export function runner(id,name,color){return{id,name,color,x:START_X,v:0,imbalance:0,fall:0,falls:0,steps:0,lastLeg:-1,lastStep:-9,lastArm:-9,armSide:-1,lean:0,held:[false,false,false,false],started:false,reaction:null,finished:null,pose:0,stumble:0};}
-export function createRace(seed=Date.now()){const random=rng(seed);return{seed,random,phase:'ready',time:0,clock:0,wait:1.2+random()*1.4,readyFor:0,paused:false,falseStarts:0,event:'按住 A＋S 兩腳，蹲好等槍響。',runners:[runner(0,'你','#ed782e'),runner(1,'爆衝阿火','#e15759'),runner(2,'穩穩阿青','#299c91'),runner(3,'後追阿紫','#8a73bd')].map((r,i)=>({...r,ai:i?{next:.2+random()*.25,interval:i===1?.21:i===2?.25:.26,error:i===1?.11:i===2?.015:.05,side:0}:null}))};}
+export function createRace(seed=Date.now()){const random=rng(seed);return{seed,random,phase:'ready',time:0,clock:0,wait:1.2+random()*1.4,readyFor:0,paused:false,falseStarts:0,event:'按住 A＋S 兩腳，蹲好等槍響。',runners:[runner(0,'你','#ed782e'),runner(1,'爆衝阿火','#e15759'),runner(2,'穩穩阿青','#299c91'),runner(3,'後追阿紫','#8a73bd')].map((r,i)=>({...r,ai:i?{next:.2+random()*.25,interval:i===1?.18:i===2?.35:.40,error:i===1?.006:i===2?.015:.02,mistakes:0,side:0}:null}))};}
 export function input(race,id,limb,down){const r=race.runners[id];if(race.paused||r.held[limb]===down)return;if(r.finished!==null){if(!down)r.held[limb]=false;return;}r.held[limb]=down;
  if(id===0&&race.phase==='ready')return;
  if(id===0&&race.phase==='set'&&!down&&limb>=2){race.phase='ready';race.readyFor=0;race.falseStarts++;r.held.fill(false);race.event='搶跑了！放鬆，重新按住 A＋S。';return;}
@@ -26,7 +27,7 @@ export function step(race,dt){if(race.paused||race.phase==='done')return;dt=Math
  race.time+=dt;
  for(const r of race.runners){if(r.finished!==null)continue;
  if(r.ai){const a=r.ai;if(!r.started&&race.time>=a.next){r.held[2]=true;input(race,r.id,2,false);a.next=race.time+a.interval;}
- if(r.started&&race.time>=a.next){const gap=p.x-r.x;let interval=a.interval;if(r.id===3&&r.x>65)interval*=.82;if(gap>1&&gap<7)interval*=.94;const error=a.error+(interval<a.interval?.02:0);const bad=race.random()<error;const side=bad&&r.lastLeg>=0?r.lastLeg:a.side;input(race,r.id,1-side,true);input(race,r.id,1-side,false);input(race,r.id,side+2,true);input(race,r.id,side+2,false);a.side=1-side;a.next=race.time+interval+(race.random()-.5)*.045;}
+ if(r.started&&race.time>=a.next){let interval=a.interval;if(r.id===3&&r.x>65)interval*=.88;const error=a.error;const bad=a.mistakes<1&&race.random()<error;if(bad)a.mistakes++;const side=bad&&r.lastLeg>=0?r.lastLeg:a.side;input(race,r.id,1-side,true);input(race,r.id,1-side,false);input(race,r.id,side+2,true);input(race,r.id,side+2,false);a.side=1-side;a.next=race.time+interval+(race.random()-.5)*.045;}
  if(r.x>98.8){r.held[0]=r.held[1]=true;}}
  if(!r.started)continue;const before=chest(r);r.stumble=Math.max(0,r.stumble-dt);r.fall=Math.max(0,r.fall-dt);const leaning=r.held[0]&&r.held[1]&&r.fall===0;r.lean+=(Number(leaning)-r.lean)*Math.min(1,dt*12);
  const drag=1.8+(leaning?2.4:0)+(r.imbalance>.55?1.2:0);r.v=Math.max(0,r.v-drag*dt);if(r.fall>0)r.v*=Math.exp(-7*dt);r.x+=r.v*dt;

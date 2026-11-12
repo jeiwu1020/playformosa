@@ -1,6 +1,6 @@
 // Exact reversible boundary for the authorised AI tiers and player-copy change.
 // Behaviour tests import live modules; only historical inventories use this view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforeSprintTiers as actual,sprintTierParentBytes,inventoryBeforeSprintTiers} from './sprint-rival-tiers-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -33,8 +33,9 @@ export function validate(m){
  if(m===cachedManifest)validated.add(m);return m;
 }
 export function tierParentBytes(path,bytes){
- const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
+ const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);
+ const before=f&&Buffer.from(f.beforeText);if(before&&bytes.equals(before))return before;
+ bytes=sprintTierParentBytes(path,bytes);if(!f)return bytes;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;
 }
 export function readBeforeTiers(file,options){
@@ -44,6 +45,7 @@ export function readBeforeTiers(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),before=tierParentBytes(path,bytes);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeTiers(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeSprintTiers(paths);const priorRead=read;read=p=>sprintTierParentBytes(p,priorRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate 1500m tiers inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  for(const p of m.addedPaths)assert.equal(paths.filter(x=>x===p).length,1,p+' missing repair evidence');
