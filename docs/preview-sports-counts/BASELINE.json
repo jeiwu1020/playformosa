@@ -9048,6 +9048,7 @@
     "docs/preview-sports-counts/BASELINE.json",
     "docs/preview-sports-counts/MANIFEST.json",
     "public/assets/overtime-pinball-card-v2.png",
+    "tests/fast-hands/duck-completion-regression.test.mjs",
     "tests/fast-hands/duck-pointerup-regression.test.mjs",
     "tests/helpers/preview-sports-counts-provenance.mjs",
     "tests/pinball-play-counts.test.mjs",
