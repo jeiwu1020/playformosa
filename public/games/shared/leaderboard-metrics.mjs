@@ -10,7 +10,7 @@ export const BOARD_METRICS=Object.freeze({
  'reaction-rod':{rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',secondary:true},
  'beer-slide':{rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc'},
  'run-400m':{rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc'},
- 'run-1500m':{rules:'1500m-ccw-tactics-v3',unit:'s',status:'done',direction:'asc'},
+ 'run-1500m':{rules:'1500m-bounded-plans-v4',unit:'s',status:'done',direction:'asc'},
  'tower-climb':{rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc'}
 });
 export function resultToSubmission(game,r){

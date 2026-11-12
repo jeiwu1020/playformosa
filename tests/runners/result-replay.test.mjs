@@ -20,7 +20,7 @@ test('1500m contextual verdicts have at least eight deterministic factual scenar
 });
 test('finish snapshot remains deeply frozen while 1500m mutable state continues',async()=>{
  const {freezeRunnerResult}=await import('../../public/games/shared/runner-result.mjs');const r={phase:'race',falseStarts:0,time:130,runners:[{id:0,name:'你',finished:130,energy:30,s:1500,steps:300,laneChanges:8,cansCollected:['a'],splits:[{distance:1500,time:130}],held:{a:false}},{id:1,name:'AI',finished:null,s:1490}]};
- const value=freezeRunnerResult('run-1500m',r,'1500m-ccw-tactics-v3');r.runners[0].energy=99;r.runners[0].splits[0].time=999;r.runners[1].finished=129;
+ const value=freezeRunnerResult('run-1500m',r,'1500m-bounded-plans-v4');r.runners[0].energy=99;r.runners[0].splits[0].time=999;r.runners[1].finished=129;
  assert.equal(value.seconds,130);assert.equal(value.metrics.energy,30);assert.equal(value.metrics.splits[0].time,130);assert.equal(value.rank,1);assert.equal(value.runners[1].finished,null);assert.ok(Object.isFrozen(value.metrics.splits));assert.ok(value.verdict);
 });
 test('1500m replay snapshots exclude growing input history and have constant serialized size',async()=>{

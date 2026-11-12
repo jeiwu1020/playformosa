@@ -1,5 +1,10 @@
 // A standalone fixed-step 1500m prototype. One world unit is one metre.
-export const RULES='1500m-ccw-tactics-v3';
+export const RULES='1500m-bounded-plans-v4';
+// Four complete schedules, selected once at the start; no mid-race difficulty roll.
+export const RACE_PLANS=Object.freeze([
+ [0,-18,18],[0,18,-18],[18,-18,0],[18,0,-18]
+].map((offsets,id)=>Object.freeze({id,seed:150015+(id+2)*101,offsets:Object.freeze(offsets)})));
+export function randomRacePlan(){return Math.min(RACE_PLANS.length-1,Math.floor(Math.random()*RACE_PLANS.length))}
 export const ARCADE_SCALE=1.9;
 export const SUPPLIES=Object.freeze([{id:'can-340',s:340,lane:2},{id:'can-740',s:740,lane:1},{id:'can-1140',s:1140,lane:2}].map(Object.freeze));
 export const TRACK=Object.freeze({length:400,radius:36,straight:(400-2*Math.PI*36)/2,laneWidth:1.45,lanes:4,start:100});
@@ -17,7 +22,7 @@ export function trackPoint(s,lane=0){
 export function pathScale(s,lane){return trackPoint(s).curve?1+lane*TRACK.laneWidth/TRACK.radius:1}
 function random(r){r.seed|=0;r.seed=r.seed+0x6D2B79F5|0;let t=Math.imul(r.seed^r.seed>>>15,1|r.seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
 function runner(id){return{id,name:['你','爆衝阿火','穩穩阿青','尾速阿紫'][id],color:['#ed782e','#db5a5e','#258d7b','#9471bb'][id],s:0,v:0,lane:[1,0,2,3][id],targetLane:[1,0,2,3][id],energy:100,cadence:.48,lastStep:-10,lastLeg:-1,steps:0,started:false,reaction:null,held:{a:false,s:false,j:false,k:false},handChord:false,tucking:false,lean:0,wobble:0,slip:0,slipSeconds:0,laneChanges:0,blocked:0,finished:null,finishRaceTime:null,penalty:0,aiNext:.28+id*.06,aiLook:1.2,aiRecover:false,aiPassUntil:0,tactic:'就位',splits:[],lastSplit:0,pose:0,cansCollected:[],splash:0};}
-export function createRace(){return{rules:RULES,distance:1500,startStyle:'standing',seed:150015,phase:'ready',time:0,clock:0,countdown:3.35,paused:false,falseStarts:0,accumulator:0,event:'站好，留一點力氣給最後一圈。',eventUntil:0,runners:[0,1,2,3].map(runner),supplies:SUPPLIES,inputs:[]}}
+export function createRace(planId=0){if(!Number.isInteger(planId)||!RACE_PLANS[planId])throw new RangeError('Unknown race plan');const plan=RACE_PLANS[planId];return{rules:RULES,planId,initialSeed:plan.seed,distance:1500,startStyle:'standing',seed:plan.seed,phase:'ready',time:0,clock:0,countdown:3.35,paused:false,falseStarts:0,accumulator:0,event:'站好，留一點力氣給最後一圈。',eventUntil:0,runners:[0,1,2,3].map(runner),supplies:SUPPLIES,inputs:[]}}
 export function startRace(r){if(r.phase!=='ready')return;r.phase='countdown';r.event='站姿就位。槍響後 A／S 交替邁步。';}
 function announce(r,text,duration=2){r.event=text;r.eventUntil=r.time+duration}
 export function cancelInput(r){for(const p of r.runners){for(const k of Object.keys(p.held))p.held[k]=false;p.handChord=false;p.tucking=false}}
@@ -58,9 +63,10 @@ export function slipstream(r,p){
 export function aiPlan(r,p){
  if(p.energy<23)p.aiRecover=true;
  if(p.energy>49)p.aiRecover=false;
- let interval=p.id===1?(p.s<220?.33:p.s<650?.395:p.s<790?.34:p.s<1180?.405:.34)
-  :p.id===2?(p.s<1080?.38:p.s<1320?.365:.335)
-  :(p.s<850?.415:p.s<1230?.37:.325);
+ const offset=RACE_PLANS[r.planId].offsets[p.id-1],distance=p.s+offset;
+ let interval=p.id===1?(distance<220?.33:distance<650?.395:distance<790?.34:distance<1180?.405:.34)
+  :p.id===2?(distance<1080?.38:distance<1320?.365:.335)
+  :(distance<850?.415:distance<1230?.37:.325);
  let tactic=interval<.36?'加速進攻':'巡航蓄力';
  if(p.aiRecover){interval=.59;tactic='慢跑回氣'}
  else if(r.time<p.aiPassUntil&&p.energy>35){interval=Math.min(interval,.335);tactic='外線超車'}
@@ -80,7 +86,7 @@ function ai(r,p){
    // Hold a useful wake until a scheduled attack or a slower leader closes the gap.
    const desired=Math.min(clamp(4.6+(1/plan.interval-1.6)*1.9,3.4,10.7),p.energy<22?4.2+p.energy/22*3.1:7.3)*ARCADE_SCALE;
    const pass=!p.aiRecover&&(plan.interval<.36||(p.blocked>.1&&desired>ahead.v+.8)||ahead.energy<20);
-   if(pass&&ahead.s-p.s<2.4){if(requestLane(r,p,1)||requestLane(r,p,-1))p.aiPassUntil=r.time+3.2;}
+   if(pass&&ahead.s-p.s<2.4){if(requestLane(r,p,1)||requestLane(r,p,-1))p.aiPassUntil=r.time+3.2+RACE_PLANS[r.planId].offsets[p.id-1]/90;}
   }else if(p.targetLane>0&&!wantCan){
    // Rejoin the shortest line only with room behind: no last-moment blocking cut-ins.
    const clear=r.runners.every(q=>q===p||q.finished!==null||Math.abs(q.lane-(p.targetLane-1))>.65||Math.abs(q.s-p.s)>3.2);
@@ -129,7 +135,7 @@ function tick(r,dt){
 }
 export function step(r,dt){if(r.paused||!Number.isFinite(dt)||dt<=0)return;r.accumulator+=dt;while(r.accumulator+1e-10>=FIXED_DT){tick(r,FIXED_DT);r.accumulator=Math.max(0,r.accumulator-FIXED_DT)}}
 export function standings(r){return [...r.runners].sort((a,b)=>(a.finished??Infinity)-(b.finished??Infinity)||b.s-a.s)}
-export function resultOf(r){const p=r.runners[0];if(p.finished===null)return null;return{game:'1500m',rules:RULES,mode:'local-prototype',timeBasis:'actual-game-seconds',courseDistance:1500,arcadeScale:ARCADE_SCALE,cansCollected:p.cansCollected.length,seed:150015,status:'done',time:Math.round(p.finished*100)/100,elapsed:Math.round(p.finishRaceTime*1000)/1000,penalty:p.penalty,steps:p.steps,energy:Math.round(p.energy),slipSeconds:Math.round(p.slipSeconds),laneChanges:p.laneChanges,splits:p.splits.map(x=>({...x})),points:null};}
+export function resultOf(r){const p=r.runners[0];if(p.finished===null)return null;return{game:'1500m',rules:RULES,mode:'local-prototype',timeBasis:'actual-game-seconds',courseDistance:1500,arcadeScale:ARCADE_SCALE,cansCollected:p.cansCollected.length,seed:r.initialSeed,planId:r.planId,status:'done',time:Math.round(p.finished*100)/100,elapsed:Math.round(p.finishRaceTime*1000)/1000,penalty:p.penalty,steps:p.steps,energy:Math.round(p.energy),slipSeconds:Math.round(p.slipSeconds),laneChanges:p.laneChanges,splits:p.splits.map(x=>({...x})),points:null};}
 export function displayDistance(p){return p.finished!==null?1500:Math.min(1500,Math.max(0,p.s))}
 
 export function finalRank(r,p){const score=Math.round(p.finished*100);return 1+r.runners.filter(q=>q!==p&&q.finished!==null&&Math.round(q.finished*100)<score).length}
