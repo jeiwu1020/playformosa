@@ -12,7 +12,7 @@ body.playing #comic[data-tier="3"]{color:#ffe18a;border-left:4px solid #ffdc74;b
 @media(max-height:600px){#results .panel{padding:14px 18px}#results .final-score{font-size:36px}}
 body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw - 24px);font-size:18px;line-height:1.35;padding:6px 10px;pointer-events:none;animation:none!important;opacity:1!important}body.playing #comic[data-tier="3"]{display:block;font-size:20px}body.playing #comic:not(.pop){display:none!important}
 @media(max-height:420px){body.playing #comic,body.playing #comic[data-tier="3"]{font-size:16px}}
-/* Fixed-size station names; only their backing softens when the actor passes. */
+/* Fixed-size station names keep their original backing when the actor passes. */
 .station-tag{transition:background-color .18s,border-color .18s,box-shadow .18s;text-shadow:0 1px 2px #102d31,1px 0 2px #102d31,-1px 0 2px #102d31}
 
 #stationHint{height:22px;line-height:22px;white-space:nowrap;font-size:13px;font-weight:700;color:#fff0bd;text-align:left;grid-column:1/-1;overflow:visible}
@@ -24,5 +24,3 @@ body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw
 
 @media(orientation:portrait){body.playing #payStatus.frozen.reentry:after{content:'重返不計費'}}
 
-/* Only an occluded actor receives a position cue; scenery never fades. */
-.actor-location{position:absolute;transform:translate(-50%,-50%);z-index:2;width:18px;height:18px;display:grid;place-items:center;border:2px solid #fff7dc;border-radius:50%;background:#193c42;color:#ffe17c;font:900 12px/1 system-ui;box-shadow:0 0 0 2px #193c42;pointer-events:none}.actor-location[hidden]{display:none}

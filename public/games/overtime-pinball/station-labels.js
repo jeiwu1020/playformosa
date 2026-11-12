@@ -4,22 +4,18 @@ export function createStationLabels(T,stations){
  const root=document.createElement('div');root.id='stationLabels';root.setAttribute('aria-hidden','true');document.body.append(root);
  const hint=document.createElement('div');hint.id='stationHint';hint.textContent='碰到設備，自動進入互動';document.getElementById('playStatus').append(hint);
  const entries=stations.filter(o=>names[o.id]).sort((a,b)=>a.z-b.z||a.x-b.x).map(o=>{const el=document.createElement('div');el.className='station-tag';el.dataset.station=o.id;el.dataset.placement='world';el.textContent=names[o.id][0]+' '+names[o.id][1];root.append(el);const a=stationAnchor(o);return{o,el,name:names[o.id],anchor:new T.Vector3(a.x,a.y,a.z)};});
- const marker=document.createElement('div');marker.className='actor-location';marker.textContent='●';marker.hidden=true;root.append(marker);
  const point=new T.Vector3();let lastInteraction=null,near=null,nearSince=-1,wasFocus=false;
- return{root,setActorOcclusion(blocked){marker.hidden=!blocked||root.hidden||marker.dataset.inView!=='true';},update({office,camera,person,game,mode,time,frame,close=0}){
+ return{root,update({office,camera,game,mode,time,frame,close=0}){
   root.hidden=mode!=='playing'||!!game.round.ending;if(root.hidden)return[];
   if(game.interaction)lastInteraction=game.interaction.stationId;const focusId=game.interaction?.stationId||(close>.001?lastInteraction:null);root.dataset.layout=focusId?'work':'full';
   const project=local=>{point.copy(local);office.localToWorld(point);point.project(camera);return projectedAnchor(point,frame,innerHeight);};
-  const actor=project(new T.Vector3(person.position.x,person.position.y+1,person.position.z)),placed=[];marker.style.left=actor.x+'px';marker.style.top=actor.y+'px';marker.dataset.inView=String(actor.inDepth&&actor.x>=Math.max(0,frame.x)&&actor.x<=Math.min(innerWidth,frame.x+frame.w)&&actor.y>=Math.max(0,innerHeight-frame.y-frame.h)&&actor.y<=Math.min(innerHeight,innerHeight-frame.y));
+  const placed=[];
   for(const e of entries){
    const p=project(e.anchor);e.el.hidden=!p.inDepth;e.el.classList.toggle('is-current',e.o.id===focusId);
    // Same anchor and the same bottom-center alignment in full view, closeup and return.
    // Offscreen coordinates stay offscreen. The root clips naturally; nothing is clamped.
    if(p.inDepth){e.el.style.left=p.x+'px';e.el.style.top=(p.y-6)+'px';}
-   const w=e.el.offsetWidth,h=e.el.offsetHeight,x=p.x-w/2;let y=p.y-h-6;
-   const overlap=actor.inDepth&&actor.x+24>x&&actor.x-24<x+w&&actor.y+32>y&&actor.y-32<y+h;
-   if(overlap){const top=Math.max(0,innerHeight-frame.y-frame.h);y=actor.y-38-h;if(y<top)y=actor.y+38;e.el.style.top=(y+h)+'px';}
-   e.el.classList.toggle('actor-near',overlap);
+   const w=e.el.offsetWidth,h=e.el.offsetHeight,x=p.x-w/2,y=p.y-h-6;
    placed.push({id:e.o.id,x,y,w,h,kind:'world',anchor:{x:p.x,y:p.y},inDepth:p.inDepth,inView:p.inDepth&&x+w>0&&x<innerWidth&&y+h>0&&y<innerHeight});
   }
   if(game.round.reentry){hint.textContent='重返中 · 倒數繼續 · 連擊中斷';wasFocus=true;return placed;}
