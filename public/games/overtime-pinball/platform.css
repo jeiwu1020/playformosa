@@ -1,0 +1,27 @@
+/* Platform chrome/lifecycle only. Canvas and original office artwork retain their geometry. */
+body.pf-game .pf-header{position:relative;inset:auto;transform:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:8px max(8px,env(safe-area-inset-right)) 8px max(8px,env(safe-area-inset-left));z-index:10;background:#152b30e8;width:100%;height:auto;min-height:60px}
+.pf-header .pf-title{font-size:15px;letter-spacing:0;margin:0;flex:1;min-width:0}.pf-header nav{display:flex;flex-wrap:wrap;gap:4px;align-items:center;justify-content:flex-end}.pf-header button,.pf-header a,.pf-game dialog button,.pf-game dialog summary{min-width:44px;min-height:44px;touch-action:manipulation}.pf-header nav button{font-size:13px;padding:8px;border:1px solid #768d88;background:#17363b;color:#fff3cf;border-radius:12px}
+.pf-game dialog#results,.pf-game dialog#rankDialog,.pf-game dialog.pf-pinball-share-dialog{position:fixed;inset:0;margin:auto;width:min(680px,calc(100vw - 24px));max-width:calc(100vw - 24px);height:auto;max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:20px;background:#fff6df;color:#173b40;border:2px solid #dfc777;border-radius:12px;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;transform:none}
+.pf-game #results:not([open]),.pf-game #rankDialog:not([open]){display:none}.pf-game #results[open]{display:block}.pf-game #results .panel{width:100%;max-width:none;max-height:none;height:auto;overflow:visible;padding:0;margin:0;transform:none;box-shadow:none;border:0;background:none}.pf-game dialog::backdrop{background:#081d22b8}.pf-game dialog header{position:static;padding:8px;inset:auto}.pf-game dialog .pf-leaderboard{color:#24464b}.pf-game dialog input{max-width:100%}.pf-game #rankContent{min-width:0}.pf-game #rankContent img{object-fit:contain}.pf-game .pf-share-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.pf-game .pf-share-actions>*{min-height:44px;flex:1 1 160px}.pf-game #pinballBoards{display:none}.pf-game #rankDialog nav{display:flex;flex-wrap:wrap;gap:8px}.pf-game #platformAudioStatus{font-size:12px;position:absolute;right:8px;top:100%;background:#152b30;max-width:80vw}.pf-game #platformAudioStatus:empty{display:none}
+@media(max-width:600px){body.pf-game .pf-header{gap:4px}.pf-header .pf-title{order:3;flex-basis:100%;text-align:center;font-size:13px}.pf-header nav{flex:1}.pf-header .desktop-only{display:none!important}.pf-header nav button{font-size:12px;padding:4px}.pf-game #results,.pf-game #rankDialog{padding:14px}}
+body.pf-game .pf-header nav button{padding:0 8px;background:#17363b;color:#fff3cf;border-color:#768d88;font-size:13px}.pf-game .pf-header #sound{width:auto;min-width:44px}body.pf-game .pf-header h1{font-size:15px;color:#fff3cf}
+@media(max-width:600px){body.pf-game .pf-header h1{font-size:13px}}
+
+/* Measured chrome reserves one region for all formerly floating game UI. */
+body.pf-game{--pf-header-height:60px}
+body.pf-game .pf-header{padding-top:max(8px,env(safe-area-inset-top));pointer-events:auto}
+body.pf-game.playing #playFrame{top:var(--pf-header-height)}
+body.pf-game.playing #playStatus{top:calc(var(--pf-header-height) + 8px)}
+body.pf-game.playing #skipOpening{top:calc(var(--pf-header-height) + 8px)}
+body.pf-game #bossStatus{top:calc(var(--pf-header-height) + 62px)}
+body.pf-game #desktopSceneFrame{top:calc(var(--pf-header-height) + 8px)}
+body.pf-game #intro.menu-sheet{top:calc(var(--pf-header-height) + 8px);max-height:calc(100dvh - var(--pf-header-height) - 24px)}
+body.pf-game.playing #rankDialog header{height:auto;min-height:0;pointer-events:auto;background:none;position:static;inset:auto;transform:none;padding:8px}
+@media(orientation:landscape){body.pf-game.playing #playDetails{top:calc(var(--pf-header-height) + 8px)}}
+@media(max-width:600px){body.pf-game{--pf-header-height:88px}}
+@media(orientation:portrait){
+ body.pf-game #intro.menu-sheet{top:auto;max-height:calc(100dvh - var(--pf-header-height) - 24px)}
+ body.pf-game.playing.gate-active:not([data-view="original"]) #playDetails{top:calc(var(--pf-header-height) + var(--status-height,70px) + 16px);bottom:auto}
+ body.pf-game.playing.mail-active[data-view="original"] #mailStatus{top:calc(var(--pf-header-height) + var(--status-height,70px) + 16px);bottom:auto}
+ body.pf-game #bossStatus{top:calc(var(--pf-header-height) + var(--status-height,70px) + 16px)}
+}

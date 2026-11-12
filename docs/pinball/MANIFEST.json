@@ -1,0 +1,681 @@
+{
+  "baseCommit": "8d5a131bfa268c8e72fae6fa2a4735cd30a65d9e",
+  "baseTree": "0072e34de52c10f59d0c7f53cf96774e4c5ec407",
+  "files": [
+    {
+      "path": "package.json",
+      "gitBlob": "9a29d61f4051e350c8e4f833bc8a7139a88d9064",
+      "sha256": "0ea96c0b55f75401a73e4c20e7cf56fbde9f73020b61fa0764f17a711c5890b2",
+      "beforeGitBlob": "a08da104c601ec99f5a2f0702e20026dec3311c2",
+      "beforeSha256": "989b100b55aaf6de8aee266ba80f2755a2fce1f77671279b3e16a991d0076bac",
+      "beforeText": "{\n  \"name\": \"playformosa\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"build\": \"node scripts/build.mjs\",\n    \"test\": \"node --test tests/*.test.mjs tests/long-jump/*.test.mjs tests/hurdles/*.test.mjs tests/reaction-rod/*.test.mjs tests/beer-slide/*.test.mjs tests/high-jump/*.test.mjs tests/pole-vault/*.test.mjs tests/shot-put/*.test.mjs tests/discus/*.test.mjs tests/tower-climb/*.test.mjs tests/sprint-100m/*.test.mjs tests/javelin/*.test.mjs tests/fast-hands/*.test.mjs tests/runners/*.test.mjs tests/run-400m/*.test.mjs tests/run-1500m/*.test.mjs tests/courtesy-contest/*.test.mjs\",\n    \"check\": \"npm test && npm run build && node scripts/verify.mjs\",\n    \"check:release\": \"node scripts/check-release.mjs\"\n  },\n  \"engines\": {\n    \"node\": \">=20\"\n  },\n  \"devDependencies\": {\n    \"@napi-rs/canvas\": \"0.1.80\",\n    \"jsdom\": \"26.1.0\",\n    \"postcss\": \"8.5.6\",\n    \"sql.js\": \"1.13.0\"\n  }\n}\n"
+    },
+    {
+      "path": "public/games/shared/leaderboard-metrics.mjs",
+      "gitBlob": "620c2e5cf9a25431fac86b0c08c909c6bda4679f",
+      "sha256": "55475d251a893862d2f71d6cf7a8c9de536542d41fe6ef54deebe785f15735b1",
+      "beforeGitBlob": "63404ea744a078afbf6d75c46e309381c0e246ff",
+      "beforeSha256": "d57582e349fb02ab1214b258db371e194f0349d203cf1a1d99b2f03d5573f199",
+      "beforeText": "// Final-round snapshots only. These adapters never read historical local bests.\nexport const BOARD_METRICS=Object.freeze({\n 'courtesy-contest':{rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',secondary:true,secondaryUnit:'秒'},\n 'long-jump':{rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc'},\n hurdles:{rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc'},\n 'high-jump':{rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc'},\n 'pole-vault':{rules:'real-altitude-v3',unit:'m',status:'done',direction:'desc'},\n 'shot-put':{rules:'relay-distance-v1',unit:'m',status:'valid',direction:'desc'},\n discus:{rules:'wind-ufo-distance-v1',unit:'m',status:'valid',direction:'desc'},\n 'reaction-rod':{rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',secondary:true},\n 'beer-slide':{rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc'},\n 'run-400m':{rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc'},\n 'run-1500m':{rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc'},\n 'tower-climb':{rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc'}\n});\nexport function resultToSubmission(game,r){\n const b=Object.hasOwn(BOARD_METRICS,game)?BOARD_METRICS[game]:null;\n if(!b||!r||r.phase!=='done')return null;\n let score;\n if(game==='courtesy-contest'){\n  if(r.seated!==true||!Number.isSafeInteger(r.count)||r.count<0||r.count>=Number.MAX_SAFE_INTEGER||typeof r.remaining!=='number'||!Number.isFinite(r.remaining)||r.remaining<.01||r.remaining>30||Math.abs(r.remaining*100-Math.round(r.remaining*100))>1e-9)return null;\n  return {score:r.count,status:b.status,secondaryScore:r.remaining};\n }\n switch(game){\n case 'long-jump':if(r.valid!==true)return null;score=r.legalAdventureKm;break;\n case 'hurdles':score=r.t;if(score>180)return null;break;\n case 'high-jump':if(r.success!==true)return null;score=r.height;break;\n case 'pole-vault':if(r.ruleset!==b.rules||r.scoreSnapshot?.ruleset!==b.rules)return null;score=r.scoreSnapshot.height;break;\n case 'shot-put':if(r.valid!==true)return null;score=r.distance;break;\n case 'discus':if(r.foul!==false)return null;score=r.score;break;\n case 'reaction-rod':score=r.caught;if(!Number.isInteger(score)||score>10||!Number.isFinite(r.rating)||r.rating<0||r.rating>10)return null;break;\n case 'beer-slide':if(r.fallen||r.invalid||r.invalidReason||r.cancelled)return null;score=r.raw;if(score>10)return null;break;\n case 'run-400m':case 'run-1500m':if(r.finished!==true||r.ruleset!==b.rules||r.scoreSnapshot?.ruleset!==b.rules)return null;score=r.scoreSnapshot.seconds;break;\n case 'tower-climb':if(r.finished!==true||r.floor!==10)return null;score=r.time;if(score>60)return null;break;\n }\n if(game==='run-400m'&&(score<30||score>=3600))return null;\n if(typeof score!=='number'||!Number.isFinite(score)||score<=0)return null;\n return {score,status:b.status,...(b.secondary?{secondaryScore:r.rating}:{})};\n}\n"
+    },
+    {
+      "path": "public/games/shared/leaderboard.mjs",
+      "gitBlob": "89ddafd3da32450703a8768f43ec7b7ddbe0f5e6",
+      "sha256": "8d66241a3503915352ce4a27fecf3cd8ffcf0cea1eb13fe1aea121ac42237aee",
+      "beforeGitBlob": "47e61e821f365a39c4273e85c7a9d23d8ccb2cb9",
+      "beforeSha256": "2e8e4f530c9f580bae11f0e8c0d3ac5450410af21da7466f7ea7271d8642f63d",
+      "beforeText": "import {createUploadCooldown} from './upload-cooldown.mjs';\nimport {LEADERBOARD_ENABLED} from './leaderboard-config.mjs';\nimport {bindManualUploadScroll} from './leaderboard-scroll.mjs';\nexport const formatLeaderboardScore=n=>n>0&&n<.001?'<0.001':n.toLocaleString(undefined,{maximumFractionDigits:3});\nimport {BOARD_METRICS as boards,resultToSubmission} from './leaderboard-metrics.mjs';\nexport const eligibleResult=resultToSubmission;\nconst displayUnits={km:'公里',s:'秒',m:'公尺',catches:'根',points:'分',courtesies:'次'};\nconst boardLabels={\n 'courtesy-contest':['客氣大賽','發車前有效按下謝謝才入榜；先比互讓完成次數，同次數以按下時剩餘秒數越接近零越前面。'],\n 'long-jump':['跳遠','合法落地，越遠越好。'],hurdles:['110公尺跨欄','越快越好，欄杆不是扶手。'],\n 'high-jump':['跳高','成功過桿高度，越高越好。'],'pole-vault':['撐竿跳','最高高度，四肢向天空報到。'],\n 'shot-put':['鉛球','有效距離，重物也想去旅行。'],discus:['鐵餅','有效距離，跟著風去兜一圈。'],\n 'reaction-rod':['接棒啦！','先比接住根數，再比評分。'],'beer-slide':['別灑啊！','準度與留酒率，一杯決勝負。'],\n 'run-400m':['400公尺','固定跑道一圈，秒數越短越前面。'],\n 'run-1500m':['1500公尺','以完賽秒數排名。'],\n 'tower-climb':['上樓不容易','十層完成時間，越短越前面。']\n};\nexport function mountLeaderboard({document,game,entry,result,resultActionContainer=result,resultUploadContainer=result,resultActionLabel='查看榮譽榜',shell=null,enabled=LEADERBOARD_ENABLED,fetcher=(...args)=>document.defaultView.fetch(...args)}){\n if(!enabled||!Object.hasOwn(boards,game))return null;\n const win=document.defaultView,b=boards[game],make=(tag,text)=>{const n=document.createElement(tag);if(text)n.textContent=text;return n;};\n if(!document.querySelector('link[data-leaderboard-style]')){const l=make('link');l.rel='stylesheet';l.href='/games/shared/leaderboard.css';l.dataset.leaderboardStyle='';document.head.append(l);}\n const read=k=>{try{return win.localStorage.getItem(k);}catch{return null;}},write=(k,v)=>{try{win.localStorage.setItem(k,v);}catch{}};\n let device=read('pf-leaderboard-device-v1');if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(device||'')){try{device=win.crypto.randomUUID();write('pf-leaderboard-device-v1',device);}catch{device=null;}}\n const note='提交後，暱稱與成績會公開在這個線上榜。紀錄認這個瀏覽器，不認同名；換裝置或清除資料不會自動連回。';\n const format=formatLeaderboardScore,gapText=n=>n>0&&n<.001?'<0.001':format(n),unitLabel=displayUnits[b.unit]||b.unit;\n const scoreLabel=row=>format(row.score)+' '+unitLabel+(b.secondary&&Number.isFinite(row.secondaryScore)?' · '+format(row.secondaryScore)+' '+(b.secondaryUnit||'分'):'');\n const gapLabel=row=>gapText(row.gap)+' '+(row.gapMetric==='remaining'?'秒':row.gapMetric==='rating'?'分':unitLabel);\n const ranking=make('details');ranking.className='pf-leaderboard';const rankingSummary=make('summary','榮譽榜');rankingSummary.className='pf-menu-row';ranking.append(rankingSummary);entry?.append(ranking);\n const content=make('section');content.className='pf-honor-board';const heading=make('header'),icon=make('img');icon.src=game==='courtesy-contest'?'/assets/courtesy-contest-card.jpg':'/assets/app-icons/'+game+'/apple-touch-icon.png';icon.alt='';icon.width=64;icon.height=64;const titles=make('div');titles.append(make('p','PLAYFORMOSA · 榮譽榜'),make('h2',boardLabels[game][0]));heading.append(icon,titles);\n const rule=make('p',boardLabels[game][1]+'休閒比一比，成績由玩家回報。');rule.className='pf-rank-rule';const own=make('section');own.dataset.ownBest='';own.className='pf-rank-own';const list=make('ol'),rankStatus=make('p');rankStatus.setAttribute('role','status');list.className='pf-rank-list';\n const foot=make('p','同分並肩站。');foot.className='pf-rank-foot';content.append(heading,rule,own,rankStatus,list,foot);ranking.append(content);\n let rankingBusy=false,rankTime=0,rankToken=0,rankAbort=null,rankTimer=null,boardOpen=false;\n function stopRanking(){rankToken++;rankAbort?.abort();rankAbort=null;win.clearTimeout(rankTimer);rankingBusy=false;}\n function drawOwn(row){own.replaceChildren(make('h3','我的線上最佳'));if(!row){own.append(make('p','榜上還缺你。取得有效成績後，到結算畫面提交。'));return;}own.append(make('strong',scoreLabel(row)),make('p','第 '+row.rank+' 名 · '+row.nickname),make('p',row.gap===null?'目前領先，繼續挑戰自己。':'追上前方成績還差 '+gapLabel(row)));}\n async function refreshRanking(force=false){if(rankingBusy||(!force&&Date.now()-rankTime<60000))return;rankingBusy=true;const token=++rankToken;rankStatus.textContent='讀取中…';rankAbort=new win.AbortController();rankTimer=win.setTimeout(()=>rankAbort?.abort(),10000);\n  try{const response=await fetcher('/api/leaderboard?game='+game,{headers:device?{'X-Leaderboard-Device':device}:{},signal:rankAbort.signal,cache:'no-store'});if(!response.ok)throw Error('network');const data=await response.json();if(token!==rankToken)return;if((game==='pole-vault'||game==='run-400m'||game==='run-1500m'||game==='courtesy-contest')&&(data.game!==game||data.rules!==b.rules||data.unit!==b.unit)){list.replaceChildren();throw Error('rules');}list.replaceChildren();for(const row of (Array.isArray(data.entries)?data.entries:[]).slice(0,20)){if(typeof row.nickname!=='string'||typeof row.score!=='number'||!Number.isFinite(row.score))continue;const li=make('li'),place=make('span',String(row.rank||list.children.length+1)),name=make('span',row.nickname+(row.isMe?' · 我':'')),score=make('strong',format(row.score)),unit=make('small',unitLabel);place.className='pf-rank-place';if(row.rank<=3)place.dataset.medal=String(row.rank);name.className='pf-rank-name';score.append(unit);if(b.secondary&&Number.isFinite(row.secondaryScore)){const secondary=make('small',format(row.secondaryScore)+' '+(b.secondaryUnit||'分'));secondary.className='pf-rank-secondary';score.append(secondary);}if(row.isMe)li.classList.add('is-me');li.append(place,name,score);list.append(li);}drawOwn(data.own||null);rankStatus.textContent=list.children.length?'前20筆最佳成績':'還沒有成績，第一筆由你開始。';rankTime=Date.now();}catch{if(token===rankToken){rankStatus.textContent='排行榜暫時無法讀取，遊戲不受影響。';own.replaceChildren(make('p','尚未取得線上最佳，請稍後再查看。'));}}finally{if(token===rankToken){win.clearTimeout(rankTimer);rankingBusy=false;}}\n }\n function showRanking(){if(boardOpen&&shell)return;boardOpen=true;if(shell){shell.openView(content,{label:'榮譽榜',onClose(){boardOpen=false;stopRanking();ranking.append(content);ranking.open=false;}});}else ranking.open=true;refreshRanking();}\n ranking.addEventListener('toggle',()=>{if(ranking.open)showRanking();});shell?.setRankingAction?.(showRanking);\n const headerAction=make('button','排行');headerAction.type='button';headerAction.className='pf-rank-action';headerAction.setAttribute('aria-label','查看線上榮譽榜');headerAction.addEventListener('click',showRanking);if(shell){document.querySelector('.pf-header nav')?.insertBefore(headerAction,document.querySelector('.pf-entry-help'));document.body.classList.add('pf-has-ranking');const home=document.querySelector('.pf-header .pf-home');if(home)home.textContent='首頁';}\n const resultAction=make('button',resultActionLabel);resultAction.type='button';resultAction.className='pf-result-ranking';resultAction.addEventListener('click',showRanking);resultActionContainer?.append(resultAction);\n const panel=make('details');panel.className='pf-leaderboard';panel.hidden=true;panel.append(make('summary','手動上傳本次成績'),make('p',note));const scoreText=make('p'),label=make('label','暱稱（1–20字）'),input=make('input');input.type='text';input.maxLength=40;input.autocomplete='nickname';input.value=read('pf-leaderboard-nickname-v1')||'';label.append(input);const submit=make('button','提交本次成績'),cancel=make('button','關閉'),status=make('p');submit.type=cancel.type='button';submit.dataset.submit='';cancel.dataset.cancel='';status.setAttribute('role','status');panel.append(scoreText,label,submit,cancel,status);resultUploadContainer?.append(panel);\n const uploadScroll=bindManualUploadScroll({panel,result});\n // Do not let nickname typing/IME bubble to game shortcuts. No form/implicit Enter submit.\n for(const event of ['keydown','keyup','keypress'])panel.addEventListener(event,e=>{if(e.key!=='Tab')e.stopPropagation();});\n let snapshot=null,payload=null,generation=0,pending=false,attempts=0,abort=null,timer=null,destroyed=false,showingCooldown=false;\n const cooldown=createUploadCooldown(win,()=>{if(!destroyed)syncUpload()});\n function syncUpload(){\n  const seconds=cooldown.remaining();submit.disabled=!snapshot||!device||pending||attempts>=3||seconds>0;\n  if(snapshot&&!pending&&attempts<3){\n   if(seconds>0){showingCooldown=true;submit.textContent='等待 '+seconds+' 秒';status.textContent=cooldown.message()}\n   else {submit.textContent=payload?'重試同一筆':'提交本次成績';if(showingCooldown){status.textContent=payload?'等待已結束，可手動重試同一筆；不會自動上傳。':'等待已結束，可手動提交本次成績；不會自動上傳。';showingCooldown=false}}\n  }\n }\n function stop(){uploadScroll.cancel();generation++;abort?.abort();abort=null;win.clearTimeout(timer);pending=false;syncUpload();}\n function reset(){if(boardOpen&&shell)shell.closeView();stop();stopRanking();snapshot=null;payload=null;attempts=0;showingCooldown=false;panel.open=false;panel.hidden=true;status.textContent='';input.disabled=false;submit.textContent='提交本次成績';syncUpload();}\n function setResult(r){reset();snapshot=eligibleResult(game,r);if(!snapshot)return;panel.hidden=false;scoreText.textContent='本次：'+scoreLabel(snapshot);syncUpload();if(!device)status.textContent='此瀏覽器無法建立匿名識別，仍可正常遊玩。';}\n cancel.addEventListener('click',()=>{const wasPending=pending;stop();panel.open=false;if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';});\n panel.addEventListener('toggle',()=>{if(!panel.open&&pending){stop();status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';}});\n submit.addEventListener('click',async()=>{\n  if(destroyed||!snapshot||!device||pending||attempts>=3||cooldown.remaining()>0)return;\n  if(!payload){const nickname=input.value.trim();if(!nickname||[...nickname].length>20||/[<>\\p{Cc}\\p{Cf}]/u.test(nickname)){status.textContent='請輸入1–20字純文字暱稱。';return;}let submissionId;try{submissionId=win.crypto.randomUUID();}catch{status.textContent='此瀏覽器無法建立提交編號。';return;}\n   payload=Object.freeze({game,rules:b.rules,unit:b.unit,...snapshot,nickname,deviceId:device,submissionId});write('pf-leaderboard-nickname-v1',nickname);input.disabled=true;\n  }\n  const token=generation;pending=true;attempts++;submit.disabled=true;status.textContent='提交中…';abort=new win.AbortController();timer=win.setTimeout(()=>abort?.abort(),10000);\n  try{const response=await fetcher('/api/leaderboard/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:abort.signal});const data=await response.json().catch(error=>{if(response.status===429)return null;throw error});if(token!==generation)return;if(response.status===429){attempts--;status.textContent=cooldown.limited(response,data);return;}if(!response.ok||!data?.accepted)throw Error('network');status.textContent=(data.bestUpdated?'刷新線上最佳！':'已收錄；保留線上最佳。')+(data.own?' 第 '+data.own.rank+' 名，最佳 '+scoreLabel(data.own)+(data.own.gap===null?'，目前領先。':'，距上一個較佳成績 '+gapLabel(data.own)+'。'):'');submit.textContent='已提交';attempts=3;cooldown.accepted(data);rankTime=0;stopRanking();refreshRanking(true);\n  }catch(error){if(token===generation){status.textContent='未確認提交完成，可手動重試；不會重複入榜。';submit.textContent='重試同一筆';}}\n  finally{if(token===generation){win.clearTimeout(timer);pending=false;syncUpload();if(attempts>=3&&submit.textContent!=='已提交')status.textContent+=' 本回合已達重試次數，請稍後再玩一局。';}}\n });\n function suspend(){const wasPending=pending;stop();if(!boardOpen)stopRanking();if(wasPending)status.textContent='已停止等待；送出的成績可能已收錄，重試不會重複。';}\n const resultDialog=result?.closest('dialog');resultDialog?.addEventListener('close',suspend);\n return {setResult,reset,suspend,showRanking,destroy(){destroyed=true;cooldown.destroy();uploadScroll.destroy();shell?.setRankingAction?.(null);reset();resultDialog?.removeEventListener('close',suspend);stopRanking();ranking.remove();panel.remove();headerAction.remove();resultAction.remove();document.body.classList.remove('pf-has-ranking');}};\n}\n"
+    },
+    {
+      "path": "public/index.html",
+      "gitBlob": "1da63ec87dfdf665e05adbb7b56dc5dbf526123f",
+      "sha256": "57e9c50e250daaf51de2d61c705135be7cfec381aa017ec4fc408e2e9408eada",
+      "beforeGitBlob": "ed56b92a27afc752c1cdc4d18e4327d7e4dff5c2",
+      "beforeSha256": "bfe5849dbdcee0ec6c0f4a07f5a8e0eae7e837b3a6f42fd61ff178040446b914",
+      "beforeText": "<!doctype html>\n<html lang=\"zh-Hant\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta name=\"theme-color\" content=\"#fff8e9\"><meta name=\"description\" content=\"島遊無界的小遊戲實驗場。操作不一定專業，跌倒一定精彩。從四肢各有想法開始，挑戰不太正經的十項全能。\"><title>島遊無界 PLAYFORMOSA｜小遊戲實驗場</title><link rel=\"stylesheet\" href=\"/assets/home.css\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./assets/app-icons/platform/favicon-32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"./assets/app-icons/platform/favicon-48.png\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"./assets/app-icons/platform/apple-touch-icon.png\"><link rel=\"manifest\" href=\"./manifest.webmanifest\"><meta name=\"application-name\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-title\" content=\"島遊無界\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"mobile-web-app-capable\" content=\"yes\"></head>\n<body data-catalog-channel=\"preview\" class=\"has-portal\"><a class=\"skip-link\" href=\"#main\">跳到主要內容</a>\n<div class=\"page-shell\"><header class=\"site-header\"><a class=\"wordmark\" href=\"/\" aria-label=\"島遊無界 PLAYFORMOSA 首頁\"><span>島遊無界</span><small>PLAYFORMOSA</small></a><nav aria-label=\"主要導覽\"><a href=\"#minigames\">小遊戲</a><a href=\"#decathlon\">十項全能</a><a href=\"#big-games\">大遊戲</a><a href=\"#platforms\">play. one more.</a><a href=\"#about\">關於</a></nav></header>\n<main id=\"main\"><section class=\"hero\" aria-labelledby=\"hero-title\"><div class=\"hero-copy\"><p class=\"eyebrow\">小遊戲，大失控。</p><h1 id=\"hero-title\">操作不一定<span class=\"underline orange\">專業</span>，<br>跌倒一定<span class=\"underline teal\">精彩</span>。</h1><p class=\"hero-subtitle\">島遊無界的小遊戲實驗場</p><div class=\"hero-actions\"><a class=\"button button-primary\" href=\"/games/long-jump/\">先跳一場 <span aria-hidden=\"true\">↗</span></a><a class=\"button button-secondary\" href=\"#games\">逛逛遊戲 <span aria-hidden=\"true\">↓</span></a></div></div><div class=\"hero-art\"><div class=\"art-halo\" aria-hidden=\"true\"></div><img src=\"/assets/hero-long-jump.png\" alt=\"一位手腳各自亂飛的逗趣跳遠選手\" width=\"1536\" height=\"1024\" fetchpriority=\"high\"><span class=\"comic-sticker\" aria-hidden=\"true\">四肢各有想法！</span><span class=\"hero-caption\">認真起跳，隨緣著陸。</span></div></section>\n<section class=\"series\" id=\"decathlon\" aria-labelledby=\"series-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">THE VERY UNPROFESSIONAL GAMES</p><h2 id=\"series-title\">十項全能挑戰</h2></div><p class=\"progress\">目前開放 <strong>10<span> / 10</span></strong> 項</p></div><div class=\"series-body\"><div id=\"games\" class=\"game-list\"><article class=\"game-card\"><a href=\"/games/long-jump/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hero-long-jump.png\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 跳遠</span></a><div class=\"game-info\"><p class=\"game-kicker\">第一個挑戰，先落地再說。</p><h3>四肢各有想法｜跳遠</h3><p class=\"event-label\">跳遠</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"long-jump\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/long-jump/\" aria-label=\"開始挑戰：四肢各有想法｜跳遠\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/hurdles/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/hurdles-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 110 公尺跨欄</span></a><div class=\"game-info\"><p class=\"game-kicker\">八道欄杆，四肢過招。</p><h3>四肢各有想法｜110公尺跨欄</h3><p class=\"event-label\">110 公尺跨欄</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"hurdles\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/hurdles/\" aria-label=\"開始挑戰：四肢各有想法｜110公尺跨欄\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/high-jump/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/high-jump-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 跳高</span></a><div class=\"game-info\"><p class=\"game-kicker\">助跑衝高度，空中拗姿勢。</p><h3>四肢各有想法｜跳高</h3><p class=\"event-label\">跳高</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"high-jump\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/high-jump/\" aria-label=\"開始挑戰：四肢各有想法｜跳高\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/pole-vault/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/pole-vault-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 撐竿跳高</span></a><div class=\"game-info\"><p class=\"game-kicker\">你能跳得比什麼還高？</p><h3>四肢各有想法｜撐竿跳</h3><p class=\"event-label\">撐竿跳高</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"pole-vault\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/pole-vault/\" aria-label=\"開始挑戰：四肢各有想法｜撐竿跳\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/shot-put/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/shot-put-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 鉛球</span></a><div class=\"game-info\"><p class=\"game-kicker\">短蓄力，準出手，空中接力。</p><h3>四肢各有想法｜鉛球</h3><p class=\"event-label\">鉛球</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"shot-put\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/shot-put/\" aria-label=\"開始挑戰：四肢各有想法｜鉛球\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/discus/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/discus-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 鐵餅</span></a><div class=\"game-info\"><p class=\"game-kicker\">旋轉出手，順風遠行。</p><h3>四肢各有想法｜鐵餅</h3><p class=\"event-label\">鐵餅</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"discus\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/discus/\" aria-label=\"開始挑戰：四肢各有想法｜鐵餅\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/sprint-100m/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/sprint-100m-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 100 公尺</span></a><div class=\"game-info\"><p class=\"game-kicker\">蹲好起跑，挺胸搶線。</p><h3>四肢各有想法｜100公尺</h3><p class=\"event-label\">100 公尺</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/sprint-100m/\" aria-label=\"開始挑戰：四肢各有想法｜100公尺\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/run-400m/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/run-400m-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 400 公尺</span></a><div class=\"game-info\"><p class=\"game-kicker\">腿先不要下班，留力給最後。</p><h3>四肢各有想法｜400公尺</h3><p class=\"event-label\">400 公尺</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/run-400m/\" aria-label=\"開始挑戰：四肢各有想法｜400公尺\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/run-1500m/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/run-1500m-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 1500 公尺</span></a><div class=\"game-info\"><p class=\"game-kicker\">跟跑、搶位，最後一圈見真章。</p><h3>四肢各有想法｜1500公尺</h3><p class=\"event-label\">1500 公尺</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/run-1500m/\" aria-label=\"開始挑戰：四肢各有想法｜1500公尺\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/javelin/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/javelin-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>十項全能 · 標槍</span></a><div class=\"game-info\"><p class=\"game-kicker\">助跑送力，出手還要煞得住。</p><h3>四肢各有想法｜標槍</h3><p class=\"event-label\">標槍</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p></div><a class=\"button button-primary game-cta\" href=\"/games/javelin/\" aria-label=\"開始挑戰：四肢各有想法｜標槍\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div></div></section>\n<section class=\"series minigames\" id=\"minigames\" aria-labelledby=\"minigames-title\"><div class=\"series-heading\"><div><p class=\"eyebrow\">SMALL GAMES, BIG REACTIONS</p><h2 id=\"minigames-title\">小遊戲</h2></div><p class=\"progress\">目前開放 <strong>7</strong> 款</p></div><div class=\"series-body\"><div class=\"game-list\"><article class=\"game-card\"><a href=\"/games/courtesy-contest/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/courtesy-contest-card.jpg\" class=\"game-scene\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 捷運互讓座</span></a><div class=\"game-info\"><p class=\"game-kicker\">你先坐！不，你先坐！</p><h3>客氣大賽</h3><p class=\"event-label\">捷運互讓座</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／方向鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"courtesy-contest\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/courtesy-contest/\" aria-label=\"開始挑戰：客氣大賽\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/reaction-rod/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/reaction-rod-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 夜市反應力</span></a><div class=\"game-info\"><p class=\"game-kicker\">十根棒子，手腦各憑本事。</p><h3>接棒啦！</h3><p class=\"event-label\">夜市反應力</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／鍵盤</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"reaction-rod\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/reaction-rod/\" aria-label=\"開始挑戰：接棒啦！\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/beer-slide/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/beer-slide-card-v2.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 啤酒精準推杯</span></a><div class=\"game-info\"><p class=\"game-kicker\">杯子要到站，啤酒別下班。</p><h3>別灑啊！</h3><p class=\"event-label\">啤酒精準推杯</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／空白鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"beer-slide\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/beer-slide/\" aria-label=\"開始挑戰：別灑啊！\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/tower-climb/\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/tower-climb-card.png\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 室內登高</span></a><div class=\"game-info\"><p class=\"game-kicker\">60 秒，挑戰十層樓。</p><h3>上樓不容易</h3><p class=\"event-label\">室內登高</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 鍵盤／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"tower-climb\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/tower-climb/\" aria-label=\"開始挑戰：上樓不容易\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/assets/fast-hands-card-v2.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 一筆往返手速挑戰</span></a><div class=\"game-info\"><p class=\"game-kicker\">放鈔、抓鴨、回接，一筆完成。</p><h3>快手王｜鴨沒漏補</h3><p class=\"event-label\">一筆往返手速挑戰</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/?intro=1\" aria-label=\"開始挑戰：快手王｜鴨沒漏補\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/catch.html?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/games/fast-hands/assets/intro-catch-generated.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 逐關加速接彈挑戰</span></a><div class=\"game-info\"><p class=\"game-kicker\">看準掌心，看看能接到第幾關。</p><h3>快手王｜彈無虛接</h3><p class=\"event-label\">逐關加速接彈挑戰</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／空白鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands-catch\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/catch.html?intro=1\" aria-label=\"開始挑戰：快手王｜彈無虛接\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article><article class=\"game-card\"><a href=\"/games/fast-hands/duel.html?intro=1\" class=\"game-thumbnail\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"/games/fast-hands/assets/intro-duel-generated.webp\" class=\"game-illustration\" alt=\"\" width=\"1536\" height=\"1024\" loading=\"lazy\"><span>小遊戲 · 十回合反應對決</span></a><div class=\"game-info\"><p class=\"game-kicker\">等訊號、搶驚喜，十回合分勝負。</p><h3>快手王｜快手對決</h3><p class=\"event-label\">十回合反應對決</p><p class=\"input-chip\"><span aria-hidden=\"true\">⌨ / ☝</span> 滑鼠／觸控／空白鍵</p><p class=\"play-count\" title=\"本功能啟用後累計的開局紀錄\" data-play-count=\"fast-hands-duel\" aria-live=\"polite\">遊玩次數讀取中…</p></div><a class=\"button button-primary game-cta\" href=\"/games/fast-hands/duel.html?intro=1\" aria-label=\"開始挑戰：快手王｜快手對決\">開始挑戰 <span aria-hidden=\"true\">↗</span></a></article></div></div></section>\n<section class=\"portal-section\" id=\"big-games\" aria-labelledby=\"big-games-title\"><div class=\"portal-section-heading\"><div><p class=\"eyebrow\">INDEPENDENT WORLDS</p><h2 id=\"big-games-title\">大遊戲</h2></div><p class=\"portal-section-note\">5 個世界，各自精彩。</p></div><p class=\"portal-intro\">從山海江湖到島嶼街頭，選一個世界，展開你的旅程。</p><p class=\"portal-external-note\">以下遊戲將在新分頁開啟，保留各自的遊戲介面。</p><div class=\"portal-grid\"><article class=\"portal-card portal-card--formosabattle\" data-external-id=\"formosabattle\"><div class=\"portal-art\"><img src=\"/assets/portal-formosabattle.png\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\" decoding=\"async\"><span class=\"portal-art-label\">TAIWAN WUXIA RPG</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">台灣武俠 RPG</p><h3>福爾摩沙群俠傳</h3><p class=\"portal-description\">踏進山海江湖，尋訪散落島嶼的武學。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站</span><a class=\"button portal-cta\" href=\"https://formosabattle.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：福爾摩沙群俠傳（另開新分頁）\">前往遊玩 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a></div></div></article><article class=\"portal-card portal-card--echosboundary\" data-external-id=\"echosboundary\"><div class=\"portal-art\"><img src=\"/assets/portal-echosboundary.png\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\" decoding=\"async\"><span class=\"portal-art-label\">ECHO BOUNDARY</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">記憶重組・法庭詰問</p><h3>迴聲邊界：審判</h3><p class=\"portal-description\">重組記憶、法庭詰問，尋找被掩蓋的真相。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站</span><a class=\"button portal-cta\" href=\"https://echosboundary.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：迴聲邊界：審判（另開新分頁）\">前往遊玩 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a></div></div></article><article class=\"portal-card portal-card--taiwankart\" data-external-id=\"taiwankart\"><div class=\"portal-art\"><img src=\"/assets/portal-taiwankart.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\" decoding=\"async\"><span class=\"portal-art-label\">TAIWAN KART</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">島嶼卡丁車</p><h3>台灣小島疾走</h3><p class=\"portal-description\">兩條島嶼路線，和四位好朋友轉個彎出發。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站</span><a class=\"button portal-cta\" href=\"https://taiwankart.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：台灣小島疾走（另開新分頁）\">前往遊玩 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a></div></div></article><article class=\"portal-card portal-card--taiwanfighter\" data-external-id=\"taiwanfighter\"><div class=\"portal-art\"><img src=\"/assets/portal-taiwanfighter.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\" decoding=\"async\"><img class=\"portal-game-logo\" src=\"/assets/portal-taiwanfighter-logo.webp\" alt=\"\" width=\"1446\" height=\"1120\" loading=\"lazy\" decoding=\"async\"><span class=\"portal-art-label\">TAIWAN BATTLE SPIRIT</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">2D 格鬥・建議橫向</p><h3>武鬥台灣魂</h3><p class=\"portal-description\">走進台灣街景，準備好了就進場吧。</p><p class=\"play-count\" title=\"本功能啟用後，從平台點擊進入武鬥的累計次數；不是遊戲內開局次數\" data-play-count=\"taiwanfighter\" aria-live=\"polite\">開玩次數讀取中…</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站</span><a class=\"button portal-cta\" href=\"/api/play-counts/entries/taiwanfighter\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：武鬥台灣魂（另開新分頁）\">前往遊玩 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a></div></div></article><article class=\"portal-card portal-card--soul10power\" data-external-id=\"soul10power\"><div class=\"portal-art\"><img src=\"/assets/portal-soul10power.webp\" alt=\"\" width=\"1672\" height=\"941\" loading=\"lazy\" decoding=\"async\"><span class=\"portal-art-label\">SOUL ALCHEMIST</span></div><div class=\"portal-card-body\"><p class=\"portal-genre\">故事煉成・卡片冒險</p><h3>心靈煉金術師</h3><p class=\"portal-description\">把生活經歷煉成專屬能力卡片，展開靈魂冒險。</p><div class=\"portal-card-bottom\"><span class=\"portal-destination\">獨立遊戲網站</span><a class=\"button portal-cta\" href=\"https://soul10power.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊玩：心靈煉金術師（另開新分頁）\">前往遊玩 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a></div></div></article></div></section><section class=\"portal-section platform-section\" id=\"platforms\" aria-labelledby=\"platforms-title\"><div class=\"portal-section-heading\"><div><p class=\"eyebrow\">MORE WAYS TO PLAY</p><h2 id=\"platforms-title\">還想再玩一款？</h2></div></div><article class=\"platform-feature\" data-external-id=\"arcadeplatform\"><div class=\"platform-brand\"><p class=\"portal-genre\">Arcade Lab · 小遊戲平台</p><h3>play. one more.</h3><span class=\"platform-brand-line\" aria-hidden=\"true\"></span></div><div class=\"platform-copy\"><p>另一個小遊戲宇宙。從熟悉的經典到創意玩法，挑一款，現在就玩。</p><div class=\"platform-actions\"><a class=\"button portal-cta\" href=\"https://arcadeplatform.playformosa.workers.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"前往遊戲平台：play. one more.（另開新分頁）\">前往遊戲平台 <svg class=\"portal-arrow\" viewBox=\"0 0 20 20\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 15 15 5M5 5h10v10\"/></svg></a><span class=\"portal-destination\">獨立平台・另開新分頁</span></div></div></article></section>\n<section id=\"about\" class=\"about\" aria-labelledby=\"about-title\"><h2 id=\"about-title\">島遊無界工作室 <span>| PLAYFORMOSA STUDIO</span></h2><p>我們把奇怪的點子，做成真的能玩的遊戲。</p></section></main><footer><span>MADE FOR A LITTLE FUN.</span><span class=\"home-count\" data-home-count title=\"本功能啟用後累計；同一瀏覽器短時間重訪不重複計入\" aria-live=\"polite\">瀏覽次數讀取中…</span><a href=\"#main\">回到上方 ↑</a></footer></div><script type=\"module\" src=\"/assets/play-counts.mjs\"></script></body></html>"
+    },
+    {
+      "path": "src/catalog.mjs",
+      "gitBlob": "6ea851a756af674dcc13dfdafd12412d29b32e8c",
+      "sha256": "630a4e89404300ba1713baa9668095485e896e99e83f6341eb283025da103cea",
+      "beforeGitBlob": "7a2ce16066ba4e399c4ed3b076ab718a19f8a7aa",
+      "beforeSha256": "38ddbb94568db8bb176f3ccd4f11d8c26885ebfd586f9b4b4840b2b8bbba7ac1",
+      "beforeText": "import {readExternalCatalog} from './external-catalog.mjs';\n// Add an actual game here only after its self-contained build is available.\nexport const catalog = {\n  ...readExternalCatalog(),\n  games: [\n    {id:'long-jump', title:'四肢各有想法｜跳遠', event:'跳遠', href:'/games/long-jump/', status:'available'},\n    {id:'hurdles', title:'四肢各有想法｜110公尺跨欄', event:'110 公尺跨欄', href:'/games/hurdles/', status:'available', image:'/assets/hurdles-card.png', imageStyle:'illustration', kicker:'八道欄杆，四肢過招。'},\n    {id:'high-jump',title:'四肢各有想法｜跳高',event:'跳高',href:'/games/high-jump/',status:'available',image:'/assets/high-jump-card.png',imageStyle:'illustration',kicker:'助跑衝高度，空中拗姿勢。'},\n    {id:'pole-vault',title:'四肢各有想法｜撐竿跳',event:'撐竿跳高',href:'/games/pole-vault/',status:'available',image:'/assets/pole-vault-card.png',imageStyle:'illustration',kicker:'你能跳得比什麼還高？'},\n    {id:'shot-put',title:'四肢各有想法｜鉛球',event:'鉛球',href:'/games/shot-put/',status:'available',image:'/assets/shot-put-card.png',imageStyle:'illustration',kicker:'短蓄力，準出手，空中接力。'},\n    {id:'discus',title:'四肢各有想法｜鐵餅',event:'鐵餅',href:'/games/discus/',status:'available',image:'/assets/discus-card.png',imageStyle:'illustration',kicker:'旋轉出手，順風遠行。'}\n    ,{id:'sprint-100m',title:'四肢各有想法｜100公尺',event:'100 公尺',href:'/games/sprint-100m/',status:'available',image:'/assets/sprint-100m-card.png',imageStyle:'illustration',kicker:'蹲好起跑，挺胸搶線。'}\n    ,{id:'run-400m',title:'四肢各有想法｜400公尺',event:'400 公尺',href:'/games/run-400m/',status:'available',image:'/assets/run-400m-card.png',imageStyle:'illustration',kicker:'腿先不要下班，留力給最後。'}\n    ,{id:'run-1500m',title:'四肢各有想法｜1500公尺',event:'1500 公尺',href:'/games/run-1500m/',status:'available',image:'/assets/run-1500m-card.png',imageStyle:'illustration',kicker:'跟跑、搶位，最後一圈見真章。'}\n    ,{id:'javelin',title:'四肢各有想法｜標槍',event:'標槍',href:'/games/javelin/',status:'available',image:'/assets/javelin-card.png',imageStyle:'illustration',kicker:'助跑送力，出手還要煞得住。'}\n  ],\n  minigames: [\n    {id:'courtesy-contest',title:'客氣大賽',event:'捷運互讓座',href:'/games/courtesy-contest/',status:'available',image:'/assets/courtesy-contest-card.jpg',imageStyle:'scene',kicker:'你先坐！不，你先坐！',input:'滑鼠／觸控／方向鍵'},\n    {id:'reaction-rod', title:'接棒啦！', event:'夜市反應力', href:'/games/reaction-rod/', status:'available', image:'/assets/reaction-rod-card.png', imageStyle:'illustration', kicker:'十根棒子，手腦各憑本事。', input:'滑鼠／觸控／鍵盤'},\n    {id:'beer-slide', title:'別灑啊！', event:'啤酒精準推杯', href:'/games/beer-slide/', status:'available', image:'/assets/beer-slide-card-v2.webp', imageStyle:'illustration', kicker:'杯子要到站，啤酒別下班。', input:'滑鼠／觸控／空白鍵'},\n    {id:'tower-climb',title:'上樓不容易',event:'室內登高',href:'/games/tower-climb/',status:'available',image:'/assets/tower-climb-card.png',imageStyle:'illustration',kicker:'60 秒，挑戰十層樓。',input:'鍵盤／觸控'},\n    {id:'fast-hands',title:'快手王｜鴨沒漏補',event:'一筆往返手速挑戰',href:'/games/fast-hands/?intro=1',status:'available',image:'/assets/fast-hands-card-v2.webp',imageStyle:'illustration',kicker:'放鈔、抓鴨、回接，一筆完成。',input:'滑鼠／觸控'},\n    {id:'fast-hands-catch',title:'快手王｜彈無虛接',event:'逐關加速接彈挑戰',href:'/games/fast-hands/catch.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-catch-generated.webp',imageStyle:'illustration',kicker:'看準掌心，看看能接到第幾關。',input:'滑鼠／觸控／空白鍵'},\n    {id:'fast-hands-duel',title:'快手王｜快手對決',event:'十回合反應對決',href:'/games/fast-hands/duel.html?intro=1',status:'available',image:'/games/fast-hands/assets/intro-duel-generated.webp',imageStyle:'illustration',kicker:'等訊號、搶驚喜，十回合分勝負。',input:'滑鼠／觸控／空白鍵'}\n  ],\n  events: ['100 公尺','跳遠','鉛球','跳高','400 公尺','110 公尺跨欄','鐵餅','撐竿跳高','標槍','1500 公尺']\n};\n\n"
+    },
+    {
+      "path": "tests/courtesy-platform.test.mjs",
+      "gitBlob": "5b99d85559d16859e6e36978f4d443eabd2efb69",
+      "sha256": "38918467cfe5ad191a52cc85dde9b9b25e51e58c9652eccc25762da2f53a0300",
+      "beforeGitBlob": "2326e5277c327e75a8b80cab58a88f64bc6c8285",
+      "beforeSha256": "e5191320fb1100b69bb68a4e02f3ec3224fbbb85b7c6177b124ffa3317ea1ce2",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync,existsSync} from 'node:fs';\nimport {catalog} from '../src/catalog.mjs';\nimport {renderPage} from '../src/render.mjs';\nimport {validateStart} from '../worker/play-counts/index.mjs';\nimport {PlayCountsRepository} from '../worker/play-counts/repository.mjs';\nimport {database} from './helpers/leaderboard-sqlite.mjs';\nimport {recordPlayStart} from '../public/games/shared/play-counts.mjs';\nconst read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');\nconst base={game:'courtesy-contest',deviceId:'22222222-2222-4222-8222-222222222222',runId:'11111111-1111-4111-8111-111111111111',startedAt:1793620800000};\ntest('courtesy is an independent playable minigame and homepage counter',()=>{const g=catalog.minigames.find(g=>g.id===base.game);assert.ok(g);assert.equal(g.href,'/games/courtesy-contest/');assert.equal(g.title,'客氣大賽');assert.equal(catalog.games.length,10);assert.equal(catalog.minigames.length,7);assert.match(renderPage(catalog,{channel:'preview'}),/data-play-count=\"courtesy-contest\"/);});\ntest('courtesy play counts accept the new key without altering existing counts or ranks',async()=>{assert.deepEqual(validateStart(base,base.startedAt),base);const db=await database();db.raw.run(read('worker/play-counts/002.sql'));const repo=new PlayCountsRepository(db,'qa');assert.deepEqual((await repo.totals())[base.game],{count:0,since:null});await repo.start({...base,game:'hurdles'},base.startedAt);await repo.start({...base,runId:'33333333-3333-4333-8333-333333333333'},base.startedAt+3000);await repo.start({...base,runId:'33333333-3333-4333-8333-333333333333'},base.startedAt+3000);const totals=await repo.totals();assert.equal(totals.hurdles.count,1);assert.equal(totals[base.game].count,1);assert.equal(totals['long-jump'].count,0);assert.equal(db.raw.exec('SELECT COUNT(*) FROM leaderboard_best')[0].values[0][0],0);});\ntest('start client sends independent courtesy count without blocking on unavailable API',async()=>{const bodies=[];await recordPlayStart({localStorage:{getItem:()=>base.deviceId},crypto:{randomUUID:()=>base.runId},AbortController,setTimeout,clearTimeout,fetch:async(url,opts)=>{assert.equal(url,'/api/play-counts/starts');bodies.push(JSON.parse(opts.body));return{status:200}}},base.game);assert.equal(bodies.length,1);assert.equal(bodies[0].game,base.game);});\ntest('courtesy route loads common UI and shared ranking without private authentication',()=>{const path='public/games/courtesy-contest/';assert.ok(existsSync(new URL('../'+path+'index.html',import.meta.url)));const html=read(path+'index.html'),game=read(path+'game.js'),platform=read(path+'platform.mjs');assert.match(html,/class=\"pf-game pf-courtesy\"/);assert.match(html,/\\.\\/style\\.css[\\s\\S]*\\.\\.\\/shared\\/game-ui\\.css/);assert.match(html,/href=\"\\/\" aria-label=\"遊戲首頁\">首頁/);assert.match(html,/<dialog id=\"result\"/);assert.doesNotMatch(html+game+platform,/courtesyRanking|ranking-client|私人成功紀錄|平台排行榜尚未開放/);assert.match(platform,/mountLeaderboard/);assert.match(platform,/game:'courtesy-contest'/);assert.match(platform,/createEntryShell/);assert.match(platform,/syncPauseButton/);assert.match(platform,/createResultDialog/);for(const name of ['music','restart','pause'])assert.match(html,new RegExp('data-game-action=\"'+name+'\"'));for(const name of ['threads','image','copy'])assert.match(html,new RegExp('data-share=\"'+name+'\"'));assert.ok(existsSync(new URL('../'+path+'assets/music/attribution.md',import.meta.url)));});\n"
+    },
+    {
+      "path": "tests/helpers/sports-results-portrait-provenance.mjs",
+      "gitBlob": "72fd469aad53044792c648f1bd401b1685a1e509",
+      "sha256": "c4cb9cb1d2ab9ab25ff3f128c5b60099fb0cf58866caf7c012cc47c4c9ce2f9e",
+      "beforeGitBlob": "5de056d00abe049a038346730ff11e04fa25c842",
+      "beforeSha256": "505297cadd1ef772abb6f1bed3568d7f2d4eb1654792b85cd1caa8d93369203d",
+      "beforeText": "// Exact reversible boundary for the authorised four-game portrait results and phone 1500m map presentation.\n// Behaviour tests import live modules; only historical inventories use this view.\nimport {readFileSync as actual} from 'node:fs';\nimport {createHash} from 'node:crypto';\nimport {fileURLToPath} from 'node:url';\nimport {resolve,relative,sep,isAbsolute} from 'node:path';\nimport assert from 'node:assert/strict';\nconst root=fileURLToPath(new URL('../../',import.meta.url));\nexport const sha256=b=>createHash('sha256').update(b).digest('hex');\nexport const gitBlob=b=>createHash('sha1').update(`blob ${b.length}\\0`).update(b).digest('hex');\nconst baselineBytes=actual(new URL('../../docs/sports-results-portrait/BASELINE.json',import.meta.url));\nassert.equal(sha256(baselineBytes),'ace26346d7cf1ed0d17c1a73194b71d5913482c629371c30a41eac7fc506bcb6','immutable sports portrait results parent');\nexport const baseline=JSON.parse(baselineBytes);\nconst previous=new Map(baseline.files.map(f=>[f.path,f.gitBlob]));\nexport function verifyBase(b){\n assert.equal(b.baseCommit,'5a1865d5a258030278df26e66ef7bd859273c58f');assert.equal(b.baseTree,'b9a1ab378db95d0a3f6baed4a0c7f345de2ccb71');assert.deepEqual(b,baseline);\n const tree={};for(const f of b.files){let d=tree;const p=f.path.split('/');for(const n of p.slice(0,-1))d=d[n]??={};assert.ok(!d[p.at(-1)]);d[p.at(-1)]={file:f};}\n function digest(d){const entries=Object.entries(d).sort(([a,x],[b,y])=>Buffer.compare(Buffer.from(a+(x.file?'':'/')),Buffer.from(b+(y.file?'':'/'))));const bytes=Buffer.concat(entries.map(([n,x])=>Buffer.concat([Buffer.from(`${x.file?x.file.mode:'40000'} ${n}\\0`),Buffer.from(x.file?x.file.gitBlob:digest(x),'hex')])));return createHash('sha1').update(`tree ${bytes.length}\\0`).update(bytes).digest('hex');}\n assert.equal(digest(tree),b.baseTree);return true;\n}\nverifyBase(baseline);\nconst manifestPath='docs/sports-results-portrait/MANIFEST.json';\nlet cachedText,cachedManifest;const validated=new WeakSet();\nconst freeze=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};\nexport function manifest(){const text=actual(new URL('../../'+manifestPath,import.meta.url),'utf8');if(text!==cachedText){const parsed=freeze(JSON.parse(text));cachedText=text;cachedManifest=parsed;}return cachedManifest;}\nexport function validate(m){\n if(m===cachedManifest&&validated.has(m))return m;\n assert.equal(m.baseCommit,baseline.baseCommit);assert.equal(m.baseTree,baseline.baseTree);\n assert.deepEqual(m.files.map(f=>f.path).sort(),baseline.modifiedPaths);\n assert.deepEqual([...m.addedPaths].sort(),baseline.addedPaths);\n assert.deepEqual(m.addedFiles.map(f=>f.path).sort(),baseline.addedPaths.filter(p=>p!==manifestPath));\n for(const f of m.files){const before=Buffer.from(f.beforeText);assert.equal(f.beforeGitBlob,previous.get(f.path));assert.equal(gitBlob(before),f.beforeGitBlob);assert.equal(sha256(before),f.beforeSha256);assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}\n if(m===cachedManifest)validated.add(m);return m;\n}\nexport function portraitParentBytes(path,bytes){\n const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);if(!f)return bytes;\n const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;\n assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;\n}\nexport function readBeforePortrait(file,options){\n const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');\n if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return actual(file,options);\n const encoding=typeof options==='string'?options:options?.encoding;\n const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),before=portraitParentBytes(path,bytes);return encoding?before.toString(encoding):before;\n}\nexport function inventoryBeforePortrait(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){\n assert.equal(new Set(paths).size,paths.length,'duplicate sports portrait results inventory');const m=validate(manifest());\n if(!paths.some(p=>m.addedPaths.includes(p)))return paths;\n for(const p of m.addedPaths)assert.equal(paths.filter(x=>x===p).length,1,p+' missing repair evidence');\n for(const f of [...m.files,...m.addedFiles]){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' page inventory drift');assert.equal(sha256(bytes),f.sha256,f.path+' page inventory SHA256 drift');}\n return paths.filter(p=>!m.addedPaths.includes(p));\n}\n"
+    },
+    {
+      "path": "tests/nine-game-metrics.test.mjs",
+      "gitBlob": "3f2122ba41c84a7a8a46ef425062938a5942fabd",
+      "sha256": "828b9d4bc95b74ef8bcc16ece47d08459824e276731af2fd538e1ea64e98ddc6",
+      "beforeGitBlob": "40998ddcc450958f5c232e58477bd9ad7df747dc",
+      "beforeSha256": "82cca339cf18a51581d99c2dc46171193a96481d2eede7eab97a2ee48de64b94",
+      "beforeText": "import test from'node:test';import assert from'node:assert/strict';import{resultToSubmission,BOARD_METRICS}from'../public/games/shared/leaderboard-metrics.mjs';\ntest('nine exact metric contracts use valid final original scores',()=>{assert.deepEqual(Object.keys(BOARD_METRICS).filter(g=>!['run-400m','run-1500m','courtesy-contest'].includes(g)).sort(),['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','reaction-rod','beer-slide','tower-climb'].sort());const get=(g,r)=>resultToSubmission(g,{phase:'done',...r});assert.equal(get('long-jump',{valid:true,legalAdventureKm:2,adventureKm:999}).score,2);assert.equal(get('hurdles',{t:30}).score,30);assert.equal(get('high-jump',{success:true,height:4,peak:99}).score,4);assert.equal(get('pole-vault',{ruleset:'real-altitude-v3',maxHeight:42,scoreSnapshot:{height:42,ruleset:'real-altitude-v3'},barHit:true}).score,42);assert.equal(get('shot-put',{valid:true,distance:70,seed:999,contacts:4}).score,70);assert.equal(get('discus',{foul:false,score:88,distance:88,wind:3,ufo:true}).score,88);assert.deepEqual(get('reaction-rod',{caught:8,rating:7.5}),{score:8,secondaryScore:7.5,status:'done'});assert.equal(get('beer-slide',{raw:9.123,fallen:false,invalid:false,cancelled:false}).score,9.123);assert.equal(get('tower-climb',{finished:true,floor:10,time:59.9}).score,59.9);});\ntest('foul/DNF/zero/unfinished never upload; no score cap guessed for high distances',()=>{for(const[g,r]of[['long-jump',{valid:false,legalAdventureKm:10}],['high-jump',{success:false,height:9}],['shot-put',{valid:false,distance:9}],['discus',{foul:true,score:9}],['beer-slide',{raw:9,invalid:true}],['beer-slide',{raw:9,fallen:true}],['beer-slide',{raw:9,cancelled:true}],['tower-climb',{finished:false,floor:9,time:60}],['tower-climb',{finished:true,floor:10,time:60.1}],['reaction-rod',{caught:0,rating:0}]])assert.equal(resultToSubmission(g,{phase:'done',...r}),null);assert.equal(resultToSubmission('hurdles',{phase:'dnf',t:180}),null);assert.equal(resultToSubmission('high-jump',{phase:'done',success:true,height:1e100}).score,1e100);});\n"
+    },
+    {
+      "path": "tests/platform-home-label.test.mjs",
+      "gitBlob": "9ecced75767f80f4c8814ec140214318122ad875",
+      "sha256": "108c280a17f343c107a8c284dc251a360765a7cfa0174b25682fb1f08c95d434",
+      "beforeGitBlob": "5de7ad234e507bcefdd3479e450fddcf3923eb50",
+      "beforeSha256": "9c74663b6fe1af2bbced37c50f623253fbaf9b4fcf56af83ac1eabe4119105a4",
+      "beforeText": "import test from 'node:test';\nimport assert from 'node:assert/strict';\nimport {readFileSync} from 'node:fs';\nimport {JSDOM} from 'jsdom';\nimport {catalog} from '../src/catalog.mjs';\n\n// Regression: a catalog entry with the old arrow/long label, or a changed home\n// destination, must fail even if its individual game tests do not cover headers.\nconst fastHands=new Set(['fast-hands','fast-hands-catch','fast-hands-duel']);\nfor(const entry of [...catalog.games,...catalog.minigames].filter(e=>e.status==='available')){\n test(`${entry.id}: concise home label retains its native accessible platform link`,()=>{\n  const path=new URL(entry.href,'https://playformosa.test').pathname;\n  const file='public'+path+(path.endsWith('/')?'index.html':'');\n  const dom=new JSDOM(readFileSync(new URL('../'+file,import.meta.url),'utf8'));\n  try{\n   const links=dom.window.document.querySelectorAll('header a.pf-home, header a.home-link');\n   assert.equal(links.length,1,'one unambiguous platform home control');\n   const link=links[0];\n   assert.equal(link.textContent.trim(),'首頁','visible label has no arrow or extra words');\n   assert.equal(link.getAttribute('href'),fastHands.has(entry.id)?'/#minigames':'/','existing destination is preserved');\n   assert.equal(link.getAttribute('aria-label'),fastHands.has(entry.id)?'返回小遊戲首頁':'遊戲首頁','existing screen-reader destination remains');\n   assert.equal(link.tabIndex,0,'native keyboard-focusable link');\n   assert.equal(link.getAttribute('aria-hidden'),null);\n   assert.equal(link.querySelector('svg,img'),null,'no supplemental visible icon');\n  }finally{dom.window.close()}\n });\n}\ntest('the separate feel-test return still leads to its game instead of the platform',()=>{\n const dom=new JSDOM(readFileSync(new URL('../public/games/fast-hands-test/index.html',import.meta.url),'utf8'));\n const link=dom.window.document.getElementById('returnGame');\n assert.equal(link.textContent,'回到原遊戲 ↗');assert.equal(link.getAttribute('href'),'../fast-hands/catch.html');dom.window.close();\n});\ntest('the two-character home control keeps the common 44px minimum touch width',()=>{\n const html=readFileSync(new URL('../public/games/sprint-100m/index.html',import.meta.url),'utf8');\n const dom=new JSDOM(html),style=dom.window.document.createElement('style');\n style.textContent=readFileSync(new URL('../public/games/shared/game-ui.css',import.meta.url),'utf8');dom.window.document.head.append(style);\n const home=dom.window.document.querySelector('.pf-home'),computed=dom.window.getComputedStyle(home);\n assert.equal(computed.minWidth,'44px','shorter labels must not shrink the touch target');assert.equal(computed.minHeight,'44px');dom.window.close();\n});\n"
+    },
+    {
+      "path": "worker/leaderboard/index.mjs",
+      "gitBlob": "667792a11f510b5e5c61a8cad836734fe98b4cde",
+      "sha256": "253c90660408a49d55421565d0040b131454eb46a39bb12f3d676ff09817def8",
+      "beforeGitBlob": "6477303bc68109cbc06cf59293d143a2f1a447d5",
+      "beforeSha256": "17e0e407598e4b9bc10f869b3a8bb74d6eecb66ec4def240cb88e8aa09137dc8",
+      "beforeText": "import {handlePlayCounts} from '../play-counts/index.mjs';\nimport {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';\nimport {LeaderboardRepository} from './repository.mjs';\nimport {NOTE_FLOOR_MS} from '../../public/games/fast-hands/challenge.mjs';\nexport const BOARDS=Object.freeze({\n 'long-jump':Object.freeze({rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n hurdles:Object.freeze({rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc',max:180}),\n 'high-jump':Object.freeze({rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE}),\n 'pole-vault':Object.freeze({rules:'highest-feet-v1',unit:'m',status:'done',direction:'desc',max:Number.MAX_VALUE}),\n 'shot-put':Object.freeze({rules:'relay-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n discus:Object.freeze({rules:'wind-ufo-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),\n 'reaction-rod':Object.freeze({rules:'catch-rating-v1',unit:'catches',status:'done',direction:'desc',max:10,secondary:true}),\n 'beer-slide':Object.freeze({rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc',max:10}),\n 'tower-climb':Object.freeze({rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc',max:60})\n});\n// Existing schema requires score > 0: courtesy alone stores count + 1 and decodes API reads.\n// Keep the encoded integer safe; no schema migration and no legacy-board score changes.\nexport const QA_COURTESY_BOARD=Object.freeze({rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,secondary:true,secondaryDirection:'asc',secondaryMax:30,primaryMetric:'courtesies',secondaryMetric:'remaining'});\n// Pacing revision is QA-only; keep all production contracts unchanged.\nconst QA_POLE_VAULT_BOARD=Object.freeze({...BOARDS['pole-vault'],rules:'real-altitude-v3'});\nexport const QA_RUNNER_BOARDS=Object.freeze({\n 'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),\n 'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})\n});\n// Fast Hands rules isolate the two input modes without changing the nine legacy boards.\nexport const FAST_HANDS_BOARDS=Object.freeze({\n mouse:Object.freeze({rules:'shuttle-v3-mouse',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true}),\n touch:Object.freeze({rules:'shuttle-v3-touch',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true})\n});\nexport const LEVEL_BOARDS=Object.freeze({\n 'fast-hands-catch':Object.freeze({rules:'cleared-levels-v1',unit:'levels',status:'done',direction:'desc',max:Number.MAX_SAFE_INTEGER,integer:true}),\n 'fast-hands-duel':Object.freeze({rules:'ten-round-wins-v1',unit:'wins',status:'done',direction:'desc',max:10,integer:true})\n});\nconst isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);\nconst isFast=game=>game==='fast-hands'||isLevel(game);\nfunction resolveBoard(game,rules,scope){\n if(game==='courtesy-contest')return scope==='qa'?QA_COURTESY_BOARD:null;\n if(Object.hasOwn(QA_RUNNER_BOARDS,game))return scope==='qa'?QA_RUNNER_BOARDS[game]:null;\n if(scope==='qa'&&game==='pole-vault')return QA_POLE_VAULT_BOARD;\n if(isLevel(game))return LEVEL_BOARDS[game];\n if(game==='fast-hands')return Object.values(FAST_HANDS_BOARDS).find(board=>board.rules===rules)??null;\n return typeof game==='string'&&Object.hasOwn(BOARDS,game)?BOARDS[game]:null;\n}\nconst fields=['game','rules','unit','status','score','nickname','deviceId','submissionId'];\nconst uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;\nexport function validateSubmission(value,scope){\n if(!value||Array.isArray(value)||typeof value!=='object'||(Object.keys(value).length!==fields.length&&Object.keys(value).length!==fields.length+1)||fields.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>!fields.includes(k)&&k!=='secondaryScore'))throw Error('invalid_fields');\n if(isFast(value.game)&&Object.keys(value).length!==fields.length)throw Error('invalid_fields');\n const b=resolveBoard(value.game,value.rules,scope);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');\n if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||(b.min!==undefined&&value.score<b.min)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');\n if(b.secondary){if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>(b.secondaryMax??10))throw Error('invalid_secondary');}\n else if(Object.hasOwn(value,'secondaryScore')&&value.secondaryScore!==0)throw Error('invalid_secondary');\n if(value.game==='courtesy-contest'&&(value.secondaryScore<.01||Math.abs(value.secondaryScore*100-Math.round(value.secondaryScore*100))>1e-9))throw Error('invalid_secondary');\n if(typeof value.nickname!=='string'||value.nickname!==value.nickname.trim()||[...value.nickname].length<1||[...value.nickname].length>20||new TextEncoder().encode(value.nickname).length>80||/[<>\\p{Cc}\\p{Cf}]/u.test(value.nickname))throw Error('invalid_nickname');\n if(typeof value.deviceId!=='string'||typeof value.submissionId!=='string'||!uuid.test(value.deviceId)||!uuid.test(value.submissionId))throw Error('invalid_id');\n return Object.fromEntries([...fields,...(b.secondary?['secondaryScore']:[])].map(k=>[k,k==='deviceId'||k==='submissionId'?value[k].toLowerCase():value[k]]));\n}\nfunction parseSubmission(text,scope){\n const value=JSON.parse(text);\n if(isFast(value?.game)||value?.game==='courtesy-contest'){\n  // JSON.parse alone silently keeps the last duplicate key. Scan complete string tokens\n  // so escaped property names are compared correctly and quoted nickname text is ignored.\n  const keys=new Set();\n  for(const token of text.matchAll(/\"(?:[^\"\\\\]|\\\\.)*\"/g)){\n   if(!text.slice(token.index+token[0].length).trimStart().startsWith(':'))continue;\n   const key=JSON.parse(token[0]);if(keys.has(key))throw Error('invalid_fields');keys.add(key);\n  }\n }\n return validateSubmission(value,scope);\n}\nconst json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});\nexport async function handleRequest(request,env,now=Date.now(),context){\n const url=new URL(request.url);\n if(url.pathname===fighterEntryPath)return handleFighterEntry(request,env,now,context);\n if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);\n if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});\n if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);\n const repo=new LeaderboardRepository(env.DB,env.LEADERBOARD_SCOPE);\n try{\n  if(request.method==='GET'&&url.pathname==='/api/leaderboard'){\n   const game=url.searchParams.get('game'),fast=game==='fast-hands',mode=url.searchParams.get('mode');\n   const board=fast?(Object.hasOwn(FAST_HANDS_BOARDS,mode)?FAST_HANDS_BOARDS[mode]:null):resolveBoard(game,undefined,env.LEADERBOARD_SCOPE);\n   const invalidQuery=fast\n    ?url.searchParams.getAll('game').length!==1||url.searchParams.getAll('mode').length!==1||[...url.searchParams.keys()].some(k=>k!=='game'&&k!=='mode')\n    :((isLevel(game)||game==='courtesy-contest')&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');\n   if(!board||invalidQuery)return json({error:'invalid_board'},400);\n   if(isFast(game)&&env.LEADERBOARD_SCOPE!=='qa')return json({error:'unavailable'},503);\n   const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);\n   return json({game,rules:board.rules,unit:board.unit,...await repo.board(game,board,device?.toLowerCase())},200,{'Cache-Control':device?'private, no-store':'public, max-age=30','Vary':'X-Leaderboard-Device'});\n  }\n  if(request.method!=='POST'||url.pathname!=='/api/leaderboard/submissions')return json({error:'method_not_allowed'},405);\n  if(request.headers.get('Origin')!==env.LEADERBOARD_ORIGIN)return json({error:'origin'},403);\n  if(!/^application\\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))return json({error:'content_type'},415);\n  if(Number(request.headers.get('Content-Length'))>2048)return json({error:'too_large'},413);\n  const reader=request.body?.getReader();if(!reader)return json({error:'invalid_body'},400);\n  let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}\n  const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}\n  let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes),env.LEADERBOARD_SCOPE);}catch{return json({error:'invalid_submission'},400);}\n  if(isFast(data.game)||data.game==='courtesy-contest'){\n   if(url.search)return json({error:'invalid_submission'},400);\n   if(env.LEADERBOARD_SCOPE!=='qa')return json({error:'unavailable'},503);\n  }\n  const result=await repo.submit(data,resolveBoard(data.game,data.rules,env.LEADERBOARD_SCOPE),now);\n  const retryHeaders=result.error==='limited'&&result.reason==='cooldown'?{'Retry-After':String(result.retryAfterSeconds)}:{};\n  return json(result,result.error==='conflict'?409:result.error==='limited'?429:200,retryHeaders);\n }catch{return json({error:'temporarily_unavailable'},503);}\n}\nexport default {fetch(request,env,context){return handleRequest(request,env,Date.now(),context);}};\n"
+    },
+    {
+      "path": "worker/leaderboard/repository.mjs",
+      "gitBlob": "34f375384b3593ef082f9c5390c3fc320fda7564",
+      "sha256": "2a1bdbf76626c19c7a52b1114965b36c45c79e0a8eb27983f751f84f8e591751",
+      "beforeGitBlob": "872065c144a4b0e9f987201622864a0a983d90df",
+      "beforeSha256": "8dc9f25320e7b5b620918f14f9b9a6cbe9a42205643bdae90c3c85b48bb8f257",
+      "beforeText": "const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');\nexport class LeaderboardRepository {\n constructor(db,scope){this.db=db;this.scope=scope;}\n ordering(b){return `score ${b.direction==='asc'?'ASC':'DESC'}${b.secondary?`,secondary_score ${b.secondaryDirection==='asc'?'ASC':'DESC'}`:''},device ASC`;}\n better(b,left,right){const op=b.direction==='asc'?'<':'>';return b.secondary&&b.secondaryDirection==='asc'?`(${left}.score ${op} ${right}.score OR (${left}.score=${right}.score AND ${left}.secondary_score<${right}.secondary_score))`:b.secondary?`(${left}.score,${left}.secondary_score)>(${right}.score,${right}.secondary_score)`:`${left}.score ${op} ${right}.score`;}\n async top(game,b){return (await this.board(game,b)).entries.map(({nickname,score,...rest})=>({nickname,score,...(b.secondary?{secondaryScore:rest.secondaryScore}:{})}));}\n ownQuery(game,b,device){\n  const better=this.better(b,'other','me'),reverse=b.direction==='asc'?'DESC':'ASC';\n  const from=`FROM leaderboard_best other WHERE other.scope=me.scope AND other.game=me.game AND other.rules=me.rules AND ${better}`;\n  const order=`ORDER BY other.score ${reverse}${b.secondary?`,other.secondary_score ${b.secondaryDirection==='asc'?'DESC':'ASC'}`:''} LIMIT 1`;\n  return this.db.prepare(`SELECT me.nickname,me.score,me.secondary_score,\n   (SELECT count(*)+1 ${from}) AS rank,\n   (SELECT other.score ${from} ${order}) AS previous,\n   (SELECT other.secondary_score ${from} ${order}) AS previous_secondary\n   FROM leaderboard_best me WHERE me.scope=? AND me.game=? AND me.rules=? AND me.device=?`).bind(this.scope,game,b.rules,device||'');\n }\n ownRow(row,b){if(!row)return null;const secondaryGap=b.secondary&&row.previous===row.score;return {nickname:row.nickname,score:row.score-(b.storageOffset??0),rank:Number(row.rank),gap:row.previous===null?null:Math.abs(secondaryGap?row.previous_secondary-row.secondary_score:row.previous-row.score),...(b.secondary?{secondaryScore:row.secondary_score,gapMetric:row.previous===null?null:secondaryGap?(b.secondaryMetric??'rating'):(b.primaryMetric??'catches')}:{})};}\n async own(game,b,deviceId){return deviceId?this.ownRow(await this.ownQuery(game,b,await digest(this.scope+':'+deviceId)).first(),b):null;}\n async board(game,b,deviceId=null){\n  const device=deviceId?await digest(this.scope+':'+deviceId):null;\n  const result=await this.db.batch([\n   this.db.prepare(`SELECT nickname,score,secondary_score,device FROM leaderboard_best WHERE scope=? AND game=? AND rules=? ORDER BY ${this.ordering(b)} LIMIT 20`).bind(this.scope,game,b.rules),this.ownQuery(game,b,device)]);\n  let rank=0,prior=null,secondary=null;const entries=result[0].results.map((row,i)=>{if(row.score!==prior||(b.secondary&&row.secondary_score!==secondary))rank=i+1;prior=row.score;secondary=row.secondary_score;return {nickname:row.nickname,score:row.score-(b.storageOffset??0),rank,isMe:device!==null&&row.device===device,...(b.secondary?{secondaryScore:row.secondary_score}:{})};});\n  return {entries,own:this.ownRow(result[1].results[0],b)};\n }\n async submit(data,b,now){\n  const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify(data)),day=Math.floor(now/86400000);\n  const p=(sql,...args)=>this.db.prepare(sql).bind(...args);\n  const existing=await p('SELECT payload FROM leaderboard_submissions WHERE scope=? AND id=?',this.scope,data.submissionId).first();\n  if(existing)return existing.payload===payload?{accepted:true,duplicate:true,bestUpdated:false,own:await this.own(data.game,b,data.deviceId)}:{error:'conflict'};\n  const rows=await this.db.batch([\n   p('SELECT payload FROM leaderboard_submissions WHERE scope=? AND id=?',this.scope,data.submissionId),\n   p('SELECT score,secondary_score FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?',this.scope,data.game,data.rules,device),\n   p('DELETE FROM leaderboard_submissions WHERE rowid IN (SELECT rowid FROM leaderboard_submissions WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),\n   p(`INSERT OR IGNORE INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day,secondary_score)\n    SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE\n    NOT EXISTS(SELECT 1 FROM leaderboard_submissions WHERE scope=? AND device=? AND created_at>? AND game=?)\n    AND (SELECT count(*) FROM leaderboard_submissions WHERE scope=? AND day=?)<1000\n    AND (EXISTS(SELECT 1 FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?) OR (SELECT count(*) FROM leaderboard_best WHERE scope=?)<10000)`,this.scope,data.submissionId,payload,device,data.game,data.rules,data.nickname,data.score+(b.storageOffset??0),now,day,data.secondaryScore??0,this.scope,device,now-60000,data.game,this.scope,day,this.scope,data.game,data.rules,device,this.scope),\n   p(`INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at,secondary_score)\n     SELECT scope,game,rules,device,nickname,score,created_at,secondary_score FROM leaderboard_submissions WHERE scope=? AND id=? AND payload=?\n     ON CONFLICT(scope,game,rules,device) DO UPDATE SET nickname=excluded.nickname,score=excluded.score,updated_at=excluded.updated_at,secondary_score=excluded.secondary_score\n     WHERE ${this.better(b,'excluded','leaderboard_best')}`,this.scope,data.submissionId,payload),\n   p('SELECT score,secondary_score FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?',this.scope,data.game,data.rules,device),\n   p('SELECT payload FROM leaderboard_submissions WHERE scope=? AND id=?',this.scope,data.submissionId),\n   p(`SELECT CASE\n    WHEN (SELECT count(*) FROM leaderboard_submissions WHERE scope=? AND day=?)>=1000 THEN 'daily_limit'\n    WHEN CASE\n     WHEN EXISTS(SELECT 1 FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?) THEN 0\n     ELSE (SELECT count(*) FROM leaderboard_best WHERE scope=?)>=10000\n    END THEN 'capacity'\n    ELSE (SELECT MAX(created_at) FROM leaderboard_submissions WHERE scope=? AND device=? AND game=? AND created_at>?)\n    END AS limitation\n    WHERE NOT EXISTS(SELECT 1 FROM leaderboard_submissions WHERE scope=? AND id=?)`,this.scope,day,this.scope,data.game,data.rules,device,this.scope,this.scope,device,data.game,now-60000,this.scope,data.submissionId)\n  ]);\n  const accepted=rows[6].results?.[0];\n  if(!accepted){\n   // Read in the same atomic batch as admission, so a concurrent request cannot change the reason.\n   const limitation=rows[7].results[0].limitation;\n   if(limitation==='daily_limit'||limitation==='capacity')return {error:'limited',reason:limitation};\n   return {error:'limited',reason:'cooldown',retryAfterSeconds:Math.max(1,Math.ceil((limitation+60000-now)/1000))};\n  }\n  if(accepted.payload!==payload)return {error:'conflict'};\n  const duplicate=Boolean(rows[0].results?.length),before=rows[1].results?.[0],after=rows[5].results?.[0];\n  return {accepted:true,duplicate,bestUpdated:!duplicate&&after!==undefined&&(before===undefined||after.score!==before.score||after.secondary_score!==before.secondary_score),own:await this.own(data.game,b,data.deviceId)};\n }\n}\n"
+    }
+  ],
+  "addedPaths": [
+    "docs/pinball/BASELINE.json",
+    "docs/pinball/INTEGRATION-LEDGER.md",
+    "docs/pinball/ISOLATION-PREPARATION.md",
+    "docs/pinball/MANIFEST.json",
+    "docs/pinball/PROVENANCE.md",
+    "docs/pinball/frontend-integration.md",
+    "docs/pinball/frontend-provenance.json",
+    "docs/superpowers/plans/2026-11-12-pinball-platform-isolation.md",
+    "public/assets/overtime-pinball-card.png",
+    "public/games/overtime-pinball/activities.js",
+    "public/games/overtime-pinball/assist-machines.js",
+    "public/games/overtime-pinball/assist-office.js",
+    "public/games/overtime-pinball/audio/CC0-1.0.txt",
+    "public/games/overtime-pinball/audio/break.mp3",
+    "public/games/overtime-pinball/audio/break.ogg",
+    "public/games/overtime-pinball/audio/coin.mp3",
+    "public/games/overtime-pinball/audio/coin.ogg",
+    "public/games/overtime-pinball/audio/jump.mp3",
+    "public/games/overtime-pinball/audio/jump.ogg",
+    "public/games/overtime-pinball/audio/kenney-source.txt",
+    "public/games/overtime-pinball/audio/land.mp3",
+    "public/games/overtime-pinball/audio/land.ogg",
+    "public/games/overtime-pinball/audio/manifest.json",
+    "public/games/overtime-pinball/audio/rail-entry.mp3",
+    "public/games/overtime-pinball/audio/sparklin-source.txt",
+    "public/games/overtime-pinball/audio/theme-9.mp3",
+    "public/games/overtime-pinball/audio/theme-9.ogg",
+    "public/games/overtime-pinball/board-features.js",
+    "public/games/overtime-pinball/boss-visual.js",
+    "public/games/overtime-pinball/camera.js",
+    "public/games/overtime-pinball/central-launch.js",
+    "public/games/overtime-pinball/character.js",
+    "public/games/overtime-pinball/clock-cue.js",
+    "public/games/overtime-pinball/combo-office.js",
+    "public/games/overtime-pinball/combo-routes.js",
+    "public/games/overtime-pinball/company-design.js",
+    "public/games/overtime-pinball/company.css",
+    "public/games/overtime-pinball/contact.js",
+    "public/games/overtime-pinball/desktop.css",
+    "public/games/overtime-pinball/dispatch-court.js",
+    "public/games/overtime-pinball/feedback-layout.js",
+    "public/games/overtime-pinball/feedback-profile.js",
+    "public/games/overtime-pinball/game-audio.js",
+    "public/games/overtime-pinball/game.html",
+    "public/games/overtime-pinball/gameplay.css",
+    "public/games/overtime-pinball/index.html",
+    "public/games/overtime-pinball/interactions.js",
+    "public/games/overtime-pinball/intro.js",
+    "public/games/overtime-pinball/jet-wake.js",
+    "public/games/overtime-pinball/mail-office.js",
+    "public/games/overtime-pinball/mail-run.js",
+    "public/games/overtime-pinball/main.js",
+    "public/games/overtime-pinball/menu.css",
+    "public/games/overtime-pinball/occlusion.js",
+    "public/games/overtime-pinball/office-features.js",
+    "public/games/overtime-pinball/office-stories.js",
+    "public/games/overtime-pinball/opening.js",
+    "public/games/overtime-pinball/physics.js",
+    "public/games/overtime-pinball/platform-layout.mjs",
+    "public/games/overtime-pinball/platform-share.mjs",
+    "public/games/overtime-pinball/platform-snapshot.mjs",
+    "public/games/overtime-pinball/platform-ui.mjs",
+    "public/games/overtime-pinball/platform.css",
+    "public/games/overtime-pinball/play-layout.css",
+    "public/games/overtime-pinball/play-layout.js",
+    "public/games/overtime-pinball/play-polish.css",
+    "public/games/overtime-pinball/prediction.js",
+    "public/games/overtime-pinball/preview.css",
+    "public/games/overtime-pinball/round-options.js",
+    "public/games/overtime-pinball/round-rules.js",
+    "public/games/overtime-pinball/route-layout.js",
+    "public/games/overtime-pinball/route-rewards.js",
+    "public/games/overtime-pinball/shell-geometry.js",
+    "public/games/overtime-pinball/special-feedback.js",
+    "public/games/overtime-pinball/special-office.js",
+    "public/games/overtime-pinball/station-label-anchor.js",
+    "public/games/overtime-pinball/station-label-layout.js",
+    "public/games/overtime-pinball/station-labels.js",
+    "public/games/overtime-pinball/style.css",
+    "public/games/overtime-pinball/text-layout.js",
+    "public/games/overtime-pinball/touch-policy.js",
+    "public/games/overtime-pinball/vendor/THREE-LICENSE.txt",
+    "public/games/overtime-pinball/vendor/three.core.min.js",
+    "public/games/overtime-pinball/vendor/three.module.min.js",
+    "public/games/overtime-pinball/viewport-recovery.js",
+    "public/games/overtime-pinball/viewport-shell.js",
+    "tests/helpers/pinball-integration-provenance.mjs",
+    "tests/pinball-api.test.mjs",
+    "tests/pinball-isolation.test.mjs",
+    "tests/pinball/catalog.test.mjs",
+    "tests/pinball/engine-settlement.test.mjs",
+    "tests/pinball/interface.test.mjs",
+    "tests/pinball/layout.test.mjs",
+    "tests/pinball/leaderboard.test.mjs",
+    "tests/pinball/lifecycle.test.mjs",
+    "tests/pinball/provenance.test.mjs",
+    "tests/pinball/share.test.mjs",
+    "tests/pinball/snapshot.test.mjs"
+  ],
+  "addedFiles": [
+    {
+      "path": "docs/pinball/BASELINE.json",
+      "gitBlob": "7ee671a951f0d736595964a8de55837002c94a5d",
+      "sha256": "fecf4586195100c5f7ce06c42c27d406871cdbf2f45d1f81ca22b77c3f54c554"
+    },
+    {
+      "path": "docs/pinball/INTEGRATION-LEDGER.md",
+      "gitBlob": "6e9fc178dc9c991f28b4612ee261319ef94b50e5",
+      "sha256": "a05232c9c7906d436bacbfc94481d7735d90d64a1aeea4b016fb5892cd6c64f3"
+    },
+    {
+      "path": "docs/pinball/ISOLATION-PREPARATION.md",
+      "gitBlob": "fc4bdd729b04cfc31c7536083dd5cd7dcccfa49e",
+      "sha256": "089e4d16e9ff6e074c8992f003f0b6d20df692739c3243d48ca3417f39ca9279"
+    },
+    {
+      "path": "docs/pinball/PROVENANCE.md",
+      "gitBlob": "af5b09371bc803296b8cd0f7314ee1eff1c93538",
+      "sha256": "c69628bc8597a60c785a84a9ecb28fd2a474d8e16ed0c536886a51333c45a81f"
+    },
+    {
+      "path": "docs/pinball/frontend-integration.md",
+      "gitBlob": "fa546cca0b037a3a5de0d6bf9b2a9dfdf1ce695e",
+      "sha256": "6070de850c4a6b6f8766645f688f9b8c7bc9ddbd624ba19f1d9a962a52c82b87"
+    },
+    {
+      "path": "docs/pinball/frontend-provenance.json",
+      "gitBlob": "e8521415c94e5b3ad7a1691625781ab332b2a6d2",
+      "sha256": "831fa062f6a5542c0af24a4f52d07c43f94e3ee23e8f23a003544fdd0b39f7eb"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-12-pinball-platform-isolation.md",
+      "gitBlob": "5f74578a5b15cc112490089211b950670244a6e4",
+      "sha256": "71c5483512714c8880624594f33f717fce2f0587da0749394efa44198245815b"
+    },
+    {
+      "path": "public/assets/overtime-pinball-card.png",
+      "gitBlob": "06ddeea0ef82218d06b9ee1182229b2c615a956f",
+      "sha256": "12b3210178c644c38116bd4743bacd0c229d91b186ece0ffac6e0124c8df9f6e"
+    },
+    {
+      "path": "public/games/overtime-pinball/activities.js",
+      "gitBlob": "d3b9d0a0418cb89b77f93ad7adfc3b7a282fcf8d",
+      "sha256": "e39a19e882d99dc4b6df6f3cbd94654c9dadf61f2fe9a0ecb1dbe473f26cbb06"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-machines.js",
+      "gitBlob": "9370f911beac12b04c8eaa432215bd7fcdfb4f16",
+      "sha256": "1ce6df1e7572e0205db8001be2160458233180ffa2ef66e9575a6519cd2c8e7c"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-office.js",
+      "gitBlob": "bfd5061931fd729e2644ca262e5c449809cf611b",
+      "sha256": "5a71de42f15d7aa6fba9079b1a573ddb14034aee4f9eed14cb5fb5db8a84f148"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/CC0-1.0.txt",
+      "gitBlob": "2c4afabdb632b5d68e60c9fe9fe0b0819676a729",
+      "sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.mp3",
+      "gitBlob": "c54a31119ec24d948d750392b9c5230a9404151a",
+      "sha256": "9bd5a268ca9fc6ed5059d4bc0a043f7e76894f0b7b65938a92bd19680530ae4d"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.ogg",
+      "gitBlob": "3fc1e31c5b60f165c47725e7ac1657ad638155c3",
+      "sha256": "51157b7441fca84fea95d4e93d6a9a3b91efa870b602e5c56a76e3ab639686a7"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.mp3",
+      "gitBlob": "e5586abc249a11c5ed1775ae2c7fe33ad29da7d6",
+      "sha256": "da9b877318634ee57b42f5edf68f3591fa5410a9121942568e604a916e3a1708"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.ogg",
+      "gitBlob": "57cf9513c9b260feec360867166c220c6f701ce7",
+      "sha256": "df55e931e6b78e5aecc015922e873a0e8bfa4e97cfb19abc64149d54afe89216"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.mp3",
+      "gitBlob": "a61b0149d495c9812821f176996459f89433b0bf",
+      "sha256": "9473e4c60a3cc13786c1a7b22d83e986b7f28b57294342179b6ffc028e84e0df"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.ogg",
+      "gitBlob": "e52f6a07e25c127716f67f72d7a9132afad5603c",
+      "sha256": "f090c16689e9ec04c4bef80bfcbf68bc4b63ab4ce29f7fbb5cee05a5641d5694"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/kenney-source.txt",
+      "gitBlob": "7a5311484fe49569e10359fac772ddb1d93ea4d7",
+      "sha256": "a7c9855b888f9eb9400aadb47a1111e8cfd3a118378e1c035b687637a08e1f8f"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.mp3",
+      "gitBlob": "70e65994c4684d62a136fec8dcbba1702c2e31cb",
+      "sha256": "07c3bbb50b5dc35e19ee47e75d376ca63614464518931f62d7329870e3dac6ac"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.ogg",
+      "gitBlob": "3d97f7b09210641f9f3bdf020ff728e8d868f5ba",
+      "sha256": "145a1c17125dc4d344ac135bc5073e35ea12e19700ca30ee6e1e477010b4dca0"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/manifest.json",
+      "gitBlob": "ebd27b75a2ea6064dcc07aea8528bfffc835ba53",
+      "sha256": "b5963ced58f2967dfe55c06b1a47d0b10590e778cf45517324f69f22a73c9b19"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/rail-entry.mp3",
+      "gitBlob": "e2dbfb4a3c22430ae6e42b55c905882d7f4bf87c",
+      "sha256": "a3d28a6c52b500ffb155ec3c553a957759555202e542eb2859f6a3a305037a58"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/sparklin-source.txt",
+      "gitBlob": "e2a7749654380efcb2de9de58c76af21573c8331",
+      "sha256": "f2e720c5e6632562bc93a30bf823d81657ca3c9b7668bfc2656db035114b01f8"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.mp3",
+      "gitBlob": "119f504a70a1991f4b989ef17bc075ef8719fefe",
+      "sha256": "364e67c15e3db17f457ca29d3b9dbdce41d6102b53d3673172d06247c6862b6c"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.ogg",
+      "gitBlob": "e1ff40d2a7f36583b1850ef6d17a6498faf55d73",
+      "sha256": "b1a4002511781fed7a6ed6189b22f7402ab428a647ab614c49bf0bd49362ef36"
+    },
+    {
+      "path": "public/games/overtime-pinball/board-features.js",
+      "gitBlob": "6878e983b7794c3997900bc6241585d48fb39696",
+      "sha256": "8d7c35f41b50f0024147d4e6977dd2ffb573594bff7177e4b77bb2882c322949"
+    },
+    {
+      "path": "public/games/overtime-pinball/boss-visual.js",
+      "gitBlob": "590d3e90fd12195ec06ea748e18aab07c7b9f7fe",
+      "sha256": "4777013033b087c8b15bb504cfd0cdc9260d422b3a4003434dd6c8059e132d80"
+    },
+    {
+      "path": "public/games/overtime-pinball/camera.js",
+      "gitBlob": "73430035dbf159e97cf8af6f9315e52049bbd72d",
+      "sha256": "e2841e4d8757f8978b9c5d2a413a45a80ae7ff759355fdace2618959e1e0dac5"
+    },
+    {
+      "path": "public/games/overtime-pinball/central-launch.js",
+      "gitBlob": "5c11bed77e6f8867b5fc2acaeaeb1331f5439e12",
+      "sha256": "13c82459eb24e4a22f2a36d76a6b54342391659cac540a7dafcc38803c398b38"
+    },
+    {
+      "path": "public/games/overtime-pinball/character.js",
+      "gitBlob": "8b76d07cdf2ec51b2e09589687f48ba8cc7c457f",
+      "sha256": "ef0ceccacc8cb3bfafd0fade631ee1e8bd099c70022ea019b407319d3da31b18"
+    },
+    {
+      "path": "public/games/overtime-pinball/clock-cue.js",
+      "gitBlob": "35f69f24d5844fbf4ded9895845c234e1250a27e",
+      "sha256": "6f87af95b28fd75406aac2364bbcefb940bffda5c203bfddc09c3eea15fb6527"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-office.js",
+      "gitBlob": "70d1d1a6b580e78042409a2f287fdce8dc98e29d",
+      "sha256": "f36470f370b0face124061f6debaf11cf4d6e98362290cddc4cede9f190c1f85"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-routes.js",
+      "gitBlob": "490eff970956a646e56b75a8ebfe24448eb566f2",
+      "sha256": "530049bd47010244881c226db9c52d7c084e6beee97a477d50a86f1712f69d68"
+    },
+    {
+      "path": "public/games/overtime-pinball/company-design.js",
+      "gitBlob": "e49b2ca98a493a85382e6587ec0ce81796ba79aa",
+      "sha256": "2e1e44d04a85143444f9d8cfd4b74a5eddfcefffcd762b8521a6fc37ec8d1e6e"
+    },
+    {
+      "path": "public/games/overtime-pinball/company.css",
+      "gitBlob": "ec6d1304ea6948dcf260a84d77e252db5dadaf93",
+      "sha256": "bc3d4ea3005391ce0aa45b83c2e1b7e2bd01c4fb676b30e7ebd8d372a90ae04c"
+    },
+    {
+      "path": "public/games/overtime-pinball/contact.js",
+      "gitBlob": "7f9f45291a0db31483b269a405a775497323c04a",
+      "sha256": "88790baf17ac0728690d1613858b299af5e491c4434f4ec774d10e8813420838"
+    },
+    {
+      "path": "public/games/overtime-pinball/desktop.css",
+      "gitBlob": "baff260a71eb5ce01dd4c6c4f951c19ed9bcbdd7",
+      "sha256": "f24c1faaf389fa21400bde37823bb48b61e8e2ce70f2a48d0824a5c3f58b99ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/dispatch-court.js",
+      "gitBlob": "91ec5445512e8d71ced6259b73e8d8e109ace0cb",
+      "sha256": "6ba4f2d68c3ad4b5794fa1ef4ef37c8be0ae0b5a333e913d8ce4851997dad0ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-layout.js",
+      "gitBlob": "64cda18eb7dd7ffbcdf3f2b5dfb2871ea56c1673",
+      "sha256": "f2f1dd1d012e4a74121dc1eb02065e46341c3b13b94d32d7869227041c77f1bf"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-profile.js",
+      "gitBlob": "80cea47f7c23d16714f2b4423f1188ba21ed2974",
+      "sha256": "5d6620cda4fde53fc50acc3b156839f7d895beeacd447a001116211785cc1bf8"
+    },
+    {
+      "path": "public/games/overtime-pinball/game-audio.js",
+      "gitBlob": "a75b5cdd9ca4348b3ef5ed7a9c02df99b119e50b",
+      "sha256": "01f8f53a56b318a7e20df0201f815d4238849e407cccf4afd1335c74fe4a653e"
+    },
+    {
+      "path": "public/games/overtime-pinball/game.html",
+      "gitBlob": "f87a531b1651385ee9c954ebd49c56d65582f292",
+      "sha256": "3f7abd4960980a330e3ca1753270c6ed7dd71f8cb278be8701200c4a252afd61"
+    },
+    {
+      "path": "public/games/overtime-pinball/gameplay.css",
+      "gitBlob": "40cdef3a93ad0324b9ed8546af002fe4740827d8",
+      "sha256": "7ffcd66963c888423eca6eb466c605593872f61c008e1e211a9335ee0a54984f"
+    },
+    {
+      "path": "public/games/overtime-pinball/index.html",
+      "gitBlob": "ad90f8e2781c0b94fb8f870ac3f86ca5465ffbc6",
+      "sha256": "6f5342ca3c0168a16565feab13850e9545e773e02931f7be63f4e1e8c7360249"
+    },
+    {
+      "path": "public/games/overtime-pinball/interactions.js",
+      "gitBlob": "aa388fb68fd05bbe32b76d0321628c13c5f6ed7a",
+      "sha256": "8539e2637c785c8feef0939203873b6849fb855eab27a5330faab0ba4204a48f"
+    },
+    {
+      "path": "public/games/overtime-pinball/intro.js",
+      "gitBlob": "c17f03a72632b7c60f62e4646b7059656e198ef7",
+      "sha256": "73f51fc9ca174cde92895725316e8c69630ecac35a93a47f0b59f1c477fe0b84"
+    },
+    {
+      "path": "public/games/overtime-pinball/jet-wake.js",
+      "gitBlob": "ac65216853d60a8f2720b2bc2fa957668e25dad9",
+      "sha256": "1e7d69c13e94e8304f12ddd9293980baf72861eb02da148231e4f247a980f34e"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-office.js",
+      "gitBlob": "f26629bf9fc52cec49bf90e175aba48849ab0b02",
+      "sha256": "4c736f22e437d3b0a0bbc93d156c9d48d18e04cfe63ffaf398dfa13dd7db290c"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-run.js",
+      "gitBlob": "ba5bd22d43bf4b8dbf29c79dc5cbf2208b255212",
+      "sha256": "016fb82231463067dd15593589e9ceda1b7c8c049cf86f2b9f697ef1896345ae"
+    },
+    {
+      "path": "public/games/overtime-pinball/main.js",
+      "gitBlob": "0590776521cb9ff2238e6d445c12b0ca3c93dfcb",
+      "sha256": "0498adff8c4bb550b2f9f22585b69ec12ad004089d49ff01a121ad5cfcaf9b30"
+    },
+    {
+      "path": "public/games/overtime-pinball/menu.css",
+      "gitBlob": "b4ee59d41ee150ced534aefe672ca24e7dde24d3",
+      "sha256": "f419e3a5bacf5eb0b736891b03e4e5ba49dc1f1f0e137f815a329155fce497d3"
+    },
+    {
+      "path": "public/games/overtime-pinball/occlusion.js",
+      "gitBlob": "f9a5213f72d43cb40e4ae34ed0c7a27d9052b6de",
+      "sha256": "ae07def69d81869970acb24c2b47f9d37100202c26f79e34dbe32a56ca6c821d"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-features.js",
+      "gitBlob": "eaef54324b837ac67c037cb7fc16e49daff20a9c",
+      "sha256": "65dac16cae12d48e385989210c0f8258fa1d36c0ecc7757a3614bebb530a8957"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-stories.js",
+      "gitBlob": "098c56d5b4af2480c9eb156c24e62be60e84d967",
+      "sha256": "07d9718afde6f752df3c8102cb428b17de85b8bd725da14a897e516fb2332a55"
+    },
+    {
+      "path": "public/games/overtime-pinball/opening.js",
+      "gitBlob": "bbe3d2a6f9eb86dc676bf587622aaccd40ea3760",
+      "sha256": "3f5159cdd5e07fc8a0b7a7d4d9c6ca52916b5f36e9ef6f8575540b9a3c1a8115"
+    },
+    {
+      "path": "public/games/overtime-pinball/physics.js",
+      "gitBlob": "904a58aba43d614a43479767e722c2a707a0e7e2",
+      "sha256": "40bad2631856530bf49ba9f9b6a7bdbaf8bfeaf6b18223e2b35c7cd56767b4d0"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-layout.mjs",
+      "gitBlob": "f594564f917c017d4963c4b639422863f90b8401",
+      "sha256": "e57441ce38e85b327deb542056c97050ff30c729d00c698e363f9975b61c16d9"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-share.mjs",
+      "gitBlob": "f456081e7ce23486af55fa7eaf9cb2e9667003a8",
+      "sha256": "39e23edd3c347ca6320ae69e5c6e8130fc35890894ed50b5a359bef68830750d"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-snapshot.mjs",
+      "gitBlob": "10955c08475146aed6ff80a515c1b16de80a22f0",
+      "sha256": "08c49ce090e420c21bf4341b85118dbe22b59c3e7bfc3579150c1ea80b4902fa"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-ui.mjs",
+      "gitBlob": "c3efe1c69ab71632e3c5a2574fa9e142ff32efc7",
+      "sha256": "935b28978ae79a67124df4fdc221652adad5e23f92e09f9544cb7c190866f9a4"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform.css",
+      "gitBlob": "d4d0dc68431ab533875d55c6c7259e320b2aa670",
+      "sha256": "03ae1baf492ad58e1da122b42362d269ea2438e7343bfd14513286c0cd9bd310"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.css",
+      "gitBlob": "b9b30e4e13323a0090d4fe03472ab7974bef1179",
+      "sha256": "260b403c031b7bd4e623c2f97396b7987f28b6c50bf8fc7ddb3d7bd353b6a614"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.js",
+      "gitBlob": "4f2e503602774ef1208fd13c8e85c4b973c38cf0",
+      "sha256": "1af04de62ea9aa38d10e773942d569f92ba9db0393344c14337f7f046b18b787"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-polish.css",
+      "gitBlob": "cdf12424efe73be32f8cf22cf1004f1e201cc38b",
+      "sha256": "fb13eb654888f491936227d5ff5d2fccbb5bf968b05507d9d1f63a3e699dd133"
+    },
+    {
+      "path": "public/games/overtime-pinball/prediction.js",
+      "gitBlob": "ec760ca2fb9f449b225606bf237aa870eb86938e",
+      "sha256": "32710816c3980a8171d9bf5516a3abd85f2c7778f9096f5c271c280c6b7f3c8b"
+    },
+    {
+      "path": "public/games/overtime-pinball/preview.css",
+      "gitBlob": "137ab7dde45f49ffca5438a0a2313d8b8541b165",
+      "sha256": "095b5fc19d5182a633811178ea79f9ecb78794c3cd2fe7501030785c38530bbf"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-options.js",
+      "gitBlob": "22087addb3db5f260b27e13b1cc042862d33e5cb",
+      "sha256": "a0ca2bfc70573dbd73a7467ee19426d226e0c3f598faaac8fdee294356157770"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-rules.js",
+      "gitBlob": "43aa9e574f141d2836a18d0e893df53276f48aed",
+      "sha256": "2b3123d25d50c7102096c8e800d4af3f9f27f99805efbc6811f4ef5d619e80b5"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-layout.js",
+      "gitBlob": "f2e6f99e9d4fbcf05fb379f4c3d0d50d4152bef5",
+      "sha256": "6bb017efbcabe8be2503be1c47b54678fb8117d28bc77ddac8e120325a62f879"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-rewards.js",
+      "gitBlob": "4de8e0beb7840c19776873a59c7bbec2b493d5de",
+      "sha256": "3d7c43b9283d6755b61107f51f40b32f82cf310345fea274bd828efc6fe27a4a"
+    },
+    {
+      "path": "public/games/overtime-pinball/shell-geometry.js",
+      "gitBlob": "22b32ada13174466f082d198e6c8e8b7c89b8323",
+      "sha256": "38e08929f46f80af75ec5422c1a0f5e7d64abb343947f2897fde3de549c32af5"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-feedback.js",
+      "gitBlob": "d2255cb7eaf79c4f08ac0465ebbf881b2c4304e0",
+      "sha256": "1032118f084d8e0903188642652a1dfa4324a36c727af06904bebe1087305685"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-office.js",
+      "gitBlob": "154bec3f2a5c78e32764374eb923ab695d274b4e",
+      "sha256": "c07cbdb5b1c63b93f25e27ba1d617887f11b00b3c2ce2d23855ddd43f299e53a"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-anchor.js",
+      "gitBlob": "23ed39f162a0c3ca1d1bfc5631b20da2b5b0cecf",
+      "sha256": "e361889d6dd6788a3352c4de4c9c6c1a96cb207b23d25d874a24cd6e8abbab39"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-layout.js",
+      "gitBlob": "a374b0f06b62ebdbf51f33fbe86f7524b761a0dd",
+      "sha256": "d5e98c33e6be08387581dd81e1fdc6e5a188dd3e8cd113ed1b0c3b3fa92cc829"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-labels.js",
+      "gitBlob": "419a6e40d142a54ba3e29fc8827e17923327ed05",
+      "sha256": "83bb90b11baec9137f6a3463624451e3bb0ca6cb79ff875794d782ce7c6d7bb2"
+    },
+    {
+      "path": "public/games/overtime-pinball/style.css",
+      "gitBlob": "f33dc2a897e52ecca3959cd1252f134b25b20a9e",
+      "sha256": "29c32e44534a9cdefda4970696ac1d4d0fb687c231d666dae1fd182a512741c4"
+    },
+    {
+      "path": "public/games/overtime-pinball/text-layout.js",
+      "gitBlob": "ac686a9deb85baa49826415be10cc40c8ec5471b",
+      "sha256": "d933e80d9d11fc6f3e11052af2be2899a2c3bcda33da301b47c830f1282cda97"
+    },
+    {
+      "path": "public/games/overtime-pinball/touch-policy.js",
+      "gitBlob": "8f81e3ecda2d05b1d26113b193129b77c230d4c0",
+      "sha256": "8a4234caa052beb3087dd3873201d87d225b47e15ce6d0bf8a48ec47a7f55324"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/THREE-LICENSE.txt",
+      "gitBlob": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.core.min.js",
+      "gitBlob": "d2c995b9236a949a3116561b0431e6503984ea06",
+      "sha256": "295a28f4a9786dd24a2a357a4ce90921eb041127e53a508335b9a0556c1e0875"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.module.min.js",
+      "gitBlob": "ca3702545fe4bed942582b6e6a6cd75c5d1d3e71",
+      "sha256": "979c1ae4b0579c9901eacf797602c0b46df129d87102c6443d14be4a1f790b70"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-recovery.js",
+      "gitBlob": "ce107392412ce2ef122e03d72b7de858f61d0bb4",
+      "sha256": "817e7ac1efeeb5dda65d1593a9828ae42c5064557e585add36afb551e291ff12"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-shell.js",
+      "gitBlob": "1305daa5032db077c1d25854ed94289078e97434",
+      "sha256": "156524d790d012597bf6dfb30618567bb340be23474073edc175d76e3ab576af"
+    },
+    {
+      "path": "tests/helpers/pinball-integration-provenance.mjs",
+      "gitBlob": "0419c40d9604c4479a73fe5f65ebdf7551d1c15f",
+      "sha256": "982d56eaf392b3b535ad25a754858d63c0143ad0bb14d139a1a4eaf9e5244f52"
+    },
+    {
+      "path": "tests/pinball-api.test.mjs",
+      "gitBlob": "35f1d2075a2c3e854f77aeade41ed6a3ba671135",
+      "sha256": "08281979e6b890fa61ed3e92076790b0f5eca9c4ece899ae32f716acdc164c03"
+    },
+    {
+      "path": "tests/pinball-isolation.test.mjs",
+      "gitBlob": "adf1f7096d0a392f8c66d14f575bf5d28e89265c",
+      "sha256": "91439573253c43f5407f21f89ac0817cb7b66064177967878b42417d0fe152b2"
+    },
+    {
+      "path": "tests/pinball/catalog.test.mjs",
+      "gitBlob": "0c1699ff7ff8519ae14ea9f9e930e535dfe0efeb",
+      "sha256": "05dc661c4d37a08845aca4082e00ba532b687718dd09a2401954353f28cfa706"
+    },
+    {
+      "path": "tests/pinball/engine-settlement.test.mjs",
+      "gitBlob": "9a1c74aafa71c2659de9dd0aea951c37c2b15792",
+      "sha256": "294124ec725ad73d2e990981a755418682fa1635fd9355ba972601205941c3d0"
+    },
+    {
+      "path": "tests/pinball/interface.test.mjs",
+      "gitBlob": "118f4a639ec1e57f02d14d98a54fb1b53e23232b",
+      "sha256": "3a3bb38b4d38165a93f1c7d1e2faad430c2e958725f91808c59bcf05232af122"
+    },
+    {
+      "path": "tests/pinball/layout.test.mjs",
+      "gitBlob": "045a7194dd44928e1cd126f2a3641810fbf29d1b",
+      "sha256": "e741b5bb7d76a48fa705e9465ab77495d4f3a051a89f3be7f475a11e8045edc9"
+    },
+    {
+      "path": "tests/pinball/leaderboard.test.mjs",
+      "gitBlob": "fe19aeba6f86c099b273a293bfa279cef0cc0fd2",
+      "sha256": "51c9eefc508e3d3d9a62cbf76d3b3ba3fb16ce0a7ba4fb941376c0a4fededd6d"
+    },
+    {
+      "path": "tests/pinball/lifecycle.test.mjs",
+      "gitBlob": "8a5fd895c79f0616beb7a479deffd551e0a0749c",
+      "sha256": "13d69a903346ce97500ef702a435984d091246b802d0e44bd6b9c58c9fdb20a1"
+    },
+    {
+      "path": "tests/pinball/provenance.test.mjs",
+      "gitBlob": "d219f98e898d9df348d4dac7831ba7e14e88a34c",
+      "sha256": "de2e8a093c21ac9e8d62faede8b58d564d04a6a61dad9305d24819b84864f75d"
+    },
+    {
+      "path": "tests/pinball/share.test.mjs",
+      "gitBlob": "8f1e574d1f1bcbbfb53af40e27f9db4ac1e98b90",
+      "sha256": "c6ae6b7dc64c30dbce4191821abf193e241c919b79c0a3e64519bb5a272349f1"
+    },
+    {
+      "path": "tests/pinball/snapshot.test.mjs",
+      "gitBlob": "da71d95c59d21699bad3ce20d05700735d4805db",
+      "sha256": "f19b2ba6ee8b7b8a3084e6868efa7664af2fa767e4261cf1e3ac4a52af4f3af3"
+    }
+  ]
+}

@@ -22,6 +22,15 @@ export const QA_RUNNER_BOARDS=Object.freeze({
  'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
  'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
 });
+// Separate QA-only modes. Offset zero scores for the existing score>0 schema;
+// retain the old schema and prevent this game's writes from pruning other boards.
+const pinballBoard=rules=>Object.freeze({rules,unit:'points',status:'done',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,isolateReceiptCleanup:true});
+export const QA_PINBALL_BOARDS=Object.freeze({
+ 'overtime-pinball-60s':pinballBoard('office-v0826-reentry-60-v1'),
+ 'overtime-pinball-180s':pinballBoard('office-v0826-reentry-180-v1'),
+ 'overtime-pinball-unlimited':pinballBoard('office-v0826-drain-unlimited-v1')
+});
+const isPinball=game=>typeof game==='string'&&Object.hasOwn(QA_PINBALL_BOARDS,game);
 // Fast Hands rules isolate the two input modes without changing the nine legacy boards.
 export const FAST_HANDS_BOARDS=Object.freeze({
  mouse:Object.freeze({rules:'shuttle-v3-mouse',unit:'ms',status:'success',direction:'asc',max:NOTE_FLOOR_MS,exclusiveMax:true}),
@@ -34,6 +43,7 @@ export const LEVEL_BOARDS=Object.freeze({
 const isLevel=game=>typeof game==='string'&&Object.hasOwn(LEVEL_BOARDS,game);
 const isFast=game=>game==='fast-hands'||isLevel(game);
 function resolveBoard(game,rules,scope){
+ if(isPinball(game))return scope==='qa'?QA_PINBALL_BOARDS[game]:null;
  if(game==='courtesy-contest')return scope==='qa'?QA_COURTESY_BOARD:null;
  if(Object.hasOwn(QA_RUNNER_BOARDS,game))return scope==='qa'?QA_RUNNER_BOARDS[game]:null;
  if(scope==='qa'&&game==='pole-vault')return QA_POLE_VAULT_BOARD;
@@ -45,7 +55,7 @@ const fields=['game','rules','unit','status','score','nickname','deviceId','subm
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export function validateSubmission(value,scope){
  if(!value||Array.isArray(value)||typeof value!=='object'||(Object.keys(value).length!==fields.length&&Object.keys(value).length!==fields.length+1)||fields.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>!fields.includes(k)&&k!=='secondaryScore'))throw Error('invalid_fields');
- if(isFast(value.game)&&Object.keys(value).length!==fields.length)throw Error('invalid_fields');
+ if((isFast(value.game)||isPinball(value.game))&&Object.keys(value).length!==fields.length)throw Error('invalid_fields');
  const b=resolveBoard(value.game,value.rules,scope);if(!b||value.rules!==b.rules||value.unit!==b.unit||value.status!==b.status)throw Error('invalid_board');
  if(typeof value.score!=='number'||!Number.isFinite(value.score)||(b.allowZero?value.score<0:value.score<=0)||(b.min!==undefined&&value.score<b.min)||value.score>b.max||(b.integer&&!Number.isSafeInteger(value.score))||(b.exclusiveMax&&value.score===b.max))throw Error('invalid_score');
  if(b.secondary){if(!Number.isInteger(value.score)||typeof value.secondaryScore!=='number'||!Number.isFinite(value.secondaryScore)||value.secondaryScore<0||value.secondaryScore>(b.secondaryMax??10))throw Error('invalid_secondary');}
@@ -57,7 +67,7 @@ export function validateSubmission(value,scope){
 }
 function parseSubmission(text,scope){
  const value=JSON.parse(text);
- if(isFast(value?.game)||value?.game==='courtesy-contest'){
+ if(isFast(value?.game)||isPinball(value?.game)||value?.game==='courtesy-contest'){
   // JSON.parse alone silently keeps the last duplicate key. Scan complete string tokens
   // so escaped property names are compared correctly and quoted nickname text is ignored.
   const keys=new Set();
@@ -82,7 +92,7 @@ export async function handleRequest(request,env,now=Date.now(),context){
    const board=fast?(Object.hasOwn(FAST_HANDS_BOARDS,mode)?FAST_HANDS_BOARDS[mode]:null):resolveBoard(game,undefined,env.LEADERBOARD_SCOPE);
    const invalidQuery=fast
     ?url.searchParams.getAll('game').length!==1||url.searchParams.getAll('mode').length!==1||[...url.searchParams.keys()].some(k=>k!=='game'&&k!=='mode')
-    :((isLevel(game)||game==='courtesy-contest')&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');
+    :((isLevel(game)||isPinball(game)||game==='courtesy-contest')&&url.searchParams.getAll('game').length!==1)||[...url.searchParams.keys()].some(k=>k!=='game');
    if(!board||invalidQuery)return json({error:'invalid_board'},400);
    if(isFast(game)&&env.LEADERBOARD_SCOPE!=='qa')return json({error:'unavailable'},503);
    const device=request.headers.get('X-Leaderboard-Device');if(device!==null&&!uuid.test(device))return json({error:'invalid_id'},400);
@@ -96,7 +106,7 @@ export async function handleRequest(request,env,now=Date.now(),context){
   let total=0,chunks=[];while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>2048){await reader.cancel();return json({error:'too_large'},413);}chunks.push(value);}
   const bytes=new Uint8Array(total);let off=0;for(const c of chunks){bytes.set(c,off);off+=c.length;}
   let data;try{data=parseSubmission(new TextDecoder('utf-8',{fatal:true}).decode(bytes),env.LEADERBOARD_SCOPE);}catch{return json({error:'invalid_submission'},400);}
-  if(isFast(data.game)||data.game==='courtesy-contest'){
+  if(isFast(data.game)||isPinball(data.game)||data.game==='courtesy-contest'){
    if(url.search)return json({error:'invalid_submission'},400);
    if(env.LEADERBOARD_SCOPE!=='qa')return json({error:'unavailable'},503);
   }
@@ -106,3 +116,4 @@ export async function handleRequest(request,env,now=Date.now(),context){
  }catch{return json({error:'temporarily_unavailable'},503);}
 }
 export default {fetch(request,env,context){return handleRequest(request,env,Date.now(),context);}};
+

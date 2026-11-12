@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {Game,STEP,FIELD} from '../../public/games/overtime-pinball/physics.js';
+import {settledSnapshot} from '../../public/games/overtime-pinball/platform-snapshot.mjs';
+for(const limit of [60,180])test(`actual ${limit}s engine drains reenter, only final timeout settles`,()=>{const g=new Game({roundLimit:limit,random:()=>.5});g.start();g.interactionsEnabled=false;g.ball.z=FIELD.drain+1;g.update(STEP,{});assert.equal(g.state,'playing');assert.ok(g.round.reentry);assert.equal(settledSnapshot(g),null);let ticks=0;while(g.state==='playing'&&ticks++<60000)g.update(STEP,{});assert.equal(g.state,'over');assert.equal(g.round.reason,'time');assert.equal(settledSnapshot(g).score,g.score);assert.equal(settledSnapshot(g).limit,limit)});
+test('actual unlimited engine settles on drain with its actual score',()=>{const g=new Game({roundLimit:0,random:()=>.5});g.start();g.interactionsEnabled=false;g.ball.z=FIELD.drain+1;g.update(STEP,{});assert.equal(g.state,'over');assert.equal(g.round.reason,'drain');assert.equal(settledSnapshot(g).score,g.score);assert.equal(settledSnapshot(g).limit,0)});

@@ -1,6 +1,6 @@
 // Exact reversible boundary for the authorised four-game portrait results and phone 1500m map presentation.
 // Behaviour tests import live modules; only historical inventories use this view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforePinball as actual,pinballParentBytes,inventoryBeforePinball} from './pinball-integration-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -33,7 +33,7 @@ export function validate(m){
  if(m===cachedManifest)validated.add(m);return m;
 }
 export function portraitParentBytes(path,bytes){
- const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=Buffer.from(bytes);if(!f)return bytes;
+ const m=validate(manifest()),f=m.files.find(f=>f.path===path);bytes=pinballParentBytes(path,Buffer.from(bytes));if(!f)return bytes;
  const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' page policy live drift');assert.equal(sha256(bytes),f.sha256,path+' page policy SHA256 drift');return before;
 }
@@ -44,6 +44,7 @@ export function readBeforePortrait(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined),before=portraitParentBytes(path,bytes);return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforePortrait(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinball(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate sports portrait results inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  for(const p of m.addedPaths)assert.equal(paths.filter(x=>x===p).length,1,p+' missing repair evidence');

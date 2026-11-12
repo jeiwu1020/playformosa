@@ -1,0 +1,1 @@
+export function specialFeedback(activity,result){const kind=result?.kind,success=['perfect','complete'].includes(kind);if(activity==='shredder')return success?'薪水救回！預算碎滿地！':kind==='partial'?'救出部分薪資單，下次再拉！':'薪資單還卡著，先彈回去！';return success?'全公司重開成功！風扇送你一程！':kind==='overheat'?'伺服器過熱！先回去冷靜！':kind==='partial'?'還差一點電，再試一次！':'沒有充電，先回球台！';}

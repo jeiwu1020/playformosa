@@ -28,10 +28,13 @@ export class LeaderboardRepository {
   const p=(sql,...args)=>this.db.prepare(sql).bind(...args);
   const existing=await p('SELECT payload FROM leaderboard_submissions WHERE scope=? AND id=?',this.scope,data.submissionId).first();
   if(existing)return existing.payload===payload?{accepted:true,duplicate:true,bestUpdated:false,own:await this.own(data.game,b,data.deviceId)}:{error:'conflict'};
+  // Opt-in boards must not prune receipts belonging to another game or ruleset.
+  // The option is server-owned; existing boards retain their current retention behavior.
+  const isolateReceipts=b.isolateReceiptCleanup===true;
   const rows=await this.db.batch([
    p('SELECT payload FROM leaderboard_submissions WHERE scope=? AND id=?',this.scope,data.submissionId),
    p('SELECT score,secondary_score FROM leaderboard_best WHERE scope=? AND game=? AND rules=? AND device=?',this.scope,data.game,data.rules,device),
-   p('DELETE FROM leaderboard_submissions WHERE rowid IN (SELECT rowid FROM leaderboard_submissions WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),
+   p(`DELETE FROM leaderboard_submissions WHERE rowid IN (SELECT rowid FROM leaderboard_submissions WHERE scope=? AND created_at<?${isolateReceipts?' AND game=? AND rules=?':''} LIMIT 100)`,this.scope,now-7*86400000,...(isolateReceipts?[data.game,data.rules]:[])),
    p(`INSERT OR IGNORE INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day,secondary_score)
     SELECT ?,?,?,?,?,?,?,?,?,?,? WHERE
     NOT EXISTS(SELECT 1 FROM leaderboard_submissions WHERE scope=? AND device=? AND created_at>? AND game=?)
@@ -65,3 +68,4 @@ export class LeaderboardRepository {
   return {accepted:true,duplicate,bestUpdated:!duplicate&&after!==undefined&&(before===undefined||after.score!==before.score||after.secondary_score!==before.secondary_score),own:await this.own(data.game,b,data.deviceId)};
  }
 }
+

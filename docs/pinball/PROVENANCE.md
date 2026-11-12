@@ -1,0 +1,11 @@
+# Pinball integration provenance
+
+The additive boundary is anchored to PlayFormosa preview/hurdles commit `3e499fc21c4e71e655cebe669dcd4204ab6720c9`, Git tree `1c6125d9694de06267b095fb3411a2dab32ef127`. `BASELINE.json` carries every one of its 1,659 file entries, their Git modes and blob IDs, plus the exact reviewed modified/additional path sets. The test helper independently pins that baseline's SHA-256 and reconstructs its complete Git tree.
+
+`MANIFEST.json` records exact current SHA-256/Git blobs and the complete text preimage of each modified file. Each preimage must match the immutable parent blob, so changing a preimage and repinning its local hashes is rejected. Each added file is hashed before removal from a historical inventory. Only the manifest itself is omitted from its own hash list to avoid a circular digest; its structure and admission sets are validated independently.
+
+The outer `pinball-integration-provenance.mjs` boundary feeds the existing icon-completion boundary. No earlier manifests, parent fixtures, source credits, or baseline hashes are changed. Historical assertions reconstruct the same old source bytes; live UI, Worker, database and metric tests continue importing actual current code. Unknown paths remain visible. Complete-tree tests reject unknown, missing, duplicate and tampered paths, including omission of every new file. Runtime-only inventory callers validate all applicable runtime additions before reconstruction.
+
+The only historical-fixture adjustments outside the outer helper are the current minigame count, exact admission of the three independently tested Pinball metric contracts, and the native Home-link audit following the original same-origin iframe boot into `game.html`. That audit still requires one native Home link, the original destination/accessible label, keyboard focus and `_top` navigation.
+
+Development logs are kept outside the candidate. They are not excluded from source checks through directory wildcards. Regenerating the manifest is a deliberate assembly step after the candidate is frozen, never something run automatically by tests or builds. Any later change requires a reviewed admission refresh and another verification run.

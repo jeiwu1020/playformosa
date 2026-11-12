@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "6e7ad7a8661349a14607866f8dffae47bc2919c0",
+  "sourceZipSha256": "cca63446ba25137c484d8d542b93a58b3f9023fb416b593e776f8a4060cbdc40",
+  "importRoot": "game-build/",
+  "unchangedFiles": 68,
+  "integrationDeltas": [
+    "game.html",
+    "index.html",
+    "main.js",
+    "touch-policy.js"
+  ],
+  "missingFiles": [],
+  "addedFiles": [
+    "platform-layout.mjs",
+    "platform-share.mjs",
+    "platform-snapshot.mjs",
+    "platform-ui.mjs",
+    "platform.css"
+  ]
+}

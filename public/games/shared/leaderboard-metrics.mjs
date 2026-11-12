@@ -1,5 +1,8 @@
 // Final-round snapshots only. These adapters never read historical local bests.
 export const BOARD_METRICS=Object.freeze({
+ 'overtime-pinball-60s':{rules:'office-v0826-reentry-60-v1',unit:'points',status:'done',direction:'desc'},
+ 'overtime-pinball-180s':{rules:'office-v0826-reentry-180-v1',unit:'points',status:'done',direction:'desc'},
+ 'overtime-pinball-unlimited':{rules:'office-v0826-drain-unlimited-v1',unit:'points',status:'done',direction:'desc'},
  'courtesy-contest':{rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',secondary:true,secondaryUnit:'秒'},
  'long-jump':{rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc'},
  hurdles:{rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc'},
@@ -16,6 +19,11 @@ export const BOARD_METRICS=Object.freeze({
 export function resultToSubmission(game,r){
  const b=Object.hasOwn(BOARD_METRICS,game)?BOARD_METRICS[game]:null;
  if(!b||!r||r.phase!=='done')return null;
+ if(game.startsWith('overtime-pinball-')){
+  const limit={'overtime-pinball-60s':60,'overtime-pinball-180s':180,'overtime-pinball-unlimited':0}[game];
+  if(r.game!==game||r.limit!==limit||r.reason!==(limit===0?'drain':'time')||!Number.isSafeInteger(r.score)||r.score<0||r.score>=Number.MAX_SAFE_INTEGER)return null;
+  return {score:r.score,status:b.status};
+ }
  let score;
  if(game==='courtesy-contest'){
   if(r.seated!==true||!Number.isSafeInteger(r.count)||r.count<0||r.count>=Number.MAX_SAFE_INTEGER||typeof r.remaining!=='number'||!Number.isFinite(r.remaining)||r.remaining<.01||r.remaining>30||Math.abs(r.remaining*100-Math.round(r.remaining*100))>1e-9)return null;
@@ -37,3 +45,4 @@ export function resultToSubmission(game,r){
  if(typeof score!=='number'||!Number.isFinite(score)||score<=0)return null;
  return {score,status:b.status,...(b.secondary?{secondaryScore:r.rating}:{})};
 }
+
