@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {JSDOM} from 'jsdom';
 let api={};try{api=await import('../public/games/shared/mobile-gestures.mjs');}catch(e){if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;}
-const entries=['long-jump/index','hurdles/index','reaction-rod/index','fast-hands/index','fast-hands/catch','fast-hands/duel'];
+const entries=['long-jump/index','hurdles/index','high-jump/index','courtesy-contest/index','reaction-rod/index','fast-hands/index','fast-hands/catch','fast-hands/duel'];
 function setup(){assert.equal(typeof api.protectGameGestures,'function','A shared native zoom guard is required');const dom=new JSDOM('<main><section data-game-gesture-surface><canvas></canvas><button>Play</button></section><dialog open><p>Read settings</p><input></dialog></main>');const d=dom.window.document,surface=d.querySelector('section'),canvas=d.querySelector('canvas'),button=d.querySelector('button');const dispose=api.protectGameGestures(surface);return{dom,d,surface,canvas,button,dispose};}
 function send(dom,target,type,props={}){const e=new dom.window.Event(type,{bubbles:true,cancelable:true});for(const[k,v]of Object.entries(props))Object.defineProperty(e,k,{value:v});target.dispatchEvent(e);return e;}
 const touch=(target,x=20,y=20,id=1)=>({target,clientX:x,clientY:y,identifier:id});
 function tap(ctx,target,time,x=20){const t=touch(target,x);send(ctx.dom,target,'touchstart',{touches:[t],changedTouches:[t],timeStamp:time});return send(ctx.dom,target,'touchend',{touches:[],changedTouches:[t],timeStamp:time+25});}
-test('all six production entries load the shared guard and stylesheet without viewport scaling restrictions',async()=>{
+test('all production game entries load the shared guard and stylesheet without viewport scaling restrictions',async()=>{
  for(const entry of entries){const d=new JSDOM(await readFile(new URL(`../public/games/${entry}.html`,import.meta.url),'utf8')).window.document;
  assert.ok(d.querySelector('script[type="module"][src="../shared/mobile-gestures.mjs"]'),entry);
  assert.ok(d.querySelector('link[rel="stylesheet"][href="../shared/mobile-gestures.css"]'),entry);
@@ -17,9 +17,10 @@ test('all six production entries load the shared guard and stylesheet without vi
  for(const dialog of d.querySelectorAll('dialog')){const ancestor=dialog.closest('[data-game-gesture-surface]');if(ancestor)assert.ok(ancestor.hasAttribute('data-game-gesture-overlays'),`${entry}: nested dialog must release the ancestor gesture lock`);}
  assert.ok(d.querySelector('main[data-game-gesture-surface]'),`${entry}: protect gaps between scene and controls`);
  for(const el of d.querySelectorAll('[data-game-gesture-surface]'))assert.ok(!['HTML','BODY'].includes(el.tagName),entry);
+ const disposers=api.installGameGestures(d);assert.ok(d.documentElement.hasAttribute('data-game-gesture-page'),entry+' page opt-in');for(const target of [d.body,...d.querySelectorAll('dialog')]){const event=new d.defaultView.Event('gesturestart',{bubbles:true,cancelable:true});target.dispatchEvent(event);assert.equal(event.defaultPrevented,true,entry+' whole-page zoom fallback');}disposers.forEach(fn=>fn());d.defaultView.close();
  }
 });
-test('native double tap and Safari pinch defaults cancel only on gameplay, not reading dialogs',()=>{
+test('surface guards cancel game gestures; page installation separately covers dialogs',()=>{
  const ctx=setup();for(const type of ['dblclick','gesturestart','gesturechange']){assert.equal(send(ctx.dom,ctx.canvas,type).defaultPrevented,true,type);assert.equal(send(ctx.dom,ctx.d.querySelector('dialog p'),type).defaultPrevented,false,type);}
  const a=touch(ctx.canvas),b=touch(ctx.canvas,60,20,2);
  assert.equal(send(ctx.dom,ctx.canvas,'touchstart',{touches:[a,b],changedTouches:[b]}).defaultPrevented,true);
@@ -43,11 +44,17 @@ test('game pointer movement, four simultaneous limb inputs, release/cancel, and 
 test('installation is idempotent and cleanup restores defaults after remount',()=>{
  const ctx=setup();assert.equal(api.protectGameGestures(ctx.surface),ctx.dispose);ctx.dispose();assert.equal(send(ctx.dom,ctx.canvas,'gesturestart').defaultPrevented,false);api.protectGameGestures(ctx.surface);assert.equal(send(ctx.dom,ctx.canvas,'gesturestart').defaultPrevented,true);
 });
-test('CSS protects marked gameplay surfaces only and never disables reading zoom globally',async()=>{
+test('CSS protects live controls and blocks touch zoom without restricting viewport scaling',async()=>{
  const css=await readFile(new URL('../public/games/shared/mobile-gestures.css',import.meta.url),'utf8');assert.match(css,/\[data-game-gesture-surface\][^{]*\{[^}]*touch-action:\s*none/);assert.doesNotMatch(css,/(?:^|\})\s*(?:html|body|\*)\s*\{/);assert.doesNotMatch(css,/-webkit-text-size-adjust:\s*none/);
 });
 
-test('nested reading dialogs and inline pause panels bypass every native-gesture fallback',()=>{
+test('nested reading dialogs and inline pause panels also cancel native zoom defaults',()=>{
  const ctx=setup();ctx.surface.append(ctx.d.querySelector('dialog'));const panel=ctx.d.createElement('div');panel.setAttribute('data-game-gesture-reading','');ctx.surface.append(panel);
- for(const target of [ctx.d.querySelector('dialog p'),panel])for(const type of ['gesturestart','gesturechange','dblclick','touchstart','touchmove','touchend'])assert.equal(send(ctx.dom,target,type,{touches:[touch(target),touch(target,60,20,2)]}).defaultPrevented,false,type);
+ for(const target of [ctx.d.querySelector('dialog p'),panel])for(const type of ['gesturestart','gesturechange','dblclick','touchstart','touchmove'])assert.equal(send(ctx.dom,target,type,{touches:[touch(target),touch(target,60,20,2)]}).defaultPrevented,true,type);
+});
+
+
+test('class-hidden courtesy pause overlays do not release the active game touch lock',async()=>{
+ const css=await readFile(new URL('../public/games/shared/mobile-gestures.css',import.meta.url),'utf8');
+ assert.ok(css.includes('[data-game-gesture-reading]:not([hidden]):not(.hidden)'), 'both hidden attribute and hidden class must keep gameplay protected');
 });

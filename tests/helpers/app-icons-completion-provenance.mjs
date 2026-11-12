@@ -1,6 +1,7 @@
 // Historical views reverse only this exact, independently pinned installation patch.
 // Runtime and behavior tests continue to read live files directly.
-import {readFileSync as actual,readdirSync as actualDirectory} from 'node:fs';
+import {readdirSync as actualDirectory} from 'node:fs';
+import {readBeforePage as actual,pageParentBytes,inventoryBeforePage} from './mobile-gesture-page-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -34,7 +35,7 @@ export function validate(m){
  return m;
 }
 export function iconsParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
+ validate(m);bytes=pageParentBytes(path,bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
  // Accept an already reconstructed parent only when its bytes match the pin.
  const before=Buffer.from(f.beforeText);if(bytes.equals(before))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' icon live drift');assert.equal(sha256(bytes),f.sha256,path+' icon live SHA256 drift');
@@ -52,6 +53,7 @@ export function readBeforeIcons(file,options){
  const before=baseline.modifiedPaths.includes(path)?iconsParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 export function inventoryBeforeIcons(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePage(paths);
  assert.equal(new Set(paths).size,paths.length,'duplicate icon inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  // Older runtime inventory callers omit runtimeOnly at intervening boundaries.
