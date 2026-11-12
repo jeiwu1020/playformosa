@@ -5465,6 +5465,7 @@
   ],
   "modifiedPaths": [
     "public/assets/home.css",
+    "public/games/fast-hands/app.mjs",
     "public/games/javelin/app.mjs",
     "public/games/shared/play-counts.mjs",
     "public/games/shared/runner-platform.mjs",
@@ -5495,6 +5496,7 @@
   "addedPaths": [
     "docs/homepage/BASELINE.json",
     "docs/homepage/MANIFEST.json",
+    "tests/fast-hands/duck-pointerup-regression.test.mjs",
     "tests/helpers/homepage-provenance.mjs",
     "tests/homepage-portals.test.mjs",
     "tests/homepage-provenance.test.mjs",
