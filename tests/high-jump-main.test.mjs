@@ -20,8 +20,8 @@ test('production high-jump board accepts only positive cleared-height scores',()
 test('production play counts accept high jump alongside supported promoted counters, not uninstrumented games',()=>{
  const v={game:'high-jump',deviceId,runId:deviceId,startedAt:1000000};
  assert.equal(validateStart(v,1000000).game,'high-jump');
- for(const game of ['pole-vault','shot-put','discus','beer-slide','tower-climb'])assert.equal(validateStart({...v,game},1000000).game,game);
- for(const game of ['sprint-100m','run-400m','run-1500m','javelin','pinball'])assert.throws(()=>validateStart({...v,game},1000000));
+ for(const game of ['pole-vault','shot-put','discus','beer-slide','tower-climb','sprint-100m','run-400m','run-1500m','javelin'])assert.equal(validateStart({...v,game},1000000).game,game);
+ for(const game of ['pinball','unknown-game'])assert.throws(()=>validateStart({...v,game},1000000));
 });
 
 test('homepage renders the authorized jump card and rejects other artwork',async()=>{

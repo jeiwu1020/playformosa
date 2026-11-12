@@ -9,13 +9,13 @@ const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const valid={game:'reaction-rod',rules:'catch-rating-v1',unit:'catches',status:'done',score:5,secondaryScore:4.8123456789,nickname:'島民',deviceId:'00000000-0000-4000-8000-000000000001',submissionId:'00000000-0000-4000-8000-000000000002'};
 test('main navigation and independent shelf retain Rod and Fast Hands alongside approved additions',()=>{
  const d=new JSDOM(renderPage(catalog)).window.document;
- assert.deepEqual([...d.querySelectorAll('.site-header nav a')].map(a=>a.textContent),['十項全能','小遊戲','大遊戲','關於']);
+ assert.deepEqual([...d.querySelectorAll('.site-header nav a')].map(a=>a.textContent),['小遊戲','十項全能','大遊戲','play. one more.','關於']);
  assert.deepEqual(catalog.games.map(g=>g.id),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin']);
- assert.deepEqual(catalog.minigames.map(g=>g.id),['courtesy-contest', 'reaction-rod', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'tower-climb']);
+ assert.deepEqual(catalog.minigames.map(g=>g.id),['courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb']);
  assert.equal(d.querySelectorAll('#minigames .game-card').length,7);
- assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'courtesy-contest', 'reaction-rod', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'tower-climb', 'taiwanfighter']);
+ assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'soul10power', 'arcadeplatform']);
  assert.equal(d.querySelector('#minigames .game-cta[href="/games/reaction-rod/"]').getAttribute('href'),'/games/reaction-rod/');
- assert.equal(d.querySelector('[data-external-id] a').getAttribute('href'),'/api/play-counts/entries/taiwanfighter');
+ assert.equal(d.querySelector('[data-external-id="taiwanfighter"] a').getAttribute('href'),'/api/play-counts/entries/taiwanfighter');
 });
 test('Rod API validates full precision without weakening legacy schemas or admitting other games',()=>{
  assert.ok(BOARDS['reaction-rod']); assert.deepEqual(validateSubmission(valid),valid);

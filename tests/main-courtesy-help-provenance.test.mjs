@@ -28,7 +28,7 @@ test('promotion restoration rejects drift, missing/tampered additions, duplicate
 });
 test('expanded production retains Courtesy and original sports credits while admitting the requested games',async()=>{
  const sports=['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','sprint-100m','run-400m','run-1500m','javelin'];
- const mini=['courtesy-contest','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','beer-slide','tower-climb'];
+ const mini=['courtesy-contest','fast-hands','fast-hands-catch','fast-hands-duel','beer-slide','reaction-rod','tower-climb'];
  assert.deepEqual(catalog.games.map(x=>x.id),sports);assert.deepEqual(catalog.minigames.map(x=>x.id),mini);
  assert.deepEqual([...releasedGameIds].sort(),[...sports,...mini].sort());await assertReleasedGames(new URL('public/',root));
  const d=new JSDOM(readLive(new URL('public/games/shared/sports-credits.html',root))).window.document;assert.deepEqual([...d.querySelectorAll('main>section')].map(e=>e.id),sports);

@@ -112,17 +112,6 @@ export const catalog = {
     "input": "滑鼠／觸控／方向鍵"
   },
   {
-    "id": "reaction-rod",
-    "title": "接棒啦！",
-    "event": "夜市反應力",
-    "href": "/games/reaction-rod/",
-    "status": "available",
-    "image": "/assets/reaction-rod-card.png",
-    "imageStyle": "illustration",
-    "kicker": "十根棒子，手腦各憑本事。",
-    "input": "滑鼠／觸控／鍵盤"
-  },
-  {
     "id": "fast-hands",
     "title": "快手王｜鴨沒漏補",
     "event": "一筆往返手速挑戰",
@@ -165,6 +154,17 @@ export const catalog = {
     "imageStyle": "illustration",
     "kicker": "杯子要到站，啤酒別下班。",
     "input": "滑鼠／觸控／空白鍵"
+  },
+  {
+    "id": "reaction-rod",
+    "title": "接棒啦！",
+    "event": "夜市反應力",
+    "href": "/games/reaction-rod/",
+    "status": "available",
+    "image": "/assets/reaction-rod-card.png",
+    "imageStyle": "illustration",
+    "kicker": "十根棒子，手腦各憑本事。",
+    "input": "滑鼠／觸控／鍵盤"
   },
   {
     "id": "tower-climb",

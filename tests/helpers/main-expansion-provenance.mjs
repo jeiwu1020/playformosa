@@ -1,6 +1,7 @@
+import {readFileSync as liveRead} from 'node:fs';
 // Exact additive boundary for the approved Expansion import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual,readdirSync as actualDirectory} from 'node:fs';
+import {readBeforeHomepage as actual,homepageParentBytes,inventoryBeforeHomepage,readdirBeforeHomepage as actualDirectory} from './homepage-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -34,8 +35,9 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 export function expansionParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);
+ const before=f?Buffer.from(f.beforeText):null;if(before?.equals(bytes))return before;
+ bytes=homepageParentBytes(path,bytes);if(!f)return bytes;if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' expansion live drift');assert.equal(sha256(bytes),f.sha256,path+' expansion live SHA256 drift');return before;
 }
 export function readBeforeExpansion(file,options){
@@ -45,16 +47,19 @@ export function readBeforeExpansion(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?expansionParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-export function inventoryBeforeExpansion(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+export function inventoryBeforeExpansion(paths,{read=p=>liveRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforeHomepage(paths,{read,runtimeOnly});
  assert.equal(new Set(paths).size,paths.length,'duplicate expansion inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
  const additions=m.addedPaths.filter(p=>!onlyRuntime||runtime(p));
  for(const p of additions)assert.equal(paths.filter(x=>x===p).length,1,p+' expansion addition must appear once');
- for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' expansion inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' expansion inventory SHA256 drift');}
+ for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=homepageParentBytes(f.path,read(f.path));assert.equal(gitBlob(bytes),f.gitBlob,f.path+' expansion inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' expansion inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+export function assertCompleteInventory(paths,{read=p=>liveRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforeHomepage(paths,{read});
+ const inputRead=read;read=p=>homepageParentBytes(p,inputRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete expansion inventory');
  assert.deepEqual(inventoryBeforeExpansion(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(expansionParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
@@ -63,13 +68,13 @@ export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p
 
 // Directory-only historical callers must prove every omitted runtime byte.
 // Existing directories stay visible; unknown descendants are never filtered out.
-export function entriesBeforeExpansion(directory,entries,{read=p=>actual(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
+export function entriesBeforeExpansion(directory,entries,{read=p=>liveRead(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
  const absolute=directory instanceof URL?fileURLToPath(directory):resolve(String(directory)),path=relative(root,absolute).split(sep).join('/');
  if(path!=='public'&&!path.startsWith('public/'))return entries;
  const m=validate(manifest()),prefix=path+'/',name=e=>typeof e==='string'?e:Buffer.isBuffer(e)?e.toString():e.name,names=entries.map(name);
  assert.equal(new Set(names).size,names.length,'duplicate expansion directory entry');
  const additions=m.addedFiles.filter(f=>f.path.startsWith(prefix)),omit=new Set();
- function verify(f){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' expansion directory drift');assert.equal(sha256(bytes),f.sha256,f.path+' expansion directory SHA256 drift');}
+ function verify(f){const bytes=homepageParentBytes(f.path,read(f.path));assert.equal(gitBlob(bytes),f.gitBlob,f.path+' expansion directory drift');assert.equal(sha256(bytes),f.sha256,f.path+' expansion directory SHA256 drift');}
  for(const child of new Set(additions.map(f=>f.path.slice(prefix.length).split('/')[0]))){
   const target=prefix+child,existing=baseline.files.some(f=>f.path===target||f.path.startsWith(target+'/'));
   if(existing)continue;

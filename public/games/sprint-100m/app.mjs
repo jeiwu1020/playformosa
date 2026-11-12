@@ -1,3 +1,4 @@
+import{recordPlayStart}from'../shared/play-counts.mjs';
 import{createEntryShell,suspendHelpPresentation}from'../shared/entry-shell.mjs';
 import{syncPauseButton}from'../shared/game-ui.mjs';
 import{bindShare,freezeScene}from'./share.mjs';
@@ -19,7 +20,7 @@ function clearKeys(){const was=race.paused;race.paused=true;for(const[b,id]of he
 function syncUI(){syncPauseButton($('pause'),{paused:replay?replay.paused:race.paused,available:active&&!resultOpen});audioSuspended=Boolean(race.paused||replay);notifyAudio();}
 function close(){resultOpen=false;menuAudio.unlock();modal.close();race.paused=false;clearKeys();soundscape.resume();last=performance.now();canvas.focus({preventScroll:true});syncUI();}
 function show(html,keepFinishAudio=false){if(!keepFinishAudio)soundscape.suspend();race.paused=!keepFinishAudio;clearKeys();$('modalBody').innerHTML=html;if(!modal.open)modal.showModal();modal.scrollTop=0;const focus=$('modalBody').querySelector('h2');if(focus){focus.tabIndex=-1;focus.focus({preventScroll:true});}syncUI();}
-function reset(){entry.close({restoreView:false});leaveReplay(false);share?.reset();share=null;snapshot=null;photo='';soundscape.reset();race=createRace();active=true;visualTime=0;runout=createRunout();recorder=createRecorder();savedResult=null;resultOpen=false;finishedShown=false;$('viewResult').hidden=true;close();}
+function reset(){entry.close({restoreView:false});leaveReplay(false);share?.reset();share=null;snapshot=null;photo='';soundscape.reset();race=createRace();active=true;visualTime=0;runout=createRunout();recorder=createRecorder();savedResult=null;resultOpen=false;finishedShown=false;$('viewResult').hidden=true;close();void recordPlayStart(window,'sprint-100m');}
 function help(){entry.open({help:true});}
 function openPauseMenu(){entry.openPause();const button=entry.dialog.querySelector('[data-pf-pause-ranking]');if(button)button.textContent='本機紀錄';}
 function pause(){if(!active)return;if(replay){replay.paused=!replay.paused;syncUI();return;}if(resultOpen)return;modal.close();race.paused=true;clearKeys();soundscape.suspend();last=performance.now();openPauseMenu();syncUI();}

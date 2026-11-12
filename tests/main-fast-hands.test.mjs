@@ -11,11 +11,11 @@ const expected=[
  ['fast-hands-catch','快手王｜彈無虛接','/games/fast-hands/catch.html?intro=1','/games/fast-hands/assets/intro-catch-generated.webp'],
  ['fast-hands-duel','快手王｜快手對決','/games/fast-hands/duel.html?intro=1','/games/fast-hands/assets/intro-duel-generated.webp']
 ];
-const ids=['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'courtesy-contest', 'reaction-rod', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'tower-climb'];
+const ids=['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb'];
 test('main admits exactly seventeen games and all three approved Fast Hands intro cards',()=>{
  assert.deepEqual([...catalog.games,...catalog.minigames].map(g=>g.id),ids);
  for(const [id,title,href,image] of expected){const g=catalog.minigames.find(g=>g.id===id);assert.deepEqual([g.title,g.href,g.image],[title,href,image]);}
- const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'courtesy-contest', 'reaction-rod', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'tower-climb', 'taiwanfighter']);
+ const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'soul10power', 'arcadeplatform']);
  for(const [,title,href,image] of expected){assert.ok(html.includes(title));assert.ok(html.includes(`href="${href}"`));assert.ok(html.includes(`src="${image}"`));}
 });
 test('new minigame admission rejects unapproved IDs, routes, query strings and artwork',()=>{

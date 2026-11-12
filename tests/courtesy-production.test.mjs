@@ -38,5 +38,5 @@ test('production Courtesy play counts add one key and leave existing totals inta
  const response=await handleRequest(new Request(origin+'/api/play-counts'),f.env);const {counts}=await response.json();assert.equal(counts['courtesy-contest'].count,1);assert.equal(counts['long-jump'].count,1);
  for(const game of ['hurdles','high-jump','reaction-rod','fast-hands','fast-hands-catch','fast-hands-duel','home','taiwanfighter'])assert.ok(Object.hasOwn(counts,game));
  f.env.LEADERBOARD_SCOPE='qa';assert.equal((await start('courtesy-contest')).status,400);assert.equal(f.db.raw.exec("SELECT count(*) FROM play_count_receipts WHERE scope='qa' AND counter_key='courtesy-contest'")[0].values[0][0],0);f.env.LEADERBOARD_SCOPE='production';
- for(const game of ['unknown-game','sprint-100m','run-400m','run-1500m','javelin','overtime-pinball-60s'])assert.equal((await start(game)).status,400);
+ for(const game of ['unknown-game','overtime-pinball-60s'])assert.equal((await start(game)).status,400);
 });

@@ -1,3 +1,4 @@
+import{recordPlayStart}from'../shared/play-counts.mjs';
 import{createEntryShell,helpIsOpen,suspendHelpPresentation,ensurePauseHelp}from'../shared/entry-shell.mjs';
 import{syncPauseButton}from'../shared/game-ui.mjs';
 import{createAudioAdapter}from'./platform-audio.mjs';
@@ -17,7 +18,7 @@ function pauseMenu(){if(!started||resultShown&&!replay)return;setPaused(true);if
 function resumeGame(event){entry?.close({restoreView:false});if(event?.isTrusted)audio.unlock();setPaused(false);canvas.focus({preventScroll:true});}
 function close(){modal.close();if(!started){entry?.open();return}if(started&&!resultShown){pauseMenu()}else{setPaused(false);canvas.focus({preventScroll:true})}}
 function open(html){modal.removeAttribute('aria-labelledby');entry?.close({restoreView:false});modal.classList.remove('has-result');setPaused(true);body.innerHTML=html;if(!modal.open)modal.showModal()}
-function fresh(){entry?.close({restoreView:false});share.reset();inputsClear();last=performance.now();acc=0;started=true;$('startScreen').hidden=true;presentation=createPresentation();$('resultToast').hidden=true;modal.close();audio.reset();state=createState();paused=false;history=[];replay=null;recorded=false;resultShown=false;syncPauseButton($('pause'),{paused:false,available:true});canvas.focus({preventScroll:true});$('viewResult').hidden=true;$('replayBadge').hidden=true;$('replayBack').hidden=true;audio.resume();}
+function fresh(){entry?.close({restoreView:false});share.reset();inputsClear();last=performance.now();acc=0;started=true;$('startScreen').hidden=true;presentation=createPresentation();$('resultToast').hidden=true;modal.close();audio.reset();state=createState();paused=false;history=[];replay=null;recorded=false;resultShown=false;syncPauseButton($('pause'),{paused:false,available:true});canvas.focus({preventScroll:true});$('viewResult').hidden=true;$('replayBadge').hidden=true;$('replayBack').hidden=true;audio.resume();void recordPlayStart(window,'javelin');}
 function keyDown(k){if(!started||paused||replay||state.phase==='result')return;audio.unlock();press(state,k);document.querySelector(`[data-pf-key="${k}"]`)?.classList.add('held')}
 function keyUp(k){if(!paused&&!replay)release(state,k);document.querySelector(`[data-pf-key="${k}"]`)?.classList.remove('held')}
 const pointerIds=new Map();

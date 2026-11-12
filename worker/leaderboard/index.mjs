@@ -1,5 +1,5 @@
 import {handlePlayCounts} from '../play-counts/index.mjs';
-import {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';
+import {entryKey,handleExternalEntry} from '../play-counts/entries.mjs';
 import {LeaderboardRepository} from './repository.mjs';
 import {ExpandedSportsRepository} from './expanded-sports-repository.mjs';
 import {ReactionRodRepository} from './reaction-rod-repository.mjs';
@@ -79,7 +79,7 @@ function parseSubmission(text,scope){
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
 export async function handleRequest(request,env,now=Date.now(),context){
  const url=new URL(request.url);
- if(url.pathname===fighterEntryPath)return handleFighterEntry(request,env,now,context);
+ if(entryKey(url.pathname))return handleExternalEntry(request,env,now,context);
  if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});
  if(env.LEADERBOARD_ENABLED!=='true'||!['qa','production'].includes(env.LEADERBOARD_SCOPE)||!env.DB||env.LEADERBOARD_ORIGIN!==url.origin)return json({error:'unavailable'},503);
