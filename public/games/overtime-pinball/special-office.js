@@ -3,8 +3,8 @@ import {successfulInteraction} from './interactions.js';
 export function buildSpecialStation({T,model,type,box,cylinder,label,C}){
  const front=(text,w,h,y)=>{const m=label(text,w,h,'#183a3c','#ffe3a0');m.rotation.y=Math.PI;m.position.set(0,y,-.96);m.userData.occludes=false;model.add(m);return m;};
  if(type==='shredder'){
-  box(2.2,1.7,1.8,C.teal,model,0,.9,0);box(2.3,.35,1.9,C.ink,model,0,1.88,0);box(1.75,.04,.18,C.orange,model,0,2.08,-.2);front('薪資單',1.7,.65,1.1);
-  const salary=new T.Group();salary.name='salaryStream';model.add(salary);for(let n=0;n<7;n++){const m=box(.17,.03,1.6,C.cream,salary,-.6+n*.2,2.1,-.95);m.rotation.x=.14*(n%2?1:-1);m.userData.occludes=false;}
+  box(2.2,1.7,1.8,C.teal,model,0,.9,0);box(2.3,.35,1.9,C.ink,model,0,1.88,0);const intake=box(1.75,.18,.04,C.orange,model,0,1.36,-.93);intake.name='shredderIntake';front('薪資單',1.7,.65,.85).name='shredderSalaryLabel';
+  const salary=new T.Group();salary.name='salaryStream';model.add(salary);for(let n=0;n<7;n++){const m=box(.17,.03,1.6,C.cream,salary,-.6+n*.2,1.36,-.95);m.rotation.x=.14*(n%2?1:-1);m.userData.occludes=false;}
   const badge=front('+2600',2.2,.65,2.8);badge.position.z=0;
   return (i)=>{const active=i?.activity==='shredder';salary.visible=!!active;salary.scale.z=active?1+(i.pulls||0)*.12+i.pullPulse:1;salary.position.y=active&&i.stage==='launch'&&successfulInteraction(i)?Math.sin(Math.min(1,i.launchElapsed/.55)*Math.PI)*1.8:0;salary.rotation.z=active?Math.sin(i.elapsed*12)*i.pullPulse*.5:0;};
  }
