@@ -1,3 +1,4 @@
+import {keyboardHint} from './keyboard-hints.js';
 /** One input hint shared by keyboard and existing on-screen L/R controls. No input handlers here. */
 export function routeCue(game,view='reverse'){
  const run=game?.mailRun;if(!run)return null;
@@ -12,5 +13,5 @@ export function mountRouteHud({document:doc=globalThis.document,view='reverse'}=
  const panel=doc.createElement('section');panel.id='routeChoice';panel.hidden=true;panel.setAttribute('aria-label','公文軌道出口');
  const title=doc.createElement('b'),hint=doc.createElement('span'),detail=doc.createElement('small'),progress=doc.createElement('progress');progress.max=1.2;progress.setAttribute('aria-label','選擇出口剩餘時間');panel.append(title,hint,detail,progress);doc.body.append(panel);
  let disposed=false;
- return {panel,update(game,{playing=true,paused=false}={}){if(disposed)return;const cue=playing&&!paused?routeCue(game,view):null;panel.hidden=!cue;doc.body.classList.toggle('route-choice-active',!!cue);if(!cue)return;title.textContent=cue.title;hint.textContent=cue.hint;detail.textContent=cue.detail;progress.hidden=!cue.open;progress.value=Math.min(1.2,cue.remaining);},dispose(){if(disposed)return;disposed=true;panel.remove();css.remove();doc.body.classList.remove('route-choice-active');}};
+ return {panel,update(game,{playing=true,paused=false}={}){if(disposed)return;const cue=playing&&!paused?routeCue(game,view):null;panel.hidden=!cue;doc.body.classList.toggle('route-choice-active',!!cue);if(!cue)return;title.textContent=cue.title;hint.textContent=keyboardHint(cue.hint,doc);detail.textContent=keyboardHint(cue.detail,doc);progress.hidden=!cue.open;progress.value=Math.min(1.2,cue.remaining);},dispose(){if(disposed)return;disposed=true;panel.remove();css.remove();doc.body.classList.remove('route-choice-active');}};
 }

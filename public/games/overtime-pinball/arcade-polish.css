@@ -83,3 +83,31 @@ body.pf-game.playing #mobileCue:not([hidden]){background:#155469;border:1px soli
  body.pf-game #intro .home-best{font-size:13px;line-height:1.2}
  body.pf-game #intro .intro-options .text-button{font-size:13px;min-height:44px;padding:6px 3px}
 }
+
+/* Keyboard hints: screen L/R labels are controls, not literal keyboard keys.
+   Coarse-pointer phones keep the existing clean L/R touch presentation. */
+body.pf-game.playing #controls kbd{display:none}
+body.pf-game.desktop-layout.playing #controls .control-label{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;line-height:1.15}
+body.pf-game.desktop-layout.playing #controls kbd{display:block;font:800 14px/1.2 system-ui,sans-serif;letter-spacing:1px;white-space:nowrap;color:#153c48;background:#fff4d580;border:1px solid #153c4833;border-radius:6px;padding:3px 7px}
+body.pf-game.desktop-layout.playing #controls .flipper{gap:10px}
+body.pf-game.desktop-layout.playing #interactionOffer b,body.pf-game.desktop-layout.playing #routeChoice span,body.pf-game.desktop-layout.playing #routeChoice small{white-space:normal;overflow-wrap:normal;line-height:1.35}
+body.pf-game.desktop-layout.playing #activityText{overflow-wrap:normal;line-height:1.35}
+@media(hover:none),(pointer:coarse){body.pf-game.desktop-layout.playing #controls kbd{display:none}}
+
+/* In-frame menus rotate together with the canvas, including dynamic dialogs. */
+body.pf-game .game-menu-backdrop{position:fixed;inset:0;background:#061f32c9;touch-action:none}
+body.pf-game dialog[data-game-menu]{position:fixed;inset:0;margin:auto;transform:none;width:min(640px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);height:fit-content;padding:20px;border:2px solid #63b4bf;border-top:5px solid #ffd35b;border-radius:18px;background:#fff3d5;color:#153c48;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;box-shadow:0 12px 40px #031c3066}
+body.pf-game dialog[data-game-menu]:not([open]){display:none!important}
+body.pf-game dialog[data-game-menu][open]{display:block}
+body.pf-game dialog[data-game-menu] button{min-height:44px;border-radius:10px;line-height:1.3;white-space:normal;touch-action:manipulation}
+body.pf-game dialog[data-game-menu] h2{margin:0 0 14px;font-size:25px;line-height:1.2;color:#153c48}
+body.pf-game dialog[data-game-menu] p{font-size:15px;line-height:1.5;color:#294c50}
+body.pf-game dialog[data-game-menu] select[hidden]{display:none!important}
+body.pf-game .game-menu-choices{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+body.pf-game .game-menu-choices button{flex:1 1 120px;font-size:16px;font-weight:800;padding:10px 12px;background:#21667a;color:#fff5db;border:1px solid #71b9bf}
+body.pf-game .game-menu-choices button[aria-pressed="true"]{background:#ffd35b;color:#123d4e;border:2px solid #986728}
+body.pf-game .game-menu-choices button[aria-pressed="true"]:after{content:' ✓'}
+body.pf-game dialog[data-game-menu] :focus-visible{outline:3px solid #ba512d;outline-offset:3px}
+@media(orientation:landscape) and (max-height:520px){body.pf-game dialog[data-game-menu]{width:min(740px,calc(100vw - 20px));max-height:calc(100dvh - 16px);padding:14px 18px;border-radius:14px}body.pf-game dialog[data-game-menu] h2{font-size:22px;margin-bottom:10px}body.pf-game .game-menu-choices{margin-bottom:10px}}
+body.pf-game #pauseScreen[data-game-menu]:not([open]){display:none!important}
+body.pf-game #pauseScreen[data-game-menu][open]{display:grid}

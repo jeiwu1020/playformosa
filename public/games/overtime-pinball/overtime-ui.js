@@ -1,3 +1,4 @@
+import {keyboardHint} from './keyboard-hints.js';
 // Passive collision offer: input routing belongs to the existing L/R controls.
 export function mountInteractionOffer({document,game,mode}){
  const panel=document.getElementById('interactionOffer'),bar=panel.querySelector('progress'),arrows=[...document.querySelectorAll('.offer-arrow')];
@@ -9,7 +10,7 @@ export function mountInteractionOffer({document,game,mode}){
   }
   bar.hidden=false;
   panel.hidden=false;panel.dataset.offerId=String(offer.id);document.body.classList.add('interaction-offer-active');
-  panel.querySelector('b').textContent='按 L／R 進入互動';panel.querySelector('small').textContent=offer.label+' · 不按就繼續彈';panel.setAttribute('aria-label',offer.label+'：按L/R互動，不按繼續彈');arrows.forEach(el=>el.hidden=false);
+  panel.querySelector('b').textContent=keyboardHint('按 L／R 進入互動',document);panel.querySelector('small').textContent=offer.label+' · 不按就繼續彈';panel.setAttribute('aria-label',keyboardHint(offer.label+'：按L/R互動，不按繼續彈',document));arrows.forEach(el=>el.hidden=false);
   bar.max=offer.duration;bar.value=Math.min(offer.remaining,offer.duration);panel.style.setProperty('--offer-ratio',String(bar.value/bar.max));return offer;
  }
  sync();return{sync,hide,dispose:hide};

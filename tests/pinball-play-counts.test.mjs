@@ -3,10 +3,10 @@ const source=readFileSync(new URL('../public/games/overtime-pinball/main.js',imp
 const fn=name=>{const line=source.split('\n').find(l=>l.startsWith(`function ${name}(`));assert.ok(line,name);return line;};
 test('pinball actual start and retry count once, opening completion/pause/resume do not count',()=>{
  let recoveryHides=0;
- const calls=[],noop=()=>{},node={hidden:false,textContent:'',focus:noop,classList:{add:noop,remove:noop},querySelector:()=>node};
+ const calls=[],noop=()=>{},node={hidden:false,open:false,showModal(){assert.equal(this.open,false);this.open=true;},close(){this.open=false;},textContent:'',focus:noop,classList:{add:noop,remove:noop},querySelector:()=>node};
  const c={releaseRecovery:{hide:()=>{recoveryHides++;}},recordPlayStart:(win,key)=>{calls.push(key);},window:{},platform:{reset:noop},game:{reset:noop,start:noop,ball:{},round:{}},roundOptions:{limit:180,best:()=>0},gameAudio:{unlock:noop,setState:noop},clearRoundVisuals:noop,document:{body:node},cameraRig:{reset:noop},clearInput:noop,playFrame:()=>({w:1,h:1}),cameraPose:()=>({position:[0,0,0],target:[0,0,0],fov:45}),openingPose:()=>({position:[0,0,0],target:[0,0,0],fov:45}),innerWidth:1,innerHeight:1,comfort:false,camera:{position:{set:noop},userData:{look:{set:noop}}},$:()=>node,interactionsOn:true,mode:'intro',checkOrientation:()=>({canResume:true}),sound:noop};
  vm.createContext(c);for(const name of ['beginCinematic','openingKick','completeOpening','pause','resume'])vm.runInContext(fn(name),c);
- c.beginCinematic();assert.deepEqual(calls,['overtime-pinball']);c.completeOpening();c.completeOpening();assert.equal(calls.length,1);c.pause();c.resume();assert.equal(calls.length,1);c.beginCinematic();assert.deepEqual(calls,['overtime-pinball','overtime-pinball']);
+ c.beginCinematic();assert.deepEqual(calls,['overtime-pinball']);c.completeOpening();c.completeOpening();assert.equal(calls.length,1);c.pause();assert.equal(node.open,true,'pause opens the game dialog');assert.equal(c.mode,'paused');assert.equal(calls.length,1,'pause does not add plays');c.resume();assert.equal(node.open,false,'resume closes the game dialog');assert.equal(c.mode,'playing');assert.equal(calls.length,1);c.beginCinematic();assert.deepEqual(calls,['overtime-pinball','overtime-pinball']);
  assert.equal(recoveryHides,2,'both start and retry dismiss recovery without adding plays');
  assert.equal((source.match(/\brecordPlayStart\(/g)||[]).length,1);
 });

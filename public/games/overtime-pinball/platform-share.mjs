@@ -1,3 +1,4 @@
+import {prepareGameDialog} from './game-menus.js';
 import {paintPinballScoreCard} from './score-card.mjs';
 // Game-owned sharing: the caller invokes capture immediately after the settled render.
 export function createPinballShare({document,container,status}){
@@ -10,7 +11,7 @@ export function createPinballShare({document,container,status}){
  for(const action of [threads,image,copy]){action.style.minWidth='44px';action.style.minHeight='44px';}
  container.classList.add('pf-share-actions');container.append(threads,image,copy);status.setAttribute('role','status');
  let generation=0,snapshot=null,frozen=null,file=null,text='',encoding=false,imageBusy=false,copyBusy=false,downloadURL=null;
- const fallback=make('dialog');fallback.className='pf-pinball-share-dialog';fallback.setAttribute('aria-label','儲存或複製本次成績');
+ const fallback=prepareGameDialog(make('dialog'));fallback.className='pf-pinball-share-dialog';fallback.setAttribute('aria-label','儲存或複製本次成績');
  Object.assign(fallback.style,{maxWidth:'min(90vw,42rem)',maxHeight:'85dvh',overflow:'auto',overscrollBehavior:'contain',touchAction:'pan-y'});
  const fallbackContent=make('div'),close=make('button','關閉');close.type='button';close.style.minHeight='44px';fallback.append(fallbackContent,close);document.body.append(fallback);
  let opener=null,fallbackURL=null;
@@ -23,7 +24,7 @@ export function createPinballShare({document,container,status}){
   if(kind==='copy'){
    const label=make('p','無法自動複製，請選取下方文字手動複製。'),field=make('textarea');field.value=text;field.readOnly=true;field.setAttribute('aria-label','本次成績與網址');field.style.width='100%';field.rows=6;fallbackContent.append(label,field);if(!fallback.open)fallback.showModal();field.focus();field.select();
   }else{
-   const help=make('p','無法開啟圖片分享，請長按圖片儲存，或使用下方下載連結。'),preview=make('img'),download=make('a','下載 PNG');fallbackURL=win.URL.createObjectURL(file);preview.src=fallbackURL;preview.alt=text;preview.style.maxWidth='100%';preview.style.height='auto';download.href=fallbackURL;download.download=file.name;download.style.display='block';download.style.minHeight='44px';fallbackContent.append(help,preview,download);if(!fallback.open)fallback.showModal();close.focus();
+   const help=make('p','無法開啟圖片分享，請長按圖片儲存，或使用下方下載連結。'),preview=make('img'),download=make('a','下載成績圖片');fallbackURL=win.URL.createObjectURL(file);preview.src=fallbackURL;preview.alt=text;preview.style.maxWidth='100%';preview.style.height='auto';download.href=fallbackURL;download.download=file.name;download.style.display='block';download.style.minHeight='44px';fallbackContent.append(help,preview,download);if(!fallback.open)fallback.showModal();close.focus();
   }
  }
  function sync(){image.textContent=!file&&frozen&&!encoding?'重試準備成績圖片':mobile()?'分享成績圖片':'下載成績圖片';image.disabled=!snapshot||encoding||imageBusy||(!file&&!frozen);copy.disabled=!snapshot||copyBusy;threads.setAttribute('aria-disabled',String(!snapshot));}
@@ -40,7 +41,7 @@ export function createPinballShare({document,container,status}){
   if(!snapshot||encoding||imageBusy)return;if(!file){encode();return;}
   if(!mobile()){
    const token=generation;imageBusy=true;sync();win.setTimeout(()=>{if(token===generation){imageBusy=false;sync();}},500);
-   if(downloadURL)win.URL.revokeObjectURL(downloadURL);downloadURL=win.URL.createObjectURL(file);const link=make('a');link.href=downloadURL;link.download=file.name;document.body.append(link);link.click();link.remove();status.textContent='已開啟 PNG 下載。';return;
+   if(downloadURL)win.URL.revokeObjectURL(downloadURL);downloadURL=win.URL.createObjectURL(file);const link=make('a');link.href=downloadURL;link.download=file.name;document.body.append(link);link.click();link.remove();status.textContent='已開始下載成績圖片。';return;
   }
   const token=generation,files=[file];
   if(typeof win.navigator.share!=='function'||!win.navigator.canShare?.({files})){showFallback('image');status.textContent='此瀏覽器不支援圖片分享，可手動儲存。';return;}
