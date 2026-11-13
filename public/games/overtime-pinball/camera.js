@@ -1,4 +1,3 @@
-import {COMPANY_POINTS} from './company-design.js';
 import {MAIL_PATH} from './mail-run.js';
 import {MAIL_BRANCHES,SHORT_PATH} from './office-routes.js';
 // Gameplay has one full-table pose. Only equipment work starts a finite close-up.
@@ -18,12 +17,12 @@ for(const x of[-17.6,17.6])for(const z of[-20,49])for(const y of[0,4.8])critical
 for(const p of MAIL_PATH)for(const dx of[-.85,.85])for(const y of[.3,4.8])criticalBounds.push([p.x+dx,y+(p.y||0),p.z]);
 // Gameplay framing excludes decorative forecourt/sign for all devices. Opening
 // cinematics retain their own camera. Every real route/actor envelope remains.
-const mobileBounds=[...COMPANY_POINTS];
+const mobileBounds=[];
 for(const [xs,zs,ys]of[[[-18.8,18.8],[-20,50.3],[0,5]],[[-18.8,18.8],[52.3],[2.2,6.05]]])
  for(const x of xs)for(const z of zs)for(const y of ys)mobileBounds.push([x,y,z]);
 for(const path of [MAIL_PATH,SHORT_PATH,...Object.values(MAIL_BRANCHES).map(b=>b.path)])for(const p of path)for(const dx of [-1.8,1.8])for(const y of [0,5])mobileBounds.push([p.x+dx,y+(p.y||0),p.z]);
 function fullTableFit(w,h,pitch,sign,fov,top=0,bottom=0,portrait=false,compact=false){
- const length=Math.hypot(1,pitch),tan=Math.tan(fov*Math.PI/360),highY=tan*(.97-2*top/h),lowY=tan*(-.97+2*bottom/h),kx=tan*w/Math.max(1,h)*(portrait?1.02:.94);
+ const length=Math.hypot(1,pitch),tan=Math.tan(fov*Math.PI/360),highY=tan*(.985-2*top/h),lowY=tan*(-.985+2*bottom/h),kx=tan*w/Math.max(1,h)*(portrait?1.02:.94);
  const points=mobileBounds.map(p=>{const[x,y,z]=world(...p);return{x,a:(pitch*y+sign*z)/length,b:(y-sign*pitch*z)/length};});
  // Camera depth must satisfy horizontal bounds and a nonempty vertical interval.
  const lower=Math.max(...points.map(p=>p.b+highY*p.a)),upper=Math.min(...points.map(p=>p.b+lowY*p.a));

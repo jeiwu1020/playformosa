@@ -74,3 +74,29 @@
  body.pf-game.playing #mobileCue:not([hidden]){left:calc((100vw + 16px) / 3);right:calc((100vw + 16px) / 3);top:calc(var(--pf-header-height) + 4px);width:auto;max-width:none;max-height:74px;font-size:12px;padding:4px 5px;line-height:1.15}
  body.pf-game.playing #mobileCue>b{font-size:11px}
 }
+
+/* Space A: landscape UI occupies the existing side space, not a full-width
+   stripe. Every native control remains available at its original touch size. */
+@media(orientation:landscape){
+ body.pf-game.playing .pf-header{position:fixed;left:var(--safe-left,0px);right:auto;top:var(--safe-top,0px);width:232px;max-width:232px;min-height:0;padding:6px;gap:4px;align-content:start;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+ body.pf-game.playing .pf-header .pf-title{display:none}
+ body.pf-game.playing .pf-header nav{display:contents}
+ body.pf-game.playing .pf-header nav button,body.pf-game.playing .pf-header .pf-home{min-height:44px;min-width:44px}
+ body.pf-game.playing #playFrame{top:var(--safe-top,0px);bottom:var(--safe-bottom,0px)}
+ body.pf-game.playing #playStatus{top:calc(var(--safe-top,0px) + 116px)}
+}
+@media(orientation:landscape) and (max-height:600px){
+ body.pf-game{--camera-top-reserve:0px}
+ body.pf-game.playing .pf-header{width:148px;max-width:148px;padding:4px;gap:2px;grid-template-columns:repeat(3,minmax(0,1fr))}
+ body.pf-game.playing .pf-header nav{display:contents}
+ body.pf-game.playing .pf-header nav button{padding:0 4px;font-size:11px}
+ body.pf-game.playing .pf-header .pf-home{padding:0 6px}
+ body.pf-game.playing #playFrame{left:calc(var(--safe-left,0px) + 152px);right:calc(var(--safe-right,0px) + 156px)}
+ body.pf-game.playing #playStatus{left:calc(var(--safe-left,0px) + 4px);right:auto;top:calc(var(--safe-top,0px) + 100px);width:140px;display:flex;flex-direction:column;gap:3px}
+ body.pf-game.playing .scorecard{width:140px;padding:3px 5px}
+ body.pf-game.playing #lampHud{position:static;width:140px;padding:2px}
+ body.pf-game.playing #lampHud>div:first-child{gap:2px;justify-content:space-between}
+ body.pf-game.playing #lampHud>div:first-child span{font-size:11px;padding:1px 3px}
+ body.pf-game.playing #mobileCue:not([hidden]){left:auto;right:calc(var(--safe-right,0px) + 4px);top:calc(var(--safe-top,0px) + 8px);width:148px;max-width:148px;max-height:180px;font-size:13px;padding:6px;line-height:1.25}
+ body.pf-game.playing #controls{left:calc(var(--safe-left,0px) + 4px);right:calc(var(--safe-right,0px) + 4px)}
+}

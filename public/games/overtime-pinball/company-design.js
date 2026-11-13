@@ -1,4 +1,5 @@
-export const DOOR={navy:0x254c60,cream:0xf2e3c3,brass:0xd5b568,glass:0x7ac8cf};
+import {OFFICE_PALETTE as C,OFFICE_SURFACES} from './office-palette.js';
+export const DOOR=Object.freeze({navy:C.teal,cream:C.cream,brass:C.yellow,glass:OFFICE_SURFACES.glass});
 export function buildDoor({T,g,box,cylinder,length,side}){
  g.name='officeDoor-'+side;
  for(const y of[.3,1.9])box(length,.22,.72,DOOR.cream,g,length/2,y,0);

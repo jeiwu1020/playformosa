@@ -1,3 +1,4 @@
+import {OFFICE_PALETTE} from './office-palette.js';
 import {LOTTERY_PRIZES} from './lottery-events.js';
 /** Office raffle appliance. Shared collision footprint is authoritative; all solid
  * decoration stays within it. No labels, lights, input, physics or full-screen FX.
@@ -5,7 +6,7 @@ import {LOTTERY_PRIZES} from './lottery-events.js';
 export function createRaffleMachine(T,{parent,shape}){
  if(!parent||![shape?.hx,shape?.hz].every(v=>Number.isFinite(v)&&v>0))throw new TypeError('positive shared raffle footprint required');
  const root=new T.Group();root.name='company-raffle-machine';parent.add(root);
- const geometries=new Set(),materials=new Set();const C={ink:0x192c35,teal:0x3d8d85,cream:0xfff1cf,gold:0xf4d274,blue:0x67ddff,pink:0xe8a6b4};
+ const geometries=new Set(),materials=new Set();const C={...OFFICE_PALETTE,gold:OFFICE_PALETTE.yellow,pink:OFFICE_PALETTE.orange};
  const material=(color,vertexColors=false)=>{const m=new T.MeshToonMaterial({color,vertexColors});materials.add(m);return m;};
  const batch=parts=>{const ps=[],ns=[],cs=[];for(const part of parts){const g=part.geometry.index?part.geometry.toNonIndexed():part.geometry.clone();const transform=new T.Object3D();transform.position.set(...(part.at||[0,0,0]));transform.rotation.set(...(part.rotation||[0,0,0]));transform.updateMatrix();g.applyMatrix4(transform.matrix);const p=g.getAttribute('position'),n=g.getAttribute('normal'),c=new T.Color(part.color);for(let i=0;i<p.count;i++){ps.push(p.getX(i),p.getY(i),p.getZ(i));ns.push(n.getX(i),n.getY(i),n.getZ(i));cs.push(c.r,c.g,c.b);}g.dispose();part.geometry.dispose();}const merged=new T.BufferGeometry();merged.setAttribute('position',new T.Float32BufferAttribute(ps,3));merged.setAttribute('normal',new T.Float32BufferAttribute(ns,3));merged.setAttribute('color',new T.Float32BufferAttribute(cs,3));merged.computeBoundingSphere();geometries.add(merged);return merged;};
  const part=(x,y,z,color,at)=>({geometry:new T.BoxGeometry(x,y,z),color,at});

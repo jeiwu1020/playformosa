@@ -1,3 +1,4 @@
+import {OFFICE_PALETTE,OFFICE_SURFACES} from './office-palette.js';
 import {LAYOUT} from './route-layout.js';
 import {REWARD_ITEMS} from './route-rewards.js';
 import {MAIL_PATH,MAIL_LENGTH,MAIL_LENGTHS,mailPoint,mailHeight} from './mail-run.js';
@@ -8,9 +9,9 @@ export function buildMailOffice({T,office,label,C,view}){
  for(let n=1;n<vectors.length;n++)geometry.addGroup((n-1)*6,6,Math.max(vectors[n].y,vectors[n-1].y)>.4?1:0);
  // Elevated sections are permanently glazed, never actor-triggered fading:
  // ordinary free-flight characters underneath remain readable.
- const lane=new T.Mesh(geometry,[new T.MeshBasicMaterial({color:0x576e6d,side:T.DoubleSide}),new T.MeshBasicMaterial({color:0x7fc9c3,side:T.DoubleSide,transparent:true,opacity:.28,depthWrite:false})]);lane.name='mailLane';root.add(lane);
- for(const x of [-7,7]){const pad=new T.Mesh(new T.PlaneGeometry(6,5),new T.MeshBasicMaterial({color:0x576e6d,side:T.DoubleSide}));pad.rotation.x=-Math.PI/2;pad.position.set(x,.065,34);pad.name='mailApron';root.add(pad);}
- for(const side of [left,right]){const rail=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(side),384,.11,5,false),new T.MeshBasicMaterial({color:0xe8ce77}));rail.position.y=.14;root.add(rail);}
+ const lane=new T.Mesh(geometry,[new T.MeshBasicMaterial({color:OFFICE_SURFACES.lane,side:T.DoubleSide}),new T.MeshBasicMaterial({color:OFFICE_SURFACES.glass,side:T.DoubleSide,transparent:true,opacity:.28,depthWrite:false})]);lane.name='mailLane';root.add(lane);
+ for(const x of [-7,7]){const pad=new T.Mesh(new T.PlaneGeometry(6,5),new T.MeshBasicMaterial({color:OFFICE_SURFACES.lane,side:T.DoubleSide}));pad.rotation.x=-Math.PI/2;pad.position.set(x,.065,34);pad.name='mailApron';root.add(pad);}
+ for(const side of [left,right]){const rail=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(side),384,.11,5,false),new T.MeshBasicMaterial({color:OFFICE_PALETTE.yellow}));rail.position.y=.14;root.add(rail);}
  // Cantilever brackets originate on the existing perimeter wall footprint,
  // not new solid posts in the ball's free-flight lane.
  for(const side of [-1,1])for(const z of [18,24,28]){const h=mailHeight(z),post=new T.Mesh(new T.BoxGeometry(.18,h,.22),new T.MeshToonMaterial({color:C.teal}));post.name='mailBridgeBracket';post.position.set(side*17.8,h/2,z);root.add(post);const arm=new T.Mesh(new T.BoxGeometry(1.4,.12,.22),new T.MeshToonMaterial({color:C.yellow}));arm.position.set(side*17.1,h-.1,z);root.add(arm);}
