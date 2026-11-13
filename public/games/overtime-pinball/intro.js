@@ -2,7 +2,7 @@ import * as T from './vendor/three.module.min.js';
 export function isDesktopIntro(){return innerWidth>=700&&innerWidth>innerHeight&&matchMedia('(hover: hover) and (pointer: fine)').matches;}
 export function setupIntro(){
  const dialog=document.getElementById('introDialog'),content=document.getElementById('introDialogContent'),title=document.getElementById('introDialogTitle');let opener=null;
- const open=()=>{opener=document.activeElement;title.textContent='加班生存指南';content.innerHTML='<div class="help-steps"><p><b>01 · 守住門</b>L／R 救球。電腦也能用 A／D 或方向鍵。</p><p><b>02 · 假裝忙</b>碰到設備會拉近互動，跟著大字提示操作。</p><p><b>03 · 賺一票</b>集燈、跑軌道、串連擊；中央台亮燈時，按 L／R 選方向。</p></div><p>操作設備時限時倒數照走；靠近與出射過場、暫停時不倒數。設備互動不計基本工時，完成另領獎金。老闆巡視撞到會踢人，仍可救回；限時結束則強制下班。</p>';dialog.showModal();};
+ const open=()=>{opener=document.activeElement;title.textContent='加班生存指南';content.innerHTML='<div class="help-steps"><p><b>01 · 守住門</b>L／R 救球。電腦也能用 A／D 或方向鍵。</p><p><b>02 · 假裝忙</b>碰到設備照常彈跳；短提示出現時，按互動按鈕或 Space 才進入小劇場，再跟著提示操作。</p><p><b>03 · 賺一票</b>集燈、跑軌道、串連擊；中央台亮燈時，按 L／R 選方向。</p></div><p>操作設備時限時倒數照走；靠近與出射過場、暫停時不倒數。設備互動不計基本工時，完成另領獎金。老闆巡視撞到會踢人，仍可救回；限時結束則強制下班。</p>';dialog.showModal();};
  document.getElementById('introHelp').onclick=open;document.querySelectorAll('[data-menu-help]').forEach(el=>el.onclick=open);document.getElementById('introDialogClose').onclick=()=>dialog.close();dialog.addEventListener('close',()=>opener?.focus());
  const sync=()=>document.body.classList.toggle('desktop-layout',isDesktopIntro());sync();addEventListener('resize',sync);
 }

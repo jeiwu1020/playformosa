@@ -30,3 +30,14 @@ body.playing #lampHud>div:first-child span.lit{background:#ffe08a;color:#173b40;
  body.pf-game.playing #playMessages{gap:2px}
  body.pf-game.playing #joke{padding:2px 5px}
 }
+
+/* A separate, optional action in the clear gap between the unchanged flippers. */
+body.pf-game.playing #interactionOffer{position:fixed;z-index:35;left:50%;bottom:calc(var(--safe-bottom,0px) + 10px);transform:translateX(-50%);width:220px;max-width:min(calc(100vw - 320px),calc(72vw - 296px));height:60px;min-height:48px;padding:6px 8px;border:2px solid #fff0a8;border-radius:12px;background:#185650;color:#fff7d2;box-shadow:0 2px 8px #102b38aa;touch-action:manipulation;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:3px;pointer-events:auto}
+body.pf-game.playing #interactionOffer b{font:900 15px/1.15 system-ui;overflow-wrap:anywhere}
+body.pf-game.playing #interactionOffer small{font:600 11px/1.15 system-ui}
+body.pf-game #interactionOffer[hidden]{display:none!important}
+@media(orientation:portrait){body.pf-game.playing #interactionOffer{bottom:calc(var(--safe-bottom,0px) + 82px);width:240px;max-width:calc(100vw - 32px);height:52px}}
+@media(orientation:landscape) and (max-width:640px) and (max-height:380px){body.pf-game.playing #interactionOffer{width:220px;height:60px;bottom:calc(var(--safe-bottom,0px) + 8px)}}
+
+body.pf-game.playing.interaction-offer-active .control-tip{visibility:hidden}
+@media(orientation:portrait){body.pf-game.playing.interaction-offer-active:not(.gate-active) #playDetails{bottom:calc(var(--safe-bottom,0px) + 142px)}}

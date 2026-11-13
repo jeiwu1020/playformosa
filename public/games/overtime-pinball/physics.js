@@ -15,7 +15,7 @@ import {stationShapes,firstStationContact,dockingPoint,planApproach,clearStation
 export const STEP=1/120;
 export const FIELD={halfWidth:18,top:-20,door:46.5,drain:50,gravity:6};
 export const FLIPPER={length:9.2,pivotX:11.8,pivotZ:43,radius:.4};
-export const INTERACTION_RULES={rearmDistance:2,clearance:.7};
+export const INTERACTION_RULES={rearmDistance:2,clearance:.7,offerSeconds:1.1,offerDistance:12};
 export const BUMPERS=[
  {id:'shredder',type:'shredder',...LAYOUT.shredder,power:20,points:45,label:'薪水保衛戰',joke:'碎紙機：薪水薄到像張紙！'},
  {id:'server',type:'server',...LAYOUT.server,power:20,points:45,label:'全公司重開機',joke:'工程師：你有試過關掉重開嗎？'},
@@ -43,8 +43,27 @@ export class Game{
  get payroll(){const rows={base:Math.floor(this.time*12),...this.income};const extra=this.bonus-Object.values(this.income).reduce((a,b)=>a+b,0);if(extra)rows.other=extra;return rows;}
  emit(type,data={}){this.events.push({...data,type});}
  drainEvents(){const e=this.events;this.events=[];return e;}
- cancelInput(){if(this.central){this.central.armed=null;this.central.remaining=0;}cancelInteractionInput(this.interaction);this.tapQueue=[];this.pendingTap=null;this.previous={left:false,right:false};}
+ cancelInput(){this.opportunity=null;if(this.central){this.central.armed=null;this.central.remaining=0;}cancelInteractionInput(this.interaction);this.tapQueue=[];this.pendingTap=null;this.previous={left:false,right:false};}
  tapFlipper(side){if(this.round.reentry||this.round.ending)return;if(side in this.flipperPulse){if(!this.interaction){this.flipperPulse[side]=.1;this.flipperStroke[side]=.18;}this.tapQueue.push({side,offerId:this.opportunity?.id,at:this.time});}}
+ getInteractionOffer(){
+  const p=this.opportunity;
+  if(!p||(p.stationId==='boss'&&this.bossPatrol.phase==='patrol')||this.state!=='playing'||!this.interactionsEnabled||this.interaction||this.mailRun||this.round.ending||this.round.reentry||this.ball.z>=34||this.playClock>=p.expiresAt||Math.hypot(this.ball.x-p.x,this.ball.z-p.z)>INTERACTION_RULES.offerDistance){this.opportunity=null;return null;}
+  return {id:p.id,stationId:p.stationId,label:p.label,remaining:Math.max(0,p.expiresAt-this.playClock)};
+ }
+ requestInteraction(offerId){
+  const visible=this.getInteractionOffer(),p=this.opportunity;
+  if(!visible||(offerId!==undefined&&offerId!==visible.id))return false;
+  this.opportunity=null;
+  const o=BUMPERS.find(o=>o.id===p.stationId),episode=this.contactEpisodes.get(o.id);
+  this.offerSpent.delete(o.id);
+  const started=this.startInteraction(o,p.side,true);
+  if(!started){this.offerSpent.add(o.id);if(episode)this.contactEpisodes.set(o.id,episode);}
+  return started;
+ }
+ offerInteraction(o){
+  this.opportunity={id:++this.offerSequence,stationId:o.id,label:o.label,side:this.ball.x<o.x?'left':'right',x:this.ball.x,z:this.ball.z,expiresAt:this.playClock+INTERACTION_RULES.offerSeconds};
+  this.emit('opportunity',{stationId:o.id,label:o.label});
+ }
  shadowWorld(){return {...FIELD,stations:BUMPERS.filter(o=>o.type!=='launcher'&&(o.type!=='boss'||this.bossPatrol.phase!=='patrol')),props:SOLID_PROPS,rails:[-1,1].map(sign=>({ax:sign*17.7,az:34,bx:sign*11.8,bz:43,r:.35})),gateClosed:this.gateClosed};}
  applyOvertime(commands){
   if(!this.overtimeEnabled)return;
@@ -83,7 +102,7 @@ export class Game{
   }
  }
  startInteraction(o,side,automatic=false){
-  if(this.state!=='playing'||this.interaction||this.mailRun||this.ball.z>=34||(!this.interactionsEnabled&&o.type!=='launcher')||this.round.ending||this.round.reentry)return false;
+  if(this.state!=='playing'||(o.type==='boss'&&this.bossPatrol.phase==='patrol')||this.interaction||this.mailRun||this.ball.z>=34||(!this.interactionsEnabled&&o.type!=='launcher')||this.round.ending||this.round.reentry)return false;
   const activity=activityFor(o);if(!activity||this.offerSpent.has(o.id))return false;
   const dock=dockFor(o,this.view),next={stationId:o.id,activity:activity.id,side,automatic,workOffset:automatic?.55:0,dockDuration:automatic?.85:.3,elapsed:0,duration:automatic?7.1:6.55,phase:0,from:{x:this.ball.x,z:this.ball.z},dock};setupInteraction(next);if(o.type==='launcher'){next.workOffset=0;next.dockDuration=.35;next.duration=1.2;next.selected=true;}if(automatic){next.approach=planApproach(next,o,this.view,[...BUMPERS,...SOLID_PROPS,...ASSIST_OBSTACLES]);if(next.approach.blocked)return false;}retractAssists(this);this.interaction=next;this.central.available=false;this.central.armed=null;this.spendContact(o);this.pendingTap=null;this.tapQueue=[];this.flipperStroke={left:0,right:0};this.flipperPulse={left:0,right:0};this.ball.vx=0;this.ball.vz=0;this.hop=0;this.arming=null;this.opportunity=null;this.emit('interactionStart',{station:o,activity});return true;
  }
@@ -157,13 +176,13 @@ export class Game{
   advanceMailLatch(this.mailLatch,previousBall,contact?{x:contact.x,z:contact.z}:b,b.r);
   this.refreshContactArming(previousBall,contact?{x:contact.x,z:contact.z}:b);
   updateCombo(this,previousBall,contact?{x:contact.x,z:contact.z}:b);
-  if(contact){const {station:o,shape,nx,nz}=contact;comboContact(this,o.id);b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;
+  if(contact){const {station:o,shape,nx,nz}=contact;if(this.opportunity?.stationId!==o.id)this.opportunity=null;comboContact(this,o.id);b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;
    if(o.patrol){kickByPatrol(this);}else if(o.central){const side=this.central.armed;if(this.startInteraction(BUMPERS.find(o=>o.id==='launcher'),side,false))return;}else if(o.assistId){resolveAssist(this,contact);}else{
    const fresh=!this.offerSpent.has(o.id),eligible=!!activityFor(o)&&this.interactionsEnabled&&fresh&&this.time>=this.interactionReady;
-   if(eligible){this.hit(o,nx,nz);if(this.startInteraction(o,b.x<o.x?'left':'right',true))return;}
+   if(eligible)this.offerInteraction(o);
    if(fresh)this.spendContact(o);
    const vn=b.vx*nx+b.vz*nz;if(vn<0){b.vx-=1.9*vn*nx;b.vz-=1.9*vn*nz;}
-   if(fresh){b.vx+=nx*(o.power||4)*.65;b.vz+=nz*(o.power||4)*.65;if(o.points&&!eligible)this.hit(o,nx,nz);else if(!o.points){this.hop=.25;this.emit('propHit',{id:o.id,label:o.label});}}
+   if(fresh){b.vx+=nx*(o.power||4)*.65;b.vz+=nz*(o.power||4)*.65;if(o.points)this.hit(o,nx,nz);else if(!o.points){this.hop=.25;this.emit('propHit',{id:o.id,label:o.label});}}
    }
   }
   for(const sign of [-1,1])this.rail({ax:sign*17.7,az:34,bx:sign*11.8,bz:43},.35);
@@ -172,6 +191,7 @@ export class Game{
   }
   if(this.gateClosed&&b.vz>0&&previousBall.z<=FIELD.door-b.r&&b.z>FIELD.door-b.r&&Math.abs(b.x)<=8.8){b.z=FIELD.door-b.r;b.vz=-Math.max(12,Math.abs(b.vz)*.9);this.emit('gateSave');}
   if(b.z>FIELD.door-b.r&&Math.abs(b.x)>8.8&&b.z<FIELD.door+.5){b.z=FIELD.door-b.r;b.vz=-Math.abs(b.vz)*.8;}
+  const reboundSpeed=Math.hypot(b.vx,b.vz);if(reboundSpeed>cap){b.vx*=cap/reboundSpeed;b.vz*=cap/reboundSpeed;}
   if(b.z>FIELD.drain){if(startReentry(this)){retractAssists(this);}else{this.state='over';this.round.reason='drain';this.opportunity=null;this.arming=null;this.interaction=null;this.endOvertime();this.emit('over',{reason:'drain'});}}
   }finally{this.finishPlayableStep(active);}
  }

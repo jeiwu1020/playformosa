@@ -1,3 +1,4 @@
+import {mountInteractionOffer} from './overtime-ui.js';
 import {overtimePresentation,overtimeCueText,PAY_NAMES} from './overtime-presentation.js';
 import {createShadowWorkerVisuals} from './shadow-worker-visual.js';
 import {mountReleaseRecovery} from './release-recovery.mjs';
@@ -47,6 +48,7 @@ const physicalSide=side=>controlSide(side,view),physicalInput=()=>view==='revers
 let roundStorage;try{roundStorage=localStorage;}catch{}
 const roundOptions=new RoundOptions(roundStorage);
 const $=id=>document.getElementById(id),game=new Game({view,random:Math.random,roundLimit:roundOptions.limit}),input={left:false,right:false};
+let interactionOfferUI;
 let overtimeVisuals,lastShadowSound=-Infinity,shadowAwardPending=0,shadowAwardAt=0;
 let stationLabels,renderer,scene,camera,office,person,shadow,flipperMeshes={},bumperGroups={},particles=[],clock=0,accumulator=0,mode='intro',introTime=0,best=0,transition=0,interactionsOn=true,cinematicTime=0,cinematicStart=null,followAnchor=new T.Vector3(),pausedMode='playing',comicUntil=0;
 const stats={frames:0,maxDrawCalls:0,lastEffect:null,visibility:null};
@@ -183,7 +185,7 @@ function consumeEvents(){for(const e of game.drainEvents()){
  if(e.type==='save'){comic((e.precise?'精準救球！ +':'續命成功 +')+e.points);sound('save');burst(game.ball.x,game.ball.z,'chair',true);}
  if(e.type==='over')endGame();
 }}
-function clearRoundVisuals(){overtimeVisuals?.update([]);shadowAwardPending=0;shadowAwardAt=0;jetWake?.clear();for(const p of particles){office.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.children.forEach(o=>{o.geometry?.dispose();o.material?.dispose();});}particles.length=0;$('comic').classList.remove('pop');comicUntil=0;comicPriority=0;$('activityPanel').hidden=true;}
+function clearRoundVisuals(){interactionOfferUI?.hide();overtimeVisuals?.update([]);shadowAwardPending=0;shadowAwardAt=0;jetWake?.clear();for(const p of particles){office.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.children.forEach(o=>{o.geometry?.dispose();o.material?.dispose();});}particles.length=0;$('comic').classList.remove('pop');comicUntil=0;comicPriority=0;$('activityPanel').hidden=true;}
 function returnHome(){releaseRecovery?.hide();platform?.reset();clearInput();clearRoundVisuals();mode='intro';gameAudio.setState(mode);game.reset();game.interactionsEnabled=interactionsOn;accumulator=0;cameraRig.reset(game.ball);for(const id of['results','pauseScreen','hud','controls','pause','launch','skipOpening'])$(id).hidden=true;for(const id of['intro','sceneLabel','footer'])$(id).hidden=false;document.body.classList.remove('playing');syncRecordNotice();$('start').focus({preventScroll:true});}
 function openingKick(){if(cinematicStart.kicked)return;cinematicStart.kicked=true;cinematicStart.impactAt=cinematicTime;game.start();game.interactionsEnabled=interactionsOn;cinematicStart.launch={...game.ball};sound('kick');$('launch').textContent='碰！這一腳算公司福利';}
 function completeOpening(){if(mode!=='cinematic')return;openingKick();clearInput();mode='playing';transition=0;accumulator=0;cameraRig.reset(game.ball);const goal=cameraPose(innerWidth,innerHeight,'playing',game.ball);camera.position.set(...goal.position);camera.userData.look.set(...goal.target);camera.fov=goal.fov;for(const id of['launch','skipOpening'])$(id).hidden=true;$('controls').hidden=false;$('joke').textContent='守住門，獎金靠本事！';}
@@ -193,7 +195,7 @@ function endGame(){mode='over';gameAudio.setState(mode);clearInput();$('activity
 function pause(reason='工時與倒數都暫停了。'){if(!['playing','cinematic'].includes(mode))return;$('pauseScreen').querySelector('.pause-copy p').textContent=reason;pausedMode=mode;mode='paused';gameAudio.setState(mode);clearInput();$('pauseScreen').hidden=false;$('skipOpening').hidden=true;$('resume').focus();}
 function resume(){if(mode!=='paused'||!checkOrientation().canResume)return;gameAudio.unlock();mode=pausedMode;gameAudio.setState(mode);accumulator=0;$('pauseScreen').hidden=true;$('skipOpening').hidden=mode!=='cinematic';}
 const pointers={left:new Set(),right:new Set()},keys={left:new Set(),right:new Set()};
-function clearInput(){for(const side of ['left','right']){input[side]=false;const captured=[...pointers[side]];pointers[side].clear();keys[side].clear();for(const id of captured)if($(side).hasPointerCapture(id))$(side).releasePointerCapture(id);$(side).classList.remove('active');}game.arming=null;game.cancelInput();}
+function clearInput(){interactionOfferUI?.hide();for(const side of ['left','right']){input[side]=false;const captured=[...pointers[side]];pointers[side].clear();keys[side].clear();for(const id of captured)if($(side).hasPointerCapture(id))$(side).releasePointerCapture(id);$(side).classList.remove('active');}game.arming=null;game.cancelInput();}
 function press(side,on){if(!['playing','cinematic'].includes(mode)||game.round.ending||game.round.reentry||$('roundDialog').open)on=false;const rising=on&&!input[side];input[side]=on;$(side).classList.toggle('active',on);if(rising)game.tapFlipper(physicalSide(side));}
 function checkOrientation(){return {blocked:false,pause:false,canStart:true,canResume:mode==='paused'};}
 
@@ -208,11 +210,12 @@ function bindRoundOptions(){
  $('roundLimit').onchange=e=>{roundOptions.set({limit:Number(e.target.value)});syncRoundOptions();};$('orientationMode').onchange=e=>{roundOptions.set({sideways:e.target.value==='on'});clearInput();syncRoundOptions();notifySideways();};syncRoundOptions();notifySideways();
 }
 function bindControls(){
+ interactionOfferUI=mountInteractionOffer({document,window,game,mode:()=>mode});
  releaseRecovery=mountReleaseRecovery({document,restart:beginCinematic,home:returnHome});
  platform=mountPinballPlatform({document,game,mode:()=>mode,pause,resume,restart:beginCinematic,clearInput});
  window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='overtime:viewport')clearInput();});
  bindRoundOptions();
- document.body.dataset.view=view;$('doorWarning').textContent='出口接近 · L／R 救球';document.querySelectorAll('[data-view-name]').forEach(el=>el.textContent=view==='reverse'?'滿版全景 · 08.26':'原向全景 · 08.26');document.querySelectorAll('[data-view-link]').forEach(el=>el.setAttribute('aria-current',el.dataset.viewLink===view?'page':'false'));$('viewDescription').textContent=view==='reverse'?'完整球台固定透視；沿亮起的辦公室路線連擊，碰設備才拉近。':'原方向滿版全景，設備互動才拉近。舊版 v0.7 保留於下方連結。';
+ document.body.dataset.view=view;$('doorWarning').textContent='出口接近 · L／R 救球';document.querySelectorAll('[data-view-name]').forEach(el=>el.textContent=view==='reverse'?'滿版全景 · 08.26':'原向全景 · 08.26');document.querySelectorAll('[data-view-link]').forEach(el=>el.setAttribute('aria-current',el.dataset.viewLink===view?'page':'false'));$('viewDescription').textContent=view==='reverse'?'完整球台固定透視；沿亮起的辦公室路線連擊，碰設備照常彈跳，按互動或 Space 才拉近。':'原方向滿版全景，主動選擇設備互動才拉近。舊版 v0.7 保留於下方連結。';
 
  document.querySelectorAll('.comfort-option').forEach(el=>{el.checked=comfort;el.onchange=()=>{comfort=el.checked;document.querySelectorAll('.comfort-option').forEach(other=>other.checked=comfort);};});
  document.querySelectorAll('.economy-option').forEach(el=>{el.onchange=()=>{economy=el.checked;document.querySelectorAll('.economy-option').forEach(other=>other.checked=economy);renderer.setPixelRatio(renderRatio(innerWidth,innerHeight,devicePixelRatio,economy));renderer.setSize(innerWidth,innerHeight);};});
@@ -227,7 +230,7 @@ function bindControls(){
  window.addEventListener('keydown',e=>{if(e.target?.closest?.('input,textarea,[contenteditable],dialog[open]'))return;if(mode==='cinematic'&&e.code==='Space'&&!e.repeat){e.preventDefault();completeOpening();return;}if($('audioDialog').open||$('introDialog').open||$('roundDialog').open)return;const side=keySide(e.key);if(side&&['playing','cinematic'].includes(mode)){e.preventDefault();if(!e.repeat){keys[side].add(e.code||e.key);press(side,true);}}if((e.key==='Escape'||e.key==='p'||e.key==='P')&&!e.repeat){if(['playing','cinematic'].includes(mode))pause();else if(mode==='paused')resume();}});
  window.addEventListener('keyup',e=>{const side=keySide(e.key);if(side){keys[side].delete(e.code||e.key);press(side,keys[side].size>0||pointers[side].size>0);}});window.addEventListener('blur',()=>{clearInput();pause();});document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
 }
-function updateUI(){platform?.sync();
+function updateUI(){platform?.sync();interactionOfferUI?.sync();
  const overtimeUI=overtimePresentation(game.overtime,game.playClock||0),overtimeStatus=$('overtimeStatus');overtimeStatus.hidden=mode!=='playing'||!game.overtime||!!game.round.ending;overtimeStatus.textContent=overtimeUI.text;overtimeStatus.dataset.phase=overtimeUI.phase;
  if(shadowAwardPending&&clock-shadowAwardAt>=.25){$('shadowIncome').textContent='影分身代班 +'+money(shadowAwardPending);shadowAwardPending=0;shadowAwardAt=clock;}$('shadowIncome').hidden=mode!=='playing'||clock-shadowAwardAt>1;
 
@@ -251,7 +254,7 @@ function updateUI(){platform?.sync();
   if(active.activity==='parcel'){const next=physicalSide(active.nextSide)==='left'?'L':'R';text=active.stage==='launch'?'本人包裹，準備寄出！':`${active.inputReady?'交替點按 '+next:'先放開，再按 '+next} 打包 · ${active.pulls}/6 · ${Math.max(0,6-workTime).toFixed(1)}秒`;progress=active.pulls/6;}
   if(active.activity==='clock'){const next=physicalSide(active.nextSide)==='left'?'L':'R',cue=clockCue(active);text=active.stage==='launch'?(successfulInteraction(active)?`打卡完成！ +${active.result.points}`:'漏拍也下班！彈回中'):!active.inputReady?'先放開按鍵':cue.lit?`${cue.perfect?'✦ 完美拍':'● 現在按'} ${next} 蓋章 ${active.pulls}/3`:`準備 ${next} · ${(cue.start-cue.time).toFixed(1)}秒`;progress=active.pulls/3;}
   if(active.activity==='microwave'){text=active.stage==='launch'?(active.result.kind==='perfect'?'便當升溫，人升空！ +1250':'便當過冷／過熱，稍後彈回'):!active.inputReady?'先放開，再長按 L／R':active.charge>=1.2&&active.charge<=2?'✦ 綠燈！現在放手領便當':`長按加熱 → 1.2–2秒放手 · ${active.charge.toFixed(1)}秒`;progress=clamp(active.charge/2.8,0,1);}
-  if(active.stage==='docking'){text='自動互動 · 正在靠近設備';progress=0;}$('activityText').textContent=text;$('activityHint').textContent=game.round.limit?(active.stage==='work'&&!(active.activity==='launcher'&&active.selected)?'操作中倒數照走 · 完成另領獎金':'過場不計倒數 · 獎金另計'):'互動不計基本工時 · 完成另領獎金';$('activityKeys').textContent='';$('activityBar').style.transform='scaleX('+progress+')';$('activityBar').classList.toggle('danger',active?.charge>2.7);
+  if(active.stage==='docking'){text='已選互動 · 正在靠近設備';progress=0;}$('activityText').textContent=text;$('activityHint').textContent=game.round.limit?(active.stage==='work'&&!(active.activity==='launcher'&&active.selected)?'操作中倒數照走 · 完成另領獎金':'過場不計倒數 · 獎金另計'):'互動不計基本工時 · 完成另領獎金';$('activityKeys').textContent='';$('activityBar').style.transform='scaleX('+progress+')';$('activityBar').classList.toggle('danger',active?.charge>2.7);
  }
  for(const side of ['left','right']){let expected=false,cueText='';if(active&&mode==='playing'&&active.stage==='work'){if(['copier','busy','coffee','shredder'].includes(active.activity)){expected=physicalSide(active.nextSide)===side;cueText=['copier','shredder'].includes(active.activity)?'↔ 點按拉紙':active.activity==='busy'?'⌨ 交替敲鍵':'↔ 交替擦地';}if(active.activity==='server'){expected=true;cueText=active.charge>=1.2&&active.charge<=2?'✦ 放手領獎':'長按充電';}if(active.activity==='water'){expected=true;cueText=active.wasHolding?'放手接滿':'長按接水';}if(active.activity==='boss'){expected=workTime>=.8&&workTime<=2.4&&physicalSide(active.nextSide)===side;cueText='✦ 現在遞單';}if(active.activity==='parcel'){expected=physicalSide(active.nextSide)===side;cueText='↔ 交替打包';}if(active.activity==='clock'){expected=clockCue(active).lit&&physicalSide(active.nextSide)===side;cueText='✦ 現在蓋章';}if(active.activity==='microwave'){expected=true;cueText=active.charge>=1.2&&active.charge<=2?'✦ 放手領便當':'長按加熱';}if(active.activity==='chair'){expected=true;cueText=active.wasHolding?'放手彈出':'長按蓄力';}}if(ready){expected=true;cueText=game.central.armed?'已預備':'✦ 點按彈公文';}$(side).classList.toggle('expected',expected);const cue=$(side).querySelector('.interact-cue');cue.hidden=!expected;cue.textContent=expected?cueText:'';$(side).setAttribute('aria-label',expected?`${side==='left'?'L':'R'}，${cueText}`:`${side==='left'?'左':'右'}彈板`);}
  $('radarBall').setAttribute('cx',String((game.ball.x+18)/36*120));$('radarBall').setAttribute('cy',String((game.ball.z+20)/70*220));$('zone').textContent=game.ball.z<5?'01 行政・報表地獄':game.ball.z<18?'02 茶水・摸魚補給':game.ball.z<34?'03 會議・轉職中心':'04 門板救球';$('doorWarning').hidden=mode!=='playing'||!cameraRig.gate||!!active||!!game.mailRun||!!game.round.ending||!!game.round.reentry;
