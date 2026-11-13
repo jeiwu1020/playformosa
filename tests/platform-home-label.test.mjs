@@ -28,9 +28,9 @@ for(const entry of [...catalog.games,...catalog.minigames].filter(e=>e.status===
    const links=dom.window.document.querySelectorAll('header a.pf-home, header a.home-link');
    assert.equal(links.length,1,'one unambiguous platform home control');
    const link=links[0];
-   assert.equal(link.textContent.trim(),'首頁','visible label has no arrow or extra words');
+   assert.equal(link.textContent.trim(),entry.id==='overtime-pinball'?'返回遊戲平台':'首頁','exact approved platform label');
    assert.equal(link.getAttribute('href'),fastHands.has(entry.id)?'/#minigames':'/','existing destination is preserved');
-   assert.equal(link.getAttribute('aria-label'),fastHands.has(entry.id)?'返回小遊戲首頁':'遊戲首頁','existing screen-reader destination remains');
+   assert.equal(link.getAttribute('aria-label'),entry.id==='overtime-pinball'?'返回遊戲平台':fastHands.has(entry.id)?'返回小遊戲首頁':'遊戲首頁','existing screen-reader destination remains');
    if(entry.id==='overtime-pinball')assert.equal(link.getAttribute('target'),'_top','home exits the iframe');
    assert.equal(link.tabIndex,0,'native keyboard-focusable link');
    assert.equal(link.getAttribute('aria-hidden'),null);

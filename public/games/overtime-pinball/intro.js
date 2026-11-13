@@ -1,4 +1,4 @@
-import * as T from './vendor/three.module.min.js';
+import {StableRig} from './camera.js';
 export function isDesktopIntro(){return innerWidth>=700&&innerWidth>innerHeight&&matchMedia('(hover: hover) and (pointer: fine)').matches;}
 export function setupIntro(){
  const dialog=document.getElementById('introDialog'),content=document.getElementById('introDialogContent'),title=document.getElementById('introDialogTitle');let opener=null;
@@ -8,6 +8,11 @@ export function setupIntro(){
 }
 export function introFrame(){if(innerWidth<innerHeight){const top=76,bottom=document.getElementById('intro').getBoundingClientRect().top-8;if(bottom-top>=90)return{x:12,y:innerHeight-bottom,w:innerWidth-24,h:bottom-top};return null;}if(!isDesktopIntro())return null;const r=document.getElementById('desktopSceneFrame').getBoundingClientRect();return {x:r.x,y:innerHeight-r.bottom,w:r.width,h:r.height};}
 let cached;
-export function fittedIntro(w,h,view){const key=`${w}:${h}:${view}`;if(cached?.key===key)return cached.pose;const sign=view==='reverse'?1:-1,c=new T.PerspectiveCamera(50,w/h,.1,350);let lo=30,hi=180;for(let n=0;n<24;n++){const d=(lo+hi)/2;c.position.set(0,.7*d+1,15+sign*d);c.lookAt(0,1,15);c.updateMatrixWorld();let fits=true;for(const x of [-24,24])for(const z of [-36,52.3])for(const y of [0,7]){const p=new T.Vector3(x,y,z).applyAxisAngle(new T.Vector3(1,0,0),.035).project(c);if(Math.abs(p.x)>.91||Math.abs(p.y)>.91)fits=false;}if(fits)hi=d;else lo=d;}const pose={position:[0,.7*hi+1,15+sign*hi],target:[0,1,15],fov:50};cached={key,pose};return pose;}
+export function fittedIntro(w,h,view){
+ const key=`${w}:${h}:${view}`;if(cached?.key===key)return cached.pose;
+ // Same board/route envelope as play, without unused exterior scenery.
+ const rig=new StableRig(view),pose=rig.update(0,w,h,{x:0,z:0,vz:0},null,null,true,{portrait:false,compact:false,safeTop:0,safeBottom:0,cameraTop:0});
+ cached={key,pose};return pose;
+}
 // Normalized frame keeps the opening continuous even if the window changes size.
 export function transitionFrame(frame,t,w,h){t=Math.max(0,Math.min(1,t));const e=t*t*t*(t*(t*6-15)+10);return {x:frame.x*(1-e)*w,y:frame.y*(1-e)*h,w:(frame.w+(1-frame.w)*e)*w,h:(frame.h+(1-frame.h)*e)*h};}

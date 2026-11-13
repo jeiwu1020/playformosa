@@ -111,3 +111,14 @@ body.pf-game dialog[data-game-menu] :focus-visible{outline:3px solid #ba512d;out
 @media(orientation:landscape) and (max-height:520px){body.pf-game dialog[data-game-menu]{width:min(740px,calc(100vw - 20px));max-height:calc(100dvh - 16px);padding:14px 18px;border-radius:14px}body.pf-game dialog[data-game-menu] h2{font-size:22px;margin-bottom:10px}body.pf-game .game-menu-choices{margin-bottom:10px}}
 body.pf-game #pauseScreen[data-game-menu]:not([open]){display:none!important}
 body.pf-game #pauseScreen[data-game-menu][open]{display:grid}
+
+/* Entry preview uses the live board; navigation stays inside the game first. */
+body.pf-game .pf-header .pf-home{cursor:pointer;white-space:nowrap;font-size:14px}
+body.pf-game #homeConfirm{box-sizing:border-box;width:min(440px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;background:#155469;color:#fff3d1;border:2px solid #71b9bf;border-top:5px solid #ffd35b;border-radius:18px;padding:22px;box-shadow:0 12px 35px #05273788}
+body.pf-game #homeConfirm h2{font-size:24px;line-height:1.3;margin:0 0 12px;color:#fff3d1}
+body.pf-game #homeConfirm p{font-size:16px;line-height:1.5;margin:0 0 18px}
+body.pf-game .home-confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+body.pf-game #homeConfirm button{min-height:48px;padding:10px;font-size:16px;line-height:1.3;border-radius:10px;font-weight:800;white-space:normal}
+body.pf-game #homeCancel{background:#ffd35b;color:#123d4e;border:1px solid #ffe6a0}
+body.pf-game #homeAccept{background:#21667a;color:#fff5db;border:1px solid #71b9bf}
+@media(max-width:600px){body.pf-game .pf-header .pf-home{font-size:12px;padding:0 6px}}
