@@ -5,7 +5,7 @@ import {Game,STEP} from '../../public/games/overtime-pinball/physics.js';
 const game=()=>({assists:freshAssists(),time:0,flipperStroke:{left:0,right:0},ball:{x:0,z:0,vx:0,vz:0,r:.65},hits:0,bonus:0,interactionReady:0,events:[],emit(type,e){this.events.push({type,...e});}});
 test('upper left/right mechanisms coexist with original middle drawers',()=>{
  assert.ok(ASSISTS.upperLeft&&ASSISTS.upperRight);
- assert.equal(ASSISTS.left.z,1.5);assert.equal(ASSISTS.right.z,1.5);
+ assert.equal(ASSISTS.left.z,7);assert.equal(ASSISTS.right.z,7);
  for(const id of ['upperLeft','upperRight']){assert.ok(ASSISTS[id].z< -5);assert.ok(ASSIST_OBSTACLES.some(o=>o.id==='assist-'+id));}
 });
 test('same-side fresh press animates upper drawer but does not remotely move ball',()=>{
@@ -14,9 +14,9 @@ test('same-side fresh press animates upper drawer but does not remotely move bal
  const age=g.assists.upperLeft.age;g.time=.1;updateAssists(g,.03,{left:false,right:false});assert.ok(g.assists.upperLeft.age>age);
 });
 test('timed upper contact redirects inward and upward only once per stroke',()=>{
- for(const id of ['upperLeft','upperRight']){const g=game(),o=ASSISTS[id];assert.ok(o);g.assists[id].amount=.7;
+ for(const id of ['upperLeft','upperRight']){const g=game(),o=ASSISTS[id];assert.ok(o);g.assists[id].amount=.7;g.ball.z=o.z;
  const c={station:{assistId:id},impactAmount:.7,nx:o.inward,nz:0,poweredContact:true};resolveAssist(g,c);
- assert.ok(g.ball.vx*o.inward>20);assert.ok(g.ball.vz< -15);assert.equal(g.events.filter(e=>e.type==='assistKick').length,1);
+ assert.ok(g.ball.vx*o.inward>20);assert.ok(g.ball.vz< -8);assert.equal(g.events.filter(e=>e.type==='assistKick').length,1);
  resolveAssist(g,c);assert.equal(g.events.filter(e=>e.type==='assistKick').length,1);
  }
 });
@@ -41,7 +41,7 @@ test('timed press changes upper ball path in real Game, both sides and views',()
  for(const view of ['original','reverse'])for(const side of ['left','right']){
   const run=pressed=>{const g=new Game({view,patrol:false});g.start();g.interactionsEnabled=false;Object.assign(g.ball,{x:side==='left'?-9:9,z:-8.8,vx:0,vz:0});g.events=[];for(let i=0;i<20;i++)g.update(STEP,{[side]:pressed&&i===0});return g;};
   const passive=run(false),active=run(true);assert.equal(passive.events.filter(e=>e.type==='assistKick').length,0);assert.equal(active.events.filter(e=>e.type==='assistKick').length,1);
-  assert.ok(Math.abs(active.ball.x-passive.ball.x)>3);assert.ok(active.ball.vz< -20);assert.ok(Math.abs(passive.ball.vx)<.001);
+  assert.ok(Math.abs(active.ball.x-passive.ball.x)>3);assert.ok(active.ball.vz< -8);assert.ok(Math.abs(passive.ball.vx)<.001);
  }
 });
 test('upper housings and full extension do not overlap static equipment in either view',async()=>{

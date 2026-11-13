@@ -12,7 +12,7 @@ export const successfulInteraction=i=>['perfect','complete'].includes(i.result?.
 export function releasePosition(i,station,view,radius=.65,obstacles=[station,...SOLID_PROPS]){
  // Chair uses the outer aisle: the direct ray to water crosses the coffee desk.
  // One unit of clearance includes the ball radius before aiming back toward water.
- const sign=i.side==='left'?-1:1,success=successfulInteraction(i),target=success?comboTarget(i,station):null,d=target?Math.hypot(target.x-station.x,target.z-station.z):1,base=success&&i.activity==='chair'?{x:LAYOUT.desk2.x-LAYOUT.desk2.r-radius-1,z:station.z-2.5}:target?{x:station.x+(target.x-station.x)/d*(station.r+radius+1.2),z:station.z+(target.z-station.z)/d*(station.r+radius+1.2)}:success?exitFor(station,i.side,view,radius):{x:clamp(station.x+sign*.9,-17.15,17.15),z:station.z+station.r+radius+1.1};
+ const sign=i.side==='left'?-1:1,success=successfulInteraction(i),target=success?comboTarget(i,station):null,d=target?Math.hypot(target.x-station.x,target.z-station.z):1,base=target?{x:station.x+(target.x-station.x)/d*(station.r+radius+1.2),z:station.z+(target.z-station.z)/d*(station.r+radius+1.2)}:success?exitFor(station,i.side,view,radius):{x:clamp(station.x+sign*.9,-17.15,17.15),z:station.z+station.r+radius+1.1};
  const clear=p=>Math.abs(p.x)<=17.15&&p.z>=-19.2&&p.z<=48&&(!success?p.z>=station.z+station.r+radius+.7:true)&&obstacles.every(o=>stationShapes(o,view).every(s=>!(s.hx?sweepRect(p,p,s,radius+.03):sweepCircle(p,p,s,radius+.03))));
  if(clear(base))return base;
  const candidates=[];for(const dx of [0,-1.5,1.5,-3,3,-5,5,-7,7,-9,9])for(const dz of [0,-1.5,1.5,-3,3,-5,5])candidates.push({x:base.x+dx,z:base.z+dz});

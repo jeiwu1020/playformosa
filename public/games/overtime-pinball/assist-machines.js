@@ -1,7 +1,8 @@
+import {LAYOUT} from './route-layout.js';
 import {lotteryEffects} from './lottery-events.js';
 import {sweepRect,sweepCircle} from './contact.js';
 // Same dimensions drive collision and visible office machinery.
-export const ASSISTS={left:{x:-10.5,z:1.5,hx:1.15,hz:2.1,extension:4.2,inward:1,cooldown:.75},right:{x:10.5,z:1.5,hx:1.15,hz:2.1,extension:4.2,inward:-1,cooldown:.75},upperLeft:{x:-12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:1,inputSide:'left',cooldown:.65,kickX:30,kickZ:-24,upper:true},upperRight:{x:12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:-1,inputSide:'right',cooldown:.65,kickX:30,kickZ:-24,upper:true},center:{x:0,z:21,r:2.3,cooldown:.9}};
+export const ASSISTS={left:{x:-13,z:7,hx:1.15,hz:2.1,extension:4.2,inward:1,targetId:'desk3',cooldown:.75},right:{x:13,z:7,hx:1.15,hz:2.1,extension:4.2,inward:-1,targetId:'copier',cooldown:.75},upperLeft:{x:-12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:1,inputSide:'left',cooldown:.65,kickX:30,kickZ:-24,upper:true,targetId:'server'},upperRight:{x:12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:-1,inputSide:'right',cooldown:.65,kickX:30,kickZ:-24,upper:true,targetId:'shredder'},center:{x:LAYOUT.launcher.x,z:LAYOUT.launcher.z,r:LAYOUT.launcher.r,cooldown:.9}};
 const DRAWERS=Object.keys(ASSISTS).filter(id=>id!=='center');
 export const ASSIST_OBSTACLES=DRAWERS.map(id=>({...ASSISTS[id],id:'assist-'+id,type:'cabinet'}));
 export const freshAssists=()=>Object.fromEntries(Object.keys(ASSISTS).map(id=>[id,{amount:0,previousAmount:0,age:99,nextReady:0,spent:false,aim:0}]));
@@ -48,12 +49,15 @@ export function resolveAssist(g,c){
  // Only the inward drawer face strikes; solid rear/side housing stays passive.
  if((c.impactAmount??s.amount)>.2&&!s.spent&&c.poweredContact!==false&&(id==='center'||c.nx*o.inward>.7)){
   s.spent=true;let vx=id==='center'?s.aim*18:o.inward*(o.kickX||32),vz=id==='center'?-32:(o.kickZ||-26);
+  // A real powered face supplies an aimed impulse, not homing. Impact height
+  // preserves timing/approach variation; later contacts still alter the path.
+  if(o.targetId){const target=LAYOUT[o.targetId],startX=o.x+o.inward*(o.hx+o.extension*s.amount+b.r+.01),flight=Math.max(.45,Math.min(.85,Math.abs(target.x-startX)/30)),spread=(b.z-o.z)*2.2;vx=(target.x-startX)/flight;vz=(target.z-b.z-3*flight*flight)/flight+spread;}
   // The award strengthens an actual inward powered strike, never a key press
   // or passive rear/side collision. Center launcher retains its existing rule.
   const raffle=id!=='center'&&g.lotteryEnabled?lotteryEffects(g.lottery,g.playClock):null;
   if(raffle&&raffle.assistImpulseMultiplier>1){vx*=raffle.assistImpulseMultiplier;vz*=raffle.assistImpulseMultiplier;const speed=Math.hypot(vx,vz);if(speed>raffle.speedCap){vx*=raffle.speedCap/speed;vz*=raffle.speedCap/speed;}}
   if(id==='center'){const length=Math.hypot(vx,vz),radius=o.r+b.r+.01;b.x=o.x+vx/length*radius;b.z=o.z+vz/length*radius;}
   else{b.x=o.x+o.inward*(o.hx+o.extension*s.amount+b.r+.01);}
-  b.vx=vx;b.vz=vz;g.hop=id==='center'?1.2:.45;const points=id==='center'?60:40;if(g.award)g.award('rescue',points);else g.bonus+=points;g.hits++;g.interactionReady=Math.max(g.interactionReady,g.time+.25);g.emit('assistKick',{id,vx,vz,points});
+  b.vx=vx;b.vz=vz;g.hop=id==='center'?1.2:.45;const points=id==='center'?60:40;if(g.award)g.award('rescue',points);else g.bonus+=points;g.hits++;g.interactionReady=Math.max(g.interactionReady,g.time+.25);g.emit('assistKick',{id,vx,vz,points,targetId:o.targetId||null});
  }else{const vn=b.vx*c.nx+b.vz*c.nz;if(vn<0){b.vx-=1.8*vn*c.nx;b.vz-=1.8*vn*c.nz;}}
 }

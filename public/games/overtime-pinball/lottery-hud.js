@@ -1,6 +1,6 @@
 // Passive mobile status borrows the joke slot briefly; original text is never overwritten.
 export function lotteryStatusText(s,now){
- if(s.phase==='ready')return '摸彩：碰紅金箱';
+ if(s.phase==='ready')return '摸彩：碰摸彩機';
  if(s.phase==='drawing')return '摸彩：抽獎中！';
  if(s.phase==='charging')return `摸彩再碰${Math.max(0,3-(s.charged?.length||0))}種設備`;
  if(s.phase==='active')return `${({gate:'封門保護',upgrade:'機關升級',busy:'裝忙連鎖'})[s.prize]} ${Math.max(0,Math.ceil(s.until-now))}秒`;

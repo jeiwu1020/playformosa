@@ -1,6 +1,7 @@
+import {readFileSync as currentRead} from 'node:fs';
 // Exact additive boundary for the approved PinballLottery import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforePinballOpenLanes as actual,pinballOpenLanesParentBytes,inventoryBeforePinballOpenLanes} from './pinball-open-lanes-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -34,8 +35,10 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 export function pinballLotteryParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballOpenLanesParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballLottery live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballLottery live SHA256 drift');return before;
 }
 export function readBeforePinballLottery(file,options){
@@ -45,7 +48,9 @@ export function readBeforePinballLottery(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?pinballLotteryParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-export function inventoryBeforePinballLottery(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+export function inventoryBeforePinballLottery(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballOpenLanes(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballOpenLanesParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballLottery inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -54,7 +59,9 @@ export function inventoryBeforePinballLottery(paths,{read=p=>actual(new URL('../
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballLottery inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballLottery inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+export function assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballOpenLanes(paths,{read});
+ const liveRead=read;read=p=>pinballOpenLanesParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete pinballLottery inventory');
  assert.deepEqual(inventoryBeforePinballLottery(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(pinballLotteryParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');

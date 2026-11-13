@@ -12,9 +12,9 @@ test('one settlement per round: late/duplicate callbacks do not retarget; reset 
 test('three admitted pinball metric contracts are exact and cannot substitute another settled mode',async()=>{
  const {BOARD_METRICS,resultToSubmission}=await import('../../public/games/shared/leaderboard-metrics.mjs');
  const expected={
-  'overtime-pinball-60s':{rules:'office-overtime-flow-60-v5',unit:'points',status:'done',direction:'desc'},
-  'overtime-pinball-180s':{rules:'office-overtime-flow-180-v5',unit:'points',status:'done',direction:'desc'},
-  'overtime-pinball-unlimited':{rules:'office-overtime-flow-unlimited-v5',unit:'points',status:'done',direction:'desc'}
+  'overtime-pinball-60s':{rules:'office-overtime-flow-60-v6',unit:'points',status:'done',direction:'desc'},
+  'overtime-pinball-180s':{rules:'office-overtime-flow-180-v6',unit:'points',status:'done',direction:'desc'},
+  'overtime-pinball-unlimited':{rules:'office-overtime-flow-unlimited-v6',unit:'points',status:'done',direction:'desc'}
  };
  assert.deepEqual(Object.fromEntries(Object.entries(BOARD_METRICS).filter(([id])=>id.startsWith('overtime-pinball-'))),expected);
  const snapshots=[60,180,0].map(limit=>settledSnapshot(game(limit,limit?'time':'drain')));

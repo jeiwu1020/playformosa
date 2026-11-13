@@ -1,9 +1,12 @@
+import{createLotteryLabel}from'./lottery-label.js';
+import{LOTTERY_BOX}from'./lottery-layout.js';
 import{stationAnchor,projectedAnchor}from'./station-label-anchor.js';
 const names={copier:['▤','影印','交替拉卡紙'],water:['◒','飲水','長按接水，放手噴出'],water2:['♨','便當','長按加熱，亮燈放手'],desk:['⌨','裝忙','左右交替敲鍵盤'],desk2:['▱','咖啡','交替擦地再滑出去'],chair:['↻','轉椅','長按旋轉，放手起飛'],chair2:['▣','寄件','左右交替貼膠帶'],desk3:['◷','打卡','亮燈交替蓋三次章'],shredder:['≋','碎紙','交替拉回薪資單'],server:['▥','機房','長按充電，亮燈放手'],launcher:['↟','公文','亮燈按 L／R 選方向']};
 export function createStationLabels(T,stations){
  const root=document.createElement('div');root.id='stationLabels';root.setAttribute('aria-hidden','true');document.body.append(root);
  const hint=document.createElement('div');hint.id='stationHint';hint.textContent='碰設備照常彈跳；短提示時按 L／R 才進入';document.getElementById('playStatus').append(hint);
  const entries=stations.filter(o=>names[o.id]).sort((a,b)=>a.z-b.z||a.x-b.x).map(o=>{const el=document.createElement('div');el.className='station-tag';el.dataset.station=o.id;el.dataset.placement='world';el.textContent=names[o.id][0]+' '+names[o.id][1];root.append(el);const a=stationAnchor(o);return{o,el,name:names[o.id],anchor:new T.Vector3(a.x,a.y,a.z)};});
+ const lotteryLabel=createLotteryLabel(T,root);
  const point=new T.Vector3();let lastInteraction=null,near=null,nearSince=-1,wasFocus=false;
  return{root,update({office,camera,game,mode,time,frame,close=0}){
   root.hidden=mode!=='playing'||!!game.round.ending;if(root.hidden)return[];
@@ -18,6 +21,7 @@ export function createStationLabels(T,stations){
    const w=e.el.offsetWidth,h=e.el.offsetHeight,x=p.x-w/2,y=p.y-h-6;
    placed.push({id:e.o.id,x,y,w,h,kind:'world',anchor:{x:p.x,y:p.y},inDepth:p.inDepth,inView:p.inDepth&&x+w>0&&x<innerWidth&&y+h>0&&y<innerHeight});
   }
+  const lotteryPlacement=lotteryLabel.update({office,camera,frame,placed,shape:LOTTERY_BOX,enabled:!game.interaction});if(lotteryPlacement)placed.push(lotteryPlacement);
   if(game.round.reentry){hint.textContent='重返中 · 倒數繼續 · 連擊中斷';wasFocus=true;return placed;}
   if(focusId){wasFocus=true;hint.textContent=(names[focusId]?.[1]||'設備')+' · 互動中';return placed;}
   if(wasFocus){wasFocus=false;near=null;nearSince=-1;hint.textContent='碰設備照常彈跳；短提示時按 L／R 才進入';}

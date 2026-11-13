@@ -5,7 +5,7 @@ import {handleRequest, validateSubmission} from '../worker/leaderboard/index.mjs
 import {database} from './helpers/leaderboard-sqlite.mjs';
 const origin='https://qa.example', now=1_800_000_000_000;
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
-const specs=[['60s','office-overtime-flow-60-v5'],['180s','office-overtime-flow-180-v5'],['unlimited','office-overtime-flow-unlimited-v5']];
+const specs=[['60s','office-overtime-flow-60-v6'],['180s','office-overtime-flow-180-v6'],['unlimited','office-overtime-flow-unlimited-v6']];
 const payload=(i,n=1,score=1000)=>({game:'overtime-pinball-'+specs[i][0],rules:specs[i][1],unit:'points',status:'done',score,nickname:'測試玩家'+n,deviceId:id(n),submissionId:id(i*100+n)});
 const env=(DB,scope='qa')=>({DB,LEADERBOARD_ENABLED:'true',LEADERBOARD_SCOPE:scope,LEADERBOARD_ORIGIN:origin});
 const post=(body,query='',from=origin)=>new Request(origin+'/api/leaderboard/submissions'+query,{method:'POST',headers:{Origin:from,'Content-Type':'application/json'},body:typeof body==='string'?body:JSON.stringify(body)});
@@ -88,7 +88,7 @@ test('new contact/work-clock rules keep old scores and receipts isolated without
  }
 });
 
- test('flow-v5 preserves shadow-v2 scores and receipts, rejecting legacy submissions',async t=>{
+ test('flow-v6 preserves shadow-v2 scores and receipts, rejecting legacy submissions',async t=>{
  const db=await fixture(t);
  for(const i of [0,1,2]){const oldRules='office-overtime-shadow-'+[60,180,'unlimited'][i]+'-v2';
  db.raw.run('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)',['qa',payload(i).game,oldRules,'historic','舊規則',999999,now-9*86400000]);
@@ -101,7 +101,7 @@ test('new contact/work-clock rules keep old scores and receipts isolated without
  }
  });
 
- test('flow-v5 preserves flow-v3 scores and receipts, rejecting legacy submissions',async t=>{
+ test('flow-v6 preserves flow-v3 scores and receipts, rejecting legacy submissions',async t=>{
  const db=await fixture(t);
  for(const i of [0,1,2]){const oldRules='office-overtime-flow-'+[60,180,'unlimited'][i]+'-v3';
  db.raw.run('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)',['qa',payload(i).game,oldRules,'historic','舊規則',999999,now-9*86400000]);
@@ -114,11 +114,24 @@ test('new contact/work-clock rules keep old scores and receipts isolated without
  }
  });
 
- test('flow-v5 preserves flow-v4 scores and receipts, rejecting legacy submissions',async t=>{
+ test('flow-v6 preserves flow-v4 scores and receipts, rejecting legacy submissions',async t=>{
  const db=await fixture(t);
  for(const i of [0,1,2]){const oldRules='office-overtime-flow-'+[60,180,'unlimited'][i]+'-v4';
  db.raw.run('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)',['qa',payload(i).game,oldRules,'historic','舊規則',999999,now-9*86400000]);
  db.raw.run('INSERT INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day) VALUES(?,?,?,?,?,?,?,?,?,?)',['qa','flow-v4-'+i,'old-payload','historic',payload(i).game,oldRules,'舊規則',999999,now-9*86400000,0]);
+ assert.equal((await handleRequest(post({...payload(i),rules:oldRules}),env(db),now)).status,400);
+ assert.equal((await handleRequest(post(payload(i)),env(db),now)).status,200);
+ assert.deepEqual((await (await handleRequest(get(i),env(db),now)).json()).entries.map(x=>x.score),[1000]);
+ assert.equal(db.raw.exec('SELECT score FROM leaderboard_best WHERE rules=?',[oldRules])[0].values[0][0],999999);
+ assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_submissions WHERE rules=?',[oldRules])[0].values[0][0],1);
+ }
+ });
+
+ test('flow-v6 preserves flow-v5 scores and receipts, rejecting legacy submissions',async t=>{
+ const db=await fixture(t);
+ for(const i of [0,1,2]){const oldRules='office-overtime-flow-'+[60,180,'unlimited'][i]+'-v5';
+ db.raw.run('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)',['qa',payload(i).game,oldRules,'historic','舊規則',999999,now-9*86400000]);
+ db.raw.run('INSERT INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day) VALUES(?,?,?,?,?,?,?,?,?,?)',['qa','flow-v5-'+i,'old-payload','historic',payload(i).game,oldRules,'舊規則',999999,now-9*86400000,0]);
  assert.equal((await handleRequest(post({...payload(i),rules:oldRules}),env(db),now)).status,400);
  assert.equal((await handleRequest(post(payload(i)),env(db),now)).status,200);
  assert.deepEqual((await (await handleRequest(get(i),env(db),now)).json()).entries.map(x=>x.score),[1000]);

@@ -8,7 +8,7 @@ export function startReentry(g){
  const r=g.round;if(!r.limit||r.remaining<=0||r.ending||r.reentry)return false;
  r.reentries++;const side=g.ball.x===0?(r.reentries%2?1:-1):Math.sign(g.ball.x);
  r.reentry={elapsed:0,duration:1.5,from:{x:g.ball.x,z:g.ball.z},side};
- g.combo=0;g.lastHit=-99;g.comboRoutes.active=null;g.mailRun=null;g.interaction=null;g.opportunity=null;g.arming=null;g.cancelInput();
+ g.combo=0;g.lastHit=-99;g.comboRoutes.active=null;g.mailRun=null;g.shortRun=null;g.interaction=null;g.opportunity=null;g.arming=null;g.cancelInput();
  g.central.available=false;g.central.litBefore=false;g.flippers={left:0,right:0};g.flipperStroke={left:0,right:0};g.flipperPulse={left:0,right:0};g.chairBoost.remaining=0;g.effect=null;g.hop=0;g.ball.vx=g.ball.vz=0;
  g.emit('reentryStart',{count:r.reentries});return true;
 }
@@ -20,13 +20,13 @@ export function updateReentry(g,dt){
  // collision, lamp or reward checks are introduced during the return animation.
  g.ball.x=r.from.x*(1-u)+r.side*14*Math.sin(Math.PI*u);g.ball.z=r.from.z+(-11.3-r.from.z)*u;g.hop=Math.sin(Math.PI*t)*.8;
  g.tapQueue.length=0;g.pendingTap=null;
- if(r.elapsed>=r.duration-1e-8){Object.assign(g.ball,{x:0,z:-11.3,vx:r.side*10,vz:12});g.round.reentry=null;g.hop=.3;g.cancelInput();g.interactionReady=Math.max(g.interactionReady,g.time+.6);g.bossPatrol.kickReady=Math.max(g.bossPatrol.kickReady,(g.playClock??g.time)+.6);g.emit('reentryEnd');}
+ if(r.elapsed>=r.duration-1e-8){Object.assign(g.ball,{x:0,z:-11.3,vx:r.side*6,vz:10});g.round.reentry=null;g.hop=.3;g.cancelInput();g.interactionReady=Math.max(g.interactionReady,g.time+.6);g.bossPatrol.kickReady=Math.max(g.bossPatrol.kickReady,(g.playClock??g.time)+.6);g.emit('reentryEnd');}
 }
 export function startTimedEnding(g){
  const r=g.round;if(r.ending)return;r.remaining=0;r.reason='time';g.endOvertime?.();
  r.reentry=null;
  r.ending={elapsed:0,from:{x:g.ball.x,z:g.ball.z},bossFrom:{x:g.bossPatrol.x,z:g.bossPatrol.z},kicked:false};
- g.mailRun=null;g.interaction=null;g.opportunity=null;g.arming=null;g.cancelInput();g.flipperStroke={left:0,right:0};g.flipperPulse={left:0,right:0};g.ball.vx=g.ball.vz=0;
+ g.mailRun=null;g.shortRun=null;g.interaction=null;g.opportunity=null;g.arming=null;g.cancelInput();g.flipperStroke={left:0,right:0};g.flipperPulse={left:0,right:0};g.ball.vx=g.ball.vz=0;
  g.bossPatrol.phase='chase';g.emit('timeUp');
 }
 // Free play and controllable work share the round clock. Work does not earn base pay.

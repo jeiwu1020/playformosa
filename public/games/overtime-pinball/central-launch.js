@@ -1,5 +1,6 @@
+import {LAYOUT} from './route-layout.js';
 import {sweepCircle} from './contact.js';
-export const CENTRAL={x:0,z:21,r:2.3,proximity:9,armTime:.8};
+export const CENTRAL={x:LAYOUT.launcher.x,z:LAYOUT.launcher.z,r:LAYOUT.launcher.r,proximity:9,armTime:.8};
 export const freshCentral=()=>({available:false,armed:null,remaining:0,litBefore:false});
 export function updateCentral(g,dt,pressed,input={}){
  const c=g.central,o=CENTRAL;c.remaining=Math.max(0,c.remaining-dt);if(!c.remaining)c.armed=null;
