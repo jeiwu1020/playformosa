@@ -7,9 +7,9 @@ import {BOARD_METRICS,resultToSubmission} from '../public/games/shared/leaderboa
 import {settledSnapshot} from '../public/games/overtime-pinball/platform-snapshot.mjs';
 const origin='https://qa.example',now=1800000000000;
 const specs=[[60,'60s'],[180,'180s'],[0,'unlimited']];
-for(const [limit,suffix] of specs)test(`flow ${suffix}: exact frontend/backend agreement and cross-scope history preservation`,async t=>{
+for(const legacy of ['shadow-v2','flow-v3','flow-v4'])for(const [limit,suffix] of specs)test(`flow-v5 vs ${legacy} ${suffix}: exact frontend/backend agreement and cross-scope history preservation`,async t=>{
  const db=await database();t.after(()=>db.raw.close());
- const game='overtime-pinball-'+suffix, rules=`office-overtime-flow-${limit||'unlimited'}-v3`,old=`office-overtime-shadow-${limit||'unlimited'}-v2`;
+ const game='overtime-pinball-'+suffix, rules=`office-overtime-flow-${limit||'unlimited'}-v5`,old=`office-overtime-${legacy.split('-')[0]}-${limit||'unlimited'}-${legacy.split('-')[1]}`;
  assert.equal(PINBALL_RULESETS[limit],rules);assert.equal(BOARD_METRICS[game].rules,rules);
  const snapshot=settledSnapshot({state:'over',score:123,round:{limit,reason:limit?'time':'drain'}});
  assert.equal(snapshot.ruleset,rules);assert.ok(Object.isFrozen(snapshot));assert.ok(resultToSubmission(game,snapshot));assert.equal(resultToSubmission(game,{...snapshot,ruleset:old}),null);

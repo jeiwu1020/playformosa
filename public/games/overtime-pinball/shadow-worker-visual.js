@@ -31,7 +31,7 @@ export function createShadowWorkerVisuals({T,office}){
  for(let i=0;i<2;i++){
   const worker=new T.Group();worker.name='shadow-worker-'+i;worker.visible=false;root.add(worker);
   const bodyMaterial=new T.MeshToonMaterial({color:tints[i],vertexColors:true,transparent:true,opacity:.82,depthWrite:true});
-  const faceMaterial=new T.MeshBasicMaterial({map:baked.faceTexture,color:0xffffff,transparent:true,opacity:.96,depthWrite:false,side:T.DoubleSide});materials.push(bodyMaterial,faceMaterial);
+  const faceMaterial=new T.MeshBasicMaterial({map:baked.faceTexture,color:0xffffff,transparent:true,opacity:.96,depthWrite:false,side:T.DoubleSide,forceSinglePass:true});materials.push(bodyMaterial,faceMaterial);
   const body=new T.Mesh(baked.body,bodyMaterial);body.name='shadow-worker-body';worker.add(body);
   const face=new T.Mesh(baked.faceGeometry,faceMaterial);face.name='shadow-worker-face';worker.add(face);
  }

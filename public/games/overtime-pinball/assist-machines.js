@@ -1,3 +1,4 @@
+import {lotteryEffects} from './lottery-events.js';
 import {sweepRect,sweepCircle} from './contact.js';
 // Same dimensions drive collision and visible office machinery.
 export const ASSISTS={left:{x:-10.5,z:1.5,hx:1.15,hz:2.1,extension:4.2,inward:1,cooldown:.75},right:{x:10.5,z:1.5,hx:1.15,hz:2.1,extension:4.2,inward:-1,cooldown:.75},upperLeft:{x:-12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:1,inputSide:'left',cooldown:.65,kickX:30,kickZ:-24,upper:true},upperRight:{x:12.6,z:-8.8,hx:1.15,hz:1.7,extension:4.2,inward:-1,inputSide:'right',cooldown:.65,kickX:30,kickZ:-24,upper:true},center:{x:0,z:21,r:2.3,cooldown:.9}};
@@ -6,12 +7,13 @@ export const ASSIST_OBSTACLES=DRAWERS.map(id=>({...ASSISTS[id],id:'assist-'+id,t
 export const freshAssists=()=>Object.fromEntries(Object.keys(ASSISTS).map(id=>[id,{amount:0,previousAmount:0,age:99,nextReady:0,spent:false,aim:0}]));
 export function retractAssists(g){for(const s of Object.values(g.assists)){s.amount=0;s.previousAmount=0;s.age=99;}}
 export function updateAssists(g,dt,pressed){
+ const raffle=g.lotteryEnabled?lotteryEffects(g.lottery,g.playClock):null;
  const l=g.flipperStroke.left>0,r=g.flipperStroke.right>0;
  for(const[id,s]of Object.entries(g.assists)){
   s.previousAmount=s.amount;
   const fresh=id==='center'?false:pressed[ASSISTS[id].inputSide||id];
   if(fresh&&g.time>=s.nextReady){s.age=0;s.spent=false;s.aim=l&&r?0:l?-1:1;s.nextReady=g.time+ASSISTS[id].cooldown;g.emit('assistStroke',{id});}
-  s.age+=dt;const rise=id==='center'?.07:.08,hold=id==='center'?.08:.26,fall=id==='center'?.16:.22;
+  s.age+=dt;const rise=id==='center'?.07:.08,hold=id==='center'?.08:.26*(raffle?.assistHoldMultiplier??1),fall=id==='center'?.16:.22;
   s.amount=s.age<rise?s.age/rise:s.age<rise+hold?1:Math.max(0,1-(s.age-rise-hold)/fall);
  }
 }
@@ -45,7 +47,11 @@ export function resolveAssist(g,c){
  const id=c.station.assistId,s=g.assists[id],o=ASSISTS[id],b=g.ball;
  // Only the inward drawer face strikes; solid rear/side housing stays passive.
  if((c.impactAmount??s.amount)>.2&&!s.spent&&c.poweredContact!==false&&(id==='center'||c.nx*o.inward>.7)){
-  s.spent=true;const vx=id==='center'?s.aim*18:o.inward*(o.kickX||32),vz=id==='center'?-32:(o.kickZ||-26);
+  s.spent=true;let vx=id==='center'?s.aim*18:o.inward*(o.kickX||32),vz=id==='center'?-32:(o.kickZ||-26);
+  // The award strengthens an actual inward powered strike, never a key press
+  // or passive rear/side collision. Center launcher retains its existing rule.
+  const raffle=id!=='center'&&g.lotteryEnabled?lotteryEffects(g.lottery,g.playClock):null;
+  if(raffle&&raffle.assistImpulseMultiplier>1){vx*=raffle.assistImpulseMultiplier;vz*=raffle.assistImpulseMultiplier;const speed=Math.hypot(vx,vz);if(speed>raffle.speedCap){vx*=raffle.speedCap/speed;vz*=raffle.speedCap/speed;}}
   if(id==='center'){const length=Math.hypot(vx,vz),radius=o.r+b.r+.01;b.x=o.x+vx/length*radius;b.z=o.z+vz/length*radius;}
   else{b.x=o.x+o.inward*(o.hx+o.extension*s.amount+b.r+.01);}
   b.vx=vx;b.vz=vz;g.hop=id==='center'?1.2:.45;const points=id==='center'?60:40;if(g.award)g.award('rescue',points);else g.bonus+=points;g.hits++;g.interactionReady=Math.max(g.interactionReady,g.time+.25);g.emit('assistKick',{id,vx,vz,points});
