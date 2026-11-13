@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync} from 'node:fs';
+import * as b from './helpers/punchline-portal-provenance.mjs';
+const root=new URL('../',import.meta.url),read=p=>readFileSync(new URL(p,root));
+function inventory(){const out=[];function walk(dir=''){for(const e of readdirSync(new URL(dir?dir+'/':'./',root),{withFileTypes:true})){if(!dir&&['node_modules','dist','.git'].includes(e.name))continue;const p=dir?dir+'/'+e.name:e.name;if(e.isDirectory())walk(p);else out.push(p);}}walk();return out;}
+test('shadow admission admission reconstructs exact complete immutable parent',()=>{b.verifyBase(b.baseline);b.assertCompleteInventory(inventory());for(const f of b.baseline.files)assert.equal(b.gitBlob(b.readBeforePunchlinePortal(new URL(f.path,root))),f.gitBlob,f.path);});
+test('shadow admission rejects unknown missing duplicate and changed source',()=>{const paths=inventory();assert.throws(()=>b.assertCompleteInventory([...paths,'unknown.js']));assert.throws(()=>b.assertCompleteInventory([...paths,paths[0]]));for(const p of b.baseline.addedPaths)assert.throws(()=>b.assertCompleteInventory(paths.filter(x=>x!==p)));for(const f of [...b.manifest().files,...b.manifest().addedFiles])assert.throws(()=>b.assertCompleteInventory(paths,{read:p=>p===f.path?Buffer.from('drift'):read(p)}));});
+test('shadow admission rejects forged parent preimage and admission',()=>{const m=b.manifest();for(const f of m.files){const bad=structuredClone(m),x=bad.files.find(x=>x.path===f.path);x.beforeText+='forged';x.beforeGitBlob=b.gitBlob(Buffer.from(x.beforeText));x.beforeSha256=b.sha256(Buffer.from(x.beforeText));assert.throws(()=>b.validate(bad));}for(const key of ['baseCommit','baseTree']){const bad=structuredClone(m);bad[key]='0'.repeat(40);assert.throws(()=>b.validate(bad));}const bad=structuredClone(m);bad.addedPaths.push('unknown');assert.throws(()=>b.validate(bad));assert.equal(Object.isFrozen(m.files[0]),true);assert.throws(()=>{m.files[0].beforeText+='x';},TypeError);});
+test('shadow admission cache rechecks disk mutations and malformed JSON',async()=>{const {mkdtemp,mkdir,writeFile,rm}=await import('node:fs/promises');const {tmpdir}=await import('node:os');const {join}=await import('node:path');const {pathToFileURL}=await import('node:url');const dir=await mkdtemp(join(tmpdir(),'gate-proof-'));try{await mkdir(join(dir,'tests/helpers'),{recursive:true});await mkdir(join(dir,'docs/punchline-portal'),{recursive:true});for(const p of ['tests/helpers/punchline-portal-provenance.mjs','docs/punchline-portal/BASELINE.json','docs/punchline-portal/MANIFEST.json','tests/helpers/provenance-session.mjs'])await writeFile(join(dir,p),read(p));const isolated=await import(pathToFileURL(join(dir,'tests/helpers/punchline-portal-provenance.mjs')));isolated.validate(isolated.manifest());const m=structuredClone(isolated.manifest());m.files[0].beforeText+='x';await writeFile(join(dir,'docs/punchline-portal/MANIFEST.json'),JSON.stringify(m));assert.throws(()=>isolated.validate(isolated.manifest()));await writeFile(join(dir,'docs/punchline-portal/MANIFEST.json'),'{');assert.throws(()=>isolated.manifest(),SyntaxError);assert.throws(()=>isolated.manifest(),SyntaxError);}finally{await rm(dir,{recursive:true,force:true});}});
+
+test('historical external entries use the exact parent inventory, not new current directory entries',async()=>{const {historicalEntryPaths,historicalCatalog}=await import('./helpers/fast-hands-split-entries-catalog.mjs');assert.deepEqual(historicalEntryPaths,b.baseline.files.map(f=>f.path).filter(p=>/^src\/catalog-entries\/[a-z0-9-]+\.json$/.test(p)).sort());assert.equal(historicalEntryPaths.includes('src/catalog-entries/taiwanpunchline.json'),false);assert.equal(historicalCatalog.externalGames.some(e=>e.id==='taiwanpunchline'),false);const {catalog}=await import('../src/catalog.mjs');assert.equal(catalog.externalGames.some(e=>e.id==='taiwanpunchline'),true);});
+
+test('output verifier only exempts the exact two server routes on root index',async()=>{
+ const {mkdtemp,mkdir,writeFile,rm}=await import('node:fs/promises');
+ const {tmpdir}=await import('node:os');const {join}=await import('node:path');const {spawnSync}=await import('node:child_process');
+ const dir=await mkdtemp(join(tmpdir(),'portal-verify-'));
+ try{
+  await mkdir(join(dir,'scripts'));await mkdir(join(dir,'dist'));
+  await writeFile(join(dir,'scripts/verify.mjs'),read('scripts/verify.mjs'));
+  const run=()=>spawnSync(process.execPath,[join(dir,'scripts/verify.mjs')],{encoding:'utf8',timeout:10000});
+  for(const route of ['taiwanfighter','taiwanpunchline']){
+   await writeFile(join(dir,'dist/index.html'),`<a href="/api/play-counts/entries/${route}">play</a>`);
+   const result=run();assert.equal(result.status,0,result.stderr);
+  }
+  for(const route of ['taiwanpunchline-wrong','taiwanpunchline/','taiwanpunchline?x=1']){
+   await writeFile(join(dir,'dist/index.html'),`<a href="/api/play-counts/entries/${route}">play</a>`);
+   const result=run();assert.notEqual(result.status,0);assert.match(result.stderr,/Missing local reference/);
+  }
+  await writeFile(join(dir,'dist/index.html'),'<p>home</p>');
+  await writeFile(join(dir,'dist/other.html'),'<a href="/api/play-counts/entries/taiwanpunchline">play</a>');
+  const result=run();assert.notEqual(result.status,0);assert.match(result.stderr,/Missing local reference.*from other.html/);
+ }finally{await rm(dir,{recursive:true,force:true});}
+});

@@ -46,7 +46,7 @@ test('each original-art game card loads lazily and has one accessible heading',(
 });
 
 test('each installed entry has its approved identity and independent release metadata',()=>{
- const names=new Map(expected);
+ const names=new Map([...expected,['taiwanpunchline','拳民開講']]);
  for(const entry of [...catalog.externalGames,...catalog.platforms]){
   assert.equal(entry.title,names.get(entry.id));assert.equal(entry.href,destination(entry.id));
   assert.equal(typeof entry.release.preview,'boolean');assert.equal(typeof entry.release.production,'boolean');

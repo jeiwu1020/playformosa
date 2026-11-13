@@ -1,0 +1,21 @@
+{
+  "entry": "taiwanpunchline",
+  "verifiedAt": "2026-11-13",
+  "sourceHomepage": "https://taiwanpunchline.playformosa.workers.dev/",
+  "method": "User-authorized native OpenAI image generation with existing game artwork as visual references. This is newly generated portal artwork, NOT a download or screenshot from the game homepage.",
+  "generator": "OpenAI native image generation",
+  "authorization": "User asked for a generated thumbnail for the preview-only Punchline game card.",
+  "assets": [
+    {
+      "path": "public/assets/portal-taiwanpunchline.png",
+      "sourceKind": "generated",
+      "sourcePath": "public/assets/portal-taiwanpunchline.png",
+      "evidence": "Byte-for-byte original native image-generation output, no cropping or post-generation edits.",
+      "width": 1672,
+      "height": 941,
+      "bytes": 3499798,
+      "sha256": "39cde08925e1042dbfe8c5e301f4aa98cca6c63963e6e0f8008cc6f78a5ab1fa",
+      "originalStorage": "direct: public asset is the unmodified original generation output"
+    }
+  ]
+}

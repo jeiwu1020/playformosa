@@ -1,3 +1,4 @@
+import {punchlineEntryPath,handlePunchlineEntry} from '../play-counts/punchline-entry.mjs';
 import {handlePlayCounts} from '../play-counts/index.mjs';
 import {fighterEntryPath,handleFighterEntry} from '../play-counts/entries.mjs';
 import {LeaderboardRepository} from './repository.mjs';
@@ -81,6 +82,7 @@ function parseSubmission(text,scope){
 const json=(body,status=200,extra={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...extra}});
 export async function handleRequest(request,env,now=Date.now(),context){
  const url=new URL(request.url);
+ if(url.pathname===punchlineEntryPath)return handlePunchlineEntry(request,env,now,context);
  if(url.pathname===fighterEntryPath)return handleFighterEntry(request,env,now,context);
  if(url.pathname.startsWith('/api/play-counts'))return handlePlayCounts(request,env,now);
  if(!url.pathname.startsWith('/api/leaderboard'))return env.ASSETS?.fetch(request)??new Response('Not found',{status:404});

@@ -12,8 +12,8 @@ for(const file of paths){
   const refs=file.endsWith('.html')?[...source.matchAll(/(?:src|href)="([^"]+)"/g)].map(m=>m[1]):file.endsWith('.mjs')?[...source.matchAll(/(?:from\s*|import\s*)['"](\.[^'"]+)['"]/g)].map(m=>m[1]):[...source.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)].map(m=>m[1]);
   for(const ref of refs){
     if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;
-    // This fixed server-side navigation route is checked by fighter-entry-count.test.mjs.
-    if(ref==='/api/play-counts/entries/taiwanfighter'&&path.relative(root,file)==='index.html'){checked++;continue;}
+    // Exact server-side navigation routes are covered by fighter/punchline-entry-count tests.
+    if((ref==='/api/play-counts/entries/taiwanfighter'||ref==='/api/play-counts/entries/taiwanpunchline')&&path.relative(root,file)==='index.html'){checked++;continue;}
     if(ref==='#'){checked++;continue;}
     if(ref.startsWith('#')){assert.ok(new RegExp(`id=["']${ref.slice(1)}["']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}
     let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);
