@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {bossVisualState} from '../public/games/overtime-pinball/boss-visual.js';
+test('boss visuals use active-play clock while paid time freezes during work',()=>{const g={time:1,playClock:4,round:{},bossPatrol:{phase:'patrol',x:0,z:0,previousX:0,previousZ:0,kickUntil:3}};const a=bossVisualState(g);assert.equal(a.kick,0);assert.equal(a.walk,Math.sin(4*13)*.5);});

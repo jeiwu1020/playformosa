@@ -5,7 +5,7 @@ import {handleRequest, validateSubmission} from '../worker/leaderboard/index.mjs
 import {database} from './helpers/leaderboard-sqlite.mjs';
 const origin='https://qa.example', now=1_800_000_000_000;
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
-const specs=[['60s','office-v0826-reentry-60-v1'],['180s','office-v0826-reentry-180-v1'],['unlimited','office-v0826-drain-unlimited-v1']];
+const specs=[['60s','office-overtime-shadow-60-v2'],['180s','office-overtime-shadow-180-v2'],['unlimited','office-overtime-shadow-unlimited-v2']];
 const payload=(i,n=1,score=1000)=>({game:'overtime-pinball-'+specs[i][0],rules:specs[i][1],unit:'points',status:'done',score,nickname:'測試玩家'+n,deviceId:id(n),submissionId:id(i*100+n)});
 const env=(DB,scope='qa')=>({DB,LEADERBOARD_ENABLED:'true',LEADERBOARD_SCOPE:scope,LEADERBOARD_ORIGIN:origin});
 const post=(body,query='',from=origin)=>new Request(origin+'/api/leaderboard/submissions'+query,{method:'POST',headers:{Origin:from,'Content-Type':'application/json'},body:typeof body==='string'?body:JSON.stringify(body)});
@@ -72,4 +72,18 @@ test('real pinball API success/cooldown keeps all other-game and play-count reco
  assert.deepEqual(db.raw.exec("SELECT * FROM leaderboard_best WHERE game='hurdles' ORDER BY 1,2,3,4")[0].values,snapshots.best);
  assert.deepEqual(db.raw.exec("SELECT * FROM leaderboard_submissions WHERE game='hurdles' ORDER BY 1,2,3,4")[0].values,snapshots.receipts);
  assert.deepEqual(all(db,'play_count_totals'),snapshots.totals);assert.deepEqual(all(db,'play_count_receipts'),snapshots.plays);
+});
+
+test('new contact/work-clock rules keep old scores and receipts isolated without deleting history',async t=>{
+ const db=await fixture(t),oldRules=['office-v0826-reentry-60-v1','office-v0826-reentry-180-v1','office-v0826-drain-unlimited-v1'];
+ for(const i of[0,1,2]){
+  db.raw.run('INSERT INTO leaderboard_best(scope,game,rules,device,nickname,score,updated_at) VALUES(?,?,?,?,?,?,?)',['qa',payload(i).game,oldRules[i],'historic','舊規則',999999,now-9*86400000]);
+  db.raw.run('INSERT INTO leaderboard_submissions(scope,id,payload,device,game,rules,nickname,score,created_at,day) VALUES(?,?,?,?,?,?,?,?,?,?)',['qa','old-rule-'+i,'old-payload','historic',payload(i).game,oldRules[i],'舊規則',999999,now-9*86400000,0]);
+  assert.deepEqual((await(await handleRequest(get(i),env(db),now)).json()).entries,[]);
+  assert.equal((await handleRequest(post({...payload(i),rules:oldRules[i]}),env(db),now)).status,400);
+  assert.equal((await handleRequest(post(payload(i)),env(db),now)).status,200);
+  assert.deepEqual((await(await handleRequest(get(i),env(db),now)).json()).entries.map(x=>x.score),[1000]);
+  assert.equal(db.raw.exec('SELECT score FROM leaderboard_best WHERE rules=?',[oldRules[i]])[0].values[0][0],999999);
+  assert.equal(db.raw.exec('SELECT count(*) FROM leaderboard_submissions WHERE rules=?',[oldRules[i]])[0].values[0][0],1);
+ }
 });

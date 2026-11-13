@@ -69,8 +69,8 @@ test('pinballPolish disk changes invalidate the manifest cache and malformed JSO
  const {tmpdir}=await import('node:os');const {join}=await import('node:path');const {pathToFileURL}=await import('node:url');
  const dir=await mkdtemp(join(tmpdir(),'pinball-polish-cache-'));
  try{
-  await mkdir(join(dir,'tests/helpers'),{recursive:true});await mkdir(join(dir,'docs/pinball-polish'),{recursive:true});await mkdir(join(dir,'docs/preview-fast-gate'),{recursive:true});
-  for(const p of ['tests/helpers/pinball-polish-provenance.mjs','docs/pinball-polish/BASELINE.json','docs/pinball-polish/MANIFEST.json','tests/helpers/preview-fast-gate-provenance.mjs','docs/preview-fast-gate/BASELINE.json','docs/preview-fast-gate/MANIFEST.json'])await writeFile(join(dir,p),read(p));
+  await mkdir(join(dir,'tests/helpers'),{recursive:true});await mkdir(join(dir,'docs/pinball-polish'),{recursive:true});await mkdir(join(dir,'docs/preview-fast-gate'),{recursive:true});await mkdir(join(dir,'docs/shadow-release'),{recursive:true});
+  for(const p of ['tests/helpers/pinball-polish-provenance.mjs','docs/pinball-polish/BASELINE.json','docs/pinball-polish/MANIFEST.json','tests/helpers/preview-fast-gate-provenance.mjs','docs/preview-fast-gate/BASELINE.json','docs/preview-fast-gate/MANIFEST.json','tests/helpers/shadow-release-provenance.mjs','docs/shadow-release/BASELINE.json','docs/shadow-release/MANIFEST.json'])await writeFile(join(dir,p),read(p));
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/pinball-polish-provenance.mjs')));
   isolated.validate(isolated.manifest());
   const tampered=JSON.parse(read('docs/pinball-polish/MANIFEST.json'));tampered.files[0].beforeText+='disk drift';

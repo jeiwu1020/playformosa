@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync}from'node:fs';
+import * as ui from '../public/games/overtime-pinball/overtime-presentation.js';
+test('collecting UI uses four-word progress rather than parallel work evidence',()=>{const p=ui.overtimePresentation({phase:'collecting',litCount:2,words:{fake:true,pretend:true},pool:650},0);assert.equal(p.progress,.5);assert.match(p.text,/待核准/);assert.doesNotMatch(p.text,/證據|3/)});
+test('frenzy and claim show deadlines, no negative or misleading score',()=>{assert.match(ui.overtimePresentation({phase:'frenzy',until:12,pool:800},3).text,/9秒/);assert.match(ui.overtimePresentation({phase:'claim',until:20,pool:800},21).text,/0秒/)});
+test('cue text stays on overtime theme and hides unknown cue',()=>{assert.match(ui.overtimeCueText('frenzy'),/一人當三人/);assert.match(ui.overtimeCueText('word'),/字/);assert.equal(ui.overtimeCueText('unknown'),'')});
+test('pay names cover new categories',()=>{assert.equal(ui.PAY_NAMES.clones,'影分身代班費');assert.equal(ui.PAY_NAMES.jackpot,'核准加班獎池')});
+test('claim grace identifies current work instead of expired ordinary deadline',()=>{assert.match(ui.overtimePresentation({phase:'claim',until:20,pool:800,claimWork:{cancelled:false}},21).text,/本次工作.*2秒/)});
+test('HUD has four readable word lights while preserving workflow and route',()=>{const html=readFileSync(new URL('../public/games/overtime-pinball/game.html',import.meta.url),'utf8');assert.match(html,/<span>○ 假<\/span><span>○ 裝<\/span><span>○ 很<\/span><span>○ 忙<\/span>/);assert.match(html,/id="workflowText"/);assert.match(html,/id="routeReward"/)});

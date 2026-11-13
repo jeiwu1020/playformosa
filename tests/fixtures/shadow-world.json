@@ -1,0 +1,206 @@
+{
+  "halfWidth": 18,
+  "top": -20,
+  "door": 46.5,
+  "drain": 50,
+  "gravity": 6,
+  "stations": [
+    {
+      "id": "shredder",
+      "type": "shredder",
+      "x": -7,
+      "z": -14.5,
+      "r": 1.9,
+      "visualScale": 1.25,
+      "power": 20,
+      "points": 45,
+      "label": "薪水保衛戰",
+      "joke": "碎紙機：薪水薄到像張紙！"
+    },
+    {
+      "id": "server",
+      "type": "server",
+      "x": 7,
+      "z": -14.5,
+      "r": 1.9,
+      "visualScale": 1.25,
+      "power": 20,
+      "points": 45,
+      "label": "全公司重開機",
+      "joke": "工程師：你有試過關掉重開嗎？"
+    },
+    {
+      "id": "boss",
+      "type": "boss",
+      "x": 0,
+      "z": -16,
+      "r": 1.6,
+      "power": 18,
+      "points": 35,
+      "label": "老闆飛踢",
+      "joke": "公司送你一程！"
+    },
+    {
+      "id": "copier",
+      "type": "copier",
+      "x": 0,
+      "z": -3,
+      "r": 3.3,
+      "visualScale": 1.45,
+      "power": 15,
+      "points": 30,
+      "label": "影印暴擊",
+      "joke": "影印 99 份，你是第 100 份！"
+    },
+    {
+      "id": "water",
+      "type": "water",
+      "x": -12,
+      "z": 11,
+      "r": 1.8,
+      "power": 16,
+      "points": 25,
+      "label": "水逆退散",
+      "joke": "補充水分，也補充動能！"
+    },
+    {
+      "id": "water2",
+      "theme": "microwave",
+      "activity": "microwave",
+      "type": "water",
+      "x": 12,
+      "z": 11,
+      "r": 1.8,
+      "power": 16,
+      "points": 25,
+      "label": "便當爆熱",
+      "joke": "便當升溫，比薪水還快！"
+    },
+    {
+      "id": "desk",
+      "type": "desk",
+      "x": 9,
+      "z": 22,
+      "r": 2.5,
+      "visualScale": 1.1,
+      "power": 15,
+      "points": 25,
+      "label": "會議彈射",
+      "joke": "這個會議，先把你彈出去！"
+    },
+    {
+      "id": "chair",
+      "type": "chair",
+      "x": -8,
+      "z": 29,
+      "r": 2.2,
+      "visualScale": 1.4,
+      "power": 15,
+      "points": 20,
+      "label": "旋轉椅漂移",
+      "joke": "轉職？先轉三圈！"
+    },
+    {
+      "id": "chair2",
+      "theme": "parcel",
+      "activity": "parcel",
+      "type": "chair",
+      "x": 11,
+      "z": 32,
+      "r": 1.8,
+      "visualScale": 1.1,
+      "power": 15,
+      "points": 20,
+      "label": "本人寄件",
+      "joke": "收件人：明天的自己！"
+    },
+    {
+      "id": "desk2",
+      "type": "desk",
+      "x": -9,
+      "z": 19,
+      "r": 2.9,
+      "visualScale": 1.35,
+      "power": 14,
+      "points": 25,
+      "label": "最後一份報表",
+      "joke": "快下班了？再改一版！"
+    },
+    {
+      "id": "desk3",
+      "theme": "clock",
+      "activity": "clock",
+      "type": "desk",
+      "x": 0,
+      "z": 33,
+      "r": 2.3,
+      "visualScale": 1.15,
+      "power": 14,
+      "points": 25,
+      "label": "打卡三連",
+      "joke": "人可以走，工時留下！"
+    },
+    {
+      "id": "launcher",
+      "type": "launcher",
+      "x": 0,
+      "z": 21,
+      "r": 2.3,
+      "power": 0,
+      "points": 0,
+      "label": "升職分流台",
+      "joke": "先選部門，再被彈走！"
+    }
+  ],
+  "props": [
+    {
+      "id": "plant-0",
+      "type": "plant",
+      "x": -16,
+      "z": -11,
+      "r": 0.75,
+      "label": "盆栽也不准下班"
+    },
+    {
+      "id": "plant-1",
+      "type": "plant",
+      "x": 16,
+      "z": -11,
+      "r": 0.75,
+      "label": "盆栽也不准下班"
+    },
+    {
+      "id": "plant-2",
+      "type": "plant",
+      "x": -16,
+      "z": 27,
+      "r": 0.75,
+      "label": "盆栽也不准下班"
+    },
+    {
+      "id": "plant-3",
+      "type": "plant",
+      "x": 16,
+      "z": 27,
+      "r": 0.75,
+      "label": "盆栽也不准下班"
+    }
+  ],
+  "rails": [
+    {
+      "ax": -17.7,
+      "az": 34,
+      "bx": -11.8,
+      "bz": 43,
+      "r": 0.35
+    },
+    {
+      "ax": 17.7,
+      "az": 34,
+      "bx": 11.8,
+      "bz": 43,
+      "r": 0.35
+    }
+  ],
+  "gateClosed": false
+}

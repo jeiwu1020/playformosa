@@ -1,5 +1,6 @@
+import {sweepRect} from './contact.js';
 // One shared sampled centreline for physics and the visible, ground-level mail chute.
-export const MAIL={entryX:-7,entryZ:34,halfMouth:2.2,minSpeed:16,minUpstream:12,minTravelSpeed:32,maxTravelSpeed:40,cooldown:8,points:350,exit:{x:7,z:34,vx:-12,vz:-34}};
+export const MAIL={entryX:-7,entryZ:34,halfMouth:2.2,minSpeed:16,minUpstream:12,minTravelSpeed:32,maxTravelSpeed:40,mouthDepth:1.2,clearance:.7,rearmDistance:2,points:350,exit:{x:7,z:34,vx:-12,vz:-34}};
 const controls=[[-7,34],[-12,35],[-19,34],[-22,29],[-22,-16],[-18,-24],[0,-26],[18,-24],[22,-16],[22,29],[19,34],[12,35],[7,34]];
 const point=t=>{const f=t*(controls.length-1),n=Math.min(controls.length-2,Math.floor(f)),u=f-n,p0=controls[Math.max(0,n-1)],p1=controls[n],p2=controls[n+1],p3=controls[Math.min(controls.length-1,n+2)];return{x:cat(p0[0],p1[0],p2[0],p3[0],u),z:cat(p0[1],p1[1],p2[1],p3[1],u)};};
 function cat(a,b,c,d,t){return .5*((2*b)+(-a+c)*t+(2*a-5*b+4*c-d)*t*t+(-a+3*b-3*c+d)*t*t*t);}
@@ -17,3 +18,15 @@ export function mailPoint(distance){const d=Math.max(0,Math.min(MAIL_LENGTH,dist
 export function mailEntry(from,to){if(from.z<MAIL.entryZ||to.z>=MAIL.entryZ||to.vz>-MAIL.minUpstream||Math.hypot(to.vx,to.vz)<MAIL.minSpeed)return null;const t=(MAIL.entryZ-from.z)/(to.z-from.z),x=from.x+(to.x-from.x)*t;for(const direction of [1,-1])if(Math.abs(x-MAIL.entryX*direction)<=MAIL.halfMouth)return{x,z:MAIL.entryZ,direction};return null;}
 export const WORKFLOW={goals:['print','sign','mail'],points:1800,duration:6,cooldown:8,hitPoints:300,hits:3};
 export const freshWorkflow=()=>({lights:[false,false,false],active:false,until:0,readyAt:0,hitsLeft:0,rounds:0});
+
+export const freshMailLatch=()=>({blocked:false,direction:1,travel:0});
+export function lockMailExit(latch,direction){Object.assign(latch,{blocked:true,direction,travel:0});}
+const mouthShape=direction=>({x:MAIL.exit.x*direction,z:MAIL.entryZ,hx:MAIL.halfMouth,hz:MAIL.mouthDepth});
+export function mailMouthContains(p,direction,radius=.65){return !!sweepRect(p,p,mouthShape(direction),radius+MAIL.clearance);}
+export function advanceMailLatch(latch,from,to,radius=.65){
+ if(!latch.blocked||!from||!to)return;
+ const distance=Math.hypot(to.x-from.x,to.z-from.z);if(!Number.isFinite(distance))return;
+ // Animation and teleport never call this. Only fully clear physical flight earns credit.
+ if(sweepRect(from,to,mouthShape(latch.direction),radius+MAIL.clearance))latch.travel=0;else latch.travel+=distance;
+ if(latch.travel>=MAIL.rearmDistance){latch.blocked=false;latch.travel=0;}
+}

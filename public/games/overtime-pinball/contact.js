@@ -41,3 +41,6 @@ export function planApproach(i,o,view,obstacles){
  if(best.blocked){for(const outer of radii)for(const delta of choices)for(const turn of [.25,.5,.75,1])score(outer,delta,turn);}
  return best;
 }
+// A contact episode ends only after the whole ball clears every part of a station.
+export function stationClear(p,o,view,radius,margin=0){return stationShapes(o,view).every(s=>!(s.hx?sweepRect(p,p,s,radius+margin):sweepCircle(p,p,s,radius+margin)));}
+export function clearStationSegment(from,to,o,view,radius,margin=0){return stationShapes(o,view).every(s=>!(s.hx?sweepRect(from,to,s,radius+margin):sweepCircle(from,to,s,radius+margin)));}

@@ -1,8 +1,9 @@
+import {PINBALL_RULESETS} from '../overtime-pinball/ruleset.mjs';
 // Final-round snapshots only. These adapters never read historical local bests.
 export const BOARD_METRICS=Object.freeze({
- 'overtime-pinball-60s':{rules:'office-v0826-reentry-60-v1',unit:'points',status:'done',direction:'desc'},
- 'overtime-pinball-180s':{rules:'office-v0826-reentry-180-v1',unit:'points',status:'done',direction:'desc'},
- 'overtime-pinball-unlimited':{rules:'office-v0826-drain-unlimited-v1',unit:'points',status:'done',direction:'desc'},
+ 'overtime-pinball-60s':{rules:PINBALL_RULESETS[60],unit:'points',status:'done',direction:'desc'},
+ 'overtime-pinball-180s':{rules:PINBALL_RULESETS[180],unit:'points',status:'done',direction:'desc'},
+ 'overtime-pinball-unlimited':{rules:PINBALL_RULESETS[0],unit:'points',status:'done',direction:'desc'},
  'courtesy-contest':{rules:'press-courtesy-v2',unit:'courtesies',status:'seated',direction:'desc',secondary:true,secondaryUnit:'秒'},
  'long-jump':{rules:'journey-km-v1',unit:'km',status:'valid',direction:'desc'},
  hurdles:{rules:'110m-8h-v1',unit:'s',status:'done',direction:'asc'},
@@ -21,7 +22,7 @@ export function resultToSubmission(game,r){
  if(!b||!r||r.phase!=='done')return null;
  if(game.startsWith('overtime-pinball-')){
   const limit={'overtime-pinball-60s':60,'overtime-pinball-180s':180,'overtime-pinball-unlimited':0}[game];
-  if(r.game!==game||r.limit!==limit||r.reason!==(limit===0?'drain':'time')||!Number.isSafeInteger(r.score)||r.score<0||r.score>=Number.MAX_SAFE_INTEGER)return null;
+  if(r.game!==game||r.ruleset!==b.rules||r.limit!==limit||r.reason!==(limit===0?'drain':'time')||!Number.isSafeInteger(r.score)||r.score<0||r.score>=Number.MAX_SAFE_INTEGER)return null;
   return {score:r.score,status:b.status};
  }
  let score;

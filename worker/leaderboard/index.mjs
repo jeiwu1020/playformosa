@@ -26,9 +26,9 @@ export const QA_RUNNER_BOARDS=Object.freeze({
 // retain the old schema and prevent this game's writes from pruning other boards.
 const pinballBoard=rules=>Object.freeze({rules,unit:'points',status:'done',direction:'desc',max:Number.MAX_SAFE_INTEGER-1,integer:true,allowZero:true,storageOffset:1,isolateReceiptCleanup:true});
 export const QA_PINBALL_BOARDS=Object.freeze({
- 'overtime-pinball-60s':pinballBoard('office-v0826-reentry-60-v1'),
- 'overtime-pinball-180s':pinballBoard('office-v0826-reentry-180-v1'),
- 'overtime-pinball-unlimited':pinballBoard('office-v0826-drain-unlimited-v1')
+ 'overtime-pinball-60s':pinballBoard('office-overtime-shadow-60-v2'),
+ 'overtime-pinball-180s':pinballBoard('office-overtime-shadow-180-v2'),
+ 'overtime-pinball-unlimited':pinballBoard('office-overtime-shadow-unlimited-v2')
 });
 const isPinball=game=>typeof game==='string'&&Object.hasOwn(QA_PINBALL_BOARDS,game);
 // Fast Hands rules isolate the two input modes without changing the nine legacy boards.

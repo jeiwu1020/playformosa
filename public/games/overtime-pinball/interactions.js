@@ -16,7 +16,10 @@ export function releasePosition(i,station,view,radius=.65,obstacles=[station,...
  const clear=p=>Math.abs(p.x)<=17.15&&p.z>=-19.2&&p.z<=48&&(!success?p.z>=station.z+station.r+radius+.7:true)&&obstacles.every(o=>stationShapes(o,view).every(s=>!(s.hx?sweepRect(p,p,s,radius+.03):sweepCircle(p,p,s,radius+.03))));
  if(clear(base))return base;
  const candidates=[];for(const dx of [0,-1.5,1.5,-3,3,-5,5,-7,7,-9,9])for(const dz of [0,-1.5,1.5,-3,3,-5,5])candidates.push({x:base.x+dx,z:base.z+dz});
- return candidates.filter(clear).sort((a,b)=>Math.hypot(a.x-base.x,a.z-base.z)-Math.hypot(b.x-base.x,b.z-base.z))[0]||base;
+ const near=candidates.filter(clear).sort((a,b)=>Math.hypot(a.x-base.x,a.z-base.z)-Math.hypot(b.x-base.x,b.z-base.z))[0];if(near)return near;
+ // Exhaust the legal floor before refusing release; never fall back to an overlapping point.
+ const floor=[];for(let x=-17;x<=17;x+=1)for(let z=-19;z<=48;z+=1){const p={x,z};if(clear(p))floor.push(p);}
+ return floor.sort((a,b)=>Math.hypot(a.x-base.x,a.z-base.z)-Math.hypot(b.x-base.x,b.z-base.z))[0]||null;
 }
 export function setupInteraction(i){Object.assign(i,{stage:'docking',inputReady:false,charge:0,spinAngle:0,pulls:0,nextSide:i.side,lastPull:-1,wasHolding:false,launchElapsed:0,result:null,pullPulse:0,perfectStamps:0});}
 export function cancelInteractionInput(i){if(i){i.inputReady=false;i.wasHolding=false;}}
@@ -64,7 +67,7 @@ export function advanceInteraction(i,dt,input,taps,activity){
  }else if(i.activity==='boss'){const sides=[...new Set(taps.map(t=>t.side))];if(i.inputReady&&sides.length===1&&sides[0]===i.nextSide&&!(input.left&&input.right)&&workTime>=.8&&workTime<=2.4)resolve(i,{kind:'perfect',quality:1,points:activity.reward});else if(workTime>=6)resolve(i,{kind:'timeout',quality:0,points:0});}
  return false;
 }
-export function launchVelocity(i,activity,station,stations,exit){
+function desiredLaunchVelocity(i,activity,station,stations,exit){
  const sign=i.side==='left'?-1:1;
  // Ordinary results rejoin play; failed attempts leave a rescue window, not a high-speed drain shot.
  if(['chair','copier','water'].includes(i.activity)&&!successfulInteraction(i)){
@@ -85,3 +88,13 @@ export function launchVelocity(i,activity,station,stations,exit){
  return {vx:dx*speed,vz:dz*speed};
 }
 
+
+// Preserve the intended shot unless its first tenth-second would hit this same equipment.
+// Search nearest angular alternatives without changing speed, result, points or input rules.
+export function launchVelocity(i,activity,station,stations,exit,view='reverse',radius=.65){
+ const velocity=desiredLaunchVelocity(i,activity,station,stations,exit),shapes=stationShapes(station,view);
+ const clear=v=>{const to={x:exit.x+v.vx*.1,z:exit.z+v.vz*.1};return shapes.every(s=>!(s.hx?sweepRect(exit,to,s,radius+.03):sweepCircle(exit,to,s,radius+.03)));};
+ if(clear(velocity))return velocity;
+ for(let step=1;step<=36;step++)for(const sign of[1,-1]){const angle=sign*step*Math.PI/36,c=Math.cos(angle),s=Math.sin(angle),candidate={vx:velocity.vx*c-velocity.vz*s,vz:velocity.vx*s+velocity.vz*c};if(clear(candidate))return candidate;}
+ return null;
+}
