@@ -1,5 +1,6 @@
 import {clockCue} from './clock-cue.js';
 import {comboTarget} from './combo-routes.js';
+import {LAYOUT} from './route-layout.js';
 // Interaction clock is independent of paid play time. L/R are physical sides.
 import {exitFor} from './activities.js';
 import {SOLID_PROPS} from './board-features.js';
@@ -9,7 +10,9 @@ export const successfulInteraction=i=>['perfect','complete'].includes(i.result?.
 // Failed work must leave beyond the downstream face, in either camera direction.
 // Both the launch animation and physical release use this same destination.
 export function releasePosition(i,station,view,radius=.65,obstacles=[station,...SOLID_PROPS]){
- const sign=i.side==='left'?-1:1,success=successfulInteraction(i),target=success?comboTarget(i,station):null,d=target?Math.hypot(target.x-station.x,target.z-station.z):1,base=target?{x:station.x+(target.x-station.x)/d*(station.r+radius+1.2),z:station.z+(target.z-station.z)/d*(station.r+radius+1.2)}:success?exitFor(station,i.side,view,radius):{x:clamp(station.x+sign*.9,-17.15,17.15),z:station.z+station.r+radius+1.1};
+ // Chair uses the outer aisle: the direct ray to water crosses the coffee desk.
+ // One unit of clearance includes the ball radius before aiming back toward water.
+ const sign=i.side==='left'?-1:1,success=successfulInteraction(i),target=success?comboTarget(i,station):null,d=target?Math.hypot(target.x-station.x,target.z-station.z):1,base=success&&i.activity==='chair'?{x:LAYOUT.desk2.x-LAYOUT.desk2.r-radius-1,z:station.z-2.5}:target?{x:station.x+(target.x-station.x)/d*(station.r+radius+1.2),z:station.z+(target.z-station.z)/d*(station.r+radius+1.2)}:success?exitFor(station,i.side,view,radius):{x:clamp(station.x+sign*.9,-17.15,17.15),z:station.z+station.r+radius+1.1};
  const clear=p=>Math.abs(p.x)<=17.15&&p.z>=-19.2&&p.z<=48&&(!success?p.z>=station.z+station.r+radius+.7:true)&&obstacles.every(o=>stationShapes(o,view).every(s=>!(s.hx?sweepRect(p,p,s,radius+.03):sweepCircle(p,p,s,radius+.03))));
  if(clear(base))return base;
  const candidates=[];for(const dx of [0,-1.5,1.5,-3,3,-5,5,-7,7,-9,9])for(const dz of [0,-1.5,1.5,-3,3,-5,5])candidates.push({x:base.x+dx,z:base.z+dz});
@@ -63,10 +66,15 @@ export function advanceInteraction(i,dt,input,taps,activity){
 }
 export function launchVelocity(i,activity,station,stations,exit){
  const sign=i.side==='left'?-1:1;
+ // Ordinary results rejoin play; failed attempts leave a rescue window, not a high-speed drain shot.
+ if(['chair','copier','water'].includes(i.activity)&&!successfulInteraction(i)){
+  if(i.result?.kind==='partial')return {vx:(exit.x===0?sign:-Math.sign(exit.x))*14,vz:-6};
+  return {vx:-Math.sign(exit.x)*4,vz:10};
+ }
  // Spin controls momentum independently of the timing-window score. Overheat still risks the door.
  const charge=i.result?.charge??i.charge??0,chairSpeed=i.activity==='chair'&&charge>0?Math.min(54,14+14*charge):0;
  if(!successfulInteraction(i)){const vx=sign*(i.result?.kind==='dizzy'?6:3),vz=8,scale=chairSpeed?chairSpeed/Math.hypot(vx,vz):1;return {vx:vx*scale,vz:vz*scale};}
- const targetRoute=comboTarget(i,station);if(targetRoute){const dx=targetRoute.x-exit.x,dz=targetRoute.z-exit.z,len=Math.hypot(dx,dz)||1,speed=({copier:44,coffee:38,launcher:42,clock:34})[i.activity]||40;return{vx:dx/len*speed,vz:dz/len*speed};}
+ const targetRoute=comboTarget(i,station);if(targetRoute){const dx=targetRoute.x-exit.x,dz=targetRoute.z-exit.z,len=Math.hypot(dx,dz)||1,speed=({copier:40,chair:34,water:36,coffee:38,launcher:42,clock:34})[i.activity]||40;return{vx:dx/len*speed,vz:dz/len*speed};}
  if(!['chair','copier'].includes(i.activity)){const q=i.result?.quality||0;return {vx:sign*activity.exitX*(.65+q*.35)*1.15,vz:activity.exitVz*(.65+q*.35)*1.15};}
  const quality=i.result?.quality||0,speed=chairSpeed||(14+quality*14)*1.15;
  const target=stations.filter(o=>o.id!==station.id&&o.z<station.z-5&&o.z>station.z-28).sort((a,b)=>Math.hypot(a.x-exit.x,a.z-exit.z)-Math.hypot(b.x-exit.x,b.z-exit.z))[0];
@@ -76,3 +84,4 @@ export function launchVelocity(i,activity,station,stations,exit){
  if(i.result?.kind==='dizzy'){const angle=sign*.52,x=dx*Math.cos(angle)-dz*Math.sin(angle);dz=dx*Math.sin(angle)+dz*Math.cos(angle);dx=x;}
  return {vx:dx*speed,vz:dz*speed};
 }
+

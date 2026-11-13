@@ -59,8 +59,8 @@ test('pinball manifest disk changes invalidate cached validation',async()=>{
  const {tmpdir}=await import('node:os');const {join}=await import('node:path');const {pathToFileURL}=await import('node:url');
  const dir=await mkdtemp(join(tmpdir(),'pinball-manifest-cache-'));
  try{
-  await mkdir(join(dir,'tests/helpers'),{recursive:true});await mkdir(join(dir,'docs/pinball'),{recursive:true});await mkdir(join(dir,'docs/preview-sports-counts'),{recursive:true});
-  for(const p of ['tests/helpers/pinball-integration-provenance.mjs','docs/pinball/BASELINE.json','docs/pinball/MANIFEST.json','tests/helpers/preview-sports-counts-provenance.mjs','docs/preview-sports-counts/BASELINE.json','docs/preview-sports-counts/MANIFEST.json'])await writeFile(join(dir,p),read(p));
+  await mkdir(join(dir,'tests/helpers'),{recursive:true});await mkdir(join(dir,'docs/pinball'),{recursive:true});await mkdir(join(dir,'docs/preview-sports-counts'),{recursive:true});await mkdir(join(dir,'docs/pinball-polish'),{recursive:true});
+  for(const p of ['tests/helpers/pinball-integration-provenance.mjs','docs/pinball/BASELINE.json','docs/pinball/MANIFEST.json','tests/helpers/preview-sports-counts-provenance.mjs','docs/preview-sports-counts/BASELINE.json','docs/preview-sports-counts/MANIFEST.json','tests/helpers/pinball-polish-provenance.mjs','docs/pinball-polish/BASELINE.json','docs/pinball-polish/MANIFEST.json'])await writeFile(join(dir,p),read(p));
   const isolated=await import(pathToFileURL(join(dir,'tests/helpers/pinball-integration-provenance.mjs')));
   isolated.validate(isolated.manifest());
   const tampered=JSON.parse(read('docs/pinball/MANIFEST.json'));tampered.files[0].beforeText+='disk drift';

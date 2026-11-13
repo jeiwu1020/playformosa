@@ -29,3 +29,7 @@ body.pf-game.playing #rankDialog header{height:auto;min-height:0;pointer-events:
 /* Announce the result via heading focus without framing its noninteractive title.
    Keep all keyboard focus-visible rings on buttons, links and other controls. */
 .pf-game #results h2[tabindex="-1"]:focus{outline:none}
+
+
+/* Keep active audio text readable when shared active-button styling applies. */
+body.pf-game .pf-header nav #sound[aria-pressed="true"]{background:#dff18d;color:#243d38;border-color:#67825c}

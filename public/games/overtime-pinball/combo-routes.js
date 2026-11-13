@@ -10,4 +10,5 @@ export function comboContact(g,id){const a=live(g);if(!a||COMBO_ROUTES[a.id].tar
 export function comboWork(g,id,success){const a=live(g);if(a?.id==='dispatch'&&id==='desk3'){if(success&&a.stage==='work'){a.stage='save';a.until=g.time+8;g.emit('comboRouteSave');}else if(!success)g.comboRoutes.active=null;}}
 export function comboSave(g){const a=live(g);if(a?.id==='dispatch'&&a.stage==='save')complete(g);}
 export function comboAllows(g,id){const a=live(g);return !!a&&COMBO_ROUTES[a.id].target===id&&['target','clock','work'].includes(a.stage);}
-export function comboTarget(i,o){let id;if(o.id==='copier')id='shredder';else if(o.id==='desk2')id='chair';else if(o.id==='launcher')id=i.side==='left'?'desk2':'desk';if(id)return{id,...LAYOUT[id]};if(o.id==='desk3')return{x:i.side==='left'?-6:6,z:40};return null;}
+export function comboTarget(i,o){let id;if(o.id==='copier')id='shredder';else if(i.activity==='chair')id='water';else if(i.activity==='water')id='copier';else if(o.id==='desk2')id='chair';else if(o.id==='launcher')id=i.side==='left'?'desk2':'desk';if(id)return{id,...LAYOUT[id]};if(o.id==='desk3')return{x:i.side==='left'?-6:6,z:40};return null;}
+

@@ -1,3 +1,4 @@
+import {paintPinballScoreCard} from './score-card.mjs';
 // Game-owned sharing: the caller invokes capture immediately after the settled render.
 export function createPinballShare({document,container,status}){
  const win=document.defaultView,make=(tag,text)=>{const el=document.createElement(tag);if(text)el.textContent=text;return el;};
@@ -66,13 +67,10 @@ export function createPinballShare({document,container,status}){
   text=`不准加班公司｜${mode}｜本次 ${result.score} 分\n下班結算 · 玩家回報休閒成績\n${route}`;threads.href='https://www.threads.net/intent/post?text='+encodeURIComponent(text);
   try{
    if(!canvas.width||!canvas.height)throw Error('empty frame');
-   frozen=make('canvas');frozen.width=canvas.width;frozen.height=canvas.height+Math.max(100,Math.round(canvas.width*.15));
-   const ctx=frozen.getContext('2d');if(!ctx)throw Error('2D unavailable');
-   // Copy the settled WebGL pixels now, before resize or any async operation.
-   ctx.drawImage(canvas,0,0);const y=canvas.height,scale=canvas.width/800;
-   ctx.fillStyle='#152b30';ctx.fillRect(0,y,frozen.width,frozen.height-y);ctx.fillStyle='#fff3cf';ctx.font=`bold ${24*scale}px sans-serif`;ctx.fillText(`不准加班公司 · ${mode}`,20*scale,y+34*scale);ctx.font=`${20*scale}px sans-serif`;ctx.fillText(`本次 ${result.score} 分 · 下班結算 · PLAYFORMOSA`,20*scale,y+68*scale);
+   frozen=paintPinballScoreCard(canvas,result,()=>make('canvas'));
    encode();
   }catch{frozen=null;status.textContent='無法取得本次遊戲圖片，仍可分享或複製成績文字。';sync();}
  }
  reset();return {capture,reset};
 }
+
