@@ -1,3 +1,4 @@
+import {withProvenanceSession,manifestText} from './provenance-session.mjs';
 import {readFileSync as currentRead} from 'node:fs';
 // Exact additive boundary for the approved ShadowRelease import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
@@ -23,7 +24,7 @@ export function verifyBase(b){
 verifyBase(baseline);
 const manifestPath='docs/shadow-release/MANIFEST.json';
 let cachedText,cached;const validated=new WeakSet();
-export function manifest(){const text=actual(new URL('../../'+manifestPath,import.meta.url),'utf8');if(text!==cachedText){const parsed=freeze(JSON.parse(text));cachedText=text;cached=parsed;}return cached;}
+function uncached_manifest(){const url=new URL('../../'+manifestPath,import.meta.url),text=manifestText(url,()=>actual(url,'utf8'));if(text!==cachedText){const parsed=freeze(JSON.parse(text));cachedText=text;cached=parsed;}return cached;}
 export function validate(m){
  if(m===cached&&validated.has(m))return m;
  assert.equal(m.baseCommit,baseline.baseCommit);assert.equal(m.baseTree,baseline.baseTree);
@@ -34,21 +35,21 @@ export function validate(m){
  for(const f of m.addedFiles){assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}
  if(m===cached)validated.add(m);return m;
 }
-export function shadowReleaseParentBytes(path,bytes,m=manifest()){
+function uncached_shadowReleaseParentBytes(path,bytes,m=manifest()){
  validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
  if(before?.equals(bytes))return before;
  bytes=pinballFlowParentBytes(path,bytes);if(!f)return bytes;
  if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' shadowRelease live drift');assert.equal(sha256(bytes),f.sha256,path+' shadowRelease live SHA256 drift');return before;
 }
-export function readBeforeShadowRelease(file,options){
+function uncached_readBeforeShadowRelease(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
  if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return actual(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?shadowReleaseParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-export function inventoryBeforeShadowRelease(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+function uncached_inventoryBeforeShadowRelease(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
  paths=inventoryBeforePinballFlow(paths,{read,runtimeOnly});
  const liveRead=read;read=p=>pinballFlowParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate shadowRelease inventory');const m=validate(manifest());
@@ -59,7 +60,7 @@ export function inventoryBeforeShadowRelease(paths,{read=p=>currentRead(new URL(
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' shadowRelease inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' shadowRelease inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-export function assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+function uncached_assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
  paths=inventoryBeforePinballFlow(paths,{read});
  const liveRead=read;read=p=>pinballFlowParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete shadowRelease inventory');
@@ -67,3 +68,9 @@ export function assertCompleteInventory(paths,{read=p=>currentRead(new URL('../.
  for(const f of baseline.files)assert.equal(gitBlob(shadowReleaseParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
  return true;
 }
+
+export const manifest=(...args)=>withProvenanceSession(()=>uncached_manifest(...args));
+export const shadowReleaseParentBytes=(...args)=>withProvenanceSession(()=>uncached_shadowReleaseParentBytes(...args));
+export const readBeforeShadowRelease=(...args)=>withProvenanceSession(()=>uncached_readBeforeShadowRelease(...args));
+export const inventoryBeforeShadowRelease=(...args)=>withProvenanceSession(()=>uncached_inventoryBeforeShadowRelease(...args));
+export const assertCompleteInventory=(...args)=>withProvenanceSession(()=>uncached_assertCompleteInventory(...args));

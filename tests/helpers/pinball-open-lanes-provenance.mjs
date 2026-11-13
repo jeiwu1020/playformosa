@@ -1,6 +1,8 @@
+import {withProvenanceSession,manifestText} from './provenance-session.mjs';
+import {readFileSync as currentRead} from 'node:fs';
 // Exact additive boundary for the approved PinballOpenLanes import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforePinballGatePerformance as actual,pinballGatePerformanceParentBytes,inventoryBeforePinballGatePerformance} from './pinball-gate-performance-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -22,7 +24,7 @@ export function verifyBase(b){
 verifyBase(baseline);
 const manifestPath='docs/pinball-open-lanes/MANIFEST.json';
 let cachedText,cached;const validated=new WeakSet();
-export function manifest(){const text=actual(new URL('../../'+manifestPath,import.meta.url),'utf8');if(text!==cachedText){const parsed=freeze(JSON.parse(text));cachedText=text;cached=parsed;}return cached;}
+function uncached_manifest(){const url=new URL('../../'+manifestPath,import.meta.url),text=manifestText(url,()=>actual(url,'utf8'));if(text!==cachedText){const parsed=freeze(JSON.parse(text));cachedText=text;cached=parsed;}return cached;}
 export function validate(m){
  if(m===cached&&validated.has(m))return m;
  assert.equal(m.baseCommit,baseline.baseCommit);assert.equal(m.baseTree,baseline.baseTree);
@@ -33,19 +35,23 @@ export function validate(m){
  for(const f of m.addedFiles){assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}
  if(m===cached)validated.add(m);return m;
 }
-export function pinballOpenLanesParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+function uncached_pinballOpenLanesParentBytes(path,bytes,m=manifest()){
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballGatePerformanceParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballOpenLanes live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballOpenLanes live SHA256 drift');return before;
 }
-export function readBeforePinballOpenLanes(file,options){
+function uncached_readBeforePinballOpenLanes(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
  if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return actual(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?pinballOpenLanesParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-export function inventoryBeforePinballOpenLanes(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+function uncached_inventoryBeforePinballOpenLanes(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballGatePerformance(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballGatePerformanceParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballOpenLanes inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -54,9 +60,17 @@ export function inventoryBeforePinballOpenLanes(paths,{read=p=>actual(new URL('.
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballOpenLanes inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballOpenLanes inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+function uncached_assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballGatePerformance(paths,{read});
+ const liveRead=read;read=p=>pinballGatePerformanceParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete pinballOpenLanes inventory');
  assert.deepEqual(inventoryBeforePinballOpenLanes(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(pinballOpenLanesParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
  return true;
 }
+
+export const manifest=(...args)=>withProvenanceSession(()=>uncached_manifest(...args));
+export const pinballOpenLanesParentBytes=(...args)=>withProvenanceSession(()=>uncached_pinballOpenLanesParentBytes(...args));
+export const readBeforePinballOpenLanes=(...args)=>withProvenanceSession(()=>uncached_readBeforePinballOpenLanes(...args));
+export const inventoryBeforePinballOpenLanes=(...args)=>withProvenanceSession(()=>uncached_inventoryBeforePinballOpenLanes(...args));
+export const assertCompleteInventory=(...args)=>withProvenanceSession(()=>uncached_assertCompleteInventory(...args));
