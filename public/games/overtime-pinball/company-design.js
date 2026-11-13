@@ -11,12 +11,12 @@ export function buildDoor({T,g,box,cylinder,length,side}){
 // Exact local corners shared with the fixed-camera envelope, independently
 // checked against real Three.js mesh bounds in browser QA.
 export const COMPANY_POINTS=[];
-for(const side of[-1,1])for(const x of[-9.5,9.5])for(const y of[-1.45,1.45])for(const z of[-.16,.16])COMPANY_POINTS.push([x,2.6+Math.cos(.9)*y+Math.sin(.9)*z,-34.5+side*(1.25-Math.sin(.9)*y+Math.cos(.9)*z)]);
-for(const x of[-10,10])for(const z of[-37.2,-31.8])for(const y of[0,.22])COMPANY_POINTS.push([x,y,z]);
+for(const side of[-1,1])for(const x of[-10.5,10.5])for(const y of[-1.7,1.7])for(const z of[-.16,.16])COMPANY_POINTS.push([x,2.4+Math.cos(.9)*y+Math.sin(.9)*z,-23.2+side*(.5-Math.sin(.9)*y+Math.cos(.9)*z)]);
+for(const x of[-11,11])for(const z of[-24.7,-21.7])for(const y of[0,.22])COMPANY_POINTS.push([x,y,z]);
 export function buildCompanySign({T,office,box,cylinder,label}){
- const g=new T.Group();g.name='companySign';g.userData.occlusionMode='keep';office.add(g);g.position.z=-34.5;
- box(20,.22,5.4,DOOR.navy,g,0,.11,0);
- for(const x of[-8.6,8.6]){box(.4,3.5,.5,DOOR.navy,g,x,1.75,0);cylinder(.52,.15,DOOR.brass,g,x,.3,0);}
- for(const side of[-1,1]){const face=new T.Group();face.position.set(0,2.6,side*1.25);face.rotation.set(-side*.9,side===1?0:Math.PI,0);g.add(face);box(19,2.9,.25,DOOR.brass,face);box(18.6,2.5,.27,DOOR.navy,face);const m=label('不准加班公司',18,2.1,'#ffebad','#254c60');m.name='companyFace-'+side;m.position.z=.16;m.userData.occludes=false;face.add(m);}
+ const g=new T.Group();g.name='companySign';g.userData.occlusionMode='keep';office.add(g);g.position.z=-23.2;
+ box(22,.22,3,DOOR.navy,g,0,.11,0);
+ for(const x of[-8.6,8.6]){box(.4,3,.5,DOOR.navy,g,x,1.5,0);cylinder(.52,.15,DOOR.brass,g,x,.3,0);}
+ for(const side of[-1,1]){const face=new T.Group();face.position.set(0,2.4,side*.5);face.rotation.set(-side*.9,side===1?0:Math.PI,0);g.add(face);box(21,3.4,.25,DOOR.brass,face);box(20.6,3,.27,DOOR.navy,face);const m=label('不准加班公司',20,2.65,'#ffebad','#254c60');m.name='companyFace-'+side;m.position.z=.16;m.userData.occludes=false;face.add(m);}
  return g;
 }

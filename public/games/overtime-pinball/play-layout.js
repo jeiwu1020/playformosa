@@ -21,6 +21,6 @@ export function playSafeInsets(){
  const frame=document.getElementById('playFrame')?.getBoundingClientRect();
  // Reserve the compact status and one persistent prompt line. Event content
  // must not resize this reservation, otherwise each bonus pumps the camera.
- const cameraTop=compact&&frame?Math.min(Math.max(0,frame.height-80),innerWidth<innerHeight?108:0):undefined;
+ const cameraTop=compact&&frame?Math.min(Math.max(0,frame.height-80),(parseFloat(s.getPropertyValue('--camera-top-reserve'))||(innerWidth<innerHeight?108:80))):undefined;
  return{safeTop,safeBottom,compact,cameraTop};
 }

@@ -1,7 +1,7 @@
 // Transparent HUD wrappers are not obstacles: use the actual visible card/button bounds.
 export function lotteryHUDObstacles(doc){
  const result=[];
- for(const el of doc.querySelectorAll('.scorecard,#lampHud,#left,#right,#activityPanel,#interactionOffer,#mailStatus,#centralPrompt,#bossStatus,#routeChoice,#joke,#lotteryStatus,#doorWarning,#stationHint,header,#comic.pop')){
+ for(const el of doc.querySelectorAll('.scorecard,#lampHud,#left,#right,#activityPanel,#interactionOffer,#mailStatus,#centralPrompt,#bossStatus,#routeChoice,#mobileCue,#joke,#lotteryStatus,#doorWarning,#stationHint,header,#comic.pop')){
   let visible=true;for(let n=el;n&&n!==doc.documentElement;n=n.parentElement){const style=doc.defaultView.getComputedStyle(n);if(n.hidden||style.display==='none'||style.visibility==='hidden'){visible=false;break;}}
   if(!visible)continue;
   // stationHint spans the grid but paints only text: measure its rendered glyph-line

@@ -34,3 +34,43 @@
 }
 
 #poolDetails{font-size:14px;line-height:1.4;color:inherit;margin:8px 0}
+
+/* v7 follow-up: one reserved mobile instruction slot above the table.
+   Source panels still own their state; no duplicate input handlers are installed. */
+@media(max-width:999px),(pointer:coarse){
+ body.pf-game{--camera-top-reserve:108px}
+ body.pf-game.playing #interactionOffer,body.pf-game.playing #routeChoice,
+ body.pf-game.playing #activityPanel,body.pf-game.playing #centralPrompt,
+ body.pf-game.playing #mailStatus,body.pf-game.playing #comic,
+ body.pf-game.playing #doorWarning,body.pf-game.playing #bossStatus,
+ body.pf-game.playing #lotteryStatus,body.pf-game.playing #joke{display:none!important}
+ body.pf-game.playing #controls .interact-cue{display:none!important}
+ body.pf-game.playing #overtimeStatus{display:none}
+ body.pf-game.playing #mobileCue:not([hidden]){display:flex;flex-direction:column;justify-content:center;gap:2px;box-sizing:border-box;position:fixed;left:8px;right:8px;top:calc(var(--pf-header-height) + 38px);bottom:auto;width:auto;max-width:none;min-height:32px;max-height:68px;padding:4px 8px;transform:none;text-align:center;overflow:hidden;font:700 14px/1.2 system-ui;pointer-events:none}
+ body.pf-game.playing #mobileCue>b{font-size:12px;line-height:1.15}
+ body.pf-game.playing #mobileCue>span{white-space:normal;overflow-wrap:anywhere}
+ body.pf-game.playing #mobileCue progress{display:block;flex:none;width:100%;height:5px;min-height:5px;accent-color:#ffe08a;margin:1px 0 0;border:0}
+ body.pf-game.playing #mobileCue [hidden]{display:none!important}
+ body.pf-game.playing #mobileCue[data-kind="rescue"]{border-color:#ffe08a;color:#ffe08a}
+}
+@media(orientation:portrait) and (max-width:999px){
+ body.pf-game.playing #playStatus{display:flex;flex-direction:row;align-items:start;height:30px;gap:4px;left:8px;right:8px;top:calc(var(--pf-header-height) + 4px)}
+ body.pf-game.playing .scorecard{flex:1;min-width:0;width:auto;height:30px;min-height:30px;padding:3px 5px;gap:3px;flex-wrap:nowrap}
+ body.pf-game.playing .scorecard strong{font-size:17px;line-height:1.2;white-space:nowrap;overflow-wrap:normal}
+ body.pf-game.playing .scorecard>div{flex:1;min-width:0;font-size:12px;white-space:nowrap;margin:0}
+ body.pf-game.playing #lampHud{flex:0 0 auto;width:auto;height:30px;align-items:center;padding:0}
+ body.pf-game.playing #lampHud>div:first-child{gap:3px;width:auto}
+ body.pf-game.playing #lampHud>div:first-child span{font-size:12px;min-width:0;padding:2px 4px;line-height:1.2}
+ body.pf-game.playing #lampHud #comboRoute,body.pf-game.playing #lampHud #routeReward{display:none}
+}
+@media(orientation:portrait) and (max-width:359px){
+ body.pf-game.playing .scorecard strong{font-size:15px}
+ body.pf-game.playing #lampHud>div:first-child{gap:2px}
+ body.pf-game.playing #lampHud>div:first-child span{padding:2px 3px;font-size:11px}
+ body.pf-game.playing #mobileCue:not([hidden]){font-size:13px}
+}
+@media(orientation:landscape) and (max-height:600px){
+ body.pf-game{--camera-top-reserve:80px}
+ body.pf-game.playing #mobileCue:not([hidden]){left:calc((100vw + 16px) / 3);right:calc((100vw + 16px) / 3);top:calc(var(--pf-header-height) + 4px);width:auto;max-width:none;max-height:74px;font-size:12px;padding:4px 5px;line-height:1.15}
+ body.pf-game.playing #mobileCue>b{font-size:11px}
+}
