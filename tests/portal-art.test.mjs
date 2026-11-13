@@ -14,7 +14,7 @@ for(const entry of [...catalog.externalGames,...catalog.platforms]){
     assert.equal(asset.sourceKind,'generated');
     assert.equal(asset.sourceUrl,undefined,'do not invent a hosted source URL for generated art');
     assert.equal(asset.sourcePath,'public/assets/portal-taiwanpunchline.png');
-    assert.equal(asset.sha256,'39cde08925e1042dbfe8c5e301f4aa98cca6c63963e6e0f8008cc6f78a5ab1fa');
+    assert.equal(asset.sha256,'c9d3d7225f80979b9b0007583f61424b134e1bb37ac22efbfd7dee93791d2f6d');
     const original=readFileSync(new URL('../'+asset.sourcePath,import.meta.url));
     assert.deepEqual(readFileSync(new URL('../public'+image,import.meta.url)),original);
     assert.equal(asset.width,1672);assert.equal(asset.height,941);

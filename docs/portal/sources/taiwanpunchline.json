@@ -2,20 +2,38 @@
   "entry": "taiwanpunchline",
   "verifiedAt": "2026-11-13",
   "sourceHomepage": "https://taiwanpunchline.playformosa.workers.dev/",
-  "method": "User-authorized native OpenAI image generation with existing game artwork as visual references. This is newly generated portal artwork, NOT a download or screenshot from the game homepage.",
+  "method": "User-authorized native OpenAI image generation with existing game artwork as visual references. This is newly generated portal artwork, NOT a download or screenshot from the game homepage. Version 2 is a native image edit of version 1 correcting hand anatomy while preserving the composition, identities and title.",
   "generator": "OpenAI native image generation",
-  "authorization": "User asked for a generated thumbnail for the preview-only Punchline game card.",
+  "authorization": "User asked for a generated thumbnail for the preview-only Punchline game card. User subsequently requested five-finger correction.",
   "assets": [
     {
       "path": "public/assets/portal-taiwanpunchline.png",
       "sourceKind": "generated",
       "sourcePath": "public/assets/portal-taiwanpunchline.png",
-      "evidence": "Byte-for-byte original native image-generation output, no cropping or post-generation edits.",
+      "evidence": "Byte-for-byte native image-generation v2 hand-correction output, no cropping or post-generation edits.",
       "width": 1672,
       "height": 941,
-      "bytes": 3499798,
-      "sha256": "39cde08925e1042dbfe8c5e301f4aa98cca6c63963e6e0f8008cc6f78a5ab1fa",
+      "bytes": 3310000,
+      "sha256": "c9d3d7225f80979b9b0007583f61424b134e1bb37ac22efbfd7dee93791d2f6d",
       "originalStorage": "direct: public asset is the unmodified original generation output"
     }
-  ]
+  ],
+  "generationHistory": {
+    "parentSha256": "39cde08925e1042dbfe8c5e301f4aa98cca6c63963e6e0f8008cc6f78a5ab1fa",
+    "promptSummary": "Two original comic characters comically reaching for a floating gold microphone in a gold council chamber; title 拳民開講. V2 corrects anatomy of all four hands while preserving identities, title and composition.",
+    "originalGameReferences": [
+      {
+        "sha256": "a1676e91233a146f95d37411bc83915e1dbfca446491b2947e6dee12bfa42201",
+        "filename": "han-complete-poses-b.png"
+      },
+      {
+        "sha256": "bdf5f0e94354e9d88465857fbb02897c257cd1c5854211439026e4e486783fec",
+        "filename": "wang-complete-poses-b.png"
+      },
+      {
+        "sha256": "2188f8e16a9e7281dad72a4561cd367b55395fb6b80b4e3e49a28600666c5d91",
+        "filename": "news-chamber-b.png"
+      }
+    ]
+  }
 }
