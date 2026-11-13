@@ -15,4 +15,12 @@ export function setupPlayLayout(){
 export function playFrame(){const r=document.getElementById('playFrame').getBoundingClientRect();return{x:r.left,y:innerHeight-r.bottom,w:r.width,h:r.height};}
 export function blendPlayFrame(start,end,t,w,h){const p=Math.max(0,Math.min(1,t)),e=p*p*p*(p*(p*6-15)+10);return{x:start.x*w+(end.x-start.x*w)*e,y:start.y*h+(end.y-start.y*h)*e,w:start.w*w+(end.w-start.w*w)*e,h:start.h*h+(end.h-start.h*h)*e};}
 
-export function playSafeInsets(){const s=getComputedStyle(document.body);return{safeTop:parseFloat(s.getPropertyValue('--safe-top'))||0,safeBottom:parseFloat(s.getPropertyValue('--safe-bottom'))||0};}
+export function playSafeInsets(){
+ const s=getComputedStyle(document.body),safeTop=parseFloat(s.getPropertyValue('--safe-top'))||0,safeBottom=parseFloat(s.getPropertyValue('--safe-bottom'))||0;
+ const compact=matchMedia('(max-width:999px), (pointer:coarse)').matches;
+ const frame=document.getElementById('playFrame')?.getBoundingClientRect();
+ // Reserve the compact status and one persistent prompt line. Event content
+ // must not resize this reservation, otherwise each bonus pumps the camera.
+ const cameraTop=compact&&frame?Math.min(Math.max(0,frame.height-80),innerWidth<innerHeight?108:0):undefined;
+ return{safeTop,safeBottom,compact,cameraTop};
+}

@@ -1,5 +1,6 @@
 import {COMPANY_POINTS} from './company-design.js';
 import {MAIL_PATH} from './mail-run.js';
+import {MAIL_BRANCHES,SHORT_PATH} from './office-routes.js';
 // Gameplay has one full-table pose. Only equipment work starts a finite close-up.
 export const SLOPE=.035;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -16,14 +17,20 @@ function fitDistance(points,target,w,h,pitch,sign,fov,mx=.91,my=.85){
 const fullBounds=[...COMPANY_POINTS];
 for(const [xs,zs,ys]of[[[-24.5,24.5],[-36,-15],[0]],[[-19,19],[-20,50.3],[0,7.5]],[[-18.8,18.8],[52.3],[2.2,6.05]]])
  for(const x of xs)for(const z of zs)for(const y of ys)fullBounds.push([x,y,z]);
-for(const p of MAIL_PATH)for(const dx of [-1.8,1.8])for(const y of [0,5])fullBounds.push([p.x+dx,y,p.z]);
+for(const p of MAIL_PATH)for(const dx of [-1.8,1.8])for(const y of [0,5])fullBounds.push([p.x+dx,y+(p.y||0),p.z]);
 // Keep both outer lanes visible in portrait; larger distinct machines replace duplicates.
 const criticalBounds=[];
 for(const x of[-17.6,17.6])for(const z of[-20,49])for(const y of[0,4.8])criticalBounds.push([x,y,z]);
-for(const p of MAIL_PATH)for(const dx of[-.85,.85])for(const y of[.3,4.8])criticalBounds.push([p.x+dx,y,p.z]);
-function fullTableFit(w,h,pitch,sign,fov,top=0,bottom=0,portrait=false){
+for(const p of MAIL_PATH)for(const dx of[-.85,.85])for(const y of[.3,4.8])criticalBounds.push([p.x+dx,y+(p.y||0),p.z]);
+// Mobile gameplay excludes only decorative forecourt/sign. Actual court, all
+// rail samples plus actor envelopes remain in the fit; physics are unchanged.
+const mobileBounds=[];
+for(const [xs,zs,ys]of[[[-18.8,18.8],[-20,50.3],[0,5]],[[-18.8,18.8],[52.3],[2.2,6.05]]])
+ for(const x of xs)for(const z of zs)for(const y of ys)mobileBounds.push([x,y,z]);
+for(const path of [MAIL_PATH,SHORT_PATH,...Object.values(MAIL_BRANCHES).map(b=>b.path)])for(const p of path)for(const dx of [-1.8,1.8])for(const y of [0,5])mobileBounds.push([p.x+dx,y+(p.y||0),p.z]);
+function fullTableFit(w,h,pitch,sign,fov,top=0,bottom=0,portrait=false,compact=false){
  const length=Math.hypot(1,pitch),tan=Math.tan(fov*Math.PI/360),highY=tan*(.97-2*top/h),lowY=tan*(-.97+2*bottom/h),kx=tan*w/Math.max(1,h)*(portrait?1.02:.94);
- const points=fullBounds.map(p=>{const[x,y,z]=world(...p);return{x,a:(pitch*y+sign*z)/length,b:(y-sign*pitch*z)/length};});
+ const points=(compact?mobileBounds:fullBounds).map(p=>{const[x,y,z]=world(...p);return{x,a:(pitch*y+sign*z)/length,b:(y-sign*pitch*z)/length};});
  // Camera depth must satisfy horizontal bounds and a nonempty vertical interval.
  const lower=Math.max(...points.map(p=>p.b+highY*p.a)),upper=Math.min(...points.map(p=>p.b+lowY*p.a));
  const depth=Math.max((lower-upper)/(highY-lowY),...points.map(p=>p.a+Math.abs(p.x)/kx),...criticalBounds.map(p=>{const[x,y,z]=world(...p);return (pitch*y+sign*z)/length+Math.abs(x)/(tan*w/h*.98);}));
@@ -38,10 +45,10 @@ export class StableRig{
  constructor(view='reverse'){this.view=view;this.reset();}
  reset(){this.key=null;this.mode='full';this.motion=null;this.x=0;this.z=9.5;this.y=0;this.distance=null;this.gate=false;this.close=0;}
  update(dt,w,h,ball,interaction=null,station=null,comfort=false,fitFrame=false){
-  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:clamp(1.35/(w/h),.45,.85),fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}`;
+  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:clamp(1.35/(w/h),.45,.85),fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=Number.isFinite(fitFrame?.cameraTop)?Math.max(0,fitFrame.cameraTop):portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}:${!!fitFrame?.compact}`;
   if(!interaction&&!fitFrame?.mail){if(ball.z+Math.max(0,ball.vz||0)*.4>=20)this.gate=true;else if(ball.z<12)this.gate=false;}
   if(this.key!==key){
-   this.key=key;this.full=fullTableFit(w,h,pitch,sign,fov,top,bottom,portrait);
+   this.key=key;this.full=fullTableFit(w,h,pitch,sign,fov,top,bottom,portrait,!!fitFrame?.compact);
    Object.assign(this,this.full);this.mode='full';this.motion=null;
   }
   // The resolved-result launch animation gives half a second to reopen the table

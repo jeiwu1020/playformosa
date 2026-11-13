@@ -5,21 +5,21 @@ const names={copier:['▤','影印','交替拉卡紙'],water:['◒','飲水','�
 export function createStationLabels(T,stations){
  const root=document.createElement('div');root.id='stationLabels';root.setAttribute('aria-hidden','true');document.body.append(root);
  const hint=document.createElement('div');hint.id='stationHint';hint.textContent='碰設備照常彈跳；短提示時按 L／R 才進入';document.getElementById('playStatus').append(hint);
- const entries=stations.filter(o=>names[o.id]).sort((a,b)=>a.z-b.z||a.x-b.x).map(o=>{const el=document.createElement('div');el.className='station-tag';el.dataset.station=o.id;el.dataset.placement='world';el.textContent=names[o.id][0]+' '+names[o.id][1];root.append(el);const a=stationAnchor(o);return{o,el,name:names[o.id],anchor:new T.Vector3(a.x,a.y,a.z)};});
+ const entries=stations.filter(o=>names[o.id]).sort((a,b)=>a.z-b.z||a.x-b.x).map(o=>{const el=document.createElement('div');el.className='station-tag';el.hidden=true;el.dataset.station=o.id;el.dataset.placement='world';el.textContent=names[o.id][0]+' '+names[o.id][1];root.append(el);const a=stationAnchor(o);return{o,el,name:names[o.id],anchor:new T.Vector3(a.x,a.y,a.z)};});
  const lotteryLabel=createLotteryLabel(T,root);
- const point=new T.Vector3();let lastInteraction=null,near=null,nearSince=-1,wasFocus=false;
- return{root,update({office,camera,game,mode,time,frame,close=0}){
+ const point=new T.Vector3();let namesVisible=false,lastInteraction=null,near=null,nearSince=-1,wasFocus=false;
+ return{root,setNamesVisible(value){namesVisible=value===true;},update({office,camera,game,mode,time,frame,close=0}){
   root.hidden=mode!=='playing'||!!game.round.ending;if(root.hidden)return[];
   if(game.interaction)lastInteraction=game.interaction.stationId;const focusId=game.interaction?.stationId||(close>.001?lastInteraction:null);root.dataset.layout=focusId?'work':'full';
   const project=local=>{point.copy(local);office.localToWorld(point);point.project(camera);return projectedAnchor(point,frame,innerHeight);};
   const placed=[];
   for(const e of entries){
-   const p=project(e.anchor);e.el.hidden=!p.inDepth;e.el.classList.toggle('is-current',e.o.id===focusId);
+   const p=project(e.anchor);e.el.hidden=!namesVisible||!p.inDepth;e.el.classList.toggle('is-current',e.o.id===focusId);
    // Same anchor and the same bottom-center alignment in full view, closeup and return.
    // Offscreen coordinates stay offscreen. The root clips naturally; nothing is clamped.
    if(p.inDepth){e.el.style.left=p.x+'px';e.el.style.top=(p.y-6)+'px';}
    const w=e.el.offsetWidth,h=e.el.offsetHeight,x=p.x-w/2,y=p.y-h-6;
-   placed.push({id:e.o.id,x,y,w,h,kind:'world',anchor:{x:p.x,y:p.y},inDepth:p.inDepth,inView:p.inDepth&&x+w>0&&x<innerWidth&&y+h>0&&y<innerHeight});
+   placed.push({id:e.o.id,x,y,w,h,kind:'world',anchor:{x:p.x,y:p.y},inDepth:p.inDepth,inView:namesVisible&&p.inDepth&&x+w>0&&x<innerWidth&&y+h>0&&y<innerHeight});
   }
   const lotteryPlacement=lotteryLabel.update({office,camera,frame,placed,shape:LOTTERY_BOX,enabled:!game.interaction});if(lotteryPlacement)placed.push(lotteryPlacement);
   if(game.round.reentry){hint.textContent='重返中 · 倒數繼續 · 連擊中斷';wasFocus=true;return placed;}

@@ -11,7 +11,7 @@ export function shortEntry(from,to){const e=SHORT_LOOP.entry;if(from.z<e.z||to.z
 export const MAIL_CHOICE_SECONDS=1.2;
 export const freshMailChoice=direction=>({choice:null,choiceOpen:false,choiceRemaining:MAIL_CHOICE_SECONDS,choiceDefault:direction===1?'right':'left',branch:null,chosenByPlayer:false});
 export function advanceMailChoice(state,dt,pressed={}){if(state.choice)return;state.choiceOpen=true;state.choiceRemaining=Math.max(0,state.choiceRemaining-dt);if(!!pressed.left!==!!pressed.right){state.choice=pressed.left?'left':'right';state.chosenByPlayer=true;state.choiceOpen=false;}else if(!state.choiceRemaining){state.choice=state.choiceDefault;state.choiceOpen=false;}}
-const branchControls=[[0,-26],[18,-24],[22,-17],[17,-14],[12,-13],[6,-10]];
+const branchControls=[[0,-19],[12,-19],[16,-17],[16,-14],[12,-13],[6,-10]];
 function smooth(points){return Array.from({length:101},(_,n)=>{const f=n/100*(points.length-1),i=Math.min(points.length-2,Math.floor(f)),u=f-i,a=points[Math.max(0,i-1)],b=points[i],c=points[i+1],d=points[Math.min(points.length-1,i+2)],cat=k=>.5*(2*b[k]+(-a[k]+c[k])*u+(2*a[k]-5*b[k]+4*c[k]-d[k])*u*u+(-a[k]+3*b[k]-3*c[k]+d[k])*u*u*u);return{x:cat(0),z:cat(1)};});}
 export const MAIL_BRANCHES=Object.fromEntries(['left','right'].map(side=>{const sign=side==='left'?-1:1,path=smooth(branchControls.map(([x,z])=>[x*sign,z])),ds=lengths(path);return[side,{path,length:ds.at(-1),lengths:ds,exit:{x:6*sign,z:-10,vx:18*sign,vz:27}}];}));
 export const branchPoint=(side,d)=>{const b=MAIL_BRANCHES[side];return sample(b.path,b.lengths,d);};
