@@ -14,6 +14,11 @@ assert.equal(sha256(baselineBytes),'2a74eaa19b7d079608f58cf207c81ddb3c7401aef4e3
 const freeze=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};
 export const baseline=freeze(JSON.parse(baselineBytes));
 const previous=new Map(baseline.files.map(f=>[f.path,f.gitBlob]));
+const currentReleaseParents=new Map([
+ ['public/games/overtime-pinball/arcade-polish.css',{gitBlob:'5662e27328cc585e5c2bb14f9f3c0b97cf0017df',sha256:'2470b6d7a370adcfd0e61d6bf27760f72e365dc957b7d608c8ad6db5e593d801'}],
+ ['public/games/overtime-pinball/physics.js',{gitBlob:'0a4c832ee0665bfcff25b18fe418b15483040d02',sha256:'e1c45fbf19f1ff77194c00495f26ad3cb8172cc309ca9526d72838f75e9d57ad'}],
+ ['tests/pinball/proportions.test.mjs',{gitBlob:'d4645c651ad8ef405f8b5d969d7b684596f44ef9',sha256:'37dc300365a1272e72b429d405f2b7bcc265c4a9e04d726b5cbb22d3d836277d'}]
+]);
 export function verifyBase(b){
  assert.equal(b.baseCommit,'52e58101c4b16592645a304dfbcb4e011c3301fd');assert.equal(b.baseTree,'7b39eb93d30dd465913a98386373974cca5b7a91');assert.deepEqual(b,baseline);
  const tree={};for(const f of b.files){const parts=f.path.split('/');let d=tree;for(const name of parts.slice(0,-1))d=d[name]??={};assert.ok(!d[parts.at(-1)],'duplicate parent path');d[parts.at(-1)]={file:f};}
@@ -31,21 +36,28 @@ export function validate(m){
  assert.deepEqual(m.files.map(f=>f.path).sort(),baseline.modifiedPaths);
  assert.deepEqual([...m.addedPaths].sort(),baseline.addedPaths);
  assert.deepEqual(m.addedFiles.map(f=>f.path).sort(),baseline.addedPaths.filter(p=>p!==manifestPath));
+ assert.deepEqual(m.releaseFiles.map(f=>f.path).sort(),[...currentReleaseParents.keys()].sort());
+ for(const f of m.releaseFiles){const b=Buffer.from(f.beforeText),parent=currentReleaseParents.get(f.path);assert.equal(f.beforeGitBlob,parent.gitBlob,f.path+' immediate pinball release parent blob');assert.equal(f.beforeSha256,parent.sha256,f.path+' immediate pinball release parent SHA256');assert.equal(gitBlob(b),f.beforeGitBlob,f.path+' immediate pinball release parent bytes');assert.equal(sha256(b),f.beforeSha256,f.path+' immediate pinball release parent bytes SHA256');assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}
  for(const f of m.files){const b=Buffer.from(f.beforeText);assert.equal(f.beforeGitBlob,previous.get(f.path));assert.equal(gitBlob(b),f.beforeGitBlob);assert.equal(sha256(b),f.beforeSha256);assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}
  for(const f of m.addedFiles){assert.match(f.gitBlob,/^[a-f0-9]{40}$/);assert.match(f.sha256,/^[a-f0-9]{64}$/);}
  if(m===cached)validated.add(m);return m;
 }
 function uncached_pinballRotatedTouchParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
+ validate(m);bytes=uncached_pinballCurrentReleaseParentBytes(path,bytes,m);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
  const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballRotatedTouch live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballRotatedTouch live SHA256 drift');return before;
+}
+function uncached_pinballCurrentReleaseParentBytes(path,bytes,m=manifest()){
+ validate(m);bytes=Buffer.from(bytes);const f=m.releaseFiles.find(f=>f.path===path);if(!f)return bytes;
+ const before=Buffer.from(f.beforeText);if(before.equals(bytes)||gitBlob(bytes)===previous.get(path))return bytes;
+ assert.equal(gitBlob(bytes),f.gitBlob,path+' current pinball release live drift');assert.equal(sha256(bytes),f.sha256,path+' current pinball release live SHA256 drift');return before;
 }
 function uncached_readBeforePinballRotatedTouch(file,options){
  const absolute=file instanceof URL?fileURLToPath(file):resolve(String(file)),path=relative(root,absolute).split(sep).join('/');
  if(!path||path==='..'||path.startsWith('../')||isAbsolute(path))return actual(file,options);
  const encoding=typeof options==='string'?options:options?.encoding;
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
- const before=baseline.modifiedPaths.includes(path)?pinballRotatedTouchParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
+ const before=baseline.modifiedPaths.includes(path)||manifest().releaseFiles.some(f=>f.path===path)?pinballRotatedTouchParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
 function uncached_inventoryBeforePinballRotatedTouch(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballRotatedTouch inventory');const m=validate(manifest());
@@ -53,7 +65,8 @@ function uncached_inventoryBeforePinballRotatedTouch(paths,{read=p=>actual(new U
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
  const additions=m.addedPaths.filter(p=>!onlyRuntime||runtime(p));
  for(const p of additions)assert.equal(paths.filter(x=>x===p).length,1,p+' pinballRotatedTouch addition must appear once');
- for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballRotatedTouch inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballRotatedTouch inventory SHA256 drift');}
+ for(const f of m.releaseFiles.filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' current pinball release inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' current pinball release inventory SHA256 drift');}
+ for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=pinballCurrentReleaseParentBytes(f.path,read(f.path),m);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballRotatedTouch inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballRotatedTouch inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
 function uncached_assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
@@ -64,6 +77,7 @@ function uncached_assertCompleteInventory(paths,{read=p=>actual(new URL('../../'
 }
 
 export const manifest=(...args)=>withProvenanceSession(()=>uncached_manifest(...args));
+export const pinballCurrentReleaseParentBytes=(...args)=>withProvenanceSession(()=>uncached_pinballCurrentReleaseParentBytes(...args));
 export const pinballRotatedTouchParentBytes=(...args)=>withProvenanceSession(()=>uncached_pinballRotatedTouchParentBytes(...args));
 export const readBeforePinballRotatedTouch=(...args)=>withProvenanceSession(()=>uncached_readBeforePinballRotatedTouch(...args));
 export const inventoryBeforePinballRotatedTouch=(...args)=>withProvenanceSession(()=>uncached_inventoryBeforePinballRotatedTouch(...args));
