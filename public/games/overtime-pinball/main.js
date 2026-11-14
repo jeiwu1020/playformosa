@@ -238,7 +238,7 @@ function bindControls(){
  homeNavigation=mountHomeNavigation({document,mode:()=>mode,pause,resume,clearInput,home:returnHome});
  const restartConfirmation=mountRestartConfirmation({document,mode:()=>mode,pause,resume,clearInput,restart:beginCinematic});
  platform=mountPinballPlatform({document,game,mode:()=>mode,pause,resume,restart:restartConfirmation.request,clearInput});
- window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='overtime:viewport')clearInput();});
+ window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='overtime:viewport'){clearInput();if(e.data.rotation===0||e.data.rotation===90)document.body.classList.toggle('sideways-menus',e.data.rotation===90);}});
  bindRoundOptions();
  document.body.dataset.view=view;$('doorWarning').textContent='出口接近 · L／R 救球';document.querySelectorAll('[data-view-name]').forEach(el=>el.textContent=view==='reverse'?'全場視野':'原向全場視野');document.querySelectorAll('[data-view-link]').forEach(el=>el.setAttribute('aria-current',el.dataset.viewLink===view?'page':'false'));$('viewDescription').textContent=view==='reverse'?'完整球台固定透視；沿亮起的辦公室路線連擊，碰設備照常彈跳，提示時間內按 L／R 才拉近。':'從另一側觀看球台，選擇設備互動時才會拉近畫面。';
 

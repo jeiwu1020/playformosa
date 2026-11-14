@@ -146,3 +146,13 @@ body.pf-game #restartConfirm h2,body.pf-game #restartConfirm p{color:#fff5db}
 body.pf-game #restartConfirm .restart-actions{display:flex;flex-wrap:wrap;gap:12px}
 body.pf-game #restartConfirm button{flex:1 1 140px;min-height:48px;font-size:18px;font-weight:800;text-align:center;padding:10px;background:#ffd35b;color:#123d4e;border:2px solid #986728}
 body.pf-game #world:focus{outline:none}
+
+/* Actual 90-degree iframe only. Nested panels must not narrow the parent's
+   two-axis native gesture allowance. Do not synthesize taps or remap pointers. */
+body.pf-game.sideways-menus #intro.menu-sheet .panel,
+body.pf-game.sideways-menus #pauseScreen .panel,
+body.pf-game.sideways-menus dialog[data-game-menu] .panel{touch-action:manipulation}
+/* Keep button hit boxes stationary for the full native down/up sequence. */
+body.pf-game.sideways-menus #intro button:active,
+body.pf-game.sideways-menus #pauseScreen button:active,
+body.pf-game.sideways-menus dialog[data-game-menu] button:active{transform:none}
