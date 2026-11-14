@@ -150,3 +150,8 @@
  body.pf-game.playing:not(.desktop-layout) #lampHud{width:136px}
  body.pf-game.playing:not(.desktop-layout) #mobileCue:not([hidden]){width:136px;max-width:136px}
 }
+
+/* Tablet touch only: keep the central explanation high and compact, outside
+   the measured left menu. Text size and authoritative prompt priority stay. */
+body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
+body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}

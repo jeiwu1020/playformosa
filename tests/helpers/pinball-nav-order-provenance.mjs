@@ -1,7 +1,8 @@
+import {readFileSync as currentRead} from 'node:fs';
 import {withProvenanceSession,manifestText} from './provenance-session.mjs';
 // Exact additive boundary for the approved PinballNavOrder import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual,readdirSync as actualDirectory} from 'node:fs';
+import {readBeforePinballTabletHint as actual,pinballTabletHintParentBytes,inventoryBeforePinballTabletHint,readdirBeforePinballTabletHint as actualDirectory} from './pinball-tablet-hint-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -36,8 +37,10 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 function uncached_pinballNavOrderParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballTabletHintParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballNavOrder live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballNavOrder live SHA256 drift');return before;
 }
 function uncached_readBeforePinballNavOrder(file,options){
@@ -47,7 +50,9 @@ function uncached_readBeforePinballNavOrder(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?pinballNavOrderParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-function uncached_inventoryBeforePinballNavOrder(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+function uncached_inventoryBeforePinballNavOrder(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballTabletHint(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballTabletHintParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballNavOrder inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -56,7 +61,9 @@ function uncached_inventoryBeforePinballNavOrder(paths,{read=p=>actual(new URL('
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballNavOrder inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballNavOrder inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-function uncached_assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+function uncached_assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballTabletHint(paths,{read});
+ const liveRead=read;read=p=>pinballTabletHintParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete pinballNavOrder inventory');
  assert.deepEqual(inventoryBeforePinballNavOrder(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(pinballNavOrderParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
@@ -70,7 +77,7 @@ export const inventoryBeforePinballNavOrder=(...args)=>withProvenanceSession(()=
 export const assertCompleteInventory=(...args)=>withProvenanceSession(()=>uncached_assertCompleteInventory(...args));
 
 // Existing directories stay visible; unknown descendants are never filtered out.
-export function entriesBeforePinballNavOrder(directory,entries,{read=p=>actual(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
+export function entriesBeforePinballNavOrder(directory,entries,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
  const absolute=directory instanceof URL?fileURLToPath(directory):resolve(String(directory)),path=relative(root,absolute).split(sep).join('/');
  if(path!=='public'&&!path.startsWith('public/'))return entries;
  const m=validate(manifest()),prefix=path+'/',name=e=>typeof e==='string'?e:Buffer.isBuffer(e)?e.toString():e.name,names=entries.map(name);
