@@ -140,6 +140,7 @@ body.pf-game.desktop-layout.playing #controls .flipper{min-height:64px;height:80
 body.pf-game.desktop-layout.playing #controls kbd{display:inline-block}
 body.pf-game.desktop-layout #homeConfirm p{color:#fff5db;opacity:1;font-size:17px;line-height:1.5}
 body.pf-game.desktop-layout #homeCancel{display:flex;align-items:center;justify-content:center;text-align:center;font-size:23px;font-weight:900;line-height:1.25;min-height:56px;padding:12px 18px}
+@media(max-width:999px),(pointer:coarse){body.pf-game:not(.desktop-layout) #homeConfirm p{color:#fff5db;opacity:1}body.pf-game:not(.desktop-layout) #homeCancel{display:flex;align-items:center;justify-content:center;text-align:center;font-size:23px;font-weight:900;line-height:1.25;min-height:56px;padding:12px 18px}}
 
 body.pf-game #restartConfirm{background:#155469;color:#fff5db;width:min(440px,calc(100vw - 28px))}
 body.pf-game #restartConfirm h2,body.pf-game #restartConfirm p{color:#fff5db}
@@ -152,6 +153,7 @@ body.pf-game #world:focus{outline:none}
 body.pf-game.sideways-menus #intro.menu-sheet .panel,
 body.pf-game.sideways-menus #pauseScreen .panel,
 body.pf-game.sideways-menus dialog[data-game-menu] .panel{touch-action:manipulation}
+body.pf-game.sideways-menus #roundDialog{touch-action:pan-x pan-y}
 /* Keep button hit boxes stationary for the full native down/up sequence. */
 body.pf-game.sideways-menus #intro button:active,
 body.pf-game.sideways-menus #pauseScreen button:active,
