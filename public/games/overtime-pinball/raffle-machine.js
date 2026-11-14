@@ -3,7 +3,7 @@ import {LOTTERY_PRIZES} from './lottery-events.js';
 /** Office raffle appliance. Shared collision footprint is authoritative; all solid
  * decoration stays within it. No labels, lights, input, physics or full-screen FX.
  */
-export function createRaffleMachine(T,{parent,shape}){
+export function createRaffleMachine(T,{parent,shape,reducedMotion=false}){
  if(!parent||![shape?.hx,shape?.hz].every(v=>Number.isFinite(v)&&v>0))throw new TypeError('positive shared raffle footprint required');
  const root=new T.Group();root.name='company-raffle-machine';parent.add(root);
  const geometries=new Set(),materials=new Set();const C={...OFFICE_PALETTE,gold:OFFICE_PALETTE.yellow,pink:OFFICE_PALETTE.orange};
@@ -35,12 +35,15 @@ export function createRaffleMachine(T,{parent,shape}){
  let disposed=false;
  function update(state,now){
   if(disposed)return;const phase=state?.phase,active=phase==='active'&&now<state.until,draw=phase==='drawing';root.visible=phase!=='ended';
-  drum.rotation.z=draw?now*16:Math.sin(now*.8)*.06;drum.rotation.y=draw?Math.sin(now*9)*.15:0;
-  readyRing.visible=phase==='ready'||draw;readyRing.scale.setScalar(1+Math.sin(now*4)*.03);
-  const lit=phase==='ready'||draw?3:phase==='charging'?(state.charged?.length||0):0;
-  for(let i=0;i<3;i++){dummy.position.set((i-1)*w*.18,1.385,d*.23);dummy.scale.setScalar(i<lit?1:.25);dummy.rotation.set(0,0,0);dummy.updateMatrix();leds.setMatrixAt(i,dummy.matrix);}leds.instanceMatrix.needsUpdate=true;
-  prizeBall.visible=active;const color=LOTTERY_PRIZES[state?.prize]?.color||C.gold;prizeBall.material.color.setHex(color);const reveal=active?Math.max(0,Math.min(1,(now-state.drawUntil)/.55)):1;prizeBall.position.y=.52+Math.sin(reveal*Math.PI)*.25;prizeBall.scale.setScalar(1.4);
-  sparks.visible=draw||(active&&now-state.drawUntil<.7);if(sparks.visible){const burst=draw?(now*1.7)%1:Math.min(1,(now-state.drawUntil)/.7);for(let i=0;i<10;i++){const a=i*Math.PI/5;dummy.position.set(Math.cos(a)*scale*(.65+burst*.35),1.85+Math.sin(a)*scale*(.35+burst*.2),Math.sin(i*2)*scale*.5);dummy.rotation.set(0,0,-a);dummy.scale.setScalar(1-burst*.45);dummy.updateMatrix();sparks.setMatrixAt(i,dummy.matrix);}sparks.instanceMatrix.needsUpdate=true;}
+  const reveal=active?Math.max(0,1-(now-state.drawUntil)/1.35):0;
+  drum.rotation.z=draw?now*(reducedMotion?8:28):Math.sin(now*.8)*.06;drum.rotation.y=draw&&!reducedMotion?Math.sin(now*12)*.2:0;
+  root.scale.setScalar(!reducedMotion&&draw?1+Math.sin(now*22)*.055:!reducedMotion&&reveal>0?1+Math.sin(now*14)*.07*reveal:1);
+  root.rotation.y=!reducedMotion&&draw?Math.sin(now*18)*.055:0;
+  readyRing.visible=phase==='ready'||draw;readyRing.scale.setScalar(1+(draw&&!reducedMotion?Math.sin(now*20)*.16:Math.sin(now*4)*.03));
+  const lit=phase==='ready'||draw?3:0;
+  for(let i=0;i<3;i++){dummy.position.set((i-1)*w*.18,1.385,d*.23);const blink=draw&&!reducedMotion?Math.max(.25,.75+Math.sin(now*25+i*2)*.65):reveal>0?1+Math.sin(now*15+i*2)*.45:i<lit?1:.25;dummy.scale.setScalar(blink);dummy.rotation.set(0,0,0);dummy.updateMatrix();leds.setMatrixAt(i,dummy.matrix);}leds.instanceMatrix.needsUpdate=true;
+  prizeBall.visible=active;const color=LOTTERY_PRIZES[state?.prize]?.color||C.gold;prizeBall.material.color.setHex(color);prizeBall.position.y=.52+(!reducedMotion?Math.sin(reveal*Math.PI)*.42:0);prizeBall.scale.setScalar(1.4+(!reducedMotion?reveal*.55:0));
+  sparks.visible=!reducedMotion&&(draw||(active&&now-state.drawUntil<1.35));if(sparks.visible){const burst=draw?(now*1.7)%1:Math.min(1,(now-state.drawUntil)/1.35);for(let i=0;i<10;i++){const a=i*Math.PI/5;dummy.position.set(Math.cos(a)*scale*(.65+burst*.35),1.85+Math.sin(a)*scale*(.35+burst*.2),Math.sin(i*2)*scale*.5);dummy.rotation.set(0,0,-a);dummy.scale.setScalar(1-burst*.45);dummy.updateMatrix();sparks.setMatrixAt(i,dummy.matrix);}sparks.instanceMatrix.needsUpdate=true;}
  }
  function dispose(){if(disposed)return;disposed=true;root.removeFromParent();geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());}
  return {root,shell,drum,prizeBall,sparks,update,dispose};

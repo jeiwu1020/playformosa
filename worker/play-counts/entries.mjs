@@ -1,7 +1,7 @@
 // Native navigation covers touch, Enter, modifier/middle clicks and browser
 // "open in new tab" without duplicate click/keydown/pointer telemetry.
 export const fighterEntryPath='/api/play-counts/entries/taiwanfighter';
-export const entryDestinations=Object.freeze({taiwanfighter:'https://taiwanfighter.playformosa.workers.dev/',taiwankart:'https://taiwankart.playformosa.workers.dev/',soul10power:'https://soul10power.vercel.app/',arcadeplatform:'https://arcadeplatform.playformosa.workers.dev/'});
+export const entryDestinations=Object.freeze({taiwanpunchline:'https://taiwanpunchline.playformosa.workers.dev/',taiwanfighter:'https://taiwanfighter.playformosa.workers.dev/',taiwankart:'https://taiwankart.playformosa.workers.dev/',soul10power:'https://soul10power.vercel.app/',arcadeplatform:'https://arcadeplatform.playformosa.workers.dev/'});
 export const entryKey=path=>{const key=path.startsWith('/api/play-counts/entries/')?path.slice('/api/play-counts/entries/'.length):'';return Object.hasOwn(entryDestinations,key)?key:null;};
 
 function isEntryNavigation(request,url){

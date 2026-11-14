@@ -4,7 +4,7 @@ import {lotteryPresentation} from './lottery-events.js';
 /** Decorative only. All coordinates are physics-space; mapX handles renderer mirroring.
  * Caller owns the real gate and actual collision geometry. No hit targets/input here.
  */
-export function createLotteryVisuals(T,{scene,shape,stations=[],mapX=x=>x,createCanvas=()=>globalThis.document?.createElement('canvas'),coworkers=null,view='reverse'}={}){
+export function createLotteryVisuals(T,{scene,shape,stations=[],mapX=x=>x,createCanvas=()=>globalThis.document?.createElement('canvas'),coworkers=null,view='reverse',reducedMotion=false}={}){
  if(!scene||!shape||![shape.x,shape.z,shape.hx,shape.hz].every(Number.isFinite))throw new TypeError('scene and shared rectangular collider required');
  const root=new T.Group();root.name='tailPartyLottery';scene.add(root);
  const ownedG=new Set(),ownedM=new Set(),ownedTex=new Set();
@@ -14,7 +14,7 @@ export function createLotteryVisuals(T,{scene,shape,stations=[],mapX=x=>x,create
  const cube=(x,y,z,m,p,at)=>mesh(new T.BoxGeometry(x,y,z),m,p,at);
  const ring=(r,m,p,at)=>{const n=mesh(new T.TorusGeometry(r,.075,5,24),m,p,at);n.rotation.x=Math.PI/2;return n;};
  const box=new T.Group();box.position.set(mapX(shape.x),0,shape.z);root.add(box);
- const machine=createRaffleMachine(T,{parent:box,shape});
+ const machine=createRaffleMachine(T,{parent:box,shape,reducedMotion});
  const effects={};for(const id of ['gate','upgrade','busy']){effects[id]=new T.Group();root.add(effects[id]);effects[id].visible=false;}
  // Physical gate is rendered by the host; these stripes visibly highlight its location.
  for(const x of [-7.6,7.6])cube(.25,1.6,.25,gold,effects.gate,[mapX(x),.85,46.5]);
