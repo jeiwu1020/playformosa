@@ -17,7 +17,7 @@ export function setupPlayLayout(){
 export function centeredPlayFrame(r,height,left,right){return{x:(left.left+left.width/2+right.left+right.width/2)/2-r.width/2,y:height-r.bottom,w:r.width,h:r.height};}
 export function playFrame(){const r=document.getElementById('playFrame').getBoundingClientRect(),mobileLandscape=innerWidth>innerHeight&&innerHeight<=600&&!document.body.classList.contains('desktop-layout')&&matchMedia('(max-width:999px), (pointer:coarse)').matches;
  const left=document.getElementById('left')?.getBoundingClientRect(),right=document.getElementById('right')?.getBoundingClientRect();
- if(mobileLandscape&&left?.width>0&&right?.width>0)return centeredPlayFrame(r,innerHeight,left,right);
+ if((mobileLandscape||document.body.classList.contains('desktop-layout'))&&left?.width>0&&right?.width>0)return centeredPlayFrame(r,innerHeight,left,right);
  return{x:r.left,y:innerHeight-r.bottom,w:r.width,h:r.height};}
 
 export function blendPlayFrame(start,end,t,w,h){const p=Math.max(0,Math.min(1,t)),e=p*p*p*(p*(p*6-15)+10);return{x:start.x*w+(end.x-start.x*w)*e,y:start.y*h+(end.y-start.y*h)*e,w:start.w*w+(end.w-start.w*w)*e,h:start.h*h+(end.h-start.h*h)*e};}

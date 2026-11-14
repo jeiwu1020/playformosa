@@ -132,3 +132,11 @@ body.pf-game #pauseScreen .pause-menu,
 body.pf-game dialog[data-game-menu]{touch-action:manipulation;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 /* Centered overflowing grid content can begin above scrollTop=0 on short screens. */
 body.pf-game #intro.menu-sheet{align-content:start}
+
+/* Desktop window and browser F11 share one resize-driven layout. F11 is not
+   document.fullscreenElement; never gate this geometry on the Fullscreen API. */
+body.pf-game.desktop-layout.playing #controls{left:calc(var(--safe-left,0px) + 12px);right:calc(var(--safe-right,0px) + 12px);bottom:calc(var(--safe-bottom,0px) + 12px);height:80px;align-items:stretch;justify-content:space-between}
+body.pf-game.desktop-layout.playing #controls .flipper{min-height:64px;height:80px;max-width:calc(50vw - 24px)}
+body.pf-game.desktop-layout.playing #controls kbd{display:inline-block}
+body.pf-game.desktop-layout #homeConfirm p{color:#fff5db;opacity:1;font-size:17px;line-height:1.5}
+body.pf-game.desktop-layout #homeCancel{display:flex;align-items:center;justify-content:center;text-align:center;font-size:23px;font-weight:900;line-height:1.25;min-height:56px;padding:12px 18px}
