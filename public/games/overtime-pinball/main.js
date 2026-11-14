@@ -213,7 +213,28 @@ function openingKick(){if(cinematicStart.kicked)return;cinematicStart.kicked=tru
 function completeOpening(){if(mode!=='cinematic')return;openingKick();clearInput();mode='playing';transition=0;accumulator=0;cameraRig.reset(game.ball);const goal=cameraPose(innerWidth,innerHeight,'playing',game.ball);camera.position.set(...goal.position);camera.userData.look.set(...goal.target);camera.fov=goal.fov;for(const id of['launch','skipOpening'])$(id).hidden=true;$('controls').hidden=false;$('joke').textContent='守住門，獎金靠本事！';focusGameplay(document);}
 function beginCinematic(){releaseRecovery?.hide();if($('pauseScreen').open)$('pauseScreen').close();platform?.reset();game.roundLimit=roundOptions.limit;best=roundOptions.best();gameAudio.unlock();clearRoundVisuals();document.body.classList.add('playing');game.reset();game.interactionsEnabled=interactionsOn;mode='cinematic';gameAudio.setState(mode);cinematicTime=0;accumulator=0;cameraRig.reset(game.ball);clearInput();cinematicStart={kicked:false,impactAt:null,launch:null};const frame=playFrame(),full=cameraPose(innerWidth,innerHeight,'playing',game.ball),pose=openingPose(full,frame.w,frame.h,0,comfort,null);camera.position.set(...pose.position);camera.userData.look.set(...pose.target);camera.fov=pose.fov;for(const id of['intro','sceneLabel','footer','results','pauseScreen','controls'])$(id).hidden=true;for(const id of['hud','pause','launch','skipOpening'])$(id).hidden=false;$('launch').textContent='老闆：下班！現在！';$('stationHint').textContent='老闆準備送你下班';$('joke').textContent='老闆一腳送客，加班現在開始！';void recordPlayStart(window,'overtime-pinball');focusGameplay(document);}
 function syncRecordNotice(){for(const id of ['introStorageNotice','resultStorageNotice','settingsStorageNotice']){const el=$(id),limit=id==='resultStorageNotice'?game.round.limit:roundOptions.limit;el.hidden=!roundOptions.sessionOnly(limit);el.textContent=el.hidden?'':'無法永久儲存：最高分僅保留於本次開啟頁面，重新載入或關閉後不會保留。';}}
-function endGame(){mode='over';gameAudio.setState(mode);clearInput();$('activityPanel').hidden=true;$('controls').hidden=true;$('pause').hidden=true;$('results').hidden=false;$('finalScore').textContent=money(game.score);const payNames=PAY_NAMES;$('payroll').innerHTML=Object.entries(game.payroll).map(([key,value])=>'<div><span>'+payNames[key]+'</span><b data-income="'+value+'">'+money(value)+'</b></div>').join('');$('finalTime').textContent=game.time.toFixed(1);$('finalHits').textContent=game.hits;$('finalSaves').textContent=game.saves;$('finalActivities').textContent='完成 '+game.completedActivities+' 段加班小劇場';best=roundOptions.best(game.round.limit);const record=game.score>best;best=roundOptions.record(game.score,game.round.limit);$('finalRoundMode').textContent=(game.round.limit?game.round.limit/60+'分鐘模式':'不限時模式')+' · '+(game.round.reason==='time'?'時間到，老闆強制送出門':'掉出門下班')+(game.round.limit?' · 重返 '+game.round.reentries+' 次':'');$('record').textContent=(record?'新紀錄！ ':'個人最高 ')+money(best);$('bestIntro').textContent='本模式最高 '+money(roundOptions.best());syncRecordNotice();sound('over');$('results').querySelector('.panel').scrollTop=0;platform?.settle();}
+let resultActionGroup=null,resultActionSlot=null,resultRecordSlot=null;
+function mountResultActionGroup(){
+ if(resultActionGroup)return;
+ const panel=$('results').querySelector('.panel'),credits=panel.querySelector('[data-audio-credits]'),record=$('record');
+ resultActionSlot=document.createComment('result-actions-slot');credits.before(resultActionSlot);
+ resultActionGroup=document.createElement('div');resultActionGroup.className='result-actions';
+ resultActionGroup.append(credits,$('pinballShares'),$('pinballShareStatus'),$('resultRanking'),$('pinballUpload'),$('restart'),$('home'));
+ resultActionSlot.after(resultActionGroup);
+ resultRecordSlot=document.createComment('result-record-slot');record.after(resultRecordSlot);
+}
+function syncResultActionLayout(){
+ if(!resultActionGroup)return;
+ const panel=$('results').querySelector('.panel'),record=$('record'),details=panel.querySelector('.payroll-extra');
+ if(matchMedia('(max-width:600px) and (orientation:portrait)').matches){
+  if(details.previousElementSibling!==record)details.before(record);
+  if(record.nextElementSibling!==resultActionGroup)record.after(resultActionGroup);
+ }else{
+  if(resultRecordSlot.previousElementSibling!==record)resultRecordSlot.before(record);
+  if(resultActionSlot.nextElementSibling!==resultActionGroup)resultActionSlot.after(resultActionGroup);
+ }
+}
+function endGame(){mode='over';gameAudio.setState(mode);clearInput();$('activityPanel').hidden=true;$('controls').hidden=true;$('pause').hidden=true;syncResultActionLayout();$('results').hidden=false;$('finalScore').textContent=money(game.score);const payNames=PAY_NAMES;$('payroll').innerHTML=Object.entries(game.payroll).map(([key,value])=>'<div><span>'+payNames[key]+'</span><b data-income="'+value+'">'+money(value)+'</b></div>').join('');$('finalTime').textContent=game.time.toFixed(1);$('finalHits').textContent=game.hits;$('finalSaves').textContent=game.saves;$('finalActivities').textContent='完成 '+game.completedActivities+' 段加班小劇場';best=roundOptions.best(game.round.limit);const record=game.score>best;best=roundOptions.record(game.score,game.round.limit);$('finalRoundMode').textContent=(game.round.limit?game.round.limit/60+'分鐘模式':'不限時模式')+' · '+(game.round.reason==='time'?'時間到，老闆強制送出門':'掉出門下班')+(game.round.limit?' · 重返 '+game.round.reentries+' 次':'');$('record').textContent=(record?'新紀錄！ ':'個人最高 ')+money(best);$('bestIntro').textContent='本模式最高 '+money(roundOptions.best());syncRecordNotice();sound('over');$('results').querySelector('.panel').scrollTop=0;platform?.settle();}
 function pause(reason='工時與倒數都暫停了。'){if(!['playing','cinematic'].includes(mode))return;$('pauseScreen').querySelector('.pause-copy p').textContent=reason;pausedMode=mode;mode='paused';gameAudio.setState(mode);clearInput();$('pauseScreen').showModal();$('skipOpening').hidden=true;$('resume').focus();}
 function resume(){if(mode!=='paused'||!checkOrientation().canResume)return;gameAudio.unlock();mode=pausedMode;gameAudio.setState(mode);accumulator=0;$('pauseScreen').close();$('pauseScreen').hidden=true;$('skipOpening').hidden=mode!=='cinematic';focusGameplay(document);}
 const pointers={left:new Set(),right:new Set()},keys={left:new Set(),right:new Set()};
@@ -236,6 +257,7 @@ function bindControls(){
  releaseRecovery=mountReleaseRecovery({document,restart:beginCinematic,home:returnHome});
  homeNavigation=mountHomeNavigation({document,mode:()=>mode,pause,resume,clearInput,home:returnHome});
  const restartConfirmation=mountRestartConfirmation({document,mode:()=>mode,pause,resume,clearInput,restart:beginCinematic});
+ mountResultActionGroup();window.addEventListener('resize',()=>{if(mode==='over')syncResultActionLayout();});
  platform=mountPinballPlatform({document,game,mode:()=>mode,pause,resume,restart:restartConfirmation.request,clearInput});
  window.addEventListener('message',e=>{if(e.source===parent&&e.origin===location.origin&&e.data?.type==='overtime:viewport'){clearInput();if(e.data.rotation===0||e.data.rotation===90)document.body.classList.toggle('sideways-menus',e.data.rotation===90);}});
  bindRoundOptions();

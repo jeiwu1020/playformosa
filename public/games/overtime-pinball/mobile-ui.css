@@ -180,3 +180,17 @@ body.pf-game.playing.lottery-status-active #lotteryStatus:not([hidden]),body.pf-
    the measured left menu. Text size and authoritative prompt priority stay. */
 body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
 body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}
+
+/* Keep desktop and landscape result flow untouched; portrait phones move the
+   clickable result actions directly below the score summary, away from L/R. */
+body.pf-game #results .result-actions{display:contents}
+@media(max-width:600px) and (orientation:portrait){
+ body.pf-game #results .result-actions{display:flex;flex-direction:column;align-items:stretch;gap:8px;width:min(100%,320px);margin:12px auto 18px}
+ body.pf-game #results .result-actions>*{box-sizing:border-box;width:100%;max-width:100%;min-width:0;margin:0}
+ body.pf-game #results .result-actions .audio-link{padding:10px 12px}
+ body.pf-game #results #pinballShares{display:flex;flex-direction:column;gap:8px;width:100%;margin:0}
+ body.pf-game #results #pinballShares>*{box-sizing:border-box;flex:0 0 auto;width:100%;min-height:48px}
+ body.pf-game #results #pinballShareStatus{text-align:center}
+ body.pf-game #results #resultRanking,body.pf-game #results #restart,body.pf-game #results #home{min-height:48px}
+ body.pf-game #results #pinballUpload,body.pf-game #results #pinballUpload>*{box-sizing:border-box;width:100%;min-width:0}
+}
