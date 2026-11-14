@@ -16,7 +16,7 @@ const gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MA
 const completedIcons=JSON.parse(await readFile(new URL('docs/app-icons-completion/MANIFEST.json',root),'utf8'));
 const courtesy=JSON.parse(await readFile(new URL('docs/main-courtesy-help/MANIFEST.json',root),'utf8'));
 const expansion=JSON.parse(await readFile(new URL('docs/main-expansion/ADMISSION.json',root),'utf8'));
-const allowedPublicPaths=[...pinball.addedPublicPaths,...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
+const allowedPublicPaths=['games/overtime-pinball/tablet-cue-projection.js',...pinball.addedPublicPaths,...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);

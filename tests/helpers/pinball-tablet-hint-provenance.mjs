@@ -1,7 +1,8 @@
+import {readFileSync as currentRead} from 'node:fs';
 import {withProvenanceSession,manifestText} from './provenance-session.mjs';
 // Exact additive boundary for the approved PinballTabletHint import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual,readdirSync as actualDirectory} from 'node:fs';
+import {readBeforePinballTabletCenter as actual,pinballTabletCenterParentBytes,inventoryBeforePinballTabletCenter,readdirBeforePinballTabletCenter as actualDirectory} from './pinball-tablet-center-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -36,8 +37,10 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 function uncached_pinballTabletHintParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballTabletCenterParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballTabletHint live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballTabletHint live SHA256 drift');return before;
 }
 function uncached_readBeforePinballTabletHint(file,options){
@@ -47,7 +50,9 @@ function uncached_readBeforePinballTabletHint(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?pinballTabletHintParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-function uncached_inventoryBeforePinballTabletHint(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+function uncached_inventoryBeforePinballTabletHint(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballTabletCenter(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballTabletCenterParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballTabletHint inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -56,7 +61,9 @@ function uncached_inventoryBeforePinballTabletHint(paths,{read=p=>actual(new URL
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballTabletHint inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballTabletHint inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-function uncached_assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+function uncached_assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballTabletCenter(paths,{read});
+ const liveRead=read;read=p=>pinballTabletCenterParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete pinballTabletHint inventory');
  assert.deepEqual(inventoryBeforePinballTabletHint(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(pinballTabletHintParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
@@ -70,7 +77,7 @@ export const inventoryBeforePinballTabletHint=(...args)=>withProvenanceSession((
 export const assertCompleteInventory=(...args)=>withProvenanceSession(()=>uncached_assertCompleteInventory(...args));
 
 // Existing directories stay visible; unknown descendants are never filtered out.
-export function entriesBeforePinballTabletHint(directory,entries,{read=p=>actual(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
+export function entriesBeforePinballTabletHint(directory,entries,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
  const absolute=directory instanceof URL?fileURLToPath(directory):resolve(String(directory)),path=relative(root,absolute).split(sep).join('/');
  if(path!=='public'&&!path.startsWith('public/'))return entries;
  const m=validate(manifest()),prefix=path+'/',name=e=>typeof e==='string'?e:Buffer.isBuffer(e)?e.toString():e.name,names=entries.map(name);

@@ -1,7 +1,11 @@
 // Only roomy touch viewports opt in; phones and pointer-fine desktops keep
 // their existing layout. Measure the real menu/status edge, never assume 280px.
-export function tabletCueLayout({width,height,coarse,desktop=false,header={},status={}}){
+export function tabletCueLayout({width,height,coarse,desktop=false,header={},status={},projection=null,cueHeight=0}){
  if(!coarse||desktop||Math.min(width,height)<600)return null;
+ if(width>height&&Number.isFinite(projection?.centerX)&&Number.isFinite(projection?.top)){
+ const center=projection.centerX,minLeft=Math.max(12,header.right||0,status.right||0)+12,span=Math.max(1,Math.min(320,2*(center-minLeft),2*(width-12-center))),maxHeight=Math.max(24,projection.top-18),actualHeight=Math.min(cueHeight||72,maxHeight);
+ return{left:center-span/2,top:Math.max(8,Math.min(24,projection.top-actualHeight-10)),width:span,height:maxHeight};
+ }
  const landscape=width>height,left=landscape?Math.max(12,header.right||0,status.right||0)+12:12,available=Math.max(1,width-left-12),cueWidth=Math.min(420,available);
  return{left:landscape?left:left+(available-cueWidth)/2,top:landscape?8:Math.max(header.bottom||0,status.bottom||0)+8,width:cueWidth,height:landscape?180:72};
 }
@@ -33,7 +37,7 @@ export function mobileFocus(doc){
  const mail=visible('mailStatus');if(mail?.textContent)return{kind:'mail',title:'',text:mail.textContent,ratio:null};
  return null;
 }
-export function mountMobileUI({document,storage,labels}){
+export function mountMobileUI({document,storage,labels,projection}){
  const preference=new LabelPreference(storage),notice={key:null,until:0};let ownsTabletReserve=false;
  const cue=document.createElement('div');cue.id='mobileCue';cue.hidden=true;cue.setAttribute('aria-live','polite');const cueTitle=document.createElement('b'),cueText=document.createElement('span'),cueBar=document.createElement('progress');cueBar.max=1;cueBar.setAttribute('aria-label','目前操作進度或剩餘時間');cue.append(cueTitle,cueText,cueBar);document.body.append(cue);
  const details=document.createElement('p');details.id='poolDetails';document.querySelector('#pauseScreen .pause-settings')?.after(details);
@@ -51,12 +55,15 @@ export function mountMobileUI({document,storage,labels}){
  cueText.textContent=concise?.text||'';cueBar.hidden=focus?.ratio==null;if(focus?.ratio!=null)cueBar.value=focus.ratio;
  const win=document.defaultView,coarse=win?.matchMedia?.('(pointer:coarse)').matches===true,desktop=document.body.classList.contains('desktop-layout');
  const eligible=coarse&&!desktop&&Math.min(win.innerWidth,win.innerHeight)>=600;
- const layout=eligible?tabletCueLayout({width:win.innerWidth,height:win.innerHeight,coarse,desktop,header:document.querySelector('.pf-header')?.getBoundingClientRect(),status:document.getElementById('playStatus')?.getBoundingClientRect()}):null;
+ const projected=eligible&&win.innerWidth>win.innerHeight?projection?.():null;
+ let layout=eligible?tabletCueLayout({width:win.innerWidth,height:win.innerHeight,coarse,desktop,header:document.querySelector('.pf-header')?.getBoundingClientRect(),status:document.getElementById('playStatus')?.getBoundingClientRect(),projection:projected}):null;
  document.body.classList.toggle('tablet-touch-cue',!!layout);
  if(layout&&win.innerHeight>=win.innerWidth){const frameTop=document.getElementById('playFrame')?.getBoundingClientRect().top||0,reserve=Math.max(0,layout.top+layout.height+8-frameTop)+'px';if(document.body.style.getPropertyValue('--camera-top-reserve')!==reserve)document.body.style.setProperty('--camera-top-reserve',reserve);ownsTabletReserve=true;}
  else if(ownsTabletReserve){document.body.style.removeProperty('--camera-top-reserve');ownsTabletReserve=false;}
 
  if(layout)for(const[k,value]of Object.entries(layout)){const prop='--tablet-cue-'+k,v=value+'px';if(cue.style.getPropertyValue(prop)!==v)cue.style.setProperty(prop,v);}
+ if(layout&&projected&&!cue.hidden){const actualHeight=cue.getBoundingClientRect().height,top=Math.max(8,Math.min(24,projected.top-actualHeight-10));cue.style.setProperty('--tablet-cue-top',top+'px');}
+
 
 
  }};
