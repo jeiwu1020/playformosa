@@ -10,7 +10,14 @@ const polish=readFileSync(new URL('play-polish.css',root),'utf8');
 const main=readFileSync(new URL('main.js',root),'utf8');
 
 test('lottery status stays concise for ready, drawing, and prize states',()=>{
- assert.equal(lotteryStatusText({phase:'ready'},0),'幸運時刻 · 摸彩箱已就緒 · 碰觸摸彩箱，靠近後抽獎');
+ assert.equal(lotteryStatusText({phase:'ready'},0),'');
+ const status=createLotteryStatus(),ready={phase:'ready'};
+ assert.equal(status.presentation(ready,0),null);
+ assert.equal(status.presentation(ready,16),null);
+ const active={phase:'active',prize:'busy',drawId:1,until:25};
+ assert.equal(status.presentation(active,17)?.phase,'active');
+ assert.equal(status.presentation(active,18.99)?.phase,'active');
+ assert.equal(status.presentation(active,19),null);
  assert.equal(lotteryStatusText({phase:'drawing'},0),'尾牙摸彩 · 好運開出中 · 人人有獎 · 獎項揭曉中');
  for(const prize of ['gate','upgrade','busy'])assert.match(lotteryStatusText({phase:'active',prize,until:9},1),/本次中獎.*8 秒/);
  assert.equal(lotteryStatusText({phase:'ended'},0),'');
