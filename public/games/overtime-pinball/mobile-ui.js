@@ -38,8 +38,10 @@ export function mountMobileUI({document,storage,labels}){
  details.textContent=document.getElementById('overtimeStatus')?.textContent||'';
  const focus=game.round?.ending||game.round?.reentry?null:mobileFocus(document);
  cue.hidden=!focus;cue.dataset.kind=focus?.kind||'';
- cueTitle.textContent=focus?.title||'';cueTitle.hidden=!focus?.title;
- cueText.textContent=focus?.text||'';cueBar.hidden=focus?.ratio==null;if(focus?.ratio!=null)cueBar.value=focus.ratio;
+ const shortLandscape=document.defaultView?.matchMedia?.('(orientation:landscape) and (max-height:600px)').matches&&!document.body.classList.contains('desktop-layout');
+ const concise=shortLandscape&&focus?.kind==='route'?{...focus,title:'',text:focus.text.replace(' · ','\n')}:shortLandscape&&focus?.kind==='offer'?{...focus,title:'',text:'按 L / R 進入互動；不按繼續彈跳'}:focus;
+ cueTitle.textContent=concise?.title||'';cueTitle.hidden=!concise?.title;
+ cueText.textContent=concise?.text||'';cueBar.hidden=focus?.ratio==null;if(focus?.ratio!=null)cueBar.value=focus.ratio;
 
  }};
 }

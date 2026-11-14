@@ -23,5 +23,5 @@ export function playSafeInsets(){
  // must not resize this reservation, otherwise each bonus pumps the camera.
  const reserve=parseFloat(s.getPropertyValue('--camera-top-reserve'));
  const cameraTop=compact&&frame?Math.min(Math.max(0,frame.height-80),Number.isFinite(reserve)?Math.max(0,reserve):(innerWidth<innerHeight?108:0)):undefined;
- return{safeTop,safeBottom,compact,cameraTop,desktop:document.body.classList.contains('desktop-layout')};
+ return{safeTop,safeBottom,compact,cameraTop,desktop:document.body.classList.contains('desktop-layout'),edgeFrame:compact&&innerWidth>innerHeight&&innerHeight<=600&&!document.body.classList.contains('desktop-layout')};
 }

@@ -38,7 +38,7 @@ export class StableRig{
  constructor(view='reverse'){this.view=view;this.reset();}
  reset(){this.key=null;this.mode='full';this.motion=null;this.x=0;this.z=9.5;this.y=0;this.distance=null;this.gate=false;this.close=0;}
  update(dt,w,h,ball,interaction=null,station=null,comfort=false,fitFrame=false){
-  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:fitFrame?.compact?clamp(1.15/(w/h),.40,.72):.82,fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=Number.isFinite(fitFrame?.cameraTop)?Math.max(0,fitFrame.cameraTop):portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}:${!!fitFrame?.compact}:${!!fitFrame?.desktop}`;
+  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:fitFrame?.compact?(fitFrame?.edgeFrame&&!fitFrame?.desktop?clamp(1.3/(w/h),.55,1.05):clamp(1.15/(w/h),.40,.72)):.82,fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=Number.isFinite(fitFrame?.cameraTop)?Math.max(0,fitFrame.cameraTop):portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}:${!!fitFrame?.compact}:${!!fitFrame?.desktop}`;
   if(!interaction&&!fitFrame?.mail){if(ball.z+Math.max(0,ball.vz||0)*.4>=20)this.gate=true;else if(ball.z<12)this.gate=false;}
   if(this.key!==key){
    this.key=key;this.full=fullTableFit(w,h,pitch,sign,fov,top,bottom,portrait,!!fitFrame?.compact&&!fitFrame?.desktop);

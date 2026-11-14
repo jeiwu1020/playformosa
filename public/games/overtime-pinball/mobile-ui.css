@@ -116,3 +116,19 @@
  body.pf-game.playing .scorecard,body.pf-game.playing #lampHud{width:156px}
  body.pf-game.playing #mobileCue:not([hidden]){width:132px;max-width:132px}
 }
+
+/* Mobile landscape fills the available Safari content height. The left rail
+   owns all HUD/cues; controls are translucent corner overlays, not gutters. */
+@media(orientation:landscape) and (max-height:600px){
+ body.pf-game.playing:not(.desktop-layout) #playFrame{right:var(--safe-right,0px)}
+ body.pf-game.playing:not(.desktop-layout) .scorecard{display:flex;flex-wrap:nowrap;align-items:center;gap:4px;height:28px;min-height:28px;padding:2px 5px}
+ body.pf-game.playing:not(.desktop-layout) .scorecard>small{display:none}
+ body.pf-game.playing:not(.desktop-layout) .scorecard strong{font-size:19px;line-height:1.1;white-space:nowrap}
+ body.pf-game.playing:not(.desktop-layout) .scorecard>div{font-size:11px;margin:0;white-space:nowrap}
+ body.pf-game.playing:not(.desktop-layout) #lampHud{height:24px;min-height:24px}
+ body.pf-game.playing:not(.desktop-layout) #mobileCue:not([hidden]){left:calc(var(--safe-left,0px) + 4px);right:auto;top:calc(var(--safe-top,0px) + 160px);width:156px;max-width:156px;max-height:calc(100vh - var(--safe-top,0px) - var(--safe-bottom,0px) - 240px);font-size:12px;line-height:1.15;padding:4px;gap:2px}
+ body.pf-game.playing:not(.desktop-layout) #mobileCue>b{font-size:11px}
+ body.pf-game.playing:not(.desktop-layout) #controls:before{background:none}
+ body.pf-game.playing:not(.desktop-layout) #controls .flipper{opacity:.68;box-shadow:0 2px 0 #122e33aa;border-color:#fff0bbaa}
+ body.pf-game.playing:not(.desktop-layout) #controls .flipper:active{opacity:.94}
+}
