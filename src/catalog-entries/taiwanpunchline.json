@@ -1,0 +1,15 @@
+{
+  "id": "taiwanpunchline",
+  "title": "拳民開講",
+  "description": "嘴上不服，拳頭開講。台味角色齊聚議場，過招也要有笑點。",
+  "genre": "政治迷因格鬥",
+  "image": "/assets/portal-taiwanpunchline.png",
+  "eyebrow": "TAIWAN PUNCHLINE",
+  "order": 42,
+  "kind": "game",
+  "href": "https://taiwanpunchline.playformosa.workers.dev/",
+  "release": {
+    "preview": true,
+    "production": true
+  }
+}
