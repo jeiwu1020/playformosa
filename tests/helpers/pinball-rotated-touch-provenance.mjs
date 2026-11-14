@@ -24,6 +24,7 @@ const currentReleaseParents=new Map([
  ['public/games/overtime-pinball/play-polish.css',{gitBlob:'a43f008180132fe76787eff9f9b78cc203f73d49',sha256:'7b2115e8f35caf66718c69fe8f7877f8f78d415f27189bb32856836dce25baa2'}],
  ['public/games/overtime-pinball/raffle-machine.js',{gitBlob:'fb96b79b17bd44583027cdcb4e3ae74af5273b46',sha256:'d83a3eea765992ff4348e3d5c4d46241526f5471b4ddd7d1660fdfcd8e7d879a'}],
  ['scripts/build.mjs',{gitBlob:'fb367207f59944a647b614724dbaa6c012473444',sha256:'f53f38c9b48ebe9dd5e92a18d993ea349919a505a1daebbb4eba2d566bfdbf96'}],
+ ['scripts/verify.mjs',{gitBlob:'1bac17bc7c22065dbea7754ec99bc8bf1b678a4e',sha256:'60d3f1b5b50b08e50316b7751aa94c22d9123727b37fe6105a28472d2ec17a57'}],
  ['src/render.mjs',{gitBlob:'f2c5734f2e74027098b44d423aa267ce8414bb85',sha256:'d31f759c7afedc610457a4bd4a199286a723bf9449f546b2f4bc3e190c5182d9'}],
  ['tests/app-icons-completion.test.mjs',{gitBlob:'483298fc1887250f95b29356f5c2462b1ff5369d',sha256:'651641d730fb038a82c9674d658bbecb12d628c86713681eeedfb49d2187aa7f'}],
  ['tests/courtesy-touch-inventory-chain.test.mjs',{gitBlob:'9759d046d6f1c3973736d5fb0d23c5e69ffda387',sha256:'f334a893f82bc1b961bdd8cc71f9aad81a73dc4add691a2886f58df2b4b67892'}],
