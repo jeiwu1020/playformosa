@@ -23,16 +23,24 @@ const currentReleaseParents=new Map([
  ['public/games/overtime-pinball/physics.js',{gitBlob:'0a4c832ee0665bfcff25b18fe418b15483040d02',sha256:'e1c45fbf19f1ff77194c00495f26ad3cb8172cc309ca9526d72838f75e9d57ad'}],
  ['public/games/overtime-pinball/play-polish.css',{gitBlob:'a43f008180132fe76787eff9f9b78cc203f73d49',sha256:'7b2115e8f35caf66718c69fe8f7877f8f78d415f27189bb32856836dce25baa2'}],
  ['public/games/overtime-pinball/raffle-machine.js',{gitBlob:'fb96b79b17bd44583027cdcb4e3ae74af5273b46',sha256:'d83a3eea765992ff4348e3d5c4d46241526f5471b4ddd7d1660fdfcd8e7d879a'}],
+ ['scripts/build.mjs',{gitBlob:'fb367207f59944a647b614724dbaa6c012473444',sha256:'f53f38c9b48ebe9dd5e92a18d993ea349919a505a1daebbb4eba2d566bfdbf96'}],
  ['src/render.mjs',{gitBlob:'f2c5734f2e74027098b44d423aa267ce8414bb85',sha256:'d31f759c7afedc610457a4bd4a199286a723bf9449f546b2f4bc3e190c5182d9'}],
+ ['tests/fighter-entry-count.test.mjs',{gitBlob:'56bca326e358648d04f86e886bd51f3f14da59ae',sha256:'d2cedcbb391063fc8ebc227f8bd024017f521502f8366a795b4e1e46cde81a75'}],
+ ['tests/homepage-portals.test.mjs',{gitBlob:'3f01940e7d4477cf61dcedc8bd61855dd09072cf',sha256:'3957621e5f4f060a6bab47a595052db857e95cf12f34dcb4df537be9992a5a78'}],
  ['tests/main-counts-fighter.test.mjs',{gitBlob:'8cbf20dc40b0651ea8b25c34b9700dae6e0f177a',sha256:'c887ef2b4b840463d6a8ad2540941aecba51ed778ec2b96d9615a43af0b9b51b'}],
+ ['tests/main-fast-hands.test.mjs',{gitBlob:'733425e14d6121ef67ab8b76387136ad55325949',sha256:'bdfcd45be5e80f7c7f239ff0234b175c46b13041e57c0f323dc3b58660fc022a'}],
+ ['tests/main-nav-diagnostic.test.mjs',{gitBlob:'b595dbccb81d9e615a3510bcc0ee1ff9f53b501c',sha256:'53027afe748e9746cefa8eb154b23b303c8d5d2ec1efbef1445b281589f76bbc'}],
  ['tests/pinball/lottery-assists.test.mjs',{gitBlob:'6ec1c9e0ac5742ba5ff8f5ebdcc8f3f09e442c3b',sha256:'d432621432e9ecfd22502ada65c05ad2646bbc6b19921318309763e7688ea8e4'}],
  ['tests/pinball/lottery-events.test.mjs',{gitBlob:'312ec501cfa411d29c4375d1f9592de4a58cb2e5',sha256:'96aeee29aed8f731e54ed3f82ec29e5b65d1ee470511535ab2dff130dec2cb7b'}],
  ['tests/pinball/lottery-hud.test.mjs',{gitBlob:'310e6e989f07c453ae89f7439a932da0b751f65e',sha256:'8fdca16dea21cd0266b3e70b2f0ebc998e3f51334ddb2c1b594424459bc7e60d'}],
  ['tests/pinball/lottery-render.test.mjs',{gitBlob:'b5dbaa41e4aee1e84a34e25161a228cbdb6514ba',sha256:'6d142228595ec6d226818708048d00ace558966475f9a226fd34f8e20d894c4d'}],
  ['tests/pinball/proportions.test.mjs',{gitBlob:'d4645c651ad8ef405f8b5d969d7b684596f44ef9',sha256:'37dc300365a1272e72b429d405f2b7bcc265c4a9e04d726b5cbb22d3d836277d'}],
  ['tests/pinball/raffle-machine.test.mjs',{gitBlob:'6d92ac17978cf8a2faea35a550188f1b46c6daf4',sha256:'a2f015825f1527063c6573b024eb0c0daf7211f57d73341ec376395dc6b8f2bd'}],
+ ['tests/play-counts-repository.test.mjs',{gitBlob:'6f24ba1e8d26f456c19c8cc9e4797f90e0943472',sha256:'6fc35e3afafa8bd7efeceff66348a3adea9c0d74a31c9ace9a214702bfedf29e'}],
+ ['tests/punchline-main-portal.test.mjs',{gitBlob:'607492509c8af48bdcf793806cb27b729533bf20',sha256:'645184de27c4a11e660acc2cda67f55deb25aa95a1125255a44b93d0e8238f52'}],
+ ['tests/reaction-rod-main.test.mjs',{gitBlob:'692e52b52593c88f81482a7501b35c62766056aa',sha256:'69d27f6be771e362d3e8f72e33bdb945a6e452c4fecc29e2ddc43971012ca42d'}],
  ['worker/play-counts/entries.mjs',{gitBlob:'1dcf49dd7b8515f8e3157da69d935430d2bcd1ac',sha256:'e9b23caad6abe2b62bd4853353cc941d3486f920c65b739bd301946bd4010c30'}],
- ['worker/play-counts/repository.mjs',{gitBlob:'93fc6d6cb71fee0f4a9c01dd842a2cb0f86857d2',sha256:'2f103fff2e8007077f41657bd34425eb91cdbf608bcc5aef124deb9a566004b9'}]
+ ['worker/play-counts/repository.mjs',{gitBlob:'93fc6d6cb71fee0f4a9c01dd842a2cb0f86857d2',sha256:'2f103fff2e8007077f41657bd34425eb91cdbf608bcc5aef124deb9a566004b9'}],
 ]);
 export function verifyBase(b){
  assert.equal(b.baseCommit,'52e58101c4b16592645a304dfbcb4e011c3301fd');assert.equal(b.baseTree,'7b39eb93d30dd465913a98386373974cca5b7a91');assert.deepEqual(b,baseline);

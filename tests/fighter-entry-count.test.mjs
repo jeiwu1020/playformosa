@@ -21,7 +21,7 @@ test('Fighter card opens the counted native link and labels entries without chan
  const card=d.querySelector('[data-external-id="taiwanfighter"]'),a=card.querySelector('a');
  assert.equal(a.getAttribute('href'),route);assert.equal(a.target,'_blank');assert.match(a.rel,/noopener/);assert.match(a.rel,/noreferrer/);
  const count=card.querySelector('[data-play-count="taiwanfighter"]');assert.ok(count);assert.match(count.textContent,/開玩次數/);assert.match(count.title,/點擊進入/);
- assert.equal(d.querySelectorAll('[data-play-count]').length,22);
+ assert.equal(d.querySelectorAll('[data-play-count]').length,23);
  await loadPlayCounts(d,{fetcher:async()=>({ok:true,json:async()=>({counts:{taiwanfighter:{count:1234},'long-jump':{count:12}}})})});
  assert.equal(count.textContent,'已開玩 1,234 次');assert.equal(d.querySelector('[data-play-count="long-jump"]').textContent,'已開玩 12 次');
  dom.window.close();

@@ -19,10 +19,10 @@ const expansion=JSON.parse(await readFile(new URL('docs/main-expansion/ADMISSION
 const allowedPublicPaths=['assets/portal-taiwanpunchline.png','games/overtime-pinball/tablet-cue-projection.js',...pinball.addedPublicPaths,...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
-await writeFile(new URL('public/index.html',root),html);
 await rm(new URL('dist/',root),{recursive:true,force:true});
 await mkdir(new URL('dist/',root),{recursive:true});
 await cp(new URL('public/',root),new URL('dist/',root),{recursive:true});
+await writeFile(new URL('dist/index.html',root),html);
 await assertReleasedGames(new URL('dist/',root));
 await assertProductionInventory(new URL('dist/',root),allowedPublicPaths);
 console.log('Built static Playformosa to dist/');

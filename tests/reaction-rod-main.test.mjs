@@ -13,7 +13,7 @@ test('main navigation and independent shelf retain Rod and Fast Hands alongside 
  assert.deepEqual(catalog.games.map(g=>g.id),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin']);
  assert.deepEqual(catalog.minigames.map(g=>g.id),['overtime-pinball','courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb']);
  assert.equal(d.querySelectorAll('#minigames .game-card').length,8);
- assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'overtime-pinball', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'soul10power', 'arcadeplatform']);
+ assert.deepEqual([...d.querySelectorAll('[data-play-count]')].map(n=>n.dataset.playCount),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'overtime-pinball', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'taiwanpunchline', 'soul10power', 'arcadeplatform']);
  assert.equal(d.querySelector('#minigames .game-cta[href="/games/reaction-rod/"]').getAttribute('href'),'/games/reaction-rod/');
  assert.equal(d.querySelector('[data-external-id="taiwanfighter"] a').getAttribute('href'),'/api/play-counts/entries/taiwanfighter');
 });

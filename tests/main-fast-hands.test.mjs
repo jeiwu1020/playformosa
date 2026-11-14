@@ -15,7 +15,7 @@ const ids=['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discu
 test('main admits exactly eighteen games and all three approved Fast Hands intro cards',()=>{
  assert.deepEqual([...catalog.games,...catalog.minigames].map(g=>g.id),ids);
  for(const [id,title,href,image] of expected){const g=catalog.minigames.find(g=>g.id===id);assert.deepEqual([g.title,g.href,g.image],[title,href,image]);}
- const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'overtime-pinball', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'soul10power', 'arcadeplatform']);
+ const html=renderPage(catalog);assert.deepEqual([...html.matchAll(/data-play-count="([^"]+)"/g)].map(m=>m[1]),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin', 'overtime-pinball', 'courtesy-contest', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'beer-slide', 'reaction-rod', 'tower-climb', 'taiwankart', 'taiwanfighter', 'taiwanpunchline', 'soul10power', 'arcadeplatform']);
  for(const [,title,href,image] of expected){assert.ok(html.includes(title));assert.ok(html.includes(`href="${href}"`));assert.ok(html.includes(`src="${image}"`));}
 });
 test('new minigame admission rejects unapproved IDs, routes, query strings and artwork',()=>{
