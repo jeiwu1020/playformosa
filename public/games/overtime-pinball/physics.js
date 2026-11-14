@@ -38,7 +38,7 @@ export function flipperSegment(side,amount){const sign=side==='left'?1:-1,angle=
 export function closestPoint(x,z,s){const dx=s.bx-s.ax,dz=s.bz-s.az,t=clamp(((x-s.ax)*dx+(z-s.az)*dz)/(dx*dx+dz*dz),0,1);return {x:s.ax+t*dx,z:s.az+t*dz,t};}
 export class Game{
  constructor({view='reverse',random=null,roundLimit=0,patrol=true}={}){this.view=view;this.random=random;this.roundLimit=roundLimit;this.patrolEnabled=patrol;this.reset();}
- reset(){this.round=freshRound(this.roundLimit);this.bossPatrol=freshBoss();this.central=freshCentral();this.comboRoutes=freshCombos();this.assists=freshAssists();this.ball={x:0,z:-11.3,vx:0,vz:0,r:.65};this.time=0;this.playClock=0;this.overtime=createOvertimeState();this.lottery=createLotteryState();this.lotteryEnabled=true;this.lotteryContact=0;this.shadowWorkers=createShadowState();this.overtimeEnabled=true;this.shadowPreviousFlippers={left:0,right:0};this.shadowStepClock=0;this.simTime=0;this.bonus=0;this.income={equipment:0,work:0,rescue:0,route:0,lights:0,clones:0,jackpot:0};this.hits=0;this.saves=0;this.combo=0;this.lastHit=-99;this.state='ready';this.events=[];this.cooldowns={};this.flippers={left:0,right:0};this.flipperPulse={left:0,right:0};this.flipperStroke={left:0,right:0};this.previous={left:false,right:false};this.opportunity=null;this.arming=null;this.interaction=null;this.interactionsEnabled=true;this.offerSequence=0;this.entryHeld={left:false,right:false};this.interactionNotice=null;this.offerSpent=new Set();this.contactEpisodes=new Map();this.releaseError=null;this.tapQueue=[];this.pendingTap=null;this.interactionReady=0;this.stationReady={};this.specialReady=0;this.completedActivities=0;this.hop=0;this.chairBoost={remaining:0,peak:38};this.effect=null;this.timeScale=1;this.effectTime=0;this.lamps=LAMPS.map(()=>false);this.lampInside=LAMPS.map(()=>false);this.bonusUntil=0;this.bonusReady=0;this.windowReady={};this.mailRun=null;this.shortRun=null;this.shortLatch=false;this.mailReady=0;this.mailLatch=freshMailLatch();this.mailTrips=0;this.workflow=freshWorkflow();this.routeRewards=freshRouteRewards();}
+ reset(){this.round=freshRound(this.roundLimit);this.bossPatrol=freshBoss();this.central=freshCentral();this.comboRoutes=freshCombos();this.assists=freshAssists();this.ball={x:0,z:-11.3,vx:0,vz:0,r:.65};this.time=0;this.playClock=0;this.overtime=createOvertimeState();this.lottery=createLotteryState();this.lotteryEnabled=true;this.lotteryContact=0;this.shadowWorkers=createShadowState();this.overtimeEnabled=true;this.shadowPreviousFlippers={left:0,right:0};this.shadowStepClock=0;this.simTime=0;this.bonus=0;this.income={equipment:0,work:0,rescue:0,route:0,lights:0,clones:0,jackpot:0};this.hits=0;this.saves=0;this.combo=0;this.lastHit=-99;this.state='ready';this.events=[];this.cooldowns={};this.flippers={left:0,right:0};this.flipperPulse={left:0,right:0};this.flipperStroke={left:0,right:0};this.previous={left:false,right:false};this.opportunity=null;this.arming=null;this.interaction=null;this.interactionsEnabled=true;this.offerSequence=0;this.entryHeld={left:false,right:false};this.interactionNotice=null;this.offerSpent=new Set();this.contactEpisodes=new Map();this.stationContactTrace=new Map();this.loopDeflectionSign=1;this.releaseError=null;this.tapQueue=[];this.pendingTap=null;this.interactionReady=0;this.stationReady={};this.specialReady=0;this.completedActivities=0;this.hop=0;this.chairBoost={remaining:0,peak:38};this.effect=null;this.timeScale=1;this.effectTime=0;this.lamps=LAMPS.map(()=>false);this.lampInside=LAMPS.map(()=>false);this.bonusUntil=0;this.bonusReady=0;this.windowReady={};this.mailRun=null;this.shortRun=null;this.shortLatch=false;this.mailReady=0;this.mailLatch=freshMailLatch();this.mailTrips=0;this.workflow=freshWorkflow();this.routeRewards=freshRouteRewards();}
  start(){this.reset();this.state='playing';const sample=this.random?.(),r=Number.isFinite(sample)?clamp(sample,0,1):null,band=r===null?null:Math.min(2,Math.floor(r*3)),t=r===null?0:r*3-band;this.ball.vx=band===0?-17+t*4:band===1?-5+t*10:band===2?13+t*4:-3.9;this.ball.vz=22;this.emit('kick');}
  get gateRemaining(){return Math.max(0,this.bonusUntil-this.effectTime,this.lotteryEnabled&&lotteryEffects(this.lottery,this.playClock).gateClosed?this.lottery.until-this.playClock:0);}
  get gateClosed(){return this.gateRemaining>0;}
@@ -111,10 +111,22 @@ export class Game{
    if(episode.travel>=INTERACTION_RULES.rearmDistance){this.offerSpent.delete(id);this.contactEpisodes.delete(id);}
   }
  }
+ repeatedStationContact(o,contact){
+  if(!BUMPERS.includes(o)||o.type==='launcher')return false;
+  const b=this.ball,now=this.time,previous=this.stationContactTrace.get(o.id),current={x:contact.x,z:contact.z,vx:b.vx,vz:b.vz,time:now};
+  this.stationContactTrace.set(o.id,current);
+  if(!previous)return false;
+  const elapsed=now-previous.time;
+  return elapsed>=3&&elapsed<=20&&Math.hypot(contact.x-previous.x,contact.z-previous.z)<=1.25&&Math.hypot(b.vx-previous.vx,b.vz-previous.vz)<=5;
+ }
+ breakStationLoop(nx,nz){
+  const b=this.ball,impulse=Math.min(7,Math.hypot(b.vx,b.vz)*.25)*this.loopDeflectionSign;
+  b.vx-=nz*impulse;b.vz+=nx*impulse;this.loopDeflectionSign*=-1;this.stationContactTrace.clear();
+ }
  startInteraction(o,side,automatic=false){
   if(this.state!=='playing'||(o.type==='boss'&&this.bossPatrol.phase==='patrol')||this.interaction||this.mailRun||this.ball.z>=34||(!this.interactionsEnabled&&o.type!=='launcher')||this.round.ending||this.round.reentry)return false;
   const activity=activityFor(o);if(!activity||this.offerSpent.has(o.id))return false;
-  const dock=dockFor(o,this.view),next={stationId:o.id,activity:activity.id,side,automatic,workOffset:automatic?.55:0,dockDuration:automatic?.85:.3,elapsed:0,duration:automatic?7.1:6.55,phase:0,from:{x:this.ball.x,z:this.ball.z},dock};setupInteraction(next);if(o.type==='launcher'){next.workOffset=0;next.dockDuration=.35;next.duration=1.2;next.selected=true;}if(automatic){next.approach=planApproach(next,o,this.view,[...BUMPERS,...SOLID_PROPS,...ASSIST_OBSTACLES,...this.lotteryObstacles]);if(next.approach.blocked)return false;}retractAssists(this);this.interaction=next;this.central.available=false;this.central.armed=null;this.spendContact(o);this.pendingTap=null;this.tapQueue=[];this.flipperStroke={left:0,right:0};this.flipperPulse={left:0,right:0};this.ball.vx=0;this.ball.vz=0;this.hop=0;this.arming=null;this.opportunity=null;this.emit('interactionStart',{station:o,activity});return true;
+  const dock=dockFor(o,this.view),next={stationId:o.id,activity:activity.id,side,automatic,workOffset:automatic?.55:0,dockDuration:automatic?.85:.3,elapsed:0,duration:automatic?7.1:6.55,phase:0,from:{x:this.ball.x,z:this.ball.z},dock};setupInteraction(next);if(o.type==='launcher'){next.workOffset=0;next.dockDuration=.35;next.duration=1.2;next.selected=true;}if(automatic){next.approach=planApproach(next,o,this.view,[...BUMPERS,...SOLID_PROPS,...ASSIST_OBSTACLES,...this.lotteryObstacles]);if(next.approach.blocked)return false;}retractAssists(this);this.interaction=next;this.stationContactTrace.clear();this.central.available=false;this.central.armed=null;this.spendContact(o);this.pendingTap=null;this.tapQueue=[];this.flipperStroke={left:0,right:0};this.flipperPulse={left:0,right:0};this.ball.vx=0;this.ball.vz=0;this.hop=0;this.arming=null;this.opportunity=null;this.emit('interactionStart',{station:o,activity});return true;
  }
  failInteractionRelease(o){this.endOvertime('error');this.releaseError={reason:'no-safe-release',stationId:o.id};this.ball.vx=this.ball.vz=0;this.state='error';this.emit('interactionError',this.releaseError);}
  finishInteraction(){
@@ -208,7 +220,7 @@ export class Game{
   advanceMailLatch(this.mailLatch,previousBall,contact?{x:contact.x,z:contact.z}:b,b.r);
   this.refreshContactArming(previousBall,contact?{x:contact.x,z:contact.z}:b);
   updateCombo(this,previousBall,contact?{x:contact.x,z:contact.z}:b);
-  if(contact){const {station:o,shape,nx,nz}=contact;comboContact(this,o.id);b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;
+  if(contact){const {station:o,shape,nx,nz}=contact,looped=this.repeatedStationContact(o,contact);comboContact(this,o.id);b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;
    if(o.patrol){kickByPatrol(this);}else if(o.central){const side=this.central.armed;if(this.startInteraction(BUMPERS.find(o=>o.id==='launcher'),side,false))return;}else if(o.id==='lottery'){const vn=b.vx*nx+b.vz*nz;if(vn<0){b.vx-=1.8*vn*nx;b.vz-=1.8*vn*nz;}this.applyLottery(hitLottery(this.lottery,{now:this.playClock,source:'main',random:this.lotteryRandom??this.random}));}
    else if(o.assistId){resolveAssist(this,contact);}else{
    const fresh=!this.offerSpent.has(o.id),eligible=!!activityFor(o)&&this.interactionsEnabled&&fresh&&this.time>=this.interactionReady;
@@ -217,6 +229,7 @@ export class Game{
    const vn=b.vx*nx+b.vz*nz;if(vn<0){b.vx-=1.9*vn*nx;b.vz-=1.9*vn*nz;}
    if(fresh){b.vx+=nx*(o.power||4)*.65;b.vz+=nz*(o.power||4)*.65;if(o.points)this.hit(o,nx,nz);else if(!o.points){this.hop=.25;this.emit('propHit',{id:o.id,label:o.label});}}
    }
+   if(looped)this.breakStationLoop(nx,nz);
   }
   for(const sign of [-1,1])this.rail({ax:sign*17.7,az:34,bx:sign*11.8,bz:43},.35);
   for(const side of ['left','right']){const s=flipperSegment(side,this.flippers[side]),p=closestPoint(b.x,b.z,s),dx=b.x-p.x,dz=b.z-p.z,d=Math.hypot(dx,dz),r=b.r+.4;
