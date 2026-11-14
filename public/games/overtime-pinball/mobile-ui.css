@@ -151,11 +151,6 @@
  body.pf-game.playing:not(.desktop-layout) #mobileCue:not([hidden]){width:136px;max-width:136px}
 }
 
-/* Tablet touch only: keep the central explanation high and compact, outside
-   the measured left menu. Text size and authoritative prompt priority stay. */
-body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
-body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}
-
 /* The box hit starts a brief, readable L/R confirmation before the timed draw. */
 body.pf-game.playing.lottery-prompt-active #lotteryStatus{display:block!important;visibility:visible!important;position:fixed;z-index:55;left:50%;right:auto;top:clamp(84px,28vh,220px);bottom:auto;transform:translateX(-50%);width:max-content;max-width:min(90vw,600px);box-sizing:border-box;white-space:normal;padding:14px 18px;font:900 clamp(23px,5vw,34px)/1.3 system-ui;text-align:center;color:#fff2b7;background:#713b76fa;border:2px solid #ff89d2;border-radius:14px;box-shadow:0 0 0 5px #ff83cc4d,0 0 32px #ff53c2b5;text-shadow:0 2px 5px #26122d;pointer-events:none}
 body.pf-game.playing.lottery-prompt-active #controls .flipper{background:#6b3b61;border-color:#ffb0df;box-shadow:0 0 0 3px #ff83cc66,0 0 20px #ff59c9aa}
@@ -167,3 +162,8 @@ body.pf-game.playing.lottery-prompt-active #controls .flipper{background:#6b3b61
  body.pf-game.playing #comic.raffle-pop.pop{display:block!important;visibility:visible!important;position:fixed!important;z-index:42!important;left:50%!important;right:auto!important;top:clamp(88px,27vh,220px)!important;bottom:auto!important;transform:translateX(-50%)!important;width:max-content!important;max-width:min(92vw,600px)!important;white-space:pre-line!important;text-align:center!important;font-size:clamp(24px,6.4vw,32px)!important;line-height:1.28!important;padding:12px 16px;pointer-events:none}
 }
 @media(orientation:landscape) and (max-height:600px){body.pf-game.playing #comic.raffle-pop.pop{top:max(var(--safe-top,0px),12px)!important;max-width:min(80vw,640px)!important;font-size:clamp(18px,3.5vw,24px)!important;padding:8px 12px}}
+
+/* Tablet touch only: keep the central explanation high and compact, outside
+   the measured left menu. Text size and authoritative prompt priority stay. */
+body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
+body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}

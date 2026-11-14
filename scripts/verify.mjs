@@ -20,7 +20,7 @@ for(const file of paths){
   for(const ref of refs){
     if(/^(?:https?:|data:|blob:|mailto:)/.test(ref))continue;
     // Fixed server-side navigation routes are checked by homepage-portals.test.mjs.
-    if(['taiwanfighter','taiwankart','soul10power','arcadeplatform'].some(id=>ref==='/api/play-counts/entries/'+id)&&path.relative(root,file)==='index.html'){checked++;continue;}
+    if(['taiwanpunchline','taiwanfighter','taiwankart','soul10power','arcadeplatform'].some(id=>ref==='/api/play-counts/entries/'+id)&&path.relative(root,file)==='index.html'){checked++;continue;}
     if(ref==='#'){checked++;continue;}
     if(ref.startsWith('#')){assert.ok(new RegExp(`id=["']${ref.slice(1)}["']`).test(source),`Missing anchor ${ref} in ${file}`);checked++;continue;}
     let target=ref.startsWith('/')?path.join(root,ref):path.resolve(path.dirname(file),ref);
