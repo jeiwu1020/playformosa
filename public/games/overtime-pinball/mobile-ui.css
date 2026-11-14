@@ -151,11 +151,6 @@
  body.pf-game.playing:not(.desktop-layout) #mobileCue:not([hidden]){width:136px;max-width:136px}
 }
 
-/* Tablet touch only: keep the central explanation high and compact, outside
-   the measured left menu. Text size and authoritative prompt priority stay. */
-body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
-body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}
-
 /* One restrained lottery chip stays anchored above the table on every device. */
 body.pf-game.playing #lotteryStatus{position:fixed;z-index:45;left:50%;right:auto;top:calc(var(--pf-header-height,60px) + 8px);bottom:auto;transform:translateX(-50%);width:max-content;max-width:min(88vw,460px);box-sizing:border-box;margin:0;padding:6px 11px;border:1px solid #d8c77f;border-radius:7px;background:#173d40f2;color:#fff1c7;box-shadow:0 2px 8px #102b38aa;font:700 13px/1.25 Inter,"Noto Sans TC","Microsoft JhengHei",sans-serif;letter-spacing:.02em;text-align:center;white-space:normal;pointer-events:none}
 body.pf-game.playing.lottery-status-active #lotteryStatus:not([hidden]),body.pf-game.playing.lottery-prompt-active #lotteryStatus:not([hidden]){display:block!important;visibility:visible!important}
@@ -168,3 +163,8 @@ body.pf-game.playing.lottery-status-active #lotteryStatus:not([hidden]),body.pf-
 @media(min-width:1000px) and (min-height:600px) and (orientation:landscape) and (hover:hover) and (pointer:fine){
  body.pf-game.playing.lottery-status-active #lotteryStatus:not([hidden]),body.pf-game.playing.lottery-prompt-active #lotteryStatus:not([hidden]){left:calc(50% + 122px)}
 }
+
+/* Tablet touch only: keep the central explanation high and compact, outside
+   the measured left menu. Text size and authoritative prompt priority stay. */
+body.pf-game.playing.tablet-touch-cue #mobileCue:not([hidden]){left:var(--tablet-cue-left);right:auto;top:max(var(--safe-top,0px),var(--tablet-cue-top));bottom:auto;width:var(--tablet-cue-width);max-width:var(--tablet-cue-width);min-height:0;max-height:min(var(--tablet-cue-height),calc(100vh - var(--tablet-cue-top) - 24px));padding:4px 8px;gap:2px;transform:none;overflow:auto}
+body.pf-game.playing.tablet-touch-cue #mobileCue>span{white-space:normal;overflow-wrap:anywhere;min-width:0}
