@@ -20,7 +20,7 @@ const currentReleaseParents=new Map([
  ['public/games/overtime-pinball/lottery-events.js',{gitBlob:'8f78e7c5c642877607771ac8739436ee1fa527f9',sha256:'a51eb64f6f54f8522de91b27c82ad6df7ebbfdfc179fbbbe311790d56a9fbf6b'}],
  ['public/games/overtime-pinball/lottery-hud.js',{gitBlob:'c9a00a0408bb44534b1ba5797996e487fda82995',sha256:'8d6088e9fcda8e0f97438bbbf2dd620bb07caa7f0d0c60ac3baff25173c3c709'}],
  ['public/games/overtime-pinball/lottery-visual.js',{gitBlob:'431a52a052020dfeadd04b5f7342426f3cba6351',sha256:'3730b66bf1d94336f770c1a8630b24cef93659346f64db8a6410ddaa8f0e8dd6'}],
- ['public/games/overtime-pinball/main.js',{gitBlob:'d637003f2ee7dac25f28b3cb79ab9bcb105da432',sha256:'26e9c447fbefa774b38de6523bbbe37002f3e21c62a85c16ba2e57db3e4dd185'}],
+ ['public/games/overtime-pinball/main.js',{gitBlob:'6bf4f3913a20bfddefa851d53a367f3a439e59b2',sha256:'614fcf97b69de4b9590d9d7bfeaac5012bf9c9e93391d35b55f6bc9f23060293'}],
  ['public/games/overtime-pinball/mobile-ui.css',{gitBlob:'b5c1f003fc60a44d8035961cf0c06a3bb2d59137',sha256:'feff0a0deb6b69627ea639c86e2e5d152a54a6574b96748fadde2baed8df8e0e'}],
  ['public/games/overtime-pinball/mobile-ui.js',{gitBlob:'76262e8b4d035dba311080c40879d5cb8f56d0f2',sha256:'d53108826dc1ea8044bdbbc03a8f98de63beebb68c607aece9cdcfcaf8ff7c87'}],
  ['public/games/overtime-pinball/office-routes.js',{gitBlob:'efa3adbdee5f6193f501dfc8636a70e46853a65b',sha256:'d3da1cd09f7d6f4c51a88057db2235620c34c2932256f2af0095bc63b95f0f3c'}],
