@@ -132,3 +132,21 @@
  body.pf-game.playing:not(.desktop-layout) #controls .flipper{opacity:.68;box-shadow:0 2px 0 #122e33aa;border-color:#fff0bbaa}
  body.pf-game.playing:not(.desktop-layout) #controls .flipper:active{opacity:.94}
 }
+
+/* Keep the same vertical fit/scale, but center the board between L and R.
+   JS measures the actual buttons when safe-area offsets are asymmetric. */
+@media(orientation:landscape) and (max-height:600px){
+ body.pf-game.playing:not(.desktop-layout) #playFrame{left:calc(var(--safe-left,0px) + 84px);right:calc(var(--safe-right,0px) + 84px)}
+}
+@media(orientation:portrait) and (max-width:999px){
+ body.pf-game.playing:not(.desktop-layout) #controls .flipper{opacity:.68;box-shadow:0 2px 0 #122e33aa;border-color:#fff0bbaa}
+ body.pf-game.playing:not(.desktop-layout) #controls .flipper:active{opacity:.94}
+}
+/* Very short landscape: narrow only the HUD, never move or shrink the board. */
+@media(orientation:landscape) and (max-height:340px){
+ body.pf-game.playing:not(.desktop-layout) .pf-header{width:144px;max-width:144px}
+ body.pf-game.playing:not(.desktop-layout) #playStatus,
+ body.pf-game.playing:not(.desktop-layout) .scorecard,
+ body.pf-game.playing:not(.desktop-layout) #lampHud{width:136px}
+ body.pf-game.playing:not(.desktop-layout) #mobileCue:not([hidden]){width:136px;max-width:136px}
+}
