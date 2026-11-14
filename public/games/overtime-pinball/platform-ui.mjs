@@ -1,3 +1,4 @@
+import {focusGameplay} from './restart-confirmation.js';
 import {observePlatformHeader} from './platform-layout.mjs';
 import {mountLeaderboard} from '../shared/leaderboard.mjs';
 import {syncPauseButton,createResultDialog} from '../shared/game-ui.mjs';
@@ -9,7 +10,7 @@ export function mountPinballPlatform({document,game,mode,pause,resume,restart,cl
  const resultModal=createResultDialog(result,{focusTarget:()=>result.querySelector('h2'),returnFocus:()=>$('platformRestart')});
  const sharing=createPinballShare({document,container:$('pinballShares'),status:$('pinballShareStatus')});
  function closeRanking(){if(rank.open)rank.close();else finishRanking();}
- function finishRanking(){const cb=rankClose;rankClose=null;cb?.();rankOpener?.focus({preventScroll:true});}
+ function finishRanking(){const cb=rankClose;rankClose=null;cb?.();if(['playing','cinematic'].includes(mode()))focusGameplay(document);else rankOpener?.focus({preventScroll:true});}
  rank.addEventListener('close',finishRanking);$('rankClose').onclick=closeRanking;
  for(const [limit,id] of Object.entries(PINBALL_MODES)){
   const entry=document.createElement('section');entry.hidden=true;$('pinballBoards').append(entry);

@@ -1,3 +1,4 @@
+import {focusGameplay,mountRestartConfirmation} from '../../public/games/overtime-pinball/restart-confirmation.js';
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync,existsSync} from 'node:fs';import {JSDOM} from 'jsdom';
 import {installGameMenus} from '../../public/games/overtime-pinball/game-menus.js';
 import {fittedIntro} from '../../public/games/overtime-pinball/intro.js';
@@ -21,12 +22,15 @@ test('real Game, RoundOptions, platform and start reporter preserve history on c
  const requests=[];win.fetch=async(url,options)=>{requests.push({url,options});return{status:200,ok:true,json:async()=>({})};};
  const options=new RoundOptions(win.localStorage);options.set({limit:180,sideways:true});options.record(1234);win.localStorage.setItem('audio-history','preserve');
  const game=new Game({view:'reverse',roundLimit:180}),noop=()=>{},pose=()=>({position:[0,0,0],target:[0,0,0],fov:45});
- const c={window:win,document:doc,game,roundOptions:options,recordPlayStart,releaseRecovery:{hide:noop},gameAudio:{unlock:noop,setState:noop},clearRoundVisuals:noop,cameraRig:{reset:noop},clearInput:noop,playFrame:()=>({w:800,h:600}),cameraPose:pose,openingPose:pose,innerWidth:800,innerHeight:600,comfort:false,camera:{position:{set:noop},userData:{look:{set:noop}}},$:id=>doc.getElementById(id),interactionsOn:true,mode:'intro',checkOrientation:()=>({canResume:true}),sound:noop,syncRecordNotice:noop};
+ const c={focusGameplay,window:win,document:doc,game,roundOptions:options,recordPlayStart,releaseRecovery:{hide:noop},gameAudio:{unlock:noop,setState:noop},clearRoundVisuals:noop,cameraRig:{reset:noop},clearInput:noop,playFrame:()=>({w:800,h:600}),cameraPose:pose,openingPose:pose,innerWidth:800,innerHeight:600,comfort:false,camera:{position:{set:noop},userData:{look:{set:noop}}},$:id=>doc.getElementById(id),interactionsOn:true,mode:'intro',checkOrientation:()=>({canResume:true}),sound:noop,syncRecordNotice:noop};
  vm.createContext(c);for(const name of['beginCinematic','openingKick','completeOpening','returnHome','pause','resume']){const line=read('main.js').split('\n').find(l=>l.startsWith(`function ${name}(`));assert.ok(line);vm.runInContext(line,c);}
  c.platform=mountPinballPlatform({document:doc,game,mode:()=>c.mode,pause:c.pause,resume:c.resume,restart:c.beginCinematic,clearInput:noop,fetcher:win.fetch});
  const nav=mountHomeNavigation({document:doc,mode:()=>c.mode,pause:c.pause,resume:c.resume,clearInput:noop,home:c.returnHome});
  c.beginCinematic();c.completeOpening();await new Promise(r=>setTimeout(r,0));assert.equal(requests.filter(r=>r.url==='/api/play-counts/starts').length,1);
+ assert.equal(doc.activeElement.id,'world');
+ const restartGuard=mountRestartConfirmation({document:doc,mode:()=>c.mode,pause:c.pause,resume:c.resume,clearInput:noop,restart:c.beginCinematic});
  game.award('rescue',567);const persisted=JSON.stringify({...win.localStorage}),before=JSON.stringify(game.round);
+ restartGuard.request();doc.getElementById('restartCancel').click();assert.equal(c.mode,'playing');assert.equal(doc.activeElement.id,'world');assert.equal(game.score,567);assert.equal(JSON.stringify(game.round),before);assert.equal(JSON.stringify({...win.localStorage}),persisted);
  nav.request();doc.getElementById('homeCancel').click();assert.equal(c.mode,'playing');assert.equal(game.score,567);assert.equal(JSON.stringify(game.round),before);assert.equal(JSON.stringify({...win.localStorage}),persisted);
  nav.request();doc.getElementById('homeAccept').click();assert.equal(c.mode,'intro');assert.equal(game.score,0);assert.equal(options.best(),1234);assert.equal(options.limit,180);assert.equal(options.sideways,true);assert.equal(JSON.stringify({...win.localStorage}),persisted);
  await new Promise(r=>setTimeout(r,0));assert.equal(requests.length,1,'no score POST, fetch or extra play count');assert.equal(doc.querySelectorAll('.game-menu-backdrop').length,0);assert.ok(!doc.getElementById('results').open);
