@@ -24,6 +24,7 @@ export function poolNotice(state,event,now){
 }
 // Read existing authoritative presentation nodes, never introduce another input path.
 export function mobileFocus(doc){
+ if(doc.body?.classList?.contains('lottery-prompt-active'))return null;
  const visible=id=>{const el=doc.getElementById(id);return el&&!el.hidden?el:null;};
  const text=id=>doc.getElementById(id)?.textContent||'';
  const progress=el=>{const p=el?.querySelector('progress');return p&&!p.hidden&&p.max>0?Math.max(0,Math.min(1,p.value/p.max)):null;};

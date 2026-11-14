@@ -1,6 +1,16 @@
 // Shared visible track geometry, physics entry and decision state. World x is
 // mirrored by the renderer; left/right here always mean physical world sides.
 export const SHORT_LOOP=Object.freeze({entry:{x:0,z:17,halfWidth:1.5,minSpeed:18},points:240,speed:32,exit:{x:0,z:17,vx:23,vz:-30}});
+// Preserve the familiar first exit. Repeated laps leave the same circle with a
+// small alternating offset and heading change, so the ball does not retrace one
+// identical equipment/flipper cycle forever.
+const SHORT_EXITS=[
+ SHORT_LOOP.exit,
+ {x:-.65,z:17,vx:20,vz:-31},
+ {x:.8,z:17,vx:26,vz:-29},
+ {x:-.9,z:17,vx:24,vz:-32}
+];
+export function shortLoopExit(trips=0){const index=Math.max(0,Math.floor(Number.isFinite(trips)?trips:0));return {...SHORT_EXITS[index===0?0:1+(index-1)%3]};}
 export const SHORT_PATH=Array.from({length:97},(_,n)=>{const a=n/96*Math.PI*2;return{x:Math.sin(a)*4,z:12+Math.cos(a)*5};});
 SHORT_PATH[SHORT_PATH.length-1]={...SHORT_PATH[0]};
 function lengths(path){const d=[0];for(let n=1;n<path.length;n++)d.push(d.at(-1)+Math.hypot(path[n].x-path[n-1].x,path[n].z-path[n-1].z));return d;}

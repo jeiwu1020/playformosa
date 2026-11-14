@@ -5,6 +5,10 @@ export function lotteryStatusText(s,now){
  if(s.phase==='active')return `${({gate:'封門保護',upgrade:'機關升級',busy:'裝忙連鎖'})[s.prize]} ${Math.max(0,Math.ceil(s.until-now))}秒`;
  return '';
 }
+export function lotteryPromptText(prompt){
+ if(!prompt)return '';
+ return prompt.ready?`按 L／R 開始摸彩 · ${Math.max(1,Math.ceil(prompt.remaining))}秒後自動抽獎`:'🎰 摸彩箱命中！鏡頭拉近中…';
+}
 export function createLotteryStatus(){let key='',until=0,lastClock=0,nextReminder=0;
  return {update(s,now,{enabled=true,suppressed=false}={}){
   if(now<lastClock){key='';until=0;nextReminder=0;}lastClock=now;

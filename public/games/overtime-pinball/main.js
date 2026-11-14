@@ -8,7 +8,7 @@ import {buildOfficePartitions} from './office-partitions.js';
 import {mountMobileUI} from './mobile-ui.js';
 import {createRouteVisuals} from './route-visual.js';
 import {mountRouteHud} from './route-hud.js';
-import {createLotteryStatus} from './lottery-hud.js';
+import {createLotteryStatus,lotteryPromptText} from './lottery-hud.js';
 import {LOTTERY_BOX} from './lottery-layout.js';
 import {LOTTERY_PRIZES,LOTTERY_RULES} from './lottery-events.js';
 import {createLotteryVisuals} from './lottery-visual.js';
@@ -151,7 +151,7 @@ function buildLandingCue(){
  landingLine=new T.Line(new T.BufferGeometry(),new T.LineDashedMaterial({color:C.yellow,transparent:true,opacity:.65,dashSize:.5,gapSize:.35}));office.add(landingLine);landingMarker.visible=landingLine.visible=false;
 }
 function updateLanding(){
- const show=mode==='playing'&&!game.interaction&&!game.mailRun&&!game.round.ending&&!game.round.reentry&&cameraRig.gate;
+ const show=mode==='playing'&&!game.interaction&&!game.lotteryPrompt&&!game.mailRun&&!game.round.ending&&!game.round.reentry&&cameraRig.gate;
  if(!show){stats.landing=null;landingMarker.visible=landingLine.visible=false;return;}
  if(clock-lastPrediction>.1){lastPrediction=clock;stats.landing=predictLanding(game.ball,game.flippers,game);if(stats.landing){const p=stats.landing;landingMarker.position.set(-p.x,.12,p.z);landingLine.geometry.dispose();landingLine.geometry=new T.BufferGeometry().setFromPoints(p.points.map(v=>new T.Vector3(-v.x,.1,v.z)));landingLine.computeLineDistances();}}
  landingMarker.visible=landingLine.visible=!!stats.landing;landingMarker.scale.setScalar(reduced?1:1+Math.sin(clock*5)*.06);
@@ -166,8 +166,9 @@ function consumeEvents(){for(const e of game.drainEvents()){
  if(e.type==='reentryStart'){clearInput();jetWake?.clear();comic('下班失敗！偷偷溜回公司',2);sound('cue');$('joke').textContent='不扣分 · 連擊中斷 · 倒數繼續';}
  if(e.type==='reentryEnd'){clearInput();comic('我還能再加班！');sound('boost');$('joke').textContent='重返成功！重新開始連擊';}
  if(e.type==='opportunity')sound('cue');
+ if(e.type==='lotteryPromptStart'){clearInput();sound('cue');}
  if(e.type==='lotteryDraw'){sound('cue');comic('🎰 摸彩抽獎中！',3,{duration:e.duration||LOTTERY_RULES.spin,raffle:true});}
- if(e.type==='lotteryStarted'){const prize=LOTTERY_PRIZES[e.prize];sound('major');comic(`🎉 恭喜中獎！${prize.label}\n${prize.description}`,3,{duration:2.6,raffle:true});burst(LOTTERY_BOX.x,LOTTERY_BOX.z,'copier',true);}
+ if(e.type==='lotteryStarted'){const prize=LOTTERY_PRIZES[e.prize];sound('major');comic(`🎉 恭喜中獎！${prize.label}\n${prize.description}`,3,{duration:3.2,raffle:true});burst(LOTTERY_BOX.x,LOTTERY_BOX.z,'copier',true);}
  if(e.type==='lotteryExpired')comic('摸彩箱已就緒，碰到再抽！',2,{duration:1.4,raffle:true});
  if(e.type==='lotteryChain'){lotteryVisuals?.consume(e,game.playClock);for(const id of e.targets||[])if(bumperGroups[id])bumperGroups[id].userData.pulse=.5;}
 
@@ -256,7 +257,7 @@ function bindControls(){
 }
 const lotteryStatus=createLotteryStatus();
 function updateUI(){homeNavigation?.sync();platform?.sync();interactionOfferUI?.sync();offerStationVisual?.update($('interactionOffer').hidden?null:game.getInteractionOffer()?.stationId);
- const mobileLottery=innerWidth<1000||matchMedia('(pointer: coarse)').matches,lotteryMessage=lotteryStatus.update(game.lottery,game.playClock,{enabled:mobileLottery&&mode==='playing',suppressed:!!game.interaction||!!game.getInteractionOffer()||!!game.round.reentry||!!game.round.ending});$('lotteryStatus').hidden=!lotteryMessage;$('lotteryStatus').textContent=lotteryMessage;document.body.classList.toggle('lottery-status-active',!!lotteryMessage);document.body.classList.toggle('lottery-mobile',mobileLottery);document.body.classList.toggle('lottery-priority-active',mode!=='playing'||!!game.interaction||!!game.getInteractionOffer()||!!game.round.reentry||!!game.round.ending);
+ const mobileLottery=innerWidth<1000||matchMedia('(pointer: coarse)').matches,prompt=game.lotteryPrompt,lotteryMessage=prompt?lotteryPromptText(prompt):lotteryStatus.update(game.lottery,game.playClock,{enabled:mobileLottery&&mode==='playing',suppressed:!!game.interaction||!!game.getInteractionOffer()||!!prompt||!!game.round.reentry||!!game.round.ending});$('lotteryStatus').hidden=!lotteryMessage;$('lotteryStatus').textContent=lotteryMessage;document.body.classList.toggle('lottery-status-active',!!lotteryMessage);document.body.classList.toggle('lottery-mobile',mobileLottery);document.body.classList.toggle('lottery-prompt-active',!!prompt);document.body.classList.toggle('lottery-priority-active',mode!=='playing'||!!game.interaction||!!game.getInteractionOffer()||!!game.round.reentry||!!game.round.ending||!!prompt);
  const overtimeUI=overtimePresentation(game.overtime,game.playClock||0),overtimeStatus=$('overtimeStatus');overtimeStatus.hidden=mode!=='playing'||!game.overtime||!!game.round.ending;overtimeStatus.textContent=overtimeUI.text;overtimeStatus.dataset.phase=overtimeUI.phase;
  if(shadowAwardPending&&clock-shadowAwardAt>=.25){$('shadowIncome').textContent='影分身代班 +'+money(shadowAwardPending);shadowAwardPending=0;shadowAwardAt=clock;}$('shadowIncome').hidden=mode!=='playing'||clock-shadowAwardAt>1;
 
@@ -283,7 +284,7 @@ function updateUI(){homeNavigation?.sync();platform?.sync();interactionOfferUI?.
   if(active.stage==='docking'){text='已選互動 · 正在靠近設備';progress=0;}$('activityText').textContent=keyboardHint(text);$('activityHint').textContent=game.round.limit?(active.stage==='work'&&!(active.activity==='launcher'&&active.selected)?'操作中倒數照走 · 完成另領獎金':'過場不計倒數 · 獎金另計'):'互動不計基本工時 · 完成另領獎金';$('activityKeys').textContent='';$('activityBar').style.transform='scaleX('+progress+')';$('activityBar').classList.toggle('danger',active?.charge>2.7);
  }
  for(const side of ['left','right']){let expected=false,cueText='';if(active&&mode==='playing'&&active.stage==='work'){if(['copier','busy','coffee','shredder'].includes(active.activity)){expected=physicalSide(active.nextSide)===side;cueText=['copier','shredder'].includes(active.activity)?'↔ 點按拉紙':active.activity==='busy'?'⌨ 交替敲鍵':'↔ 交替擦地';}if(active.activity==='server'){expected=true;cueText=active.charge>=1.2&&active.charge<=2?'✦ 放手領獎':'長按充電';}if(active.activity==='water'){expected=true;cueText=active.wasHolding?'放手接滿':'長按接水';}if(active.activity==='boss'){expected=workTime>=.8&&workTime<=2.4&&physicalSide(active.nextSide)===side;cueText='✦ 現在遞單';}if(active.activity==='parcel'){expected=physicalSide(active.nextSide)===side;cueText='↔ 交替打包';}if(active.activity==='clock'){expected=clockCue(active).lit&&physicalSide(active.nextSide)===side;cueText='✦ 現在蓋章';}if(active.activity==='microwave'){expected=true;cueText=active.charge>=1.2&&active.charge<=2?'✦ 放手領便當':'長按加熱';}if(active.activity==='chair'){expected=true;cueText=active.wasHolding?'放手彈出':'長按蓄力';}}if(ready){expected=true;cueText=game.central.armed?'已預備':'✦ 點按彈公文';}$(side).classList.toggle('expected',expected);const cue=$(side).querySelector('.interact-cue');cue.hidden=!expected;cue.textContent=expected?cueText:'';$(side).setAttribute('aria-label',expected?`${side==='left'?'L':'R'}，${cueText}`:`${side==='left'?'左':'右'}彈板`);}
- $('radarBall').setAttribute('cx',String((game.ball.x+18)/36*120));$('radarBall').setAttribute('cy',String((game.ball.z+20)/70*220));$('zone').textContent=game.ball.z<5?'01 行政・報表地獄':game.ball.z<18?'02 茶水・摸魚補給':game.ball.z<34?'03 會議・轉職中心':'04 門板救球';$('doorWarning').hidden=mode!=='playing'||!cameraRig.gate||!!active||!!game.mailRun||!!game.round.ending||!!game.round.reentry;
+ $('radarBall').setAttribute('cx',String((game.ball.x+18)/36*120));$('radarBall').setAttribute('cy',String((game.ball.z+20)/70*220));$('zone').textContent=game.ball.z<5?'01 行政・報表地獄':game.ball.z<18?'02 茶水・摸魚補給':game.ball.z<34?'03 會議・轉職中心':'04 門板救球';$('doorWarning').hidden=mode!=='playing'||!cameraRig.gate||!!active||!!game.lotteryPrompt||!!game.mailRun||!!game.round.ending||!!game.round.reentry;
  $('centralPrompt').textContent=keyboardHint($('centralPrompt').textContent);
  const landing=stats.landing,key=landing?(physicalSide(landing.x<0?'left':'right')==='left'?'L':'R'):null;$('doorWarning').textContent=landing?`⊕ 預估落點 · ${Math.abs(landing.x)<2?'L／R':key} 救球`:'出口接近 · L／R 救球';$('doorWarning').textContent=keyboardHint($('doorWarning').textContent);if(clock>comicUntil)$('comic').classList.remove('pop');
 }
@@ -320,12 +321,12 @@ function renderFrame(ms){requestAnimationFrame(renderFrame);const now=ms/1000,ga
   stats.opening={time:cinematicTime,impactAt:cinematicStart.impactAt,contactDistance:contact.distance,kicked:cinematicStart.kicked};
   if(openingFinished(cinematicTime,cinematicStart.impactAt,comfort))completeOpening();
  }
- jetWake.update(visualDt,person.position,Math.hypot(b.vx,b.vz),mode==='playing'&&!game.interaction&&!game.round.reentry,reduced);gameAudio.setState(mode);
+ jetWake.update(visualDt,person.position,Math.hypot(b.vx,b.vz),mode==='playing'&&!game.interaction&&!game.lotteryPrompt&&!game.round.reentry,reduced);gameAudio.setState(mode);
  for(const side of ['left','right']){const s=flipperSegment(side,game.flippers[side]),g=flipperMeshes[side];g.position.set(-s.ax,0,s.az);g.rotation.y=-Math.atan2(s.bz-s.az,-(s.bx-s.ax));}
  for(const [id,g] of Object.entries(bumperGroups)){g.userData.specialAnimate?.(game.interaction?.stationId===id?game.interaction:null,game.effectTime);const p=g.userData.pulse||0;g.userData.pulse=Math.max(0,p-visualDt);const m=g.getObjectByName('mechanism');m.rotation.z=p>0?Math.sin(p*25)*.09:0;const active=game.interaction?.stationId===id,swivel=g.getObjectByName('swivel');if(swivel&&mode==='playing'&&!active)swivel.rotation.y+=visualDt*(p>0?12:.35);const lid=g.getObjectByName('lid');if(lid)lid.rotation.x=active&&game.interaction.activity==='copier'?-.2-Math.abs(Math.sin(game.interaction.elapsed*7))*.3:p>0?-Math.abs(Math.sin(p*12))*.45:0;}
  for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.life-=visualDt;p.v.y-=9*visualDt;p.mesh.position.addScaledVector(p.v,visualDt);p.mesh.rotation.x+=visualDt*5;if(p.life<=0){office.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.children.forEach(c=>{c.geometry?.dispose();c.material?.dispose();});particles.splice(i,1);}}
  if(!['cinematic','paused'].includes(mode)){
-  let pose;const frame=mode==='intro'?introFrame():playFrame();camera.aspect=frame?frame.w/frame.h:innerWidth/innerHeight;if(mode==='intro')pose=frame?fittedIntro(frame.w,frame.h,view):overviewPose(innerWidth,innerHeight,view);else{const i=game.interaction,o=i?BUMPERS.find(o=>o.id===i.stationId):null;pose=cameraRig.update(dt,frame.w,frame.h,b,i,o,comfort,{portrait:innerWidth<innerHeight,mail:!!game.mailRun,...playSafeInsets()});}
+  let pose;const frame=mode==='intro'?introFrame():playFrame();camera.aspect=frame?frame.w/frame.h:innerWidth/innerHeight;if(mode==='intro')pose=frame?fittedIntro(frame.w,frame.h,view):overviewPose(innerWidth,innerHeight,view);else{const i=game.interaction||(game.lotteryPrompt?{stage:'work',dock:game.lotteryPrompt.dock,from:game.lotteryPrompt.from}:null),o=game.interaction?BUMPERS.find(o=>o.id===game.interaction.stationId):game.lotteryPrompt?LOTTERY_BOX:null;pose=cameraRig.update(dt,frame.w,frame.h,b,i,o,comfort,{portrait:innerWidth<innerHeight,mail:!!game.mailRun,...playSafeInsets()});}
   if(mode==='intro'&&!comfort){const mix=1-Math.exp(-dt*2);camera.position.lerp(new T.Vector3(...pose.position),mix);camera.userData.look.lerp(new T.Vector3(...pose.target),mix);}else{camera.position.set(...pose.position);camera.userData.look.set(...pose.target);}
   camera.fov=pose.fov;camera.updateProjectionMatrix();
  }

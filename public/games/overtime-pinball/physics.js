@@ -1,6 +1,6 @@
-import {SHORT_LOOP,SHORT_LENGTH,shortEntry,shortPoint,freshMailChoice,advanceMailChoice,MAIL_BRANCHES,branchPoint} from './office-routes.js';
+import {SHORT_LOOP,SHORT_LENGTH,shortEntry,shortPoint,shortLoopExit,freshMailChoice,advanceMailChoice,MAIL_BRANCHES,branchPoint} from './office-routes.js';
 import {LOTTERY_BOX} from './lottery-layout.js';
-import {createLotteryState,advanceLottery,hitLottery,leaveLottery,hitLotteryEquipment,endLottery,lotteryEffects} from './lottery-events.js';
+import {createLotteryState,advanceLottery,hitLottery,leaveLottery,hitLotteryEquipment,endLottery,lotteryEffects,LOTTERY_PROMPT_RULES} from './lottery-events.js';
 import {createOvertimeState,onOvertimeWord,onOvertimeWork,onOvertimeWorkStart,onOvertimeSave,onOvertimeShadowHit,advanceOvertime,settleOvertime} from './overtime-events.js';
 import {createShadowState,spawnShadowWorkers,stepShadowWorkers,clearShadowWorkers} from './shadow-workers.js';
 import {freshRound,freshBoss,updateRound,updateBoss,patrolContact,kickByPatrol,startReentry,updateReentry} from './round-rules.js';
@@ -19,6 +19,7 @@ export const STEP=1/120;
 export const FIELD={halfWidth:18,top:-20,door:46.5,drain:50,gravity:6};
 export const FLIPPER={length:9.2,pivotX:11.8,pivotZ:43,radius:.4};
 export const INTERACTION_RULES={rearmDistance:2,clearance:.7,offerSeconds:1.35,offerDistance:18};
+export {LOTTERY_PROMPT_RULES};
 export const BUMPERS=[
  {id:'shredder',type:'shredder',...LAYOUT.shredder,power:20,points:45,label:'薪水保衛戰',joke:'碎紙機：薪水薄到像張紙！'},
  {id:'server',type:'server',...LAYOUT.server,power:20,points:45,label:'全公司重開機',joke:'工程師：你有試過關掉重開嗎？'},
@@ -38,7 +39,7 @@ export function flipperSegment(side,amount){const sign=side==='left'?1:-1,angle=
 export function closestPoint(x,z,s){const dx=s.bx-s.ax,dz=s.bz-s.az,t=clamp(((x-s.ax)*dx+(z-s.az)*dz)/(dx*dx+dz*dz),0,1);return {x:s.ax+t*dx,z:s.az+t*dz,t};}
 export class Game{
  constructor({view='reverse',random=null,roundLimit=0,patrol=true}={}){this.view=view;this.random=random;this.roundLimit=roundLimit;this.patrolEnabled=patrol;this.reset();}
- reset(){this.round=freshRound(this.roundLimit);this.bossPatrol=freshBoss();this.central=freshCentral();this.comboRoutes=freshCombos();this.assists=freshAssists();this.ball={x:0,z:-11.3,vx:0,vz:0,r:.65};this.time=0;this.playClock=0;this.overtime=createOvertimeState();this.lottery=createLotteryState();this.lotteryEnabled=true;this.lotteryContact=0;this.shadowWorkers=createShadowState();this.overtimeEnabled=true;this.shadowPreviousFlippers={left:0,right:0};this.shadowStepClock=0;this.simTime=0;this.bonus=0;this.income={equipment:0,work:0,rescue:0,route:0,lights:0,clones:0,jackpot:0};this.hits=0;this.saves=0;this.combo=0;this.lastHit=-99;this.state='ready';this.events=[];this.cooldowns={};this.flippers={left:0,right:0};this.flipperPulse={left:0,right:0};this.flipperStroke={left:0,right:0};this.previous={left:false,right:false};this.opportunity=null;this.arming=null;this.interaction=null;this.interactionsEnabled=true;this.offerSequence=0;this.entryHeld={left:false,right:false};this.interactionNotice=null;this.offerSpent=new Set();this.contactEpisodes=new Map();this.stationContactTrace=new Map();this.loopDeflectionSign=1;this.releaseError=null;this.tapQueue=[];this.pendingTap=null;this.interactionReady=0;this.stationReady={};this.specialReady=0;this.completedActivities=0;this.hop=0;this.chairBoost={remaining:0,peak:38};this.effect=null;this.timeScale=1;this.effectTime=0;this.lamps=LAMPS.map(()=>false);this.lampInside=LAMPS.map(()=>false);this.bonusUntil=0;this.bonusReady=0;this.windowReady={};this.mailRun=null;this.shortRun=null;this.shortLatch=false;this.mailReady=0;this.mailLatch=freshMailLatch();this.mailTrips=0;this.workflow=freshWorkflow();this.routeRewards=freshRouteRewards();}
+ reset(){this.round=freshRound(this.roundLimit);this.bossPatrol=freshBoss();this.central=freshCentral();this.comboRoutes=freshCombos();this.assists=freshAssists();this.ball={x:0,z:-11.3,vx:0,vz:0,r:.65};this.time=0;this.playClock=0;this.overtime=createOvertimeState();this.lottery=createLotteryState();this.lotteryEnabled=true;this.lotteryContact=0;this.shadowWorkers=createShadowState();this.overtimeEnabled=true;this.shadowPreviousFlippers={left:0,right:0};this.shadowStepClock=0;this.simTime=0;this.bonus=0;this.income={equipment:0,work:0,rescue:0,route:0,lights:0,clones:0,jackpot:0};this.hits=0;this.saves=0;this.combo=0;this.lastHit=-99;this.state='ready';this.events=[];this.cooldowns={};this.flippers={left:0,right:0};this.flipperPulse={left:0,right:0};this.flipperStroke={left:0,right:0};this.previous={left:false,right:false};this.opportunity=null;this.arming=null;this.interaction=null;this.interactionsEnabled=true;this.offerSequence=0;this.entryHeld={left:false,right:false};this.interactionNotice=null;this.offerSpent=new Set();this.contactEpisodes=new Map();this.stationContactTrace=new Map();this.loopDeflectionSign=1;this.releaseError=null;this.tapQueue=[];this.pendingTap=null;this.interactionReady=0;this.stationReady={};this.specialReady=0;this.completedActivities=0;this.hop=0;this.chairBoost={remaining:0,peak:38};this.effect=null;this.timeScale=1;this.effectTime=0;this.lamps=LAMPS.map(()=>false);this.lampInside=LAMPS.map(()=>false);this.bonusUntil=0;this.bonusReady=0;this.windowReady={};this.mailRun=null;this.shortRun=null;this.shortLatch=false;this.mailReady=0;this.mailLatch=freshMailLatch();this.mailTrips=0;this.workflow=freshWorkflow();this.routeRewards=freshRouteRewards();this.lotteryPrompt=null;this.shortLoopTrips=0;}
  start(){this.reset();this.state='playing';const sample=this.random?.(),r=Number.isFinite(sample)?clamp(sample,0,1):null,band=r===null?null:Math.min(2,Math.floor(r*3)),t=r===null?0:r*3-band;this.ball.vx=band===0?-17+t*4:band===1?-5+t*10:band===2?13+t*4:-3.9;this.ball.vz=22;this.emit('kick');}
  get gateRemaining(){return Math.max(0,this.bonusUntil-this.effectTime,this.lotteryEnabled&&lotteryEffects(this.lottery,this.playClock).gateClosed?this.lottery.until-this.playClock:0);}
  get gateClosed(){return this.gateRemaining>0;}
@@ -50,7 +51,7 @@ export class Game{
  emit(type,data={}){this.events.push({...data,type});}
  drainEvents(){const e=this.events;this.events=[];return e;}
  cancelInput(){this.opportunity=null;if(this.central){this.central.armed=null;this.central.remaining=0;}cancelInteractionInput(this.interaction);this.tapQueue=[];this.pendingTap=null;this.previous={left:false,right:false};}
- tapFlipper(side){if(this.round.reentry||this.round.ending||this.entryHeld[side])return;if(side in this.flipperPulse){if(!this.interaction&&!this.mailRun&&!this.shortRun){this.flipperPulse[side]=.1;this.flipperStroke[side]=.18;}this.tapQueue.push({side,offerId:this.opportunity?.id,at:this.time});}}
+ tapFlipper(side){if(this.round.reentry||this.round.ending||this.entryHeld[side])return;if(side in this.flipperPulse){if(!this.interaction&&!this.mailRun&&!this.shortRun&&!this.lotteryPrompt){this.flipperPulse[side]=.1;this.flipperStroke[side]=.18;}this.tapQueue.push({side,offerId:this.opportunity?.id,at:this.time});}}
  releaseFlipper(side){if(side in this.entryHeld)this.entryHeld[side]=false;}
  getInteractionOffer(){
   const p=this.opportunity;
@@ -92,7 +93,7 @@ export class Game{
    this.emit(event.type,event);
   }
   this.shadowPreviousFlippers={...this.flippers};
-  this.applyOvertime(advanceOvertime(this.overtime,{now:this.playClock,canStart:!this.interaction&&!this.mailRun&&!this.shortRun&&!this.round.reentry&&!this.round.ending,shadowCount:this.shadowWorkers.workers.length}));
+  this.applyOvertime(advanceOvertime(this.overtime,{now:this.playClock,canStart:!this.interaction&&!this.mailRun&&!this.shortRun&&!this.lotteryPrompt&&!this.round.reentry&&!this.round.ending,shadowCount:this.shadowWorkers.workers.length}));
  }
  endOvertime(reason='roundEnd'){
   this.applyLottery(endLottery(this.lottery));this.bonusUntil=0;
@@ -118,6 +119,35 @@ export class Game{
   if(!previous)return false;
   const elapsed=now-previous.time;
   return elapsed>=3&&elapsed<=20&&Math.hypot(contact.x-previous.x,contact.z-previous.z)<=1.25&&Math.hypot(b.vx-previous.vx,b.vz-previous.vz)<=5;
+ }
+ startLotteryPrompt(contact,held={}){
+  if(this.lotteryPrompt||this.lottery.inside||!['ready','active'].includes(this.lottery.phase))return false;
+  const b=this.ball,{nx,nz}=contact;let vx=b.vx,vz=b.vz;const vn=vx*nx+vz*nz;
+  if(vn<0){vx-=1.8*vn*nx;vz-=1.8*vn*nz;}
+  b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;b.vx=b.vz=0;
+  this.lotteryPrompt={from:{x:b.x,z:b.z},dock:{x:LOTTERY_BOX.x,z:LOTTERY_BOX.z},zoomRemaining:LOTTERY_PROMPT_RULES.zoom,ready:false,remaining:LOTTERY_PROMPT_RULES.choice,confirmed:false,release:{vx,vz}};
+  this.cancelInput();this.entryHeld={left:!!held.left,right:!!held.right};this.flipperStroke={left:0,right:0};this.flipperPulse={left:0,right:0};this.hop=0;
+  this.emit('lotteryPromptStart',{duration:LOTTERY_PROMPT_RULES.choice});return true;
+ }
+ startLotteryDraw(held={}){
+  const prompt=this.lotteryPrompt;if(!prompt)return false;
+  this.applyLottery(hitLottery(this.lottery,{now:this.playClock,source:'main',random:this.lotteryRandom??this.random}));
+  this.ball.vx=prompt.release.vx;this.ball.vz=prompt.release.vz;this.lotteryPrompt=null;this.cancelInput();this.entryHeld={left:!!held.left,right:!!held.right};
+  this.emit('lotteryPromptEnd',{drawId:this.lottery.drawId});return true;
+ }
+ updateLotteryPrompt(dt,input={}){
+  const prompt=this.lotteryPrompt;if(!prompt)return;
+  const closed=this.gateClosed;this.effectTime+=dt;this.updateWorkflow();if(closed&&!this.gateClosed)this.emit('bonusEnd');
+  const pressed=this.tapQueue.some(t=>t.side==='left'||t.side==='right')||['left','right'].some(side=>!!input[side]&&!this.previous[side]);
+  this.tapQueue.length=0;this.previous={left:!!input.left,right:!!input.right};if(pressed)prompt.confirmed=true;
+  let remaining=dt;if(prompt.zoomRemaining>0){const zoom=Math.min(remaining,prompt.zoomRemaining);prompt.zoomRemaining-=zoom;remaining-=zoom;}
+  if(prompt.zoomRemaining<=1e-10)prompt.ready=true;
+  if(prompt.ready&&prompt.confirmed){this.startLotteryDraw(input);return;}
+  if(!prompt.ready||remaining<=0)return;
+  const active=this.round.remaining===null?remaining:Math.min(remaining,this.round.remaining);this.advancePlayClock(active);
+  if(updateRound(this,active,{billable:false}))return;
+  prompt.remaining=Math.max(0,prompt.remaining-active);this.finishPlayableStep(active);
+  if(prompt.remaining<=1e-10)this.startLotteryDraw(input);
  }
  breakStationLoop(nx,nz){
   const b=this.ball,impulse=Math.min(7,Math.hypot(b.vx,b.vz)*.25)*this.loopDeflectionSign;
@@ -176,6 +206,7 @@ export class Game{
   const raw={left:!!input.left,right:!!input.right};
   for(const side of ['left','right'])if(!raw[side])this.entryHeld[side]=false;
   input={left:raw.left&&!this.entryHeld.left,right:raw.right&&!this.entryHeld.right};
+  if(this.lotteryPrompt&&!this.round.ending){this.updateLotteryPrompt(dt,input);return;}
   if(!this.interaction&&!this.mailRun&&!this.shortRun){
    const offer=this.getInteractionOffer();
    const pressed=offer&&['left','right'].some(side=>this.tapQueue.some(t=>t.side===side&&t.offerId===offer.id)||input[side]&&!this.previous[side]&&!this.tapQueue.some(t=>t.side===side));
@@ -215,13 +246,13 @@ export class Game{
   if(entry&&(!contact||entryT<contact.t)){this.updateLamps(previousBall,entry);this.mailRun={distance:0,elapsed:0,speed:clamp(Math.hypot(b.vx,b.vz),MAIL.minTravelSpeed,MAIL.maxTravelSpeed),entrySpeed:clamp(Math.hypot(b.vx,b.vz),MAIL.minTravelSpeed,MAIL.maxTravelSpeed),phase:'intake',direction:entry.direction,offsetX:entry.x-MAIL.entryX*entry.direction,...freshMailChoice(entry.direction)};b.x=entry.x;b.z=entry.z;this.hop=0;this.cancelInput();this.emit('mailStart',{direction:entry.direction});return;}
   if(this.shortLatch&&Math.hypot(b.x-SHORT_LOOP.entry.x,b.z-SHORT_LOOP.entry.z)>9)this.shortLatch=false;
   const short=!this.shortLatch?shortEntry(previousBall,b):null;
-  if(short&&(!contact||short.t<contact.t)){this.updateLamps(previousBall,short);this.shortRun={distance:0,elapsed:0,speed:SHORT_LOOP.speed,offsetX:short.x-SHORT_LOOP.entry.x};this.shortLatch=true;b.x=short.x;b.z=SHORT_LOOP.entry.z;this.hop=0;this.cancelInput();retractAssists(this);this.emit('shortLoopStart');return;}
+  if(short&&(!contact||short.t<contact.t)){this.updateLamps(previousBall,short);this.shortRun={distance:0,elapsed:0,speed:SHORT_LOOP.speed,offsetX:short.x-SHORT_LOOP.entry.x,exit:shortLoopExit(this.shortLoopTrips)};this.shortLatch=true;b.x=short.x;b.z=SHORT_LOOP.entry.z;this.hop=0;this.cancelInput();retractAssists(this);this.emit('shortLoopStart');return;}
   this.updateLamps(previousBall,contact?{x:contact.x,z:contact.z}:b);
   advanceMailLatch(this.mailLatch,previousBall,contact?{x:contact.x,z:contact.z}:b,b.r);
   this.refreshContactArming(previousBall,contact?{x:contact.x,z:contact.z}:b);
   updateCombo(this,previousBall,contact?{x:contact.x,z:contact.z}:b);
   if(contact){const {station:o,shape,nx,nz}=contact,looped=this.repeatedStationContact(o,contact);comboContact(this,o.id);b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;
-   if(o.patrol){kickByPatrol(this);}else if(o.central){const side=this.central.armed;if(this.startInteraction(BUMPERS.find(o=>o.id==='launcher'),side,false))return;}else if(o.id==='lottery'){const vn=b.vx*nx+b.vz*nz;if(vn<0){b.vx-=1.8*vn*nx;b.vz-=1.8*vn*nz;}this.applyLottery(hitLottery(this.lottery,{now:this.playClock,source:'main',random:this.lotteryRandom??this.random}));}
+   if(o.patrol){kickByPatrol(this);}else if(o.central){const side=this.central.armed;if(this.startInteraction(BUMPERS.find(o=>o.id==='launcher'),side,false))return;}else if(o.id==='lottery'){if(this.startLotteryPrompt(contact,raw))return;const vn=b.vx*nx+b.vz*nz;if(vn<0){b.vx-=1.8*vn*nx;b.vz-=1.8*vn*nz;}this.applyLottery(hitLottery(this.lottery,{now:this.playClock,source:'main',random:this.lotteryRandom??this.random}));}
    else if(o.assistId){resolveAssist(this,contact);}else{
    const fresh=!this.offerSpent.has(o.id),eligible=!!activityFor(o)&&this.interactionsEnabled&&fresh&&this.time>=this.interactionReady;
    if(eligible)this.offerInteraction(o);
@@ -244,8 +275,8 @@ export class Game{
  markWorkflow(goal){const w=this.workflow,n=WORKFLOW.goals.indexOf(goal);if(n<0||w.active||w.readyAt||w.lights[n])return;w.lights[n]=true;this.emit('workflowLight',{goal});if(w.lights.every(Boolean)){w.active=true;w.until=this.effectTime+WORKFLOW.duration;w.readyAt=w.until+WORKFLOW.cooldown;w.hitsLeft=WORKFLOW.hits;w.rounds++;this.award('lights',WORKFLOW.points);this.emit('workflowStart',{points:WORKFLOW.points});}}
  updateWorkflow(){const w=this.workflow;if(w.active&&this.effectTime>=w.until){w.active=false;w.hitsLeft=0;this.emit('workflowEnd');}if(w.readyAt&&this.effectTime>=w.readyAt){const rounds=w.rounds;this.workflow=freshWorkflow();this.workflow.rounds=rounds;this.emit('workflowReset');}}
  updateShortLoop(dt){
-  this.simTime+=dt;const m=this.shortRun,from={...this.ball};m.elapsed+=dt;m.distance=Math.min(SHORT_LENGTH,m.distance+m.speed*dt);const p=shortPoint(m.distance),blend=Math.max(0,1-m.distance/6);Object.assign(this.ball,{x:p.x+(m.offsetX||0)*blend,z:p.z,vx:(p.dx-(blend>0?(m.offsetX||0)/6:0))*m.speed,vz:p.dz*m.speed});m.height=p.y||0;this.hop=0;this.updateLamps(from,this.ball);
-  if(m.distance>=SHORT_LENGTH||m.elapsed>=2){Object.assign(this.ball,SHORT_LOOP.exit);this.shortRun=null;this.award('route',SHORT_LOOP.points);this.interactionReady=Math.max(this.interactionReady,this.time+.25);this.cancelInput();this.emit('shortLoopExit',{points:SHORT_LOOP.points});}
+  this.simTime+=dt;const m=this.shortRun,from={...this.ball};m.elapsed+=dt;m.distance=Math.min(SHORT_LENGTH,m.distance+m.speed*dt);const p=shortPoint(m.distance),blend=Math.max(0,1-m.distance/6),exitT=clamp((m.distance-(SHORT_LENGTH-6))/6,0,1),exitBlend=exitT*exitT*(3-2*exitT),exitOffset=m.exit?.x||0;Object.assign(this.ball,{x:p.x+(m.offsetX||0)*blend+exitOffset*exitBlend,z:p.z,vx:(p.dx-(blend>0?(m.offsetX||0)/6:0)+exitOffset*exitT*(1-exitT))*m.speed,vz:p.dz*m.speed});m.height=p.y||0;this.hop=0;this.updateLamps(from,this.ball);
+  if(m.distance>=SHORT_LENGTH||m.elapsed>=2){Object.assign(this.ball,m.exit||SHORT_LOOP.exit);this.shortRun=null;this.shortLoopTrips++;this.award('route',SHORT_LOOP.points);this.interactionReady=Math.max(this.interactionReady,this.time+.25);this.cancelInput();this.emit('shortLoopExit',{points:SHORT_LOOP.points,trip:this.shortLoopTrips});}
  }
  updateMail(dt,pressed={}){
   this.simTime+=dt;const m=this.mailRun,previousDistance=m.distance;m.elapsed+=dt;

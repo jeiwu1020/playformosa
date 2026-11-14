@@ -13,7 +13,7 @@ body.playing #comic[data-tier="3"]{color:#ffe18a;border-left:4px solid #ffdc74;b
 body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw - 24px);font-size:18px;line-height:1.35;padding:6px 10px;pointer-events:none;animation:none!important;opacity:1!important}body.playing #comic[data-tier="3"]{display:block;font-size:20px}body.playing #comic:not(.pop){display:none!important}
 /* Give raffle draws a distinct reward card without covering the whole playfield. */
 body.playing #comic.raffle-pop{top:29%;left:50%;transform:translateX(-50%);max-width:calc(100vw - 28px);white-space:pre-line;text-align:center;font-size:clamp(21px,4vw,34px);line-height:1.3;padding:10px 16px;color:#fff4bb;background:#5a351af5;border:2px solid #ffe18a;border-radius:12px;box-shadow:0 0 0 4px #e3ac4d55,0 8px 28px #081d26aa;text-shadow:0 2px 2px #2b180d}
-@media(max-width:700px){body.playing #comic.raffle-pop{top:27%;font-size:clamp(20px,6vw,29px);padding:9px 12px}}
+@media(max-width:700px){body.playing #comic.raffle-pop{top:27%;font-size:clamp(24px,6.4vw,32px);padding:9px 12px}}
 @media(max-height:420px){body.playing #comic.raffle-pop{top:25%;font-size:clamp(17px,3vw,23px);padding:6px 10px}}
 @media(max-height:420px){body.playing #comic,body.playing #comic[data-tier="3"]{font-size:16px}body.playing #comic.raffle-pop{font-size:clamp(17px,3vw,23px)}}
 /* Fixed-size station names keep their original backing when the actor passes. */

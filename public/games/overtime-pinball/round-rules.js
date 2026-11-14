@@ -26,7 +26,7 @@ export function startTimedEnding(g){
  const r=g.round;if(r.ending)return;r.remaining=0;r.reason='time';g.endOvertime?.();
  r.reentry=null;
  r.ending={elapsed:0,from:{x:g.ball.x,z:g.ball.z},bossFrom:{x:g.bossPatrol.x,z:g.bossPatrol.z},kicked:false};
- g.mailRun=null;g.shortRun=null;g.interaction=null;g.opportunity=null;g.arming=null;g.cancelInput();g.flipperStroke={left:0,right:0};g.flipperPulse={left:0,right:0};g.ball.vx=g.ball.vz=0;
+ g.mailRun=null;g.shortRun=null;g.interaction=null;g.lotteryPrompt=null;g.opportunity=null;g.arming=null;g.cancelInput();g.flipperStroke={left:0,right:0};g.flipperPulse={left:0,right:0};g.ball.vx=g.ball.vz=0;
  g.bossPatrol.phase='chase';g.emit('timeUp');
 }
 // Free play and controllable work share the round clock. Work does not earn base pay.

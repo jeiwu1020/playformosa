@@ -2,6 +2,7 @@
  * Does not pause, capture input, spawn workers, mutate physics, or write income.
  */
 export const LOTTERY_RULES=Object.freeze({spin:1.15,chainCap:600,chainPoints:40,chainTargets:2,speedCap:44});
+export const LOTTERY_PROMPT_RULES=Object.freeze({zoom:1.2,choice:3});
 export const LOTTERY_PRIZES=Object.freeze({
  gate:Object.freeze({label:'今晚禁止下班',duration:8,color:0xffcc38,description:'鐵門關閉，繼續賺加班費！'}),
  upgrade:Object.freeze({label:'人體工學升級',duration:12,color:0x67ddff,description:'L／R 機關延長出擊、強化推力！'}),
