@@ -1,8 +1,47 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {createLotteryStatus,lotteryStatusText,lotteryPromptText} from '../../public/games/overtime-pinball/lottery-hud.js';import {mobileFocus} from '../../public/games/overtime-pinball/mobile-ui.js';
-const root=new URL('../../public/games/overtime-pinball/',import.meta.url),mobile=readFileSync(new URL('mobile-ui.css',root),'utf8'),polish=readFileSync(new URL('play-polish.css',root),'utf8'),main=readFileSync(new URL('main.js',root),'utf8');
-test('ready status is explicit, transient, repeats every15s, and phase changes replace it',()=>{const v=createLotteryStatus(),s={phase:'ready',drawId:0};assert.match(v.update(s,0),/碰摸彩箱就抽獎/);assert.equal(v.update(s,3),'');assert.ok(v.update(s,15));assert.equal(v.update(s,17.5),'');s.phase='drawing';s.drawId=1;assert.match(v.update(s,19),/抽獎中/);assert.equal(v.update(s,22),'');assert.equal(v.update(s,22.1,{suppressed:true}),'');assert.equal(v.update(s,22.2,{enabled:false}),'');assert.ok(v.update(s,0));});
-test('remaining phase messages are short and active seconds are real remaining',()=>{for(const prize of ['gate','upgrade','busy'])assert.match(lotteryStatusText({phase:'active',prize,until:9},1),/8秒/);for(const phase of ['ready','drawing'])assert.ok(lotteryStatusText({phase},0).length<=11);assert.equal(lotteryStatusText({phase:'ended'},0),'');});
-test('box-hit prompt shows the L/R action and a live automatic-draw countdown',()=>{assert.match(lotteryPromptText({ready:false}),/鏡頭拉近/);assert.match(lotteryPromptText({ready:true,remaining:2.1}),/L／R.*3秒後自動抽獎/);assert.equal(lotteryPromptText(null),'');});
-test('mobile exposes only the active raffle popup above the generic hidden comic cue',()=>{const hidden=mobile.indexOf('body.pf-game.playing #comic,'),visible=mobile.indexOf('body.pf-game.playing #comic.raffle-pop.pop');assert.ok(hidden>=0&&visible>hidden,'active raffle override follows the general mobile hide rule');const rule=mobile.slice(visible,mobile.indexOf('}',visible));assert.match(rule,/display:block!important/);assert.match(rule,/visibility:visible!important/);assert.match(rule,/left:50%!important/);assert.match(rule,/pointer-events:none/);assert.match(polish,/comic\.raffle-pop\{[^}]*font-size:clamp\(24px,/);});
-test('raffle prompt has a close-up overlay style on both phone and short landscape screens',()=>{assert.match(mobile,/lottery-prompt-active #lotteryStatus\{[^}]*position:fixed/);assert.match(mobile,/lottery-prompt-active #lotteryStatus\{[^}]*font:[^}]*text-align:center/);assert.match(mobile,/orientation:landscape\) and \(max-height:600px\)[\s\S]*lottery-prompt-active #lotteryStatus/);assert.match(main,/game\.lotteryPrompt\?\{stage:'work',dock:game\.lotteryPrompt\.dock,from:game\.lotteryPrompt\.from\}/);});
-test('fixed cue stays out of the close-up confirmation overlay',()=>{const doc={body:{classList:{contains:name=>name==='lottery-prompt-active'}}};assert.equal(mobileFocus(doc),null);});
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createLotteryStatus,lotteryStatusText,lotteryPromptText} from '../../public/games/overtime-pinball/lottery-hud.js';
+import {mobileFocus} from '../../public/games/overtime-pinball/mobile-ui.js';
+
+const root=new URL('../../public/games/overtime-pinball/',import.meta.url);
+const mobile=readFileSync(new URL('mobile-ui.css',root),'utf8');
+const polish=readFileSync(new URL('play-polish.css',root),'utf8');
+const main=readFileSync(new URL('main.js',root),'utf8');
+
+test('lottery status stays concise for ready, drawing, and prize states',()=>{
+ assert.equal(lotteryStatusText({phase:'ready'},0),'摸彩箱就緒 · 碰箱開獎');
+ assert.equal(lotteryStatusText({phase:'drawing'},0),'摸彩開獎中');
+ for(const prize of ['gate','upgrade','busy'])assert.match(lotteryStatusText({phase:'active',prize,until:9},1),/中獎.*8秒/);
+ assert.equal(lotteryStatusText({phase:'ended'},0),'');
+});
+
+test('lottery box prompt avoids camera copy and keeps a short L/R countdown',()=>{
+ assert.equal(lotteryPromptText({ready:false}),'摸彩箱啟動中');
+ assert.equal(lotteryPromptText({ready:true,remaining:2.1}),'按 L／R 抽獎 · 3 秒後自動抽獎');
+ assert.equal(lotteryPromptText(null),'');
+});
+
+test('lottery messages share one fixed, restrained arcade cue on every device',()=>{
+ assert.match(mobile,/body\.pf-game\.playing #lotteryStatus\{[^}]*position:fixed/);
+ assert.match(mobile,/body\.pf-game\.playing #lotteryStatus\{[^}]*font:[^}]*13px/);
+ assert.match(mobile,/body\.pf-game\.playing #lotteryStatus\{[^}]*background:#173d40f2/);
+ assert.match(mobile,/body\.pf-game\.playing #lotteryStatus\{[^}]*border:1px solid #d8c77f/);
+ assert.match(mobile,/body\.pf-game\.playing\.lottery-prompt-active #lotteryStatus:not\(\[hidden\]\)[^{]*\{[^}]*visibility:visible!important/);
+ assert.match(mobile,/lottery-status-active #lotteryStatus:not\(\[hidden\]\)[^{]*\{[^}]*top:calc\(var\(--pf-header-height,60px\) \+ 40px\)/);
+ assert.match(mobile,/min-width:1000px[\s\S]*lottery-status-active #lotteryStatus:not\(\[hidden\]\)[^{]*\{left:calc\(50% \+ 122px\)/);
+ assert.doesNotMatch(mobile,/lottery-prompt-active #controls \.flipper/);
+ assert.doesNotMatch(mobile,/#comic\.raffle-pop\.pop/);
+ assert.doesNotMatch(polish,/\.raffle-pop/);
+});
+
+test('desktop and mobile route lottery events through the shared anchored cue',()=>{
+ assert.match(main,/lotteryStatus\.update\(game\.lottery,game\.playClock,\{enabled:mode==='playing'/);
+ assert.doesNotMatch(main,/raffle-pop|raffle:true/);
+ assert.match(main,/document\.body\.append\(lotteryStatusNode\)/);
+});
+
+test('fixed gameplay cue stays out of the close-up confirmation overlay',()=>{
+ const doc={body:{classList:{contains:name=>name==='lottery-prompt-active'}}};
+ assert.equal(mobileFocus(doc),null);
+});
