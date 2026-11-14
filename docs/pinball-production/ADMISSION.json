@@ -1,0 +1,1024 @@
+{
+  "sourcePreviewCommit": "8dcd7f8190cd1ec0fe9eab634f8dbc9893b83aeb",
+  "sourcePreviewTree": "e2a8bf666d0c66b3aaebbd66451be8841b694a27",
+  "addedPublicPaths": [
+    "assets/overtime-pinball-card-v2.png",
+    "games/overtime-pinball/activities.js",
+    "games/overtime-pinball/arcade-polish.css",
+    "games/overtime-pinball/assist-machines.js",
+    "games/overtime-pinball/assist-office.js",
+    "games/overtime-pinball/audio/CC0-1.0.txt",
+    "games/overtime-pinball/audio/break.mp3",
+    "games/overtime-pinball/audio/break.ogg",
+    "games/overtime-pinball/audio/coin.mp3",
+    "games/overtime-pinball/audio/coin.ogg",
+    "games/overtime-pinball/audio/jump.mp3",
+    "games/overtime-pinball/audio/jump.ogg",
+    "games/overtime-pinball/audio/kenney-source.txt",
+    "games/overtime-pinball/audio/land.mp3",
+    "games/overtime-pinball/audio/land.ogg",
+    "games/overtime-pinball/audio/manifest.json",
+    "games/overtime-pinball/audio/rail-entry.mp3",
+    "games/overtime-pinball/audio/sparklin-source.txt",
+    "games/overtime-pinball/audio/theme-9.mp3",
+    "games/overtime-pinball/audio/theme-9.ogg",
+    "games/overtime-pinball/board-features.js",
+    "games/overtime-pinball/boss-visual.js",
+    "games/overtime-pinball/camera.js",
+    "games/overtime-pinball/central-launch.js",
+    "games/overtime-pinball/character.js",
+    "games/overtime-pinball/clock-cue.js",
+    "games/overtime-pinball/combo-office.js",
+    "games/overtime-pinball/combo-routes.js",
+    "games/overtime-pinball/company-design.js",
+    "games/overtime-pinball/company.css",
+    "games/overtime-pinball/contact.js",
+    "games/overtime-pinball/desktop.css",
+    "games/overtime-pinball/dispatch-court.js",
+    "games/overtime-pinball/feedback-layout.js",
+    "games/overtime-pinball/feedback-profile.js",
+    "games/overtime-pinball/game-audio.js",
+    "games/overtime-pinball/game-menus.js",
+    "games/overtime-pinball/game.html",
+    "games/overtime-pinball/gameplay.css",
+    "games/overtime-pinball/home-navigation.js",
+    "games/overtime-pinball/index.html",
+    "games/overtime-pinball/interactions.js",
+    "games/overtime-pinball/intro.js",
+    "games/overtime-pinball/jet-wake.js",
+    "games/overtime-pinball/keyboard-hints.js",
+    "games/overtime-pinball/leaderboard-metrics.mjs",
+    "games/overtime-pinball/leaderboard-scroll.mjs",
+    "games/overtime-pinball/leaderboard.mjs",
+    "games/overtime-pinball/lottery-coworkers.js",
+    "games/overtime-pinball/lottery-events.js",
+    "games/overtime-pinball/lottery-hud.js",
+    "games/overtime-pinball/lottery-label.js",
+    "games/overtime-pinball/lottery-layout.js",
+    "games/overtime-pinball/lottery-placement.js",
+    "games/overtime-pinball/lottery-visual.js",
+    "games/overtime-pinball/mail-office.js",
+    "games/overtime-pinball/mail-run.js",
+    "games/overtime-pinball/main.js",
+    "games/overtime-pinball/menu.css",
+    "games/overtime-pinball/mobile-ui.css",
+    "games/overtime-pinball/mobile-ui.js",
+    "games/overtime-pinball/occlusion.js",
+    "games/overtime-pinball/offer-station-visual.js",
+    "games/overtime-pinball/office-features.js",
+    "games/overtime-pinball/office-palette.js",
+    "games/overtime-pinball/office-partitions.js",
+    "games/overtime-pinball/office-routes.js",
+    "games/overtime-pinball/office-stories.js",
+    "games/overtime-pinball/opening.js",
+    "games/overtime-pinball/overtime-events.js",
+    "games/overtime-pinball/overtime-presentation.js",
+    "games/overtime-pinball/overtime-ui.css",
+    "games/overtime-pinball/overtime-ui.js",
+    "games/overtime-pinball/physics.js",
+    "games/overtime-pinball/platform-layout.mjs",
+    "games/overtime-pinball/platform-share.mjs",
+    "games/overtime-pinball/platform-snapshot.mjs",
+    "games/overtime-pinball/platform-ui.mjs",
+    "games/overtime-pinball/platform.css",
+    "games/overtime-pinball/play-layout.css",
+    "games/overtime-pinball/play-layout.js",
+    "games/overtime-pinball/play-polish.css",
+    "games/overtime-pinball/prediction.js",
+    "games/overtime-pinball/preview.css",
+    "games/overtime-pinball/raffle-machine.js",
+    "games/overtime-pinball/release-recovery.mjs",
+    "games/overtime-pinball/render-proportions.js",
+    "games/overtime-pinball/restart-confirmation.js",
+    "games/overtime-pinball/round-options.js",
+    "games/overtime-pinball/round-rules.js",
+    "games/overtime-pinball/route-hud.css",
+    "games/overtime-pinball/route-hud.js",
+    "games/overtime-pinball/route-layout.js",
+    "games/overtime-pinball/route-rewards.js",
+    "games/overtime-pinball/route-visual.js",
+    "games/overtime-pinball/ruleset.mjs",
+    "games/overtime-pinball/score-card.mjs",
+    "games/overtime-pinball/shadow-worker-visual.js",
+    "games/overtime-pinball/shadow-workers.js",
+    "games/overtime-pinball/shell-geometry.js",
+    "games/overtime-pinball/special-feedback.js",
+    "games/overtime-pinball/special-office.js",
+    "games/overtime-pinball/station-label-anchor.js",
+    "games/overtime-pinball/station-label-layout.js",
+    "games/overtime-pinball/station-labels.js",
+    "games/overtime-pinball/style.css",
+    "games/overtime-pinball/text-layout.js",
+    "games/overtime-pinball/touch-policy.js",
+    "games/overtime-pinball/vendor/THREE-LICENSE.txt",
+    "games/overtime-pinball/vendor/three.core.min.js",
+    "games/overtime-pinball/vendor/three.module.min.js",
+    "games/overtime-pinball/viewport-recovery.js",
+    "games/overtime-pinball/viewport-shell.js"
+  ],
+  "files": [
+    {
+      "path": "public/assets/overtime-pinball-card-v2.png",
+      "sha256": "c4e64f84285985a36a0fc057960df7936de140b1d92e3515567325f4fbb0cabb"
+    },
+    {
+      "path": "public/games/overtime-pinball/activities.js",
+      "sha256": "e39a19e882d99dc4b6df6f3cbd94654c9dadf61f2fe9a0ecb1dbe473f26cbb06"
+    },
+    {
+      "path": "public/games/overtime-pinball/arcade-polish.css",
+      "sha256": "857d2b5b7d84510da67972b9f77e6b8fefc547a198273e4cc738ab59ff9fed0c"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-machines.js",
+      "sha256": "05512320766a71d1cc7e42ac841bc98c88ea4595e0b660ff0f8a3acf310f29cf"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-office.js",
+      "sha256": "3eedab2b7b32249e8a703cecd715dacf585350b4cfe8da8a8947450aa14bceab"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/CC0-1.0.txt",
+      "sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.mp3",
+      "sha256": "9bd5a268ca9fc6ed5059d4bc0a043f7e76894f0b7b65938a92bd19680530ae4d"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.ogg",
+      "sha256": "51157b7441fca84fea95d4e93d6a9a3b91efa870b602e5c56a76e3ab639686a7"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.mp3",
+      "sha256": "da9b877318634ee57b42f5edf68f3591fa5410a9121942568e604a916e3a1708"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.ogg",
+      "sha256": "df55e931e6b78e5aecc015922e873a0e8bfa4e97cfb19abc64149d54afe89216"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.mp3",
+      "sha256": "9473e4c60a3cc13786c1a7b22d83e986b7f28b57294342179b6ffc028e84e0df"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.ogg",
+      "sha256": "f090c16689e9ec04c4bef80bfcbf68bc4b63ab4ce29f7fbb5cee05a5641d5694"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/kenney-source.txt",
+      "sha256": "a7c9855b888f9eb9400aadb47a1111e8cfd3a118378e1c035b687637a08e1f8f"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.mp3",
+      "sha256": "07c3bbb50b5dc35e19ee47e75d376ca63614464518931f62d7329870e3dac6ac"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.ogg",
+      "sha256": "145a1c17125dc4d344ac135bc5073e35ea12e19700ca30ee6e1e477010b4dca0"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/manifest.json",
+      "sha256": "b5963ced58f2967dfe55c06b1a47d0b10590e778cf45517324f69f22a73c9b19"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/rail-entry.mp3",
+      "sha256": "a3d28a6c52b500ffb155ec3c553a957759555202e542eb2859f6a3a305037a58"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/sparklin-source.txt",
+      "sha256": "f2e720c5e6632562bc93a30bf823d81657ca3c9b7668bfc2656db035114b01f8"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.mp3",
+      "sha256": "364e67c15e3db17f457ca29d3b9dbdce41d6102b53d3673172d06247c6862b6c"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.ogg",
+      "sha256": "b1a4002511781fed7a6ed6189b22f7402ab428a647ab614c49bf0bd49362ef36"
+    },
+    {
+      "path": "public/games/overtime-pinball/board-features.js",
+      "sha256": "2a1dac106b297413ae9b8922581d12c08573a8e137f86a1475dcc23687ab1105"
+    },
+    {
+      "path": "public/games/overtime-pinball/boss-visual.js",
+      "sha256": "b57b9444b624dd1bad648e3e7be9cb717eb7507e0db75bd066520805cc84fff5"
+    },
+    {
+      "path": "public/games/overtime-pinball/camera.js",
+      "sha256": "ca1a75689d2b0bf284e02031dea9a0768f17eb44d4bd16c67b7f56498f6756d0"
+    },
+    {
+      "path": "public/games/overtime-pinball/central-launch.js",
+      "sha256": "b86e19f19a7028a2d26d0cfad739d0ffdb537dedf41c8381c2cb40bedc702e57"
+    },
+    {
+      "path": "public/games/overtime-pinball/character.js",
+      "sha256": "c388172cdc0130df6452710a6bea9e03ef72aee99c9aecf721ba25636c50b7aa"
+    },
+    {
+      "path": "public/games/overtime-pinball/clock-cue.js",
+      "sha256": "6f87af95b28fd75406aac2364bbcefb940bffda5c203bfddc09c3eea15fb6527"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-office.js",
+      "sha256": "f36470f370b0face124061f6debaf11cf4d6e98362290cddc4cede9f190c1f85"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-routes.js",
+      "sha256": "111b588fd1cbd3fc050dbb7259e6dfeb8ad773cafbbcc5a5fc52c778c4bd6713"
+    },
+    {
+      "path": "public/games/overtime-pinball/company-design.js",
+      "sha256": "7e65f3cae51abeb7b551788bac1995e23829621fb2610593f080c415db890f6e"
+    },
+    {
+      "path": "public/games/overtime-pinball/company.css",
+      "sha256": "bc3d4ea3005391ce0aa45b83c2e1b7e2bd01c4fb676b30e7ebd8d372a90ae04c"
+    },
+    {
+      "path": "public/games/overtime-pinball/contact.js",
+      "sha256": "3f4681c522e49341181db821c3acc6322b2a6c01cf8407ee4a8b55aca65df05c"
+    },
+    {
+      "path": "public/games/overtime-pinball/desktop.css",
+      "sha256": "f24c1faaf389fa21400bde37823bb48b61e8e2ce70f2a48d0824a5c3f58b99ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/dispatch-court.js",
+      "sha256": "6ba4f2d68c3ad4b5794fa1ef4ef37c8be0ae0b5a333e913d8ce4851997dad0ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-layout.js",
+      "sha256": "f2f1dd1d012e4a74121dc1eb02065e46341c3b13b94d32d7869227041c77f1bf"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-profile.js",
+      "sha256": "5d6620cda4fde53fc50acc3b156839f7d895beeacd447a001116211785cc1bf8"
+    },
+    {
+      "path": "public/games/overtime-pinball/game-audio.js",
+      "sha256": "95f282ce90a9ca41bf962829244c5843ec69c1de5fc13513ebebbc383a86cec6"
+    },
+    {
+      "path": "public/games/overtime-pinball/game-menus.js",
+      "sha256": "67a499caf923bcd76d2617623c4821baeed9f9fe9a5f4d5904cd4c1b3c75db56"
+    },
+    {
+      "path": "public/games/overtime-pinball/game.html",
+      "sha256": "477bc61e28b9e971d9950da5ba92046af89d0184dd003cbd95a359dd45018292"
+    },
+    {
+      "path": "public/games/overtime-pinball/gameplay.css",
+      "sha256": "7ffcd66963c888423eca6eb466c605593872f61c008e1e211a9335ee0a54984f"
+    },
+    {
+      "path": "public/games/overtime-pinball/home-navigation.js",
+      "sha256": "f5a9f746111cb0d2e570b28cd229ff64c2d48299f9601daabe5ce8779ca7c724"
+    },
+    {
+      "path": "public/games/overtime-pinball/index.html",
+      "sha256": "6f5342ca3c0168a16565feab13850e9545e773e02931f7be63f4e1e8c7360249"
+    },
+    {
+      "path": "public/games/overtime-pinball/interactions.js",
+      "sha256": "d35d91c60a6ec0b763beeac40dfdd98f0d1c53a74f67609ba3525905b1c22508"
+    },
+    {
+      "path": "public/games/overtime-pinball/intro.js",
+      "sha256": "725182c2f82737f7b11cde720d08f742ba3cb508dd07bc16c61bf6e35bcfc8c3"
+    },
+    {
+      "path": "public/games/overtime-pinball/jet-wake.js",
+      "sha256": "1e7d69c13e94e8304f12ddd9293980baf72861eb02da148231e4f247a980f34e"
+    },
+    {
+      "path": "public/games/overtime-pinball/keyboard-hints.js",
+      "sha256": "fe32fe68d9b85633a300c87ac7a8c421f4dc04752d5bb15d9c8cd13c7a8b044e"
+    },
+    {
+      "path": "public/games/overtime-pinball/leaderboard-metrics.mjs",
+      "sha256": "51b6a1c06f46813a5f55f428a0995bd7eff81edacd5736a7736ef0de5682aa77"
+    },
+    {
+      "path": "public/games/overtime-pinball/leaderboard-scroll.mjs",
+      "sha256": "5302800b40e29c386c7ac555841805f33a6503a76393f47004a63eb9799be4c6"
+    },
+    {
+      "path": "public/games/overtime-pinball/leaderboard.mjs",
+      "sha256": "2bcba4b038c9b8cc7cc1840eb09cb6a23082895ca51d18d8677adb3fbe01b813"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-coworkers.js",
+      "sha256": "31a4b2b7ffb07b7f7093add8f1c14c4d163dea79b706e84f33af86afde909ff2"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-events.js",
+      "sha256": "a51eb64f6f54f8522de91b27c82ad6df7ebbfdfc179fbbbe311790d56a9fbf6b"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-hud.js",
+      "sha256": "024fb1f0d19eb73fa543b12ec00e70f97f2b9da418ab186c8ab0cc8f584f3c65"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-label.js",
+      "sha256": "fddaaafdf6874fa26004ebe284ec40bb7362a796fb6432e1fbeed920271c4b86"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-layout.js",
+      "sha256": "958fe6b0b116d68f727730d1f91f11fca5a47fbdd21455040701a1f33eb6a341"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-placement.js",
+      "sha256": "9e9ef6356e89e90ded0a2cceb5a8fb9933010f14de0f1f530d732ab2f121897b"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-visual.js",
+      "sha256": "3730b66bf1d94336f770c1a8630b24cef93659346f64db8a6410ddaa8f0e8dd6"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-office.js",
+      "sha256": "5420e9acd44676934491e633262e83608af66af0bc3e77cc4ce51e70c7926c03"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-run.js",
+      "sha256": "cf9487336a8940ab04b4cc74ab4fa9e616afa144b715c04620ca0f7826d6f10a"
+    },
+    {
+      "path": "public/games/overtime-pinball/main.js",
+      "sha256": "192bd90f0001a2017a129295a47458b6a25570afc896b238051361ef3b027515"
+    },
+    {
+      "path": "public/games/overtime-pinball/menu.css",
+      "sha256": "f419e3a5bacf5eb0b736891b03e4e5ba49dc1f1f0e137f815a329155fce497d3"
+    },
+    {
+      "path": "public/games/overtime-pinball/mobile-ui.css",
+      "sha256": "6182d45ecec8f77831b78078f74a3cb6ceea0ba102c0e6c927b177d8d4aeedb1"
+    },
+    {
+      "path": "public/games/overtime-pinball/mobile-ui.js",
+      "sha256": "0289b5f0a76d0316eb59961e63e061609737fa7e2956bea35df4dd911b5828a2"
+    },
+    {
+      "path": "public/games/overtime-pinball/occlusion.js",
+      "sha256": "92b34d89b1444ff1fde8094c31a7427bcd3295a1004f3e004d94b2506fa002d8"
+    },
+    {
+      "path": "public/games/overtime-pinball/offer-station-visual.js",
+      "sha256": "66fb400403c65355353a24be8ebc20724d92d708c68eab7dd735643f62bda51a"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-features.js",
+      "sha256": "1faa514a37c8bc6b6eabe0a35bc1a4f546609dc7fdaeb5dc67270d927510b30d"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-palette.js",
+      "sha256": "40f31f80adf4ae27817efc0310f16f382c53b60b614a78ebe39231d568147863"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-partitions.js",
+      "sha256": "0e2d394ef26804be41aa360b77003d129d03b00917d74c07d5f8511e8e00ecc7"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-routes.js",
+      "sha256": "d3da1cd09f7d6f4c51a88057db2235620c34c2932256f2af0095bc63b95f0f3c"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-stories.js",
+      "sha256": "07d9718afde6f752df3c8102cb428b17de85b8bd725da14a897e516fb2332a55"
+    },
+    {
+      "path": "public/games/overtime-pinball/opening.js",
+      "sha256": "3f5159cdd5e07fc8a0b7a7d4d9c6ca52916b5f36e9ef6f8575540b9a3c1a8115"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-events.js",
+      "sha256": "2a6c3ffdba072d21de5df1d84991ecc1a2af72d275d62583882bec5c4fe5b4fe"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-presentation.js",
+      "sha256": "d037cadb6edce92bb19d4bf01a8402fdfd5979aff2533e93db241e876023c387"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-ui.css",
+      "sha256": "6fae162a7d88f3d171dea0ac1e6e29ca255bf1396633bdefe1e07d574feb1961"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-ui.js",
+      "sha256": "6f679a9ed6e559988edc14cea926ce1e1a4f9a79ae05f1e461a4df197803f622"
+    },
+    {
+      "path": "public/games/overtime-pinball/physics.js",
+      "sha256": "e1c45fbf19f1ff77194c00495f26ad3cb8172cc309ca9526d72838f75e9d57ad"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-layout.mjs",
+      "sha256": "e57441ce38e85b327deb542056c97050ff30c729d00c698e363f9975b61c16d9"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-share.mjs",
+      "sha256": "30c68c27dbaf58ad3acc80510e58151a87fbe3465e93eca27c888dccd46820f3"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-snapshot.mjs",
+      "sha256": "7743de8eda5b9787ab9a1e8707b82235245e1e3ba0d66d7bcb0f664ddfd612df"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-ui.mjs",
+      "sha256": "6ab45e1c724fbaeacdefa1ee11c080bc92f362bc4c231960add0243208e85a57"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform.css",
+      "sha256": "ab95ca680f326e45c09ed770f98778a9669d58ede60c839d1c83cb0a2685aa3a"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.css",
+      "sha256": "260b403c031b7bd4e623c2f97396b7987f28b6c50bf8fc7ddb3d7bd353b6a614"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.js",
+      "sha256": "b5e8fe82815240aacc9de8e25fa9cb10d230d54ee805f0875155079d4187000d"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-polish.css",
+      "sha256": "7b2115e8f35caf66718c69fe8f7877f8f78d415f27189bb32856836dce25baa2"
+    },
+    {
+      "path": "public/games/overtime-pinball/prediction.js",
+      "sha256": "4e6d51bb5d865f487b67cb7a4cd6d4f53ac8c0d995fd74bc1be47d94c91cd61f"
+    },
+    {
+      "path": "public/games/overtime-pinball/preview.css",
+      "sha256": "095b5fc19d5182a633811178ea79f9ecb78794c3cd2fe7501030785c38530bbf"
+    },
+    {
+      "path": "public/games/overtime-pinball/raffle-machine.js",
+      "sha256": "d83a3eea765992ff4348e3d5c4d46241526f5471b4ddd7d1660fdfcd8e7d879a"
+    },
+    {
+      "path": "public/games/overtime-pinball/release-recovery.mjs",
+      "sha256": "1847d9c664d3cb65476ab664da5039e17f1eea6ef6952a497c04871def9cf25c"
+    },
+    {
+      "path": "public/games/overtime-pinball/render-proportions.js",
+      "sha256": "8753116c6cee75ad5e13c2cbd5136b3403ee2761beee4948d4298ca2abfff991"
+    },
+    {
+      "path": "public/games/overtime-pinball/restart-confirmation.js",
+      "sha256": "5fea21734438698398cd3bf97cce1afc5d976367cca6e74ff23ede47d07515e4"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-options.js",
+      "sha256": "81cc7825eeee54b98a0fcca848d643318187bc59f6dbeccecc1bbe2dcc414c78"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-rules.js",
+      "sha256": "f81c74d8743f2caecfc96d156ecc54753e84b255bfc8d165a24feb73701d5eec"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-hud.css",
+      "sha256": "c0b3801cfed82d6434613842dc6be6551f29e96f44f5ae41d5df4ad3782c840d"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-hud.js",
+      "sha256": "49a66c2623bf761ed17e705ca14013ec7bc040b8c08d8e2084f856d05fcff7ce"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-layout.js",
+      "sha256": "0c729da96ffd60d5b5e49ceb6ec85e8007e8ac1dd3d9988303c6e6b69ebb77aa"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-rewards.js",
+      "sha256": "3d7c43b9283d6755b61107f51f40b32f82cf310345fea274bd828efc6fe27a4a"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-visual.js",
+      "sha256": "2a859002658eb1192651d82151c94975d49785d2b2a3823a915414514785806c"
+    },
+    {
+      "path": "public/games/overtime-pinball/ruleset.mjs",
+      "sha256": "3bf7e46623f7e57eca980cadafd40f9f904a4562fe8b24e7b2218c20d387aa9a"
+    },
+    {
+      "path": "public/games/overtime-pinball/score-card.mjs",
+      "sha256": "668f00e9f2fdf94071275b9673ea5ebf632e660a7229b8fd68220ee7d00f11e9"
+    },
+    {
+      "path": "public/games/overtime-pinball/shadow-worker-visual.js",
+      "sha256": "51a9bdaa39615b4942fd38a9f73936fd0b5a25ec99ce4e7f623e61e7f9d41b3d"
+    },
+    {
+      "path": "public/games/overtime-pinball/shadow-workers.js",
+      "sha256": "7214b31381c359b980b82562ee9a19da399c137ef55dc0c8daf3b6e95406984b"
+    },
+    {
+      "path": "public/games/overtime-pinball/shell-geometry.js",
+      "sha256": "38e08929f46f80af75ec5422c1a0f5e7d64abb343947f2897fde3de549c32af5"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-feedback.js",
+      "sha256": "1032118f084d8e0903188642652a1dfa4324a36c727af06904bebe1087305685"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-office.js",
+      "sha256": "dba598c3248dd0f09a4ad3054ee79a07538385262b04b947ef63be92e5db7f29"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-anchor.js",
+      "sha256": "e361889d6dd6788a3352c4de4c9c6c1a96cb207b23d25d874a24cd6e8abbab39"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-layout.js",
+      "sha256": "d5e98c33e6be08387581dd81e1fdc6e5a188dd3e8cd113ed1b0c3b3fa92cc829"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-labels.js",
+      "sha256": "709dae34f0ade4c3866616788153711643c2e14865adcf08c4f3e547fae77175"
+    },
+    {
+      "path": "public/games/overtime-pinball/style.css",
+      "sha256": "29c32e44534a9cdefda4970696ac1d4d0fb687c231d666dae1fd182a512741c4"
+    },
+    {
+      "path": "public/games/overtime-pinball/text-layout.js",
+      "sha256": "d933e80d9d11fc6f3e11052af2be2899a2c3bcda33da301b47c830f1282cda97"
+    },
+    {
+      "path": "public/games/overtime-pinball/touch-policy.js",
+      "sha256": "8a4234caa052beb3087dd3873201d87d225b47e15ce6d0bf8a48ec47a7f55324"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.core.min.js",
+      "sha256": "295a28f4a9786dd24a2a357a4ce90921eb041127e53a508335b9a0556c1e0875"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.module.min.js",
+      "sha256": "979c1ae4b0579c9901eacf797602c0b46df129d87102c6443d14be4a1f790b70"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-recovery.js",
+      "sha256": "817e7ac1efeeb5dda65d1593a9828ae42c5064557e585add36afb551e291ff12"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-shell.js",
+      "sha256": "156524d790d012597bf6dfb30618567bb340be23474073edc175d76e3ab576af"
+    }
+  ],
+  "productionWranglerSha256": "0b0b187e4cca9cacffd9c9b8e1a10b12a8012bd614afc606078822eaf100be80",
+  "adapterOnlyChangedPaths": [
+    "public/games/overtime-pinball/platform-ui.mjs"
+  ],
+  "localAdapterPaths": [
+    "public/games/overtime-pinball/leaderboard.mjs",
+    "public/games/overtime-pinball/leaderboard-metrics.mjs",
+    "public/games/overtime-pinball/leaderboard-scroll.mjs"
+  ],
+  "previewFiles": [
+    {
+      "path": "public/assets/overtime-pinball-card-v2.png",
+      "sha256": "c4e64f84285985a36a0fc057960df7936de140b1d92e3515567325f4fbb0cabb"
+    },
+    {
+      "path": "public/games/overtime-pinball/activities.js",
+      "sha256": "e39a19e882d99dc4b6df6f3cbd94654c9dadf61f2fe9a0ecb1dbe473f26cbb06"
+    },
+    {
+      "path": "public/games/overtime-pinball/arcade-polish.css",
+      "sha256": "857d2b5b7d84510da67972b9f77e6b8fefc547a198273e4cc738ab59ff9fed0c"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-machines.js",
+      "sha256": "05512320766a71d1cc7e42ac841bc98c88ea4595e0b660ff0f8a3acf310f29cf"
+    },
+    {
+      "path": "public/games/overtime-pinball/assist-office.js",
+      "sha256": "3eedab2b7b32249e8a703cecd715dacf585350b4cfe8da8a8947450aa14bceab"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/CC0-1.0.txt",
+      "sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.mp3",
+      "sha256": "9bd5a268ca9fc6ed5059d4bc0a043f7e76894f0b7b65938a92bd19680530ae4d"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/break.ogg",
+      "sha256": "51157b7441fca84fea95d4e93d6a9a3b91efa870b602e5c56a76e3ab639686a7"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.mp3",
+      "sha256": "da9b877318634ee57b42f5edf68f3591fa5410a9121942568e604a916e3a1708"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/coin.ogg",
+      "sha256": "df55e931e6b78e5aecc015922e873a0e8bfa4e97cfb19abc64149d54afe89216"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.mp3",
+      "sha256": "9473e4c60a3cc13786c1a7b22d83e986b7f28b57294342179b6ffc028e84e0df"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/jump.ogg",
+      "sha256": "f090c16689e9ec04c4bef80bfcbf68bc4b63ab4ce29f7fbb5cee05a5641d5694"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/kenney-source.txt",
+      "sha256": "a7c9855b888f9eb9400aadb47a1111e8cfd3a118378e1c035b687637a08e1f8f"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.mp3",
+      "sha256": "07c3bbb50b5dc35e19ee47e75d376ca63614464518931f62d7329870e3dac6ac"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/land.ogg",
+      "sha256": "145a1c17125dc4d344ac135bc5073e35ea12e19700ca30ee6e1e477010b4dca0"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/manifest.json",
+      "sha256": "b5963ced58f2967dfe55c06b1a47d0b10590e778cf45517324f69f22a73c9b19"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/rail-entry.mp3",
+      "sha256": "a3d28a6c52b500ffb155ec3c553a957759555202e542eb2859f6a3a305037a58"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/sparklin-source.txt",
+      "sha256": "f2e720c5e6632562bc93a30bf823d81657ca3c9b7668bfc2656db035114b01f8"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.mp3",
+      "sha256": "364e67c15e3db17f457ca29d3b9dbdce41d6102b53d3673172d06247c6862b6c"
+    },
+    {
+      "path": "public/games/overtime-pinball/audio/theme-9.ogg",
+      "sha256": "b1a4002511781fed7a6ed6189b22f7402ab428a647ab614c49bf0bd49362ef36"
+    },
+    {
+      "path": "public/games/overtime-pinball/board-features.js",
+      "sha256": "2a1dac106b297413ae9b8922581d12c08573a8e137f86a1475dcc23687ab1105"
+    },
+    {
+      "path": "public/games/overtime-pinball/boss-visual.js",
+      "sha256": "b57b9444b624dd1bad648e3e7be9cb717eb7507e0db75bd066520805cc84fff5"
+    },
+    {
+      "path": "public/games/overtime-pinball/camera.js",
+      "sha256": "ca1a75689d2b0bf284e02031dea9a0768f17eb44d4bd16c67b7f56498f6756d0"
+    },
+    {
+      "path": "public/games/overtime-pinball/central-launch.js",
+      "sha256": "b86e19f19a7028a2d26d0cfad739d0ffdb537dedf41c8381c2cb40bedc702e57"
+    },
+    {
+      "path": "public/games/overtime-pinball/character.js",
+      "sha256": "c388172cdc0130df6452710a6bea9e03ef72aee99c9aecf721ba25636c50b7aa"
+    },
+    {
+      "path": "public/games/overtime-pinball/clock-cue.js",
+      "sha256": "6f87af95b28fd75406aac2364bbcefb940bffda5c203bfddc09c3eea15fb6527"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-office.js",
+      "sha256": "f36470f370b0face124061f6debaf11cf4d6e98362290cddc4cede9f190c1f85"
+    },
+    {
+      "path": "public/games/overtime-pinball/combo-routes.js",
+      "sha256": "111b588fd1cbd3fc050dbb7259e6dfeb8ad773cafbbcc5a5fc52c778c4bd6713"
+    },
+    {
+      "path": "public/games/overtime-pinball/company-design.js",
+      "sha256": "7e65f3cae51abeb7b551788bac1995e23829621fb2610593f080c415db890f6e"
+    },
+    {
+      "path": "public/games/overtime-pinball/company.css",
+      "sha256": "bc3d4ea3005391ce0aa45b83c2e1b7e2bd01c4fb676b30e7ebd8d372a90ae04c"
+    },
+    {
+      "path": "public/games/overtime-pinball/contact.js",
+      "sha256": "3f4681c522e49341181db821c3acc6322b2a6c01cf8407ee4a8b55aca65df05c"
+    },
+    {
+      "path": "public/games/overtime-pinball/desktop.css",
+      "sha256": "f24c1faaf389fa21400bde37823bb48b61e8e2ce70f2a48d0824a5c3f58b99ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/dispatch-court.js",
+      "sha256": "6ba4f2d68c3ad4b5794fa1ef4ef37c8be0ae0b5a333e913d8ce4851997dad0ed"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-layout.js",
+      "sha256": "f2f1dd1d012e4a74121dc1eb02065e46341c3b13b94d32d7869227041c77f1bf"
+    },
+    {
+      "path": "public/games/overtime-pinball/feedback-profile.js",
+      "sha256": "5d6620cda4fde53fc50acc3b156839f7d895beeacd447a001116211785cc1bf8"
+    },
+    {
+      "path": "public/games/overtime-pinball/game-audio.js",
+      "sha256": "95f282ce90a9ca41bf962829244c5843ec69c1de5fc13513ebebbc383a86cec6"
+    },
+    {
+      "path": "public/games/overtime-pinball/game-menus.js",
+      "sha256": "67a499caf923bcd76d2617623c4821baeed9f9fe9a5f4d5904cd4c1b3c75db56"
+    },
+    {
+      "path": "public/games/overtime-pinball/game.html",
+      "sha256": "477bc61e28b9e971d9950da5ba92046af89d0184dd003cbd95a359dd45018292"
+    },
+    {
+      "path": "public/games/overtime-pinball/gameplay.css",
+      "sha256": "7ffcd66963c888423eca6eb466c605593872f61c008e1e211a9335ee0a54984f"
+    },
+    {
+      "path": "public/games/overtime-pinball/home-navigation.js",
+      "sha256": "f5a9f746111cb0d2e570b28cd229ff64c2d48299f9601daabe5ce8779ca7c724"
+    },
+    {
+      "path": "public/games/overtime-pinball/index.html",
+      "sha256": "6f5342ca3c0168a16565feab13850e9545e773e02931f7be63f4e1e8c7360249"
+    },
+    {
+      "path": "public/games/overtime-pinball/interactions.js",
+      "sha256": "d35d91c60a6ec0b763beeac40dfdd98f0d1c53a74f67609ba3525905b1c22508"
+    },
+    {
+      "path": "public/games/overtime-pinball/intro.js",
+      "sha256": "725182c2f82737f7b11cde720d08f742ba3cb508dd07bc16c61bf6e35bcfc8c3"
+    },
+    {
+      "path": "public/games/overtime-pinball/jet-wake.js",
+      "sha256": "1e7d69c13e94e8304f12ddd9293980baf72861eb02da148231e4f247a980f34e"
+    },
+    {
+      "path": "public/games/overtime-pinball/keyboard-hints.js",
+      "sha256": "fe32fe68d9b85633a300c87ac7a8c421f4dc04752d5bb15d9c8cd13c7a8b044e"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-coworkers.js",
+      "sha256": "31a4b2b7ffb07b7f7093add8f1c14c4d163dea79b706e84f33af86afde909ff2"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-events.js",
+      "sha256": "a51eb64f6f54f8522de91b27c82ad6df7ebbfdfc179fbbbe311790d56a9fbf6b"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-hud.js",
+      "sha256": "024fb1f0d19eb73fa543b12ec00e70f97f2b9da418ab186c8ab0cc8f584f3c65"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-label.js",
+      "sha256": "fddaaafdf6874fa26004ebe284ec40bb7362a796fb6432e1fbeed920271c4b86"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-layout.js",
+      "sha256": "958fe6b0b116d68f727730d1f91f11fca5a47fbdd21455040701a1f33eb6a341"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-placement.js",
+      "sha256": "9e9ef6356e89e90ded0a2cceb5a8fb9933010f14de0f1f530d732ab2f121897b"
+    },
+    {
+      "path": "public/games/overtime-pinball/lottery-visual.js",
+      "sha256": "3730b66bf1d94336f770c1a8630b24cef93659346f64db8a6410ddaa8f0e8dd6"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-office.js",
+      "sha256": "5420e9acd44676934491e633262e83608af66af0bc3e77cc4ce51e70c7926c03"
+    },
+    {
+      "path": "public/games/overtime-pinball/mail-run.js",
+      "sha256": "cf9487336a8940ab04b4cc74ab4fa9e616afa144b715c04620ca0f7826d6f10a"
+    },
+    {
+      "path": "public/games/overtime-pinball/main.js",
+      "sha256": "192bd90f0001a2017a129295a47458b6a25570afc896b238051361ef3b027515"
+    },
+    {
+      "path": "public/games/overtime-pinball/menu.css",
+      "sha256": "f419e3a5bacf5eb0b736891b03e4e5ba49dc1f1f0e137f815a329155fce497d3"
+    },
+    {
+      "path": "public/games/overtime-pinball/mobile-ui.css",
+      "sha256": "6182d45ecec8f77831b78078f74a3cb6ceea0ba102c0e6c927b177d8d4aeedb1"
+    },
+    {
+      "path": "public/games/overtime-pinball/mobile-ui.js",
+      "sha256": "0289b5f0a76d0316eb59961e63e061609737fa7e2956bea35df4dd911b5828a2"
+    },
+    {
+      "path": "public/games/overtime-pinball/occlusion.js",
+      "sha256": "92b34d89b1444ff1fde8094c31a7427bcd3295a1004f3e004d94b2506fa002d8"
+    },
+    {
+      "path": "public/games/overtime-pinball/offer-station-visual.js",
+      "sha256": "66fb400403c65355353a24be8ebc20724d92d708c68eab7dd735643f62bda51a"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-features.js",
+      "sha256": "1faa514a37c8bc6b6eabe0a35bc1a4f546609dc7fdaeb5dc67270d927510b30d"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-palette.js",
+      "sha256": "40f31f80adf4ae27817efc0310f16f382c53b60b614a78ebe39231d568147863"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-partitions.js",
+      "sha256": "0e2d394ef26804be41aa360b77003d129d03b00917d74c07d5f8511e8e00ecc7"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-routes.js",
+      "sha256": "d3da1cd09f7d6f4c51a88057db2235620c34c2932256f2af0095bc63b95f0f3c"
+    },
+    {
+      "path": "public/games/overtime-pinball/office-stories.js",
+      "sha256": "07d9718afde6f752df3c8102cb428b17de85b8bd725da14a897e516fb2332a55"
+    },
+    {
+      "path": "public/games/overtime-pinball/opening.js",
+      "sha256": "3f5159cdd5e07fc8a0b7a7d4d9c6ca52916b5f36e9ef6f8575540b9a3c1a8115"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-events.js",
+      "sha256": "2a6c3ffdba072d21de5df1d84991ecc1a2af72d275d62583882bec5c4fe5b4fe"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-presentation.js",
+      "sha256": "d037cadb6edce92bb19d4bf01a8402fdfd5979aff2533e93db241e876023c387"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-ui.css",
+      "sha256": "6fae162a7d88f3d171dea0ac1e6e29ca255bf1396633bdefe1e07d574feb1961"
+    },
+    {
+      "path": "public/games/overtime-pinball/overtime-ui.js",
+      "sha256": "6f679a9ed6e559988edc14cea926ce1e1a4f9a79ae05f1e461a4df197803f622"
+    },
+    {
+      "path": "public/games/overtime-pinball/physics.js",
+      "sha256": "e1c45fbf19f1ff77194c00495f26ad3cb8172cc309ca9526d72838f75e9d57ad"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-layout.mjs",
+      "sha256": "e57441ce38e85b327deb542056c97050ff30c729d00c698e363f9975b61c16d9"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-share.mjs",
+      "sha256": "30c68c27dbaf58ad3acc80510e58151a87fbe3465e93eca27c888dccd46820f3"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-snapshot.mjs",
+      "sha256": "7743de8eda5b9787ab9a1e8707b82235245e1e3ba0d66d7bcb0f664ddfd612df"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform-ui.mjs",
+      "sha256": "6e56fa72466d16498f7294603020057e62a85835dca5726145fc394b8a07e320"
+    },
+    {
+      "path": "public/games/overtime-pinball/platform.css",
+      "sha256": "ab95ca680f326e45c09ed770f98778a9669d58ede60c839d1c83cb0a2685aa3a"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.css",
+      "sha256": "260b403c031b7bd4e623c2f97396b7987f28b6c50bf8fc7ddb3d7bd353b6a614"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-layout.js",
+      "sha256": "b5e8fe82815240aacc9de8e25fa9cb10d230d54ee805f0875155079d4187000d"
+    },
+    {
+      "path": "public/games/overtime-pinball/play-polish.css",
+      "sha256": "7b2115e8f35caf66718c69fe8f7877f8f78d415f27189bb32856836dce25baa2"
+    },
+    {
+      "path": "public/games/overtime-pinball/prediction.js",
+      "sha256": "4e6d51bb5d865f487b67cb7a4cd6d4f53ac8c0d995fd74bc1be47d94c91cd61f"
+    },
+    {
+      "path": "public/games/overtime-pinball/preview.css",
+      "sha256": "095b5fc19d5182a633811178ea79f9ecb78794c3cd2fe7501030785c38530bbf"
+    },
+    {
+      "path": "public/games/overtime-pinball/raffle-machine.js",
+      "sha256": "d83a3eea765992ff4348e3d5c4d46241526f5471b4ddd7d1660fdfcd8e7d879a"
+    },
+    {
+      "path": "public/games/overtime-pinball/release-recovery.mjs",
+      "sha256": "1847d9c664d3cb65476ab664da5039e17f1eea6ef6952a497c04871def9cf25c"
+    },
+    {
+      "path": "public/games/overtime-pinball/render-proportions.js",
+      "sha256": "8753116c6cee75ad5e13c2cbd5136b3403ee2761beee4948d4298ca2abfff991"
+    },
+    {
+      "path": "public/games/overtime-pinball/restart-confirmation.js",
+      "sha256": "5fea21734438698398cd3bf97cce1afc5d976367cca6e74ff23ede47d07515e4"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-options.js",
+      "sha256": "81cc7825eeee54b98a0fcca848d643318187bc59f6dbeccecc1bbe2dcc414c78"
+    },
+    {
+      "path": "public/games/overtime-pinball/round-rules.js",
+      "sha256": "f81c74d8743f2caecfc96d156ecc54753e84b255bfc8d165a24feb73701d5eec"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-hud.css",
+      "sha256": "c0b3801cfed82d6434613842dc6be6551f29e96f44f5ae41d5df4ad3782c840d"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-hud.js",
+      "sha256": "49a66c2623bf761ed17e705ca14013ec7bc040b8c08d8e2084f856d05fcff7ce"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-layout.js",
+      "sha256": "0c729da96ffd60d5b5e49ceb6ec85e8007e8ac1dd3d9988303c6e6b69ebb77aa"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-rewards.js",
+      "sha256": "3d7c43b9283d6755b61107f51f40b32f82cf310345fea274bd828efc6fe27a4a"
+    },
+    {
+      "path": "public/games/overtime-pinball/route-visual.js",
+      "sha256": "2a859002658eb1192651d82151c94975d49785d2b2a3823a915414514785806c"
+    },
+    {
+      "path": "public/games/overtime-pinball/ruleset.mjs",
+      "sha256": "3bf7e46623f7e57eca980cadafd40f9f904a4562fe8b24e7b2218c20d387aa9a"
+    },
+    {
+      "path": "public/games/overtime-pinball/score-card.mjs",
+      "sha256": "668f00e9f2fdf94071275b9673ea5ebf632e660a7229b8fd68220ee7d00f11e9"
+    },
+    {
+      "path": "public/games/overtime-pinball/shadow-worker-visual.js",
+      "sha256": "51a9bdaa39615b4942fd38a9f73936fd0b5a25ec99ce4e7f623e61e7f9d41b3d"
+    },
+    {
+      "path": "public/games/overtime-pinball/shadow-workers.js",
+      "sha256": "7214b31381c359b980b82562ee9a19da399c137ef55dc0c8daf3b6e95406984b"
+    },
+    {
+      "path": "public/games/overtime-pinball/shell-geometry.js",
+      "sha256": "38e08929f46f80af75ec5422c1a0f5e7d64abb343947f2897fde3de549c32af5"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-feedback.js",
+      "sha256": "1032118f084d8e0903188642652a1dfa4324a36c727af06904bebe1087305685"
+    },
+    {
+      "path": "public/games/overtime-pinball/special-office.js",
+      "sha256": "dba598c3248dd0f09a4ad3054ee79a07538385262b04b947ef63be92e5db7f29"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-anchor.js",
+      "sha256": "e361889d6dd6788a3352c4de4c9c6c1a96cb207b23d25d874a24cd6e8abbab39"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-label-layout.js",
+      "sha256": "d5e98c33e6be08387581dd81e1fdc6e5a188dd3e8cd113ed1b0c3b3fa92cc829"
+    },
+    {
+      "path": "public/games/overtime-pinball/station-labels.js",
+      "sha256": "709dae34f0ade4c3866616788153711643c2e14865adcf08c4f3e547fae77175"
+    },
+    {
+      "path": "public/games/overtime-pinball/style.css",
+      "sha256": "29c32e44534a9cdefda4970696ac1d4d0fb687c231d666dae1fd182a512741c4"
+    },
+    {
+      "path": "public/games/overtime-pinball/text-layout.js",
+      "sha256": "d933e80d9d11fc6f3e11052af2be2899a2c3bcda33da301b47c830f1282cda97"
+    },
+    {
+      "path": "public/games/overtime-pinball/touch-policy.js",
+      "sha256": "8a4234caa052beb3087dd3873201d87d225b47e15ce6d0bf8a48ec47a7f55324"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.core.min.js",
+      "sha256": "295a28f4a9786dd24a2a357a4ce90921eb041127e53a508335b9a0556c1e0875"
+    },
+    {
+      "path": "public/games/overtime-pinball/vendor/three.module.min.js",
+      "sha256": "979c1ae4b0579c9901eacf797602c0b46df129d87102c6443d14be4a1f790b70"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-recovery.js",
+      "sha256": "817e7ac1efeeb5dda65d1593a9828ae42c5064557e585add36afb551e291ff12"
+    },
+    {
+      "path": "public/games/overtime-pinball/viewport-shell.js",
+      "sha256": "156524d790d012597bf6dfb30618567bb340be23474073edc175d76e3ab576af"
+    }
+  ]
+}

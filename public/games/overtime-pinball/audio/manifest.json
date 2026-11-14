@@ -1,0 +1,83 @@
+{
+  "retrieved": "2026-11-11",
+  "assets": [
+    {
+      "file": "break.ogg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/sounds/break.ogg",
+      "licenseEvidence": "kenney-source.txt",
+      "originalSHA256": "51157b7441fca84fea95d4e93d6a9a3b91efa870b602e5c56a76e3ab639686a7",
+      "gitBlobSHA1": "3fc1e31c5b60f165c47725e7ac1657ad638155c3",
+      "runtimeFile": "break.mp3",
+      "runtimeSHA256": "9bd5a268ca9fc6ed5059d4bc0a043f7e76894f0b7b65938a92bd19680530ae4d",
+      "changes": "96kbps MP3; balanced impact level with limiter; runtime gain",
+      "attributionRequired": false
+    },
+    {
+      "file": "coin.ogg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/sounds/coin.ogg",
+      "licenseEvidence": "kenney-source.txt",
+      "originalSHA256": "df55e931e6b78e5aecc015922e873a0e8bfa4e97cfb19abc64149d54afe89216",
+      "gitBlobSHA1": "57cf9513c9b260feec360867166c220c6f701ce7",
+      "runtimeFile": "coin.mp3",
+      "runtimeSHA256": "da9b877318634ee57b42f5edf68f3591fa5410a9121942568e604a916e3a1708",
+      "changes": "96kbps MP3; balanced impact level with limiter; runtime gain",
+      "attributionRequired": false
+    },
+    {
+      "file": "jump.ogg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/sounds/jump.ogg",
+      "licenseEvidence": "kenney-source.txt",
+      "originalSHA256": "f090c16689e9ec04c4bef80bfcbf68bc4b63ab4ce29f7fbb5cee05a5641d5694",
+      "gitBlobSHA1": "e52f6a07e25c127716f67f72d7a9132afad5603c",
+      "runtimeFile": "jump.mp3",
+      "runtimeSHA256": "9473e4c60a3cc13786c1a7b22d83e986b7f28b57294342179b6ffc028e84e0df",
+      "changes": "96kbps MP3; balanced impact level with limiter; runtime gain",
+      "attributionRequired": false
+    },
+    {
+      "file": "land.ogg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/sounds/land.ogg",
+      "licenseEvidence": "kenney-source.txt",
+      "originalSHA256": "145a1c17125dc4d344ac135bc5073e35ea12e19700ca30ee6e1e477010b4dca0",
+      "gitBlobSHA1": "3d97f7b09210641f9f3bdf020ff728e8d868f5ba",
+      "runtimeFile": "land.mp3",
+      "runtimeSHA256": "07c3bbb50b5dc35e19ee47e75d376ca63614464518931f62d7329870e3dac6ac",
+      "changes": "96kbps MP3; balanced impact level with limiter; runtime gain",
+      "attributionRequired": false
+    },
+    {
+      "file": "theme-9.ogg",
+      "author": "Pixel-boy / Sparklin Labs",
+      "license": "CC0-1.0",
+      "source": "https://github.com/sparklinlabs/superpowers-asset-packs/blob/e8674a03ab4456802f71f848c4df79eccca23f7a/ninja-adventure/musics/theme-9.ogg",
+      "licenseEvidence": "sparklin-source.txt",
+      "originalSHA256": "b1a4002511781fed7a6ed6189b22f7402ab428a647ab614c49bf0bd49362ef36",
+      "gitBlobSHA1": "e1ff40d2a7f36583b1850ef6d17a6498faf55d73",
+      "runtimeFile": "theme-9.mp3",
+      "runtimeSHA256": "364e67c15e3db17f457ca29d3b9dbdce41d6102b53d3673172d06247c6862b6c",
+      "changes": "96kbps MP3; 8ms edge fades; runtime gain and looping",
+      "attributionRequired": false
+    },
+    {
+      "file": "jump.ogg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://github.com/KenneyNL/Starter-Kit-3D-Platformer/blob/3fa8a04b1c01ab23db43123d4ce814a34c3fc7f0/sounds/jump.ogg",
+      "licenseEvidence": "kenney-source.txt",
+      "originalSHA256": "f090c16689e9ec04c4bef80bfcbf68bc4b63ab4ce29f7fbb5cee05a5641d5694",
+      "gitBlobSHA1": "e52f6a07e25c127716f67f72d7a9132afad5603c",
+      "runtimeFile": "rail-entry.mp3",
+      "runtimeSHA256": "a3d28a6c52b500ffb155ec3c553a957759555202e542eb2859f6a3a305037a58",
+      "changes": "Derived jump: asetrate=33075,aresample=44100,aecho=0.8:0.8:65:0.32,alimiter=limit=0.8; 96kbps MP3. Route-entry sound.",
+      "attributionRequired": false
+    }
+  ]
+}

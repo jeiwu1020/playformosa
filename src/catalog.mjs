@@ -100,6 +100,7 @@ export const catalog = {
   }
 ],
  minigames: [
+  {id:'overtime-pinball',title:'不准加班公司',event:'辦公室人體彈珠台',href:'/games/overtime-pinball/',status:'available',image:'/assets/overtime-pinball-card-v2.png',imageStyle:'scene',kicker:'1 分鐘、3 分鐘或不限時，守住你的加班費。',input:'鍵盤／觸控'},
   {
     "id": "courtesy-contest",
     "title": "客氣大賽",

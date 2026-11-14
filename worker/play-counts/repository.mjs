@@ -1,12 +1,12 @@
 const digest=async text=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');
 export class PlayCountsRepository{
  constructor(db,scope){this.db=db;this.scope=scope;}
- async totals(){const keys=['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','sprint-100m','run-400m','run-1500m','javelin','reaction-rod','beer-slide','tower-climb','fast-hands','fast-hands-catch','fast-hands-duel','courtesy-contest','taiwanfighter','taiwankart','soul10power','arcadeplatform','home'];const rows=await this.db.prepare(`SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (${keys.map(()=>'?').join(',')})`).bind(this.scope,...keys).all();const out=Object.fromEntries(keys.map(k=>[k,{count:0,since:null}]));for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}
+ async totals(){const keys=['long-jump','hurdles','high-jump','pole-vault','shot-put','discus','sprint-100m','run-400m','run-1500m','javelin','reaction-rod','beer-slide','tower-climb','fast-hands','fast-hands-catch','fast-hands-duel','courtesy-contest',...(this.scope==='production'?['overtime-pinball']:[]),'taiwanfighter','taiwankart','soul10power','arcadeplatform','home'];const rows=await this.db.prepare(`SELECT counter_key,total,since FROM play_count_totals WHERE scope=? AND counter_key IN (${keys.map(()=>'?').join(',')})`).bind(this.scope,...keys).all();const out=Object.fromEntries(keys.map(k=>[k,{count:0,since:null}]));for(const r of rows.results)out[r.counter_key]={count:r.total,since:r.since};return out;}
  async start(data,now){const device=await digest(this.scope+':'+data.deviceId),payload=await digest(JSON.stringify([data.game,data.deviceId,data.runId,data.startedAt])),day=Math.floor(now/86400000),p=(q,...args)=>this.db.prepare(q).bind(...args);
  const home=data.game==='home',windowMs=home?1800000:2000;
  const rows=await this.db.batch([
  p('SELECT payload FROM play_count_receipts WHERE scope=? AND id=?',this.scope,data.runId),
- p('DELETE FROM play_count_receipts WHERE rowid IN (SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<? LIMIT 100)',this.scope,now-7*86400000),
+ p(`DELETE FROM play_count_receipts WHERE rowid IN (SELECT rowid FROM play_count_receipts WHERE scope=? AND created_at<?${data.game==='overtime-pinball'?' AND counter_key=?':''} LIMIT 100)`,this.scope,now-7*86400000,...(data.game==='overtime-pinball'?[data.game]:[])),
  p(`INSERT OR IGNORE INTO play_count_receipts(scope,id,payload,device,counter_key,created_at,day)
  SELECT ?,?,?,?,?,?,? WHERE NOT EXISTS(SELECT 1 FROM play_count_receipts WHERE scope=? AND device=? AND created_at>? AND ${home?"counter_key='home'":"counter_key!='home'"})
  AND (SELECT count(*) FROM play_count_receipts WHERE scope=? AND day=? AND device=?)<100

@@ -1,0 +1,18 @@
+import {StableRig} from './camera.js';
+export function isDesktopIntro(){return innerWidth>=700&&innerWidth>innerHeight&&matchMedia('(hover: hover) and (pointer: fine)').matches;}
+export function setupIntro(){
+ const dialog=document.getElementById('introDialog'),content=document.getElementById('introDialogContent'),title=document.getElementById('introDialogTitle');let opener=null;
+ const open=()=>{opener=document.activeElement;title.textContent='加班生存指南';content.innerHTML='<div class="help-steps"><p><b>01 · 守住門</b>L／R 救球。電腦也能用 A／D 或方向鍵。</p><p><b>02 · 假裝忙</b>碰到設備照常彈跳；短提示出現時，按 L／R 才進入小劇場，再跟著提示操作。</p><p><b>03 · 賺一票</b>集燈、跑軌道、串連擊；中央台亮燈時，按 L／R 選方向。</p></div><p>操作設備時限時倒數照走；靠近與出射過場、暫停時不倒數。設備互動不計基本工時，完成另領獎金。老闆巡視撞到會踢人，仍可救回；限時結束則強制下班。</p>';dialog.showModal();};
+ document.getElementById('introHelp').onclick=open;document.querySelectorAll('[data-menu-help]').forEach(el=>el.onclick=open);document.getElementById('introDialogClose').onclick=()=>dialog.close();dialog.addEventListener('close',()=>opener?.focus());
+ const sync=()=>document.body.classList.toggle('desktop-layout',isDesktopIntro());sync();addEventListener('resize',sync);
+}
+export function introFrame(){if(innerWidth<innerHeight){const top=76,bottom=document.getElementById('intro').getBoundingClientRect().top-8;if(bottom-top>=90)return{x:12,y:innerHeight-bottom,w:innerWidth-24,h:bottom-top};return null;}if(!isDesktopIntro())return null;const r=document.getElementById('desktopSceneFrame').getBoundingClientRect();return {x:r.x,y:innerHeight-r.bottom,w:r.width,h:r.height};}
+let cached;
+export function fittedIntro(w,h,view){
+ const key=`${w}:${h}:${view}`;if(cached?.key===key)return cached.pose;
+ // Same board/route envelope as play, without unused exterior scenery.
+ const rig=new StableRig(view),pose=rig.update(0,w,h,{x:0,z:0,vz:0},null,null,true,{portrait:false,compact:false,safeTop:0,safeBottom:0,cameraTop:0});
+ cached={key,pose};return pose;
+}
+// Normalized frame keeps the opening continuous even if the window changes size.
+export function transitionFrame(frame,t,w,h){t=Math.max(0,Math.min(1,t));const e=t*t*t*(t*(t*6-15)+10);return {x:frame.x*(1-e)*w,y:frame.y*(1-e)*h,w:(frame.w+(1-frame.w)*e)*w,h:(frame.h+(1-frame.h)*e)*h};}

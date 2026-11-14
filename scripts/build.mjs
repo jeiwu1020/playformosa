@@ -1,3 +1,4 @@
+const pinball=JSON.parse(await readFile(new URL('../docs/pinball-production/ADMISSION.json',import.meta.url),'utf8'));
 import {cp,mkdir,rm,writeFile,readFile} from 'node:fs/promises';
 import {assertReleasedGames,assertProductionInventory} from './release-policy.mjs';
 import {catalog} from '../src/catalog.mjs';
@@ -15,7 +16,7 @@ const gestures=JSON.parse(await readFile(new URL('docs/mobile-gestures/SOURCE-MA
 const completedIcons=JSON.parse(await readFile(new URL('docs/app-icons-completion/MANIFEST.json',root),'utf8'));
 const courtesy=JSON.parse(await readFile(new URL('docs/main-courtesy-help/MANIFEST.json',root),'utf8'));
 const expansion=JSON.parse(await readFile(new URL('docs/main-expansion/ADMISSION.json',root),'utf8'));
-const allowedPublicPaths=[...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
+const allowedPublicPaths=[...pinball.addedPublicPaths,...expansion.addedPublicPaths,...completedIcons.addedPublicPaths,...courtesy.addedPublicPaths,...release.allowedPublicPaths,...rod.addedPublicPaths,...studio.addedPublicPaths,...jump.addedPublicPaths,...fastHands.addedPublicPaths,...polish.addedPublicPaths,...gestures.addedPublicPaths,...highJump.addedPublicPaths];
 await assertProductionInventory(new URL('public/',root),allowedPublicPaths);
 const html=renderPage(catalog);
 await writeFile(new URL('public/index.html',root),html);

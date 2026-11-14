@@ -8,7 +8,7 @@ const deviceId='11111111-1111-4111-8111-111111111111';
 test('production explicitly admits high jump alongside unchanged released games',()=>{
  assert.deepEqual(catalog.games.map(x=>x.id),['long-jump', 'hurdles', 'high-jump', 'pole-vault', 'shot-put', 'discus', 'sprint-100m', 'run-400m', 'run-1500m', 'javelin']);
  assert.equal(catalog.games.find(g=>g.id==='high-jump').href,'/games/high-jump/');
- assert.deepEqual([...releasedGameIds].sort(),['beer-slide', 'courtesy-contest', 'discus', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'high-jump', 'hurdles', 'javelin', 'long-jump', 'pole-vault', 'reaction-rod', 'run-1500m', 'run-400m', 'shot-put', 'sprint-100m', 'tower-climb']);
+ assert.deepEqual([...releasedGameIds].sort(),['beer-slide', 'courtesy-contest', 'discus', 'fast-hands', 'fast-hands-catch', 'fast-hands-duel', 'high-jump', 'hurdles', 'javelin', 'long-jump', 'overtime-pinball', 'pole-vault', 'reaction-rod', 'run-1500m', 'run-400m', 'shot-put', 'sprint-100m', 'tower-climb']);
 });
 test('production high-jump board accepts only positive cleared-height scores',()=>{
  assert.deepEqual(BOARDS['high-jump'],{rules:'cleared-height-v1',unit:'m',status:'cleared',direction:'desc',max:Number.MAX_VALUE});

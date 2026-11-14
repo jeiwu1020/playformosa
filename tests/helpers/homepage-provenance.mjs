@@ -1,6 +1,7 @@
 // Exact additive boundary for the approved Homepage import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual,readdirSync as actualDirectory} from 'node:fs';
+import {readBeforePinballProduction as actual,pinballProductionParentBytes,inventoryBeforePinballProduction,readdirBeforePinballProduction as actualDirectory} from './pinball-production-provenance.mjs';
+import {readFileSync as currentRead} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -34,8 +35,10 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 export function homepageParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballProductionParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' homepage live drift');assert.equal(sha256(bytes),f.sha256,path+' homepage live SHA256 drift');return before;
 }
 export function readBeforeHomepage(file,options){
@@ -45,7 +48,9 @@ export function readBeforeHomepage(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?homepageParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-export function inventoryBeforeHomepage(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+export function inventoryBeforeHomepage(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballProduction(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballProductionParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate homepage inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -54,7 +59,9 @@ export function inventoryBeforeHomepage(paths,{read=p=>actual(new URL('../../'+p
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' homepage inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' homepage inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+export function assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballProduction(paths,{read});
+ const liveRead=read;read=p=>pinballProductionParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete homepage inventory');
  assert.deepEqual(inventoryBeforeHomepage(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(homepageParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');
@@ -63,7 +70,7 @@ export function assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p
 
 // Directory-only historical callers must prove every omitted runtime byte.
 // Existing directories stay visible; unknown descendants are never filtered out.
-export function entriesBeforeHomepage(directory,entries,{read=p=>actual(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
+export function entriesBeforeHomepage(directory,entries,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),list=p=>actualDirectory(new URL('../../'+p+'/',import.meta.url),{withFileTypes:true})}={}){
  const absolute=directory instanceof URL?fileURLToPath(directory):resolve(String(directory)),path=relative(root,absolute).split(sep).join('/');
  if(path!=='public'&&!path.startsWith('public/'))return entries;
  const m=validate(manifest()),prefix=path+'/',name=e=>typeof e==='string'?e:Buffer.isBuffer(e)?e.toString():e.name,names=entries.map(name);

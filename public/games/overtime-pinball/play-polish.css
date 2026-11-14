@@ -1,0 +1,26 @@
+#stationLabels{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}#stationLabels[hidden],.station-tag[hidden]{display:none}
+.station-tag{position:absolute;left:0;top:0;white-space:nowrap;font:800 16px/1.25 system-ui,sans-serif;color:#fff7dc;background:#193c42e8;border:1px solid #f1d98a;border-radius:6px;padding:3px 6px;box-shadow:0 2px 3px #102a3055;pointer-events:none}.station-tag.near{background:#f7d574;color:#17363c;border-color:#17363c}
+@media(max-width:700px),(max-height:500px){.station-tag{font-size:14px;padding:3px 5px}}
+body.playing #skipOpening{position:fixed;right:12px;top:56px;z-index:25;min-height:44px;padding:8px 14px;border:2px solid #f3d572;background:#173b40;color:#fff3d0;border-radius:8px;font:800 16px system-ui;touch-action:manipulation}#skipOpening[hidden]{display:none}
+body.playing #launch{top:auto;bottom:20px;left:50%;transform:translateX(-50%);font-size:20px;max-width:90%;padding:8px 14px;color:#173b40;background:#ffdf85;border-radius:8px;pointer-events:none}
+body.playing #joke,body.playing #zone{display:none}body.playing #playZoneLine:has(#combo[style*="opacity: 0"]){display:none}
+body.playing #lampHud{font-size:13px}body.playing #bonusText,body.playing #workflowText{font-size:12px}body.playing #routeReward[hidden]{display:none}
+body.playing #comic[data-tier="3"]{color:#ffe18a;border-left:4px solid #ffdc74;background:#173b40ed;box-shadow:0 0 12px #f7ce7040}body.playing #comic[data-tier="2"]{color:#fff5da;background:#173b40df;border-left:3px solid #9be4cc}
+#results .panel{max-height:calc(100dvh - 24px);overflow:auto;background:#fff6df;color:#173b40;border:3px solid #173b40;border-radius:14px}#results h2,#results p,#results .eyebrow,#results .result-grid span{color:#173b40}#results .final-score{color:#99532e}#payroll{margin:14px 0;padding:10px 0;border-block:2px dashed #9da99b;text-align:left}#payroll>div{display:flex;justify-content:space-between;gap:18px;padding:4px 0;font-size:16px}#payroll b{font-variant-numeric:tabular-nums;color:#173b40}#results .payroll-note{font-size:14px;line-height:1.4}#results .primary,#results .text-button{color:#173b40;background:#f5cd64;border:2px solid #173b40;border-radius:8px;min-height:44px}
+@media(orientation:landscape) and (max-height:500px){#results .panel{width:min(740px,96vw)}#payroll{display:grid;grid-template-columns:1fr 1fr;gap:2px 24px}#results h2{font-size:28px}#results .final-score{font-size:34px}}
+#results .panel{padding:20px 22px}#results h2{font-size:30px;margin:8px 0}#results p{font-size:15px;line-height:1.4;margin:9px 0}#results .final-score{font-size:44px;line-height:1.1;display:block;margin:12px 0}#results .eyebrow{font-size:13px;letter-spacing:1px}#results .payroll-extra{margin:10px 0;text-align:left}#results summary{cursor:pointer;font-size:16px;font-weight:800;padding:9px;border:1px solid #93a59a;border-radius:6px;min-height:40px}#results .audio-link{margin:7px 0}#results .payroll-note{font-size:13px}#results .result-grid{margin:12px 0}#results .primary{font-size:20px;margin:8px 0}
+@media(max-height:600px){#results .panel{padding:14px 18px}#results .final-score{font-size:36px}}
+body.playing #comic{position:fixed;z-index:8;transform:none;max-width:calc(100vw - 24px);font-size:18px;line-height:1.35;padding:6px 10px;pointer-events:none;animation:none!important;opacity:1!important}body.playing #comic[data-tier="3"]{display:block;font-size:20px}body.playing #comic:not(.pop){display:none!important}
+@media(max-height:420px){body.playing #comic,body.playing #comic[data-tier="3"]{font-size:16px}}
+/* Fixed-size station names keep their original backing when the actor passes. */
+.station-tag{transition:background-color .18s,border-color .18s,box-shadow .18s;text-shadow:0 1px 2px #102d31,1px 0 2px #102d31,-1px 0 2px #102d31}
+
+#stationHint{height:22px;line-height:22px;white-space:nowrap;font-size:13px;font-weight:700;color:#fff0bd;text-align:left;grid-column:1/-1;overflow:visible}
+@media(orientation:landscape){#bossStatus{left:auto;right:12px;top:64px;transform:none;max-width:190px;font-size:13px}}
+@media(orientation:portrait){#bossStatus{top:130px}}
+@media(orientation:landscape){#bossStatus{top:106px}}
+
+.station-tag{transform:translate(-50%,-100%);transition:background-color .18s,border-color .18s,box-shadow .18s}.station-tag.is-current{outline:2px solid #ffe17c;box-shadow:0 0 0 2px #173b4077;color:#fff2b2}
+
+@media(orientation:portrait){body.playing #payStatus.frozen.reentry:after{content:'重返不計費'}}
+

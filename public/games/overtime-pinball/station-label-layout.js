@@ -1,0 +1,6 @@
+const overlap=(a,b)=>a.x<b.x+b.w+4&&a.x+a.w+4>b.x&&a.y<b.y+b.h+4&&a.y+a.h+4>b.y;
+// Preserve input order: nearest equipment gets first choice, crowded labels disappear.
+export function placeLabels(items,w,h,blocked=[]){const placed=[];for(const item of items){if(placed.length>=8)break;for(const[dx,dy]of(item.near?[[0,-30],[0,-65],[0,-95],[0,55],[0,85]]:[[0,-22],[0,20],[46,-6],[-46,-6],[0,-50]])){const r={...item,x:item.x-item.w/2+dx,y:item.y-item.h/2+dy};if(r.x<6||r.y<6||r.x+r.w>w-6||r.y+r.h>h-6||[...blocked,...placed].some(b=>overlap(r,b)))continue;placed.push(r);break;}}return placed;}
+
+// One layout per viewport. Equipment identity/order never depends on the moving actor.
+export function placeStableLabels(items,w,h,blocked=[]){const placed=[];for(const item of items){let best=null,bestCost=Infinity;const forbidden=blocked.concat(placed);const add=(x,y)=>{if(x<6||y<6||x+item.w>w-6||y+item.h>h-6)return;const dx=x+item.w/2-item.x,dy=y+item.h/2-(item.y-22),cost=dx*dx+dy*dy;if(cost>=bestCost)return;const r={...item,x,y};if(forbidden.some(b=>overlap(r,b)))return;best=r;bestCost=cost;};add(item.x-item.w/2,item.y-item.h/2-22);for(let y=6;y+item.h<=h-6;y+=8)for(let x=6;x+item.w<=w-6;x+=8)add(x,y);if(best)placed.push(best);}return placed;}
