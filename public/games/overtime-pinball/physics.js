@@ -121,7 +121,7 @@ export class Game{
   return elapsed>=3&&elapsed<=20&&Math.hypot(contact.x-previous.x,contact.z-previous.z)<=1.25&&Math.hypot(b.vx-previous.vx,b.vz-previous.vz)<=5;
  }
  startLotteryPrompt(contact,held={}){
-  if(this.lotteryPrompt||this.lottery.inside||!['ready','active'].includes(this.lottery.phase))return false;
+  if(this.lotteryPrompt||this.lottery.inside||this.lottery.phase!=='ready')return false;
   const b=this.ball,{nx,nz}=contact;let vx=b.vx,vz=b.vz;const vn=vx*nx+vz*nz;
   if(vn<0){vx-=1.8*vn*nx;vz-=1.8*vn*nz;}
   b.x=contact.x+nx*.002;b.z=contact.z+nz*.002;b.vx=b.vz=0;

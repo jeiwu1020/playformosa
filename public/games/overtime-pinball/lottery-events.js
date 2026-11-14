@@ -28,11 +28,12 @@ export function advanceLottery(s,{now}){
 }
 export function hitLottery(s,{now,source='main',random}={}){
  if(!valid(s)||source!=='main'||!Number.isFinite(now)||now<s.lastNow||now<0)return [];
+ const mayDraw=s.phase==='ready';
  const commands=advanceLottery(s,{now});
  const entered=!s.inside;s.inside=true;
- // A fresh box entry always draws. If a prize is still active, the new draw
- // replaces it instead of making the player wait for a recharge.
- if(!entered||!['ready','active'].includes(s.phase))return commands;
+ // A collision that began while a prize was running only bounces. Even if
+ // that same collision advances the prize to ready, require a later re-entry.
+ if(!entered||!mayDraw||s.phase!=='ready')return commands;
  s.phase='drawing';s.prize=pick(s,random);s.lastPrize=s.prize;s.drawUntil=now+LOTTERY_RULES.spin;s.until=0;s.drawId++;s.chainPaid=0;s.contacts=[];
  commands.push({type:'lotteryDraw',prize:s.prize,drawId:s.drawId,duration:LOTTERY_RULES.spin});return commands;
 }
