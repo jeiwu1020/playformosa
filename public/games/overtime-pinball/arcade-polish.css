@@ -122,3 +122,13 @@ body.pf-game #homeConfirm button{min-height:48px;padding:10px;font-size:16px;lin
 body.pf-game #homeCancel{background:#ffd35b;color:#123d4e;border:1px solid #ffe6a0}
 body.pf-game #homeAccept{background:#21667a;color:#fff5db;border:1px solid #71b9bf}
 @media(max-width:600px){body.pf-game .pf-header .pf-home{font-size:12px;padding:0 6px}}
+
+/* Menu scrolling stays browser-native inside the optionally 90-degree iframe.
+   Do not constrain gesture recognition to one screen axis or cancel touchmove.
+   Gameplay canvas/L/R retain their separate touch-action:none rules. */
+body.pf-game #intro.menu-sheet,
+body.pf-game #pauseScreen,
+body.pf-game #pauseScreen .pause-menu,
+body.pf-game dialog[data-game-menu]{touch-action:manipulation;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+/* Centered overflowing grid content can begin above scrollTop=0 on short screens. */
+body.pf-game #intro.menu-sheet{align-content:start}

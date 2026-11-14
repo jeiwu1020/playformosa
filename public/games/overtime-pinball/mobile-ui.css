@@ -100,3 +100,19 @@
  body.pf-game.playing #mobileCue:not([hidden]){left:auto;right:calc(var(--safe-right,0px) + 4px);top:calc(var(--safe-top,0px) + 8px);width:148px;max-width:148px;max-height:180px;font-size:13px;padding:6px;line-height:1.25}
  body.pf-game.playing #controls{left:calc(var(--safe-left,0px) + 4px);right:calc(var(--safe-right,0px) + 4px)}
 }
+
+/* Gameplay HUD: reserve two cells for the full home label, never truncate it.
+   Only gameplay landscape is affected; menu scrolling/rotation stay separate. */
+@media(orientation:landscape){
+ body.pf-game.playing .pf-header{width:280px;max-width:280px;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ body.pf-game.playing .pf-header .pf-home{grid-column:span 2}
+ body.pf-game.playing .pf-header nav button,body.pf-game.playing .pf-header .pf-home{font-size:15px;line-height:1.2;white-space:nowrap;min-width:0;padding:0 8px;overflow:visible}
+}
+@media(orientation:landscape) and (max-height:600px){
+ body.pf-game.playing .pf-header{width:164px;max-width:164px;gap:3px;padding:4px}
+ body.pf-game.playing .pf-header nav button,body.pf-game.playing .pf-header .pf-home{font-size:13px;min-height:44px;padding:0 3px}
+ body.pf-game.playing #playFrame{left:calc(var(--safe-left,0px) + 168px);right:calc(var(--safe-right,0px) + 140px)}
+ body.pf-game.playing #playStatus{width:156px}
+ body.pf-game.playing .scorecard,body.pf-game.playing #lampHud{width:156px}
+ body.pf-game.playing #mobileCue:not([hidden]){width:132px;max-width:132px}
+}

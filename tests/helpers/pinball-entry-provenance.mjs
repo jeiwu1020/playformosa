@@ -1,7 +1,8 @@
+import {readFileSync as currentRead} from 'node:fs';
 import {withProvenanceSession,manifestText} from './provenance-session.mjs';
 // Exact additive boundary for the approved PinballEntry import. Live behavior tests
 // continue reading node:fs and runtime modules, never this historical view.
-import {readFileSync as actual} from 'node:fs';
+import {readBeforePinballHudRotation as actual,pinballHudRotationParentBytes,inventoryBeforePinballHudRotation} from './pinball-hud-rotation-provenance.mjs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {resolve,relative,sep,isAbsolute} from 'node:path';
@@ -36,8 +37,10 @@ export function validate(m){
  if(m===cached)validated.add(m);return m;
 }
 function uncached_pinballEntryParentBytes(path,bytes,m=manifest()){
- validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path);if(!f)return bytes;
- const before=Buffer.from(f.beforeText);if(before.equals(bytes))return before;
+ validate(m);bytes=Buffer.from(bytes);const f=m.files.find(f=>f.path===path),before=f?Buffer.from(f.beforeText):null;
+ if(before?.equals(bytes))return before;
+ bytes=pinballHudRotationParentBytes(path,bytes);if(!f)return bytes;
+ if(before.equals(bytes))return before;
  assert.equal(gitBlob(bytes),f.gitBlob,path+' pinballEntry live drift');assert.equal(sha256(bytes),f.sha256,path+' pinballEntry live SHA256 drift');return before;
 }
 function uncached_readBeforePinballEntry(file,options){
@@ -47,7 +50,9 @@ function uncached_readBeforePinballEntry(file,options){
  const bytes=actual(file,typeof options==='object'&&options?{...options,encoding:null}:undefined);
  const before=baseline.modifiedPaths.includes(path)?pinballEntryParentBytes(path,bytes):bytes;return encoding?before.toString(encoding):before;
 }
-function uncached_inventoryBeforePinballEntry(paths,{read=p=>actual(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+function uncached_inventoryBeforePinballEntry(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url)),runtimeOnly=false}={}){
+ paths=inventoryBeforePinballHudRotation(paths,{read,runtimeOnly});
+ const liveRead=read;read=p=>pinballHudRotationParentBytes(p,liveRead(p));
  assert.equal(new Set(paths).size,paths.length,'duplicate pinballEntry inventory');const m=validate(manifest());
  if(!paths.some(p=>m.addedPaths.includes(p)))return paths;
  const runtime=p=>/^(public|worker|src|config)\//.test(p),onlyRuntime=runtimeOnly||paths.every(runtime);
@@ -56,7 +61,9 @@ function uncached_inventoryBeforePinballEntry(paths,{read=p=>actual(new URL('../
  for(const f of [...m.files,...m.addedFiles].filter(f=>!onlyRuntime||runtime(f.path))){const bytes=read(f.path);assert.equal(gitBlob(bytes),f.gitBlob,f.path+' pinballEntry inventory live drift');assert.equal(sha256(bytes),f.sha256,f.path+' pinballEntry inventory SHA256 drift');}
  return paths.filter(p=>!additions.includes(p));
 }
-function uncached_assertCompleteInventory(paths,{read=p=>actual(new URL('../../'+p,import.meta.url))}={}){
+function uncached_assertCompleteInventory(paths,{read=p=>currentRead(new URL('../../'+p,import.meta.url))}={}){
+ paths=inventoryBeforePinballHudRotation(paths,{read});
+ const liveRead=read;read=p=>pinballHudRotationParentBytes(p,liveRead(p));
  assert.deepEqual([...paths].sort(),[...baseline.files.map(f=>f.path),...baseline.addedPaths].sort(),'complete pinballEntry inventory');
  assert.deepEqual(inventoryBeforePinballEntry(paths,{read}).sort(),baseline.files.map(f=>f.path).sort());
  for(const f of baseline.files)assert.equal(gitBlob(pinballEntryParentBytes(f.path,read(f.path))),f.gitBlob,f.path+' exact immutable parent');

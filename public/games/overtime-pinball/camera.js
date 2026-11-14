@@ -22,14 +22,14 @@ for(const [xs,zs,ys]of[[[-18.8,18.8],[-20,50.3],[0,5]],[[-18.8,18.8],[52.3],[2.2
  for(const x of xs)for(const z of zs)for(const y of ys)mobileBounds.push([x,y,z]);
 for(const path of [MAIL_PATH,SHORT_PATH,...Object.values(MAIL_BRANCHES).map(b=>b.path)])for(const p of path)for(const dx of [-1.8,1.8])for(const y of [0,5])mobileBounds.push([p.x+dx,y+(p.y||0),p.z]);
 function fullTableFit(w,h,pitch,sign,fov,top=0,bottom=0,portrait=false,compact=false){
- const length=Math.hypot(1,pitch),tan=Math.tan(fov*Math.PI/360),highY=tan*(.985-2*top/h),lowY=tan*(-.985+2*bottom/h),kx=tan*w/Math.max(1,h)*(portrait?1.02:.94);
+ const length=Math.hypot(1,pitch),tan=Math.tan(fov*Math.PI/360),highY=tan*(.985-2*top/h),lowY=tan*(-.985+2*bottom/h),kx=tan*w/Math.max(1,h)*(portrait?1.02:compact?.98:.94);
  const points=mobileBounds.map(p=>{const[x,y,z]=world(...p);return{x,a:(pitch*y+sign*z)/length,b:(y-sign*pitch*z)/length};});
  // Camera depth must satisfy horizontal bounds and a nonempty vertical interval.
  const lower=Math.max(...points.map(p=>p.b+highY*p.a)),upper=Math.min(...points.map(p=>p.b+lowY*p.a));
  const depth=Math.max((lower-upper)/(highY-lowY),...points.map(p=>p.a+Math.abs(p.x)/kx),...criticalBounds.map(p=>{const[x,y,z]=world(...p);return (pitch*y+sign*z)/length+Math.abs(x)/(tan*w/h*.98);}));
  // Portrait aligns the highest real geometry directly below the fixed cue.
  // Landscape retains bottom fit. Neither branch changes scale or physics.
- const vertical=portrait?lower-highY*depth:upper-lowY*depth;
+ const vertical=(portrait||compact)?lower-highY*depth:upper-lowY*depth;
  const center=(Math.max(...points.map(p=>p.a))+Math.min(...points.map(p=>p.a)))/2;
  return{x:0,y:(vertical+center*pitch)/length,z:sign*(-pitch*vertical+center)/length,distance:(depth-center)/length,close:0};
 }
@@ -38,10 +38,10 @@ export class StableRig{
  constructor(view='reverse'){this.view=view;this.reset();}
  reset(){this.key=null;this.mode='full';this.motion=null;this.x=0;this.z=9.5;this.y=0;this.distance=null;this.gate=false;this.close=0;}
  update(dt,w,h,ball,interaction=null,station=null,comfort=false,fitFrame=false){
-  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:fitFrame?.compact?clamp(1.15/(w/h),.40,.72):.82,fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=Number.isFinite(fitFrame?.cameraTop)?Math.max(0,fitFrame.cameraTop):portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}:${!!fitFrame?.compact}`;
+  const portrait=fitFrame?.portrait??(w<h),pitch=portrait?1.35:fitFrame?.compact?clamp(1.15/(w/h),.40,.72):.82,fov=portrait?32:38,sign=this.view==='reverse'?1:-1,top=Number.isFinite(fitFrame?.cameraTop)?Math.max(0,fitFrame.cameraTop):portrait&&fitFrame?.safeTop!==undefined?100+(fitFrame?.safeTop||0):0,bottom=4+(fitFrame?.safeBottom||0),key=`${w}:${h}:${portrait}:${pitch}:${comfort}:${top}:${bottom}:${!!fitFrame?.compact}:${!!fitFrame?.desktop}`;
   if(!interaction&&!fitFrame?.mail){if(ball.z+Math.max(0,ball.vz||0)*.4>=20)this.gate=true;else if(ball.z<12)this.gate=false;}
   if(this.key!==key){
-   this.key=key;this.full=fullTableFit(w,h,pitch,sign,fov,top,bottom,portrait,!!fitFrame?.compact);
+   this.key=key;this.full=fullTableFit(w,h,pitch,sign,fov,top,bottom,portrait,!!fitFrame?.compact&&!fitFrame?.desktop);
    Object.assign(this,this.full);this.mode='full';this.motion=null;
   }
   // The resolved-result launch animation gives half a second to reopen the table
