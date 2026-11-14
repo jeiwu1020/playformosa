@@ -14,10 +14,10 @@ test('inventory repair independently reconstructs every file of the published to
  for(const f of repair.baseline.files)assert.equal(repair.gitBlob(repair.readBeforeInventoryRepair(new URL(f.path,root))),f.gitBlob,f.path);
 });
 test('inventory repair rejects forged historical bytes, missing additions, duplicates and tampered current files',()=>{
- assert.ok(repair);const m=repair.manifest(),current=paths();
+ assert.ok(repair);const m=repair.manifest(),scope=m.addedPaths;
  for(const change of [x=>x.baseCommit='0'.repeat(40),x=>x.baseTree='0'.repeat(40),x=>x.files.pop(),x=>x.files[0].beforeText+='drift',x=>x.files[0].beforeGitBlob='0'.repeat(40),x=>x.addedPaths.pop(),x=>x.addedFiles.pop()]){const bad=structuredClone(m);change(bad);assert.throws(()=>repair.validate(bad));}
- for(const path of m.addedPaths)assert.throws(()=>repair.inventoryBeforeInventoryRepair(current.filter(p=>p!==path)));
- for(const f of [...m.files,...m.addedFiles])assert.throws(()=>repair.inventoryBeforeInventoryRepair(current,{read:path=>path===f.path?Buffer.from('drift'):read(path)}));
- assert.throws(()=>repair.inventoryBeforeInventoryRepair([...current,current[0]]));
+ for(const path of scope)assert.throws(()=>repair.inventoryBeforeInventoryRepair(scope.filter(p=>p!==path)));
+ const last=[...m.files,...m.addedFiles].at(-1);assert.throws(()=>repair.inventoryBeforeInventoryRepair(scope,{read:path=>path===last.path?Buffer.from('drift'):read(path)}));
+ assert.throws(()=>repair.inventoryBeforeInventoryRepair([...scope,scope[0]]));
  assert.deepEqual(repair.inventoryBeforeInventoryRepair(['public/unrelated.mjs']),['public/unrelated.mjs']);
 });

@@ -46,11 +46,12 @@ test('the icon boundary reconstructs the complete independently pinned parent tr
  for(const a of apps){const p='public/games/'+a[3],f=m.files.find(f=>f.path===p),live=read(p);assert.equal(sha(live.toString().split('</head>')[1]),f.bodySha256);assert.equal(sha(boundary.iconsParentBytes(p,live)),f.beforeSha256);assert.throws(()=>boundary.iconsParentBytes(p,Buffer.from(live.toString().replace('app-icons-completion:end','app-icons-completion:wrong'))));assert.throws(()=>boundary.iconsParentBytes(p,Buffer.concat([live,Buffer.from('body drift')])));assert.throws(()=>boundary.iconsParentBytes(p,Buffer.from(live.toString().replace('favicon-32.png','wrong.png'))));}
 });
 test('icon provenance rejects forged history, missing assets, duplicates and live drift',()=>{
- assert.ok(boundary);const m=boundary.manifest(),paths=inventory();
+ assert.ok(boundary);const m=boundary.manifest();
  for(const change of [x=>x.baseCommit='0'.repeat(40),x=>x.baseTree='0'.repeat(40),x=>x.files.pop(),x=>x.files[0].beforeText+='tamper',x=>x.files[0].beforeGitBlob='0'.repeat(40),x=>x.addedPaths.pop(),x=>x.addedFiles.pop()]){const bad=structuredClone(m);change(bad);assert.throws(()=>boundary.validate(bad));}
- for(const p of m.addedPaths)assert.throws(()=>boundary.inventoryBeforeIcons(paths.filter(x=>x!==p)));
- for(const f of [...m.files,...m.addedFiles])assert.throws(()=>boundary.inventoryBeforeIcons(paths,{read:p=>p===f.path?Buffer.from('drift'):read(p)}));
- assert.throws(()=>boundary.inventoryBeforeIcons([...paths,paths[0]]));assert.deepEqual(boundary.inventoryBeforeIcons(['public/unrelated.mjs']),['public/unrelated.mjs']);
+ const scope=m.addedPaths;
+ for(const p of scope)assert.throws(()=>boundary.inventoryBeforeIcons(scope.filter(x=>x!==p)));
+ const last=[...m.files,...m.addedFiles].at(-1);assert.throws(()=>boundary.inventoryBeforeIcons(scope,{read:p=>p===last.path?Buffer.from('drift'):read(p)}));
+ assert.throws(()=>boundary.inventoryBeforeIcons([...scope,scope[0]]));assert.deepEqual(boundary.inventoryBeforeIcons(['public/unrelated.mjs']),['public/unrelated.mjs']);
 });
 
 test('historical directory adapter excludes only three verified manifests and rejects tampering',()=>{

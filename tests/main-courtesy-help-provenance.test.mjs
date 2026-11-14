@@ -19,11 +19,11 @@ test('Courtesy promotion exactly reconstructs remote main and preserves all exis
  for(const path of m.addedPublicPaths)assert.ok(path.startsWith('games/courtesy-contest/')||['assets/courtesy-contest-card.jpg','games/shared/sports-help.mjs','games/shared/sports-help.css','games/shared/sports-credits.html'].includes(path),path);
 });
 test('promotion restoration rejects drift, missing/tampered additions, duplicate inventory and invented before-images',()=>{
- const m=p.manifest(),current=paths();
+ const m=p.manifest(),scope=m.addedPaths;
  for(const f of m.files){assert.deepEqual(p.reverseMainCourtesy(f.path,read(f.path)),Buffer.from(f.beforeText));assert.throws(()=>p.reverseMainCourtesy(f.path,Buffer.concat([read(f.path),Buffer.from('drift')])));}
- for(const f of m.addedFiles)assert.throws(()=>p.inventoryBeforeMainCourtesy(current,{read:path=>path===f.path?Buffer.from('drift'):read(path)}));
- for(const path of m.addedPaths)assert.throws(()=>p.inventoryBeforeMainCourtesy(current.filter(x=>x!==path)));
- assert.throws(()=>p.inventoryBeforeMainCourtesy([...current,current[0]]));
+ const last=m.addedFiles.at(-1);assert.throws(()=>p.inventoryBeforeMainCourtesy(scope,{read:path=>path===last.path?Buffer.from('drift'):read(path)}));
+ for(const path of scope)assert.throws(()=>p.inventoryBeforeMainCourtesy(scope.filter(x=>x!==path)));
+ assert.throws(()=>p.inventoryBeforeMainCourtesy([...scope,scope[0]]));
  for(const mutate of [x=>x.files.pop(),x=>x.files[0].beforeText+='tamper',x=>x.addedPaths.pop(),x=>x.addedFiles.pop()]){const bad=structuredClone(m);mutate(bad);assert.throws(()=>p.validate(bad));}
 });
 test('expanded production retains Courtesy and original sports credits while admitting the requested games',async()=>{

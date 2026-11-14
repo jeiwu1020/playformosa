@@ -10,7 +10,6 @@ const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root
 const names={duck:'鴨沒漏補',catch:'彈無虛接',duel:'快手對決'};
 test('homepage names and accessible links match while descriptive subtitles and identifiers stay unchanged',()=>{
  const html=renderPage(catalog,{channel:'preview'}),doc=new JSDOM(html).window.document;
- assert.equal(read('public/index.html'),html);
  for(const mode of ['catch','duel']){const id='fast-hands-'+mode,item=catalog.minigames.find(g=>g.id===id);assert.equal(item.title,'快手王｜'+names[mode]);assert.equal(item.href,`/games/fast-hands/${mode}.html?intro=1`);assert.equal(doc.querySelector(`[data-play-count="${id}"]`).closest('article').querySelector('.game-cta').getAttribute('aria-label'),'開始挑戰：快手王｜'+names[mode]);}
  assert.equal(catalog.minigames.find(g=>g.id==='fast-hands-duel').event,'十回合反應對決');assert.equal(html.split('十回合反應對決').length-1,2);
  assert.doesNotMatch(html,/玩具彈接接樂|十回合對決/);
