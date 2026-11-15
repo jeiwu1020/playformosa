@@ -266,12 +266,22 @@ function bindControls(){
 }
 const lotteryStatus=createLotteryStatus();
 let lotteryResultForceStyle=false;
+function lotteryHudCopy(cue){
+ if(!cue)return cue;
+ if(cue.phase==='drawing')return {...cue,headline:'抽獎中',detail:'人人有獎 · 獎項即將揭曉'};
+ if(cue.phase==='active')return {...cue,kicker:'✦ 摸彩中獎'};
+ if(cue.phase==='prompt'){
+  if(cue.headline==='摸彩箱已感應')return {...cue,headline:'摸彩時間',detail:'準備抽獎…'};
+  if(cue.headline==='選擇你的好運')return {...cue,headline:'輪到你抽獎了',detail:cue.detail.replace('按 L／R 抽獎','按 L／R 開始抽獎')};
+ }
+ return cue;
+}
 function updateUI(){homeNavigation?.sync();platform?.sync();interactionOfferUI?.sync();offerStationVisual?.update($('interactionOffer').hidden?null:game.getInteractionOffer()?.stationId);
  const mobileLottery=innerWidth<1000||matchMedia('(pointer: coarse)').matches,prompt=game.lotteryPrompt,
   resultCue=game.lottery.phase==='active'&&!game.round.reentry&&!game.round.ending?lotteryStatus.presentation(game.lottery,game.playClock,{enabled:mode==='playing'}):null,
   lotteryCue=resultCue||(prompt?lotteryPromptPresentation(prompt):lotteryStatus.presentation(game.lottery,game.playClock,{enabled:mode==='playing',suppressed:!!game.interaction||!!game.getInteractionOffer()||!!prompt||!!game.round.reentry||!!game.round.ending}));
- lotteryStatusNode.hidden=!lotteryCue;
- if(lotteryCue){lotteryStatusKicker.textContent=lotteryCue.kicker;lotteryStatusHeadline.textContent=lotteryCue.headline;lotteryStatusDetail.textContent=lotteryCue.detail;lotteryStatusNode.dataset.phase=lotteryCue.phase;}
+ const lotteryDisplay=lotteryHudCopy(lotteryCue);lotteryStatusNode.hidden=!lotteryDisplay;
+ if(lotteryDisplay){lotteryStatusKicker.textContent=lotteryDisplay.kicker;lotteryStatusHeadline.textContent=lotteryDisplay.headline;lotteryStatusDetail.textContent=lotteryDisplay.detail;lotteryStatusNode.dataset.phase=lotteryDisplay.phase;}
  const keepResultVisible=lotteryCue?.phase==='active';
  if(keepResultVisible!==lotteryResultForceStyle){lotteryResultForceStyle=keepResultVisible;if(keepResultVisible){lotteryStatusNode.style.setProperty('display','block','important');lotteryStatusNode.style.setProperty('visibility','visible','important');}else{lotteryStatusNode.style.removeProperty('display');lotteryStatusNode.style.removeProperty('visibility');}}
  document.body.classList.toggle('lottery-status-active',!!lotteryCue);document.body.classList.toggle('lottery-mobile',mobileLottery);document.body.classList.toggle('lottery-prompt-active',!!prompt);document.body.classList.toggle('lottery-priority-active',mode!=='playing'||!!game.interaction||!!game.getInteractionOffer()||!!game.round.reentry||!!game.round.ending||!!prompt);
