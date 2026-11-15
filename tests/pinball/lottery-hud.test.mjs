@@ -18,21 +18,21 @@ test('lottery status stays concise for ready, drawing, and prize states',()=>{
  assert.equal(status.presentation(active,17)?.phase,'active');
  assert.equal(status.presentation(active,18.99)?.phase,'active');
  assert.equal(status.presentation(active,19),null);
- assert.equal(lotteryStatusText({phase:'drawing'},0),'尾牙摸彩 · 好運開出中 · 人人有獎 · 獎項揭曉中');
- for(const prize of ['gate','upgrade','busy'])assert.match(lotteryStatusText({phase:'active',prize,until:9},1),/本次中獎.*8 秒/);
+ assert.equal(lotteryStatusText({phase:'drawing'},0),'尾牙摸彩 · 抽獎中 · 人人有獎 · 獎項即將揭曉');
+ for(const prize of ['gate','upgrade','busy'])assert.match(lotteryStatusText({phase:'active',prize,until:9},1),/摸彩中獎.*8 秒/);
  assert.equal(lotteryStatusText({phase:'ended'},0),'');
 });
 
 test('lottery box prompt avoids camera copy and keeps a short L/R countdown',()=>{
- assert.equal(lotteryPromptText({ready:false}),'準備開獎…');
- assert.equal(lotteryPromptText({ready:true,remaining:2.1}),'按 L／R 抽獎 · 3 秒後自動抽獎');
+ assert.equal(lotteryPromptText({ready:false}),'準備抽獎…');
+ assert.equal(lotteryPromptText({ready:true,remaining:2.1}),'按 L／R 開始抽獎 · 3 秒後自動抽獎');
  assert.equal(lotteryPromptText(null),'');
- assert.deepEqual(lotteryPromptPresentation({ready:true,remaining:2.1}),{phase:'prompt',kicker:'尾牙摸彩',headline:'選擇你的好運',detail:'按 L／R 抽獎 · 3 秒後自動抽獎'});
+ assert.deepEqual(lotteryPromptPresentation({ready:true,remaining:2.1}),{phase:'prompt',kicker:'尾牙摸彩',headline:'輪到你抽獎了',detail:'按 L／R 開始抽獎 · 3 秒後自動抽獎'});
 });
 
 test('lottery result presentation gives the winning prize a clear, designed hierarchy',()=>{
  const result=lotteryStatusPresentation({phase:'active',prize:'busy',until:9},1);
- assert.equal(result.phase,'active');assert.equal(result.kicker,'✦ 本次中獎');assert.equal(result.headline,'全公司都在裝忙');assert.match(result.detail,/撞一台，全公司一起演！ · 8 秒/);
+ assert.equal(result.phase,'active');assert.equal(result.kicker,'✦ 摸彩中獎');assert.equal(result.headline,'全公司都在裝忙');assert.match(result.detail,/撞一台，全公司一起演！ · 8 秒/);
 });
 
 test('lottery messages share a readable, anchored arcade result card on every device',()=>{
