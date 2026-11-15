@@ -216,7 +216,9 @@ function syncRecordNotice(){for(const id of ['introStorageNotice','resultStorage
 let resultActionGroup=null;
 function mountResultActionGroup(){
  if(resultActionGroup)return;
- const record=$('record');
+ const panel=$('results').querySelector('.panel'),record=$('record'),details=panel.querySelector('.payroll-extra'),audio=panel.querySelector('[data-audio-credits]'),rankingNote=[...panel.querySelectorAll('.payroll-note')].find(note=>note.textContent.includes('排行榜只比較目前玩法'));
+ audio?.remove();
+ if(rankingNote)details.append(rankingNote);
  $('finalScore').after(record);
  resultActionGroup=document.createElement('div');resultActionGroup.className='result-actions';
  resultActionGroup.append($('restart'),$('pinballShares'),$('pinballShareStatus'),$('resultRanking'),$('home'),$('pinballUpload'));
