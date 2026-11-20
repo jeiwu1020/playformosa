@@ -11,11 +11,13 @@ export const BOARD_METRICS=Object.freeze({
  'beer-slide':{rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc'},
  'run-400m':{rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc'},
  'run-1500m':{rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc'},
- 'tower-climb':{rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc'}
+ 'tower-climb':{rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc'},
+ 'sprint-100m':{rules:'100m-start-behind-v1',unit:'s',status:'done',direction:'asc'},
+ javelin:{rules:'javelin-valid-distance-v1',unit:'m',status:'valid',direction:'desc'}
 });
 export function resultToSubmission(game,r){
  const b=Object.hasOwn(BOARD_METRICS,game)?BOARD_METRICS[game]:null;
- if(!b||!r||r.phase!=='done')return null;
+ if(!b||!r||r.phase!==(game==='javelin'?'result':'done'))return null;
  let score;
  if(game==='courtesy-contest'){
   if(r.seated!==true||!Number.isSafeInteger(r.count)||r.count<0||r.count>=Number.MAX_SAFE_INTEGER||typeof r.remaining!=='number'||!Number.isFinite(r.remaining)||r.remaining<.01||r.remaining>30||Math.abs(r.remaining*100-Math.round(r.remaining*100))>1e-9)return null;
@@ -32,8 +34,11 @@ export function resultToSubmission(game,r){
  case 'beer-slide':if(r.fallen||r.invalid||r.invalidReason||r.cancelled)return null;score=r.raw;if(score>10)return null;break;
  case 'run-400m':case 'run-1500m':if(r.finished!==true||r.ruleset!==b.rules||r.scoreSnapshot?.ruleset!==b.rules)return null;score=r.scoreSnapshot.seconds;break;
  case 'tower-climb':if(r.finished!==true||r.floor!==10)return null;score=r.time;if(score>60)return null;break;
+ case 'sprint-100m':score=r.seconds;break;
+ case 'javelin':if(r.foul!==false)return null;score=r.distance;break;
  }
  if(game==='run-400m'&&(score<30||score>=3600))return null;
+ if(game==='sprint-100m'&&score>=3600)return null;
  if(typeof score!=='number'||!Number.isFinite(score)||score<=0)return null;
  return {score,status:b.status,...(b.secondary?{secondaryScore:r.rating}:{})};
 }

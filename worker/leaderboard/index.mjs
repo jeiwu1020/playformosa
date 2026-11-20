@@ -20,7 +20,9 @@ export const EXPANDED_SPORTS_BOARDS=Object.freeze({
  'beer-slide':Object.freeze({rules:'accuracy-retention-v1',unit:'points',status:'valid',direction:'desc',max:10}),
  'tower-climb':Object.freeze({rules:'indoor-10floors-v1',unit:'s',status:'summit',direction:'asc',max:60}),
  'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
- 'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE})
+ 'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE}),
+ 'sprint-100m':Object.freeze({rules:'100m-start-behind-v1',unit:'s',status:'done',direction:'asc',max:3600,exclusiveMax:true}),
+ javelin:Object.freeze({rules:'javelin-valid-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE})
 });
 // Production pinball reuses the existing schema with a reversible +1 zero-score encoding.
 export const PINBALL_BOARDS=Object.freeze(Object.fromEntries([

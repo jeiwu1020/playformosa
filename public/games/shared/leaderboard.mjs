@@ -1,5 +1,5 @@
 import {mountLeaderboard as mountExpandedSports,eligibleResult as expandedResult} from './expanded-sports-leaderboard.mjs';
-const expandedSports=new Set(['pole-vault','shot-put','discus','beer-slide','tower-climb','run-400m','run-1500m']);
+const expandedSports=new Set(['pole-vault','shot-put','discus','beer-slide','tower-climb','run-400m','run-1500m','sprint-100m','javelin']);
 export function mountLeaderboard(options){return expandedSports.has(options.game)?mountExpandedSports(options):mountLegacyLeaderboard(options);}
 import {createUploadCooldown} from './upload-cooldown.mjs';
 import {LEADERBOARD_ENABLED} from './leaderboard-config.mjs';
