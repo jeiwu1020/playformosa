@@ -109,7 +109,7 @@ export const catalog = {
     "image": "/assets/park-swing-card.jpg",
     "imageStyle": "scene",
     "kicker": "越盪越高，放手變飛彈。",
-    "input": "鍵盤 ASJK／觸控"
+    "input": "鍵盤／觸控"
   },
   {
     "id": "horizontal-bar",
@@ -120,7 +120,7 @@ export const catalog = {
     "image": "/assets/park-bar-card.jpg",
     "imageStyle": "scene",
     "kicker": "抓緊單槓踢腿甩圈，手滑直接飛走。",
-    "input": "鍵盤 ASJK／觸控"
+    "input": "鍵盤／觸控"
   },
   {
     "id": "turbo-slide",
@@ -131,7 +131,7 @@ export const catalog = {
     "image": "/assets/park-slide-card.jpg",
     "imageStyle": "scene",
     "kicker": "交替划水補速、雙按 J+K 煞車控場！",
-    "input": "鍵盤 ASJK／觸控"
+    "input": "鍵盤／觸控"
   }
 ],
  minigames: [
