@@ -25301,14 +25301,12 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 				});
 			}
 			T.position.x = s.px, T.scale.setScalar(Math.max(.5, 1.15 - s.py * .08));
-			let c = -1.2, g = D > 5.5 ? Math.min(1.2, (D - 5.5) * .4) : 0, _, v, y = 1;
+			let c = -1.2 + O, g = D > 5.5 ? Math.min(1, (D - 5.5) * .35) : 0, _, v, y = 1;
 			if (s.phase === "LANDED") _ = s.px, v = .82, y = 1.8;
 			else if (s.phase === "FLYING") {
-				let e = (Math.max(c + O * 2, s.py + 2.2) - c) / 2;
-				y = Math.min(1, O / e);
-				let t = D / Math.max(.25, d.zoom), n = Math.min(2.2, t * .26);
-				_ = Math.max(g, s.px + n), v = c + O / y;
-			} else _ = g + s.px * .22, v = c + O;
+				let e = Math.min(2.2, D * .26);
+				_ = Math.max(g, s.px + e), v = Math.max(c, s.py);
+			} else _ = g + s.px * .18, v = c;
 			let b = s.phase === "LANDED" ? .56 : .8, S = v + b;
 			if (s.phase === "SWINGING" && s.swingTime < .05 && Math.abs(d.position.x - _) > 8 ? (d.position.x = _, d.position.y = S, d.zoom = y, d.updateProjectionMatrix()) : (Math.abs(d.zoom - y) > .005 && (d.zoom += (y - d.zoom) * Math.min(1, t * 6), d.updateProjectionMatrix()), d.position.x += (_ - d.position.x) * Math.min(1, t * 6), d.position.y += (S - d.position.y) * Math.min(1, t * 6)), d.lookAt(d.position.x, d.position.y - b, 0), l.position.set(d.position.x - 5, d.position.y + 12, 8), l.target.position.set(d.position.x, Math.max(0, d.position.y - 3), 0), l.target.updateMatrixWorld(), p.update(e * .001, s.distanceM, a, l, t, d.position.x, d.position.y), i.render(a, d), F += t, F > .08) {
 				F = 0;
