@@ -99,6 +99,41 @@ export const catalog = {
     "kicker": "助跑送力，出手還要煞得住。"
   }
 ],
+ parkGames: [
+  {
+    "id": "swing",
+    "title": "四肢各有想法｜飛天盪鞦韆",
+    "event": "公園彈射遠距賽",
+    "href": "/games/swing/",
+    "status": "available",
+    "image": "/assets/park-swing-card.jpg",
+    "imageStyle": "scene",
+    "kicker": "越盪越高，放手變飛彈。",
+    "input": "鍵盤／觸控"
+  },
+  {
+    "id": "horizontal-bar",
+    "title": "四肢各有想法｜單槓甩到爆",
+    "event": "公園單槓大迴環",
+    "href": "/games/horizontal-bar/",
+    "status": "available",
+    "image": "/assets/park-bar-card.jpg",
+    "imageStyle": "scene",
+    "kicker": "抓緊單槓踢腿甩圈，手滑直接飛走。",
+    "input": "鍵盤／觸控"
+  },
+  {
+    "id": "turbo-slide",
+    "title": "四肢各有想法｜極速滑梯王",
+    "event": "無限滑道耐力距離賽",
+    "href": "/games/turbo-slide/",
+    "status": "available",
+    "image": "/assets/park-slide-card.jpg",
+    "imageStyle": "scene",
+    "kicker": "交替划水補速、雙按 J+K 煞車控場！",
+    "input": "鍵盤／觸控"
+  }
+],
  minigames: [
   {id:'overtime-pinball',title:'不准加班公司',event:'辦公室人體彈珠台',href:'/games/overtime-pinball/',status:'available',image:'/assets/overtime-pinball-card-v2.png',imageStyle:'scene',kicker:'1 分鐘、3 分鐘或不限時，守住你的加班費。',input:'鍵盤／觸控'},
   {

@@ -22,8 +22,10 @@ export const EXPANDED_SPORTS_BOARDS=Object.freeze({
  'run-400m':Object.freeze({rules:'400m-prototype-v3',unit:'s',status:'done',direction:'asc',min:30,max:3600,exclusiveMax:true}),
  'run-1500m':Object.freeze({rules:'1500m-rival-tiers-v5',unit:'s',status:'done',direction:'asc',max:Number.MAX_VALUE}),
  'sprint-100m':Object.freeze({rules:'100m-start-behind-v1',unit:'s',status:'done',direction:'asc',max:3600,exclusiveMax:true}),
- javelin:Object.freeze({rules:'javelin-valid-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE})
-});
+ javelin:Object.freeze({rules:'javelin-valid-distance-v1',unit:'m',status:'valid',direction:'desc',max:Number.MAX_VALUE}),
+ swing:Object.freeze({rules:'swing-flight-m-v1',unit:'m',status:'done',direction:'desc',max:Number.MAX_VALUE}),
+ 'horizontal-bar':Object.freeze({rules:'horizontal-bar-loops-v1',unit:'loops',status:'done',direction:'desc',integer:true,max:Number.MAX_VALUE}),
+ 'turbo-slide':Object.freeze({rules:'turbo-slide-m-v1',unit:'m',status:'done',direction:'desc',max:Number.MAX_VALUE})});
 // Production pinball reuses the existing schema with a reversible +1 zero-score encoding.
 export const PINBALL_BOARDS=Object.freeze(Object.fromEntries([
  ['overtime-pinball-60s','office-overtime-flow-60-v7'],

@@ -32,3 +32,8 @@
 
 /* Portal entry counters share the native entry semantics. */
 .portal-card .play-count{font-size:14px;line-height:1.5;color:#36574f;font-weight:650;margin:0 0 16px}.platform-feature .play-count{font-size:14px;line-height:1.5;color:#b8e7d8;font-weight:650;margin:0 0 16px}
+
+/* Park playground games shelf (Step 1) */
+.park-games{margin:24px 0}
+.park-games .series-heading{background:#66c5c5}
+.park-games .game-thumbnail img.game-scene{object-position:50% 50%}

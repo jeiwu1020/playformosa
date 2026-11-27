@@ -1,0 +1,24 @@
+{
+  "name": "park-games-step1",
+  "description": "Step 1 admission manifest for swing, horizontal-bar, and turbo-slide",
+  "addedPublicPaths": [
+    "games/swing/index.html",
+    "games/horizontal-bar/index.html",
+    "games/turbo-slide/index.html",
+    "games/shared/park-app/park-app.css",
+    "games/shared/park-app/park-app.js",
+    "assets/park-swing-card.jpg",
+    "assets/park-bar-card.jpg",
+    "assets/park-slide-card.jpg",
+    "audio/pf-bgm-arcade.mp3",
+    "audio/pf-bgm-sports.mp3",
+    "audio/pf-boost.mp3",
+    "audio/pf-coin.mp3",
+    "audio/pf-crash.mp3",
+    "audio/pf-flight.mp3",
+    "audio/pf-jump.mp3",
+    "audio/pf-land.mp3",
+    "audio/pf-result.mp3",
+    "audio/pf-step.mp3"
+  ]
+}
