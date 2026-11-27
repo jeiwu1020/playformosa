@@ -10770,7 +10770,7 @@ function ge({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 								})
 							}),
 							v && /* @__PURE__ */ (0, B.jsx)("div", {
-								className: "pf-dialog-backdrop",
+								className: "pf-dialog-backdrop pf-honor-backdrop",
 								children: /* @__PURE__ */ (0, B.jsxs)("div", {
 									className: "pf-card pf-honor-board",
 									role: "dialog",
@@ -25046,6 +25046,12 @@ function Ld({ gameId: e, titleId: t, goal: n, operations: r, detailsSummary: i, 
 							] }, e.id))
 						})
 					]
+				}),
+				s && /* @__PURE__ */ (0, B.jsx)("button", {
+					type: "button",
+					onClick: () => s.onOpenHonor(),
+					className: "pf-menu-row",
+					children: "榮譽榜"
 				})
 			]
 		})
