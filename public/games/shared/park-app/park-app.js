@@ -9815,7 +9815,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		open: !1,
 		imageUrl: null,
 		shareText: ""
-	}), pe = x(), me = se?.asset ?? null, he = F.trim() || t.nickname.trim() || "公園挑戰者", [ge, _e] = (0, l.useState)(() => ({
+	}), pe = x(), me = se?.asset ?? null, he = F.trim() || t.nickname.trim() || "公園挑戰者", ge = (0, l.useRef)(null), _e = (0, l.useRef)(null), [ve, ye] = (0, l.useState)(() => ({
 		muted: A.muted,
 		musicEnabled: A.musicEnabled,
 		sfxEnabled: A.sfxEnabled,
@@ -9823,7 +9823,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		sfxPct: Math.round(A.sfxVolume * 100)
 	}));
 	(0, l.useEffect)(() => {
-		let e = () => _e({
+		let e = () => ye({
 			muted: A.muted,
 			musicEnabled: A.musicEnabled,
 			sfxEnabled: A.sfxEnabled,
@@ -9832,47 +9832,49 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		});
 		return e(), A.subscribe(e);
 	}, []);
-	let ve = s || ge.muted, [ye, be] = (0, l.useState)(!1), xe = (0, l.useRef)(!1), Se = (0, l.useCallback)((e) => {
-		xe.current = e, be(e);
-	}, []), Ce = (0, l.useMemo)(() => ({
+	let be = s || ve.muted, [xe, Se] = (0, l.useState)(!1), Ce = (0, l.useRef)(!1), we = (0, l.useCallback)((e) => {
+		Ce.current = e, Se(e);
+	}, []), Te = (0, l.useMemo)(() => ({
 		game: e,
 		onExit: u,
 		onOpenHonor: () => w(!0),
-		setEntryOpen: Se
+		setEntryOpen: we
 	}), [
 		e,
 		u,
 		w,
-		Se
-	]), we = (0, l.useRef)(e);
-	we.current = e;
-	let Te = (0, l.useRef)(O);
-	Te.current = O;
-	let V = (0, l.useRef)(f);
-	V.current = f;
-	let Ee = (0, l.useRef)(g);
-	Ee.current = g;
-	let De = (0, l.useRef)(v);
-	De.current = v;
-	let Oe = (0, l.useRef)(m);
-	Oe.current = m;
-	let H = (0, l.useRef)(h);
-	H.current = h;
-	let ke = (0, l.useRef)(null), Ae = (0, l.useRef)(null), je = (0, l.useCallback)((e, t) => {
-		let n = ke.current?.asset.objectUrl;
+		we
+	]), V = (0, l.useRef)(e);
+	V.current = e;
+	let Ee = (0, l.useRef)(O);
+	Ee.current = O;
+	let De = (0, l.useRef)(f);
+	De.current = f;
+	let Oe = (0, l.useRef)(g);
+	Oe.current = g;
+	let H = (0, l.useRef)(v);
+	H.current = v;
+	let ke = (0, l.useRef)(m);
+	ke.current = m;
+	let Ae = (0, l.useRef)(h);
+	Ae.current = h;
+	let je = (0, l.useRef)(d);
+	je.current = d;
+	let Me = (0, l.useRef)(null), U = (0, l.useRef)(null), W = (0, l.useCallback)((e, t) => {
+		let n = Me.current?.asset.objectUrl;
 		n && n !== e.objectUrl && window.setTimeout(() => URL.revokeObjectURL(n), 15e3);
 		let r = {
 			asset: e,
 			nickname: t
 		};
-		ke.current = r, ce(r), z(!1), fe((t) => t.open ? {
+		Me.current = r, ce(r), z(!1), fe((t) => t.open ? {
 			...t,
 			imageUrl: e.objectUrl || e.dataUrl
 		} : t);
 	}, []);
 	(0, l.useEffect)(() => {
 		let e = N(window, document), t = te(document), n = () => {
-			xe.current || V.current || Ee.current || De.current || Te.current !== null || (H.current ? H.current() : Oe.current());
+			Ce.current || De.current || Oe.current || H.current || Ee.current !== null || (Ae.current ? Ae.current() : ke.current());
 		}, r = () => {
 			document.hidden && n();
 		};
@@ -9881,27 +9883,53 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		};
 	}, []), (0, l.useEffect)(() => {
 		I(t.nickname);
-	}, [t.nickname]), (0, l.useEffect)(() => () => {
-		ke.current?.asset.objectUrl && (URL.revokeObjectURL(ke.current.asset.objectUrl), ke.current = null);
+	}, [t.nickname]), (0, l.useEffect)(() => {
+		if (!O || v) return;
+		let e = window.requestAnimationFrame(() => {
+			ge.current?.focus({ preventScroll: !0 });
+		}), t = (e) => {
+			if (e.key !== " " || e.repeat || B.open) return;
+			let t = document.activeElement;
+			t instanceof HTMLElement && t.closest("button, a, input, textarea, select, summary, [contenteditable=\"true\"]") || (e.preventDefault(), je.current());
+		};
+		return window.addEventListener("keydown", t), () => {
+			window.cancelAnimationFrame(e), window.removeEventListener("keydown", t);
+		};
+	}, [
+		O,
+		v,
+		B.open
+	]), (0, l.useEffect)(() => {
+		if (xe || f || g || v || O) return;
+		let e = document.activeElement;
+		e instanceof HTMLElement && e.closest("button, a") && _e.current?.focus({ preventScroll: !0 });
+	}, [
+		xe,
+		f,
+		g,
+		v,
+		O
+	]), (0, l.useEffect)(() => () => {
+		Me.current?.asset.objectUrl && (URL.revokeObjectURL(Me.current.asset.objectUrl), Me.current = null);
 	}, []), (0, l.useEffect)(() => {
-		let e = ke.current?.asset.objectUrl;
-		e && URL.revokeObjectURL(e), ke.current = null, Ae.current = null, ce(null), R(null), ae(null), z(!1), fe({
+		let e = Me.current?.asset.objectUrl;
+		e && URL.revokeObjectURL(e), Me.current = null, U.current = null, ce(null), R(null), ae(null), z(!1), fe({
 			open: !1,
 			imageUrl: null,
 			shareText: ""
 		});
 	}, [O, e.id]), (0, l.useEffect)(() => {
-		if (!O || ke.current?.nickname === he) {
+		if (!O || Me.current?.nickname === he) {
 			ue(!1);
 			return;
 		}
-		let e = !0, t = !ke.current, n = window.setTimeout(() => {
-			if (!e || ke.current?.nickname === he || Ae.current?.nickname === he) return;
+		let e = !0, t = !Me.current, n = window.setTimeout(() => {
+			if (!e || Me.current?.nickname === he || U.current?.nickname === he) return;
 			ue(!0), z(!1);
-			let t = y(we.current, O, he).then((t) => !e || Te.current !== O ? (URL.revokeObjectURL(t.objectUrl), null) : (je(t, he), t)).catch(() => (e && z(!0), null)).finally(() => {
-				Ae.current?.promise === t && (Ae.current = null), e && ue(!1);
+			let t = y(V.current, O, he).then((t) => !e || Ee.current !== O ? (URL.revokeObjectURL(t.objectUrl), null) : (W(t, he), t)).catch(() => (e && z(!0), null)).finally(() => {
+				U.current?.promise === t && (U.current = null), e && ue(!1);
 			});
-			Ae.current = {
+			U.current = {
 				nickname: he,
 				promise: t
 			};
@@ -9913,67 +9941,67 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		O,
 		e.id,
 		he,
-		je
+		W
 	]);
-	let Me = t.bestScores[e.id], U = n.findIndex((e) => e.playerId === t.id), W = U >= 0 ? U + 1 : null, Ne = U > 0 ? n[U - 1] : null, Pe = Ne && Me !== void 0 ? Math.max(.1, Math.round((Ne.score - Me) * 10) / 10) : null, Fe = (0, l.useCallback)(async (e) => {
-		let n = Te.current;
+	let Ne = t.bestScores[e.id], Pe = n.findIndex((e) => e.playerId === t.id), Fe = Pe >= 0 ? Pe + 1 : null, Ie = Pe > 0 ? n[Pe - 1] : null, Le = Ie && Ne !== void 0 ? Math.max(.1, Math.round((Ie.score - Ne) * 10) / 10) : null, Re = (0, l.useCallback)(async (e) => {
+		let n = Ee.current;
 		if (!n) return null;
 		let r = (e ?? F).trim() || t.nickname.trim() || "公園挑戰者";
-		if (ke.current && ke.current.nickname === r) return ke.current.asset;
-		if (Ae.current && Ae.current.nickname === r) return Ae.current.promise;
+		if (Me.current && Me.current.nickname === r) return Me.current.asset;
+		if (U.current && U.current.nickname === r) return U.current.promise;
 		ue(!0), z(!1);
-		let i = y(we.current, n, r).then((e) => Te.current === n ? (je(e, r), e) : (URL.revokeObjectURL(e.objectUrl), null)).catch(() => (z(!0), null)).finally(() => {
-			Ae.current?.promise === i && (Ae.current = null), ue(!1);
+		let i = y(V.current, n, r).then((e) => Ee.current === n ? (W(e, r), e) : (URL.revokeObjectURL(e.objectUrl), null)).catch(() => (z(!0), null)).finally(() => {
+			U.current?.promise === i && (U.current = null), ue(!1);
 		});
-		return Ae.current = {
+		return U.current = {
 			nickname: r,
 			promise: i
 		}, i;
 	}, [
 		F,
 		t.nickname,
-		je
-	]), Ie = async () => {
+		W
+	]), ze = async () => {
 		let e = F.trim();
 		if (e) {
 			re(!0), ae(null);
 			try {
-				await Promise.all([M(e), O ? Fe(e) : Promise.resolve(null)]), ae("已更新榜單暱稱！");
+				await Promise.all([M(e), O ? Re(e) : Promise.resolve(null)]), ae("已更新榜單暱稱！");
 			} finally {
 				re(!1);
 			}
 		}
-	}, Le = typeof window < "u" ? window.location.href : "", Re = O ? b(e, O, Le) : "", ze = S(Re), Be = () => {
+	}, Be = typeof window < "u" ? window.location.href : "", Ve = O ? b(e, O, Be) : "", He = S(Ve), Ue = () => {
 		if (!O) return;
-		let e = C(Re);
-		if (E(Re), e === "opened") R("請在 Threads 確認文字後發布；圖片需另行附上。");
+		let e = C(Ve);
+		if (E(Ve), e === "opened") R("請在 Threads 確認文字後發布；圖片需另行附上。");
 		else {
 			let e = me?.objectUrl || me?.dataUrl || O.snapshotDataUrl || null;
 			R("瀏覽器攔截了彈出視窗，已開啟手動分享視窗。"), fe({
 				open: !0,
 				imageUrl: e,
-				shareText: Re
+				shareText: Ve
 			});
 		}
-	}, Ve = async () => {
+	}, We = async () => {
 		if (!O) return;
 		let n = F.trim();
 		n && n !== t.nickname && M(n);
-		let r = ke.current?.nickname === he ? ke.current.asset : null;
+		let r = Me.current?.nickname === he ? Me.current.asset : null;
 		if (pe && !r) {
-			R("正在套用最新暱稱並準備成績圖…"), await Fe(he) ? R("已更新成績圖中的暱稱，請再點一次「分享成績圖片」或長按儲存！") : (R("圖片準備失敗，可改為查看落地截圖或重試。"), fe({
+			R("正在套用最新暱稱並準備成績圖…"), await Re(he) ? R("已更新成績圖中的暱稱，請再點一次「分享成績圖片」或長按儲存！") : (R("圖片準備失敗，可改為查看落地截圖或重試。"), fe({
 				open: !0,
 				imageUrl: O.snapshotDataUrl || null,
-				shareText: Re
+				shareText: Ve
 			}));
 			return;
 		}
-		let i = r || await Fe(he);
+		let i = r || await Re(he);
 		if (!i) {
 			R("圖片準備失敗，可改為查看落地截圖或重試。"), fe({
 				open: !0,
 				imageUrl: O.snapshotDataUrl || null,
-				shareText: Re
+				shareText: Ve
 			});
 			return;
 		}
@@ -9984,21 +10012,21 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		a.status === "handed-off" ? R("圖片已交給系統；請另按複製成績與網址，再貼到貼文。") : a.status === "downloaded" ? R("已送出下載要求！") : a.status === "cancelled" ? R("已取消。") : (R("已開啟圖片預覽，手機可直接長按圖片儲存！"), fe({
 			open: !0,
 			imageUrl: o,
-			shareText: Re
+			shareText: Ve
 		}));
-	}, He = async () => {
+	}, Ge = async () => {
 		if (O) {
-			if (await E(Re) === "copied") R("已複製成績與網址，可貼到分享貼文。");
+			if (await E(Ve) === "copied") R("已複製成績與網址，可貼到分享貼文。");
 			else {
 				let e = me?.objectUrl || me?.dataUrl || O.snapshotDataUrl || null;
 				R("無法自動複製，請從下方視窗選取文字複製。"), fe({
 					open: !0,
 					imageUrl: e,
-					shareText: Re
+					shareText: Ve
 				});
 			}
 		}
-	}, Ue = (e, t, n, i) => {
+	}, Ke = (e, t, n, i) => {
 		let s = r[e];
 		return /* @__PURE__ */ (0, L.jsxs)("button", {
 			type: "button",
@@ -10025,7 +10053,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 		}, e);
 	};
 	return /* @__PURE__ */ (0, L.jsx)(ne.Provider, {
-		value: Ce,
+		value: Te,
 		children: /* @__PURE__ */ (0, L.jsxs)("div", {
 			className: "pf-game-screen",
 			children: [/* @__PURE__ */ (0, L.jsxs)("header", {
@@ -10051,12 +10079,12 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 						children: [
 							/* @__PURE__ */ (0, L.jsx)("button", {
 								type: "button",
-								className: ve ? "" : "is-music-on",
+								className: be ? "" : "is-music-on",
 								onClick: c,
-								"aria-label": ve ? "開啟音樂與音效" : "關閉音樂與音效",
-								"aria-pressed": !ve,
-								title: ve ? "開啟音樂與音效" : "關閉音樂與音效",
-								children: ve ? "音樂 關" : "音樂 開"
+								"aria-label": be ? "開啟音樂與音效" : "關閉音樂與音效",
+								"aria-pressed": !be,
+								title: be ? "開啟音樂與音效" : "關閉音樂與音效",
+								children: be ? "音樂 關" : "音樂 開"
 							}),
 							/* @__PURE__ */ (0, L.jsx)("button", {
 								type: "button",
@@ -10068,7 +10096,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 								type: "button",
 								onClick: m,
 								"aria-pressed": f,
-								disabled: ye || O !== null,
+								disabled: xe || O !== null,
 								children: f ? "▶ 繼續" : "Ⅱ 暫停"
 							}),
 							/* @__PURE__ */ (0, L.jsx)("button", {
@@ -10090,12 +10118,14 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 					})
 				]
 			}), /* @__PURE__ */ (0, L.jsxs)("main", {
+				ref: _e,
+				tabIndex: -1,
 				className: "pf-controls-frame",
 				"data-game-gesture-surface": "",
 				children: [
 					/* @__PURE__ */ (0, L.jsxs)("div", {
 						className: "pf-controls-left",
-						children: [Ue("A", "左腳", i.A, 2), Ue("S", "右腳", i.S, 3)]
+						children: [Ke("A", "左腳", i.A, 2), Ke("S", "右腳", i.S, 3)]
 					}),
 					/* @__PURE__ */ (0, L.jsxs)("section", {
 						className: "pf-arena",
@@ -10249,20 +10279,20 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 														/* @__PURE__ */ (0, L.jsx)("button", {
 															type: "button",
 															className: "pf-audio-switch",
-															"aria-pressed": ge.musicEnabled,
+															"aria-pressed": ve.musicEnabled,
 															onClick: () => {
 																A.musicEnabled = !A.musicEnabled;
 															},
-															children: ge.musicEnabled ? "開啟" : "關閉"
+															children: ve.musicEnabled ? "開啟" : "關閉"
 														}),
-														/* @__PURE__ */ (0, L.jsx)("output", { children: ge.musicEnabled ? `${ge.musicPct}%` : "靜音" }),
+														/* @__PURE__ */ (0, L.jsx)("output", { children: ve.musicEnabled ? `${ve.musicPct}%` : "靜音" }),
 														/* @__PURE__ */ (0, L.jsx)("input", {
 															type: "range",
 															min: 0,
 															max: 100,
 															step: 5,
 															"aria-label": "背景音樂音量",
-															value: ge.musicEnabled ? ge.musicPct : 0,
+															value: ve.musicEnabled ? ve.musicPct : 0,
 															onChange: (e) => {
 																A.musicVolume = Number(e.target.value) / 100;
 															}
@@ -10276,20 +10306,20 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 														/* @__PURE__ */ (0, L.jsx)("button", {
 															type: "button",
 															className: "pf-audio-switch",
-															"aria-pressed": ge.sfxEnabled,
+															"aria-pressed": ve.sfxEnabled,
 															onClick: () => {
 																A.sfxEnabled = !A.sfxEnabled;
 															},
-															children: ge.sfxEnabled ? "開啟" : "關閉"
+															children: ve.sfxEnabled ? "開啟" : "關閉"
 														}),
-														/* @__PURE__ */ (0, L.jsx)("output", { children: ge.sfxEnabled ? `${ge.sfxPct}%` : "靜音" }),
+														/* @__PURE__ */ (0, L.jsx)("output", { children: ve.sfxEnabled ? `${ve.sfxPct}%` : "靜音" }),
 														/* @__PURE__ */ (0, L.jsx)("input", {
 															type: "range",
 															min: 0,
 															max: 100,
 															step: 5,
 															"aria-label": "動作音效音量",
-															value: ge.sfxEnabled ? ge.sfxPct : 0,
+															value: ve.sfxEnabled ? ve.sfxPct : 0,
 															onChange: (e) => {
 																A.sfxVolume = Number(e.target.value) / 100;
 															}
@@ -10372,7 +10402,9 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 												/* @__PURE__ */ (0, L.jsx)("div", {
 													className: "pf-result-play-actions",
 													children: /* @__PURE__ */ (0, L.jsx)("button", {
+														ref: ge,
 														type: "button",
+														autoFocus: !0,
 														onClick: d,
 														className: "primary",
 														children: "再玩一場 ↗"
@@ -10402,7 +10434,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 															children: [/* @__PURE__ */ (0, L.jsxs)("div", { children: [/* @__PURE__ */ (0, L.jsx)("span", {
 																className: "pf-lb-badge",
 																children: "線上榮譽榜"
-															}), /* @__PURE__ */ (0, L.jsxs)("strong", { children: [W ? `目前排名 #${W}` : "成績已同步", Me === void 0 ? "" : ` · 最佳 ${Me} ${e.unitLabel}`] })] }), /* @__PURE__ */ (0, L.jsx)("button", {
+															}), /* @__PURE__ */ (0, L.jsxs)("strong", { children: [Fe ? `目前排名 #${Fe}` : "成績已同步", Ne === void 0 ? "" : ` · 最佳 ${Ne} ${e.unitLabel}`] })] }), /* @__PURE__ */ (0, L.jsx)("button", {
 																type: "button",
 																onClick: () => w(!0),
 																className: "pf-lb-open-btn",
@@ -10428,13 +10460,13 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 																	value: F,
 																	onChange: (e) => I(e.target.value),
 																	onBlur: () => {
-																		O && ke.current?.nickname !== he && Fe(he);
+																		O && Me.current?.nickname !== he && Re(he);
 																	},
 																	placeholder: "輸入榜單暱稱"
 																}),
 																/* @__PURE__ */ (0, L.jsx)("button", {
 																	type: "button",
-																	onClick: Ie,
+																	onClick: ze,
 																	disabled: ee || !F.trim(),
 																	children: ee ? "儲存中" : "更新暱稱"
 																})
@@ -10451,19 +10483,19 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 													children: [
 														/* @__PURE__ */ (0, L.jsx)("button", {
 															type: "button",
-															onClick: Be,
+															onClick: Ue,
 															children: "分享至 Threads"
 														}),
 														/* @__PURE__ */ (0, L.jsx)("button", {
 															type: "button",
-															onClick: Ve,
+															onClick: We,
 															disabled: le && !me && !de,
 															className: "is-highlight",
 															children: le && (!me || se?.nickname !== he) ? "正在準備圖片…" : de && !me ? "重做成績圖" : pe ? "分享成績圖片" : "下載圖片"
 														}),
 														/* @__PURE__ */ (0, L.jsx)("button", {
 															type: "button",
-															onClick: He,
+															onClick: Ge,
 															children: "複製成績與網址"
 														})
 													]
@@ -10512,15 +10544,15 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 												"你的公園紀錄（",
 												t.nickname,
 												"）"
-											] }), /* @__PURE__ */ (0, L.jsx)("strong", { children: Me === void 0 ? "尚無挑戰成績" : `${Me} ${e.unitLabel}` })] }), /* @__PURE__ */ (0, L.jsxs)("div", {
+											] }), /* @__PURE__ */ (0, L.jsx)("strong", { children: Ne === void 0 ? "尚無挑戰成績" : `${Ne} ${e.unitLabel}` })] }), /* @__PURE__ */ (0, L.jsxs)("div", {
 												className: "pf-rank-own-meta",
-												children: [/* @__PURE__ */ (0, L.jsx)("span", { children: W ? `目前第 ${W} 名` : "快完成一局搶進前 20 名" }), Pe !== null && Ne && /* @__PURE__ */ (0, L.jsxs)("small", { children: [
+												children: [/* @__PURE__ */ (0, L.jsx)("span", { children: Fe ? `目前第 ${Fe} 名` : "快完成一局搶進前 20 名" }), Le !== null && Ie && /* @__PURE__ */ (0, L.jsxs)("small", { children: [
 													"距離第 ",
-													W - 1,
+													Fe - 1,
 													" 名（",
-													Ne.playerName,
+													Ie.playerName,
 													"）還差 ",
-													Pe,
+													Le,
 													" ",
 													e.unitLabel
 												] })]
@@ -10623,7 +10655,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 													children: "儲存 PNG 圖檔"
 												}),
 												/* @__PURE__ */ (0, L.jsx)("a", {
-													href: ze,
+													href: He,
 													target: "_blank",
 													rel: "noopener noreferrer",
 													className: "pf-btn-secondary-inline text-center no-underline flex items-center justify-center",
@@ -10647,7 +10679,7 @@ function ae({ game: e, profile: t, leaderboard: n, pressed: r, limbHints: i, onL
 					}),
 					/* @__PURE__ */ (0, L.jsxs)("div", {
 						className: "pf-controls-right",
-						children: [Ue("J", "左手", i.J, 0), Ue("K", "右手", i.K, 1)]
+						children: [Ke("J", "左手", i.J, 0), Ke("K", "右手", i.K, 1)]
 					})
 				]
 			})]
@@ -25036,7 +25068,7 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 		let n = dd(t, "#c4e6e4"), { renderer: i, scene: a, sun: l } = n;
 		a.fog instanceof br && (a.fog.near = 36, a.fog.far = 135);
 		let d = new Os(-10, 10, 6, -6, .1, 140);
-		d.position.set(2, 4.5, 16), d.lookAt(2, 2.2, 0);
+		d.position.set(0, 4.2, 16), d.lookAt(0, 3.4, 0);
 		let p = Sd(a), g = new Q({
 			color: "#294c40",
 			roughness: .65
@@ -25072,16 +25104,16 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 		T.rotation.x = -Math.PI / 2, T.position.y = .065, a.add(T);
 		let E = ld(a, e);
 		c.current = E;
-		let D = () => {
+		let D = 10, O = 4.6, k = () => {
 			let e = Math.max(1, t.clientWidth), n = Math.max(1, t.clientHeight), r = Math.min(n - 120, M()), a = Math.max(1, n - Math.max(0, r));
 			i.setSize(e, n, !1);
 			let o = e / a, s = 4.6, c = s * o, l = 3.85;
-			c < l && (c = l, s = c / o), d.left = -c, d.right = c, d.top = s, d.bottom = -s - 2 * s * Math.max(0, r) / a, d.updateProjectionMatrix();
-		}, O = new ResizeObserver(D);
-		O.observe(t), window.addEventListener("pf-layout-change", D), D();
-		let k = performance.now(), j = 0, N = 0, P = () => {
-			let e = performance.now(), t = Math.min(.033, (e - k) / 1e3);
-			k = e;
+			c < l && (c = l, s = c / o), D = c, O = s, d.left = -c, d.right = c, d.top = s, d.bottom = -s - 2 * s * Math.max(0, r) / a, d.updateProjectionMatrix();
+		}, j = new ResizeObserver(k);
+		j.observe(t), window.addEventListener("pf-layout-change", k), k();
+		let N = performance.now(), P = 0, F = 0, I = () => {
+			let e = performance.now(), t = Math.min(.033, (e - N) / 1e3);
+			N = e;
 			let s = h.current;
 			if (!u.current) {
 				let i = [
@@ -25135,7 +25167,7 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 								d.left = -6.133333333333333, d.right = 6.133333333333333, d.top = 4.6, d.bottom = -4.6, d.zoom = 2, d.position.set(s.px, 1.32, 16), d.lookAt(s.px, .82, 0), d.updateProjectionMatrix();
 							},
 							restoreCamera: () => {
-								d.zoom = 1.75, D();
+								d.zoom = 1.75, k();
 							}
 						});
 						o({
@@ -25269,9 +25301,17 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 				});
 			}
 			T.position.x = s.px, T.scale.setScalar(Math.max(.5, 1.15 - s.py * .08));
-			let c = s.phase === "LANDED" ? s.px : Math.max(2, s.px + 2.2), g = s.phase === "LANDED" ? 1.38 : Math.max(3.6, s.py + 1.2), _ = s.phase === "LANDED" ? 1.8 : 1;
-			if (Math.abs(d.zoom - _) > .01 && (d.zoom += (_ - d.zoom) * Math.min(1, t * 6), d.updateProjectionMatrix()), d.position.x += (c - d.position.x) * Math.min(1, t * 6), d.position.y += (g - d.position.y) * Math.min(1, t * 6), d.lookAt(d.position.x, d.position.y - (s.phase === "LANDED" ? .56 : 1.2), 0), l.position.set(d.position.x - 5, d.position.y + 12, 8), l.target.position.set(d.position.x, Math.max(0, d.position.y - 3), 0), l.target.updateMatrixWorld(), p.update(e * .001, s.distanceM, a, l, t, d.position.x, d.position.y), i.render(a, d), N += t, N > .08) {
-				N = 0;
+			let c = -1.2, g = D > 5.5 ? Math.min(1.2, (D - 5.5) * .4) : 0, _, v, y = 1;
+			if (s.phase === "LANDED") _ = s.px, v = .82, y = 1.8;
+			else if (s.phase === "FLYING") {
+				let e = (Math.max(c + O * 2, s.py + 2.2) - c) / 2;
+				y = Math.min(1, O / e);
+				let t = D / Math.max(.25, d.zoom), n = Math.min(2.2, t * .26);
+				_ = Math.max(g, s.px + n), v = c + O / y;
+			} else _ = g + s.px * .22, v = c + O;
+			let b = s.phase === "LANDED" ? .56 : .8, S = v + b;
+			if (s.phase === "SWINGING" && s.swingTime < .05 && Math.abs(d.position.x - _) > 8 ? (d.position.x = _, d.position.y = S, d.zoom = y, d.updateProjectionMatrix()) : (Math.abs(d.zoom - y) > .005 && (d.zoom += (y - d.zoom) * Math.min(1, t * 6), d.updateProjectionMatrix()), d.position.x += (_ - d.position.x) * Math.min(1, t * 6), d.position.y += (S - d.position.y) * Math.min(1, t * 6)), d.lookAt(d.position.x, d.position.y - b, 0), l.position.set(d.position.x - 5, d.position.y + 12, 8), l.target.position.set(d.position.x, Math.max(0, d.position.y - 3), 0), l.target.updateMatrixWorld(), p.update(e * .001, s.distanceM, a, l, t, d.position.x, d.position.y), i.render(a, d), F += t, F > .08) {
+				F = 0;
 				let e = s.phase === "SWINGING" && s.angle > .45 && s.angularVel > 0, t = pd(s.distanceM), n = {
 					neutral: "自由飛翔",
 					glide: "飛鼠滑翔 (減慢下墜)",
@@ -25291,10 +25331,10 @@ function Ad({ character: e, bestScore: t, paused: n, pressedRef: r, registerHand
 					guide: s.phase === "SWINGING" ? `最大擺角 ${s.maxAngleDeg}° · 前盪過高點按 J+K 放手` : `${n[s.activePose]} · 空中體力 ${Math.round(s.airStamina)}% · 落地按 A/S 撐滑`
 				});
 			}
-			j = n.scheduleNextFrame(P);
+			P = n.scheduleNextFrame(I);
 		};
-		return j = n.scheduleNextFrame(P), () => {
-			n.cancelFrame(j), O.disconnect(), window.removeEventListener("pf-layout-change", D), E.dispose(), p.dispose(), g.dispose(), _.dispose(), S.dispose(), n.dispose();
+		return P = n.scheduleNextFrame(I), () => {
+			n.cancelFrame(P), j.disconnect(), window.removeEventListener("pf-layout-change", k), E.dispose(), p.dispose(), g.dispose(), _.dispose(), S.dispose(), n.dispose();
 		};
 	}, [
 		e,
