@@ -212,4 +212,7 @@ test('homepage links to /leaderboards/ and unified hub supports all 24 boards + 
   const bundle = readFileSync(new URL('../public/games/shared/park-app/park-app.js', import.meta.url), 'utf8');
   assert.match(bundle, /pf-challenge-verdict/);
   assert.match(bundle, /複製戰帖連結/);
+  assert.match(bundle, /pf-result-identity/);
+  assert.match(bundle, /神秘挑戰者/);
+  assert.doesNotMatch(bundle, /公園挑戰者/);
 });
