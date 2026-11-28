@@ -215,4 +215,6 @@ test('homepage links to /leaderboards/ and unified hub supports all 24 boards + 
   assert.match(bundle, /pf-result-identity/);
   assert.match(bundle, /神秘挑戰者/);
   assert.doesNotMatch(bundle, /公園挑戰者/);
+  assert.match(bundle, /pf-leaderboard-direct/);
+  assert.match(bundle, /立即上傳成績至榮譽榜/);
 });
