@@ -152,3 +152,64 @@ test('homepage renders 3 park game cards with play-count slots and bundle has no
   assert.match(bundle, /\/api\/leaderboard\/submissions/);
   assert.match(bundle, /\/api\/play-counts\/starts/);
 });
+
+test('homepage links to /leaderboards/ and unified hub supports all 24 boards + challenge links', async () => {
+  const homeDoc = new JSDOM(renderPage(catalog)).window.document;
+  assert.ok(homeDoc.querySelector('header.site-header nav a[href="/leaderboards/"]'));
+
+  const hubHtml = readFileSync(new URL('../public/leaderboards/index.html', import.meta.url), 'utf8');
+  const { BOARD_CATALOG, formatBoardScore, buildParkChallengeHref, mountLeaderboardHub } = await import(
+    '../public/leaderboards/leaderboards.mjs'
+  );
+  assert.equal(BOARD_CATALOG.length, 24);
+  assert.equal(formatBoardScore({ score: 2540 }, BOARD_CATALOG.find((b) => b.key === 'fast-hands-mouse')), '2.540 秒');
+  assert.equal(
+    formatBoardScore({ score: 5, secondaryScore: 1.25 }, BOARD_CATALOG.find((b) => b.key === 'courtesy-contest')),
+    '5 次 · 1.25 秒',
+  );
+  assert.equal(
+    buildParkChallengeHref(BOARD_CATALOG.find((b) => b.key === 'swing'), '阿凱<script>', 123.45),
+    '/games/swing/?challenger=%E9%98%BF%E5%87%B1script&target=123.45',
+  );
+
+  const db = await database();
+  try {
+    const subRes = await handleRequest(
+      postScore({
+        game: 'swing',
+        rules: 'swing-flight-m-v1',
+        unit: 'm',
+        status: 'done',
+        score: 188.5,
+        nickname: '飛天測試王',
+        deviceId: id(1),
+        submissionId: id(555),
+      }),
+      env(db),
+      now,
+    );
+    assert.equal(subRes.status, 200);
+    const dom = new JSDOM(hubHtml, { url: 'https://playformosa.playformosa.workers.dev/leaderboards/?game=swing' });
+    dom.window.localStorage.setItem('pf-leaderboard-device-v1', id(1));
+    await new Promise((r) => setTimeout(r, 0));
+    mountLeaderboardHub({
+      document: dom.window.document,
+      fetcher: (url, init) => handleRequest(new Request(origin + url, init), env(db), now),
+    });
+    await new Promise((r) => setTimeout(r, 40));
+    const rows = dom.window.document.querySelectorAll('#lb-rank-list .lb-rank-row');
+    assert.equal(rows.length, 1);
+    assert.match(rows[0].textContent, /飛天測試王/);
+    assert.match(rows[0].textContent, /188\.5 公尺/);
+    const duelLink = rows[0].querySelector('.lb-duel-link');
+    assert.ok(duelLink);
+    assert.match(duelLink.getAttribute('href'), /\/games\/swing\/\?challenger=/);
+    assert.match(dom.window.document.getElementById('lb-own-score').textContent, /188\.5 公尺/);
+  } finally {
+    db.raw.close();
+  }
+
+  const bundle = readFileSync(new URL('../public/games/shared/park-app/park-app.js', import.meta.url), 'utf8');
+  assert.match(bundle, /pf-challenge-verdict/);
+  assert.match(bundle, /複製戰帖連結/);
+});

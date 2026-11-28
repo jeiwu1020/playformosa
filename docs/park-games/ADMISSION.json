@@ -19,6 +19,9 @@
     "audio/pf-jump.mp3",
     "audio/pf-land.mp3",
     "audio/pf-result.mp3",
-    "audio/pf-step.mp3"
+    "audio/pf-step.mp3",
+    "leaderboards/index.html",
+    "leaderboards/leaderboards.css",
+    "leaderboards/leaderboards.mjs"
   ]
 }

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#fff8e9" />
+    <meta
+      name="description"
+      content="島遊無界 PLAYFORMOSA 全站線上榮譽榜：整合十項全能、公園遊具與全系列小遊戲的即時排名與成績查閱。"
+    />
+    <title>全站線上榮譽榜｜島遊無界 PLAYFORMOSA</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/app-icons/platform/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/app-icons/platform/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/app-icons/platform/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/home.css" />
+    <link rel="stylesheet" href="/leaderboards/leaderboards.css" />
+  </head>
+  <body class="has-portal">
+    <a class="skip-link" href="#main">跳到主要內容</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="島遊無界 PLAYFORMOSA 首頁">
+          <span>島遊無界</span>
+          <small>PLAYFORMOSA</small>
+        </a>
+        <nav aria-label="主要導覽">
+          <a href="/">回首頁</a>
+          <a href="/#park">公園遊具</a>
+          <a href="/#decathlon">十項全能</a>
+          <a href="/#minigames">小遊戲</a>
+          <a href="/leaderboards/" aria-current="page">榮譽榜</a>
+        </nav>
+      </header>
+
+      <main id="main" class="lb-hub">
+        <section class="lb-hero" aria-labelledby="lb-hero-title">
+          <div class="lb-hero-copy">
+            <p class="eyebrow">PLAYFORMOSA HONOR HUB · 24 BOARDS</p>
+            <h1 id="lb-hero-title">全站線上榮譽榜</h1>
+            <p class="lb-hero-desc">
+              一次切換十項全能、公園遊具與全系列小遊戲的線上排行；同一瀏覽器上傳的成績會自動標記你的名次與最佳紀錄。
+            </p>
+          </div>
+          <div class="lb-hero-actions">
+            <button type="button" id="lb-scan-category" class="button button-secondary lb-scan-btn">
+              載入本分類榜首與我的名次
+            </button>
+            <a href="/" class="button button-primary lb-home-btn">回到遊戲大廳 ↗</a>
+          </div>
+        </section>
+
+        <div class="lb-toolbar" role="region" aria-label="分類篩選">
+          <div class="lb-tabs" role="tablist" aria-label="遊戲分類">
+            <button type="button" role="tab" class="lb-tab is-active" data-cat="all" aria-selected="true">
+              全部（24）
+            </button>
+            <button type="button" role="tab" class="lb-tab" data-cat="park" aria-selected="false">
+              公園遊具（3）
+            </button>
+            <button type="button" role="tab" class="lb-tab" data-cat="decathlon" aria-selected="false">
+              十項全能（10）
+            </button>
+            <button type="button" role="tab" class="lb-tab" data-cat="minigames" aria-selected="false">
+              小遊戲（11）
+            </button>
+          </div>
+          <p id="lb-scan-status" class="lb-scan-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="lb-workspace">
+          <aside class="lb-sidebar" aria-label="榜單項目清單">
+            <ul id="lb-board-list" class="lb-board-list"></ul>
+          </aside>
+
+          <section class="lb-detail" aria-live="polite" aria-labelledby="lb-detail-title">
+            <div class="lb-detail-head">
+              <div>
+                <p id="lb-detail-cat" class="lb-detail-cat">公園遊具 · 公尺</p>
+                <h2 id="lb-detail-title">飛天盪鞦韆</h2>
+                <p id="lb-detail-rule" class="lb-detail-rule"></p>
+              </div>
+              <div class="lb-detail-actions">
+                <button type="button" id="lb-refresh-btn" class="lb-btn-outline">重新整理</button>
+                <a id="lb-play-link" href="/games/swing/" class="button button-primary lb-play-btn">
+                  前往挑戰 ↗
+                </a>
+              </div>
+            </div>
+
+            <div id="lb-own-card" class="lb-own-card">
+              <div>
+                <span class="lb-own-label">我的線上最佳</span>
+                <strong id="lb-own-score" class="lb-own-score">讀取中…</strong>
+              </div>
+              <div class="lb-own-right">
+                <p id="lb-own-meta" class="lb-own-meta"></p>
+                <div class="lb-own-actions">
+                  <button type="button" id="lb-own-challenge-btn" class="lb-btn-challenge" hidden>
+                    複製我的戰帖連結
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p id="lb-copy-toast" class="lb-copy-toast" role="status" aria-live="polite" hidden></p>
+            <p id="lb-status-msg" class="lb-status-msg" role="status" hidden></p>
+
+            <ol id="lb-rank-list" class="lb-rank-list"></ol>
+          </section>
+        </div>
+
+        <section class="lb-note-section" aria-label="資料說明">
+          <p>
+            說明：以上榜單即時連線至 PlayFormosa 線上資料庫（僅收錄有開放入榜的站內遊戲；另開獨立網站的「大遊戲」系列未納入本榜）。公園遊具項目可直接點選榜上選手「向他下戰帖 ↗」，測試你能否超越對方紀錄。
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <span>MADE FOR A LITTLE FUN.</span>
+        <a href="/">回遊戲首頁</a>
+        <a href="#main">回到上方 ↑</a>
+      </footer>
+    </div>
+
+    <script type="module" src="/leaderboards/leaderboards.mjs"></script>
+  </body>
+</html>
